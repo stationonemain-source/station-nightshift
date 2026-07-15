@@ -1,0 +1,4 @@
+gen/
+serve.py
+assets/test/
+*.log
