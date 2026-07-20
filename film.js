@@ -76,28 +76,29 @@
   }
   var allLoaded = false;
 
-  /* ---------------- ImageBitmap sliding window (anti-jank core) ---------------- */
-  var bitmaps = new Map(), decoding = new Set();
-  var B_AHEAD = 18, B_KEEP = 28, bmpCenter = -999;
-  function ensureBitmaps(center) {
-    if (Math.abs(center - bmpCenter) < 3) return;
-    bmpCenter = center;
-    var lo = Math.max(0, center - B_AHEAD), hi = Math.min(FRAME_COUNT - 1, center + B_AHEAD);
+  /* ---------------- decode warming (anti-jank, no retained GPU surfaces) ----------------
+     The original build kept a sliding window of ~57 createImageBitmap() surfaces (~200 MB
+     of GPU-backed memory) and churned decode→upload→close on every scroll frame. On
+     integrated GPUs that rapid churn crashed the tab renderer (STATUS_ACCESS_VIOLATION).
+     We now draw the HTMLImageElements straight to the canvas and only WARM the decode
+     cache a little ahead of the playhead with img.decode(). Chromium owns and evicts that
+     cache itself, so nothing is pinned and there are no ImageBitmap surfaces to exhaust
+     the GPU — the scrub stays smooth without the crash. */
+  var warmed = new Set(), W_BEHIND = 4, W_AHEAD = 14, warmCenter = -999;
+  function warmDecodes(center) {
+    if (Math.abs(center - warmCenter) < 4) return;
+    warmCenter = center;
+    var lo = Math.max(0, center - W_BEHIND), hi = Math.min(FRAME_COUNT - 1, center + W_AHEAD);
     for (var i = lo; i <= hi; i++) {
-      if (bitmaps.has(i) || decoding.has(i) || !images[i]) continue;
+      if (warmed.has(i) || !images[i]) continue;
+      warmed.add(i);
+      if (!images[i].decode) continue;
       (function (k) {
-        decoding.add(k);
-        createImageBitmap(images[k]).then(function (b) {
-          decoding.delete(k);
-          if (Math.abs(k - bmpCenter) > B_KEEP) { b.close(); return; }
-          bitmaps.set(k, b);
+        images[k].decode().then(function () {
           if (k === displayed) drawFrame(k, true);
-        }).catch(function () { decoding.delete(k); });
+        }).catch(function () { warmed.delete(k); });
       })(i);
     }
-    bitmaps.forEach(function (b, k) {
-      if (k < center - B_KEEP || k > center + B_KEEP) { b.close(); bitmaps.delete(k); }
-    });
   }
 
   function nearestFrame(idx) {
@@ -115,7 +116,7 @@
     if (use < 0) return;
     if (!force && use === displayed) return;
     displayed = use;
-    var src = bitmaps.get(use) || images[use];
+    var src = images[use];
     var iw = src.width, ih = src.height;
     var cw = canvas.width, chh = canvas.height;
     var s = Math.max(cw / iw, chh / ih);
@@ -195,7 +196,7 @@
   var lumaX = lumaC.getContext("2d", { willReadFrequently: true });
   var lastLuma = 0;
   function sampleLuma() {
-    var src = bitmaps.get(displayed) || images[displayed];
+    var src = images[displayed];
     if (!src) return;
     try {
       lumaX.drawImage(src, 0, 0, src.width, src.height * 0.16, 0, 0, 16, 4);
@@ -333,7 +334,7 @@
     else currentFrame += (target - currentFrame) * 0.14;
     if (Math.abs(target - currentFrame) < 0.4) currentFrame = target;
     var idx = Math.round(currentFrame);
-    ensureBitmaps(idx);
+    warmDecodes(idx);
     drawFrame(idx);
     renderBeats(p);
     renderAlti(p);
@@ -404,14 +405,14 @@
   /* ---------------- boot + dev contract ---------------- */
   pump();
   requestAnimationFrame(tick);
-  ensureBitmaps(0);
+  warmDecodes(0);
 
   function settleAndReady() {
     if (JUMP !== null) {
       scrollTo(0, +JUMP || 0);
       var p = computeProgress();
       currentFrame = p * (FRAME_COUNT - 1);
-      ensureBitmaps(Math.round(currentFrame));
+      warmDecodes(Math.round(currentFrame));
       drawFrame(Math.round(currentFrame), true);
       renderBeats(p); renderAlti(p); renderRamp(p);
       sampleLuma();
