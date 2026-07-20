@@ -1,1389 +1,1277 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<title>Station — Mission Control for Business</title>
-<meta name="description" content="AI employees that answer every call, chase every lead, and fill your calendar — whether you’re open, busy, or closed."/>
-<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><g id="a"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m"><rect width="100" height="100" fill="white"/><circle cx="50" cy="50" r="16.5"/></mask></defs><g mask="url(%23m)" fill="%23FFB000" transform="rotate(45 50 50)"><use href="%23a"/><use href="%23a" transform="rotate(90 50 50)"/><use href="%23a" transform="rotate(180 50 50)"/><use href="%23a" transform="rotate(270 50 50)"/></g></svg>'>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Station — The front office your business never had</title>
+<meta name="description" content="Station answers your calls, books your jobs, and runs your follow-up — a complete front office for small business, staffed by AI, tuned by people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;450;500;550;650&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g transform="rotate(45 50 50)" fill="%232B55A8"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="3" width="18" height="36" rx="8.5" transform="rotate(90 50 50)"/><rect x="52.5" y="3" width="18" height="36" rx="8.5" transform="rotate(90 50 50)"/><rect x="29.5" y="3" width="18" height="36" rx="8.5" transform="rotate(180 50 50)"/><rect x="52.5" y="3" width="18" height="36" rx="8.5" transform="rotate(180 50 50)"/><rect x="29.5" y="3" width="18" height="36" rx="8.5" transform="rotate(270 50 50)"/><rect x="52.5" y="3" width="18" height="36" rx="8.5" transform="rotate(270 50 50)"/></g></svg>'>
 <style>
+/* ============ Station tokens — RANGE gear: forest green + white + black ============
+   (derived from kb/design-systems/station.DESIGN.md Night gear; green per owner ask) */
 :root{
-  --bg:#0B0D10; --bg2:#0E1116; --ink:#EEECE7; --ink2:rgba(238,236,231,.80); --ink3:rgba(238,236,231,.48);
-  --amber:#FFB000; --amber2:#FFC133; --green:#2FBF71; --cold:#7FA3C8;
-  --disp:'Fraunces',Georgia,serif; --num:'Inter Tight',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --bg:#1B3327; --bg-deep:#12241B; --surface:#FFFFFF; --surface-2:#ECF0EA;
+  --fg:#EDF2EA; --muted:#A9BAAC; --border:rgba(255,255,255,0.14);
+  --accent:#2B55A8; --accent-ink:#9FC0F5; --on-accent:#FFFFFF;
+  --ink:#182019; --ink-muted:#57645A; --ink-border:#DFE6DE; --ink-accent:#24478F;
+  --success:#2FBF71; --success-ink:#63D99C;
+  --t-fast:100ms ease-in; --t-base:150ms ease-out; --t-slow:300ms ease-out;
+  --container:1200px;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-pill:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s6:24px; --s8:32px; --s12:48px; --s16:64px; --s24:96px;
+  --section-y:clamp(64px,9vw,120px);
+  --font-d:"Space Grotesk","Segoe UI",sans-serif;
+  --font-b:"Inter","Segoe UI",sans-serif;
+  --font-m:"JetBrains Mono",ui-monospace,Consolas,monospace;
 }
-*{margin:0;box-sizing:border-box} html{scroll-behavior:smooth}
-body{background:#05060a;color:var(--ink);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-h1,h2,h3,.h2big{font-family:var(--disp);letter-spacing:-.01em;font-optical-sizing:auto;font-weight:600}
-.price .amt,.calc-lost .big,#hero h1 .row span{font-variant-numeric:tabular-nums}
-.price .amt{font-family:var(--num);letter-spacing:-.02em}
-.calc-lost .big{font-family:var(--num)}
-::selection{background:var(--amber);color:#131008}
-a{color:inherit}
-.mono{font-family:var(--mono)}
+*{margin:0;padding:0;box-sizing:border-box}
+/* white surfaces re-scope to ink so light components read correctly on the forest bg */
+.tier,.card,.calc-card,.promo-card,#aiw,.glass,.phone-screen{
+  --fg:var(--ink);--muted:var(--ink-muted);--border:var(--ink-border);
+  --accent-ink:var(--ink-accent);--success-ink:#167A44;color:var(--fg)}
+html{scroll-behavior:auto}
+body{font-family:var(--font-b);background:var(--bg);color:var(--fg);
+  font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:var(--on-accent)}
+h1,h2,h3{font-family:var(--font-d);letter-spacing:-0.02em}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
 
-/* ---------- deep space + Earth limb: the ship reaches orbit and the page STAYS there ---------- */
-#space{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s;
-  background:linear-gradient(180deg,#04050a 0%,#05070e 55%,#070a14 100%)}
-#orbit{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;
-  background:#04050a url('assets/orbit-bg.webp') center center/cover no-repeat}
-#stars{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.4s}
-section,footer{position:relative;z-index:2}
-/* ---------- daylight zone: the page lands in morning after the orbit sunrise ---------- */
-.day{--bg:#F4F2ED;--bg2:#ECE9E2;--s1:#FFFFFF;--ink:#16181d;--ink2:#4a4e57;--ink3:#8e929c;
-  background:var(--bg);color:var(--ink)}
-.day .eyebrow{color:#B87800}
-.day .card,.day .price{background:var(--s1);border-color:#00000014;box-shadow:0 2px 18px #0000000a}
-.day .card:hover{border-color:#B8780055}
-.day .price.pro{border-color:#B87800aa;background:linear-gradient(180deg,#FFF9EC,#fff)}
-.day .chip{background:#ffffffcc;border-color:#00000018;color:var(--ink2)}
-.day input,.day select{background:#fff;border-color:#00000020;color:var(--ink)}
-.day .cta{box-shadow:0 6px 22px #FFB00044}
-.day .thread{background:#12151A}
-.day .sideL{color:#5b7Fa3}.day .sideR{color:#B87800}
-.day #trydemo .pill{color:#1d8a52;border-color:#1d8a5233}
-footer.day{background:var(--bg2);border-top:1px solid #00000012}
-footer.day .f-nav a{color:var(--ink2)}footer.day .f-nav a:hover{color:#B87800}
-footer.day .f-brand p,footer.day .f-note,footer.day .f-legal{color:var(--ink3)}
-.day.bridgeless{background:linear-gradient(180deg,#05060a 0%,#3a3f52 30%,#c9a06a 55%,#F4F2ED 85%)}
+/* ============ Loader ============ */
+#loader{position:fixed;inset:0;z-index:100;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;
+  transition:opacity 600ms ease,visibility 600ms}
+#loader.done{opacity:0;visibility:hidden}
+#loader .mark{width:44px;height:44px;color:var(--fg);animation:markspin 1.4s ease 200ms 1 both}
+@keyframes markspin{from{transform:rotate(-45deg);opacity:0}to{transform:rotate(0deg);opacity:1}}
+#loader .bar{width:180px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+#loader .bar i{display:block;height:100%;width:0%;background:var(--accent);transition:width 200ms ease}
+#loader .pct{font-family:var(--font-m);font-size:11px;letter-spacing:0.12em;color:var(--muted)}
 
-/* ---------- preloader ---------- */
-#pre{position:fixed;inset:0;z-index:1000;background:var(--bg);display:grid;place-content:center;transition:opacity .7s .2s, visibility .7s .2s}
-#pre.done{opacity:0;visibility:hidden}
-#pre .beacon{width:10px;height:10px;border-radius:50%;background:var(--amber);margin:0 auto 26px;animation:beac 1.1s ease-in-out infinite}
-@keyframes beac{50%{box-shadow:0 0 0 22px #ffb00000, 0 0 34px 6px #ffb000cc;transform:scale(1.25)}}
-#pre .word{font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.5em;padding-left:.5em;color:var(--ink2);animation:track 1.6s ease forwards}
-@keyframes track{from{letter-spacing:.2em;opacity:0}to{letter-spacing:1.2em;opacity:1}}
+/* ============ Header (adaptive over the film) ============ */
+header{position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,4vw,44px);
+  color:#F2EFE8;transition:color 400ms ease}
+header.on-light{color:#181D18}
+.brand{display:flex;align-items:center;gap:12px;color:currentColor}
+.brand .mark{width:26px;height:26px}
+.brand .word{font-family:var(--font-d);font-weight:600;font-size:17px;letter-spacing:0.34em;text-indent:0.34em}
+/* floating glass pill around the menu */
+nav{display:flex;align-items:center;gap:clamp(14px,2vw,26px);
+  background:rgba(16,24,19,0.34);
+  -webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);
+  border:1px solid rgba(255,255,255,0.24);border-radius:var(--r-pill);
+  padding:8px 8px 8px 24px;box-shadow:0 10px 34px rgba(11,13,16,0.2);
+  transition:background 400ms ease,border-color 400ms ease}
+header.on-light nav{background:rgba(250,248,244,0.55);border-color:rgba(22,24,29,0.14)}
+@supports not (backdrop-filter:blur(1px)){nav{background:rgba(16,24,19,0.78)}
+  header.on-light nav{background:rgba(250,248,244,0.9)}}
+nav a.nlink{font-size:13.5px;font-weight:500;letter-spacing:0.02em;opacity:0.82;transition:opacity var(--t-base)}
+nav a.nlink:hover{opacity:1}
+.btn-audit{font-family:var(--font-d);font-weight:650;font-size:13.5px;
+  background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r-pill);
+  padding:10px 20px;cursor:pointer;transition:transform var(--t-base),filter var(--t-base)}
+.btn-audit:hover{filter:brightness(1.05)}
+.btn-audit:active{transform:translateY(1px)}
+.btn-audit:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+@media(max-width:700px){nav a.nlink{display:none}}
 
-/* ---------- cursor ---------- */
-#cur,#curR{position:fixed;top:0;left:0;pointer-events:none;z-index:999;border-radius:50%;transform:translate(-50%,-50%);mix-blend-mode:difference}
-#cur{width:6px;height:6px;background:#fff}
-#curR{width:34px;height:34px;border:1.5px solid #ffffff88;transition:width .25s,height .25s,border-color .25s}
-#curR.big{width:64px;height:64px;border-color:#fff}
-@media (hover:none){#cur,#curR{display:none}}
+/* ============ The film ============ */
+#film{position:relative;height:850vh}
+#stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#0B0D10}
+#screen{position:absolute;inset:0;width:100%;height:100%}
+#ambient{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:0.5;mix-blend-mode:overlay}
+#vignette{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(5,7,10,0.38) 100%)}
+#bottomfade{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(to bottom,transparent 40%,rgba(207,199,185,0.82) 74%,#CFC7B9 96%)}
 
-/* ---------- header: mission-control chrome ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:90;display:flex;align-items:center;justify-content:space-between;
-  gap:16px;padding:14px 26px;transition:background .4s,padding .4s;background:linear-gradient(#0B0D10e8,#0B0D1000)}
-header.scrolled{background:#0b0d10cc;backdrop-filter:blur(14px);padding:10px 26px;border-bottom:1px solid #ffffff0d}
-.brand-lock{display:flex;align-items:center;gap:11px;text-decoration:none}
-.logo-mark{width:24px;height:24px;color:var(--amber);filter:drop-shadow(0 0 8px #FFB00066);animation:beac 2.6s ease-in-out infinite}
-.f-mark{width:22px;height:22px;filter:none;animation:none}
-.pre-mark{width:44px;height:44px;margin:0 auto 24px;display:block}
-html.noanim .logo-mark{animation:none}
-.mark{width:13px;height:13px;border-radius:4px;background:var(--amber);box-shadow:0 0 16px #FFB00099;animation:beac 2.6s ease-in-out infinite}
-.brand-tx{display:flex;flex-direction:column;line-height:1.1}
-.brand-tx b{font-weight:700;letter-spacing:.14em;font-size:15px}
-.brand-tx span{font-size:8px;letter-spacing:.42em;color:var(--ink3);padding-left:1px}
-.hnav.dock{display:flex;gap:2px;padding:5px;border:1px solid #ffffff14;border-radius:999px;background:#0e111699;
-  backdrop-filter:blur(10px);font-size:11px;letter-spacing:.14em}
-.hnav.dock a{display:flex;align-items:center;gap:7px;color:var(--ink2);text-decoration:none;padding:8px 15px;
-  border-radius:999px;transition:color .25s,background .25s;position:relative}
-.hnav.dock a i{font-style:normal;font-size:8.5px;color:var(--ink3);letter-spacing:.08em;transition:color .25s}
-.hnav.dock a:hover{color:var(--ink)}
-.hnav.dock a.live{color:#131008;background:var(--amber)}
-.hnav.dock a.live i{color:#13100899}
-.hdr-right{display:flex;align-items:center;gap:10px}
-#soundT{display:flex;align-items:center;gap:8px;background:none;border:1px solid #ffffff22;color:var(--ink2);
-  border-radius:999px;font:600 10.5px var(--body);letter-spacing:.12em;padding:9px 15px;cursor:pointer;transition:.25s}
-#soundT .sbars{display:flex;gap:2.5px;align-items:flex-end;height:10px}
-#soundT .sbars b{width:2.5px;height:4px;background:currentColor;border-radius:1px}
-#soundT.on{color:#131008;background:var(--amber);border-color:var(--amber)}
-#soundT.on .sbars b{animation:sb .6s ease-in-out infinite}
-#soundT.on .sbars b:nth-child(2){animation-delay:.15s}#soundT.on .sbars b:nth-child(3){animation-delay:.3s}
-@keyframes sb{50%{height:10px}}
-.hcta{background:var(--amber);color:#131008!important;font-weight:700;border-radius:999px;padding:10px 19px;
-  text-decoration:none;font-family:var(--body);font-weight:700;font-size:14px;transition:transform .2s,box-shadow .3s;
-  box-shadow:0 0 0 #FFB00000}
-.hcta:hover{transform:translateY(-1px);box-shadow:0 4px 24px #FFB00055}
-/* trajectory: page progress as a burn line under the header */
-#traj{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#ffffff08}
-#traj span{display:block;height:100%;width:0;background:linear-gradient(90deg,#FFB000,#FFC133);
-  box-shadow:0 0 10px #FFB00088}
-@media (max-width:900px){.hnav.dock{display:none}.brand-tx span{display:none}}
-html.noanim .mark,html.noanim #soundT.on .sbars b{animation:none}
+/* -------- glass cards (the one sanctioned glass surface: over footage only) -------- */
+.beat{position:absolute;opacity:0;pointer-events:none;will-change:transform,opacity;
+  max-width:min(430px,86vw);transform:translateY(var(--ty,0px))}
+.glass{background:rgba(250,248,244,0.34);
+  will-change:opacity,transform;
+  -webkit-backdrop-filter:blur(20px) saturate(1.6) brightness(1.08);backdrop-filter:blur(20px) saturate(1.6) brightness(1.08);
+  border:1px solid rgba(255,255,255,0.6);border-radius:22px;
+  box-shadow:0 14px 50px rgba(11,13,16,0.24),inset 0 1px 0 rgba(255,255,255,0.72);
+  padding:26px 28px}
+@supports not (backdrop-filter:blur(1px)){.glass{background:rgba(248,246,241,0.92)}}
+.beat .chip{display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:650;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent-ink);margin-bottom:12px;font-family:var(--font-b)}
+.beat .chip::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.beat h3{font-size:clamp(21px,2.5vw,27px);font-weight:600;line-height:1.16;letter-spacing:-0.015em;margin-bottom:9px}
+.beat p{font-size:14.5px;line-height:1.55;color:#3A3E46}
+.beat.left{left:clamp(20px,6vw,90px)}
+.beat.right{right:clamp(20px,6vw,90px)}
+.beat.mid-l{top:34%}
+.beat.mid-r{top:38%}
+.beat.center{left:50%;top:40%;transform:translate(-50%,var(--ty,0px));text-align:center}
+@media(max-width:700px){
+  .beat.left,.beat.right{left:50%;right:auto;transform:translate(-50%,var(--ty,0px))}
+  .beat.mid-l,.beat.mid-r{top:auto;bottom:14vh}
+  .beat.center{top:auto;bottom:14vh}
+  .glass{padding:22px 22px;background:rgba(250,248,244,0.46)}
+}
 
-/* ---------- shared cinema ---------- */
-.grain{position:fixed;inset:-60px;z-index:80;pointer-events:none;opacity:.045;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:gr 0.6s steps(2) infinite;will-change:transform}
-@keyframes gr{50%{transform:translate(12px,-14px)}}
-.vig{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse at 50% 44%,transparent 52%,#000000d4 100%)}
-.lbar{position:absolute;left:0;right:0;height:6.5vh;background:#000;z-index:6}
-.lbar.t{top:0}.lbar.b{bottom:0}
-video.bg,img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.eyebrow{font:600 12px var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
-.chip{display:inline-flex;align-items:center;gap:8px;font:500 12px var(--body);color:var(--ink2);
-  border:1px solid #ffffff1f;border-radius:999px;padding:7px 13px;background:#0b0d10a8;backdrop-filter:blur(6px)}
-.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:beac 1.4s infinite}
+/* -------- hero beat — minimal tracked lockup -------- */
+#hero-beat{left:0;right:0;top:39%;text-align:center;max-width:none;will-change:opacity,transform}
+.hero-lock{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  column-gap:clamp(24px,4.5vw,68px);width:min(92vw,1280px);margin:0 auto;color:#FCFAF6}
+.hero-lock .hl-word:first-child{justify-self:end}
+.hero-lock .hl-word.r{justify-self:start}
+.hl-word{font-family:var(--font-d);font-weight:300;line-height:1;white-space:nowrap;
+  font-size:clamp(19px,3vw,42px);letter-spacing:0.42em;
+  text-shadow:0 1px 28px rgba(11,13,16,0.4)}
+.hl-word.r{margin-right:-0.42em}
+.hl-mark{width:clamp(34px,4.4vw,62px);height:clamp(34px,4.4vw,62px);flex:none;
+  filter:drop-shadow(0 2px 18px rgba(11,13,16,0.4))}
+#hero-beat .sub{margin-top:clamp(28px,4.5vw,50px);color:rgba(242,239,232,0.85);
+  font-size:clamp(12px,1.3vw,15px);font-weight:400;letter-spacing:0.14em;text-transform:uppercase;
+  text-shadow:0 1px 18px rgba(11,13,16,0.5)}
+@media(max-width:700px){
+  .hl-word{font-size:14px;letter-spacing:0.28em}.hl-word.r{margin-right:-0.28em}
+  .hl-mark{width:26px;height:26px}.hero-lock{column-gap:20px}
+  #hero-beat .sub{font-size:10.5px;letter-spacing:0.1em;padding:0 16px}}
+#scrollcue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(242,239,232,0.85);
+  font-family:var(--font-m);font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;
+  opacity:0;pointer-events:none}
+#scrollcue .line{width:1px;height:44px;background:linear-gradient(to bottom,transparent,rgba(242,239,232,0.9));
+  animation:cueline 2.2s ease-in-out infinite}
+@keyframes cueline{0%,100%{transform:scaleY(0.55);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
-/* ---------- hero ---------- */
-#hero{position:relative;height:104vh;overflow:hidden}
-#hero .inner{position:absolute;inset:0;z-index:8;display:grid;place-content:center;text-align:center;padding:0 20px}
-#hero h1{font-size:clamp(44px,8.4vw,124px);line-height:.98;font-weight:700;letter-spacing:-.02em}
-#hero h1 .row{display:block;overflow:hidden}
-#hero h1 .row span{display:inline-block;transform:translateY(110%);animation:rise 1s cubic-bezier(.16,1,.3,1) forwards}
-#hero h1 .row:nth-child(2) span{animation-delay:.14s;color:var(--amber)}
-@keyframes rise{to{transform:none}}
-#hero .sub{margin:26px auto 34px;max-width:520px;color:var(--ink2);font-size:17px;line-height:1.6;opacity:0;animation:fin 1s .7s forwards}
-@keyframes fin{to{opacity:1}}
-.cta{position:relative;display:inline-block;background:var(--amber);color:#131008;font-weight:700;font-size:17px;
-  padding:18px 38px;border-radius:999px;text-decoration:none;will-change:transform;opacity:0;animation:fin 1s .95s forwards;border:none;cursor:pointer}
-.cta:hover{filter:brightness(1.06)}
-#hero .strip{position:absolute;bottom:9vh;left:0;right:0;z-index:8;display:flex;justify-content:center;gap:34px;
-  font:500 11.5px var(--body);letter-spacing:.14em;color:var(--ink3);flex-wrap:wrap;padding:0 16px}
-#hero .scrolldn{position:absolute;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:8;font:600 10px var(--body);
-  letter-spacing:.4em;color:var(--ink3);animation:bob 2.2s infinite}
-@keyframes bob{50%{transform:translate(-50%,6px);opacity:.4}}
-/* modern hero: scroll-coupled cover — same frame the film starts on, moving from the first tick */
-#hero .bg{transform-origin:50% 38%;will-change:transform}
-#hero .inner,#hero .strip,#hero .scrolldn{will-change:transform,opacity}
-.cta-row{display:flex;gap:18px;justify-content:center;align-items:center;flex-wrap:wrap}
-.ghostcta{color:var(--ink2);text-decoration:none;font-size:15px;padding:16px 10px;border-bottom:1px solid transparent;
-  opacity:0;animation:fin 1s 1.1s forwards;transition:color .25s}
-.ghostcta:hover{color:var(--amber)}
-html.noanim #hero .bg{animation:none}
-html.noanim .ghostcta{animation:none;opacity:1}
+/* -------- finale beat -------- */
+#finale .glass{padding:30px 32px}
+#finale h3{font-size:clamp(24px,3vw,34px)}
+#finale .ctas{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.btn-primary{font-family:var(--font-d);font-weight:650;font-size:14.5px;
+  background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r-pill);
+  padding:13px 24px;cursor:pointer;transition:transform var(--t-base),filter var(--t-base)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-primary:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+.btn-ghost{font-family:var(--font-d);font-weight:600;font-size:14.5px;
+  background:transparent;color:var(--fg);border:1px solid color-mix(in oklab,currentColor 30%,transparent);
+  border-radius:var(--r-pill);padding:12px 23px;cursor:pointer;transition:border-color var(--t-base)}
+.btn-ghost:hover{border-color:var(--fg)}
+
+/* -------- altimeter / chapter readout -------- */
+#alti{position:absolute;left:clamp(20px,4vw,44px);bottom:30px;z-index:5;
+  font-family:var(--font-m);color:#F2EFE8;transition:color 400ms ease;
+  display:flex;flex-direction:column;gap:8px;pointer-events:none;opacity:0}
+#stage.on-light #alti{color:#181D18}
+#alti .ch{font-size:10.5px;letter-spacing:0.24em;text-transform:uppercase;opacity:0.85}
+#alti .m{font-size:15px;font-weight:500;letter-spacing:0.06em}
+#alti .track{width:120px;height:1px;background:currentColor;opacity:0.25;position:relative}
+#alti .track i{position:absolute;left:0;top:-0.5px;height:2px;background:var(--accent);width:0%}
+@media(max-width:700px){#alti{display:none}}
+
+/* ============ After-film content (paper) ============ */
+#landing{position:relative;z-index:2;
+  /* haze handoff — valley haze melts through sage into the forest floor */
+  background:linear-gradient(to bottom,#CFC7B9 0%,#A9B49E 20%,#57715D 42%,var(--bg) 66%);
+  padding-top:clamp(84px,10vw,140px)}
+.land-lock{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  column-gap:clamp(20px,3.5vw,54px);width:min(92vw,1080px);
+  margin:0 auto clamp(110px,14vw,200px);color:#2A2D33}
+.land-lock .hl-word:first-child{justify-self:end}
+.land-lock .hl-word.r{justify-self:start}
+.land-lock .hl-word{font-size:clamp(15px,2.1vw,28px);text-shadow:none}
+.land-lock .hl-mark{width:clamp(24px,3vw,42px);height:clamp(24px,3vw,42px);filter:none}
+/* characters type into place when the band scrolls into view */
+.land-lock .ch{opacity:0;transform:translateY(9px);display:inline-block;
+  transition:opacity .3s ease,transform .45s cubic-bezier(.2,1.3,.4,1)}
+.land-lock.typed .ch{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.land-lock .ch{transition:none}}
+main{position:relative;z-index:2;background:var(--bg)}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 clamp(20px,4vw,44px)}
+section{padding:var(--section-y) 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:650;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-ink);
+  background:color-mix(in oklab,var(--accent) 14%,transparent);
+  border-radius:var(--r-pill);padding:5px 12px;margin-bottom:20px}
+h2{font-size:clamp(30px,4.2vw,44px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;max-width:16ch}
+.lede{margin-top:18px;font-size:clamp(16.5px,1.6vw,19px);color:var(--muted);max-width:58ch;line-height:1.65}
+
+/* statement */
+#statement{padding-bottom:clamp(56px,7vw,90px)}
+#statement h2{max-width:22ch}
+
+/* services grid */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,4vw,56px)}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  padding:26px 26px 28px;transition:transform var(--t-base),box-shadow var(--t-base)}
+.card:hover{transform:translateY(-2px);box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+/* services cards drop into place on first view */
+html.js-anim #services .card{opacity:0;transform:translateY(-34px)}
+html.js-anim #services.cards-in .card{opacity:1;transform:none;
+  transition:opacity .4s ease,transform .62s cubic-bezier(.22,1.35,.36,1)}
+html.js-anim #services.settled .card{transition:transform var(--t-base),box-shadow var(--t-base)}
+@media (prefers-reduced-motion:reduce){html.js-anim #services .card{opacity:1;transform:none}}
+.card .ico{display:block;width:34px;height:34px;color:var(--accent-ink);margin-bottom:16px}
+.card .ico svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.7;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:19px;font-weight:600;margin-bottom:8px;letter-spacing:-0.01em}
+.card p{font-size:14.5px;color:var(--muted);line-height:1.55}
+
+/* how it works */
+#how{background:var(--bg-deep);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);margin-top:clamp(36px,4vw,56px)}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
+.step .num{font-family:var(--font-m);font-size:12px;letter-spacing:0.16em;color:var(--accent-ink);margin-bottom:12px}
+.step h3{font-size:20px;font-weight:600;margin-bottom:8px}
+.step p{font-size:15px;color:var(--muted)}
+
+/* pricing */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,4vw,56px);align-items:stretch}
+@media(max-width:1000px){.tiers{grid-template-columns:1fr;max-width:460px}}
+.tier{background:var(--surface);border:1px solid var(--border);border-radius:22px;
+  padding:30px 28px;display:flex;flex-direction:column}
+.tier.featured{border-color:color-mix(in oklab,var(--accent) 55%,var(--border))}
+.tier .tname{font-family:var(--font-d);font-weight:600;font-size:15px;letter-spacing:0.06em;text-transform:uppercase}
+.tier .price{font-family:var(--font-d);font-weight:700;font-size:40px;letter-spacing:-0.02em;margin-top:14px}
+.tier .price small{font-size:15px;font-weight:500;color:var(--muted);letter-spacing:0}
+.tier .tdesc{font-size:14.5px;color:var(--muted);margin-top:6px;margin-bottom:18px}
+.tier ul{list-style:none;margin:0 0 26px;display:flex;flex-direction:column;gap:9px;flex:1}
+.tier li{font-size:14.5px;color:var(--fg);padding-left:22px;position:relative}
+.tier li::before{content:"";position:absolute;left:2px;top:7px;width:9px;height:5px;
+  border-left:1.8px solid var(--success-ink);border-bottom:1.8px solid var(--success-ink);transform:rotate(-45deg)}
+.tier .btn-primary,.tier .btn-ghost{display:block;width:100%;text-align:center;box-sizing:border-box}
+/* pricing bubbles idle-float; hover pops them up (translate/scale compose with the
+   float's transform animation, so both run without fighting) */
+.tier{animation:tierfloat 5.5s ease-in-out infinite;
+  transition:translate .28s cubic-bezier(.2,1.2,.4,1),scale .28s ease,box-shadow .28s ease}
+.tiers .tier:nth-child(2){animation-delay:-1.8s}
+.tiers .tier:nth-child(3){animation-delay:-3.6s}
+@keyframes tierfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.tier:hover{translate:0 -10px;scale:1.03;box-shadow:0 24px 60px rgba(11,13,16,0.32)}
+.tier .setup-fee{font-family:var(--font-m);font-size:11.5px;letter-spacing:0.04em;
+  color:var(--muted);margin-top:5px}
+/* staggered pop-in for the price bubbles — translate/scale so it layers over the
+   float's transform; JS sets per-tier delay in the order Core → Custom → Pro */
+html.js-anim .tier-pop{opacity:0;translate:0 34px;scale:0.95;
+  transition:opacity .5s ease,translate .64s cubic-bezier(.22,1.2,.36,1),scale .64s cubic-bezier(.22,1.2,.36,1)}
+html.js-anim .reveal.in .tier-pop{opacity:1;translate:0 0;scale:1}
+@media(prefers-reduced-motion:reduce){.tier{animation:none}.tier:hover{translate:none;scale:none}
+  html.js-anim .tier-pop{opacity:1;translate:none;scale:none;transition:none}}
+
+/* ---- value stack: one Station replaces a dozen tools ---- */
+#matrix .lede{max-width:60ch}
+.vstack{margin-top:clamp(24px,3vw,38px);background:#101E17;
+  border:1px solid rgba(255,255,255,0.10);border-radius:14px;overflow:hidden;
+  box-shadow:0 22px 60px rgba(6,12,9,0.35)}
+.vs-head,.vs-row{display:grid;grid-template-columns:1fr auto 58px;align-items:center;gap:16px;
+  padding:13px clamp(16px,2.4vw,26px)}
+.vs-head{padding-top:15px;padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,0.10)}
+.vs-head span{font-family:var(--font-m);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+.vs-head .vs-cost{text-align:right}
+.vs-head .vs-mark{text-align:center;color:var(--accent-ink)}
+.vs-row{border-top:1px solid rgba(255,255,255,0.055)}
+.vs-cap b{display:block;font-family:var(--font-b);font-weight:600;font-size:15px;color:var(--fg);letter-spacing:-0.004em}
+.vs-cap i{display:block;margin-top:2px;font-style:normal;font-size:12px;color:var(--muted)}
+.vs-cap .only{color:var(--accent-ink);font-weight:500}
+.vs-row .vs-cost{font-family:var(--font-m);font-size:13.5px;color:var(--muted);text-align:right;white-space:nowrap}
+.vs-row .vs-cost small{font-size:10.5px;opacity:0.7}
+.vs-row .vs-mark{text-align:center}
+.vs-check{color:var(--success-ink);font-size:17px;line-height:1}
+.vs-total{display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  padding:clamp(18px,2.6vw,26px) clamp(16px,2.4vw,26px);
+  background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.12)}
+.vs-total-lbl{display:block;font-family:var(--font-m);font-size:9.5px;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.vs-total-big{font-family:var(--font-d);font-weight:700;font-size:clamp(23px,4vw,33px);letter-spacing:-0.02em;color:var(--fg);line-height:1}
+.vs-total-big small{font-family:var(--font-m);font-size:13px;font-weight:400;color:var(--muted);letter-spacing:0}
+.vs-total-big.accent{color:#9FC0F5}
+.vs-total-right{border-left:1px solid rgba(255,255,255,0.12);padding-left:16px}
+.vs-note{margin-top:16px;font-size:14px;color:var(--muted);max-width:62ch}
+.vs-cta{display:flex;gap:12px;margin-top:clamp(18px,2.4vw,26px);flex-wrap:wrap}
+@media(max-width:640px){
+  .vs-head{display:none}
+  .vs-head,.vs-row{grid-template-columns:1fr auto 30px;gap:11px;padding:12px 16px}
+  .vs-total{grid-template-columns:1fr;gap:16px}
+  .vs-total-right{border-left:0;border-top:1px solid rgba(255,255,255,0.12);padding-left:0;padding-top:16px}
+}
+.pricing-note{margin-top:22px;font-size:13.5px;color:var(--muted)}
+.pricing-note.addons strong{color:var(--fg);font-weight:650}
+
+/* ============ logo bar ============ */
+#platforms{padding:clamp(40px,5vw,64px) 0;overflow:hidden}
+.lb-label{text-align:center;font-size:12px;font-weight:650;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:clamp(26px,3.5vw,40px)}
+.lb-mask{overflow:hidden;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent)}
+.lb-track{display:flex;width:max-content;animation:lbscroll 38s linear infinite}
+.lb-set{display:flex;align-items:center;gap:clamp(48px,6vw,84px);padding-right:clamp(48px,6vw,84px)}
+.lb-set img{height:24px;width:auto;opacity:0.55;filter:grayscale(1) invert(1);transition:opacity var(--t-base)}
+.lb-set img:hover{opacity:0.9}
+@keyframes lbscroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.lb-track{animation:none}}
+
+/* ============ revenue calculator ============ */
+.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  padding:clamp(26px,3.5vw,44px);display:grid;grid-template-columns:1.1fr 0.9fr;
+  gap:clamp(28px,4vw,56px);margin-top:clamp(36px,4vw,56px)}
+@media(max-width:900px){.calc-card{grid-template-columns:1fr}}
+.calc-row{margin-bottom:24px}
+.calc-row:last-child{margin-bottom:0}
+.calc-row label{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:14px;font-weight:550;margin-bottom:12px}
+.calc-row output{font-family:var(--font-m);font-size:14px;font-weight:500;color:var(--accent-ink)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;
+  background:var(--surface-2);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;
+  border-radius:50%;background:var(--accent);border:2px solid #fff;
+  box-shadow:0 1px 5px rgba(0,0,0,0.25);cursor:grab}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;
+  background:var(--accent);border:2px solid #fff;cursor:grab}
+input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offset:4px}
+.calc-out{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:7px;
+  border-left:1px solid var(--border);padding-left:clamp(24px,3vw,48px)}
+@media(max-width:900px){.calc-out{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:26px}}
+.co-label{font-size:12px;font-weight:650;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.co-num{font-family:var(--font-d);font-weight:700;font-size:clamp(42px,4.8vw,60px);letter-spacing:-0.02em;line-height:1}
+.co-sub{font-size:14px;color:var(--muted);max-width:36ch;line-height:1.55}
+.calc-out .btn-primary{margin-top:16px}
+
+/* ============ live phone demo (talk to the bot) ============ */
+.sub-label{margin-top:clamp(44px,5.5vw,72px);font-family:var(--font-m);font-size:12px;
+  letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.tiers.webtiers{margin-top:20px}
+.demo-wrap{display:grid;grid-template-columns:1fr minmax(320px,400px);gap:clamp(32px,5vw,72px);
+  align-items:center;margin-top:clamp(36px,4vw,56px)}
+@media(max-width:960px){.demo-wrap{grid-template-columns:1fr}}
+.demo-points{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px}
+.demo-points li{font-size:15.5px;padding-left:26px;position:relative}
+.demo-points li::before{content:"";position:absolute;left:2px;top:8px;width:10px;height:6px;
+  border-left:1.8px solid var(--success-ink);border-bottom:1.8px solid var(--success-ink);transform:rotate(-45deg)}
+.demo-note{font-size:13px;color:var(--muted);max-width:44ch;line-height:1.6}
+.phone{background:#0D1512;border-radius:46px;padding:12px;max-width:400px;margin:0 auto;width:100%;
+  border:1px solid rgba(255,255,255,0.14);box-shadow:0 30px 80px rgba(0,0,0,0.45)}
+.phone-screen{background:#FFFFFF;border-radius:35px;overflow:hidden;display:flex;flex-direction:column;height:560px}
+.p-head{padding:13px 16px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--border)}
+.p-avatar{width:34px;height:34px;border-radius:50%;background:#16181D;color:var(--accent);
+  display:grid;place-items:center;flex:none}
+.p-avatar svg{width:15px;height:15px}
+.p-name{font-family:var(--font-d);font-weight:600;font-size:14.5px}
+.p-sub{font-size:11px;color:var(--muted)}
+.p-thread{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
+.sms{max-width:82%;padding:9px 13px;border-radius:16px;font-size:13.5px;line-height:1.45;
+  opacity:0;transform:translateY(6px);transition:opacity 280ms ease,transform 280ms ease}
+.sms.show{opacity:1;transform:none}
+.sms.me{align-self:flex-end;background:var(--accent);color:#16181D;border-bottom-right-radius:5px}
+.sms.biz{align-self:flex-start;background:var(--surface-2);color:var(--fg);border-bottom-left-radius:5px}
+.sms-note{font-family:var(--font-m);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin:2px 0}
+.sms-typing{align-self:flex-start;display:flex;gap:4px;padding:12px 14px;background:var(--surface-2);
+  border-radius:16px;border-bottom-left-radius:5px}
+.sms-typing i{width:5px;height:5px;border-radius:50%;background:#8B978D;animation:tdot 1s infinite}
+.sms-typing i:nth-child(2){animation-delay:0.15s}
+.sms-typing i:nth-child(3){animation-delay:0.3s}
+.p-chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 10px}
+.chip-btn{font-size:12px;font-weight:500;padding:7px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--border);background:var(--surface);color:var(--fg);cursor:pointer;
+  transition:border-color var(--t-base)}
+.chip-btn:hover{border-color:var(--ink)}
+.p-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border)}
+.p-input input{flex:1;border:1px solid var(--border);border-radius:var(--r-pill);
+  padding:9px 15px;font:inherit;font-size:13.5px;color:var(--fg);background:var(--surface);outline:none}
+.p-input input:focus-visible{border-color:var(--ink-accent);outline:2px solid var(--ink-accent);outline-offset:1px}
+.p-input button{width:37px;height:37px;border-radius:50%;border:0;background:#3B9DFF;color:#FFFFFF;
+  font-size:16px;font-weight:700;cursor:pointer;flex:none}
+.p-input button:active{transform:translateY(1px)}
+
+/* ============ Ask-Station FAQ widget ============ */
+#aiw-btn{position:fixed;right:clamp(16px,2.5vw,30px);bottom:clamp(16px,2.5vw,30px);z-index:80;
+  display:flex;align-items:center;gap:10px;padding:13px 19px;border:0;cursor:pointer;
+  border-radius:var(--r-pill);background:#16181D;color:#F2EFE8;
+  font-family:var(--font-d);font-weight:600;font-size:13.5px;
+  box-shadow:0 8px 30px rgba(11,13,16,0.28);transition:transform var(--t-base)}
+#aiw-btn:hover{transform:translateY(-2px)}
+#aiw-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 0 0 rgba(47,191,113,0.5);animation:aiwpulse 2.2s infinite}
+@keyframes aiwpulse{70%{box-shadow:0 0 0 9px rgba(47,191,113,0)}100%{box-shadow:0 0 0 0 rgba(47,191,113,0)}}
+#aiw{position:fixed;right:clamp(12px,2.5vw,30px);bottom:calc(clamp(16px,2.5vw,30px) + 62px);z-index:81;
+  width:min(372px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;box-shadow:0 24px 70px rgba(11,13,16,0.3);overflow:hidden;
+  opacity:0;transform:translateY(14px) scale(0.98);pointer-events:none;
+  transition:opacity 240ms ease,transform 240ms ease}
+#aiw.open{opacity:1;transform:none;pointer-events:auto}
+.aiw-top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#16181D;color:#F2EFE8}
+.aiw-top .mark{width:18px;height:18px;color:var(--accent)}
+.aiw-top .t{font-family:var(--font-d);font-weight:600;font-size:14px}
+.aiw-top .live{margin-left:auto;font-family:var(--font-m);font-size:9.5px;letter-spacing:0.14em;color:var(--success);
+  border:1px solid rgba(47,191,113,0.45);padding:3px 8px;border-radius:var(--r-pill)}
+.aiw-top .x{background:none;border:0;color:inherit;cursor:pointer;font-size:17px;line-height:1;opacity:0.7;padding:2px 4px}
+.aiw-body{padding:16px;display:flex;flex-direction:column;gap:10px;height:300px;overflow-y:auto;scroll-behavior:smooth}
+.aiw-note{font-family:var(--font-m);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin:2px 0}
+.msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;
+  opacity:0;transform:translateY(6px);transition:opacity 300ms ease,transform 300ms ease}
+.msg.show{opacity:1;transform:none}
+.msg.cust{align-self:flex-start;background:var(--surface-2);color:var(--fg);border-bottom-left-radius:4px}
+.msg.ai{align-self:flex-end;background:#16181D;color:#F2EFE8;border-bottom-right-radius:4px}
+.msg.ai .who{display:block;font-family:var(--font-m);font-size:9.5px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.aiw-typing{align-self:flex-end;display:flex;gap:4px;padding:12px 14px;background:#16181D;
+  border-radius:14px;border-bottom-right-radius:4px}
+.aiw-typing i{width:5px;height:5px;border-radius:50%;background:#9AA0A8;animation:tdot 1s infinite}
+.aiw-typing i:nth-child(2){animation-delay:0.15s}
+.aiw-typing i:nth-child(3){animation-delay:0.3s}
+@keyframes tdot{30%{transform:translateY(-3px)}}
+.aiw-foot{padding:12px 16px 16px;border-top:1px solid var(--border);display:flex;gap:12px;align-items:center}
+.aiw-foot .btn-primary{flex:1;text-align:center;font-size:13px;padding:11px 16px}
+.aiw-foot .replay{background:none;border:0;color:var(--muted);cursor:pointer;font-size:12.5px;text-decoration:underline}
+@media(max-width:700px){#aiw-btn .lbl{display:none}#aiw-btn{padding:14px}}
+
+/* ============ popup ============ */
+#promo{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;
+  background:rgba(11,13,16,0.45);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity 260ms ease}
+#promo.open{opacity:1;pointer-events:auto}
+.promo-card{position:relative;width:min(520px,94vw);background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:clamp(28px,4vw,40px);box-shadow:0 30px 90px rgba(11,13,16,0.4);
+  transform:translateY(12px);transition:transform 260ms ease}
+#promo.open .promo-card{transform:none}
+.promo-card h3{font-family:var(--font-d);font-size:clamp(22px,2.6vw,28px);font-weight:650;
+  line-height:1.15;letter-spacing:-0.015em;margin:12px 0 10px}
+.promo-card p{font-size:14.5px;color:var(--muted);line-height:1.6;margin-bottom:22px}
+.promo-card .x{position:absolute;top:14px;right:14px;background:none;border:0;font-size:18px;
+  color:var(--muted);cursor:pointer;padding:6px}
+.promo-actions{display:flex;gap:16px;align-items:center}
+.promo-actions .later{background:none;border:0;color:var(--muted);font-size:13.5px;cursor:pointer;text-decoration:underline}
+
+/* ============ cursor companion ============ */
+#cur-dot,#cur-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:120;opacity:0}
+#cur-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin:-3px 0 0 -3px}
+#cur-ring{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(90,133,214,0.8);
+  margin:-17px 0 0 -17px;
+  transition:width 200ms ease,height 200ms ease,margin 200ms ease,border-color 200ms ease}
+#cur-ring.hot{width:52px;height:52px;margin:-26px 0 0 -26px;border-color:var(--accent)}
+@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){#cur-dot,#cur-ring{display:none}}
+
+/* website builds */
+.tiers.webtiers{grid-template-columns:repeat(2,1fr);max-width:920px}
+@media(max-width:1000px){.tiers.webtiers{grid-template-columns:1fr;max-width:460px}}
+.tier .price .plus{font-size:19px;font-weight:600;color:var(--muted);margin:0 2px}
+
+/* audit */
+#audit .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+@media(max-width:900px){#audit .split{grid-template-columns:1fr}}
+/* the form blends into the forest backdrop — translucent green glass, light fields */
+#audit form{color-scheme:dark;background:rgba(255,255,255,0.055);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid var(--border);border-radius:6px;
+  padding:28px;display:flex;flex-direction:column;gap:14px}
+.input{background:var(--surface);color:var(--fg);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:13px 14px;font:inherit;font-size:15px;width:100%}
+.input:focus-visible{outline:2px solid var(--accent-ink);outline-offset:1px;border-color:var(--accent-ink)}
+#audit form .input{background:rgba(9,18,13,0.4);border-color:rgba(255,255,255,0.18);
+  color:var(--fg)}
+#audit form .input::placeholder{color:rgba(237,242,234,0.55)}
+#audit form .input:focus-visible{outline-color:#9FC0F5;border-color:#9FC0F5}
+#audit form select.input option{background:#12241B;color:var(--fg)}
+#audit form .btn-primary{margin-top:6px}
+#audit .done-msg{display:none;background:color-mix(in oklab,var(--success) 16%,rgba(255,255,255,0.05));
+  border:1px solid color-mix(in oklab,var(--success) 35%,transparent);
+  color:var(--fg);border-radius:6px;padding:28px;font-size:16px}
+#audit form.form-done{display:none}
+#audit form.form-done+.done-msg{display:block}
+.audit-points{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.audit-points li{font-size:15.5px;padding-left:26px;position:relative;color:var(--fg)}
+.audit-points li::before{content:"";position:absolute;left:2px;top:8px;width:10px;height:6px;
+  border-left:1.8px solid var(--success-ink);border-bottom:1.8px solid var(--success-ink);transform:rotate(-45deg)}
+
+/* book strip */
+#book{border-top:1px solid var(--border)}
+#book .row{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+#book h2{max-width:none}
+
 /* footer */
-footer{border-top:1px solid #ffffff10;padding:9vh 6vw 4vh;background:#090b0e}
-.f-top{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px;max-width:1160px;margin:0 auto;align-items:start}
-@media(max-width:860px){.f-top{grid-template-columns:1fr;gap:28px}}
-.f-brand b{font-size:17px;letter-spacing:.04em}
-.f-brand p{color:var(--ink3);font-size:13.5px;line-height:1.65;margin-top:12px;max-width:300px}
-.f-nav{display:flex;flex-direction:column;gap:10px}
-.f-nav a{color:var(--ink2);text-decoration:none;font-size:14px;transition:color .2s;width:fit-content}
-.f-nav a:hover{color:var(--amber)}
-.f-cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
-.f-note{font-size:10px;letter-spacing:.24em;color:var(--ink3)}
-.f-legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;max-width:1160px;margin:7vh auto 0;
-  padding-top:22px;border-top:1px solid #ffffff0a;font-size:10px;letter-spacing:.22em;color:var(--ink3)}
+footer{border-top:1px solid var(--border);background:var(--bg-deep);padding:44px 0 36px}
+footer .frow{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;flex-wrap:wrap}
+footer .brand{color:var(--fg)}
+footer .ftag{margin-top:10px;font-size:13.5px;color:var(--muted)}
+footer .flinks{display:flex;gap:26px;font-size:13.5px}
+footer .flinks a{color:var(--muted);transition:color var(--t-base)}
+footer .flinks a:hover{color:var(--fg)}
+footer .fbot{margin-top:34px;font-size:12.5px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer .flegal{flex-direction:column;gap:10px;font-size:12.5px}
+@media(max-width:700px){footer .flegal{flex-direction:row;flex-wrap:wrap;gap:12px 18px}}
 
-/* ---------- title card: the cover lives INSIDE the film stage ---------- */
-#titleCard{position:absolute;inset:0;z-index:30;display:grid;place-content:center;text-align:center;
-  padding:0 20px;will-change:opacity,transform}
-#titleCard h1{font-size:clamp(44px,8.4vw,124px);line-height:.98;font-weight:700;letter-spacing:-.02em}
-#titleCard h1 span{display:block}
-#titleCard h1 .am{color:var(--amber)}
-#titleCard .tsub{margin:26px auto 34px;max-width:520px;color:var(--ink2);font-size:17px;line-height:1.6}
-#titleCard .tstrip{margin-top:46px;font-size:11px;letter-spacing:.24em;color:var(--ink3)}
-#titleCard .tscroll{position:absolute;bottom:3vh;left:0;right:0;font-size:10px;letter-spacing:.4em;color:var(--ink3);
-  animation:bob 2.2s infinite}
-#titleCard.gone{pointer-events:none}
-html.noanim #titleCard .tscroll{animation:none}
-/* ---------- film ---------- */
-#film{position:relative;height:760vh}
-#film .stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#000}
-#film .leg{position:absolute;inset:0;opacity:0}
-#film .leg img,#film .leg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#film .leg video{opacity:0;transition:opacity .3s}
-#film .leg.painted video{opacity:1}
-/* persistent readability scrim so the title is always crisp over any frame */
-#filmScrim{position:absolute;inset:0;z-index:7;pointer-events:none;
-  background:linear-gradient(0deg,#04060bd9 0%,#04060b8f 18%,#04060b30 34%,transparent 50%)}
-.act{position:absolute;left:0;right:0;bottom:0;z-index:8;text-align:center;padding:0 6vw 14vh;pointer-events:none;max-width:none}
-.act>*{max-width:900px;margin-left:auto;margin-right:auto}
-.act .eyebrow{display:block;margin-bottom:18px;font-size:11px;letter-spacing:.3em;color:var(--amber);opacity:.95}
-.act h2{font-size:clamp(38px,5.8vw,76px);line-height:1.05;font-weight:600;letter-spacing:-.01em;color:#fff;
-  text-shadow:0 2px 24px #000,0 1px 3px #000}
-.act .cta{pointer-events:auto}
-.act{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
-.act.on{opacity:1;transform:none}
-/* persistent in-film CTA — never lets the film go conversion-silent */
-#filmcta{position:absolute;left:50%;bottom:4.2vh;transform:translateX(-50%);z-index:9;
-  font:600 11px var(--body);letter-spacing:.16em;color:var(--ink);text-decoration:none;white-space:nowrap;
-  padding:12px 22px;border-radius:999px;border:1px solid #ffffff22;background:#0b0d10a8;backdrop-filter:blur(8px);
-  transition:opacity .3s,border-color .3s}
-#filmcta:hover{border-color:var(--amber)}
-#filmcta .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);margin-right:10px;vertical-align:1px}
-#filmcta.off{opacity:0;pointer-events:none}
-.hud{position:absolute;z-index:8;transition:opacity .45s,transform .6s}
-.hud.off{opacity:0;transform:translateY(18px);pointer-events:none}
-/* chat thread */
-#chat{right:4.5vw;bottom:13vh;width:min(360px,86vw)}
-#chat .b{max-width:86%;padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.45;margin-top:10px;
-  opacity:0;transform:translateY(10px) scale(.97);transition:.4s}
-#chat .b.on{opacity:1;transform:none}
-#chat .them{background:#1a1f27;border:1px solid #ffffff14;border-bottom-left-radius:4px}
-#chat .us{background:var(--amber);color:#131008;margin-left:auto;border-bottom-right-radius:4px;font-weight:500}
-#chat .status{margin-top:12px;text-align:center}
-/* waveform */
-#wave{left:4.5vw;top:12vh;display:flex;align-items:center;gap:12px}
-#wave .bars{display:flex;gap:3px;align-items:center;height:26px}
-#wave .bars i{width:3px;border-radius:2px;background:var(--amber);height:6px}
-#wave.live .bars i{animation:wv .7s ease-in-out infinite}
-#wave .bars i:nth-child(2n){animation-delay:.12s}#wave .bars i:nth-child(3n){animation-delay:.24s}
-#wave .bars i:nth-child(5n){animation-delay:.36s}
-@keyframes wv{50%{height:24px}}
-/* feed */
-#feed{right:4.5vw;top:14vh;width:min(390px,86vw);font:12.5px/1.5 var(--mono)}
-#feed .row{padding:11px 14px;border:1px solid #ffffff14;border-radius:12px;background:#0b0d10b8;backdrop-filter:blur(6px);
-  margin-top:9px;opacity:0;transform:translateX(20px);transition:.45s}
-#feed .row.on{opacity:1;transform:none}
-#feed .ok{color:var(--green)} #feed .am{color:var(--amber)}
-/* toasts + revenue */
-#toasts{right:4.5vw;bottom:13vh;width:min(330px,86vw)}
-#toasts .t{display:flex;justify-content:space-between;gap:10px;padding:13px 15px;margin-top:10px;border-radius:14px;
-  background:#0e1116d9;border:1px solid #ffffff14;backdrop-filter:blur(6px);font:13px var(--mono);
-  opacity:0;transform:translateY(14px);transition:.45s}
-#toasts .t.on{opacity:1;transform:none}
-#toasts .t b{color:var(--green);font-weight:700}
-#rev{left:4.5vw;top:12vh}
-#rev .k{font:11px var(--mono);letter-spacing:.26em;color:var(--ink2)}
-#rev .v{font-size:clamp(34px,4.4vw,56px);font-weight:700;color:var(--green);font-variant-numeric:tabular-nums}
-/* missed counter (leg1) */
-#missed{right:4.5vw;top:12vh;text-align:right}
-#missed .v{font-size:clamp(34px,4.4vw,56px);font-weight:700;color:var(--cold);font-variant-numeric:tabular-nums}
-#missed .k{font:11px var(--mono);letter-spacing:.26em;color:var(--ink2)}
-/* countdown (leg 0 -> ignition) */
-#count{position:absolute;left:0;right:0;top:16vh;text-align:center;z-index:9;font-family:var(--mono);font-weight:700;
-  font-size:clamp(90px,15vw,200px);line-height:1;color:transparent;-webkit-text-stroke:1.5px #FFB000b0;
-  opacity:.85;transition:opacity .3s;pointer-events:none;font-variant-numeric:tabular-nums}
-#count.off{opacity:0}
-@media (max-width:860px){#count{font-size:clamp(72px,20vw,130px);top:14vh}}
-html.noanim #count{transition:none!important}
-/* mission telemetry (launch film) */
-#telem{right:4.5vw;top:12vh;font-family:var(--mono);text-align:right;min-width:210px;transition:filter .3s}
-#telem .tr{display:flex;justify-content:space-between;gap:18px;padding:5px 0;border-bottom:1px solid #ffffff12;transition:border-color .3s}
-#telem .tk{font-size:10px;letter-spacing:.3em;color:var(--ink3);align-self:center}
-#telem .tv{font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums;transition:color .3s}
-#telem .gain .tv{color:var(--green);font-weight:700}
-#telem.alert{animation:telemshake .18s steps(2) infinite}
-#telem.alert .tv{color:#FF5D4A}
-#telem.alert .tr{border-color:#ff5d4a33}
-@keyframes telemshake{50%{transform:translateX(1.5px)}}
-/* ignition embers — pure CSS particles, no video asset needed */
-#embers{position:absolute;inset:0;z-index:7;pointer-events:none;opacity:0;transition:opacity .5s}
-#embers.on{opacity:1}
-#embers i{position:absolute;bottom:-6vh;width:3px;height:3px;border-radius:50%;background:var(--amber);
-  box-shadow:0 0 6px 2px #ffb00099;animation:emberrise linear infinite}
-@keyframes emberrise{0%{transform:translateY(0) translateX(0);opacity:0}8%{opacity:1}90%{opacity:.5}100%{transform:translateY(-92vh) translateX(var(--drift,20px));opacity:0}}
+/* ============ cookie banner ============ */
+#ck{position:fixed;left:clamp(14px,2.5vw,28px);bottom:clamp(14px,2.5vw,28px);z-index:95;
+  width:min(430px,calc(100vw - 28px));background:var(--surface);color:var(--ink);
+  border:1px solid var(--ink-border);border-radius:6px;padding:18px 20px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+  opacity:0;transform:translateY(14px);transition:opacity 320ms ease,transform 320ms ease}
+#ck.up{opacity:1;transform:none}
+#ck .ck-txt{font-size:13px;line-height:1.55;color:#3A443C;margin-bottom:14px}
+#ck .ck-txt b{color:var(--ink)}
+#ck .ck-txt a{color:var(--ink-accent);text-decoration:underline}
+#ck .ck-actions{display:flex;gap:10px;flex-wrap:wrap}
+#ck .ck-accept{font-family:var(--font-d);font-weight:650;font-size:13px;
+  background:var(--accent);color:var(--on-accent);border:0;border-radius:var(--r-pill);
+  padding:10px 18px;cursor:pointer}
+#ck .ck-min{font-family:var(--font-d);font-weight:600;font-size:13px;
+  background:transparent;color:var(--ink);border:1px solid rgba(24,32,25,0.3);
+  border-radius:var(--r-pill);padding:9px 17px;cursor:pointer}
 
-/* ---------- sky menu (film finale) ---------- */
-#skymenu{inset:0;display:grid;place-content:center;text-align:center;z-index:9}
-#skymenu .sk-eyebrow{font-size:11px;letter-spacing:.44em;color:#4a3c1a;margin-bottom:28px}
-.sk-clouds{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.cloud{display:inline-block;padding:17px 34px;border-radius:14px;text-decoration:none;
-  font-family:var(--disp);font-weight:600;font-size:clamp(15px,1.6vw,19px);color:#241d0e;
-  background:#ffffff3d;border:1px solid #ffffff66;backdrop-filter:blur(10px);
-  transition:background .25s,transform .25s}
-.cloud:hover{background:#ffffff70;transform:translateY(-2px)}
-@media (max-width:760px){.sk-clouds{flex-direction:column;align-items:center;gap:14px}}
-
-/* ---------- bridge: sky -> night ---------- */
-#bridge{position:relative;padding:16vh 6vw 14vh;text-align:center;background:transparent}
-#bridge .eyebrow{color:var(--amber)}
-#bridge h2{font-size:clamp(30px,5vw,62px);font-weight:700;letter-spacing:-.015em;color:var(--ink)}
-#bridge p{margin:16px auto 0;max-width:520px;color:var(--ink2);font-size:16.5px}
-#bridge .down{display:inline-block;margin-top:34px;font:600 11px var(--body);letter-spacing:.18em;color:var(--ink3)}
-
-/* ---------- split ---------- */
-/* ---------- try-it demo (from the product-led concept) ---------- */
-#trydemo{padding:15vh 6vw;background:transparent}
-#trydemo .grid2{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;max-width:1100px;margin:0 auto}
-@media(max-width:860px){#trydemo .grid2{grid-template-columns:1fr}}
-#trydemo .pill{display:inline-block;font:600 10px var(--body);letter-spacing:.14em;color:var(--green);border:1px solid #2FBF7144;border-radius:999px;padding:6px 12px;margin-top:18px}
-.phone{width:min(360px,88vw);margin:0 auto;background:#000;border:1px solid #ffffff1c;border-radius:34px;padding:14px 12px 18px;box-shadow:0 30px 80px #000c}
-.phone .pbar{display:flex;justify-content:center;padding:4px 0 10px}
-.phone .pbar i{width:74px;height:5px;border-radius:3px;background:#ffffff22}
-.thread{background:var(--s1,#12151A);border-radius:22px;padding:16px 12px;height:clamp(430px,60vh,486px);display:flex;flex-direction:column;gap:9px}
-#dmsgs{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#ffffff22 transparent}
-#dmsgs::-webkit-scrollbar{width:5px}#dmsgs::-webkit-scrollbar-thumb{background:#ffffff22;border-radius:3px}
-.thread .hd{display:flex;align-items:center;gap:10px;padding:0 4px 10px;border-bottom:1px solid #ffffff10;margin-bottom:4px}
-.thread .hd .av{width:30px;height:30px;border-radius:50%;background:var(--amber);display:grid;place-content:center;color:#131008;font-weight:800;font-size:13px}
-.thread .hd small{display:block;color:var(--green);font:9.5px var(--mono);letter-spacing:.12em}
-#trydemo .b{max-width:82%;padding:10px 14px;border-radius:15px;font-size:13.5px;line-height:1.45;opacity:0;transform:translateY(8px);transition:.3s}
-#trydemo .b.on{opacity:1;transform:none}
-#trydemo .b.them{background:#1b2029;border-bottom-left-radius:5px}
-#trydemo .b.us{background:var(--amber);color:#131008;margin-left:auto;border-bottom-right-radius:5px;font-weight:500}
-#trydemo .b.bcard{background:#10241a;border:1px solid #2FBF7144;color:var(--ink);width:82%;font:12px var(--mono)}
-#trydemo .b.bcard b{color:var(--green)}
-.typing{display:none;gap:4px;padding:10px 14px}
-.typing.on{display:flex}
-.typing i{width:6px;height:6px;border-radius:50%;background:#ffffff55;animation:tp 1s infinite}
-.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes tp{40%{transform:translateY(-4px)}}
-.choices{display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:12px}
-.choice{border:1px solid #FFB00055;background:#FFB00014;color:var(--amber);border-radius:12px;padding:12px;font-size:13px;
-  cursor:pointer;text-align:left;font-family:var(--body)}
-.choice:hover{background:#FFB00028}
-.dchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:12px}
-.dchips button{border:1px solid #ffffff1e;background:#ffffff08;color:var(--ink2);border-radius:999px;
-  padding:8px 12px;font:500 12px var(--body);cursor:pointer;transition:.2s}
-.dchips button:hover{border-color:var(--amber);color:var(--ink)}
-.dform{display:flex;gap:8px;margin-top:10px}
-.dform input{flex:1;background:#0b0d10;border:1px solid #ffffff1c;border-radius:12px;color:var(--ink);
-  font:400 14px var(--body);padding:12px 14px;outline:none;transition:border .2s}
-.dform input:focus{border-color:var(--amber)}
-.dform button{width:44px;border:0;border-radius:12px;background:var(--amber);color:#131008;font-size:18px;font-weight:700;
-  cursor:pointer;transition:.2s;flex:none}
-.dform button:disabled{opacity:.4;cursor:default}
-
-/* ---------- how ---------- */
-#how{padding:15vh 6vw 10vh;position:relative}
-#how .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:6vh}
-.card{border:1px solid #ffffff14;border-radius:20px;padding:30px 26px;background:linear-gradient(180deg,#0e1116,#0b0d10);
-  transition:transform .35s,border-color .35s;will-change:transform}
-.card:hover{transform:translateY(-6px);border-color:#FFB00055}
-.card .num{font:700 13px var(--body);color:var(--amber);letter-spacing:.06em}
-.card h3{font-size:22px;margin:14px 0 10px}
-.card p{color:var(--ink2);font-size:15px;line-height:1.7}
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s,transform .8s cubic-bezier(.16,1,.3,1)}
-.reveal.on{opacity:1;transform:none}
-.h2big{font-size:clamp(30px,5vw,60px);font-weight:700;letter-spacing:-.015em;line-height:1.03}
-
-/* ---------- missed-revenue calculator (replaces split) ---------- */
-#split{padding:14vh 6vw;position:relative}
-#split .head{text-align:center;margin-bottom:6vh}
-#split .head h2{font-size:clamp(28px,4.6vw,58px);font-weight:700;letter-spacing:-.015em;line-height:1.05}
-.calc{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1040px;margin:0 auto;align-items:stretch}
-@media(max-width:820px){.calc{grid-template-columns:1fr}}
-.calc-inputs{background:var(--bg2);border:1px solid #ffffff12;border-radius:22px;padding:26px 24px;display:flex;flex-direction:column;gap:30px}
-@media(max-width:820px){.calc-inputs{padding:22px 18px;gap:26px}.calc{gap:18px}}
-.calc-inputs label{display:flex;flex-direction:column;gap:10px}
-.calc-inputs .lrow{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.calc-inputs .ltx{font-size:14px;color:var(--ink2)}
-.calc-inputs output{font-family:var(--mono);color:var(--amber);font-size:19px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
-.calc-inputs .rng{display:flex;justify-content:space-between;margin-top:-2px;color:var(--ink3);font-size:9.5px;letter-spacing:.1em}
-.calc-inputs .rng i{font-style:normal}
-.calc-break{display:flex;gap:26px;justify-content:center;margin-top:18px;padding-top:16px;border-top:1px solid #ffffff10}
-.calc-break div{display:flex;flex-direction:column;gap:2px}
-.calc-break span{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
-.calc-break small{font-size:9px;letter-spacing:.2em;color:var(--ink3)}
-.calc-inputs input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:6px;margin:2px 0;
-  background:linear-gradient(90deg,var(--amber),#ffffff22);cursor:pointer}
-.calc-inputs input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:var(--amber);box-shadow:0 0 14px #FFB00099;cursor:pointer}
-.calc-inputs input[type=range]::-moz-range-thumb{width:28px;height:28px;border:0;border-radius:50%;background:var(--amber);box-shadow:0 0 14px #FFB00099;cursor:pointer}
-.calc-out{display:flex;flex-direction:column;gap:16px}
-.calc-lost{background:linear-gradient(180deg,#1a0f0f,#0e1116);border:1px solid #ff5d4a3a;border-radius:22px;padding:30px 28px;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center}
-.calc-lost .k{font-size:10px;letter-spacing:.26em;color:#ff8a7a}
-.calc-lost .big{font-size:clamp(46px,7vw,78px);font-weight:800;color:#FF5D4A;line-height:1;margin:10px 0 2px;font-variant-numeric:tabular-nums;text-shadow:0 0 40px #ff5d4a44}
-.calc-lost .per{font-size:11px;letter-spacing:.28em;color:var(--ink3)}
-.calc-lost .yr{display:block;margin-top:14px;font-size:12px;letter-spacing:.06em;color:var(--ink2)}
-.calc-lost .yr b{color:var(--ink)}
-.calc-rec{background:linear-gradient(180deg,#0d1f16,#0e1116);border:1px solid #2FBF7140;border-radius:22px;padding:26px 28px;text-align:center}
-.calc-rec .k{font-size:10px;letter-spacing:.24em;color:#5fd39a}
-.calc-rec .recn{display:block;font-size:clamp(30px,4.4vw,44px);font-weight:800;color:var(--green);margin:8px 0 18px;font-variant-numeric:tabular-nums}
-.calc-rec .recn .mono{font-size:13px;font-weight:400;color:var(--ink2);letter-spacing:0}
-.calc-rec .cta{animation:none;opacity:1}
-.calc-note{text-align:center;max-width:640px;margin:4vh auto 0;font-size:11px;letter-spacing:.04em;color:var(--ink3);line-height:1.7}
-.billtoggle{display:flex;width:fit-content;max-width:100%;gap:4px;margin:26px auto 0;padding:5px;border:1px solid #ffffff18;border-radius:999px;background:#0e1116aa}
-#pricing{text-align:center}
-#pricing .grid,#pricing .finePrint{text-align:left}
-@media(max-width:400px){.billtoggle button{padding:10px 14px;font-size:12px}.billtoggle .save{padding:2px 5px;font-size:8px}}
-.billtoggle button{background:none;border:0;color:var(--ink2);font:600 14px var(--body);padding:10px 20px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.25s}
-.billtoggle button.on{background:var(--amber);color:#131008}
-.billtoggle .save{font:700 9px var(--body);letter-spacing:.06em;color:var(--green);border:1px solid #2FBF7155;border-radius:999px;padding:3px 7px}
-.billtoggle button.on .save{color:#0a3d24;border-color:#0a3d2455;background:#ffffff55}
-/* ---------- pricing ---------- */
-#pricing{padding:12vh 6vw;position:relative}
-#pricing .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:6vh;align-items:stretch}
-.price{border:1px solid #ffffff14;border-radius:22px;padding:34px 30px;background:#0e1116;position:relative;
-  display:flex;flex-direction:column;transition:transform .35s,border-color .35s}
-.price:hover{transform:translateY(-8px)}
-.price.pro{border-color:#FFB00066;background:linear-gradient(180deg,#161309,#0e1116)}
-.price .pop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--amber);color:#131008;
-  font:700 11px var(--body);letter-spacing:.1em;padding:6px 14px;border-radius:999px}
-.price .nm{font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
-.price .amt{font:500 clamp(46px,5vw,54px)/1 var(--num);letter-spacing:-.03em;margin:16px 0 4px;font-variant-numeric:tabular-nums}
-.price .amt small{font:400 15px var(--body);color:var(--ink3);letter-spacing:.01em;margin-left:2px}
-.price ul{list-style:none;margin:22px 0 28px;display:grid;gap:11px;color:var(--ink2);font-size:14.5px}
-.price li::before{content:'—  ';color:var(--amber)}
-.price .setup{font-size:11px;letter-spacing:.14em;color:var(--ink3);margin:-14px 0 18px;text-align:center}
-.price .go{margin-top:auto;text-align:center;border:1px solid #ffffff2c;border-radius:999px;padding:14px;text-decoration:none;
-  font-weight:700;transition:.25s}
-.price.pro .go{background:var(--amber);color:#131008;border-color:var(--amber)}
-.price .go:hover{border-color:var(--amber);color:var(--amber)}
-.price.pro .go:hover{color:#131008;transform:scale(1.02)}
-.finePrint{margin-top:26px;color:var(--ink3);font:500 12.5px var(--body);text-align:center}
-.addons{margin-top:38px}
-.addons .attl{font:600 11px var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--ink3);text-align:center;margin-bottom:16px}
-.addons .arow{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
-.addon{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid #ffffff12;border-radius:16px;padding:17px 21px;background:#0e1116}
-.addon .an{font:600 13.5px var(--body);color:var(--ink)}
-.addon .ad{font-size:12px;color:var(--ink3);margin-top:4px;line-height:1.45}
-.addon .ap{font-family:var(--num);font-size:16.5px;color:var(--amber);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
-.addon .ap small{font:400 11.5px var(--body);color:var(--ink3);display:block;margin-top:2px}
-.day .addon{background:var(--s1);border-color:#00000014;box-shadow:0 2px 18px #0000000a}
-
-/* ---------- audit ---------- */
-#audit{position:relative;padding:16vh 6vw 14vh;overflow:hidden}
-#audit .wrap{position:relative;z-index:5;max-width:860px;margin:0 auto;text-align:center}
-#audit form{margin-top:5vh;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
-#audit .full{grid-column:1/-1}
-#audit label{display:block;font:600 11px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin:0 0 7px 2px}
-#audit label .opt{font-weight:500;letter-spacing:.06em;color:var(--ink3);text-transform:none}
-#audit input,#audit select{width:100%;background:#0e1116;border:1px solid #ffffff1f;color:var(--ink);border-radius:14px;
-  padding:15px 16px;font:400 15px var(--body);outline:none;transition:border .25s}
-#audit input:focus,#audit select:focus{border-color:var(--amber)}
-#audit .cta{animation:none;opacity:1;width:100%;margin-top:6px}
-#audit .altbook{text-align:center;color:var(--ink3);font:500 13.5px var(--body);margin-top:2px}
-#audit .altbook a{color:var(--ink);border-bottom:1px solid #ffffff33;text-decoration:none;padding-bottom:1px;transition:.2s;white-space:nowrap}
-#audit .altbook a:hover{color:var(--amber);border-color:var(--amber)}
-#auditOK{display:none;margin-top:4vh;padding:26px;border:1px solid #2FBF7155;border-radius:18px;color:var(--green);font:500 15px var(--body)}
-footer{padding:40px 6vw 60px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;color:var(--ink3);font:500 12.5px var(--body)}
-footer .mark{width:10px;height:10px}
-footer .r{margin-left:auto}
-@media (max-width:760px){
-  .hnav{display:none}
-  #audit form{grid-template-columns:1fr}
-  .act{padding:0 6vw 16vh} #chat{bottom:16vh} #toasts{bottom:16vh}
-  .act h2{font-size:clamp(30px,8.6vw,44px);line-height:1.1}
-  #filmScrim{background:linear-gradient(0deg,#04060be6 0%,#04060ba6 24%,#04060b40 42%,transparent 58%)}
-  #titleCard h1{font-size:clamp(38px,11vw,54px)}
+/* reveals — each element of a section pops up in sequence as it scrolls into view */
+html.js-anim .rv-u{opacity:0;transform:translateY(26px) scale(0.985);
+  transition:opacity .55s ease,transform .6s cubic-bezier(.22,1.2,.36,1)}
+html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html.js-anim .rv-u{opacity:1;transform:none;transition:none}
+  #scrollcue .line{animation:none}
+  #loader .mark{animation:none;opacity:1}
+  .card:hover{transform:none}
 }
-@media (prefers-reduced-motion: reduce){
-  .grain{display:none} #hero h1 .row span{animation-duration:0s}
-}
-/* ---------- frozen-compositor mode (embedded previews, throttled webviews) ----------
-   When rAF/animations don't advance, every fade-in would stay invisible forever.
-   .noanim forces all state-toggled layers to flip instantly and all intro
-   animations to their end state, so the page is fully usable with zero animation. */
-html.noanim .act,html.noanim .hud,html.noanim #filmcta,html.noanim #chat .b,
-html.noanim #feed .row,html.noanim #toasts .t,html.noanim .reveal,html.noanim #trydemo .b,
-html.noanim #pre{transition:none!important}
-html.noanim #hero h1 .row span{animation:none!important;transform:none!important}
-html.noanim #hero .sub,html.noanim .cta{animation:none!important;opacity:1!important}
-html.noanim .grain,html.noanim #pre .beacon{animation:none!important}
-html.noanim #wave .bars i{animation:none!important;height:14px}
 </style>
 </head>
 <body>
-<div id="space"></div>
-<div id="orbit"></div>
-<canvas id="stars"></canvas>
 
-<div id="pre"><div><svg class="logo-mark pre-mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="stArm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="stCore"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#stCore)" fill="currentColor" transform="rotate(45 50 50)"><use href="#stArm"/><use href="#stArm" transform="rotate(90 50 50)"/><use href="#stArm" transform="rotate(180 50 50)"/><use href="#stArm" transform="rotate(270 50 50)"/></g></svg><div class="word">STATION</div></div></div>
-<div id="cur"></div><div id="curR"></div>
-<div class="grain"></div>
+<!-- ============ Loader ============ -->
+<div id="loader" aria-hidden="true">
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="lk-arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="lk-core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#lk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#lk-arm"/><use href="#lk-arm" transform="rotate(90 50 50)"/><use href="#lk-arm" transform="rotate(180 50 50)"/><use href="#lk-arm" transform="rotate(270 50 50)"/></g></svg>
+  <div class="bar"><i id="loadbar"></i></div>
+  <div class="pct" id="loadpct">0%</div>
+</div>
 
+<!-- ============ Header ============ -->
 <header id="hdr">
-  <a class="brand-lock" href="#top">
-    <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="stArm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="stCore"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#stCore)" fill="currentColor" transform="rotate(45 50 50)"><use href="#stArm"/><use href="#stArm" transform="rotate(90 50 50)"/><use href="#stArm" transform="rotate(180 50 50)"/><use href="#stArm" transform="rotate(270 50 50)"/></g></svg>
-    <div class="brand-tx"><b>STATION</b><span class="mono">MISSION CONTROL</span></div>
+  <a class="brand" href="#" aria-label="Station — top">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="hk-arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="hk-core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg>
+    <span class="word">STATION</span>
   </a>
-  <nav class="hnav dock">
-    <a href="#film" data-sec="film"><i>01</i>LAUNCH</a>
-    <a href="#trydemo" data-sec="trydemo"><i>02</i>TRY IT</a>
-    <a href="#split" data-sec="split"><i>03</i>LOSSES</a>
-    <a href="#pricing" data-sec="pricing"><i>04</i>PRICING</a>
+  <nav>
+    <a class="nlink" href="#services">What we handle</a>
+    <a class="nlink" href="#pricing">Pricing</a>
+    <a class="nlink js-book" href="#" target="_blank" rel="noopener">Book a call</a>
+    <button class="btn-audit" data-goto="#audit">Free audit</button>
   </nav>
-  <div class="hdr-right">
-    <button id="soundT" class="mono"><span class="sbars"><b></b><b></b><b></b></span>COMMS</button>
-    <a class="hcta magnetic" href="#audit">Free audit</a>
-  </div>
-  <div id="traj"><span id="trajFill"></span></div>
 </header>
 
-<!-- ================= FILM ================= -->
-<section id="film">
-  <div class="stage" id="filmStage">
-    <div id="titleCard">
-      <div class="eyebrow" style="margin-bottom:22px">MISSION CONTROL FOR BUSINESS</div>
-      <h1><span>Your business</span><span class="am">is built to fly.</span></h1>
-      <p class="tsub">A front office that answers every call, chases every lead, and fills your calendar — 24/7, for any business, anywhere. You just watch the numbers climb.</p>
-      <div class="cta-row">
-        <a class="cta magnetic" style="animation:none;opacity:1" href="#audit">Get your free audit</a>
-        <a class="ghostcta" style="animation:none;opacity:1" href="#trydemo">Try it live ↓</a>
+<!-- ============ The film ============ -->
+<div id="film">
+  <div id="stage">
+    <canvas id="screen"></canvas>
+    <canvas id="ambient"></canvas>
+    <div id="vignette"></div>
+    <canvas id="grain"></canvas>
+    <div id="bottomfade"></div>
+
+    <!-- hero -->
+    <div class="beat" id="hero-beat" data-in="-0.1" data-peak="0" data-out="0.105">
+      <div class="hero-lock">
+        <span class="hl-word">STATION</span>
+        <svg class="hl-mark" viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg>
+        <span class="hl-word r">FRONT OFFICE</span>
       </div>
-      <div class="tstrip">ANY BUSINESS · ANSWERS IN 1 RING · 24/7/365 · SET UP IN DAYS · CANCEL ANYTIME</div>
-      <div class="tscroll">SCROLL — BEGIN COUNTDOWN</div>
+      <div class="sub">The front office your business never had.</div>
     </div>
-    <div class="lbar t"></div><div class="lbar b"></div><div class="vig"></div><div id="filmScrim"></div>
+    <div id="scrollcue"><span>Descend</span><span class="line"></span></div>
 
-    <div class="act" data-leg="0">
-      <span class="eyebrow">T-MINUS</span>
-      <h2>Every business<br/>is built to fly.</h2>
+    <!-- outcome beats -->
+    <div class="beat left mid-l glass" data-in="0.13" data-peak="0.185" data-out="0.26">
+      <span class="chip">Phones</span>
+      <h3>Every call answered.</h3>
+      <p>Missed calls are missed revenue. Station picks up in seconds, every time, and books the job while the caller is still on the line.</p>
     </div>
-    <div class="act" data-leg="1">
-      <span class="eyebrow">THE PAD</span>
-      <h2>Most never<br/>leave the ground.</h2>
+    <div class="beat right mid-r glass" data-in="0.30" data-peak="0.36" data-out="0.43">
+      <span class="chip">Scheduling</span>
+      <h3>Booked while you sleep.</h3>
+      <p>Quotes, bookings and reschedules run themselves. Your calendar fills overnight without you touching it.</p>
     </div>
-    <div class="act" data-leg="2">
-      <span class="eyebrow">IGNITION</span>
-      <h2>Then the<br/>engines light.</h2>
+    <div class="beat center glass" data-in="0.47" data-peak="0.535" data-out="0.61">
+      <span class="chip">Follow-up</span>
+      <h3>Follow-ups that never slip.</h3>
+      <p>Every lead chased, every review asked, every no-show rebooked. Quietly, on time, every time.</p>
     </div>
-    <div class="act" data-leg="3">
-      <span class="eyebrow">LIFTOFF</span>
-      <h2>And everything<br/>climbs.</h2>
+    <div class="beat right mid-r glass" data-in="0.64" data-peak="0.70" data-out="0.77">
+      <span class="chip">One inbox</span>
+      <h3>Calls, texts, reviews, leads — one place.</h3>
+      <p>Stop juggling six apps. Everything a customer sends you lands in one tidy stream, answered on time.</p>
     </div>
-    <div class="act" data-leg="4">
-      <span class="eyebrow">MAX-Q</span>
-      <h2>The noise<br/>falls away.</h2>
-    </div>
-    <div class="act" data-leg="5" data-until="0.28">
-      <span class="eyebrow">ABOVE THE WEATHER</span>
-      <h2>Smooth air.<br/>Full speed.</h2>
-    </div>
-    <div class="act" data-leg="6">
-      <span class="eyebrow">CRUISING</span>
-      <h2>You clocked out.<br/>It kept climbing.</h2>
-    </div>
-    <div class="act" data-leg="7" data-until="1.02" style="pointer-events:auto">
-      <span class="eyebrow">IN ORBIT</span>
-      <h2>You reached orbit<br/>without lifting a finger.</h2>
-      <a class="cta magnetic" style="animation:none;opacity:1;margin-top:26px" href="#audit">See what you missed →</a>
-    </div>
-    <div class="act" data-leg="8" data-until="1.02" style="pointer-events:auto">
-      <span class="eyebrow">IN ORBIT</span>
-      <h2>Your calendar,<br/>fills itself.</h2>
-      <a class="cta magnetic" style="animation:none;opacity:1;margin-top:26px" href="#audit">See what you missed →</a>
+    <div class="beat left mid-l glass" data-in="0.80" data-peak="0.855" data-out="0.92">
+      <span class="chip">Small business</span>
+      <h3>Your town runs on small business.</h3>
+      <p>Plumbers, dentists, gyms, salons, contractors — Station is the front office that keeps yours running.</p>
     </div>
 
-    <div class="hud off" id="telem">
-      <div class="tr"><span class="tk">MET</span><span class="tv" id="tClock">T+00:00</span></div>
-      <div class="tr"><span class="tk">ALT</span><span class="tv" id="tAlt">0.0 km</span></div>
-      <div class="tr"><span class="tk">VEL</span><span class="tv" id="tVel">0 km/h</span></div>
-      <div class="tr gain"><span class="tk">BOOKED</span><span class="tv" id="tBook">$0</span></div>
-    </div>
-    <div id="count" class="off"><span id="countN">10</span></div>
-    <div id="embers"></div>
-
-    <a id="filmcta" class="off" href="#audit"><span class="dot"></span>FREE AUDIT — SEE WHAT YOU’RE MISSING</a>
-    <div class="hud off" id="skymenu">
-      <div class="sk-eyebrow">WHERE DO YOU WANT TO GO?</div>
-      <nav class="sk-clouds">
-        <a class="cloud" href="#trydemo">Try it live</a>
-        <a class="cloud" href="#split">Your lost revenue</a>
-        <a class="cloud" href="#pricing">Pricing</a>
-      </nav>
-    </div>
-
-    <div class="hud off" id="missed"><span class="v">37</span><span class="k">MISSED CALLS THIS MONTH</span></div>
-
-    <div class="hud off" id="wave">
-      <span class="chip"><span class="dot"></span>STATION · LIVE</span>
-      <span class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-    </div>
-    <div class="hud off" id="chat">
-      <div class="b them">Hey — y’all still open? I need a fade before a wedding tomorrow.</div>
-      <div class="b us">We open at 9 — but I can lock you in for 10:00 AM with Marcus. Want it?</div>
-      <div class="b them">yes please</div>
-      <div class="status b"><span class="chip" style="border-color:#2FBF7155;color:var(--green)">✓ BOOKED · TOMORROW 10:00 AM</span></div>
-    </div>
-
-    <div class="hud off" id="feed">
-      <div class="row">↳ 1:12 PM — missed-call text-back fired · <span class="ok">reply in 38s</span></div>
-      <div class="row">↳ 6:40 PM — quote #241 chased (3rd touch) · <span class="ok">accepted · $2,180</span></div>
-      <div class="row">↳ 9:23 PM — review request → last 6 customers · <span class="am">4 clicked</span></div>
-      <div class="row">↳ 2:10 AM — no-show from Tuesday · <span class="ok">re-booked Thu 3:30</span></div>
-    </div>
-
-    <div class="hud off" id="rev"><div class="k">BOOKED TODAY · ACROSS TOWN</div><div class="v">$0</div></div>
-    <div class="hud off" id="toasts">
-      <div style="text-align:right;margin-bottom:2px"><span class="chip">AROUND THE CLOCK · FOUR BUSINESSES</span></div>
-      <div class="t"><span>Fade + beard · Tue 10:00</span><b>$45</b></div>
-      <div class="t"><span>Color + cut · Tue 11:30</span><b>$120</b></div>
-      <div class="t"><span>Kids ×2 · Wed 4:15</span><b>$56</b></div>
-      <div class="t"><span>AC tune-up quote → job</span><b>$2,180</b></div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= BRIDGE ================= -->
-<section id="bridge">
-  <span class="eyebrow">ORBIT ESTABLISHED</span>
-  <h2>The machine runs<br/>up here now.</h2>
-  <p>Above the weather, above the chaos — answering, booking, following up. Everything below is just the view.</p>
-  <span class="down">EXPLORE THE STATION ↓</span>
-</section>
-
-<!-- ================= TRY IT (interactive demo) ================= -->
-<section id="trydemo">
-  <div class="grid2">
-    <div class="reveal">
-      <span class="eyebrow">TALK TO THE BOT</span>
-      <h2 class="h2big" style="margin-top:14px">Text it like<br/>a real customer.</h2>
-      <p style="color:var(--ink2);margin-top:16px;max-width:460px">This is the actual AI receptionist, answering live. Ask it anything a customer would — hours, prices, an emergency — and watch it work toward the booking.</p>
-      <div class="pill">● LIVE AI · REAL RESPONSES</div>
-    </div>
-    <div class="phone reveal">
-      <div class="pbar"><i></i></div>
-      <div class="thread">
-        <div class="hd">
-          <div class="av">S</div>
-          <div><b style="font-size:13px">Your Business</b><small>● STATION · ANSWERS 24/7</small></div>
-        </div>
-        <div id="dmsgs" style="display:flex;flex-direction:column;gap:9px"></div>
-        <div class="typing" id="dtyping"><i></i><i></i><i></i></div>
-        <div class="dchips" id="dchips"></div>
-        <form class="dform" id="dform" autocomplete="off">
-          <input id="dinput" placeholder="Text the shop…" maxlength="280"/>
-          <button type="submit" id="dsend" aria-label="Send">↑</button>
-        </form>
+    <!-- finale — never fades -->
+    <div class="beat left glass" id="finale" data-in="0.925" data-peak="0.985" data-out="2" style="bottom:12vh">
+      <span class="chip">Station</span>
+      <h3>You see the town.<br>Station runs the front office.</h3>
+      <div class="ctas">
+        <button class="btn-primary" data-goto="#audit">Get your free audit</button>
+        <button class="btn-ghost" data-goto="#pricing">See pricing</button>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ================= SPLIT (drag slider) ================= -->
-<section id="split">
-  <div class="head reveal"><span class="eyebrow">DO THE MATH</span><h2>What the missed calls<br/>are actually costing you.</h2></div>
-  <div class="calc reveal">
-    <div class="calc-inputs">
-      <label>
-        <span class="lrow"><span class="ltx">A new customer is worth</span><output id="calcTicketOut">$350</output></span>
-        <input id="calcTicket" type="range" min="25" max="10000" value="350" step="25"/>
-        <span class="rng mono"><i>$25</i><i>$10k+</i></span>
-      </label>
-      <label>
-        <span class="lrow"><span class="ltx">Calls &amp; leads missed / week</span><output id="calcMissOut">12</output></span>
-        <input id="calcMiss" type="range" min="1" max="60" value="12"/>
-        <span class="rng mono"><i>1</i><i>60</i></span>
-      </label>
-      <label>
-        <span class="lrow"><span class="ltx">You'd have closed</span><output id="calcCloseOut">35%</output></span>
-        <input id="calcClose" type="range" min="5" max="90" value="35" step="5"/>
-        <span class="rng mono"><i>5%</i><i>90%</i></span>
-      </label>
+    <!-- altimeter -->
+    <div id="alti">
+      <span class="ch" id="alti-ch">Above</span>
+      <span class="m" id="alti-m">4,120 M</span>
+      <div class="track"><i id="alti-bar"></i></div>
     </div>
-    <div class="calc-out">
-      <div class="calc-lost">
-        <span class="k mono">WALKING OUT THE DOOR</span>
-        <span class="big" id="calcMonth">$0</span>
-        <span class="per mono">/ MONTH</span>
-        <div class="calc-break">
-          <div><span id="calcWeek">$0</span><small class="mono">/ WEEK</small></div>
-          <div><span id="calcYear">$0</span><small class="mono">/ YEAR</small></div>
-        </div>
-      </div>
-      <div class="calc-rec">
-        <span class="k mono">STATION ANSWERS &amp; BOOKS THEM</span>
-        <span class="recn" id="calcRec">+$0<span class="mono">/mo recovered</span></span>
-        <a class="cta magnetic" href="#audit">Get my exact number — free audit</a>
-      </div>
-    </div>
-  </div>
-  <p class="calc-note">Drag the sliders to your business. Math: missed × 4.3 weeks × close rate × customer value. Conservative — most owners undercount what they miss.</p>
-</section>
-
-<!-- ================= CAPABILITIES ================= -->
-<section id="how">
-  <div class="reveal"><span class="eyebrow">WHAT WE INSTALL IN YOUR BUSINESS</span>
-  <h2 class="h2big" style="margin-top:14px;max-width:760px">A full front office.<br/>Zero payroll.</h2>
-  <p style="color:var(--ink2);margin-top:16px;max-width:560px">Storefront or software, clinic or dispatch fleet, one chair or fifty locations — the machine is the same. We wire it into your number, your calendar, your tone. It runs forever.</p></div>
-  <div class="grid">
-    <div class="card reveal"><div class="num">01</div><h3>AI Voice Receptionist</h3>
-      <p>Answers live calls in one ring, in a voice that fits your shop — books, reschedules, answers the questions you're tired of answering. Never sick, never rude, never closed.</p></div>
-    <div class="card reveal"><div class="num">02</div><h3>Missed-Call Text-Back</h3>
-      <p>The instant a call slips by, the caller gets a text from your number. Most book before they've tried anyone else.</p></div>
-    <div class="card reveal"><div class="num">03</div><h3>Follow-Up Engine</h3>
-      <p>Every quote, lead, and estimate chased until it's a yes or a no — at the right hour, in your tone. Cold leads from months ago wake back up.</p></div>
-    <div class="card reveal"><div class="num">04</div><h3>Self-Filling Calendar</h3>
-      <p>Customers book straight into slots you control. Reminders make sure they show; no-shows get re-booked automatically.</p></div>
-    <div class="card reveal"><div class="num">05</div><h3>Review Engine</h3>
-      <p>Happy customers get asked at the perfect moment. Your Google rating climbs on autopilot — and rank follows rating.</p></div>
-    <div class="card reveal"><div class="num">06</div><h3>Custom Automations</h3>
-      <p>Multi-location routing, fleet dispatch, membership renewals, whatever your ops need — if it's repetitive, we make it run itself.</p></div>
-  </div>
-  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:8vh">
-    <div class="reveal" style="text-align:center"><div class="num" style="color:var(--amber);letter-spacing:.3em;font-size:12px">STEP 1</div>
-      <h3 style="margin:10px 0 6px">Free audit</h3><p style="color:var(--ink2);font-size:14px">We measure what you’re missing. Real numbers, no pitch.</p></div>
-    <div class="reveal" style="text-align:center"><div class="num" style="color:var(--amber);letter-spacing:.3em;font-size:12px">STEP 2</div>
-      <h3 style="margin:10px 0 6px">We install</h3><p style="color:var(--ink2);font-size:14px">Days, not months. Your number, your calendar, your voice.</p></div>
-    <div class="reveal" style="text-align:center"><div class="num" style="color:var(--amber);letter-spacing:.3em;font-size:12px">STEP 3</div>
-      <h3 style="margin:10px 0 6px">It runs forever</h3><p style="color:var(--ink2);font-size:14px">It clocks in every hour — day and night. You check the dashboard.</p></div>
-  </div>
-</section>
-
-<!-- ================= PRICING ================= -->
-<section id="pricing">
-  <div class="reveal" style="text-align:center"><span class="eyebrow">SIMPLE PRICING</span>
-  <h2 class="h2big" style="margin-top:14px">Less than one lost customer a week.</h2></div>
-  <div class="billtoggle reveal" role="group" aria-label="billing period">
-    <button id="billMo" class="on" data-bill="mo">Monthly</button>
-    <button id="billYr" data-bill="yr">Annual <span class="save">save ~2 months</span></button>
-  </div>
-  <!-- v3 PRICING (Core $750 / Pro $1,500 / Custom $2,500). data-*-href point to the intro-call
-       booking widget as a SAFE INTERIM so nobody can buy at a dead price. TODO(founder): create the
-       6 new Stripe payment links (Core mo/yr, Pro mo/yr, Custom mo/yr) with the new prices + setup
-       fees, then paste them into the four data-*-href attrs + the three <a class="go"> hrefs, and
-       update WF-D's price-ID Switch. See MUST-DO doc §Stripe. -->
-  <div class="grid">
-    <div class="price reveal" data-tier="core"
-         data-mo-price="$750<small>/mo</small>" data-yr-price="$7,500<small>/yr</small>"
-         data-mo-href="https://buy.stripe.com/fZu14g84Q30dasx5ZC2Fa0g"
-         data-yr-href="https://buy.stripe.com/aFa3cogBmbwJasx1Jm2Fa0i">
-      <div class="nm">STATION CORE</div>
-      <div class="amt">$750<small>/mo</small></div>
-      <ul>
-        <li>Missed-call text-back, 24/7</li>
-        <li>Self-filling calendar + reminders</li>
-        <li>Review engine on autopilot</li>
-        <li>Lead follow-up sequences</li>
-        <li>Business number included</li>
-        <li>One dashboard, zero busywork</li>
-      </ul>
-      <div class="setup">+ $1,000 one-time setup</div>
-      <a class="go magnetic" href="https://api.leadconnectorhq.com/widget/bookings/station-intro-call" target="_blank" rel="noopener">Start with Core</a>
-    </div>
-    <div class="price pro reveal" data-tier="pro"
-         data-mo-price="$1,500<small>/mo</small>" data-yr-price="$15,000<small>/yr</small>"
-         data-mo-href="https://buy.stripe.com/cNieV6acY0S558dew82Fa0f"
-         data-yr-href="https://buy.stripe.com/6oU14g98U8kx0RX5ZC2Fa0j">
-      <div class="pop">MOST POPULAR</div>
-      <div class="nm">STATION PRO</div>
-      <div class="amt">$1,500<small>/mo</small></div>
-      <ul>
-        <li>Everything in Core</li>
-        <li>AI voice receptionist — answers live calls 24/7</li>
-        <li>Quote-chasing follow-up engine</li>
-        <li>Customer reactivation campaigns</li>
-        <li>Priority support, same-day tweaks</li>
-      </ul>
-      <div class="setup">+ $2,000 one-time setup</div>
-      <a class="go magnetic" href="https://api.leadconnectorhq.com/widget/bookings/station-intro-call" target="_blank" rel="noopener">Go Pro</a>
-    </div>
-    <div class="price reveal" data-tier="custom"
-         data-mo-price="$2,500<small>/mo</small>" data-yr-price="$25,000<small>/yr</small>"
-         data-mo-href="https://buy.stripe.com/3cI7sE3OA1W9asx5ZC2Fa0e"
-         data-yr-href="https://buy.stripe.com/7sYcMYgBm44hasxds42Fa0h">
-      <div class="nm">STATION CUSTOM</div>
-      <div class="amt">$2,500<small>/mo</small></div>
-      <ul>
-        <li>Everything in Pro</li>
-        <li>Multi-location ready (up to 3)</li>
-        <li>Dedicated success manager</li>
-        <li>Custom workflow builds each quarter</li>
-        <li>Ad-campaign management · same-day SLA</li>
-      </ul>
-      <div class="setup">+ $3,000 one-time setup</div>
-      <a class="go magnetic" href="https://api.leadconnectorhq.com/widget/bookings/station-intro-call" target="_blank" rel="noopener">Start with Custom</a>
-    </div>
-  </div>
-  <div class="addons reveal">
-    <div class="attl">Build on your Station</div>
-    <div class="arow">
-      <div class="addon">
-        <div><div class="an">Client website</div><div class="ad">Designed, hosted, and maintained — built to feed your Station leads.</div></div>
-        <div class="ap">$1,000 build<small>+ $300/mo</small></div>
-      </div>
-      <div class="addon">
-        <div><div class="an">Branded mobile app</div><div class="ad">Your business in your customers’ pocket — bookings, messages, payments.</div></div>
-        <div class="ap">$250<small>/mo</small></div>
-      </div>
-      <div class="addon">
-        <div><div class="an">POS &amp; payments</div><div class="ad">Tap-to-pay and point-of-sale, scoped to your counter.</div></div>
-        <div class="ap">quoted<small>on your intro call</small></div>
-      </div>
-    </div>
-  </div>
-  <div class="finePrint">no contracts · cancel anytime · set up in days · business number &amp; texting included in every tier · a receptionist costs $2,800–$4,500/mo — Station answers every call from $750</div>
-</section>
-
-<!-- ================= AUDIT ================= -->
-<section id="audit">
-  <img class="bg" src="assets/posters/launch/leg7.webp" alt="" style="opacity:.3;filter:blur(1px)"/>
-  <div class="vig"></div>
-  <div class="wrap">
-    <span class="eyebrow">FREE · TAKES 90 SECONDS</span>
-    <h2 class="h2big" style="margin-top:16px">Find out how much you’re leaving on the table.</h2>
-    <p style="color:var(--ink2);margin-top:16px">We’ll audit your missed calls, response times, reviews, and booking flow — and send you the number. No pitch unless you ask for one.<br/><span style="font-size:13.5px;color:var(--ink3)">Drop your website + city and we’ll audit the real thing, not a guess.</span></p>
-    <form id="auditForm">
-      <div><label>YOUR NAME</label><input name="name" required autocomplete="name"/></div>
-      <div><label>BUSINESS NAME</label><input name="business" required autocomplete="organization"/></div>
-      <div><label>PHONE</label><input name="phone" type="tel" required autocomplete="tel"/></div>
-      <div><label>EMAIL</label><input name="email" type="email" required autocomplete="email"/></div>
-      <div><label>WEBSITE <span class="opt">optional</span></label><input name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com"/></div>
-      <div><label>CITY <span class="opt">optional</span></label><input name="city" autocomplete="address-level2" placeholder="City, State"/></div>
-      <div class="full"><label>BIGGEST HEADACHE RIGHT NOW</label>
-        <select name="pain">
-          <option>Missed calls / slow callbacks</option>
-          <option>No-shows and empty slots</option>
-          <option>Quotes going cold</option>
-          <option>Not enough reviews</option>
-          <option>All of it</option>
-          <option>Other</option>
-        </select></div>
-      <input type="hidden" name="ref" id="refField"/>
-      <input type="hidden" name="source" value="nightshift"/>
-      <div class="full"><button class="cta magnetic" type="submit">Send me my free audit</button></div>
-      <div class="full altbook">Rather skip ahead? <a href="https://api.leadconnectorhq.com/widget/bookings/station-intro-call" target="_blank" rel="noopener">Book a 15-minute intro call →</a></div>
-      <div class="full" style="font-size:11px;opacity:.55;margin-top:6px">By submitting, you agree to our <a href="legal/privacy.html" style="color:inherit;text-decoration:underline">Privacy Policy</a>.</div>
-    </form>
-    <div id="auditOK">✓ Got it. Your audit is being built now — check your inbox in the next few minutes.</div>
-  </div>
-</section>
-
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <div style="display:flex;align-items:center;gap:10px"><svg class="logo-mark f-mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="stArm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="stCore"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#stCore)" fill="currentColor" transform="rotate(45 50 50)"><use href="#stArm"/><use href="#stArm" transform="rotate(90 50 50)"/><use href="#stArm" transform="rotate(180 50 50)"/><use href="#stArm" transform="rotate(270 50 50)"/></g></svg><b>Station</b></div>
-      <p>Mission control for business. Answers, books, follows up — and never clocks out.</p>
-    </div>
-    <nav class="f-nav">
-      <a href="#film">The launch</a><a href="#trydemo">Try it live</a>
-      <a href="#split">Lost revenue</a><a href="#pricing">Pricing</a><a href="#audit">Free audit</a>
-    </nav>
-    <div class="f-cta">
-      <a class="cta magnetic" style="animation:none;opacity:1;padding:13px 26px;font-size:14px" href="#audit">Start with the free audit</a>
-      <span class="f-note">SET UP IN DAYS · NO CONTRACTS</span>
-    </div>
-  </div>
-  <div class="f-legal">
-    <span>© 2026 STATION AUTOMATIONS GROUP LLC</span>
-    <span style="display:flex;gap:14px"><a href="legal/tos.html" style="color:inherit">TERMS</a><a href="legal/privacy.html" style="color:inherit">PRIVACY</a><a href="legal/sms-terms.html" style="color:inherit">SMS</a><a href="legal/cancellation.html" style="color:inherit">CANCELLATION</a></span>
-    <span class="r">ALL SYSTEMS NOMINAL</span>
-  </div>
-</footer>
-
-<script>
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
-const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
-const coarse=matchMedia('(hover:none) and (pointer:coarse)').matches;
-const isMobile=()=>coarse||innerWidth<=860;
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---------- ref capture (affiliate) ---------- */
-try{
-  const p=new URLSearchParams(location.search).get('ref');
-  if(p) localStorage.setItem('station_ref',p);
-  $('#refField').value=localStorage.getItem('station_ref')||'';
-}catch(e){}
-
-/* ---------- preloader ---------- */
-addEventListener('load',()=>setTimeout(()=>$('#pre').classList.add('done'),900));
-setTimeout(()=>$('#pre').classList.add('done'),3200);
-
-/* ---------- cursor + magnetic ---------- */
-if(!coarse){
-  const c=$('#cur'),r=$('#curR');let mx=0,my=0,rx=0,ry=0;
-  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.transform=`translate(${mx-3}px,${my-3}px)`;});
-  (function f(){rx+=(mx-rx)*.16;ry+=(my-ry)*.16;r.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(f);})();
-  $$('a,button,.card,.price').forEach(el=>{
-    el.addEventListener('mouseenter',()=>r.classList.add('big'));
-    el.addEventListener('mouseleave',()=>r.classList.remove('big'));
-  });
-  $$('.magnetic').forEach(el=>{
-    el.addEventListener('mousemove',e=>{const b=el.getBoundingClientRect();
-      el.style.transform=`translate(${(e.clientX-b.x-b.width/2)*.18}px,${(e.clientY-b.y-b.height/2)*.3}px)`;});
-    el.addEventListener('mouseleave',()=>el.style.transform='');
-  });
-}
-
-/* ---------- blob loader ---------- */
-async function blobInto(video,url){
-  try{const r=await fetch(url);if(!r.ok)throw 0;const b=await r.blob();
-    video.src=URL.createObjectURL(b);return new Promise(res=>video.addEventListener('loadedmetadata',()=>res(video),{once:true}));
-  }catch(e){return null}
-}
-
-/* ---------- hero + split ambient loops ---------- */
-/* split section is now a calculator — no ambient loop videos to load */
-
-/* ---------- reels: default = THE LAUNCH (ascent). ?n=patrol / ?n=barber keep the night-shift cuts ---------- */
-const PATROL_ACTS={
-  0:['LIVE DEMO · ANY BUSINESS, ANYWHERE','Closed doesn’t<br/>stop the calls.','The calls you can’t get to don’t leave voicemails — they book with whoever answers first.'],
-  1:['SAME MOMENT · THE RECEPTIONIST CLOCKS IN','Answered<br/>in one ring.','Booked, confirmed, texted back — in your voice, on your number. And that’s just the first employee we install.'],
-  2:['ACROSS THE STREET · THE REST OF THE CREW','Answering was<br/>just the start.','Quotes chased to a yes, reviews requested at the perfect moment, cold customers waking back up.'],
-  3:['THE GARAGE','Your calendar<br/>fills itself.','Customers book straight into slots you control — even when you can’t pick up.'],
-  4:['THE WHOLE SYSTEM','You clocked out.<br/>Station didn’t.','Reception, follow-up, bookings, reviews, reactivation — your full front office never clocked out.'],
-  5:['ABOVE IT ALL','Every hour.<br/>Every door answered.','Now imagine every day this month.'],
-  6:['',' ',''],
-  7:['BACK TO EARTH · FREE · 90 SECONDS','Your door<br/>is next.','We’ll count the calls, leads, and reviews you missed last month — and what they were worth.'],
-  8:['',' ',''],
-};
-const NICHES={
-  default:{ /* THE LAUNCH */
-    mode:'launch', dir:'assets/vid/launch', legsN:8, firstLeg:0,
-    acts:null, menu:[5.32,5.94],
-  },
-  patrol:{
-    mode:'biz', dir:'assets/vid/patrol', legsN:8,
-    acts:PATROL_ACTS, menu:[6.25,6.92],
-    toasts:[['Fade + beard · Tue 10:00','$45'],['Crown consult · Wed 9:15','$380'],
-            ['Color + cut · Tue 11:30','$120'],['AC compressor quote → job','$2,180']],
-  },
-  barber:{
-    mode:'biz', dir:'assets/vid/barber', legsN:5,
-    acts:Object.assign({},PATROL_ACTS,{
-      2:['THE MOMENT YOU’RE BUSY','Then it goes<br/>to work.','Missed calls texted back, quotes chased, reviews requested — in your voice.'],
-      3:['ALL DAY · ALL NIGHT','Your week<br/>fills itself.','Customers book straight into slots you control. Reminders make them show.'],
-      4:['YOUR FIRST WEEK','You clocked out.<br/>Station didn’t.','Walk in to booked chairs and fresh five-star reviews. No new hires. No contracts.'],
-    }), menu:[99,99],
-    toasts:[['Fade + beard · Tue 10:00','$45'],['Color + cut · Tue 11:30','$120'],
-            ['Kids ×2 · Wed 4:15','$56'],['Line-up + hot towel · Thu 5:00','$38']],
-  },
-};
-const nicheKey=(new URLSearchParams(location.search).get('n')||'default');
-const CFG=NICHES[nicheKey]||NICHES.default;
-if(CFG.acts) Object.entries(CFG.acts).forEach(([leg,[ey,h,p]])=>{
-  const a=document.querySelector(`.act[data-leg="${leg}"]`); if(!a) return;
-  a.querySelector('.eyebrow').textContent=ey; a.querySelector('h2').innerHTML=h;
-  const pe=a.querySelector('p'); if(pe) pe.textContent=p; else if(p){const np=document.createElement('p');np.textContent=p;a.appendChild(np);}
-});
-if(CFG.toasts){const ts=$$('#toasts .t');CFG.toasts.forEach((t,i)=>{
-  if(ts[i]){ts[i].firstElementChild.textContent=t[0];ts[i].lastElementChild.textContent=t[1];}});}
-
-/* ---------- film scrubber ---------- */
-const LEGN=CFG.legsN||5;
-const LEGBASE=CFG.firstLeg!==undefined?CFG.firstLeg:1;
-const LEGS=Array.from({length:LEGN},(_,k)=>k+LEGBASE).map(i=>({
-  url:`${CFG.dir}/leg${i}.mp4`, urlM:`${CFG.dir}/leg${i}-m.mp4`,
-  el:null,video:null,ready:false,loading:false,cur:0,target:0
-}));
-const stage=$('#filmStage');
-const POSTERS=CFG.dir.replace('assets/vid/','assets/posters/');
-LEGS.forEach((L,i)=>{
-  const d=document.createElement('div');d.className='leg';
-  const im=document.createElement('img');
-  im.src=`${POSTERS}/leg${i+LEGBASE}.webp`;
-  im.onerror=()=>{im.onerror=null;im.src='assets/shop.webp'};
-  d.appendChild(im);
-  /* FIXED VIDEO POOL: one element per leg, created ONCE and never destroyed.
-     Creating/destroying media elements dynamically wedges Chrome's per-tab media
-     pipeline (new videos stall at networkState LOADING forever). We only ever
-     swap src on these same 8 elements. */
-  const v=document.createElement('video');
-  v.muted=true;v.playsInline=true;v.preload='auto';v.setAttribute('muted','');v.setAttribute('playsinline','');
-  v.addEventListener('seeked',()=>d.classList.add('painted'));
-  v.addEventListener('loadeddata',()=>d.classList.add('painted'));  /* first frame counts too */
-  d.appendChild(v);
-  stage.insertBefore(d,stage.firstChild);
-  L.el=d;L.video=v;L.blobUrl=null;
-});
-function loadLeg(L){
-  if(L.ready||L.loading)return;L.loading=true;
-  const attach=()=>{
-    L.video.src=L.blobUrl;
-    const t=setTimeout(()=>{if(!L.ready){L.loading=false;}},8000);  /* stuck-load retry */
-    L.video.addEventListener('loadedmetadata',()=>{clearTimeout(t);L.ready=true;L.loading=false;},{once:true});
-    L.video.load();
-  };
-  if(L.blobUrl){attach();return}
-  fetch(isMobile()?L.urlM:L.url).then(r=>{if(!r.ok)throw 0;return r.blob()})
-    .then(b=>{L.blobUrl=URL.createObjectURL(b);attach();})
-    .catch(()=>{L.loading=false;});
-}
-const film=$('#film');
-film.style.height=(LEGN*(isMobile()?80:150)+60)+'vh';   /* +runway for the title beat */   /* phones: much shorter film — thumbs, not mousewheels */
-const filmProg=()=>{const r=film.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight));};
-const FADE=.055;
-
-/* HUD timeline: [legIndex, startFrac, endFrac, elementId] — fracs are within-leg */
-const HUD=CFG.mode==='launch'?[
-  [5,.32,.92,'skymenu'],   /* menu floats on the cloud-sea beat */
-]:[
-  [0,.15,.95,'missed'],
-  [1,.05,.98,'wave'],
-  [1,.10,.98,'chat'],
-  [2,.06,.96,'feed'],
-  [3,.05,.97,'rev'],
-  [3,.05,.97,'toasts'],
-  [CFG.legsN-2,.10,.90,'skymenu'],
-];
-const chatB=$$('#chat .b'), feedR=$$('#feed .row'), toastT=$$('#toasts .t');
-const easeOut=t=>1-Math.pow(1-t,3);
-
-function filmTick(){
-  const p=filmProg();
-  const pos=p*LEGN;                       // 0..LEGN
-  LEGS.forEach((L,i)=>{
-    const local=clamp(pos-i,0,1);
-    L.target=local;
-    /* opacity: crossfade bands at leg boundaries */
-    let op=1;
-    if(pos<i) op=clamp(1-(i-pos)/FADE);
-    else if(pos>i+1) op=clamp(1-(pos-i-1)/FADE);
-    L.visible=op>0.001;
-    L.el.style.opacity=op;
-    L.el.style.visibility=L.visible?'visible':'hidden';  /* skip compositing off-legs */
-    L.el.style.zIndex=1+Math.round(op*5);   /* MUST stay below the act/HUD text layer (z 8+) */
-    /* video windowing: phones can only decode ~3-4 videos at once — keep a
-       prev/current/next window attached, fully unload everything farther out */
-    const dist=Math.abs(pos-(i+.5));
-    if(dist<1.6) loadLeg(L);
-    else if(dist>2.4&&L.ready){
-      /* detach SRC only — the element itself lives forever (fixed pool) */
-      try{L.video.pause();L.video.removeAttribute('src');L.video.load();}catch(e){}
-      if(isMobile()&&L.blobUrl){try{URL.revokeObjectURL(L.blobUrl)}catch(e){};L.blobUrl=null;}
-      L.ready=false;L.loading=false;L.cur=0;L.el.classList.remove('painted');
-    }
-  });
-  /* title card: dissolves across the first half-leg as the film starts moving */
-  const tc=$('#titleCard');
-  const tp=clamp(pos/.5);
-  tc.style.opacity=1-tp;
-  tc.style.transform=`translateY(${-tp*60}px) scale(${1-tp*.04})`;
-  tc.classList.toggle('gone',tp>.9);
-  /* acts: continuous handoff — exactly one act on at any film position.
-     An act owns the screen from its leg's start until the next act's leg starts.
-     Exception: the sky-menu beat (leg 6 interior) silences acts so the menu owns it. */
-  const acts=$$('.act');
-  let active=null;
-  acts.forEach(a=>{const i=+a.dataset.leg;const startAt=i===0?.62:i+.12;if(pos>=startAt&&(!active||i>+active.dataset.leg))active=a;});
-  const [mLo,mHi]=CFG.menu||[99,99];
-  const menuOwns=pos>=mLo&&pos<=mHi;
-  const inFilm=p>0.005&&p<0.995;
-  acts.forEach(a=>a.classList.toggle('on',inFilm&&!menuOwns&&a===active));
-  /* persistent conversion chip through the whole film (yields to the finale act's big CTA) */
-  $('#filmcta').classList.toggle('off',!(inFilm&&pos<LEGN-0.9));
-  /* HUDs */
-  HUD.forEach(([leg,s,e,id])=>{
-    const local=pos-leg;
-    document.getElementById(id).classList.toggle('off',!(local>=s&&local<=e));
-  });
-  if(CFG.mode==='launch'){
-    /* mission telemetry — every number GAINS as you climb */
-    $('#telem').classList.toggle('off',!(inFilm&&pos>1.9));
-    const prog=clamp(pos/LEGN);
-    const met=Math.round(prog*540);
-    $('#tClock').textContent='T+'+String(Math.floor(met/60)).padStart(2,'0')+':'+String(met%60).padStart(2,'0');
-    const alt=Math.pow(prog,1.7)*408;
-    $('#tAlt').textContent=(alt<100?alt.toFixed(1):Math.round(alt))+' km';
-    $('#tVel').textContent=Math.round(Math.pow(prog,1.25)*27600).toLocaleString()+' km/h';
-    $('#tBook').textContent='$'+Math.round(easeOut(prog)*7420).toLocaleString();
-    /* max-q telemetry glitch: numbers stutter/redden during the storm beat (leg 3) */
-    const stormLocal=pos-4;
-    $('#telem').classList.toggle('alert',stormLocal>=.1&&stormLocal<=.85);
-    /* ignition embers: rise past the burner for a few beats after liftoff (leg 1-2) */
-    const emberLocal=pos-2;
-    const emberWrap=$('#embers');
-    emberWrap.classList.toggle('on',emberLocal>=0&&emberLocal<=1.6);
-    if(emberLocal>=0&&emberLocal<=1.6&&!emberWrap.dataset.seeded){
-      emberWrap.dataset.seeded='1';
-      for(let i=0;i<18;i++){
-        const e=document.createElement('i');
-        e.style.left=(Math.random()*100)+'%';
-        e.style.setProperty('--drift',(Math.random()*80-40)+'px');
-        e.style.animationDuration=(2.2+Math.random()*2.6)+'s';
-        e.style.animationDelay=(Math.random()*3)+'s';
-        emberWrap.appendChild(e);
-      }
-    }
-    /* countdown: T-10 ticks down across the pad approach, hits 0 at ignition */
-    const cEl=$('#count'),cN=$('#countN');
-    /* countdown 10 -> 1 up top, then fades the instant the engines light (no giant IGNITION word) */
-    if(inFilm&&pos>1.42&&pos<2){
-      cEl.classList.remove('off');
-      cN.textContent=Math.max(1,Math.ceil(10*(1-(pos-1.42)/.58)));
-    }else cEl.classList.add('off');
-    /* the sky opens: the ACTUAL final orbit frame fades in behind the last legs (so the film's
-       release is invisible), then dissolves to calm deep space as you scroll into the content */
-    const sky=clamp((pos-6.0)/1.5);
-    starCv.style.opacity=String(sky);
-    spaceEl.style.opacity=String(sky);
-    const feY=film.offsetTop+film.offsetHeight-innerHeight;           // scrollY where the film fully releases
-    const past=clamp((scrollY-feY)/(innerHeight*1.25));               // 0 at release, 1 a screen later
-    orbitEl.style.opacity=String(sky*(1-past));                        // real orbit holds the seam, then fades
-    /* retract the cinematic letterbox as we hit orbit so the video is full-bleed and lines up with the backdrop */
-    const bar=(6.5*clamp(1-(pos-6.0)/1.1)).toFixed(2)+'vh';
-    filmBars.forEach(b=>b.style.height=bar);
-    /* engine rumble if sound is on (screen shake removed for a clean overlay) */
-    if(rumbleG&&soundOn){
-      const r=(pos>1.9&&pos<6.4)?Math.sin(clamp((pos-1.9)/4.5)*Math.PI)*.5:0;
-      rumbleG.gain.setTargetAtTime(r,AC.currentTime,.15);
-    }
-  }else{
-    const l1=clamp(pos-1), l2=clamp(pos-2), l3=clamp(pos-3);
-    /* missed counter drains as Station answers (leg 2) */
-    $('#missed .v').textContent=Math.round(37*(1-easeOut(clamp((pos-1.1)/.7))));
-    $('#wave').classList.toggle('live',l1>.05&&l1<1);
-    chatB.forEach((b,i)=>b.classList.toggle('on',l1>=.18+i*.16));
-    feedR.forEach((r,i)=>r.classList.toggle('on',l2>=.12+i*.15));
-    toastT.forEach((t,i)=>t.classList.toggle('on',l3>=.1+i*.14));
-    $('#rev .v').textContent='$'+Math.round(2401*easeOut(clamp((pos-3.05)/.75))).toLocaleString();
-  }
-}
-
-/* ---------- missed-revenue calculator ---------- */
-function splitTick(){}  /* legacy no-op — filmTick still calls it */
-{
-  const $t=$('#calcTicket'),$m=$('#calcMiss'),$c=$('#calcClose');
-  const fmt=n=>'$'+Math.round(n).toLocaleString();
-  const money=n=>n>=10000?'$'+n.toLocaleString()+'+':'$'+n.toLocaleString();
-  function calc(){
-    const ticket=+$t.value, missWk=+$m.value, closePct=+$c.value/100;
-    $('#calcTicketOut').textContent=money(ticket);
-    $('#calcMissOut').textContent=missWk;
-    $('#calcCloseOut').textContent=(+$c.value)+'%';
-    const lostWk=missWk*closePct*ticket, lostMo=lostWk*4.3;
-    $('#calcWeek').textContent=fmt(lostWk);
-    $('#calcMonth').textContent=fmt(lostMo);
-    $('#calcYear').textContent=fmt(lostMo*12);
-    /* Station recovers the bulk of what a live answer + follow-up would have caught */
-    $('#calcRec').innerHTML=fmt(lostMo*0.7)+'<span class="mono">/mo recovered</span>';
-  }
-  [$t,$m,$c].forEach(el=>el&&el.addEventListener('input',calc));
-  if($t) calc();
-}
-
-/* ---------- try-it demo: LIVE AI chat (Claude via n8n) ---------- */
-{
-  const CHAT_URL='https://n8n.srv1748596.hstgr.cloud/webhook/station-demo-chat';
-  const dm=$('#dmsgs'),dt=$('#dtyping'),dchips=$('#dchips'),dform=$('#dform'),din=$('#dinput'),dsend=$('#dsend');
-  const STARTERS=["Y’all open Saturday?","My AC just died — help!","How much for a cleaning?","Do you take walk-ins?"];
-  let history=[], busy=false, greeted=false;
-  const dwait=ms=>new Promise(r=>setTimeout(r,ms));
-  function bubble(text,cls){const d=document.createElement('div');d.className='b '+cls;d.textContent=text;
-    dm.appendChild(d);setTimeout(()=>d.classList.add('on'),20);dm.scrollTop=1e5;return d;}
-  function showChips(){dchips.innerHTML='';STARTERS.forEach(t=>{const b=document.createElement('button');
-    b.type='button';b.textContent=t;b.onclick=()=>{din.value=t;send();};dchips.appendChild(b);});}
-  async function send(){
-    const text=(din.value||'').trim(); if(!text||busy)return;
-    busy=true;dsend.disabled=true;din.value='';dchips.innerHTML='';
-    bubble(text,'them'); history.push({role:'user',content:text});
-    await dwait(300);dt.classList.add('on');dm.scrollTop=1e5;
-    let reply='';
-    try{
-      const r=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({messages:history})});
-      const j=await r.json(); reply=(j&&j.reply)||'';
-    }catch(e){}
-    dt.classList.remove('on');
-    if(!reply) reply="One sec — mind trying that again?";
-    bubble(reply,'us'); history.push({role:'assistant',content:reply});
-    if(history.length>=6 && !dm.querySelector('.demo-cta')){
-      const c=document.createElement('a');c.className='b us demo-cta';c.href='#audit';
-      c.style.cssText='text-decoration:none;background:#10241a;border:1px solid #2FBF7144;color:var(--ink);width:86%';
-      c.innerHTML='<b style="color:var(--green)">That’s Station, always on.</b><br/>See what yours would book →';
-      dm.appendChild(c);setTimeout(()=>c.classList.add('on'),20);
-    }
-    busy=false;dsend.disabled=false;din.focus({preventScroll:true});dm.scrollTop=1e5;
-  }
-  dform.addEventListener('submit',e=>{e.preventDefault();send();});
-  showChips();
-  /* greet once when the demo scrolls into view */
-  const dio=new IntersectionObserver(es=>{if(es[0].isIntersecting&&!greeted){greeted=true;
-    bubble("Hey — thanks for texting! What can I get set up for you?",'us');
-    history.push({role:'assistant',content:"Hey — thanks for texting! What can I get set up for you?"});
-  }},{threshold:.35});
-  dio.observe($('#trydemo'));
-}
-
-/* ---------- master rAF: scrub video currentTime ---------- */
-let TICKS=0, LASTERR=null;
-function seekPass(instant){
-  const eps=isMobile()?0.02:0.008;
-  LEGS.forEach(L=>{
-    if(!L.ready||!L.video)return;
-    if(!L.visible){L.cur=L.target;return}     /* invisible legs track silently, no decode */
-    if(L.video.seeking)return;
-    L.cur=instant?L.target:L.cur+(L.target-L.cur)*(reduce?1:.16);
-    const t=clamp(L.cur,0,.999)*(L.video.duration||10);
-    if(Math.abs(L.video.currentTime-t)>eps){try{L.video.currentTime=t}catch(e){}}
-  });
-}
-/* ---------- starfield engine (drawn on scroll ticks — no rAF dependency) ---------- */
-const starCv=document.getElementById('stars'),starCx=starCv.getContext('2d');
-const spaceEl=document.getElementById('space'),orbitEl=document.getElementById('orbit');
-const filmBars=Array.from(document.querySelectorAll('#filmStage .lbar'));
-let STARS=[],lastStarY=-1;
-function initStars(){
-  starCv.width=innerWidth;starCv.height=innerHeight;STARS=[];
-  const n=Math.round(innerWidth*innerHeight/6500);
-  for(let i=0;i<n;i++)STARS.push({x:Math.random(),y:Math.random(),r:Math.random()*1.3+.3,
-    l:Math.random()<.35?2:1,a:.25+Math.random()*.75});
-  lastStarY=-1;drawStars(true);
-}
-function drawStars(force){
-  const sy=scrollY;if(!force&&Math.abs(sy-lastStarY)<3)return;lastStarY=sy;
-  starCx.clearRect(0,0,starCv.width,starCv.height);
-  for(const st of STARS){
-    const y=((st.y*starCv.height - sy*st.l*.06)%starCv.height+starCv.height)%starCv.height;
-    starCx.globalAlpha=st.a;starCx.fillStyle=st.l===2?'#cfd8ff':'#8b93ad';
-    starCx.beginPath();starCx.arc(st.x*starCv.width,y,st.r,0,7);starCx.fill();
-  }
-  starCx.globalAlpha=1;
-}
-initStars();addEventListener('resize',initStars);
-
-/* header chrome: scrolled state, trajectory progress, active checkpoint */
-const hdrEl=document.getElementById('hdr'),trajFill=document.getElementById('trajFill');
-const NAVL=Array.from(document.querySelectorAll('.hnav a'));
-const SECS=['film','trydemo','split','pricing'].map(id=>document.getElementById(id));
-function heroTick(){
-  hdrEl.classList.toggle('scrolled',scrollY>40);
-  const max=document.documentElement.scrollHeight-innerHeight;
-  trajFill.style.width=(clamp(scrollY/max)*100)+'%';
-  let live=0;
-  SECS.forEach((el,i)=>{if(el&&el.getBoundingClientRect().top<innerHeight*.45)live=i;});
-  NAVL.forEach((a,i)=>a.classList.toggle('live',i===live));
-}
-function master(){
-  TICKS++;
-  try{
-    heroTick();drawStars();
-    filmTick();splitTick();
-    seekPass(false);
-  }catch(e){ LASTERR=e; diagReport(e); }
-  requestAnimationFrame(master);
-}
-requestAnimationFrame(master);
-
-/* ---------- flight recorder: self-heal + visible diagnostics ---------- */
-const DIAG=document.createElement('div');
-DIAG.style.cssText='position:fixed;left:10px;bottom:10px;z-index:9999;font:11px/1.5 monospace;color:#FFB000;'+
-  'background:#000000d9;border:1px solid #FFB00055;border-radius:8px;padding:8px 12px;display:none;max-width:70vw;white-space:pre-wrap';
-document.body.appendChild(DIAG);
-function diagReport(e){
-  DIAG.style.display='block';
-  const msg=(e&&(e.stack||e.message||e)).toString().split('\n').slice(0,4).join('\n');
-  DIAG.textContent='NIGHTSHIFT ENGINE ERROR (screenshot this):\n'+msg;
-  try{navigator.sendBeacon('/diag',JSON.stringify({err:msg,ua:navigator.userAgent.slice(0,80),
-    vw:innerWidth+'x'+innerHeight,pos:+(filmProg()*LEGN).toFixed(2),ticks:TICKS}));}catch(_){}
-}
-addEventListener('error',ev=>diagReport(ev.error||ev.message));
-/* watchdog: if rAF stalls >1.2s while the tab is visible, restart the loop.
-   A stalled loop also means CSS animations are frozen (embedded preview panes,
-   throttled webviews) — flip to .noanim so every fade becomes an instant switch. */
-let lastTicks=0;
-setInterval(()=>{
-  if(TICKS===lastTicks){
-    document.documentElement.classList.add('noanim');
-    requestAnimationFrame(master);
-    try{filmTick();splitTick();}catch(e){}
-  }else if(TICKS-lastTicks>20){
-    document.documentElement.classList.remove('noanim');  /* healthy again */
-  }
-  lastTicks=TICKS;
-},1200);
-/* rAF-independent safety net: text beats also update on raw scroll, so the
-   selling layer can never go dark even if the animation loop dies */
-let scrTh=0;
-addEventListener('scroll',()=>{const n=Date.now();if(n-scrTh>80){scrTh=n;
-  try{heroTick();drawStars();filmTick();splitTick();
-    /* dead-rAF surfaces: drive the video seeks from scroll as well */
-    if(document.documentElement.classList.contains('noanim'))seekPass(true);
-  }catch(e){}}},{passive:true});
-/* ?debug=1 overlay */
-if(new URLSearchParams(location.search).get('debug')){
-  const D=document.createElement('div');
-  D.style.cssText='position:fixed;right:10px;top:64px;z-index:9999;font:11px/1.6 monospace;color:#2FBF71;background:#000000d9;border:1px solid #2FBF7155;border-radius:8px;padding:8px 12px';
-  document.body.appendChild(D);
-  setInterval(()=>{
-    D.textContent=`ticks/s ~${TICKS-lastTicks>0?Math.round((TICKS-lastTicks)/1.2):0} | pos ${(filmProg()*LEGN).toFixed(2)}`+
-    `\nlegs ready ${LEGS.filter(L=>L.ready).length}/${LEGN} | vw ${innerWidth}x${innerHeight}`+
-    `\nact on: ${document.querySelector('.act.on')?.dataset.leg??'none'} | err: ${LASTERR?(LASTERR.message||LASTERR):'none'}`;
-  },600);
-}
-
-/* ---------- reveals ---------- */
-const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{threshold:.18});
-$$('.reveal').forEach(el=>io.observe(el));
-
-/* ---------- sound: procedural rain (no asset) ---------- */
-let AC=null,rainG=null,rumbleG=null,soundOn=false;
-$('#soundT').addEventListener('click',function(){
-  if(!AC){
-    AC=new (window.AudioContext||window.webkitAudioContext)();
-    const len=AC.sampleRate*2.5, buf=AC.createBuffer(1,len,AC.sampleRate), d=buf.getChannelData(0);
-    let last=0;for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.2;}
-    const src=AC.createBufferSource();src.buffer=buf;src.loop=true;
-    const lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=650;lp.Q.value=.4;
-    rainG=AC.createGain();rainG.gain.value=0;
-    src.connect(lp).connect(rainG).connect(AC.destination);src.start();
-    /* engine rumble: same noise through a sub-bass filter, gain driven by film position */
-    const src2=AC.createBufferSource();src2.buffer=buf;src2.loop=true;src2.playbackRate.value=.4;
-    const lp2=AC.createBiquadFilter();lp2.type='lowpass';lp2.frequency.value=85;lp2.Q.value=.8;
-    rumbleG=AC.createGain();rumbleG.gain.value=0;
-    src2.connect(lp2).connect(rumbleG).connect(AC.destination);src2.start();
-  }
-  const on=this.classList.toggle('on');soundOn=on;
-  rainG.gain.linearRampToValueAtTime(on?.16:0,AC.currentTime+.8);
-  if(!on&&rumbleG)rumbleG.gain.linearRampToValueAtTime(0,AC.currentTime+.5);
-  if(AC.state==='suspended')AC.resume();
-});
-
-/* ---------- pricing billing toggle + affiliate ref passthrough ---------- */
-{
-  const ref=(function(){try{return localStorage.getItem('station_ref')||new URLSearchParams(location.search).get('ref')||''}catch(e){return ''}})();
-  const withRef=u=>{ if(!ref) return u; try{const x=new URL(u);x.searchParams.set('client_reference_id',ref);return x.toString();}catch(e){return u;} };
-  const cards=$$('#pricing .price[data-tier]');
-  function setBill(mode){
-    $('#billMo').classList.toggle('on',mode==='mo');
-    $('#billYr').classList.toggle('on',mode==='yr');
-    cards.forEach(c=>{
-      c.querySelector('.amt').innerHTML=c.dataset[mode+'Price'];
-      c.querySelector('.go').href=withRef(c.dataset[mode+'Href']);
-    });
-  }
-  const mo=$('#billMo'),yr=$('#billYr');
-  if(mo&&yr){ mo.onclick=()=>setBill('mo'); yr.onclick=()=>setBill('yr'); setBill('mo'); }
-}
-
-/* ---------- audit form ---------- */
-$('#auditForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const fd=new FormData(this);
-  try{fetch('https://n8n.srv1748596.hstgr.cloud/webhook/free-audit',{method:'POST',mode:'no-cors',body:fd});}catch(err){}
-  try{localStorage.setItem('stn_audit_done','1')}catch(err){}
-  this.style.display='none';
-  $('#auditOK').style.display='block';
-});
-</script>
-
-<!-- ---------- conversion popup (free audit / intro call) ---------- -->
-<div id="stnPop" role="dialog" aria-modal="true" aria-labelledby="stnPopH" hidden>
-  <div class="sp-veil"></div>
-  <div class="sp-card">
-    <button class="sp-x" aria-label="Close">&times;</button>
-    <span class="sp-eyebrow">BEFORE YOU GO</span>
-    <h3 id="stnPopH">Every missed call is a customer<br>calling <span class="sp-am">someone else.</span></h3>
-    <p class="sp-sub">Get a free 2-minute audit of your business — we'll show you how many
-    inquiries you're missing each month and what they're worth. No call required.</p>
-    <a class="sp-cta" href="#audit">Get my free audit &rarr;</a>
-    <a class="sp-alt" href="https://api.leadconnectorhq.com/widget/bookings/station-intro-call" target="_blank" rel="noopener">or book a 15-minute intro call</a>
   </div>
 </div>
-<style>
-#stnPop{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:5vw}
-#stnPop[hidden]{display:none}
-#stnPop .sp-veil{position:absolute;inset:0;background:#05060acc;backdrop-filter:blur(6px)}
-#stnPop .sp-card{position:relative;max-width:470px;width:100%;background:#0e1116;border:1px solid #FFB00044;
-  border-radius:22px;padding:42px 38px 34px;text-align:center;box-shadow:0 30px 80px #000c,0 0 40px #FFB00022;
-  animation:spIn .45s cubic-bezier(.2,.9,.3,1.2)}
-@keyframes spIn{from{opacity:0;transform:translateY(26px) scale(.96)}to{opacity:1;transform:none}}
-#stnPop .sp-x{position:absolute;top:12px;right:14px;width:36px;height:36px;border:0;border-radius:50%;
-  background:#ffffff12;color:var(--ink2);font-size:21px;line-height:1;cursor:pointer;transition:.2s}
-#stnPop .sp-x:hover{background:#ffffff22;color:var(--ink)}
-#stnPop .sp-eyebrow{font:600 11px var(--body);letter-spacing:.3em;color:var(--amber)}
-#stnPop h3{font-family:var(--disp);font-weight:600;font-size:clamp(21px,4.6vw,27px);line-height:1.25;
-  color:var(--ink);margin:14px 0 12px}
-#stnPop .sp-am{color:var(--amber)}
-#stnPop .sp-sub{font:400 14.5px/1.65 var(--body);color:var(--ink2);margin:0 0 24px}
-#stnPop .sp-cta{display:block;background:var(--amber);color:#131008;font:700 16px var(--body);
-  border-radius:14px;padding:15px 20px;text-decoration:none;transition:transform .2s,box-shadow .3s}
-#stnPop .sp-cta:hover{transform:translateY(-2px);box-shadow:0 10px 30px #FFB00044}
-#stnPop .sp-alt{display:inline-block;margin-top:14px;font:500 13.5px var(--body);color:var(--ink3);
-  text-decoration:none;border-bottom:1px solid #ffffff33;padding-bottom:1px;transition:.2s}
-#stnPop .sp-alt:hover{color:var(--amber);border-color:var(--amber)}
-@media(max-width:520px){#stnPop .sp-card{padding:36px 22px 28px}}
-</style>
+
+<!-- ============ Handoff + content ============ -->
+<div id="landing">
+  <div class="land-lock" aria-hidden="true">
+    <span class="hl-word">STATION</span>
+    <svg class="hl-mark" viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg>
+    <span class="hl-word r">FRONT OFFICE</span>
+  </div>
+  <div class="wrap">
+    <section id="statement" class="reveal" style="padding-top:0">
+      <h2>Every call answered. Every job booked. Every follow-up sent.</h2>
+      <p class="lede">Station staffs the front office of your business — the phones, the calendar, the inbox, the follow-up — so the work you built the business for gets your full attention. You'll see everything it handles in one place.</p>
+    </section>
+  </div>
+</div>
+
+<main>
+  <section id="platforms" class="reveal" aria-label="Platforms Station connects with">
+    <div class="lb-label">Plays well with what you already run</div>
+    <div class="lb-mask">
+      <div class="lb-track">
+        <div class="lb-set">
+          <img decoding="async" src="assets/logos/google.svg" alt="Google"><img decoding="async" src="assets/logos/facebook.svg" alt="Facebook"><img decoding="async" src="assets/logos/instagram.svg" alt="Instagram"><img decoding="async" src="assets/logos/tiktok.svg" alt="TikTok"><img decoding="async" src="assets/logos/linkedin.svg" alt="LinkedIn"><img decoding="async" src="assets/logos/whatsapp.svg" alt="WhatsApp"><img decoding="async" src="assets/logos/stripe.svg" alt="Stripe"><img decoding="async" src="assets/logos/paypal.svg" alt="PayPal"><img decoding="async" src="assets/logos/quickbooks.svg" alt="QuickBooks"><img decoding="async" src="assets/logos/shopify.svg" alt="Shopify"><img decoding="async" src="assets/logos/calendly.svg" alt="Calendly"><img decoding="async" src="assets/logos/mailchimp.svg" alt="Mailchimp"><img decoding="async" src="assets/logos/zoom.svg" alt="Zoom"><img decoding="async" src="assets/logos/slack.svg" alt="Slack"><img decoding="async" src="assets/logos/zapier.svg" alt="Zapier">
+        </div>
+        <div class="lb-set" aria-hidden="true">
+          <img decoding="async" src="assets/logos/google.svg" alt=""><img decoding="async" src="assets/logos/facebook.svg" alt=""><img decoding="async" src="assets/logos/instagram.svg" alt=""><img decoding="async" src="assets/logos/tiktok.svg" alt=""><img decoding="async" src="assets/logos/linkedin.svg" alt=""><img decoding="async" src="assets/logos/whatsapp.svg" alt=""><img decoding="async" src="assets/logos/stripe.svg" alt=""><img decoding="async" src="assets/logos/paypal.svg" alt=""><img decoding="async" src="assets/logos/quickbooks.svg" alt=""><img decoding="async" src="assets/logos/shopify.svg" alt=""><img decoding="async" src="assets/logos/calendly.svg" alt=""><img decoding="async" src="assets/logos/mailchimp.svg" alt=""><img decoding="async" src="assets/logos/zoom.svg" alt=""><img decoding="async" src="assets/logos/slack.svg" alt=""><img decoding="async" src="assets/logos/zapier.svg" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="wrap">
+    <section id="demo" class="reveal">
+      <span class="eyebrow">Try it live</span>
+      <h2>Text it like a customer.</h2>
+      <p class="lede">This is the front desk your customers reach. It answers in seconds, never gets annoyed, and never sleeps. Go on — try to catch it off guard.</p>
+      <div class="demo-wrap">
+        <div class="demo-copy">
+          <ul class="demo-points">
+            <li>Answers in seconds, any hour</li>
+            <li>Books straight onto the calendar</li>
+            <li>Knows the business like a ten-year employee</li>
+          </ul>
+          <p class="demo-note">Pick any business and text it like a real customer — it runs right here in your browser. On a real plan, this lives on your own business number, calls and texts alike.</p>
+        </div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="p-head">
+              <span class="p-avatar"><svg viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg></span>
+              <div>
+                <div class="p-name">Summit Plumbing</div>
+                <div class="p-sub">Front desk · replies in seconds</div>
+              </div>
+            </div>
+            <div class="p-thread" id="p-thread"></div>
+            <div class="p-chips" id="p-chips"></div>
+            <form class="p-input" id="p-form">
+              <input id="p-in" type="text" placeholder="Text like a customer…" autocomplete="off" maxlength="140" aria-label="Message the demo front desk">
+              <button type="submit" aria-label="Send">↑</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="reveal">
+      <span class="eyebrow">What we handle</span>
+      <h2>The jobs that eat your day, handled.</h2>
+      <div class="grid">
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+          <h3>Answering</h3>
+          <p>Every call picked up in seconds, day or night. Missed calls get an instant text back so the lead never goes cold.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span>
+          <h3>Booking</h3>
+          <p>Callers become appointments on your real calendar — quotes, jobs, reschedules — without back-and-forth.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><path d="M18 16l3 3-3 3" transform="translate(0,-1)"/></svg></span>
+          <h3>Follow-up</h3>
+          <p>Leads chased until they answer, no-shows rebooked, quiet customers brought back. Nothing slips.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg></span>
+          <h3>Reviews</h3>
+          <p>Happy customers get asked at the right moment; rough ones get caught before they post. Your rating climbs on its own.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H8l-4 4z"/></svg></span>
+          <h3>One inbox</h3>
+          <p>Calls, texts, emails, reviews and leads in a single stream — so nothing sits unanswered in a sixth app.</p>
+        </div>
+        <div class="card">
+          <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span>
+          <h3>Web presence</h3>
+          <p>A site and listings that turn searches into calls — kept current, connected to the same calendar and inbox.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <section id="how">
+    <div class="wrap reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>Running in about a week.</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="num">01 — THE AUDIT</div>
+          <h3>Fifteen minutes, free.</h3>
+          <p>We look at how calls, bookings and follow-up run today — and show you exactly where jobs are slipping through.</p>
+        </div>
+        <div class="step">
+          <div class="num">02 — THE WIRING</div>
+          <h3>We build your front office.</h3>
+          <p>Phones, calendar, inbox, reviews, follow-up — wired into how your business already works. You change nothing.</p>
+        </div>
+        <div class="step">
+          <div class="num">03 — IT RUNS</div>
+          <h3>You watch it work.</h3>
+          <p>Everything it answers, books and chases shows up in one place. We tune it with you every month.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section id="calc" class="reveal">
+      <span class="eyebrow">The math</span>
+      <h2>What do missed calls cost you?</h2>
+      <p class="lede">Most owners guess low. Slide the numbers you actually know — and see what walks past your front desk every month.</p>
+      <div class="calc-card">
+        <div class="calc-in">
+          <div class="calc-row">
+            <label for="c-calls">Calls you miss in a week <output id="o-calls">7</output></label>
+            <input type="range" id="c-calls" min="1" max="40" step="1" value="7">
+          </div>
+          <div class="calc-row">
+            <label for="c-value">Average job value <output id="o-value">$350</output></label>
+            <input type="range" id="c-value" min="50" max="2000" step="25" value="350">
+          </div>
+          <div class="calc-row">
+            <label for="c-close">How many you'd win <output id="o-close">40%</output></label>
+            <input type="range" id="c-close" min="10" max="90" step="5" value="40">
+          </div>
+        </div>
+        <div class="calc-out">
+          <span class="co-label">Walking past you every month</span>
+          <span class="co-num" id="co-num">$4,240</span>
+          <span class="co-sub">Station answers every one of those calls for a flat monthly rate. The math isn't close.</span>
+          <button class="btn-primary" data-goto="#audit">Find my missed calls</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>One flat rate. No contracts.</h2>
+      <div class="tiers">
+        <div class="tier">
+          <div class="tname">Core</div>
+          <div class="price">$750<small> /mo</small></div>
+          <div class="setup-fee">+ $1,000 one-time setup</div>
+          <div class="tdesc">The phones, handled.</div>
+          <ul>
+            <li>Every call answered, 24/7</li>
+            <li>Missed-call text back</li>
+            <li>Bookings on your calendar</li>
+            <li>One inbox for calls &amp; texts</li>
+            <li>Local business number included</li>
+            <li>Website chat widget</li>
+          </ul>
+          <a class="btn-ghost" href="https://buy.stripe.com/fZu14g84Q30dasx5ZC2Fa0g" target="_blank" rel="noopener">Start with Core</a>
+        </div>
+        <div class="tier featured">
+          <div class="tname">Pro</div>
+          <div class="price">$1,500<small> /mo</small></div>
+          <div class="setup-fee">+ $2,000 one-time setup</div>
+          <div class="tdesc">The full front office.</div>
+          <ul>
+            <li>Everything in Core</li>
+            <li>Lead follow-up until they answer</li>
+            <li>Review engine — ask, catch, respond</li>
+            <li>No-show rescue &amp; rebooking</li>
+            <li>Website chat that answers &amp; books</li>
+            <li>Quote &amp; estimate follow-up</li>
+            <li>Monthly tuning with a real person</li>
+          </ul>
+          <a class="btn-primary" href="https://buy.stripe.com/cNieV6acY0S558dew82Fa0f" target="_blank" rel="noopener">Go Pro</a>
+        </div>
+        <div class="tier">
+          <div class="tname">Custom</div>
+          <div class="price">$2,500<small> +/mo</small></div>
+          <div class="setup-fee">+ $3,000 one-time setup</div>
+          <div class="tdesc">Built around your operation.</div>
+          <ul>
+            <li>Everything in Pro</li>
+            <li>Multi-location &amp; teams</li>
+            <li>Custom builds &amp; integrations</li>
+            <li>POS &amp; payments setup</li>
+            <li>Branded mobile app</li>
+            <li>Priority line to us</li>
+          </ul>
+          <a class="btn-ghost" href="https://buy.stripe.com/3cI7sE3OA1W9asx5ZC2Fa0e" target="_blank" rel="noopener">Start with Custom</a>
+        </div>
+      </div>
+      <div class="sub-label">Website builds — same team, same system</div>
+      <div class="tiers webtiers">
+        <div class="tier">
+          <div class="tname">Launch site</div>
+          <div class="price">$350<span class="plus">+</span><small>$150 /mo care</small></div>
+          <div class="tdesc">Live in days, not months.</div>
+          <ul>
+            <li>One page, designed and written for you</li>
+            <li>Booking &amp; lead form wired to your inbox</li>
+            <li>Hosting, updates and care included</li>
+            <li>Pairs with any Station plan</li>
+          </ul>
+          <a class="btn-ghost" href="https://buy.stripe.com/cNicMY1GseIV9otco02Fa0k" target="_blank" rel="noopener">Get the site</a>
+        </div>
+        <div class="tier featured">
+          <div class="tname">Premiere</div>
+          <div class="price">Fully custom<small> · quoted</small></div>
+          <div class="tdesc">A one-of-one build for brands that want to own the room.</div>
+          <ul>
+            <li>A scroll film like this very page</li>
+            <li>Designed shot by shot for your brand</li>
+            <li>Copy, photography and motion — all bespoke</li>
+            <li>Priority build slot</li>
+          </ul>
+          <button class="btn-primary js-book">Book a call</button>
+        </div>
+      </div>
+      <p class="pricing-note addons"><strong>Add-ons:</strong> branded mobile app $250/mo · POS setup — quoted · your business number is included on every plan</p>
+      <p class="pricing-note">Every plan starts with the free audit — if we can't find you money, we'll tell you that too.</p>
+    </section>
+
+    <section id="matrix" class="reveal">
+      <span class="eyebrow">What's included</span>
+      <h2>One Station replaces a dozen tools.</h2>
+      <p class="lede">Everything your Station plan runs on — the software, the setup, and the team to run it. Here's the same stack you'd otherwise buy, wire together, and manage yourself.</p>
+
+      <div class="vstack">
+        <div class="vs-head">
+          <span>In your Station plan</span>
+          <span class="vs-cost">Typical / mo</span>
+          <span class="vs-mark">Station</span>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>CRM, pipeline &amp; custom fields</b><i>replaces HubSpot, Pipedrive</i></div>
+          <div class="vs-cost">$99<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Business number + 2-way texting</b><i>replaces OpenPhone, Twilio</i></div>
+          <div class="vs-cost">$49<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Booking calendars + reminders</b><i>replaces Calendly, Acuity</i></div>
+          <div class="vs-cost">$29<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Lead nurture — email &amp; SMS</b><i>replaces Mailchimp, ActiveCampaign</i></div>
+          <div class="vs-cost">$99<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Review requests + handling</b><i>replaces Birdeye, Podium</i></div>
+          <div class="vs-cost">$199<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Follow-up &amp; no-show automations</b><i>replaces Zapier, Make</i></div>
+          <div class="vs-cost">$99<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Missed-call text-back</b><i>replaces a live answering service</i></div>
+          <div class="vs-cost">$199<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Website, hosting &amp; care</b><i>replaces WordPress, Wix</i></div>
+          <div class="vs-cost">$49<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Onboarding forms &amp; lead capture</b><i>replaces Typeform, Jotform</i></div>
+          <div class="vs-cost">$39<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Monthly performance report</b><i>replaces AgencyAnalytics</i></div>
+          <div class="vs-cost">$89<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-total">
+          <div class="vs-total-left">
+            <span class="vs-total-lbl">Bought separately &amp; self-run</span>
+            <span class="vs-total-big">$950+<small> /mo</small></span>
+          </div>
+          <div class="vs-total-right">
+            <span class="vs-total-lbl">With Station — done for you</span>
+            <span class="vs-total-big accent">from $750<small> /mo</small></span>
+          </div>
+        </div>
+      </div>
+      <p class="vs-note">Every Station plan is this whole stack &mdash; built, connected, and run for you, not just handed over. Core starts at $750/mo; missed-call text-back and extended nurture unlock on Pro, and a FOUNDRY-built site is $350 + $150/mo.</p>
+      <div class="vs-cta">
+        <button class="btn-primary" data-goto="#audit">Get your free audit</button>
+        <button class="btn-ghost" data-goto="#pricing">See pricing</button>
+      </div>
+    </section>
+
+    <section id="audit" class="reveal">
+      <div class="split">
+        <div>
+          <span class="eyebrow">Free audit</span>
+          <h2>Fifteen minutes. We'll find the calls you're missing.</h2>
+          <p class="lede">Tell us where to look and we'll call you back with what we found — what's being missed, what it's worth, and what we'd wire in first.</p>
+          <ul class="audit-points">
+            <li>What happens when you can't pick up</li>
+            <li>How long a web lead waits for a reply</li>
+            <li>Where bookings and follow-ups fall through</li>
+          </ul>
+        </div>
+        <div>
+          <form id="audit-form" novalidate>
+            <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
+            <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
+            <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
+            <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
+            <select class="input" name="industry" aria-label="What kind of business">
+              <option value="">What kind of business? (helps us prep)</option>
+              <option>Plumbing / HVAC / Electrical</option>
+              <option>Contractor / Home services</option>
+              <option>Dental / Medical</option>
+              <option>Salon / Spa</option>
+              <option>Gym / Fitness</option>
+              <option>Restaurant / Café</option>
+              <option>Auto / Repair</option>
+              <option>Retail / Boutique</option>
+              <option>Other</option>
+            </select>
+            <input class="input" name="website" type="url" placeholder="Website or Google listing (we'll check what customers see)">
+            <select class="input" name="leak" aria-label="Where do you lose the most">
+              <option value="">Where do you think you lose the most?</option>
+              <option>Missed calls</option>
+              <option>Slow reply to web leads</option>
+              <option>No-shows &amp; cancellations</option>
+              <option>Follow-up falling through</option>
+              <option>Disorganization — things fall through the cracks</option>
+              <option>Reviews / reputation</option>
+              <option>Not sure — that's why I'm here</option>
+            </select>
+            <button class="btn-primary" type="submit">Get my free audit</button>
+          </form>
+          <div class="done-msg"><strong>Got it.</strong> We'll call you within one business day with what we found.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="book">
+      <div class="row reveal">
+        <h2>Prefer to just talk?</h2>
+        <a class="btn-primary js-book" href="#" target="_blank" rel="noopener" style="display:inline-block">Book an intro call</a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <div class="frow">
+        <div>
+          <a class="brand" href="#" aria-label="Station — top">
+            <svg class="mark" style="width:22px;height:22px" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="fk-arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="fk-core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#fk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#fk-arm"/><use href="#fk-arm" transform="rotate(90 50 50)"/><use href="#fk-arm" transform="rotate(180 50 50)"/><use href="#fk-arm" transform="rotate(270 50 50)"/></g></svg>
+            <span class="word" style="font-size:14px">STATION</span>
+          </a>
+          <p class="ftag">The front office your business never had.</p>
+        </div>
+        <div class="flinks">
+          <a href="#services">What we handle</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#audit">Free audit</a>
+          <a class="js-book" href="#" target="_blank" rel="noopener">Book a call</a>
+        </div>
+        <div class="flinks flegal">
+          <a href="legal/tos.html" target="_blank" rel="noopener">Terms of Service</a>
+          <a href="legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="legal/sms-terms.html" target="_blank" rel="noopener">SMS Terms</a>
+          <a href="legal/cancellation.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a>
+          <a href="legal/cookies.html" target="_blank" rel="noopener">Cookie Notice</a>
+        </div>
+      </div>
+      <div class="fbot">
+        <span>© 2026 Station. All rights reserved.</span>
+        <span>Built for the businesses that keep your town running.</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- Ask Station — FAQ concierge -->
+<button id="aiw-btn" aria-haspopup="dialog" aria-expanded="false">
+  <span class="dot"></span><span class="lbl">Questions? Ask Station</span>
+</button>
+<div id="aiw" role="dialog" aria-label="Ask Station — questions and answers">
+  <div class="aiw-top">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg>
+    <span class="t">Ask Station</span>
+    <span class="live">FAQ</span>
+    <button class="x" id="aiw-x" aria-label="Close">×</button>
+  </div>
+  <div class="aiw-body" id="aiw-body"></div>
+  <div class="p-chips" id="aiw-chips"></div>
+  <form class="p-input" id="aiw-form">
+    <input id="aiw-in" type="text" placeholder="Ask about plans, websites, setup…" autocomplete="off" maxlength="140" aria-label="Ask a question about Station">
+    <button type="submit" aria-label="Send">↑</button>
+  </form>
+  <div class="aiw-foot">
+    <button class="btn-primary" data-goto="#audit" id="aiw-cta">Get the free audit</button>
+    <button class="replay" id="aiw-clear">Clear</button>
+  </div>
+</div>
+
+<!-- exit / timed popup -->
+<div id="promo" role="dialog" aria-modal="true" aria-label="Free audit offer">
+  <div class="promo-card">
+    <button class="x" id="promo-x" aria-label="Close">×</button>
+    <span class="eyebrow">Free audit</span>
+    <h3>Before you go — fifteen minutes could find the calls you're missing.</h3>
+    <p>We'll run the numbers on your phones, your web leads and your follow-up. If we can't find you money, we'll tell you that too.</p>
+    <div class="promo-actions">
+      <button class="btn-primary" id="promo-cta">Get my free audit</button>
+      <button class="later" id="promo-later">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<!-- cursor companion -->
+<div id="cur-dot"></div><div id="cur-ring"></div>
+
+<script src="film.js"></script>
+<script src="bots.js"></script>
+<script src="analytics.js"></script>
 <script>
 (function(){
-  const pop=document.getElementById('stnPop');
-  if(!pop) return;
-  const DAY=864e5;
-  function seen(){try{
-    if(localStorage.getItem('stn_audit_done'))return true;
-    const t=+localStorage.getItem('stn_pop_seen')||0;
-    return Date.now()-t<DAY;
-  }catch(e){return true}}
-  function mark(){try{localStorage.setItem('stn_pop_seen',String(Date.now()))}catch(e){}}
-  let shown=false;
-  function show(){
-    if(shown||seen())return;
-    shown=true;mark();
-    pop.hidden=false;document.body.style.overflow='hidden';
+  "use strict";
+  var QS = new URLSearchParams(location.search);
+
+  /* ---------- revenue calculator ---------- */
+  var cCalls = document.getElementById("c-calls"), cValue = document.getElementById("c-value"),
+      cClose = document.getElementById("c-close"), oCalls = document.getElementById("o-calls"),
+      oValue = document.getElementById("o-value"), oClose = document.getElementById("o-close"),
+      coNum = document.getElementById("co-num");
+  var shown = 0, targetV = 0, coAnim = null;
+  function fill(el){
+    var p = (el.value - el.min) / (el.max - el.min) * 100;
+    el.style.background = "linear-gradient(90deg,var(--accent) " + p + "%,var(--surface-2) " + p + "%)";
   }
-  function hide(){pop.hidden=true;document.body.style.overflow=''}
-  pop.querySelector('.sp-x').addEventListener('click',hide);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pop.hidden)hide()});
-  pop.querySelector('.sp-cta').addEventListener('click',()=>{hide();
-    try{localStorage.setItem('stn_pop_seen',String(Date.now()+365*DAY))}catch(e){}});
-  pop.querySelector('.sp-alt').addEventListener('click',()=>{hide();
-    try{localStorage.setItem('stn_pop_seen',String(Date.now()+365*DAY))}catch(e){}});
-  /* triggers: 22s dwell, 55% scroll, or exit intent — whichever first */
-  setTimeout(show,22000);
-  window.addEventListener('scroll',function onSc(){
-    const d=document.documentElement;
-    if((d.scrollTop+innerHeight)/d.scrollHeight>.55){show();removeEventListener('scroll',onSc)}
-  },{passive:true});
-  document.addEventListener('mouseout',e=>{
-    if(!e.relatedTarget&&e.clientY<=0)show();
+  function fmt(n){ return "$" + Math.round(n).toLocaleString("en-US"); }
+  function calc(){
+    oCalls.textContent = cCalls.value;
+    oValue.textContent = fmt(cValue.value);
+    oClose.textContent = cClose.value + "%";
+    [cCalls, cValue, cClose].forEach(fill);
+    targetV = cCalls.value * 4.33 * cValue.value * (cClose.value / 100);
+    if (!coAnim) coStep();
+  }
+  function coStep(){
+    shown += (targetV - shown) * 0.18;
+    if (Math.abs(targetV - shown) < 1){ shown = targetV; coNum.textContent = fmt(shown); coAnim = null; return; }
+    coNum.textContent = fmt(shown);
+    coAnim = requestAnimationFrame(coStep);
+  }
+  if (cCalls){
+    [cCalls, cValue, cClose].forEach(function(el){ el.addEventListener("input", calc); });
+    shown = 0; calc();
+  }
+
+  /* ---------- widget open/close (conversation logic lives in bots.js) ---------- */
+  var aiwBtn = document.getElementById("aiw-btn"), aiw = document.getElementById("aiw"),
+      aiwX = document.getElementById("aiw-x");
+  function openAiw(){
+    aiw.classList.add("open");
+    aiwBtn.setAttribute("aria-expanded", "true");
+    if (window.__faqGreet) window.__faqGreet();
+  }
+  function closeAiw(){
+    aiw.classList.remove("open");
+    aiwBtn.setAttribute("aria-expanded", "false");
+  }
+  if (aiwBtn){
+    aiwBtn.addEventListener("click", function(){
+      aiw.classList.contains("open") ? closeAiw() : openAiw();
+    });
+    aiwX.addEventListener("click", closeAiw);
+    if (QS.get("demo") === "widget") openAiw();
+  }
+
+  /* ---------- popup (timed + exit intent, once per session) ---------- */
+  var promo = document.getElementById("promo");
+  var promoSeen = false;
+  try { promoSeen = sessionStorage.getItem("rangePromo") === "1"; } catch(e){}
+  function openPromo(){
+    if (promoSeen || aiw.classList.contains("open")) return;
+    promoSeen = true;
+    try { sessionStorage.setItem("rangePromo", "1"); } catch(e){}
+    promo.classList.add("open");
+    document.getElementById("promo-cta").focus();
+    document.dispatchEvent(new CustomEvent("range:popup", { detail: { action: "shown" } }));
+  }
+  function closePromo(){ promo.classList.remove("open"); }
+  if (promo){
+    document.getElementById("promo-x").addEventListener("click", closePromo);
+    document.getElementById("promo-later").addEventListener("click", closePromo);
+    document.getElementById("promo-cta").addEventListener("click", function(){
+      closePromo();
+      document.dispatchEvent(new CustomEvent("range:popup", { detail: { action: "cta" } }));
+      var t = document.getElementById("audit");
+      if (t) t.scrollIntoView({ behavior: "smooth" });
+    });
+    promo.addEventListener("click", function(e){ if (e.target === promo) closePromo(); });
+    document.addEventListener("keydown", function(e){ if (e.key === "Escape"){ closePromo(); closeAiw(); } });
+    // suppress in the QA harness (?jump) unless explicitly demoed
+    if (QS.get("demo") === "promo"){ openPromo(); }
+    else if (!QS.has("jump")){
+      setTimeout(openPromo, 22000);
+      document.addEventListener("mouseout", function(e){
+        if (!e.relatedTarget && e.clientY <= 8) openPromo();
+      });
+    }
+  }
+
+  /* ---------- cursor companion ---------- */
+  var dot = document.getElementById("cur-dot"), ring = document.getElementById("cur-ring");
+  var fine = matchMedia("(hover:hover) and (pointer:fine)").matches &&
+             !matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if (fine && dot){
+    var mx = -100, my = -100, rx = -100, ry = -100, seen = false;
+    addEventListener("mousemove", function(e){
+      mx = e.clientX; my = e.clientY;
+      if (!seen){ seen = true; rx = mx; ry = my; dot.style.opacity = "1"; ring.style.opacity = "1"; }
+    }, { passive: true });
+    (function curTick(){
+      if (seen){
+        rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+        dot.style.transform = "translate(" + mx + "px," + my + "px)";
+        ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      }
+      requestAnimationFrame(curTick);
+    })();
+    var HOT = "a,button,input,select,textarea,label,.tier,.card";
+    document.addEventListener("mouseover", function(e){
+      if (e.target.closest(HOT)) ring.classList.add("hot");
+    });
+    document.addEventListener("mouseout", function(e){
+      if (e.target.closest(HOT)) ring.classList.remove("hot");
+    });
+  }
+})();
+</script>
+<script>
+/* type-into-place + drop-in animations */
+(function(){
+  document.documentElement.classList.add("js-anim");
+  var rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var lock = document.querySelector(".land-lock");
+  if (lock){
+    var idx = 0;
+    lock.querySelectorAll(".hl-word").forEach(function(w){
+      var t = w.textContent; w.textContent = "";
+      t.split("").forEach(function(c){
+        var sp = document.createElement("span"); sp.className = "ch";
+        sp.textContent = c === " " ? " " : c;
+        sp.style.transitionDelay = (idx * 38) + "ms"; idx++;
+        w.appendChild(sp);
+      });
+    });
+    var mk = lock.querySelector(".hl-mark");
+    if (mk){ mk.classList.add("ch"); mk.style.transitionDelay = (idx * 38 + 80) + "ms"; }
+    if (rm || !("IntersectionObserver" in window)) lock.classList.add("typed");
+    else new IntersectionObserver(function(es, o){
+      es.forEach(function(e){ if (e.isIntersecting){ lock.classList.add("typed"); o.disconnect(); } });
+    }, { threshold: 0.55 }).observe(lock);
+  }
+
+  /* pop-up units: each direct child of a .reveal section rises in sequence.
+     services' .grid is excluded — its cards have their own drop-in. */
+  document.querySelectorAll(".reveal").forEach(function(sec){
+    var kids = Array.prototype.filter.call(sec.children, function(k){
+      if (k.tagName === "SCRIPT") return false;
+      if (sec.id === "services" && k.classList.contains("grid")) return false;
+      // the main price bubbles pop on their own ordered timing (below), not as a block
+      if (sec.id === "pricing" && k.classList.contains("tiers") && !k.classList.contains("webtiers")) return false;
+      return true;
+    });
+    kids.forEach(function(k, i){
+      k.classList.add("rv-u");
+      k.style.transitionDelay = (i * 90) + "ms";
+    });
   });
+
+  /* price bubbles pop in a deliberate order — Core first, then Custom, then Pro.
+     Pro (the best plan) lands last so the visitor's eye settles on it. */
+  var priceTiers = document.querySelectorAll("#pricing > .tiers:not(.webtiers) .tier");
+  if (priceTiers.length){
+    var popSeq = { "Core": 0, "Custom": 1, "Pro": 2 };
+    var BASE = 240, STEP = 200;
+    priceTiers.forEach(function(t){
+      var nm = ((t.querySelector(".tname") || {}).textContent || "").trim();
+      var seq = popSeq[nm] != null ? popSeq[nm] : 0;
+      t.classList.add("tier-pop");
+      t.style.transitionDelay = (BASE + seq * STEP) + "ms";
+    });
+    var settleTiers = function(){
+      setTimeout(function(){
+        priceTiers.forEach(function(t){ t.classList.remove("tier-pop"); t.style.transitionDelay = ""; });
+      }, BASE + 2 * STEP + 760);   // after the last (Pro) bubble finishes; hand back to float+hover
+    };
+    var pricingSec = document.getElementById("pricing");
+    if (rm || !("IntersectionObserver" in window)) settleTiers();
+    else new IntersectionObserver(function(es, o){
+      es.forEach(function(e){ if (e.isIntersecting){ settleTiers(); o.disconnect(); } });
+    }, { threshold: 0.15 }).observe(pricingSec);
+  }
+
+
+  var svc = document.getElementById("services");
+  if (svc){
+    var cards = svc.querySelectorAll(".card");
+    cards.forEach(function(c, i){ c.style.transitionDelay = (i * 80) + "ms"; });
+    function land(){
+      svc.classList.add("cards-in");
+      setTimeout(function(){
+        cards.forEach(function(c){ c.style.transitionDelay = ""; });
+        svc.classList.add("settled");
+      }, cards.length * 80 + 750);
+    }
+    if (rm || !("IntersectionObserver" in window)) land();
+    else new IntersectionObserver(function(es, o){
+      es.forEach(function(e){ if (e.isIntersecting){ land(); o.disconnect(); } });
+    }, { threshold: 0.18 }).observe(svc);
+  }
 })();
 </script>
 </body>
