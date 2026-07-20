@@ -3,6 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+/* A/B split: film (this page) vs /b/ fast variant — production only, 50/50,
+   sticky per browser. QA: ?v=film / ?v=fast force an arm; ?jump and ?demo
+   never redirect. KILL SWITCH: set AB_ON=false and redeploy. */
+(function(){
+  var AB_ON = true;
+  if (!AB_ON || location.hostname !== "station.solutions") return;
+  var q = new URLSearchParams(location.search);
+  if (q.has("jump") || q.has("demo")) return;
+  if (q.get("v") === "film"){ try{localStorage.setItem("stationVariant","film");}catch(e){} return; }
+  var v = null;
+  try { v = localStorage.getItem("stationVariant"); } catch(e){}
+  if (q.get("v") === "fast") v = "fast";
+  if (v !== "film" && v !== "fast"){
+    var sd = navigator.connection && navigator.connection.saveData;
+    v = sd ? "fast" : (Math.random() < 0.5 ? "fast" : "film");
+    try { localStorage.setItem("stationVariant", v); } catch(e){}
+  }
+  if (v === "fast") location.replace("/b/" + location.search + location.hash);
+})();
+</script>
 <title>Station — The front office your business never had</title>
 <meta name="description" content="Station answers your calls, books your jobs, and runs your follow-up — a complete front office for small business, staffed by AI, tuned by people.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1016,6 +1037,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
         </div>
         <div>
           <form id="audit-form" novalidate>
+            <input type="hidden" name="variant" value="film">
             <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
             <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
             <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>

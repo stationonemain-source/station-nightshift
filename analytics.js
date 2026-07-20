@@ -110,8 +110,8 @@
       'Accept and we also turn on first-party analytics <b>and advertising</b> — that means the ' +
       'Meta&nbsp;Pixel, so we can show you Station ads on Facebook &amp; Instagram after your visit. ' +
       'Your choice, and you can pick essentials only. ' +
-      '<a href="legal/cookies.html" target="_blank" rel="noopener">Cookie notice</a> · ' +
-      '<a href="legal/privacy.html" target="_blank" rel="noopener">Privacy</a></div>' +
+      '<a href="/legal/cookies.html" target="_blank" rel="noopener">Cookie notice</a> · ' +
+      '<a href="/legal/privacy.html" target="_blank" rel="noopener">Privacy</a></div>' +
       '<div class="ck-actions">' +
       '<button class="ck-accept" id="ck-accept">Accept analytics &amp; ads</button>' +
       '<button class="ck-min" id="ck-min">Essentials only</button></div>';
