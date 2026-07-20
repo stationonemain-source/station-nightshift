@@ -50,7 +50,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 /* white surfaces re-scope to ink so light components read correctly on the forest bg */
-.tier,.card,.calc-card,.promo-card,#aiw,.glass,.ip-display{
+.card,.calc-card,.promo-card,#aiw,.glass,.ip-display{
   --fg:var(--ink);--muted:var(--ink-muted);--border:var(--ink-border);
   --accent-ink:var(--ink-accent);--success-ink:#167A44;color:var(--fg)}
 html{scroll-behavior:auto}
@@ -251,37 +251,126 @@ html.js-anim #services.settled .card{transition:transform var(--t-base),box-shad
 .step h3{font-size:20px;font-weight:600;margin-bottom:8px}
 .step p{font-size:15px;color:var(--muted)}
 
-/* pricing */
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,4vw,56px);align-items:stretch}
-@media(max-width:1000px){.tiers{grid-template-columns:1fr;max-width:460px}}
-.tier{background:var(--surface);border:1px solid var(--border);border-radius:22px;
-  padding:30px 28px;display:flex;flex-direction:column}
-.tier.featured{border-color:color-mix(in oklab,var(--accent) 55%,var(--border))}
-.tier .tname{font-family:var(--font-d);font-weight:600;font-size:15px;letter-spacing:0.06em;text-transform:uppercase}
-.tier .price{font-family:var(--font-d);font-weight:700;font-size:40px;letter-spacing:-0.02em;margin-top:14px}
-.tier .price small{font-size:15px;font-weight:500;color:var(--muted);letter-spacing:0}
-.tier .tdesc{font-size:14.5px;color:var(--muted);margin-top:6px;margin-bottom:18px}
-.tier ul{list-style:none;margin:0 0 26px;display:flex;flex-direction:column;gap:9px;flex:1}
-.tier li{font-size:14.5px;color:var(--fg);padding-left:22px;position:relative}
-.tier li::before{content:"";position:absolute;left:2px;top:7px;width:9px;height:5px;
-  border-left:1.8px solid var(--success-ink);border-bottom:1.8px solid var(--success-ink);transform:rotate(-45deg)}
-.tier .btn-primary,.tier .btn-ghost{display:block;width:100%;text-align:center;box-sizing:border-box}
-/* pricing bubbles idle-float; hover pops them up (translate/scale compose with the
-   float's transform animation, so both run without fighting) */
-.tier{animation:tierfloat 5.5s ease-in-out infinite;
-  transition:translate .28s cubic-bezier(.2,1.2,.4,1),scale .28s ease,box-shadow .28s ease}
-.tiers .tier:nth-child(2){animation-delay:-1.8s}
-.tiers .tier:nth-child(3){animation-delay:-3.6s}
-@keyframes tierfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.tier:hover{translate:0 -10px;scale:1.03;box-shadow:0 24px 60px rgba(11,13,16,0.32)}
-.tier .setup-fee{font-family:var(--font-m);font-size:11.5px;letter-spacing:0.04em;
-  color:var(--muted);margin-top:5px}
-/* staggered pop-in for the price bubbles — translate/scale so it layers over the
-   float's transform; JS sets per-tier delay in the order Core → Custom → Pro */
+/* pricing — dark glass tiers (vanilla port of 21st.dev "Pricing Glass" by Alex Reino;
+   the segmented control switches tier groups — Station has no annual billing to fake).
+   blur is 24px not the component's 64px: the backdrop is flat forest green, so the
+   extra radius is invisible but not free */
+#pricing{position:relative}
+.pg-glow{position:absolute;left:50%;top:55%;width:min(820px,92%);height:600px;
+  transform:translate(-50%,-50%);pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,255,255,0.055),transparent 70%)}
+.pg-toggle-row{margin-top:30px}
+.pg-toggle{position:relative;display:inline-flex;padding:6px;border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);
+  box-shadow:inset 0 1px 4px rgba(0,0,0,0.5)}
+.pg-thumb{position:absolute;left:6px;top:6px;bottom:6px;width:calc(50% - 6px);
+  border-radius:var(--r-pill);background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.20);box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  transition:transform .45s cubic-bezier(.3,1.3,.4,1)}
+.pg-seg{position:relative;z-index:1;width:170px;padding:12px 0;border:0;background:none;cursor:pointer;
+  font-family:var(--font-d);font-weight:600;font-size:13.5px;letter-spacing:0.02em;
+  color:rgba(255,255,255,0.58);border-radius:var(--r-pill);transition:color .3s ease}
+.pg-seg:hover{color:rgba(255,255,255,0.85)}
+.pg-seg.on{color:#fff}
+.pg-seg:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+.pg-badge{position:absolute;top:-11px;right:-8px;padding:3px 8px;border-radius:var(--r-pill);
+  background:rgba(255,255,255,0.92);color:#12241B;font-size:10px;font-weight:700;
+  letter-spacing:0.05em;box-shadow:0 4px 12px rgba(0,0,0,0.35);pointer-events:none}
+@media(max-width:420px){.pg-seg{width:142px;font-size:12.5px}}
+/* tier grids */
+.gtiers{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(16px,2.2vw,28px);margin-top:clamp(34px,4vw,52px);align-items:stretch}
+.gtiers[hidden]{display:none}
+.gtiers.gweb{grid-template-columns:repeat(2,1fr);max-width:880px}
+@media(max-width:1000px){.gtiers,.gtiers.gweb{grid-template-columns:1fr;max-width:460px}}
+/* the card: near-invisible white film; the look lives in the backdrop lift,
+   the 1px borders and the inset top highlight */
+.gtier{position:relative;overflow:hidden;border-radius:32px;display:flex;flex-direction:column;
+  padding:clamp(28px,2.6vw,38px);background:rgba(255,255,255,0.012);
+  -webkit-backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.15),0 32px 64px -12px rgba(0,0,0,0.6)}
+.gtier.featured{border-color:rgba(255,255,255,0.20);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.4),inset 0 -1px 1px rgba(255,255,255,0.05),
+    0 32px 64px -12px rgba(0,0,0,0.6),0 0 80px rgba(255,255,255,0.05)}
+@media(min-width:1001px){.gtiers.gfront .gtier.featured{transform:translateY(-16px)}}
+@supports not (backdrop-filter:blur(1px)){.gtier{background:rgba(14,26,20,0.92)}}
+/* cursor spotlight (JS feeds --mx/--my) */
+.gtier::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:32px;opacity:0;transition:opacity .5s ease;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,0.15),transparent 65%)}
+.gtier:hover::before{opacity:1}
+/* film-grain wash, same noise recipe as the component */
+.gtier::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:0.03;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")}
+/* rotating light beam riding the featured card's 1px border */
+.pg-beam{position:absolute;inset:0;z-index:1;border-radius:32px;padding:1px;pointer-events:none;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask-composite:exclude}
+.pg-beam::before{content:"";position:absolute;inset:-100%;
+  background:conic-gradient(from 0deg,transparent 70%,rgba(255,255,255,0.8) 100%);
+  animation:pg-spin 4s linear infinite}
+@keyframes pg-spin{to{transform:rotate(1turn)}}
+.pg-pop{position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:3;
+  padding:5px 16px;border-radius:0 0 12px 12px;
+  background:rgba(255,255,255,0.10);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.10);border-top:0;
+  font-size:12px;font-weight:500;color:rgba(255,255,255,0.9);
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);white-space:nowrap}
+/* card content (the beam + pill overlays keep their own absolute stacking) */
+.gtier>*:not(.pg-beam):not(.pg-pop){position:relative;z-index:2}
+.gtier .tname{font-family:var(--font-d);font-weight:600;font-size:15px;
+  letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.78)}
+.gprice{display:flex;align-items:baseline;gap:5px;margin-top:16px}
+.gprice .cur{font-family:var(--font-d);font-weight:500;font-size:22px;color:rgba(255,255,255,0.55)}
+.gprice .num{font-family:var(--font-d);font-weight:700;font-size:clamp(46px,4vw,56px);
+  letter-spacing:-0.03em;line-height:1;color:#fff}
+.gprice .num.word{font-size:clamp(34px,3vw,40px);letter-spacing:-0.02em}
+.gprice .per{font-size:15px;font-weight:500;color:rgba(255,255,255,0.55);margin-left:3px}
+.gtier .setup-fee{font-family:var(--font-m);font-size:11.5px;letter-spacing:0.04em;
+  color:rgba(255,255,255,0.55);margin-top:8px}
+.gtier .tdesc{font-size:14.5px;color:rgba(255,255,255,0.6);margin-top:8px;line-height:1.55}
+.pg-line{height:1px;background:rgba(255,255,255,0.10);margin:20px 0 22px}
+.gtier ul{list-style:none;margin:0 0 28px;display:flex;flex-direction:column;gap:13px;flex:1}
+.gtier li{font-size:14px;font-weight:500;color:rgba(255,255,255,0.72);
+  padding-left:31px;position:relative;line-height:1.4}
+.gtier li::before{content:"";position:absolute;left:0;top:0;width:19px;height:19px;
+  border-radius:50%;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.10);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.2)}
+.gtier li::after{content:"";position:absolute;left:5px;top:6px;width:8px;height:4px;
+  border-left:2px solid rgba(255,255,255,0.9);border-bottom:2px solid rgba(255,255,255,0.9);
+  transform:rotate(-45deg)}
+/* CTAs */
+.pg-cta{display:block;width:100%;text-align:center;box-sizing:border-box;cursor:pointer;
+  padding:15px 0;border-radius:16px;border:0;
+  font-family:var(--font-d);font-weight:650;font-size:15px;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.25);
+  transition:background .3s ease,transform .3s ease,filter .3s ease}
+.pg-cta:focus-visible{outline:2px solid var(--accent-ink);outline-offset:3px}
+.pg-cta-solid{background:#fff;color:#12241B}
+.pg-cta-solid:hover{background:rgba(255,255,255,0.9);transform:scale(1.02)}
+.pg-cta-glass{background:rgba(255,255,255,0.10);color:#fff;border:1px solid rgba(255,255,255,0.10)}
+.pg-cta-glass:hover{background:rgba(255,255,255,0.20);transform:scale(1.02)}
+/* group swap: outgoing dips, incoming rolls up through a blur (the component's
+   price-roll, applied to the whole grid) */
+html.js-anim .gtiers.pg-out{opacity:0;translate:0 12px;filter:blur(4px);
+  transition:opacity .2s ease,translate .2s ease,filter .2s ease}
+html.js-anim .gtiers.pg-in{opacity:0;translate:0 28px;filter:blur(6px)}
+html.js-anim .gtiers:not(.pg-in):not(.pg-out){transition:opacity .45s ease,
+  translate .5s cubic-bezier(.22,1.2,.36,1),filter .4s ease}
+/* staggered pop-in on first reveal — JS sets per-tier delay Core → Custom → Pro */
 html.js-anim .tier-pop{opacity:0;translate:0 34px;scale:0.95;
   transition:opacity .5s ease,translate .64s cubic-bezier(.22,1.2,.36,1),scale .64s cubic-bezier(.22,1.2,.36,1)}
 html.js-anim .reveal.in .tier-pop{opacity:1;translate:0 0;scale:1}
-@media(prefers-reduced-motion:reduce){.tier{animation:none}.tier:hover{translate:none;scale:none}
+@media(prefers-reduced-motion:reduce){
+  .pg-beam::before{animation:none}
+  .gtier::before{transition:none}
+  .pg-thumb{transition:none}
+  html.js-anim .gtiers.pg-out,html.js-anim .gtiers.pg-in{opacity:1;translate:none;filter:none;transition:none}
   html.js-anim .tier-pop{opacity:1;translate:none;scale:none;transition:none}}
 
 /* ---- value stack: one Station replaces a dozen tools ---- */
@@ -363,9 +452,6 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
 .calc-out .btn-primary{margin-top:16px}
 
 /* ============ live phone demo (talk to the bot) ============ */
-.sub-label{margin-top:clamp(44px,5.5vw,72px);font-family:var(--font-m);font-size:12px;
-  letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
-.tiers.webtiers{margin-top:20px}
 .demo-wrap{display:grid;grid-template-columns:1fr minmax(320px,400px);gap:clamp(32px,5vw,72px);
   align-items:center;margin-top:clamp(36px,4vw,56px)}
 @media(max-width:960px){.demo-wrap{grid-template-columns:1fr}}
@@ -508,11 +594,6 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
   transition:width 200ms ease,height 200ms ease,margin 200ms ease,border-color 200ms ease}
 #cur-ring.hot{width:52px;height:52px;margin:-26px 0 0 -26px;border-color:var(--accent)}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){#cur-dot,#cur-ring{display:none}}
-
-/* website builds */
-.tiers.webtiers{grid-template-columns:repeat(2,1fr);max-width:920px}
-@media(max-width:1000px){.tiers.webtiers{grid-template-columns:1fr;max-width:460px}}
-.tier .price .plus{font-size:19px;font-weight:600;color:var(--muted);margin:0 2px}
 
 /* audit */
 #audit .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
@@ -865,12 +946,24 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     <section id="pricing" class="reveal">
       <span class="eyebrow">Pricing</span>
       <h2>One flat rate. No contracts.</h2>
-      <div class="tiers">
-        <div class="tier">
+
+      <div class="pg-toggle-row">
+        <div class="pg-toggle" aria-label="Choose a pricing group">
+          <i class="pg-thumb" aria-hidden="true"></i>
+          <button type="button" class="pg-seg on" data-group="front" aria-pressed="true" aria-controls="pg-front">Front office</button>
+          <button type="button" class="pg-seg" data-group="web" aria-pressed="false" aria-controls="pg-web">Website builds<span class="pg-badge">from $350</span></button>
+        </div>
+      </div>
+
+      <div class="pg-glow" aria-hidden="true"></div>
+
+      <div class="gtiers gfront" id="pg-front">
+        <div class="gtier">
           <div class="tname">Core</div>
-          <div class="price">$750<small> /mo</small></div>
+          <div class="gprice"><span class="cur">$</span><span class="num">750</span><span class="per">/mo</span></div>
           <div class="setup-fee">+ $1,000 one-time setup</div>
           <div class="tdesc">The phones, handled.</div>
+          <div class="pg-line" aria-hidden="true"></div>
           <ul>
             <li>Every call answered, 24/7</li>
             <li>Missed-call text back</li>
@@ -879,13 +972,16 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Local business number included</li>
             <li>Website chat widget</li>
           </ul>
-          <a class="btn-ghost" href="https://buy.stripe.com/fZu14g84Q30dasx5ZC2Fa0g" target="_blank" rel="noopener">Start with Core</a>
+          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/fZu14g84Q30dasx5ZC2Fa0g" target="_blank" rel="noopener">Start with Core</a>
         </div>
-        <div class="tier featured">
+        <div class="gtier featured">
+          <i class="pg-beam" aria-hidden="true"></i>
+          <div class="pg-pop">Most Popular</div>
           <div class="tname">Pro</div>
-          <div class="price">$1,500<small> /mo</small></div>
+          <div class="gprice"><span class="cur">$</span><span class="num">1,500</span><span class="per">/mo</span></div>
           <div class="setup-fee">+ $2,000 one-time setup</div>
           <div class="tdesc">The full front office.</div>
+          <div class="pg-line" aria-hidden="true"></div>
           <ul>
             <li>Everything in Core</li>
             <li>Lead follow-up until they answer</li>
@@ -895,13 +991,14 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Quote &amp; estimate follow-up</li>
             <li>Monthly tuning with a real person</li>
           </ul>
-          <a class="btn-primary" href="https://buy.stripe.com/cNieV6acY0S558dew82Fa0f" target="_blank" rel="noopener">Go Pro</a>
+          <a class="pg-cta pg-cta-solid" href="https://buy.stripe.com/cNieV6acY0S558dew82Fa0f" target="_blank" rel="noopener">Go Pro</a>
         </div>
-        <div class="tier">
+        <div class="gtier">
           <div class="tname">Custom</div>
-          <div class="price">$2,500<small> +/mo</small></div>
+          <div class="gprice"><span class="cur">$</span><span class="num">2,500</span><span class="per">+/mo</span></div>
           <div class="setup-fee">+ $3,000 one-time setup</div>
           <div class="tdesc">Built around your operation.</div>
+          <div class="pg-line" aria-hidden="true"></div>
           <ul>
             <li>Everything in Pro</li>
             <li>Multi-location &amp; teams</li>
@@ -910,36 +1007,41 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Branded mobile app</li>
             <li>Priority line to us</li>
           </ul>
-          <a class="btn-ghost" href="https://buy.stripe.com/3cI7sE3OA1W9asx5ZC2Fa0e" target="_blank" rel="noopener">Start with Custom</a>
+          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/3cI7sE3OA1W9asx5ZC2Fa0e" target="_blank" rel="noopener">Start with Custom</a>
         </div>
       </div>
-      <div class="sub-label">Website builds — same team, same system</div>
-      <div class="tiers webtiers">
-        <div class="tier">
+
+      <div class="gtiers gweb" id="pg-web" hidden>
+        <div class="gtier">
           <div class="tname">Launch site</div>
-          <div class="price">$350<span class="plus">+</span><small>$150 /mo care</small></div>
+          <div class="gprice"><span class="cur">$</span><span class="num">350</span><span class="per">+ $150/mo care</span></div>
           <div class="tdesc">Live in days, not months.</div>
+          <div class="pg-line" aria-hidden="true"></div>
           <ul>
             <li>One page, designed and written for you</li>
             <li>Booking &amp; lead form wired to your inbox</li>
             <li>Hosting, updates and care included</li>
             <li>Pairs with any Station plan</li>
           </ul>
-          <a class="btn-ghost" href="https://buy.stripe.com/cNicMY1GseIV9otco02Fa0k" target="_blank" rel="noopener">Get the site</a>
+          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/cNicMY1GseIV9otco02Fa0k" target="_blank" rel="noopener">Get the site</a>
         </div>
-        <div class="tier featured">
+        <div class="gtier featured">
+          <i class="pg-beam" aria-hidden="true"></i>
+          <div class="pg-pop">Signature</div>
           <div class="tname">Premiere</div>
-          <div class="price">Fully custom<small> · quoted</small></div>
+          <div class="gprice"><span class="num word">Fully custom</span><span class="per">· quoted</span></div>
           <div class="tdesc">A one-of-one build for brands that want to own the room.</div>
+          <div class="pg-line" aria-hidden="true"></div>
           <ul>
             <li>A scroll film like this very page</li>
             <li>Designed shot by shot for your brand</li>
             <li>Copy, photography and motion — all bespoke</li>
             <li>Priority build slot</li>
           </ul>
-          <button class="btn-primary js-book">Book a call</button>
+          <button class="pg-cta pg-cta-solid js-book">Book a call</button>
         </div>
       </div>
+
       <p class="pricing-note addons"><strong>Add-ons:</strong> branded mobile app $250/mo · POS setup — quoted · your business number is included on every plan</p>
       <p class="pricing-note">Every plan starts with the free audit — if we can't find you money, we'll tell you that too.</p>
     </section>
@@ -1287,8 +1389,9 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     var kids = Array.prototype.filter.call(sec.children, function(k){
       if (k.tagName === "SCRIPT") return false;
       if (sec.id === "services" && k.classList.contains("grid")) return false;
-      // the main price bubbles pop on their own ordered timing (below), not as a block
-      if (sec.id === "pricing" && k.classList.contains("tiers") && !k.classList.contains("webtiers")) return false;
+      // the glass tiers pop on their own ordered timing (below), not as a block;
+      // the glow is a decorative backdrop and never animates
+      if (sec.id === "pricing" && (k.classList.contains("gtiers") || k.classList.contains("pg-glow"))) return false;
       return true;
     });
     kids.forEach(function(k, i){
@@ -1299,7 +1402,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
 
   /* price bubbles pop in a deliberate order — Core first, then Custom, then Pro.
      Pro (the best plan) lands last so the visitor's eye settles on it. */
-  var priceTiers = document.querySelectorAll("#pricing > .tiers:not(.webtiers) .tier");
+  var priceTiers = document.querySelectorAll("#pricing .gtiers.gfront .gtier");
   if (priceTiers.length){
     var popSeq = { "Core": 0, "Custom": 1, "Pro": 2 };
     var BASE = 240, STEP = 200;
@@ -1338,6 +1441,61 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
       es.forEach(function(e){ if (e.isIntersecting){ land(); o.disconnect(); } });
     }, { threshold: 0.18 }).observe(svc);
   }
+})();
+
+/* pricing — glass tiers: cursor spotlight + group toggle (vanilla port of
+   21st.dev "Pricing Glass" by Alex Reino) */
+(function(){
+  var sec = document.getElementById("pricing");
+  if (!sec) return;
+  var rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* each card's spotlight follows the cursor via --mx/--my */
+  if (matchMedia("(hover:hover) and (pointer:fine)").matches){
+    sec.querySelectorAll(".gtier").forEach(function(card){
+      var raf = 0, ev = null;
+      card.addEventListener("pointermove", function(e){
+        ev = e;
+        if (raf) return;
+        raf = requestAnimationFrame(function(){
+          raf = 0;
+          var r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+          card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+        });
+      });
+    });
+  }
+
+  /* Front office <-> Website builds */
+  var segs = sec.querySelectorAll(".pg-seg");
+  var thumb = sec.querySelector(".pg-thumb");
+  var panels = { front: document.getElementById("pg-front"), web: document.getElementById("pg-web") };
+  var current = "front", busy = false;
+  segs.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var next = btn.getAttribute("data-group");
+      if (next === current || busy || !panels[next]) return;
+      busy = true;
+      var out = panels[current], inn = panels[next];
+      current = next;
+      segs.forEach(function(b){
+        var on = b === btn;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      if (thumb) thumb.style.transform = next === "web" ? "translateX(100%)" : "translateX(0)";
+      if (rm){ out.hidden = true; inn.hidden = false; busy = false; return; }
+      out.classList.add("pg-out");
+      setTimeout(function(){
+        out.hidden = true; out.classList.remove("pg-out");
+        inn.classList.add("pg-in"); inn.hidden = false;
+        void inn.offsetWidth;   /* commit the start state without waiting on rAF */
+        inn.classList.remove("pg-in");
+        setTimeout(function(){ busy = false; }, 520);
+      }, 210);
+    });
+  });
 })();
 </script>
 <script>
