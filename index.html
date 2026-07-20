@@ -565,6 +565,20 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   #loader .mark{animation:none;opacity:1}
   .card:hover{transform:none}
 }
+
+/* ---- de-boxed cinematic beats: clean text, soft scrim, word reveal ---- */
+.beat.unboxed{padding:0;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;max-width:min(32ch,42vw)}
+.beat.unboxed::before{content:"";position:absolute;inset:-16% -12%;z-index:-1;pointer-events:none;background:radial-gradient(120% 120% at 28% 42%,rgba(252,250,246,.5),rgba(252,250,246,0) 70%);filter:blur(10px)}
+.beat.unboxed h3{color:#1E232B;text-shadow:0 1px 20px rgba(252,250,246,.65),0 1px 3px rgba(11,13,16,.22)}
+.beat.unboxed p{color:#262B33;text-shadow:0 1px 14px rgba(252,250,246,.75)}
+.beat.unboxed .chip{text-shadow:0 1px 10px rgba(11,13,16,.22)}
+.beat.unboxed .rw{display:inline-block;white-space:pre;opacity:0;filter:blur(12px);transform:translateY(14px);transition:opacity .5s ease,filter .5s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.beat.unboxed.reveal-in .rw{opacity:1;filter:blur(0);transform:none}
+.beat.unboxed .chip,.beat.unboxed p{opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.beat.unboxed.reveal-in .chip{opacity:1;transform:none;transition-delay:.04s}
+.beat.unboxed.reveal-in p{opacity:1;transform:none;transition-delay:calc(var(--rwn,6)*.05s + .12s)}
+@media(max-width:700px){.beat.unboxed{max-width:min(40ch,86vw)}}
+@media(prefers-reduced-motion:reduce){.beat.unboxed .rw,.beat.unboxed .chip,.beat.unboxed p{transition:none;opacity:1;filter:none;transform:none}}
 </style>
 </head>
 <body>
@@ -611,27 +625,27 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     <div id="scrollcue"><span>Descend</span><span class="line"></span></div>
 
     <!-- outcome beats -->
-    <div class="beat left mid-l glass" data-in="0.13" data-peak="0.185" data-out="0.26">
+    <div class="beat left mid-l unboxed" data-in="0.13" data-peak="0.185" data-out="0.26">
       <span class="chip">Phones</span>
       <h3>Every call answered.</h3>
       <p>Missed calls are missed revenue. Station picks up in seconds, every time, and books the job while the caller is still on the line.</p>
     </div>
-    <div class="beat right mid-r glass" data-in="0.30" data-peak="0.36" data-out="0.43">
+    <div class="beat right mid-r unboxed" data-in="0.30" data-peak="0.36" data-out="0.43">
       <span class="chip">Scheduling</span>
       <h3>Booked while you sleep.</h3>
       <p>Quotes, bookings and reschedules run themselves. Your calendar fills overnight without you touching it.</p>
     </div>
-    <div class="beat center glass" data-in="0.47" data-peak="0.535" data-out="0.61">
+    <div class="beat center unboxed" data-in="0.47" data-peak="0.535" data-out="0.61">
       <span class="chip">Follow-up</span>
       <h3>Follow-ups that never slip.</h3>
       <p>Every lead chased, every review asked, every no-show rebooked. Quietly, on time, every time.</p>
     </div>
-    <div class="beat right mid-r glass" data-in="0.64" data-peak="0.70" data-out="0.77">
+    <div class="beat right mid-r unboxed" data-in="0.64" data-peak="0.70" data-out="0.77">
       <span class="chip">One inbox</span>
       <h3>Calls, texts, reviews, leads — one place.</h3>
       <p>Stop juggling six apps. Everything a customer sends you lands in one tidy stream, answered on time.</p>
     </div>
-    <div class="beat left mid-l glass" data-in="0.80" data-peak="0.855" data-out="0.92">
+    <div class="beat left mid-l unboxed" data-in="0.80" data-peak="0.855" data-out="0.92">
       <span class="chip">Small business</span>
       <h3>Your town runs on small business.</h3>
       <p>Plumbers, dentists, gyms, salons, contractors — Station is the front office that keeps yours running.</p>
@@ -1378,6 +1392,39 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     if (document.readyState === "complete") requestAnimationFrame(armLand);
     else addEventListener("load", function(){ requestAnimationFrame(armLand); }, { once: true });
   }
+})();
+</script>
+<script>
+/* De-boxed beats: word-by-word fade-in-blur reveal, synced to the film's beat opacity. */
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var beats = [].slice.call(document.querySelectorAll(".beat.unboxed"));
+  if (!beats.length) return;
+  beats.forEach(function(beat){
+    var h3 = beat.querySelector("h3");
+    if (!h3) return;
+    var toks = h3.textContent.split(/(\s+)/), wi = 0;
+    h3.textContent = "";
+    toks.forEach(function(tok){
+      if (/^\s+$/.test(tok)){ h3.appendChild(document.createTextNode(tok)); return; }
+      var s = document.createElement("span");
+      s.className = "rw"; s.textContent = tok;
+      s.style.transitionDelay = (wi * 0.05).toFixed(2) + "s";
+      h3.appendChild(s); wi++;
+    });
+    beat.style.setProperty("--rwn", wi);
+  });
+  if (reduce){ beats.forEach(function(b){ b.classList.add("reveal-in"); }); return; }
+  /* the film engine writes each beat's opacity every frame; mirror it so words
+     assemble as the beat rises and reset when it leaves (replays each scroll-through) */
+  function tick(){
+    for (var i = 0; i < beats.length; i++){
+      var a = parseFloat(beats[i].style.opacity) || 0;
+      beats[i].classList.toggle("reveal-in", a > 0.28);
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
