@@ -1242,25 +1242,8 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   document.documentElement.classList.add("js-anim");
   var rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  var lock = document.querySelector(".land-lock");
-  if (lock){
-    var idx = 0;
-    lock.querySelectorAll(".hl-word").forEach(function(w){
-      var t = w.textContent; w.textContent = "";
-      t.split("").forEach(function(c){
-        var sp = document.createElement("span"); sp.className = "ch";
-        sp.textContent = c === " " ? " " : c;
-        sp.style.transitionDelay = (idx * 38) + "ms"; idx++;
-        w.appendChild(sp);
-      });
-    });
-    var mk = lock.querySelector(".hl-mark");
-    if (mk){ mk.classList.add("ch"); mk.style.transitionDelay = (idx * 38 + 80) + "ms"; }
-    if (rm || !("IntersectionObserver" in window)) lock.classList.add("typed");
-    else new IntersectionObserver(function(es, o){
-      es.forEach(function(e){ if (e.isIntersecting){ lock.classList.add("typed"); o.disconnect(); } });
-    }, { threshold: 0.55 }).observe(lock);
-  }
+  /* .land-lock wordmark now decodes via the text-scramble module below
+     (replaced the per-character typed reveal). */
 
   /* pop-up units: each direct child of a .reveal section rises in sequence.
      services' .grid is excluded — its cards have their own drop-in. */
@@ -1318,6 +1301,82 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     else new IntersectionObserver(function(es, o){
       es.forEach(function(e){ if (e.isIntersecting){ land(); o.disconnect(); } });
     }, { threshold: 0.18 }).observe(svc);
+  }
+})();
+</script>
+<script>
+/* STATION FRONT OFFICE — text-scramble decode
+   Vanilla port of ibelick's 21st.dev / motion-primitives "text-scramble":
+   the wordmark resolves left-to-right out of a flicker of decode glyphs.
+   Fires on load for the hero lockup, and on scroll-in for the hand-off lockup. */
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/<>*";
+  function rnd(){ return CHARS[(Math.random() * CHARS.length) | 0]; }
+
+  function Scrambler(el){
+    this.el = el;
+    this.text = el.getAttribute("data-final") || el.textContent;
+    el.setAttribute("data-final", this.text);
+    this.raf = 0;
+  }
+  Scrambler.prototype.seed = function(){
+    if (reduce){ this.el.textContent = this.text; return; }
+    var t = this.text, out = "";
+    for (var i = 0; i < t.length; i++) out += (t[i] === " ") ? " " : rnd();
+    this.el.textContent = out;
+  };
+  Scrambler.prototype.play = function(duration, speed){
+    var self = this, text = this.text;
+    if (reduce){ this.el.textContent = text; return; }
+    duration = duration || 0.9; speed = speed || 0.035;
+    var steps = Math.max(1, Math.round(duration / speed)), frameMs = speed * 1000;
+    var step = 0, last = -Infinity;
+    cancelAnimationFrame(this.raf);
+    var tick = function(now){
+      if (now - last >= frameMs){
+        last = now;
+        var revealed = (step / steps) * text.length, out = "";
+        for (var i = 0; i < text.length; i++){
+          var c = text[i];
+          out += (c === " ") ? " " : (i < revealed ? c : rnd());
+        }
+        self.el.textContent = out; step++;
+        if (step > steps){ self.el.textContent = text; return; }
+      }
+      self.raf = requestAnimationFrame(tick);
+    };
+    self.raf = requestAnimationFrame(tick);
+  };
+
+  function wire(lock, stagger){
+    if (!lock) return null;
+    var words = [].map.call(lock.querySelectorAll(".hl-word"), function(w){ return new Scrambler(w); });
+    words.forEach(function(s){ s.seed(); });
+    return function(){ words.forEach(function(s, i){ setTimeout(function(){ s.play(); }, i * (stagger || 140)); }); };
+  }
+
+  var ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+
+  /* hero — decodes on load, over the summit frame */
+  var heroRun = wire(document.querySelector(".hero-lock"), 140);
+  if (heroRun) ready.then(function(){ setTimeout(function(){ requestAnimationFrame(heroRun); }, 240); });
+
+  /* hand-off lockup — decodes as it scrolls into view. Arm the observer only
+     after layout settles (the film establishes its tall scroll height on load),
+     so the below-fold lockup waits for a real scroll-in rather than firing during
+     the brief pre-layout moment. */
+  var landLock = document.querySelector(".land-lock");
+  var landRun = wire(landLock, 140);
+  if (landRun){
+    var armLand = function(){
+      if (reduce || !("IntersectionObserver" in window)){ landRun(); return; }
+      new IntersectionObserver(function(es, o){
+        es.forEach(function(e){ if (e.isIntersecting){ landRun(); o.disconnect(); } });
+      }, { threshold: 0.55 }).observe(landLock);
+    };
+    if (document.readyState === "complete") requestAnimationFrame(armLand);
+    else addEventListener("load", function(){ requestAnimationFrame(armLand); }, { once: true });
   }
 })();
 </script>
