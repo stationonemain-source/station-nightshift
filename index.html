@@ -681,6 +681,14 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
 .beat.unboxed.reveal-in p{opacity:1;transform:none;transition-delay:calc(var(--rwn,6)*.05s + .12s)}
 @media(max-width:700px){.beat.unboxed{max-width:min(40ch,86vw)}}
 @media(prefers-reduced-motion:reduce){.beat.unboxed .rw,.beat.unboxed .chip,.beat.unboxed p{transition:none;opacity:1;filter:none;transform:none}}
+/* ---- boxed beats: squared, solid, centered (readable over the footage) ---- */
+.beat.boxed{border-radius:4px;background:rgba(250,248,244,0.5);
+  -webkit-backdrop-filter:blur(22px) saturate(1.6) brightness(1.05);backdrop-filter:blur(22px) saturate(1.6) brightness(1.05);
+  box-shadow:0 18px 56px rgba(11,13,16,0.30),inset 0 1px 0 rgba(255,255,255,0.72)}
+@supports not (backdrop-filter:blur(1px)){.beat.boxed{background:rgba(249,247,242,0.95)}}
+.beat.boxed h3{color:#1E232B}
+.beat.boxed p{color:#2C3138}
+@media(max-width:700px){.beat.boxed{background:rgba(250,248,244,0.6)}}
 </style>
 </head>
 <body>
@@ -727,27 +735,27 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
     <div id="scrollcue"><span>Descend</span><span class="line"></span></div>
 
     <!-- outcome beats -->
-    <div class="beat left mid-l unboxed" data-in="0.13" data-peak="0.185" data-out="0.26">
+    <div class="beat center glass boxed" data-in="0.13" data-peak="0.185" data-out="0.26">
       <span class="chip">Phones</span>
       <h3>Every call answered.</h3>
       <p>Missed calls are missed revenue. Station picks up in seconds, every time, and books the job while the caller is still on the line.</p>
     </div>
-    <div class="beat right mid-r unboxed" data-in="0.30" data-peak="0.36" data-out="0.43">
+    <div class="beat center glass boxed" data-in="0.30" data-peak="0.36" data-out="0.43">
       <span class="chip">Scheduling</span>
       <h3>Booked while you sleep.</h3>
       <p>Quotes, bookings and reschedules run themselves. Your calendar fills overnight without you touching it.</p>
     </div>
-    <div class="beat center unboxed" data-in="0.47" data-peak="0.535" data-out="0.61">
+    <div class="beat center glass boxed" data-in="0.47" data-peak="0.535" data-out="0.61">
       <span class="chip">Follow-up</span>
       <h3>Follow-ups that never slip.</h3>
       <p>Every lead chased, every review asked, every no-show rebooked. Quietly, on time, every time.</p>
     </div>
-    <div class="beat right mid-r unboxed" data-in="0.64" data-peak="0.70" data-out="0.77">
+    <div class="beat center glass boxed" data-in="0.64" data-peak="0.70" data-out="0.77">
       <span class="chip">One inbox</span>
       <h3>Calls, texts, reviews, leads — one place.</h3>
       <p>Stop juggling six apps. Everything a customer sends you lands in one tidy stream, answered on time.</p>
     </div>
-    <div class="beat left mid-l unboxed" data-in="0.80" data-peak="0.855" data-out="0.92">
+    <div class="beat center glass boxed" data-in="0.80" data-peak="0.855" data-out="0.92">
       <span class="chip">Small business</span>
       <h3>Your town runs on small business.</h3>
       <p>Plumbers, dentists, gyms, salons, contractors — Station is the front office that keeps yours running.</p>
@@ -1107,10 +1115,35 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
           <div class="vs-cost">$89<small>/mo</small></div>
           <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
         </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Social posting &amp; scheduling</b><i>replaces Hootsuite, Buffer</i></div>
+          <div class="vs-cost">$99<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Webchat + AI chat assistant</b><i>replaces Intercom, Drift</i></div>
+          <div class="vs-cost">$79<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Funnels &amp; landing pages</b><i>replaces ClickFunnels, Leadpages</i></div>
+          <div class="vs-cost">$97<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Included in your Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Setup, migration &amp; integrations</b><i>the manual wiring you'd do yourself</i></div>
+          <div class="vs-cost">$175<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Done for you on every Station plan">✓</span></div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-cap"><b>Someone to build &amp; run it all</b><i>replaces a part-time ops hire or agency</i></div>
+          <div class="vs-cost">$900<small>/mo</small></div>
+          <div class="vs-mark"><span class="vs-check" aria-label="Done for you on every Station plan">✓</span></div>
+        </div>
         <div class="vs-total">
           <div class="vs-total-left">
             <span class="vs-total-lbl">Bought separately &amp; self-run</span>
-            <span class="vs-total-big">$950+<small> /mo</small></span>
+            <span class="vs-total-big">$2,300+<small> /mo</small></span>
           </div>
           <div class="vs-total-right">
             <span class="vs-total-lbl">With Station — done for you</span>
@@ -1118,7 +1151,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
           </div>
         </div>
       </div>
-      <p class="vs-note">Every Station plan is this whole stack &mdash; built, connected, and run for you, not just handed over. Core starts at $750/mo; missed-call text-back and extended nurture unlock on Pro, and a FOUNDRY-built site is $350 + $150/mo.</p>
+      <p class="vs-note">Every Station plan is this whole stack &mdash; built, connected, and run for you. No tools to license, no setup to figure out, no one to hire to run it &mdash; that's the part most owners never price in. Core starts at $750/mo; missed-call text-back and extended nurture unlock on Pro, and a FOUNDRY-built site is $350 + $150/mo.</p>
       <div class="vs-cta">
         <button class="btn-primary" data-goto="#audit">Get your free audit</button>
         <button class="btn-ghost" data-goto="#pricing">See pricing</button>
