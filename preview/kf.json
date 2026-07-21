@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-07-19T16:12:43.9206Z",
+  "display_name": "Nano Banana Pro",
+  "id": "229c4ac1-45ae-4f86-8dbf-22c826c9f0c1",
+  "job_type": "nano_banana_pro",
+  "min_result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3Cgwv2x8EGi2qsB6QGW98z4PpEX/hf_20260719_161243_229c4ac1-45ae-4f86-8dbf-22c826c9f0c1_min.webp",
+  "params": {
+    "application": null,
+    "aspect_ratio": "16:9",
+    "batch_size": 1,
+    "height": 1536,
+    "input_image": null,
+    "input_images": [],
+    "prompt": "Photorealistic cinematic aerial shot from high above an endless sea of clouds at first light. Jagged granite mountain peaks pierce the cloud deck, receding into the distance. Soft warm golden dawn light rakes from the horizon on the right; the cloud valleys hold cool blue shadow. Gentle atmospheric haze, ultra-sharp nature-documentary clarity, serene and still. No text, no watermark, no birds, no lens flare.",
+    "resolution": "2k",
+    "surface": null,
+    "width": 2752
+  },
+  "result_url": "https://d8j0ntlcm91z4.cloudfront.net/user_3Cgwv2x8EGi2qsB6QGW98z4PpEX/hf_20260719_161243_229c4ac1-45ae-4f86-8dbf-22c826c9f0c1.png",
+  "status": "completed"
+}
