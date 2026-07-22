@@ -50,7 +50,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 /* white surfaces re-scope to ink so light components read correctly on the forest bg */
-.card,.promo-card,#aiw,.glass,.ip-display{
+.promo-card,#aiw,.glass,.ip-display{
   --fg:var(--ink);--muted:var(--ink-muted);--border:var(--ink-border);
   --accent-ink:var(--ink-accent);--success-ink:#167A44;color:var(--fg)}
 html{scroll-behavior:auto}
@@ -231,14 +231,28 @@ h2{font-size:clamp(30px,4.2vw,44px);font-weight:700;line-height:1.08;letter-spac
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(36px,4vw,56px)}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;
-  padding:26px 26px 28px;transition:transform var(--t-base),box-shadow var(--t-base)}
-.card:hover{transform:translateY(-2px);box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+/* same dark-glass tier surface as #pricing .gtier / .calc-card — no more flat white card */
+.card{position:relative;overflow:hidden;background:rgba(255,255,255,0.012);
+  -webkit-backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.15),0 32px 64px -12px rgba(0,0,0,0.6);
+  border-radius:24px;padding:26px 26px 28px}
+@supports not (backdrop-filter:blur(1px)){.card{background:rgba(14,26,20,0.92)}}
+/* cursor spotlight (JS feeds --mx/--my), same recipe as the pricing tiers */
+.card::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:24px;opacity:0;transition:opacity .5s ease;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,0.15),transparent 65%)}
+.card:hover::before{opacity:1}
+.card::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:0.03;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")}
+.card>*{position:relative;z-index:2}
 /* services cards drop into place on first view */
 html.js-anim #services .card{opacity:0;transform:translateY(-34px)}
 html.js-anim #services.cards-in .card{opacity:1;transform:none;
   transition:opacity .4s ease,transform .62s cubic-bezier(.22,1.35,.36,1)}
-html.js-anim #services.settled .card{transition:transform var(--t-base),box-shadow var(--t-base)}
+html.js-anim #services.settled .card{transition:transform var(--t-base)}
 @media (prefers-reduced-motion:reduce){html.js-anim #services .card{opacity:1;transform:none}}
 .card .ico{display:block;width:34px;height:34px;color:var(--accent-ink);margin-bottom:16px}
 .card .ico svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.7;fill:none;
@@ -698,7 +712,6 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   html.js-anim .rv-u{opacity:1;transform:none;transition:none}
   #scrollcue .line{animation:none}
   #loader .mark{animation:none;opacity:1}
-  .card:hover{transform:none}
 }
 
 /* ---- de-boxed cinematic beats: clean text, soft scrim, word reveal ---- */
@@ -1563,20 +1576,22 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   }
 })();
 
-/* revenue calculator card: same cursor-spotlight glass treatment as the pricing tiers */
+/* revenue calculator card + services cards: same cursor-spotlight glass treatment
+   as the pricing tiers */
 (function(){
   if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-  var card = document.querySelector("#calc .calc-card");
-  if (!card) return;
-  var raf = 0, ev = null;
-  card.addEventListener("pointermove", function(e){
-    ev = e;
-    if (raf) return;
-    raf = requestAnimationFrame(function(){
-      raf = 0;
-      var r = card.getBoundingClientRect();
-      card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
-      card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+  var cards = document.querySelectorAll("#calc .calc-card, #services .card");
+  cards.forEach(function(card){
+    var raf = 0, ev = null;
+    card.addEventListener("pointermove", function(e){
+      ev = e;
+      if (raf) return;
+      raf = requestAnimationFrame(function(){
+        raf = 0;
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+        card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+      });
     });
   });
 })();
