@@ -1145,8 +1145,15 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
         <div>
           <form id="audit-form" novalidate>
             <input type="hidden" name="variant" value="film">
+            <!-- spam trap: humans never see or fill this; any value = bot (checked in film.js + n8n) -->
+            <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+              <label>Company URL (leave this field empty)<input type="text" name="company_url" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <input type="hidden" name="_t" value="">
             <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
             <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
+            <input class="input" name="address" placeholder="City or address (so we audit the right listing)" autocomplete="street-address">
+            <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
             <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
             <select class="input" name="industry" aria-label="What kind of business">
               <option value="">What kind of business? (helps us prep)</option>

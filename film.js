@@ -380,8 +380,17 @@
 
   /* audit form */
   var form = document.getElementById("audit-form");
+  /* render timestamp: bots that submit within ~2s of load get flagged server-side */
+  var formT0 = Date.now();
+  if (form) {
+    var tField = form.querySelector('input[name="_t"]');
+    if (tField) tField.value = String(formT0);
+  }
   if (form) form.addEventListener("submit", function (ev) {
     ev.preventDefault();
+    /* honeypot: humans never fill the hidden company_url field — any value = bot, drop silently */
+    var hp = form.querySelector('input[name="company_url"]');
+    if (hp && hp.value.trim() !== "") { form.classList.add("form-done"); return; }
     var ok = true;
     Array.prototype.forEach.call(form.querySelectorAll("[required]"), function (f) {
       if (!f.value.trim()) { ok = false; f.style.borderColor = "#D2402E"; }
@@ -391,6 +400,7 @@
     var fd = new FormData(form);
     fd.set("ref", savedRef || "");
     fd.set("source", "the-range");
+    if (!fd.get("_t")) fd.set("_t", String(formT0));
     try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
     try {
       if (navigator.sendBeacon && savedRef) {

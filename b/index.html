@@ -1826,10 +1826,20 @@ html{scroll-behavior:smooth}
 
             <input type="hidden" name="variant" value="fast">
 
+            <!-- spam trap: humans never see or fill this; any value = bot (checked inline + in n8n) -->
+            <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+              <label>Company URL (leave this field empty)<input type="text" name="company_url" tabindex="-1" autocomplete="off"></label>
+            </div>
+
+            <input type="hidden" name="_t" value="">
+
             <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
 
             <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
 
+            <input class="input" name="address" placeholder="City or address (so we audit the right listing)" autocomplete="street-address">
+
+            <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
 
             <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
 
@@ -2072,9 +2082,21 @@ html{scroll-behavior:smooth}
 
   var form = document.getElementById("audit-form");
 
+  /* render timestamp: bots that submit within ~2s of load get flagged server-side */
+
+  var auditT0 = Date.now();
+
+  if (form) { var tField = form.querySelector('input[name="_t"]'); if (tField) tField.value = String(auditT0); }
+
   if (form) form.addEventListener("submit", function(ev){
 
     ev.preventDefault();
+
+    /* honeypot: humans never fill the hidden company_url field — any value = bot, drop silently */
+
+    var hp = form.querySelector('input[name="company_url"]');
+
+    if (hp && hp.value.trim() !== "") { form.classList.add("form-done"); return; }
 
     var ok = true;
 
@@ -2093,6 +2115,8 @@ html{scroll-behavior:smooth}
     fd.set("ref", savedRef || "");
 
     fd.set("source", "the-range");
+
+    if (!fd.get("_t")) fd.set("_t", String(auditT0));
 
     try { fetch(AUDIT_URL, {method:"POST", mode:"no-cors", body:fd}); } catch(err){}
 
