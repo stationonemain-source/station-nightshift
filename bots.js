@@ -129,9 +129,20 @@
       urgent: /(tonight|now|walk|last minute|asap)/,
       urgentReply: ["I can fit you in - {s1} or {s2}? How many in your party?"],
       can: "book a table, share the menu, or check tonight's availability"
+    },
+    // catch-all persona so any visitor can try the demo even if their trade
+    // isn't one of the six picks below - typing a message activates this.
+    universal: {
+      name: "Station Front Desk", greet: "Station front desk - go ahead, ask like a real customer would.",
+      chips: ["Book an appointment", "How much does this cost?", "Are you open now?", "What can you handle?"],
+      owner: "the team", slots: ["tomorrow 9:00 AM", "tomorrow 2:00 PM"], when: "", ask: "name",
+      price: "Every plan's flat-rate, no per-lead fees - Core starts at $750/mo, Pro at $1,500/mo. Every plan starts with a free 15-minute audit.",
+      urgent: /(emergency|urgent|asap|right now|help|stuck)/,
+      urgentReply: ["Got it, flagging that as urgent.", "I can get someone on it - {s1} or {s2}?"],
+      can: "book you a time, answer pricing, or route you to a real person"
     }
   };
-  var BIZ_PICK = [["Plumber","plumber"],["Salon","salon"],["Dentist","dentist"],["Auto shop","auto"],["Gym","gym"],["Restaurant","restaurant"]];
+  var BIZ_PICK = [["Plumber","plumber"],["Salon","salon"],["Dentist","dentist"],["Auto shop","auto"],["Gym","gym"],["Restaurant","restaurant"],["Something else","universal"]];
 
   if (pThread) {
     var phone = mkThread(pThread);
@@ -222,7 +233,17 @@
       });
     }
 
-    pForm.addEventListener("submit", function (e) { e.preventDefault(); deskSend(pIn.value); pIn.value = ""; });
+    // Visitor might type without picking a business first - any trade works,
+    // so silently activate the universal front desk rather than dropping the message.
+    function ensureBiz() {
+      if (st.key) return;
+      st.key = "universal"; st.stage = null; st.slot = null; st.session++;
+      var c = cfg();
+      if (pName) pName.textContent = c.name;
+      if (pSub) pSub.textContent = "Front desk · replies in seconds";
+    }
+
+    pForm.addEventListener("submit", function (e) { e.preventDefault(); ensureBiz(); deskSend(pIn.value); pIn.value = ""; });
 
     var seeded = false;
     function seedPhone() { if (seeded) return; seeded = true; showPicker(); }

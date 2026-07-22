@@ -504,7 +504,7 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
 .sms{max-width:82%;padding:9px 13px;border-radius:16px;font-size:13.5px;line-height:1.45;
   opacity:0;transform:translateY(6px);transition:opacity 280ms ease,transform 280ms ease}
 .sms.show{opacity:1;transform:none}
-.sms.me{align-self:flex-end;background:var(--accent);color:#16181D;border-bottom-right-radius:5px}
+.sms.me{align-self:flex-end;background:#3B9DFF;color:#FFFFFF;border-bottom-right-radius:5px}
 .sms.biz{align-self:flex-start;background:var(--surface-2);color:var(--fg);border-bottom-left-radius:5px}
 .sms-note{font-family:var(--font-m);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
   color:var(--muted);text-align:center;margin:2px 0}
@@ -526,6 +526,20 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
   font-size:16px;font-weight:700;cursor:pointer;flex:none}
 .p-input button:active{transform:translateY(1px)}
 
+
+/* ============ FAQ accordion ============ */
+.faq-list{max-width:44rem;margin-top:clamp(28px,4vw,44px)}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:1.2rem 0;background:none;border:0;text-align:left;cursor:pointer;
+  font-family:var(--font-d);font-size:1.02rem;font-weight:600;color:var(--fg)}
+.faq-chev{flex:none;width:18px;height:18px;color:var(--muted);transition:transform .25s ease}
+.faq-q[aria-expanded="true"] .faq-chev{transform:rotate(180deg);color:var(--accent-ink)}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+.faq-q[aria-expanded="true"]+.faq-a{grid-template-rows:1fr}
+.faq-a-inner{overflow:hidden}
+.faq-a p{color:var(--muted);font-size:14.5px;line-height:1.65;max-width:58ch;padding-bottom:1.2rem}
 
 /* ============ popup ============ */
 #promo{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;
@@ -1164,6 +1178,43 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
       </div>
     </section>
 
+    <section id="faq" class="reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions before you call.</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What does Station cost?
+            <svg class="faq-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Three plans, no contracts: Core is $750/mo + $1,000 setup for the phones handled. Pro is $1,500/mo + $2,000 setup for the full front office. Custom starts at $2,500/mo + $3,000 setup for multi-location and custom builds. Every plan starts with the free 15-minute audit above.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What does Station actually do?
+            <svg class="faq-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Station staffs your front office: every call answered 24/7, jobs booked straight onto your calendar, follow-ups that never slip, and one inbox for calls, texts, reviews and leads.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">How fast can we start?
+            <svg class="faq-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Running in about a week. We do the 15-minute audit, then wire your phones, calendar, inbox and follow-up into how you already work &mdash; you don't change anything on your end.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Do you build websites too?
+            <svg class="faq-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Yes &mdash; a Launch site is $350 to build plus $150/mo for hosting and care, live in days. A fully custom cinematic build like this page (Premiere) is quoted on a quick call.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Is there a contract?
+            <svg class="faq-chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 7.5 10 12.5 15 7.5"/></svg>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner"><p>Month-to-month, no contracts and no cancellation fees.</p></div></div>
+        </div>
+      </div>
+    </section>
+
     <section id="book">
       <div class="row reveal">
         <h2>Prefer to just talk?</h2>
@@ -1224,6 +1275,17 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
 <script src="film.js"></script>
 <script src="bots.js"></script>
 <script src="analytics.js"></script>
+<script>
+(function(){
+  "use strict";
+  [].slice.call(document.querySelectorAll(".faq-q")).forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  });
+})();
+</script>
 <script>
 (function(){
   "use strict";
