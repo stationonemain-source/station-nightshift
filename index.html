@@ -8,7 +8,7 @@
    sticky per browser. QA: ?v=film / ?v=fast force an arm; ?jump and ?demo
    never redirect. KILL SWITCH: set AB_ON=false and redeploy. */
 (function(){
-  var AB_ON = true;
+  var AB_ON = false;
   if (!AB_ON || location.hostname !== "station.solutions") return;
   var q = new URLSearchParams(location.search);
   if (q.has("jump") || q.has("demo")) return;
