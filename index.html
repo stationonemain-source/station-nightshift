@@ -50,7 +50,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 /* white surfaces re-scope to ink so light components read correctly on the forest bg */
-.card,.calc-card,.promo-card,.glass,.ip-display{
+.card,.promo-card,.glass,.ip-display{
   --fg:var(--ink);--muted:var(--ink-muted);--border:var(--ink-border);
   --accent-ink:var(--ink-accent);--success-ink:#167A44;color:var(--fg)}
 html{scroll-behavior:auto}
@@ -429,28 +429,44 @@ html.js-anim .reveal.in .tier-pop{opacity:1;translate:0 0;scale:1}
 @media (prefers-reduced-motion:reduce){.lb-track{animation:none}}
 
 /* ============ revenue calculator ============ */
-.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;
-  padding:clamp(26px,3.5vw,44px);display:grid;grid-template-columns:1.1fr 0.9fr;
+/* same dark-glass tier surface as #pricing .gtier (21st.dev "Pricing Glass" port) —
+   no more flat white card floating on the forest bg */
+.calc-card{position:relative;overflow:hidden;background:rgba(255,255,255,0.012);
+  -webkit-backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  backdrop-filter:blur(24px) saturate(1.9) brightness(1.12);
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.15),0 32px 64px -12px rgba(0,0,0,0.6);
+  border-radius:32px;padding:clamp(28px,3.5vw,44px);display:grid;grid-template-columns:1.1fr 0.9fr;
   gap:clamp(28px,4vw,56px);margin-top:clamp(36px,4vw,56px)}
-@media(max-width:900px){.calc-card{grid-template-columns:1fr}}
+@supports not (backdrop-filter:blur(1px)){.calc-card{background:rgba(14,26,20,0.92)}}
+/* cursor spotlight (JS feeds --mx/--my), same recipe as the pricing tiers */
+.calc-card::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  border-radius:32px;opacity:0;transition:opacity .5s ease;
+  background:radial-gradient(600px circle at var(--mx,50%) var(--my,40%),rgba(255,255,255,0.15),transparent 65%)}
+.calc-card:hover::before{opacity:1}
+.calc-card::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  opacity:0.03;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")}
+.calc-card>*{position:relative;z-index:2}
+@media(max-width:900px){.calc-card{grid-template-columns:1fr;border-radius:22px}}
 .calc-row{margin-bottom:24px}
 .calc-row:last-child{margin-bottom:0}
 .calc-row label{display:flex;justify-content:space-between;align-items:baseline;
   font-size:14px;font-weight:550;margin-bottom:12px}
 .calc-row output{font-family:var(--font-m);font-size:14px;font-weight:500;color:var(--accent-ink)}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;
-  background:var(--surface-2);outline:none;cursor:pointer}
+  background:rgba(255,255,255,0.14);outline:none;cursor:pointer}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;
-  border-radius:50%;background:var(--accent);border:2px solid #fff;
-  box-shadow:0 1px 5px rgba(0,0,0,0.25);cursor:grab}
+  border-radius:50%;background:#fff;border:2px solid rgba(255,255,255,0.4);
+  box-shadow:0 1px 5px rgba(0,0,0,0.4);cursor:grab}
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;
-  background:var(--accent);border:2px solid #fff;cursor:grab}
+  background:#fff;border:2px solid rgba(255,255,255,0.4);cursor:grab}
 input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offset:4px}
 .calc-out{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:7px;
-  border-left:1px solid var(--border);padding-left:clamp(24px,3vw,48px)}
-@media(max-width:900px){.calc-out{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:26px}}
+  border-left:1px solid rgba(255,255,255,0.10);padding-left:clamp(24px,3vw,48px)}
+@media(max-width:900px){.calc-out{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,0.10);padding-top:26px}}
 .co-label{font-size:12px;font-weight:650;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
-.co-num{font-family:var(--font-d);font-weight:700;font-size:clamp(42px,4.8vw,60px);letter-spacing:-0.02em;line-height:1}
+.co-num{font-family:var(--font-d);font-weight:700;font-size:clamp(42px,4.8vw,60px);letter-spacing:-0.02em;line-height:1;color:#fff}
 .co-sub{font-size:14px;color:var(--muted);max-width:36ch;line-height:1.55}
 .calc-out .btn-primary{margin-top:16px}
 
@@ -529,6 +545,48 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
   font-size:16px;font-weight:700;cursor:pointer;flex:none}
 .p-input button:active{transform:translateY(1px)}
 
+/* ============ Ask-Station FAQ widget ============ */
+#aiw-btn{position:fixed;right:clamp(16px,2.5vw,30px);bottom:clamp(16px,2.5vw,30px);z-index:80;
+  display:flex;align-items:center;gap:10px;padding:13px 19px;border:0;cursor:pointer;
+  border-radius:var(--r-pill);background:#16181D;color:#F2EFE8;
+  font-family:var(--font-d);font-weight:600;font-size:13.5px;
+  box-shadow:0 8px 30px rgba(11,13,16,0.28);transition:transform var(--t-base)}
+#aiw-btn:hover{transform:translateY(-2px)}
+#aiw-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 0 0 rgba(47,191,113,0.5);animation:aiwpulse 2.2s infinite}
+@keyframes aiwpulse{70%{box-shadow:0 0 0 9px rgba(47,191,113,0)}100%{box-shadow:0 0 0 0 rgba(47,191,113,0)}}
+#aiw{position:fixed;right:clamp(12px,2.5vw,30px);bottom:calc(clamp(16px,2.5vw,30px) + 62px);z-index:81;
+  width:min(372px,calc(100vw - 24px));background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;box-shadow:0 24px 70px rgba(11,13,16,0.3);overflow:hidden;
+  opacity:0;transform:translateY(14px) scale(0.98);pointer-events:none;
+  transition:opacity 240ms ease,transform 240ms ease}
+#aiw.open{opacity:1;transform:none;pointer-events:auto}
+.aiw-top{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#16181D;color:#F2EFE8}
+.aiw-top .mark{width:18px;height:18px;color:var(--accent)}
+.aiw-top .t{font-family:var(--font-d);font-weight:600;font-size:14px}
+.aiw-top .live{margin-left:auto;font-family:var(--font-m);font-size:9.5px;letter-spacing:0.14em;color:var(--success);
+  border:1px solid rgba(47,191,113,0.45);padding:3px 8px;border-radius:var(--r-pill)}
+.aiw-top .x{background:none;border:0;color:inherit;cursor:pointer;font-size:17px;line-height:1;opacity:0.7;padding:2px 4px}
+.aiw-body{padding:16px;display:flex;flex-direction:column;gap:10px;height:300px;overflow-y:auto;scroll-behavior:smooth}
+.aiw-note{font-family:var(--font-m);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin:2px 0}
+.msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;
+  opacity:0;transform:translateY(6px);transition:opacity 300ms ease,transform 300ms ease}
+.msg.show{opacity:1;transform:none}
+.msg.cust{align-self:flex-start;background:var(--surface-2);color:var(--fg);border-bottom-left-radius:4px}
+.msg.ai{align-self:flex-end;background:#16181D;color:#F2EFE8;border-bottom-right-radius:4px}
+.msg.ai .who{display:block;font-family:var(--font-m);font-size:9.5px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.aiw-typing{align-self:flex-end;display:flex;gap:4px;padding:12px 14px;background:#16181D;
+  border-radius:14px;border-bottom-right-radius:4px}
+.aiw-typing i{width:5px;height:5px;border-radius:50%;background:#9AA0A8;animation:tdot 1s infinite}
+.aiw-typing i:nth-child(2){animation-delay:0.15s}
+.aiw-typing i:nth-child(3){animation-delay:0.3s}
+@keyframes tdot{30%{transform:translateY(-3px)}}
+.aiw-foot{padding:12px 16px 16px;border-top:1px solid var(--border);display:flex;gap:12px;align-items:center}
+.aiw-foot .btn-primary{flex:1;text-align:center;font-size:13px;padding:11px 16px}
+.aiw-foot .replay{background:none;border:0;color:var(--muted);cursor:pointer;font-size:12.5px;text-decoration:underline}
+@media(max-width:700px){#aiw-btn .lbl{display:none}#aiw-btn{padding:14px}}
 
 /* ============ FAQ accordion ============ */
 .faq-list{max-width:44rem;margin-top:clamp(28px,4vw,44px)}
@@ -1265,6 +1323,29 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   </footer>
 </main>
 
+<!-- Ask Station — FAQ concierge -->
+<button id="aiw-btn" aria-haspopup="dialog" aria-expanded="false">
+  <span class="dot"></span><span class="lbl">Questions? Ask Station</span>
+</button>
+<div id="aiw" role="dialog" aria-label="Ask Station — questions and answers">
+  <div class="aiw-top">
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g mask="url(#hk-core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#hk-arm"/><use href="#hk-arm" transform="rotate(90 50 50)"/><use href="#hk-arm" transform="rotate(180 50 50)"/><use href="#hk-arm" transform="rotate(270 50 50)"/></g></svg>
+    <span class="t">Ask Station</span>
+    <span class="live">FAQ</span>
+    <button class="x" id="aiw-x" aria-label="Close">×</button>
+  </div>
+  <div class="aiw-body" id="aiw-body"></div>
+  <div class="p-chips" id="aiw-chips"></div>
+  <form class="p-input" id="aiw-form">
+    <input id="aiw-in" type="text" placeholder="Ask about plans, websites, setup…" autocomplete="off" maxlength="140" aria-label="Ask a question about Station">
+    <button type="submit" aria-label="Send">↑</button>
+  </form>
+  <div class="aiw-foot">
+    <button class="btn-primary" data-goto="#audit" id="aiw-cta">Get the free audit</button>
+    <button class="replay" id="aiw-clear">Clear</button>
+  </div>
+</div>
+
 <!-- exit / timed popup -->
 <div id="promo" role="dialog" aria-modal="true" aria-label="Free audit offer">
   <div class="promo-card">
@@ -1329,6 +1410,26 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   if (cCalls){
     [cCalls, cValue, cClose].forEach(function(el){ el.addEventListener("input", calc); });
     shown = 0; calc();
+  }
+
+  /* ---------- widget open/close (conversation logic lives in bots.js) ---------- */
+  var aiwBtn = document.getElementById("aiw-btn"), aiw = document.getElementById("aiw"),
+      aiwX = document.getElementById("aiw-x");
+  function openAiw(){
+    aiw.classList.add("open");
+    aiwBtn.setAttribute("aria-expanded", "true");
+    if (window.__faqGreet) window.__faqGreet();
+  }
+  function closeAiw(){
+    aiw.classList.remove("open");
+    aiwBtn.setAttribute("aria-expanded", "false");
+  }
+  if (aiwBtn){
+    aiwBtn.addEventListener("click", function(){
+      aiw.classList.contains("open") ? closeAiw() : openAiw();
+    });
+    aiwX.addEventListener("click", closeAiw);
+    if (QS.get("demo") === "widget") openAiw();
   }
 
   /* ---------- popup (timed + exit intent, once per session) ---------- */
@@ -1460,6 +1561,24 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
       es.forEach(function(e){ if (e.isIntersecting){ land(); o.disconnect(); } });
     }, { threshold: 0.18 }).observe(svc);
   }
+})();
+
+/* revenue calculator card: same cursor-spotlight glass treatment as the pricing tiers */
+(function(){
+  if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  var card = document.querySelector("#calc .calc-card");
+  if (!card) return;
+  var raf = 0, ev = null;
+  card.addEventListener("pointermove", function(e){
+    ev = e;
+    if (raf) return;
+    raf = requestAnimationFrame(function(){
+      raf = 0;
+      var r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+      card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+    });
+  });
 })();
 
 /* pricing — glass tiers: cursor spotlight + group toggle (vanilla port of
@@ -1626,7 +1745,5 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
   requestAnimationFrame(tick);
 })();
 </script>
-<!-- Station chat widget (A2P compliance — live opt-in point on site) -->
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a60e8e57742c156ec6921c9" data-source="WEB_USER"></script>
 </body>
 </html>
