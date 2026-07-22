@@ -11,6 +11,7 @@
   };
   var AUDIT_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/free-audit";
   var AFF_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
+  var AFF_PUB = "stnpub-84cc5c8bdf9168da20e4923921d8743c";
   var BOOKING_URL = "https://api.leadconnectorhq.com/widget/bookings/station-intro-call";
 
   var reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -394,7 +395,7 @@
     try {
       if (navigator.sendBeacon && savedRef) {
         navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
-          action: "attribute", code: savedRef, kind: "audit-submit", label: "the-range"
+          action: "attribute", pub: AFF_PUB, code: savedRef, kind: "audit-submit", label: "the-range"
         })], { type: "application/json" }));
       }
     } catch (err) {}
