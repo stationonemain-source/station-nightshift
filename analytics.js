@@ -9,21 +9,30 @@
      • "Essentials only" → strictly-necessary storage only. No analytics events,
                             no Pixel, no ad tracking. label = "essentials".
 
-   First-party events beacon to the Station World server (:8790), which stores
-   them for the Circle Command Center analytics board (per-session, incl. which
-   sessions accepted retargeting). Meta retargeting itself is handled by the
-   Pixel — Meta builds the audience on their side; we never store a visitor's
-   name/email here (that only arrives when someone submits the audit form → GHL).
+   First-party events beacon to a collector that feeds the Circle Command
+   Center analytics board (per-session, incl. which sessions accepted
+   retargeting). Locally that's the Station World server (:8790) directly; in
+   production it's the n8n relay ("Station - Range Analytics Relay"), which
+   Station World pulls from — visitors' browsers never talk to the operator's
+   machine. Meta retargeting itself is handled by the Pixel — Meta builds the
+   audience on their side; we never store a visitor's name/email here (that
+   only arrives when someone submits the audit form → GHL + the leads board).
 
    >>> ONE THING TO SET: paste your Meta Pixel ID below (META_PIXEL_ID). Until
-       it's set, everything else works and the Pixel simply stays dormant. <<<
-
-   When this site deploys publicly, point ENDPOINT at the public collector. */
+       it's set, everything else works and the Pixel simply stays dormant. <<< */
 (function () {
   "use strict";
 
   /* ============================ CONFIG ============================ */
-  var ENDPOINT = "http://127.0.0.1:8790/api/range-analytics";
+  var IS_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
+  // Local dev → straight into the Station World collector. Production → the
+  // n8n relay, which Circle's server pulls on its own schedule.
+  var ENDPOINT = IS_LOCAL
+    ? "http://127.0.0.1:8790/api/range-analytics"
+    : "https://n8n.srv1748596.hstgr.cloud/webhook/range-event";
+  var LEAD_ENDPOINT = IS_LOCAL
+    ? "http://127.0.0.1:8790/api/website-lead"
+    : "https://n8n.srv1748596.hstgr.cloud/webhook/range-lead";
   var LS_KEY = "rangeConsent"; // "all" (analytics + ads) | "essential"
   // Paste the numeric Pixel ID from Meta Events Manager, e.g. "1234567890".
   // Leave "" to keep the Pixel off (analytics still works).
@@ -45,24 +54,22 @@
     } catch (e) { return "anon"; }
   }
 
-  // First-party beacons target the local Station World collector (:8790), which
-  // only runs on the operator's machine. In production (any non-localhost host)
-  // there is no public collector yet, so we no-op instead of firing a blocked
-  // mixed-content request from every visitor's browser. Meta Pixel retargeting
-  // is independent of this and still runs when the visitor consents.
-  var IS_LOCAL = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
-
-  // Blob with no content-type keeps sendBeacon CORS-safelisted (no preflight)
-  function post(obj) {
-    if (!IS_LOCAL) return;
+  // text/plain keeps sendBeacon CORS-safelisted (no preflight) AND gives the
+  // collector a content-type it will actually parse (a type-less Blob arrives
+  // as an empty body at n8n). Fire-and-forget: an unreachable collector must
+  // never affect the visitor.
+  function beacon(url, obj) {
     var data = JSON.stringify(obj);
     try {
-      if (navigator.sendBeacon && navigator.sendBeacon(ENDPOINT, new Blob([data]))) return;
+      if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([data], { type: "text/plain" }))) return;
     } catch (e) {}
     try {
-      fetch(ENDPOINT, { method: "POST", body: data, keepalive: true, mode: "cors" }).catch(function () {});
+      fetch(url, { method: "POST", body: data, keepalive: true, mode: "no-cors",
+                   headers: { "Content-Type": "text/plain" } }).catch(function () {});
     } catch (e) {}
   }
+
+  function post(obj) { beacon(ENDPOINT, obj); }
 
   function track(ev, label) {
     if (consent() !== "all") return;
@@ -170,12 +177,8 @@
       }
     });
 
-    // audit form submit — strongest intent signal; a Meta "Lead" for retargeting
-    var af = document.querySelector("#audit form");
-    if (af) af.addEventListener("submit", function () {
-      track("audit_submit");
-      fbTrack("track", "Lead", { content_name: "audit request" });
-    });
+    // (audit-form submit is handled by wireAuditLead below — it captures the
+    //  lead itself plus the audit_submit event + Meta "Lead", un-gated.)
 
     // demo usage — first message per surface per visit
     var used = {};
@@ -196,6 +199,36 @@
       track("popup", (e.detail && e.detail.action) || "shown");
     });
   }
+
+  /* ---------------- audit-form lead capture (NOT consent-gated) ----------------
+     A lead typing their details into the audit form and pressing submit is a
+     direct request for contact — that's first-party form data, not tracking, so
+     it's captured regardless of the cookie choice (same as the GHL webhook the
+     form already posts to). Bots that fill the honeypot are dropped, matching
+     film.js. */
+  function wireAuditLead() {
+    var form = document.getElementById("audit-form");
+    if (!form) return;
+    form.addEventListener("submit", function () {
+      try {
+        var hp = form.querySelector('input[name="company_url"]');
+        if (hp && hp.value) return;                       // honeypot → bot, drop
+        var lead = { ev: "lead", path: location.pathname, sid: sid(),
+                     ref: new URLSearchParams(location.search).get("ref") || "" };
+        try {
+          var fd = new FormData(form);
+          fd.forEach(function (v, k) {
+            if (k === "company_url" || k === "_t") return;
+            if (typeof v === "string") lead[k] = String(v).slice(0, 300);
+          });
+        } catch (e) {}
+        beacon(LEAD_ENDPOINT, lead);
+      } catch (e) {}
+      track("audit_submit");
+      fbTrack("track", "Lead", { content_name: "audit request" });
+    });
+  }
+  wireAuditLead();
 
   var QS = new URLSearchParams(location.search);
   if (QS.get("demo") === "cookies") {
