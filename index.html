@@ -1258,7 +1258,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <div class="audit-group">
               <span class="audit-step">01 · You</span>
               <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
-              <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
+              <input class="input" name="phone" placeholder="Your direct phone (not the business line)" type="tel" autocomplete="tel" required>
               <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
             </div>
 
@@ -1266,8 +1266,8 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
               <span class="audit-step">02 · The business</span>
               <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
               <input class="input" name="address" placeholder="City or address (so we audit the right listing)" autocomplete="street-address">
-              <select class="input" name="industry" aria-label="What kind of business">
-                <option value="">What kind of business? (helps us prep)</option>
+              <select class="input" name="industry" aria-label="What kind of business" required>
+                <option value="">What kind of business? (drives your audit's math)</option>
                 <option>Plumbing / HVAC / Electrical</option>
                 <option>Contractor / Home services</option>
                 <option>Dental / Medical</option>

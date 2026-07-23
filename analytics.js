@@ -213,6 +213,14 @@
       try {
         var hp = form.querySelector('input[name="company_url"]');
         if (hp && hp.value) return;                       // honeypot → bot, drop
+        // only beacon a VALID submit — film.js blocks sends with empty required
+        // fields, so an invalid attempt must not produce a half-filled lead row
+        var missing = false;
+        var reqd = form.querySelectorAll("[required]");
+        for (var ri = 0; ri < reqd.length; ri++) {
+          if (!String(reqd[ri].value || "").trim()) { missing = true; break; }
+        }
+        if (missing) return;
         var lead = { ev: "lead", path: location.pathname, sid: sid(),
                      ref: new URLSearchParams(location.search).get("ref") || "" };
         try {
