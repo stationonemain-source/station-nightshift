@@ -113,8 +113,8 @@
       '<a href="/legal/cookies.html" target="_blank" rel="noopener">Cookie notice</a> · ' +
       '<a href="/legal/privacy.html" target="_blank" rel="noopener">Privacy</a></div>' +
       '<div class="ck-actions">' +
-      '<button class="ck-accept" id="ck-accept">Accept analytics &amp; ads</button>' +
-      '<button class="ck-min" id="ck-min">Essentials only</button></div>';
+      '<button class="ck-accept" id="ck-accept">Accept</button>' +
+      '<button class="ck-min" id="ck-min">Deny</button></div>';
     document.body.appendChild(el);
     requestAnimationFrame(function () {
       requestAnimationFrame(function () { el.classList.add("up"); });
