@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex">
+<title>Business Scan · The tower · Station</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F2ED;--card:#FFF;--ink:#16181d;--ink2:#4a4e57;--muted:#8e929c;--amber:#FFB000;--hair:rgba(22,24,29,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:760px;margin:0 auto;padding:0 20px 60px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 0 20px;border-bottom:1px solid var(--hair);margin-bottom:40px}
+.wordmark{font-weight:800;font-size:15px;letter-spacing:-.02em}
+h1{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.01em;line-height:1.15;margin:6px 0 4px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.score-hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#FFB000 216deg, #e8e5de 216deg);display:grid;place-items:center;flex:none}
+.ring-in{width:98px;height:98px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex-direction:column;text-align:center}
+.ring-num{font-weight:800;font-size:32px;line-height:1}
+.headline-card{border-left:4px solid var(--amber)}
+.headline{font-family:'Fraunces',serif;font-size:20px;font-weight:500;line-height:1.4}
+.money{text-align:center;border:2px solid #E4472F}
+.money-num{font-weight:800;font-size:46px;color:#E4472F;margin:6px 0}
+.sec-row{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:12px}
+.sec-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.scorebar{width:220px;max-width:52vw;height:6px;border-radius:3px;background:#e8e5de;overflow:hidden}
+.scorebar-fill{height:100%;border-radius:3px}
+.sec-score{font-weight:800;font-size:26px;flex:none}.sec-score span{font-size:13px;color:var(--muted);font-weight:600}
+.sec-summary{color:var(--ink2);margin-bottom:10px}
+.sec-pain{font-size:14px;margin-bottom:8px}.sec-pain strong{color:#B3341F}
+.sec-fix{font-size:14px}.sec-fix strong{color:#1F7A4D}
+.finding{border-left:3px solid;padding:10px 16px;margin-bottom:10px;background:#faf9f6;border-radius:0 8px 8px 0}
+.finding-title{font-weight:700;font-size:14px}.finding-detail{font-size:13.5px;color:var(--ink2);margin-top:3px}
+.comp-table{width:100%;border-collapse:collapse;font-size:14px}
+.comp-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--hair)}
+.comp-table td{padding:9px 10px;border-bottom:1px solid rgba(22,24,29,.06)}
+.fix-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.fix-num{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--amber);border:1px solid var(--hair);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:13px;flex:none}
+.cta{background:var(--ink);color:#fff;text-align:center;border-radius:12px;padding:30px 26px}
+.cta a{display:inline-block;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;padding:13px 30px;border-radius:9px;margin-top:14px}
+.cta p{color:rgba(255,255,255,.75);font-size:14.5px;max-width:460px;margin:8px auto 0}
+footer{margin-top:34px;text-align:center;font-size:12.5px;color:var(--muted)}
+@media(max-width:520px){.sec-row{flex-direction:column}.score-hero{gap:18px}}
+</style></head><body><div class="page">
+<header><span class="wordmark">STATION</span><span class="mono">Business Scan · Confidential · July 23, 2026</span></header>
+<span class="mono">Prepared for</span><h1>The tower</h1>
+<p style="color:var(--ink2);margin-bottom:26px">584 Buchanan Ave, Norman, OK 73069, USA</p>
+
+<section class="card"><div class="score-hero">
+  <div class="ring"><div class="ring-in"><div><div class="ring-num">60</div><div class="mono" style="font-size:9.5px">Good</div></div></div></div>
+  <div style="flex:1;min-width:220px">
+    <span class="mono" style="color:var(--ink2)">Overall online presence</span>
+    <p style="font-size:14.5px;color:var(--ink2);margin-top:6px">Five sections scanned with live data: your Google profile, reviews, website, marketing stack, and local search rank. Every number below is measured, not guessed.</p>
+  </div>
+</div></section>
+
+<section class="card headline-card"><span class="mono" style="color:#B87F00">The headline</span>
+<p class="headline" style="margin-top:8px">The Tower has 254 five-star Google reviews and zero website — every curious customer who Googles you hits a dead end before ordering.</p></section>
+
+<section class="card money"><span class="mono">Estimated revenue left on the table, per month</span>
+<div class="money-num">$480</div>
+<p style="font-size:13.5px;color:var(--ink2)">~40 unanswered inquiries/mo × $12 average value. A #1-ranked nutrition bar near OU campus with no website likely fields 40+ unanswered inquiries monthly — order-ahead questions, hours, and menu calls that go to voicemail during rushes or after 5 PM.</p></section>
+
+
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">01 · Google Business Profile</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:85%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">85<span>/100</span></div>
+    </div>
+    <p class="sec-summary">The Tower ranks #1 in its local category search and holds a perfect 5-star rating across 254 Google reviews — that foundation is genuinely strong. However, Google lists no website URL and categorizes the business as 'Consultant' rather than a nutrition bar or café, which can confuse first-time searchers and suppress discovery from drink-specific queries.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Being miscategorized as 'Consultant' means customers searching 'protein shake Norman OK' or 'energy tea near me' may never see The Tower in those results, costing guest traffic daily.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station reclaims and re-optimizes your Google profile with the correct category, menu items, and photo cadence to capture every relevant search in Norman.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">02 · Reviews &amp; Reputation</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:98%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">98<span>/100</span></div>
+    </div>
+    <p class="sec-summary">254 Google reviews at 5 stars is exceptional and clearly reflects a loyal, vocal guest base — reviewers specifically name staff like Avery by name and rave about flavors like Witch Plz tea and sour gummy worm tea. Facebook, however, shows only 4 reviews with no aggregate rating yet, meaning the brand's warmth doesn't carry across platforms.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Guests who discover The Tower on Facebook or Apple Maps see a nearly blank reputation slate, creating hesitation that your Google presence would otherwise eliminate.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station's automatic post-visit review prompts push satisfied guests to leave feedback on whichever platform needs it most, balancing your reputation footprint across channels.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">03 · Website &amp; Booking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:10%;background:#E4472F"></div></div>
+      </div>
+      <div class="sec-score" style="color:#E4472F">10<span>/100</span></div>
+    </div>
+    <p class="sec-summary">The Tower has no website — not a slow one, not a thin one, literally none on file with Google or any confirmed directory listing. Every guest who wants to browse the menu, check hours, or place an order ahead is left relying solely on social media or showing up in person.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> With a busy OU campus crowd and gameday surges, the absence of online ordering or a menu page almost certainly means lost impulse orders from guests who won't wait in line or can't find what you offer.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station deploys a fast mobile site built for your concept — menu, hours, online order-ahead flow, and a chat widget — live within days, not months.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">04 · Marketing &amp; Tracking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:10%;background:#E4472F"></div></div>
+      </div>
+      <div class="sec-score" style="color:#E4472F">10<span>/100</span></div>
+    </div>
+    <p class="sec-summary">With no website on record, there are no tracking pixels, no analytics, and no way to measure where guests come from or retarget the OU students and Norman locals who've already visited. The business is flying blind on which marketing efforts, if any, are driving foot traffic.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> You can't grow what you can't measure — without pixel tracking or a CRM, gameday promotions and seasonal launches have no way to compound into repeat guest relationships.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station wires proper analytics and ad pixels into your new site from day one, and connects your guest flow into an automated follow-up system that turns one-time visitors into regulars.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">05 · Local Search Visibility</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:95%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">95<span>/100</span></div>
+    </div>
+    <p class="sec-summary">The Tower ranks #1 in its current Google category search — a legitimately strong local SEO position. The ceiling is much higher, though: without a website, there are no indexable pages to rank for drink-specific, ingredient-specific, or campus-adjacent searches that could bring in net-new guests.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Ranking #1 as 'Consultant' captures a narrow slice of intent; no website means zero organic traffic from the hundreds of monthly searches for smoothies, energy drinks, and nutrition bars in Norman.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station's local SEO layer adds location-optimized web pages that rank for the high-intent beverage and nutrition searches your Google profile alone can't capture.</p>
+  </section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">What we found</span><div style="margin-top:12px">
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">No website exists</p><p class="finding-detail">No website is listed on Google, any directory, or any research source. Guests who want to browse the menu or order ahead before visiting have nowhere to go online.</p>
+  </div>
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">Wrong Google business category</p><p class="finding-detail">Google categorizes The Tower as 'Consultant' — a mismatch that filters it out of searches for nutrition bars, smoothie shops, and energy drink cafés in Norman and on the OU campus.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">Phone number mismatch across listings</p><p class="finding-detail">The intake form lists 918-829-3008 while Google, Facebook, and Apple Maps all show 405-300-4086. Conflicting numbers erode trust and can cause Google to suppress the listing.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">Facebook reputation nearly invisible</p><p class="finding-detail">Facebook shows only 4 reviews and no star rating, meaning a significant discovery channel reflects almost none of the loyalty that 254 Google reviews demonstrate.</p>
+  </div></div></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Around you</span>
+<p style="font-size:14px;color:var(--ink2);margin:8px 0 12px">The only verified nearby competitor in the Google data is Investment Counseling Services — a different industry entirely — confirming The Tower has no direct nutrition-bar rival currently outranking it locally.</p>
+  <table class="comp-table"><thead><tr><th>Nearby competitor</th><th>Rating</th><th>Reviews</th></tr></thead><tbody>
+  <tr><td>Investment Counseling Services, Inc.</td><td>5★</td><td>5</td></tr>
+  </tbody></table></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Three fastest fixes</span><div style="margin-top:14px"><div class="fix-item"><span class="fix-num">1</span><p>Correct Google category from 'Consultant' to 'Juice bar' or 'Nutrition bar' immediately.</p></div><div class="fix-item"><span class="fix-num">2</span><p>Reconcile the two phone numbers so every listing shows the same 405-300-4086.</p></div><div class="fix-item"><span class="fix-num">3</span><p>Launch a one-page mobile menu site with your hours and a tap-to-order or tap-to-call button.</p></div></div></section>
+
+<section class="cta"><span class="mono" style="color:rgba(255,255,255,.6)">The next step</span>
+<p style="font-family:'Fraunces',serif;font-size:19px;color:#fff;margin-top:8px">The Tower has the reviews and the rank — what's missing is the infrastructure to convert that visibility into orders. Station fixes the category, launches your mobile site with order-ahead capability, and ensures no guest inquiry goes unanswered, so your gameday crowds and daily campus traffic turn into captured, repeat revenue.</p>
+<a href="https://station.solutions/call">Book your free 15-minute call</a>
+<p>No contracts. We walk through this scan together and you keep it either way.</p></section>
+
+<footer>Station · station.solutions · main@station.solutions<br>Scan data: Google Business Profile, live website scan, Google PageSpeed. Prepared July 23, 2026.</footer>
+</div></body></html>
