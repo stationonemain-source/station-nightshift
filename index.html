@@ -667,7 +667,11 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
 #audit form{color-scheme:dark;background:rgba(255,255,255,0.055);
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   border:1px solid var(--border);border-radius:6px;
-  padding:28px;display:flex;flex-direction:column;gap:14px}
+  padding:28px;display:flex;flex-direction:column;gap:22px}
+.audit-group{display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1)}
+.audit-group:first-child{padding-top:0;border-top:none}
+.audit-step{font:600 11px/1.4 var(--font-mono,monospace);letter-spacing:.09em;text-transform:uppercase;color:rgba(237,242,234,0.55)}
+.audit-step em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(237,242,234,0.4)}
 .input{background:var(--surface);color:var(--fg);border:1px solid var(--border);
   border-radius:var(--r-md);padding:13px 14px;font:inherit;font-size:15px;width:100%}
 .input:focus-visible{outline:2px solid var(--accent-ink);outline-offset:1px;border-color:var(--accent-ink)}
@@ -1250,34 +1254,52 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
               <label>Company URL (leave this field empty)<input type="text" name="company_url" tabindex="-1" autocomplete="off"></label>
             </div>
             <input type="hidden" name="_t" value="">
-            <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
-            <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
-            <input class="input" name="address" placeholder="City or address (so we audit the right listing)" autocomplete="street-address">
-            <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
-            <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
-            <select class="input" name="industry" aria-label="What kind of business">
-              <option value="">What kind of business? (helps us prep)</option>
-              <option>Plumbing / HVAC / Electrical</option>
-              <option>Contractor / Home services</option>
-              <option>Dental / Medical</option>
-              <option>Salon / Spa</option>
-              <option>Gym / Fitness</option>
-              <option>Restaurant / Café</option>
-              <option>Auto / Repair</option>
-              <option>Retail / Boutique</option>
-              <option>Other</option>
-            </select>
-            <input class="input" name="website" type="url" placeholder="Website or Google listing (we'll check what customers see)">
-            <select class="input" name="leak" aria-label="Where do you lose the most">
-              <option value="">Where do you think you lose the most?</option>
-              <option>Missed calls</option>
-              <option>Slow reply to web leads</option>
-              <option>No-shows &amp; cancellations</option>
-              <option>Follow-up falling through</option>
-              <option>Disorganization — things fall through the cracks</option>
-              <option>Reviews / reputation</option>
-              <option>Not sure — that's why I'm here</option>
-            </select>
+
+            <div class="audit-group">
+              <span class="audit-step">01 · You</span>
+              <input class="input" name="name" placeholder="Your name" autocomplete="name" required>
+              <input class="input" name="phone" placeholder="Phone" type="tel" autocomplete="tel" required>
+              <input class="input" name="email" placeholder="Email" type="email" autocomplete="email" required>
+            </div>
+
+            <div class="audit-group">
+              <span class="audit-step">02 · The business</span>
+              <input class="input" name="business" placeholder="Business name" autocomplete="organization" required>
+              <input class="input" name="address" placeholder="City or address (so we audit the right listing)" autocomplete="street-address">
+              <select class="input" name="industry" aria-label="What kind of business">
+                <option value="">What kind of business? (helps us prep)</option>
+                <option>Plumbing / HVAC / Electrical</option>
+                <option>Contractor / Home services</option>
+                <option>Dental / Medical</option>
+                <option>Salon / Spa</option>
+                <option>Gym / Fitness</option>
+                <option>Restaurant / Café</option>
+                <option>Auto / Repair</option>
+                <option>Retail / Boutique</option>
+                <option>Other</option>
+              </select>
+              <input class="input" name="website" type="url" placeholder="Website or Google listing (we'll check what customers see)">
+            </div>
+
+            <div class="audit-group">
+              <span class="audit-step">03 · Where it hurts</span>
+              <select class="input" name="leak" aria-label="Where do you lose the most">
+                <option value="">Where do you think you lose the most?</option>
+                <option>Missed calls</option>
+                <option>Slow reply to web leads</option>
+                <option>No-shows &amp; cancellations</option>
+                <option>Follow-up falling through</option>
+                <option>Disorganization — things fall through the cracks</option>
+                <option>Reviews / reputation</option>
+                <option>Not sure — that's why I'm here</option>
+              </select>
+            </div>
+
+            <div class="audit-group">
+              <span class="audit-step">04 · Your numbers <em>(optional — sharpens the math in your audit)</em></span>
+              <input class="input" name="avg_ticket" type="number" inputmode="decimal" min="0" step="1" placeholder="Average sale or job value ($)">
+            </div>
+
             <button class="btn-primary" type="submit">Get my free audit</button>
           </form>
           <div class="done-msg"><strong>Got it.</strong> We'll call you within one business day with what we found.</div>
