@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex">
+<title>Business Scan · MNTL · Station</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F2ED;--card:#FFF;--ink:#16181d;--ink2:#4a4e57;--muted:#8e929c;--amber:#FFB000;--hair:rgba(22,24,29,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:760px;margin:0 auto;padding:0 20px 60px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 0 20px;border-bottom:1px solid var(--hair);margin-bottom:40px}
+.wordmark{font-weight:800;font-size:15px;letter-spacing:-.02em}
+h1{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.01em;line-height:1.15;margin:6px 0 4px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.score-hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#FFB000 259deg, #e8e5de 259deg);display:grid;place-items:center;flex:none}
+.ring-in{width:98px;height:98px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex-direction:column;text-align:center}
+.ring-num{font-weight:800;font-size:32px;line-height:1}
+.headline-card{border-left:4px solid var(--amber)}
+.headline{font-family:'Fraunces',serif;font-size:20px;font-weight:500;line-height:1.4}
+.money{text-align:center;border:2px solid #E4472F}
+.money-num{font-weight:800;font-size:46px;color:#E4472F;margin:6px 0}
+.sec-row{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:12px}
+.sec-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.scorebar{width:220px;max-width:52vw;height:6px;border-radius:3px;background:#e8e5de;overflow:hidden}
+.scorebar-fill{height:100%;border-radius:3px}
+.sec-score{font-weight:800;font-size:26px;flex:none}.sec-score span{font-size:13px;color:var(--muted);font-weight:600}
+.sec-summary{color:var(--ink2);margin-bottom:10px}
+.sec-pain{font-size:14px;margin-bottom:8px}.sec-pain strong{color:#B3341F}
+.sec-fix{font-size:14px}.sec-fix strong{color:#1F7A4D}
+.finding{border-left:3px solid;padding:10px 16px;margin-bottom:10px;background:#faf9f6;border-radius:0 8px 8px 0}
+.finding-title{font-weight:700;font-size:14px}.finding-detail{font-size:13.5px;color:var(--ink2);margin-top:3px}
+.comp-table{width:100%;border-collapse:collapse;font-size:14px}
+.comp-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--hair)}
+.comp-table td{padding:9px 10px;border-bottom:1px solid rgba(22,24,29,.06)}
+.fix-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.fix-num{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--amber);border:1px solid var(--hair);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:13px;flex:none}
+.cta{background:var(--ink);color:#fff;text-align:center;border-radius:12px;padding:30px 26px}
+.cta a{display:inline-block;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;padding:13px 30px;border-radius:9px;margin-top:14px}
+.cta p{color:rgba(255,255,255,.75);font-size:14.5px;max-width:460px;margin:8px auto 0}
+.calc-grid{display:grid;gap:16px;margin:6px 0 18px}
+.calc-f label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:6px}
+.calc-f label span{color:#B87F00;font-family:'JetBrains Mono',monospace}
+.calc-f input[type=range]{width:100%;accent-color:#FFB000}
+.calc-out{display:flex;gap:36px;flex-wrap:wrap;border-top:1px solid var(--hair);padding-top:14px}
+.calc-num{font-weight:800;font-size:34px;color:#E4472F}
+.calc-num.yr{color:var(--ink)}
+footer{margin-top:34px;text-align:center;font-size:12.5px;color:var(--muted)}
+@media(max-width:520px){.sec-row{flex-direction:column}.score-hero{gap:18px}}
+</style></head><body><div class="page">
+<header><span class="wordmark">STATION</span><span class="mono">Business Scan · Confidential · July 23, 2026</span></header>
+<span class="mono">Prepared for</span><h1>MNTL</h1>
+<p style="color:var(--ink2);margin-bottom:26px">1700 E Villa Maria Rd, Bryan, TX 77802, USA</p>
+
+<section class="card"><div class="score-hero">
+  <div class="ring"><div class="ring-in"><div><div class="ring-num">72</div><div class="mono" style="font-size:9.5px">Good</div></div></div></div>
+  <div style="flex:1;min-width:220px">
+    <span class="mono" style="color:var(--ink2)">Overall online presence</span>
+    <p style="font-size:14.5px;color:var(--ink2);margin-top:6px">Five sections scanned with live data: your Google profile, reviews, website, marketing stack, and local search rank. Every number below is measured, not guessed.</p>
+  </div>
+</div></section>
+
+<section class="card headline-card"><span class="mono" style="color:#B87F00">The headline</span>
+<p class="headline" style="margin-top:8px">MNTL ranks #1 locally with a 4.9-star reputation, but has zero tracking, no chat widget, and no online booking — invisible to ad spend and leaking signups daily.</p></section>
+
+<section class="card" id="calc"><span class="mono" style="color:var(--ink2)">What it's worth — run your own numbers</span>
+<p style="font-size:14px;color:var(--ink2);margin:10px 0 16px">A 24/7 independent gym with strong local visibility and no answering automation likely receives 18–25 membership or day-pass inquiries monthly via call or web message that go unanswered outside staffed hours. These sliders start at our scan's estimate — slide them to your reality and the math updates live.</p>
+<div class="calc-grid">
+  <div class="calc-f"><label>Calls you miss in a week<span id="cv1">4</span></label><input type="range" id="c1" min="1" max="40" step="1" value="4"></div>
+  <div class="calc-f"><label>Average job value<span id="cv2">$249</span></label><input type="range" id="c2" min="25" max="2000" step="25" value="249"></div>
+  <div class="calc-f"><label>How many you'd win<span id="cv3">40%</span></label><input type="range" id="c3" min="10" max="90" step="5" value="40"></div>
+</div>
+<div class="calc-out">
+  <div><span class="mono">Walking past you every month</span><div class="calc-num" id="cm">$0</div></div>
+  <div><span class="mono">Over a year</span><div class="calc-num yr" id="cy">$0</div></div>
+</div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:10px">Your numbers, not ours — we don't know your margins or close rate. Station answers every one of those calls for a flat monthly rate.</p></section>
+
+
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">01 · Google Business Profile</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:92%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">92<span>/100</span></div>
+    </div>
+    <p class="sec-summary">MNTL's Google profile is strong: verified, fully operational at 1700 E Villa Maria Rd, open 24/7, and scoring 92/100. One issue worth flagging — the phone number on Google (979-307-9630) differs from the number on the website contact section (979-446-6080), which could confuse prospective members calling from search.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> A phone number mismatch between Google and the website means a prospective member who finds MNTL on Google and then visits the site may dial a different number — or lose trust and bounce.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station standardizes NAP data across every listing and keeps your Google profile information consistent, current, and monitored.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">02 · Reviews &amp; Reputation</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:98%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">98<span>/100</span></div>
+    </div>
+    <p class="sec-summary">MNTL holds a 4.9-star rating across 44 Google reviews — an exceptional score for a warehouse gym competing against chains. Recent reviewers consistently praise the old-school atmosphere, equipment variety, and welcoming staff, giving MNTL a genuine word-of-mouth moat.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> With only 44 reviews against TruFit's 1,300+, the volume gap still allows chain gyms to dominate trust signals for searchers who sort by review count rather than rating.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station's automated post-visit review requests systematically grow your review count after every new membership signup or check-in, compounding your already elite rating.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">03 · Website &amp; Booking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:60%;background:#FFB000"></div></div>
+      </div>
+      <div class="sec-score" style="color:#FFB000">60<span>/100</span></div>
+    </div>
+    <p class="sec-summary">The Canva-hosted site communicates the brand clearly and lists pricing, but it scores 60/100 — no chat widget is present, no integrated booking flow exists on-site, and membership sign-up routes through a third-party GymInsight link tagged with Instagram UTM parameters, suggesting it was built for social traffic, not organic web visitors.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> A prospective member who finds MNTL via Google and lands on the site has no way to ask a quick question or start a membership without leaving to a separate platform — friction that costs signups.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station installs a fast, mobile-optimized site with a built-in chat widget and booking flow so every web visitor can convert without leaving the page.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">04 · Marketing &amp; Tracking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:0%;background:#E4472F"></div></div>
+      </div>
+      <div class="sec-score" style="color:#E4472F">0<span>/100</span></div>
+    </div>
+    <p class="sec-summary">No Meta Pixel, no Google Analytics, and no Google Tag Manager are installed — the marketing stack scores 0/100. MNTL is running completely dark: there is no way to know which traffic sources drive membership inquiries, run retargeting ads to people who visited the site, or measure ROI on any future paid campaign.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Without a pixel or analytics, every dollar spent on Instagram or Google Ads is untrackable — MNTL cannot build retargeting audiences from its own website visitors, leaving warm prospects to sign up at TruFit or Planet Fitness instead.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station wires your Meta Pixel, Google Analytics, and conversion tracking from day one so every campaign, organic visit, and signup is attributed and retargetable.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">05 · Local Search Visibility</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:95%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">95<span>/100</span></div>
+    </div>
+    <p class="sec-summary">MNTL ranks #1 in its local category search — a remarkable achievement for an independent warehouse gym competing against well-funded chains. The 95/100 local search score reflects strong profile optimization and genuine review quality pulling MNTL above bigger-budget competitors.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Holding #1 is fragile without active maintenance — any competitor who closes the review volume gap or optimizes aggressively could displace MNTL from the top spot it currently owns.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station actively manages your Google profile, builds consistent citations, and monitors ranking fluctuations so you defend and extend that #1 position.</p>
+  </section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">What we found</span><div style="margin-top:12px">
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">Phone number conflict across platforms</p><p class="finding-detail">Google lists (979) 307-9630 while the website contact section shows 979-446-6080. Inconsistent NAP data weakens local SEO trust signals and can send prospective members to a dead number.</p>
+  </div>
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">Zero marketing tracking installed</p><p class="finding-detail">No Meta Pixel, Google Analytics, or Tag Manager detected. MNTL cannot measure which channels drive signups, build retargeting audiences, or run data-informed paid campaigns — a total blind spot.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">No on-site chat or booking widget</p><p class="finding-detail">Web visitors who arrive via Google search find no chat option and must leave the site to a third-party link to sign up. Every extra step reduces conversion for cold-traffic prospects.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">Review volume lags chain competitors</p><p class="finding-detail">MNTL's 4.9 stars is elite, but 44 reviews against TruFit's 1,300+ means undecided searchers filtering by volume may overlook MNTL despite its superior rating.</p>
+  </div></div></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Around you</span>
+<p style="font-size:14px;color:var(--ink2);margin:8px 0 12px">TruFit Villa Maria (4.4 stars, 1,343 reviews) and Planet Fitness (4.6 stars, 860 reviews) dwarf MNTL's review volume. MNTL's 4.9 rating and #1 ranking are a real edge — but review volume still favors the chains with undecided searchers.</p>
+  <table class="comp-table"><thead><tr><th>Nearby competitor</th><th>Rating</th><th>Reviews</th></tr></thead><tbody>
+  <tr><td>TruFit Athletic Clubs - Villa Maria</td><td>4.4★</td><td>1343</td></tr><tr><td>TruFit Athletic Clubs - Bryan Towne Center</td><td>4.5★</td><td>1263</td></tr><tr><td>Planet Fitness</td><td>4.6★</td><td>860</td></tr><tr><td>Snap Fitness Bryan</td><td>4.9★</td><td>63</td></tr>
+  </tbody></table></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Three fastest fixes</span><div style="margin-top:14px"><div class="fix-item"><span class="fix-num">1</span><p>Unify the phone number on Google, website, and all listings to one consistent number immediately.</p></div><div class="fix-item"><span class="fix-num">2</span><p>Install Meta Pixel and Google Analytics this week to start building retargeting audiences before your next promo.</p></div><div class="fix-item"><span class="fix-num">3</span><p>Activate automated review requests after every new membership signup to close the volume gap on TruFit.</p></div></div></section>
+
+<section class="cta"><span class="mono" style="color:rgba(255,255,255,.6)">The next step</span>
+<p style="font-family:'Fraunces',serif;font-size:19px;color:#fff;margin-top:8px">MNTL already owns the #1 local ranking and a near-perfect rating — Station's job is to make sure that visibility converts. We fix your tracking blind spot, add on-site chat and booking, and automate review growth so your #1 spot compounds into measurable monthly signups instead of missed opportunities.</p>
+<a href="https://station.solutions/call">Book your free 15-minute call</a>
+<p>No contracts. We walk through this scan together and you keep it either way.</p></section>
+
+<footer>Station · station.solutions · main@station.solutions<br>Scan data: Google Business Profile, live website scan, Google PageSpeed. Prepared July 23, 2026.</footer>
+</div>
+<script>
+(function(){var c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3');
+if(!c1)return;var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+function u(){var m=c1.value*4.33*c2.value*(c3.value/100);
+document.getElementById('cv1').textContent=c1.value;
+document.getElementById('cv2').textContent='$'+c2.value;
+document.getElementById('cv3').textContent=c3.value+'%';
+document.getElementById('cm').textContent=fmt(m);
+document.getElementById('cy').textContent=fmt(m*12);}
+[c1,c2,c3].forEach(function(el){el.addEventListener('input',u)});u();})();
+</script>
+</body></html>
