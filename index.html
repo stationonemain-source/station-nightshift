@@ -369,6 +369,10 @@ html.js-anim #services.settled .card{transition:transform var(--t-base)}
 .gtier .setup-fee{font-family:var(--font-m);font-size:11.5px;letter-spacing:0.04em;
   color:rgba(255,255,255,0.55);margin-top:8px}
 .gtier .tdesc{font-size:14.5px;color:rgba(255,255,255,0.6);margin-top:8px;line-height:1.55}
+.app-addon{display:flex;align-items:center;gap:8px;font-family:var(--font-m);font-size:12px;
+  color:rgba(255,255,255,0.72);margin:0 0 14px;cursor:pointer;user-select:none}
+.app-addon input{accent-color:var(--accent-ink);width:15px;height:15px;cursor:pointer;flex:none}
+.app-addon span{color:var(--accent-ink);font-weight:600}
 .pg-line{height:1px;background:rgba(255,255,255,0.10);margin:20px 0 22px}
 .gtier ul{list-style:none;margin:0 0 28px;display:flex;flex-direction:column;gap:13px;flex:1}
 .gtier li{font-size:14px;font-weight:500;color:rgba(255,255,255,0.72);
@@ -1056,7 +1060,8 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Local business number included</li>
             <li>Website chat widget</li>
           </ul>
-          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/fZu14g84Q30dasx5ZC2Fa0g" target="_blank" rel="noopener">Start with Core</a>
+          <label class="app-addon"><input type="checkbox" id="coreAppToggle"> Add the Station app <span>+ $250/mo</span></label>
+          <a class="pg-cta pg-cta-glass" id="coreCta" href="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" data-core="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" data-app="https://buy.stripe.com/7sY5kw98U9oBfMRbjW2Fa0Q" target="_blank" rel="noopener">Start with Core</a>
         </div>
         <div class="gtier featured">
           <i class="pg-beam" aria-hidden="true"></i>
@@ -1076,7 +1081,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Monthly tuning with a real person</li>
             <li>Station mobile app &mdash; run it from your phone</li>
           </ul>
-          <a class="pg-cta pg-cta-solid" href="https://buy.stripe.com/cNieV6acY0S558dew82Fa0f" target="_blank" rel="noopener">Go Pro</a>
+          <a class="pg-cta pg-cta-solid" href="https://buy.stripe.com/7sY00ceteeIVbwBgEg2Fa0S" target="_blank" rel="noopener">Go Pro</a>
         </div>
         <div class="gtier">
           <div class="tname">Custom</div>
@@ -1092,7 +1097,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Station mobile app &mdash; run it from your phone</li>
             <li>Priority line to us</li>
           </ul>
-          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/3cI7sE3OA1W9asx5ZC2Fa0e" target="_blank" rel="noopener">Start with Custom</a>
+          <a class="pg-cta pg-cta-glass" href="https://buy.stripe.com/4gM00c84QcAN6chew82Fa0U" target="_blank" rel="noopener">Start with Custom</a>
         </div>
       </div>
 
@@ -1700,6 +1705,15 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
       }, 210);
     });
   });
+  /* Core "+ app" toggle: swaps the Core button between the plain Core sale link
+     and the Core + App sale link (which provisions with the Station mobile app). */
+  var appTgl = document.getElementById("coreAppToggle"), coreCta = document.getElementById("coreCta");
+  if (appTgl && coreCta) {
+    appTgl.addEventListener("change", function () {
+      if (appTgl.checked) { coreCta.href = coreCta.dataset.app; coreCta.textContent = "Start with Core + App"; }
+      else { coreCta.href = coreCta.dataset.core; coreCta.textContent = "Start with Core"; }
+    });
+  }
 })();
 </script>
 <script>
