@@ -36,7 +36,7 @@
   var LS_KEY = "rangeConsent"; // "all" (analytics + ads) | "essential"
   // Paste the numeric Pixel ID from Meta Events Manager, e.g. "1234567890".
   // Leave "" to keep the Pixel off (analytics still works).
-  var META_PIXEL_ID = "";
+  var META_PIXEL_ID = "1014141208194048";
   /* =============================================================== */
 
   function consent() {
