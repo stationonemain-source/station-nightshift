@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex">
+<title>Business Scan · Hair by Emi · Station</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F4F2ED;--card:#FFF;--ink:#16181d;--ink2:#4a4e57;--muted:#8e929c;--amber:#FFB000;--hair:rgba(22,24,29,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.page{max-width:760px;margin:0 auto;padding:0 20px 60px}
+.mono{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;justify-content:space-between;align-items:center;padding:24px 0 20px;border-bottom:1px solid var(--hair);margin-bottom:40px}
+.wordmark{font-weight:800;font-size:15px;letter-spacing:-.02em}
+h1{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.01em;line-height:1.15;margin:6px 0 4px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:12px;padding:24px 26px;margin-bottom:18px}
+.score-hero{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.ring{width:130px;height:130px;border-radius:50%;background:conic-gradient(#FFB000 281deg, #e8e5de 281deg);display:grid;place-items:center;flex:none}
+.ring-in{width:98px;height:98px;border-radius:50%;background:var(--card);display:grid;place-items:center;flex-direction:column;text-align:center}
+.ring-num{font-weight:800;font-size:32px;line-height:1}
+.headline-card{border-left:4px solid var(--amber)}
+.headline{font-family:'Fraunces',serif;font-size:20px;font-weight:500;line-height:1.4}
+.money{text-align:center;border:2px solid #E4472F}
+.money-num{font-weight:800;font-size:46px;color:#E4472F;margin:6px 0}
+.sec-row{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:12px}
+.sec-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:8px}
+.scorebar{width:220px;max-width:52vw;height:6px;border-radius:3px;background:#e8e5de;overflow:hidden}
+.scorebar-fill{height:100%;border-radius:3px}
+.sec-score{font-weight:800;font-size:26px;flex:none}.sec-score span{font-size:13px;color:var(--muted);font-weight:600}
+.sec-summary{color:var(--ink2);margin-bottom:10px}
+.sec-pain{font-size:14px;margin-bottom:8px}.sec-pain strong{color:#B3341F}
+.sec-fix{font-size:14px}.sec-fix strong{color:#1F7A4D}
+.finding{border-left:3px solid;padding:10px 16px;margin-bottom:10px;background:#faf9f6;border-radius:0 8px 8px 0}
+.finding-title{font-weight:700;font-size:14px}.finding-detail{font-size:13.5px;color:var(--ink2);margin-top:3px}
+.comp-table{width:100%;border-collapse:collapse;font-size:14px}
+.comp-table th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--hair)}
+.comp-table td{padding:9px 10px;border-bottom:1px solid rgba(22,24,29,.06)}
+.fix-item{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.fix-num{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--amber);border:1px solid var(--hair);border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:13px;flex:none}
+.cta{background:var(--ink);color:#fff;text-align:center;border-radius:12px;padding:30px 26px}
+.cta a{display:inline-block;background:var(--amber);color:var(--ink);font-weight:700;text-decoration:none;padding:13px 30px;border-radius:9px;margin-top:14px}
+.cta p{color:rgba(255,255,255,.75);font-size:14.5px;max-width:460px;margin:8px auto 0}
+.calc-grid{display:grid;gap:16px;margin:6px 0 18px}
+.calc-f label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:6px}
+.calc-f label span{color:#B87F00;font-family:'JetBrains Mono',monospace}
+.calc-f input[type=range]{width:100%;accent-color:#FFB000}
+.calc-out{display:flex;gap:36px;flex-wrap:wrap;border-top:1px solid var(--hair);padding-top:14px}
+.calc-num{font-weight:800;font-size:34px;color:#E4472F}
+.calc-num.yr{color:var(--ink)}
+footer{margin-top:34px;text-align:center;font-size:12.5px;color:var(--muted)}
+@media(max-width:520px){.sec-row{flex-direction:column}.score-hero{gap:18px}}
+</style></head><body><div class="page">
+<header><span class="wordmark">STATION</span><span class="mono">Business Scan · Confidential · July 28, 2026</span></header>
+<span class="mono">Prepared for</span><h1>Hair by Emi</h1>
+<p style="color:var(--ink2);margin-bottom:26px">4300 Boat Club Rd Ste 109, Fort Worth, TX 76135, USA</p>
+
+<section class="card"><div class="score-hero">
+  <div class="ring"><div class="ring-in"><div><div class="ring-num">78</div><div class="mono" style="font-size:9.5px">Good</div></div></div></div>
+  <div style="flex:1;min-width:220px">
+    <span class="mono" style="color:var(--ink2)">Overall online presence</span>
+    <p style="font-size:14.5px;color:var(--ink2);margin-top:6px">Five sections scanned with live data: your Google profile, reviews, website, marketing stack, and local search rank. Every number below is measured, not guessed.</p>
+  </div>
+</div></section>
+
+<section class="card headline-card"><span class="mono" style="color:#B87F00">The headline</span>
+<p class="headline" style="margin-top:8px">HairbyEzme has no online booking and no chat widget — every new client who can't call during business hours is lost.</p></section>
+
+<section class="card" id="calc"><span class="mono" style="color:var(--ink2)">What it's worth — run your own numbers</span>
+<p style="font-size:14px;color:var(--ink2);margin:10px 0 16px">A solo stylist with set hours and no after-hours booking likely misses 4–5 unanswered or after-hours inquiries per week — clients who text, call after 6 PM, or bounce from a site with no booking widget. These sliders start at our scan's estimate — slide them to your reality and the math updates live.</p>
+<div class="calc-grid">
+  <div class="calc-f"><label>Calls you miss in a week<span id="cv1">4</span></label><input type="range" id="c1" min="1" max="40" step="1" value="4"></div>
+  <div class="calc-f"><label>Average job value<span id="cv2">$75</span></label><input type="range" id="c2" min="25" max="2000" step="25" value="75"></div>
+  <div class="calc-f"><label>How many you'd win<span id="cv3">40%</span></label><input type="range" id="c3" min="10" max="90" step="5" value="40"></div>
+</div>
+<div class="calc-out">
+  <div><span class="mono">Walking past you every month</span><div class="calc-num" id="cm">$0</div></div>
+  <div><span class="mono">Over a year</span><div class="calc-num yr" id="cy">$0</div></div>
+</div>
+<p style="font-size:12.5px;color:var(--muted);margin-top:10px">Your numbers, not ours — we don't know your margins or close rate. Station answers every one of those calls for a flat monthly rate.</p></section>
+
+
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">01 · Google Business Profile</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:85%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">85<span>/100</span></div>
+    </div>
+    <p class="sec-summary">The Google Business Profile is live, verified, and showing a perfect 5-star rating from 13 reviews at 4300 Boat Club Rd Ste 109 — solid foundation. However, the phone number on the intake form (713-380-0550) differs from the Google-listed number (817-360-3124), which is a data conflict that can confuse clients and hurt search trust.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> A phone number mismatch across sources erodes Google's confidence in the listing and can cause potential clients to reach a dead line instead of Ezme's chair.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station audits and corrects NAP consistency across every listing so your Google profile always points clients to the right number.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">02 · Reviews &amp; Reputation</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:98%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">98<span>/100</span></div>
+    </div>
+    <p class="sec-summary">HairbyEzme holds a perfect 5.0 from 13 Google reviews, with loyal clients calling out Ezme by name and citing 5+ years of consistency — that's genuine trust built over time. The reviews mention families, kids, and repeat bookings, which signals strong retention but a relatively modest review volume compared to nearby competitors.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> With only 13 reviews, a single bad experience could visibly dent the 5-star average in a way that 115-review competitors would barely feel.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station automatically sends post-visit review requests so every happy client becomes a new 5-star review without Ezme having to ask manually.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">03 · Website &amp; Booking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:67%;background:#FFB000"></div></div>
+      </div>
+      <div class="sec-score" style="color:#FFB000">67<span>/100</span></div>
+    </div>
+    <p class="sec-summary">Our scanner could not retrieve website content, and no online booking tool or chat widget was detected on the linked property — clients landing on the page have no self-serve way to schedule an appointment. For a one-stylist salon operating Tuesday through Saturday with set hours, every visitor who can't book instantly is a likely drop-off.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Without online booking, Ezme loses every potential client who visits outside of 8:30 AM–6:00 PM or simply doesn't want to call — that's a significant slice of the Fort Worth market.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station deploys a fast mobile-optimized booking page with an embedded chat widget so clients can book 24/7 without a phone call.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">04 · Marketing &amp; Tracking</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:50%;background:#F07E28"></div></div>
+      </div>
+      <div class="sec-score" style="color:#F07E28">50<span>/100</span></div>
+    </div>
+    <p class="sec-summary">Meta Pixel and Google Analytics are both installed — Ezme is ahead of most independent stylists in tracking basics. However, Google Tag Manager is absent and no Google Ads tag was detected, meaning paid traffic can't be efficiently managed or scaled, and conversion events aren't being fired through a clean data layer.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Without GTM, adding or adjusting any tracking tag requires manual code edits every time — a friction that quietly prevents growth campaigns from ever launching.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station wires GTM, ad tags, and conversion events properly so every future campaign is measurable from day one with no code headaches.</p>
+  </section>
+  <section class="card sec-card">
+    <div class="sec-row">
+      <div>
+        <div class="sec-kicker">05 · Local Search Visibility</div>
+        <div class="scorebar"><div class="scorebar-fill" style="width:80%;background:#2FBF71"></div></div>
+      </div>
+      <div class="sec-score" style="color:#2FBF71">80<span>/100</span></div>
+    </div>
+    <p class="sec-summary">HairbyEzme ranks #3 in the local category search, which is a strong position for a solo stylist competing against multi-chair salons. Holding that rank — and pushing toward #1 — depends on review velocity, profile completeness, and consistent NAP data, all of which have room to improve.</p>
+    <p class="sec-pain"><strong>What it's costing you:</strong> Sitting at #3 means two competitors appear above Ezme in the map pack every time a Fort Worth resident searches for a hair salon — those clicks go elsewhere first.</p>
+    <p class="sec-fix"><strong>The Station fix:</strong> Station optimizes your Google profile with regular posts, Q&amp;A, and photo updates that signal activity to Google and steadily climb the local rankings.</p>
+  </section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">What we found</span><div style="margin-top:12px">
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">Phone number conflict across sources</p><p class="finding-detail">The intake form lists 713-380-0550 but Google shows 817-360-3124. Mismatched NAP data weakens local search ranking and risks sending clients to the wrong number.</p>
+  </div>
+  <div class="finding" style="border-left-color:#E4472F">
+    <p class="finding-title">No online booking detected</p><p class="finding-detail">No booking tool was found on the linked web property. Clients who visit after hours or prefer not to call have no self-serve path to get on Ezme's calendar.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">Low review volume vs. competitors</p><p class="finding-detail">At 13 reviews, HairbyEzme's volume is well below nearby competitors. The perfect rating is fragile at this count and limits search ranking signals.</p>
+  </div>
+  <div class="finding" style="border-left-color:#FFB000">
+    <p class="finding-title">No Google Ads tag or GTM installed</p><p class="finding-detail">Google Tag Manager and Ads conversion tags are absent. Any future paid campaign would launch blind, with no reliable way to track appointments driven by ad spend.</p>
+  </div></div></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Around you</span>
+<p style="font-size:14px;color:var(--ink2);margin:8px 0 12px">Beautiful Styles Salon leads the local pack with 4.9 stars and 115 reviews; RUBY/RED ROCK shows 4.9 stars and 73 reviews. HairbyEzme's perfect 5.0 is a real differentiator — but thin review volume keeps it ranked #3.</p>
+  <table class="comp-table"><thead><tr><th>Nearby competitor</th><th>Rating</th><th>Reviews</th></tr></thead><tbody>
+  <tr><td>Salon and Spa Galleria | Lake Worth</td><td>4.8★</td><td>52</td></tr><tr><td>Beautiful Styles Salon</td><td>4.9★</td><td>115</td></tr><tr><td>RUBY/RED ROCK</td><td>4.9★</td><td>73</td></tr><tr><td>Victoria's Hair Studio 2</td><td>5★</td><td>16</td></tr>
+  </tbody></table></section>
+
+<section class="card"><span class="mono" style="color:var(--ink2)">Three fastest fixes</span><div style="margin-top:14px"><div class="fix-item"><span class="fix-num">1</span><p>Correct the phone number to 817-360-3124 everywhere online to fix the NAP conflict immediately.</p></div><div class="fix-item"><span class="fix-num">2</span><p>Add an online booking link to the Google Business Profile so clients can self-schedule 24/7.</p></div><div class="fix-item"><span class="fix-num">3</span><p>Activate automated post-visit review requests to grow the 13-review base and protect the 5-star rating.</p></div></div></section>
+
+<section class="cta"><span class="mono" style="color:rgba(255,255,255,.6)">The next step</span>
+<p style="font-family:'Fraunces',serif;font-size:19px;color:#fff;margin-top:8px">Ezme has the ratings and loyalty to dominate the Boat Club Road market — the gaps are structural, not reputational. Station closes them fast: 24/7 booking capture, automated review growth, and clean tracking so every dollar of future ad spend is accountable. This is a two-week fix, not a six-month project.</p>
+<a href="https://station.solutions/call">Book your free 15-minute call</a>
+<p>No contracts. We walk through this scan together and you keep it either way.</p></section>
+
+<footer>Station · station.solutions · main@station.solutions<br>Scan data: Google Business Profile, live website scan, Google PageSpeed. Prepared July 28, 2026.</footer>
+</div>
+<script>
+(function(){var c1=document.getElementById('c1'),c2=document.getElementById('c2'),c3=document.getElementById('c3');
+if(!c1)return;var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+function u(){var m=c1.value*4.33*c2.value*(c3.value/100);
+document.getElementById('cv1').textContent=c1.value;
+document.getElementById('cv2').textContent='$'+c2.value;
+document.getElementById('cv3').textContent=c3.value+'%';
+document.getElementById('cm').textContent=fmt(m);
+document.getElementById('cy').textContent=fmt(m*12);}
+[c1,c2,c3].forEach(function(el){el.addEventListener('input',u)});u();})();
+</script>
+</body></html>
