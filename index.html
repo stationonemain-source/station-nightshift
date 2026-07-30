@@ -676,37 +676,6 @@ input[type=range]:focus-visible{outline:2px solid var(--accent-ink);outline-offs
 .audit-group:first-child{padding-top:0;border-top:none}
 .audit-step{font:600 11px/1.4 var(--font-mono,monospace);letter-spacing:.09em;text-transform:uppercase;color:rgba(237,242,234,0.55)}
 .audit-step em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(237,242,234,0.4)}
-/* Consent block — REQUIRED at the point of capture for toll-free / A2P 10DLC
-   verification. Carriers review this exact spot; a footer link alone is the
-   single most common rejection reason. Both boxes are unchecked and optional on
-   purpose: consent to marketing may never be a condition of getting the audit.
-   The disclosure is set at 13.5px/1.65 — NOT shrunk into small print — because a
-   disclosure that isn't conspicuous is not a disclosure, and carriers score it. */
-.audit-consent-block{display:flex;flex-direction:column;gap:12px;padding-top:16px;
-  border-top:1px solid rgba(255,255,255,0.1)}
-.consent-item{background:rgba(255,255,255,0.045);border:1px solid var(--border);
-  border-radius:var(--r-md);padding:15px 16px;font-family:var(--font-b)}
-/* amber, not red: the block is correct but deliberately not yet collecting */
-.consent-item.is-pending{border-color:rgba(232,199,102,0.42);background:rgba(232,199,102,0.055)}
-.consent-item.consent-secondary{background:transparent;padding:13px 16px}
-.consent-row{display:flex;gap:11px;align-items:flex-start}
-.consent-row input[type="checkbox"]{margin-top:3px;flex:0 0 auto;width:17px;height:17px;
-  accent-color:var(--accent-ink);cursor:pointer}
-.consent-row input[type="checkbox"]:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
-.consent-row input[type="checkbox"]:disabled{cursor:not-allowed;opacity:.5}
-.consent-lbl{font:600 14.5px/1.5 var(--font-b);color:var(--fg);cursor:pointer}
-.consent-row input[type="checkbox"]:disabled+.consent-lbl{cursor:not-allowed;color:var(--muted)}
-.consent-disclosure{font:400 13.5px/1.65 var(--font-b);color:rgba(237,242,234,0.82);margin-top:11px}
-.consent-note{font:400 13px/1.6 var(--font-b);color:var(--muted);margin-top:9px}
-.consent-pending{font:600 12.5px/1.6 var(--font-b);color:#E8C766;margin-top:11px}
-/* an unresolved placeholder must LOOK unresolved on screen, never blend into prose */
-.consent-ph{font:500 0.92em/1 var(--font-m);color:#E8C766;background:rgba(232,199,102,0.14);
-  border:1px dashed rgba(232,199,102,0.55);border-radius:4px;padding:1px 5px;white-space:nowrap}
-.consent-item a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
-.consent-item a:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;border-radius:3px}
-.consent-secondary .consent-lbl{font-weight:500;font-size:13.5px}
-.consent-secondary .consent-disclosure{font-size:12.5px;color:var(--muted);margin-top:8px}
-.audit-legal{font:400 11.5px/1.6 var(--font-body,inherit);color:rgba(237,242,234,0.45);margin-top:10px}
 .input{background:var(--surface);color:var(--fg);border:1px solid var(--border);
   border-radius:var(--r-md);padding:13px 14px;font:inherit;font-size:15px;width:100%}
 .input:focus-visible{outline:2px solid var(--accent-ink);outline-offset:1px;border-color:var(--accent-ink)}
@@ -1292,23 +1261,6 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
               <label>Company URL (leave this field empty)<input type="text" name="company_url" tabindex="-1" autocomplete="off"></label>
             </div>
             <input type="hidden" name="_t" value="">
-            <!-- Consent proof + attribution carriers. Empty on render BY DESIGN: film.js
-                 populates them at submit time. They exist here because both the GHL intake
-                 and the analytics relay whitelist by field name — a value with no input to
-                 ride in is silently dropped with no error anywhere (SCHEMA_CONTRACT §0). -->
-            <input type="hidden" name="consent_ts" value="">
-            <input type="hidden" name="consent_ua" value="">
-            <input type="hidden" name="consent_url" value="">
-            <input type="hidden" name="consent_version" value="">
-            <input type="hidden" name="interaction_trail" value="">
-            <input type="hidden" name="form_rendered_at" value="">
-            <input type="hidden" name="ft_attr" value="">
-            <input type="hidden" name="lt_attr" value="">
-            <input type="hidden" name="fbp" value="">
-            <input type="hidden" name="fbc" value="">
-            <input type="hidden" name="event_id" value="">
-            <input type="hidden" name="cookie_consent" value="">
-            <input type="hidden" name="sid" value="">
 
             <div class="audit-group">
               <span class="audit-step">01 · You</span>
@@ -1339,76 +1291,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
               </select>
             </div>
 
-            <!-- ============================================================================
-                 OPERATOR NOTE — SMS CONSENT IS DELIBERATELY DISABLED. DO NOT "FIX" IT.
-                 The disclosure below must name the SELLER'S LEGAL ENTITY. Station has no
-                 formed legal entity yet (the LLC is not filed), and a trade name is not a
-                 legal entity, so {{LEGAL_ENTITY}} is left visibly unresolved and the input
-                 carries `disabled` — it therefore cannot collect consent against a
-                 placeholder, which is exactly what Twilio/TCR reject.
-                 TO GO LIVE, in this order:
-                   1. file the entity, then replace the two <span class="consent-ph"> tokens
-                      with the filed name (here AND in legal/sms-terms.html, which currently
-                      already asserts an unfiled "Station Automations Group LLC" — see report);
-                   2. delete the `disabled` attribute on #sms_consent  <-- the one-attribute flip
-                   3. delete the .consent-pending <p id="sms-consent-pending"> notice and the
-                      is-pending class, and drop sms-consent-pending from aria-describedby.
-                 RESOLVED FROM REAL DATA (live GET /locations/WGNhmJQYXD1g4nEWE3dE, 2026-07-29):
-                   sending number  +1 (713) 380-0550
-                   postal address  1856 Branard St, Houston, TX 77098
-                 NEVER add `required` or `checked` to either checkbox: `required` is Twilio
-                 rejection 30923/30931, and a pre-checked box is not an affirmative act.
-                 ============================================================================ -->
-            <div class="audit-consent-block">
-
-              <div class="consent-item is-pending" data-disclosure-version="sms-consent-v1.0.0">
-                <div class="consent-row">
-                  <input type="checkbox" name="sms_consent" id="sms_consent" value="granted"
-                    aria-describedby="sms-consent-text sms-consent-pending" disabled>
-                  <label class="consent-lbl" for="sms_consent">Yes &mdash; text me about my free audit.</label>
-                </div>
-                <!-- id is stable: film.js snapshots this text VERBATIM per lead (§2.1
-                     consent_text_sms). A pointer to a version number is worthless as
-                     evidence once the page changes; the snapshot is the evidence. -->
-                <p class="consent-disclosure" id="sms-consent-text">By checking this box, I give my
-                  express written consent to receive recurring marketing and informational text
-                  messages (SMS/MMS) from <span class="consent-ph" data-placeholder="LEGAL_ENTITY">{{LEGAL_ENTITY}}</span>
-                  at the mobile number I entered above, sent from <strong>+1 (713) 380-0550</strong>,
-                  including messages delivered using an automatic telephone dialing system or an
-                  artificial or prerecorded voice. Message frequency varies. Message and data rates
-                  may apply. I understand my consent is <strong>not required as a condition of
-                  purchasing</strong> any goods or services, and that I may withdraw it at any time
-                  by replying <strong>STOP</strong>; reply <strong>HELP</strong> for help. Mailing
-                  address: <span class="consent-ph" data-placeholder="LEGAL_ENTITY">{{LEGAL_ENTITY}}</span>,
-                  1856 Branard St, Houston, TX 77098. See the
-                  <a href="legal/sms-terms.html">SMS Terms &amp; Consent Policy</a> and the
-                  <a href="legal/privacy.html">Privacy Policy</a>.</p>
-                <p class="consent-note">Leaving this box unchecked does not affect your free audit
-                  &mdash; you get the same audit either way. We just won&rsquo;t text you.</p>
-                <p class="consent-pending" id="sms-consent-pending">Text messaging isn&rsquo;t live
-                  yet, so this box is turned off and we are not collecting text consent. Your audit
-                  arrives by email.</p>
-              </div>
-
-              <div class="consent-item consent-secondary" data-disclosure-version="email-consent-v1.0.0">
-                <div class="consent-row">
-                  <input type="checkbox" name="email_consent" id="email_consent" value="granted"
-                    aria-describedby="email-consent-text">
-                  <label class="consent-lbl" for="email_consent">Also email me occasional Station tips and offers.</label>
-                </div>
-                <!-- separate control, separate legal basis: the audit email itself is solicited
-                     (they asked for it), so it is NOT gated on this box. This box covers ongoing
-                     marketing email only, and unchecking it changes nothing about the audit. -->
-                <p class="consent-disclosure" id="email-consent-text">Optional. Marketing email only
-                  &mdash; your audit is sent either way. Unsubscribe from any email in one click.
-                  See the <a href="legal/privacy.html">Privacy Policy</a>.</p>
-              </div>
-
-            </div>
-
             <button class="btn-primary" type="submit">Get my free audit</button>
-            <p class="audit-legal">We&rsquo;ll email your audit either way. Leave the box unchecked
-              and we simply won&rsquo;t text you.</p>
           </form>
           <div class="done-msg"><strong>Got it.</strong> We'll call you within one business day with what we found.</div>
         </div>

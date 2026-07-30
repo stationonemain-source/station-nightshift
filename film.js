@@ -386,54 +386,6 @@
     var tField = form.querySelector('input[name="_t"]');
     if (tField) tField.value = String(formT0);
   }
-
-  /* ---------------- consent-proof helpers ----------------
-     Fallback disclosure version. The form itself owns the verbatim consent text, so if the
-     markup already ships a consent_version value we leave it alone rather than stamping ours
-     over the top — a version id that disagrees with the paragraph it labels is worse than none. */
-  var CONSENT_VERSION = "sms-consent-v1.0.0";
-
-  /* attribution.js is optional: the page must keep working if the script tag is missing or the
-     file 404s, so every read is feature-detected rather than assumed. */
-  function attr() {
-    return (typeof window !== "undefined" && window.__stationAttr) ? window.__stationAttr : null;
-  }
-
-  /* Read (and if necessary mint) the SAME session id analytics.js uses. film.js's submit
-     handler runs first, so if we only read it we'd send "" while analytics.js generated its own
-     — and the CRM row would never join the analytics session. Algorithm copied verbatim from
-     analytics.js sid(); it reads whatever we write here. */
-  function readSid() {
-    try {
-      var s = sessionStorage.getItem("rangeSid");
-      if (!s) {
-        s = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
-        sessionStorage.setItem("rangeSid", s);
-      }
-      return s;
-    } catch (e) { return "anon"; }
-  }
-
-  function cookieConsent() {
-    try { return localStorage.getItem("rangeConsent") || "unset"; } catch (e) { return "unset"; }
-  }
-
-  /* Writes a value into the form's hidden input when the input exists AND is still empty, and
-     mirrors it onto the FormData either way. Two reasons for both halves: the DOM write is what
-     analytics.js's own submit handler picks up when it builds its FormData a moment later, and
-     the FormData write means a hidden input the form agent hasn't added yet still reaches the
-     GHL intake webhook instead of vanishing. */
-  function put(fd, name, value) {
-    if (value === null || value === undefined) return;
-    value = String(value);
-    if (!value) return;
-    try {
-      var el = form.querySelector('[name="' + name + '"]');
-      if (el && !String(el.value || "").trim()) el.value = value;
-      if (el && String(el.value || "").trim()) value = el.value;
-    } catch (e) {}
-    try { fd.set(name, value); } catch (e) {}
-  }
   if (form) form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     /* honeypot: humans never fill the hidden company_url field — any value = bot, drop silently */
@@ -448,12 +400,6 @@
     var fd = new FormData(form);
     fd.set("ref", savedRef || "");
     fd.set("source", "the-range");
-    // An unchecked checkbox is simply absent from FormData, which downstream
-    // reads as "unknown". Consent has to be recorded as an explicit yes/no with
-    // a timestamp — that record IS the proof if a carrier or the FCC ever asks.
-    var smsBox = form.querySelector('input[name="sms_consent"]');
-    fd.set("sms_consent", (smsBox && smsBox.checked) ? "yes" : "no");
-    if (smsBox && smsBox.checked) fd.set("sms_consent_at", new Date().toISOString());
     if (!fd.get("_t")) fd.set("_t", String(formT0));
     try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
     try {
