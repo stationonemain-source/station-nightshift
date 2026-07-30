@@ -386,6 +386,88 @@
     var tField = form.querySelector('input[name="_t"]');
     if (tField) tField.value = String(formT0);
   }
+
+  /* ---------------- consent-proof helpers ----------------
+     Fallback disclosure version, used only if the markup names none. The form owns the verbatim
+     consent text, so the version id has to come from the markup that renders it — a version id
+     that disagrees with the paragraph it labels is worse evidence than no version at all. */
+  var CONSENT_VERSION = "sms-consent-v1.0.0";
+  /* Scoped to the block that actually wraps the SMS checkbox. There is a second
+     data-disclosure-version on the email block, so a bare document.querySelector would silently
+     depend on DOM order and could start labelling SMS consent with the email version. */
+  function disclosureVersion() {
+    try {
+      var box = document.querySelector('input[name="sms_consent"]');
+      var block = box && box.closest ? box.closest("[data-disclosure-version]") : null;
+      var v = block && block.getAttribute("data-disclosure-version");
+      if (v) return v;
+    } catch (e) {}
+    return CONSENT_VERSION;
+  }
+
+  /* A disabled consent box means the disclosure itself is not live yet (§6.3 — unresolved
+     {{LEGAL_ENTITY}} et al). .checked can still be set programmatically on a disabled input, so
+     reading it alone would let an extension, a replayed DOM or a half-finished go-live edit
+     manufacture "consent" against a placeholder disclosure. Disabled therefore always means no. */
+  function smsConsentGranted(box) {
+    if (!box || box.disabled) return false;
+    return !!box.checked;
+  }
+
+  /* The verbatim disclosure, read out of the rendered DOM (§2.1). It is deliberately NOT a
+     constant in this file: a hardcoded copy would silently drift from the paragraph on screen,
+     and the whole point of the snapshot is that it is what the lead actually saw. Whitespace is
+     collapsed because the markup wraps the sentence across many lines, and 4000 is the narrowest
+     downstream cap (§7.4) — clipping further up the chain would destroy the evidence. */
+  function disclosureText(id) {
+    try {
+      var el = document.getElementById(id);
+      if (!el) return "";
+      return String(el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 4000);
+    } catch (e) { return ""; }
+  }
+
+  /* attribution.js is optional: the page must keep working if the script tag is missing or the
+     file 404s, so every read is feature-detected rather than assumed. */
+  function attr() {
+    return (typeof window !== "undefined" && window.__stationAttr) ? window.__stationAttr : null;
+  }
+
+  /* Read (and if necessary mint) the SAME session id analytics.js uses. film.js's submit
+     handler runs first, so if we only read it we'd send "" while analytics.js generated its own
+     — and the CRM row would never join the analytics session. Algorithm copied verbatim from
+     analytics.js sid(); it reads whatever we write here. */
+  function readSid() {
+    try {
+      var s = sessionStorage.getItem("rangeSid");
+      if (!s) {
+        s = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+        sessionStorage.setItem("rangeSid", s);
+      }
+      return s;
+    } catch (e) { return "anon"; }
+  }
+
+  function cookieConsent() {
+    try { return localStorage.getItem("rangeConsent") || "unset"; } catch (e) { return "unset"; }
+  }
+
+  /* Writes a value into the form's hidden input when the input exists AND is still empty, and
+     mirrors it onto the FormData either way. Two reasons for both halves: the DOM write is what
+     analytics.js's own submit handler picks up when it builds its FormData a moment later, and
+     the FormData write means a hidden input the form agent hasn't added yet still reaches the
+     GHL intake webhook instead of vanishing. */
+  function put(fd, name, value) {
+    if (value === null || value === undefined) return;
+    value = String(value);
+    if (!value) return;
+    try {
+      var el = form.querySelector('[name="' + name + '"]');
+      if (el && !String(el.value || "").trim()) el.value = value;
+      if (el && String(el.value || "").trim()) value = el.value;
+    } catch (e) {}
+    try { fd.set(name, value); } catch (e) {}
+  }
   if (form) form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     /* honeypot: humans never fill the hidden company_url field — any value = bot, drop silently */
@@ -400,7 +482,76 @@
     var fd = new FormData(form);
     fd.set("ref", savedRef || "");
     fd.set("source", "the-range");
+    // An unchecked checkbox is simply absent from FormData, which downstream
+    // reads as "unknown". Consent has to be recorded as an explicit yes/no with
+    // a timestamp — that record IS the proof if a carrier or the FCC ever asks.
+    var smsBox = form.querySelector('input[name="sms_consent"]');
+    var smsGranted = smsConsentGranted(smsBox);
+    /* wire value stays "yes"/"no" — the intake node and the relay already read those strings.
+       The checkbox's own value attribute is NOT what ships. */
+    fd.set("sms_consent", smsGranted ? "yes" : "no");
+    if (smsGranted) fd.set("sms_consent_at", new Date().toISOString());
+    /* Same absent-checkbox trap as sms_consent: the optional marketing-email box vanishes from
+       FormData when unchecked, and "absent" downstream is indistinguishable from "never asked".
+       A declined marketing opt-in has to be recorded as an explicit no. */
+    var emailBox = form.querySelector('input[name="email_consent"]');
+    if (emailBox) fd.set("email_consent", (!emailBox.disabled && emailBox.checked) ? "yes" : "no");
     if (!fd.get("_t")) fd.set("_t", String(formT0));
+
+    /* ---- consent proof + attribution ----
+       "Checkbox was true" proves nothing in a carrier audit. What proves it is the evidence
+       around the click: when, from what URL, in what browser, against which disclosure version,
+       and the ordered trail showing the box was toggled by hand rather than pre-filled. */
+    put(fd, "consent_ts", new Date().toISOString());
+    put(fd, "consent_url", location.href);
+    put(fd, "consent_version", disclosureVersion());
+    /* The verbatim text beats the version id as evidence, so both ship: the id groups leads,
+       the snapshot is what a carrier or the FCC actually reads. */
+    put(fd, "consent_text_sms", disclosureText("sms-consent-text"));
+    put(fd, "consent_text_email", disclosureText("email-consent-text"));
+    try { put(fd, "consent_ua", navigator.userAgent); } catch (e3) {}
+    /* one clock only: the render timestamp is already formT0, the same value _t carries */
+    put(fd, "form_rendered_at", new Date(formT0).toISOString());
+    put(fd, "cookie_consent", cookieConsent());
+    put(fd, "sid", readSid());
+
+    var A = attr();
+    if (A) {
+      try { put(fd, "interaction_trail", JSON.stringify(A.trail())); } catch (e3) {}
+      try { put(fd, "ft_attr", JSON.stringify(A.first())); } catch (e3) {}
+      try { put(fd, "lt_attr", JSON.stringify(A.last())); } catch (e3) {}
+      /* The FLAT ft_/lt_ columns, IN ADDITION to the blobs above (§7.1). The intake node reads
+         individual columns (b.ft_utm_source, …) and cannot index into a JSON string, so posting
+         only the blobs left most of the provisioned GHL fields empty on every paid lead. The
+         blobs stay because the dashboard's touch comparison falls back to them. Only ft_/lt_
+         spellings are emitted — one vocabulary, per §7.1. */
+      try {
+        var flat = A.flat();
+        for (var fk in flat) {
+          if (!Object.prototype.hasOwnProperty.call(flat, fk)) continue;
+          if (fk.indexOf("ft_") !== 0 && fk.indexOf("lt_") !== 0) continue;
+          var fv = flat[fk];
+          if (fv === null || fv === undefined || fv === "") continue;
+          if (typeof fv === "object" || typeof fv === "function") continue;
+          put(fd, fk, String(fv).slice(0, 300));
+        }
+        /* These four are top-level plain by contract (§7.6 names them by these exact
+           spellings, and the CAPI relay reads shallow keys) — they are identity and
+           environment, not ft_/lt_ attribution columns. Last touch wins: it is the click
+           that actually brought this visit. */
+        put(fd, "fbclid", flat.lt_fbclid || flat.ft_fbclid || "");
+        put(fd, "landing_path", flat.lt_landing_path || flat.ft_landing_path || location.pathname || "/");
+        put(fd, "referrer", flat.lt_referrer || flat.ft_referrer || "");
+        put(fd, "device", flat.lt_device || flat.ft_device || "");
+      } catch (e3) {}
+      try { put(fd, "fbp", A.fbp()); } catch (e3) {}
+      try { put(fd, "fbc", A.fbc()); } catch (e3) {}
+      /* Shared with the Pixel's Lead event for CAPI dedup — deliberately NOT minted locally
+         when attribution.js is absent: a key only one side of the pair knows is no better than
+         no key, and a wrong one would look like it was deduping when it wasn't. */
+      try { put(fd, "event_id", A.eventId()); } catch (e3) {}
+      try { put(fd, "time_to_lead_s", A.timeToLeadS()); } catch (e3) {}
+    }
     try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
     try {
       if (navigator.sendBeacon && savedRef) {
