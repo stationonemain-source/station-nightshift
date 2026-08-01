@@ -15,7 +15,6 @@
   <a class="home" href="/v2/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m2arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m2core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m2core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m2arm"/><use href="#m2arm" transform="rotate(90 50 50)"/><use href="#m2arm" transform="rotate(180 50 50)"/><use href="#m2arm" transform="rotate(270 50 50)"/></g></svg><span>STATION SHOP</span></a>
   <div class="nav-links">
     <a href="/v2/#shop">Shop</a>
-    <a href="mailto:main@station.solutions">Talk to a human</a>
     <a class="btn dark" href="/v2/#help">Help me choose</a>
   </div>
 </div></nav>
@@ -53,7 +52,7 @@
   <script>window.CALC={price:197,clearAt:1.5,
     refer:"Zero web presence at all? <a href='/storefront/'>Storefront</a> and <a href='/map/'>Map</a> come first \u2014 social amplifies what exists.",
     sliders:[{id:"f",label:"Local followers across your accounts",min:100,max:10000,step:100,val:800,fmt:null},{id:"p",label:"Posts a month you'd actually keep up",min:4,max:30,step:2,val:12,fmt:null},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var f=v.f;var p=v.p;var t=v.t;return{loss:((f/1000)*p*0.15*t),note:"Local social converts at word-of-mouth rates: modeled as 0.15 jobs per 1,000 followers per post. Slow, compounding, real."}}
+    compute:function(__v){var f=__v.f;var p=__v.p;var t=__v.t;return{loss:((f/1000)*p*0.15*t),note:"Local social converts at word-of-mouth rates: modeled as 0.15 jobs per 1,000 followers per post. Slow, compounding, real."}}
   };</script>
 </div></section></section>
 <section class="sec" id="how"><div class="wrap">

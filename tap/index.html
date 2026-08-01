@@ -37,7 +37,6 @@
         <a href="/lines/">See the whole map →</a>
       </div>
     </div>
-    <a class="quiet" href="mailto:main@station.solutions">Talk to a human</a>
     <a class="cta" href="/#build">Build your line</a>
   </div>
 </div></nav>
@@ -77,7 +76,7 @@
   <script>window.CALC={price:147,clearAt:1.2,
     refer:"If every customer pays on the spot already, you only need the estimates \u2014 which are included anyway.",
     sliders:[{id:"j",label:"Jobs a month you invoice",min:4,max:80,step:2,val:20,fmt:null},{id:"d",label:"Days you wait to get paid, on average",min:3,max:60,step:1,val:21,fmt:null},{id:"t",label:"Average invoice ($)",min:100,max:3000,step:50,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var j=v.j;var d=v.d;var t=v.t;return{loss:((j*t)*(d/30)*0.02 + j*0.03*t*0.5),note:"Cost of money floated + the invoices that quietly never get paid (3%, half-counted). Getting paid same-day makes both go away."}}
+    compute:function(__v){var j=__v.j;var d=__v.d;var t=__v.t;return{loss:((j*t)*(d/30)*0.02 + j*0.03*t*0.5),note:"Cost of money floated + the invoices that quietly never get paid (3%, half-counted). Getting paid same-day makes both go away."}}
   };</script>
 </div></section>
 

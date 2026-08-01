@@ -15,7 +15,6 @@
   <a class="home" href="/v2/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m2arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m2core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m2core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m2arm"/><use href="#m2arm" transform="rotate(90 50 50)"/><use href="#m2arm" transform="rotate(180 50 50)"/><use href="#m2arm" transform="rotate(270 50 50)"/></g></svg><span>STATION SHOP</span></a>
   <div class="nav-links">
     <a href="/v2/#shop">Shop</a>
-    <a href="mailto:main@station.solutions">Talk to a human</a>
     <a class="btn dark" href="/v2/#help">Help me choose</a>
   </div>
 </div></nav>
@@ -53,7 +52,7 @@
   <script>window.CALC={price:197,clearAt:2,
     refer:"Missing one call a week? <a href='/dial/'>Dial</a> at $47 gets you a real business line first.",
     sliders:[{id:"m",label:"Calls you miss a week",min:1,max:40,step:1,val:8,fmt:null},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}},{id:"c",label:"Missed callers you'd have closed (%)",min:10,max:60,step:5,val:25,fmt:function(v){return v+"%"}}],
-    compute:function(v){var m=v.m;var t=v.t;var c=v.c;return{loss:(m*4.33*t*(c/100)*0.5),note:"Counting only half of them as saved by the text-back."}}
+    compute:function(__v){var m=__v.m;var t=__v.t;var c=__v.c;return{loss:(m*4.33*t*(c/100)*0.5),note:"Counting only half of them as saved by the text-back."}}
   };</script>
 </div></section></section>
 <section class="sec" id="how"><div class="wrap">

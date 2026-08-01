@@ -37,7 +37,6 @@
         <a href="/lines/">See the whole map →</a>
       </div>
     </div>
-    <a class="quiet" href="mailto:main@station.solutions">Talk to a human</a>
     <a class="cta" href="/#build">Build your line</a>
   </div>
 </div></nav>
@@ -77,7 +76,7 @@
   <script>window.CALC={price:497,clearAt:1.2,
     refer:"Under ~100 contacts, this math gets thin \u2014 grab those customers' emails going forward and come back.",
     sliders:[{id:"n",label:"Old customers on the list",min:50,max:5000,step:50,val:400,fmt:null},{id:"r",label:"Response rate (%)",min:2,max:15,step:1,val:6,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var n=v.n;var r=v.r;var t=v.t;return{loss:(n*(r/100)*0.5*t),note:"Half the responders booking. Past customers convert at 2\u20134\u00d7 cold-lead rates."}}
+    compute:function(__v){var n=__v.n;var r=__v.r;var t=__v.t;return{loss:(n*(r/100)*0.5*t),note:"Half the responders booking. Past customers convert at 2\u20134\u00d7 cold-lead rates."}}
   };</script>
 </div></section>
 

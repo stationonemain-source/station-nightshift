@@ -37,7 +37,6 @@
         <a href="/lines/">See the whole map →</a>
       </div>
     </div>
-    <a class="quiet" href="mailto:main@station.solutions">Talk to a human</a>
     <a class="cta" href="/#build">Build your line</a>
   </div>
 </div></nav>
@@ -77,7 +76,7 @@
   <script>window.CALC={price:197,clearAt:1.2,
     refer:"If your work is 100% homeowner-direct, skip this stop \u2014 it's built for chasing commercial and B2B accounts.",
     sliders:[{id:"p",label:"Prospects you'd work through a month",min:20,max:250,step:10,val:80,fmt:null},{id:"w",label:"Win rate on contacted prospects (%)",min:1,max:10,step:1,val:2,fmt:function(v){return v+"%"}},{id:"t",label:"Average first-contract value ($)",min:500,max:10000,step:250,val:2000,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var p=v.p;var w=v.w;var t=v.t;return{loss:(p*(w/100)*t/3),note:"First contracts amortized over a quarter \u2014 B2B closes slow but big."}}
+    compute:function(__v){var p=__v.p;var w=__v.w;var t=__v.t;return{loss:(p*(w/100)*t/3),note:"First contracts amortized over a quarter \u2014 B2B closes slow but big."}}
   };</script>
 </div></section>
 

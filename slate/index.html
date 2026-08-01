@@ -37,7 +37,6 @@
         <a href="/lines/">See the whole map →</a>
       </div>
     </div>
-    <a class="quiet" href="mailto:main@station.solutions">Talk to a human</a>
     <a class="cta" href="/#build">Build your line</a>
   </div>
 </div></nav>
@@ -77,7 +76,7 @@
   <script>window.CALC={price:97,clearAt:2,
     refer:"Booked out for months with no no-shows? You genuinely don't need this one.",
     sliders:[{id:"a",label:"Appointments a week",min:2,max:40,step:1,val:10,fmt:null},{id:"n",label:"No-show rate today (%)",min:5,max:40,step:1,val:15,fmt:function(v){return v+"%"}},{id:"t",label:"Average appointment value ($)",min:50,max:1500,step:25,val:300,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var a=v.a;var n=v.n;var t=v.t;return{loss:(a*4.33*(n/100)*t*0.38),note:"Text reminders cut no-shows by about 38% \u2014 that's the slice we count."}}
+    compute:function(__v){var a=__v.a;var n=__v.n;var t=__v.t;return{loss:(a*4.33*(n/100)*t*0.38),note:"Text reminders cut no-shows by about 38% \u2014 that's the slice we count."}}
   };</script>
 </div></section>
 

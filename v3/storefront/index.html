@@ -15,7 +15,6 @@
   <a class="home" href="/v3/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m2arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m2core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m2core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m2arm"/><use href="#m2arm" transform="rotate(90 50 50)"/><use href="#m2arm" transform="rotate(180 50 50)"/><use href="#m2arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
   <div class="nav-links">
     <a href="/v3/#shop">Products</a>
-    <a href="mailto:main@station.solutions">Talk to a human</a>
     <a class="btn dark" href="/v3/#help">Build your line</a>
   </div>
 </div></nav><main id="main"><div class="wrap pp">
@@ -48,7 +47,7 @@
   <script>window.CALC={price:500,clearAt:1.5,
     refer:"If almost nobody searches for you yet, fix being found first \u2014 that's <a href='/map/'>Map</a>.",
     sliders:[{id:"v",label:"People who look for you online each month",min:50,max:2000,step:50,val:300,fmt:null},{id:"c",label:"How many would book if the site made it easy (%)",min:1,max:8,step:1,val:2,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var v=v.v;var c=v.c;var t=v.t;return{loss:(v*(c/100)*t*0.5),note:"Counting only half those bookings as truly new."}}
+    compute:function(__v){var v=__v.v;var c=__v.c;var t=__v.t;return{loss:(v*(c/100)*t*0.5),note:"Counting only half those bookings as truly new."}}
   };</script>
 </div>
     <div class="rv" id="how"><p class="k">How it works</p><h2>Set up once. It just runs.</h2>

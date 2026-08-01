@@ -15,7 +15,6 @@
   <a class="home" href="/v2/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m2arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m2core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m2core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m2arm"/><use href="#m2arm" transform="rotate(90 50 50)"/><use href="#m2arm" transform="rotate(180 50 50)"/><use href="#m2arm" transform="rotate(270 50 50)"/></g></svg><span>STATION SHOP</span></a>
   <div class="nav-links">
     <a href="/v2/#shop">Shop</a>
-    <a href="mailto:main@station.solutions">Talk to a human</a>
     <a class="btn dark" href="/v2/#help">Help me choose</a>
   </div>
 </div></nav>
@@ -53,7 +52,7 @@
   <script>window.CALC={price:79,clearAt:2,
     refer:"Under ~150 visits a month, fix traffic first \u2014 <a href='/map/'>Map</a> gets you found.",
     sliders:[{id:"v",label:"Website visitors a month",min:100,max:3000,step:50,val:500,fmt:null},{id:"e",label:"Visitors who'd ask a question if they could (%)",min:1,max:10,step:1,val:3,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
-    compute:function(v){var v=v.v;var e=v.e;var t=v.t;return{loss:(v*(e/100)*t*0.25),note:"Counting only a quarter of those chats becoming jobs."}}
+    compute:function(__v){var v=__v.v;var e=__v.e;var t=__v.t;return{loss:(v*(e/100)*t*0.25),note:"Counting only a quarter of those chats becoming jobs."}}
   };</script>
 </div></section></section>
 <section class="sec" id="how"><div class="wrap">
