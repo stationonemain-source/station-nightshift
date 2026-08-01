@@ -1,0 +1,763 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Station — Night Shift · ride the whole line</title>
+<meta name="description" content="One continuous ride down Station's network — fourteen products that staff a small business's front office. Every call answered, every lead chased, every review handled. Live in days.">
+<link rel="canonical" href="https://station.solutions/v4/">
+<meta property="og:title" content="Station — Night Shift">
+<meta property="og:description" content="Every call answered. Every lead chased. Every review handled. Fourteen products, one line — live in days.">
+<meta property="og:image" content="https://station.solutions/media/hero-key.jpg">
+<meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B0D10">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%23FFB000" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="%230B0D10"/></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   STATION V4 — "Night Shift" · cinematic scroll-film funnel
+   Reuses The Line design system: amber #FFB000 on near-black,
+   Space Grotesk / Inter / JetBrains Mono, hairlines not shadows.
+   Self-contained — GSAP + ScrollTrigger + Lenis from CDN.
+   =========================================================== */
+:root{
+  --bg:#0B0D10; --surface:#12151A; --raised:#171B21; --well:#0E1116;
+  --fg:#E8E6E1; --muted:#9AA0A8; --dim:#5B6068;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.14);
+  --amber:#FFB000; --on-amber:#16181D; --amber-dim:rgba(255,176,0,.14);
+  --good:#2FBF71; --red:#FF6B5A;
+  --font-d:"Space Grotesk","Bahnschrift","Segoe UI",system-ui,sans-serif;
+  --font-b:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-m:"JetBrains Mono","Cascadia Mono",Consolas,ui-monospace,monospace;
+  --pill:999px; --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-b);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:var(--amber);text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-d);margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0 0 1em}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;width:100%}
+.mono{font-family:var(--font-m)}
+::selection{background:var(--amber);color:var(--on-amber)}
+.skip{position:absolute;left:-999px;top:0;background:var(--amber);color:var(--on-amber);padding:10px 16px;z-index:200;border-radius:0 0 10px 0}
+.skip:focus{left:0}
+
+/* ---------- fixed chrome ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;height:60px;display:flex;align-items:center;
+  background:color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .3s, background .3s}
+.nav.solid{border-bottom-color:var(--line);background:color-mix(in srgb, var(--bg) 88%, transparent)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);font-family:var(--font-d);
+  font-weight:700;letter-spacing:.16em;font-size:13px}
+.brand .mark{width:28px;height:28px;color:var(--fg)}
+.nav-links{display:flex;gap:20px;align-items:center;margin-left:auto}
+.nav-links a{color:var(--muted);font-size:13.5px;font-weight:500}
+.nav-links a:hover{color:var(--fg)}
+.nav .cta{background:var(--amber);color:var(--on-amber);font-family:var(--font-d);font-weight:600;
+  font-size:13px;padding:9px 18px;border-radius:var(--pill);transition:filter .15s,transform .1s}
+.nav .cta:hover{filter:brightness(1.07)} .nav .cta:active{transform:translateY(1px)}
+@media(max-width:720px){.nav-links a.quiet{display:none}}
+
+/* progress rail (the line, filling as you ride) */
+.rail{position:fixed;left:0;top:60px;height:2px;width:100%;z-index:89;background:transparent}
+.rail i{display:block;height:100%;width:0;background:var(--amber);box-shadow:0 0 12px rgba(255,176,0,.6)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-d);font-weight:600;font-size:15px;
+  padding:13px 24px;border-radius:var(--pill);cursor:pointer;transition:transform .12s,filter .15s,background .2s,color .2s;border:1px solid transparent}
+.btn.primary{background:var(--amber);color:var(--on-amber)}
+.btn.primary:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.btn.ghost:hover{border-color:var(--fg);transform:translateY(-1px)}
+.btn.small{padding:9px 16px;font-size:13px}
+
+/* ---------- generic sections ---------- */
+.sec{position:relative;padding:120px 0}
+.eyebrow{font:600 12px var(--font-m);letter-spacing:.18em;text-transform:uppercase;color:var(--amber);
+  display:inline-flex;align-items:center;gap:9px;margin:0 0 18px}
+.eyebrow .tick{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h2.big{font-weight:700;font-size:clamp(1.9rem,4.6vw,3.3rem);line-height:1.04}
+.lede{color:var(--muted);font-size:clamp(1rem,1.5vw,1.18rem);max-width:60ch;margin:18px 0 0}
+
+/* ============ S1 · ARRIVAL (pinned film) ============ */
+#arrival{height:100vh;position:relative;overflow:hidden}
+#arrival .film{position:absolute;inset:0;z-index:0}
+#arrival video,#arrival .film img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);filter:saturate(1.05)}
+#arrival .grade{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(120% 90% at 50% 8%, rgba(11,13,16,.30) 0%, rgba(11,13,16,.55) 46%, rgba(11,13,16,.92) 86%, var(--bg) 100%)}
+#arrival .grain{position:absolute;inset:0;z-index:2;opacity:.05;pointer-events:none;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.arrival-in{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:8vh}
+.wordmark{font-family:var(--font-d);font-weight:700;line-height:.9;letter-spacing:-.03em;
+  font-size:clamp(4rem,17vw,15rem);display:flex;overflow:hidden}
+.wordmark span{display:inline-block}
+.arrival-sub{max-width:40ch;color:var(--fg);font-size:clamp(1.05rem,1.8vw,1.4rem);margin:22px 0 26px;opacity:.94}
+.arrival-cta{display:flex;gap:14px;flex-wrap:wrap}
+.scrollcue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;color:var(--muted);
+  font:600 11px var(--font-m);letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scrollcue .bar{width:1px;height:34px;background:linear-gradient(var(--amber),transparent);animation:cue 1.8s infinite}
+@keyframes cue{0%{transform:scaleY(.2);transform-origin:top;opacity:.3}50%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);transform-origin:bottom;opacity:.3}}
+
+/* departure board strip */
+.board{position:relative;z-index:4;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:rgba(9,11,14,.72);backdrop-filter:blur(6px);overflow:hidden;white-space:nowrap;padding:11px 0}
+.board-track{display:inline-flex;gap:52px;will-change:transform}
+.board-item{font:500 12.5px var(--font-m);color:var(--muted);letter-spacing:.02em}
+.board-item b{color:var(--fg);font-weight:700} .board-item .ok{color:var(--good)}
+
+/* ============ S2 · THE MISS (pinned scene) ============ */
+#miss{background:var(--bg)}
+.miss-stage{max-width:900px;margin:0 auto;padding:0 24px}
+.tt{margin-top:34px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--well)}
+.tt-row{display:flex;gap:16px;align-items:baseline;padding:18px 22px;border-bottom:1px solid var(--line);
+  clip-path:inset(0 100% 0 0)}
+.tt-row:last-child{border-bottom:0}
+.tt-time{font:700 13px var(--font-m);min-width:78px;color:var(--dim)}
+.tt-ev{font-size:1.05rem}
+.tt-row.lost .tt-ev{color:var(--muted)} .tt-row.lost .tt-time{color:var(--red)}
+.tt-row.won{background:linear-gradient(90deg,var(--amber-dim),transparent);border-top:1px solid rgba(255,176,0,.28)}
+.tt-row.won .tt-time{color:var(--amber)} .tt-row.won .tt-ev{color:var(--fg);font-weight:500}
+
+/* ============ S3 · THE LINE DRAWS (pinned scrub) ============ */
+#draw{background:var(--well);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.draw-stage{position:relative}
+.draw-svg{width:100%;height:auto;max-width:1060px;margin:26px auto 0;display:block}
+.ln-label{font:700 12px var(--font-m);fill:var(--dim);letter-spacing:.06em}
+.st-name{font:700 12px var(--font-d);fill:var(--fg)} .st-price{font:500 10px var(--font-m);fill:var(--dim)}
+
+/* ============ S4 · THE STOPS (horizontal run) ============ */
+#stops{position:relative;background:var(--bg)}
+.htrack{display:flex;align-items:center;gap:26px;padding:0 6vw;height:100vh;width:max-content;will-change:transform}
+.hintro{flex:none;width:78vw;max-width:560px}
+.hintro h2{font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.03}
+.stopcard{flex:none;width:340px;height:64vh;max-height:560px;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;background:var(--surface);display:flex;flex-direction:column;position:relative;
+  transition:border-color .25s,transform .25s}
+.stopcard:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+.stopcard .shot{position:relative;height:47%;overflow:hidden}
+.stopcard .shot img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);will-change:transform}
+.stopcard .shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--surface))}
+.stopcard .line-tag{position:absolute;top:12px;left:12px;z-index:2;font:700 9.5px var(--font-m);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--amber);background:rgba(9,11,14,.7);border:1px solid rgba(255,176,0,.3);
+  padding:4px 9px;border-radius:var(--pill)}
+.stopcard .body{padding:16px 20px 20px;display:flex;flex-direction:column;flex:1}
+.stopcard h3{font-weight:700;font-size:1.5rem;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.stopcard h3 .pr{font:600 12px var(--font-m);color:var(--amber);white-space:nowrap}
+.stopcard p{color:var(--muted);font-size:.95rem;margin:8px 0 0;flex:1}
+.stopcard .acts{display:flex;gap:8px;margin-top:16px;align-items:center}
+.stopcard .buy{flex:1;justify-content:center;background:var(--amber);color:var(--on-amber);font:600 13px var(--font-d);
+  padding:10px;border-radius:var(--pill);text-align:center;transition:filter .15s}
+.stopcard .buy:hover{filter:brightness(1.07)}
+.stopcard .more{font:500 12px var(--font-b);color:var(--muted);white-space:nowrap}
+.stopcard .more:hover{color:var(--fg)}
+.hprogress{position:absolute;left:0;bottom:34px;width:100%;text-align:center;z-index:5;pointer-events:none}
+.hprogress span{font:600 11px var(--font-m);letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+  background:rgba(9,11,14,.6);padding:6px 14px;border-radius:var(--pill);backdrop-filter:blur(6px)}
+
+/* ============ S5 · BUILD (configurator) ============ */
+#build{background:var(--well);border-top:1px solid var(--line)}
+.q-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.q-chip{background:var(--surface);border:1px solid var(--line);color:var(--muted);font:500 13.5px var(--font-b);
+  padding:9px 16px;border-radius:var(--pill);cursor:pointer;transition:all .18s}
+.q-chip:hover{color:var(--fg);border-color:var(--line-strong)}
+.q-chip.on{background:var(--amber);color:var(--on-amber);border-color:var(--amber);font-weight:600}
+.builder{display:grid;grid-template-columns:1fr 360px;gap:26px;margin-top:28px;align-items:start}
+@media(max-width:880px){.builder{grid-template-columns:1fr}}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.tiles{grid-template-columns:1fr}}
+.tile{border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;background:var(--surface);
+  transition:border-color .18s,background .18s;display:block}
+.tile.on{border-color:var(--amber);background:linear-gradient(180deg,var(--amber-dim),var(--surface))}
+.t-hit{display:flex;gap:12px;align-items:flex-start}
+.t-hit input{margin-top:3px;accent-color:var(--amber);width:16px;height:16px;flex:none}
+.t-name{font-family:var(--font-d);font-weight:600;font-size:15px}
+.t-sub{color:var(--muted);font-size:12.5px}
+.t-price{margin-left:auto;text-align:right;font:600 12.5px var(--font-m);color:var(--amber);white-space:nowrap}
+.t-ttl{display:block;color:var(--dim);font-weight:500;font-size:10.5px;margin-top:2px}
+.t-ttl a{color:inherit;text-decoration:underline}
+.receipt{border:1px solid var(--line-strong);border-radius:16px;padding:22px;background:var(--surface);position:sticky;top:80px}
+.r-eyebrow{font:600 11px var(--font-m);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 6px}
+.r-total{font-family:var(--font-d);font-weight:700;font-size:2.6rem;line-height:1}
+.r-total small{font-size:1rem;color:var(--muted);font-weight:500}
+.r-rows{margin:16px 0;border-top:1px solid var(--line)}
+.r-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.r-row b{font-family:var(--font-m);font-weight:700}
+.r-row .inc{color:var(--good);font-size:11px;font-family:var(--font-m)}
+.r-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.r-kpi{background:var(--well);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.r-kpi .k{font:500 10.5px var(--font-m);color:var(--dim);text-transform:uppercase;letter-spacing:.08em}
+.r-kpi .v{font-family:var(--font-d);font-weight:700;font-size:1.25rem;margin-top:2px}
+.r-verdict{font-size:13.5px;color:var(--muted);background:var(--well);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:6px}
+.r-verdict.hit{border-color:rgba(255,176,0,.4);color:var(--fg)}
+.r-verdict b{color:var(--fg)}
+.r-note{font-size:11.5px;color:var(--dim);margin:12px 0 0;line-height:1.5}
+
+/* ============ S6 · PROOF ============ */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+@media(max-width:760px){.cards3{grid-template-columns:1fr}}
+.pcard{border:1px solid var(--line);border-radius:16px;padding:26px 24px;background:var(--surface)}
+.pcard .big{font-family:var(--font-d);font-weight:700;font-size:2.4rem;color:var(--amber);line-height:1}
+.pcard .cap{color:var(--muted);font-size:.95rem;margin:12px 0 0}
+
+/* ============ S8 · LAST CALL ============ */
+#lastcall{position:relative;min-height:82vh;display:flex;align-items:center;overflow:hidden}
+#lastcall .film{position:absolute;inset:0;z-index:0}
+#lastcall .film img{width:100%;height:100%;object-fit:cover}
+#lastcall .grade{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(90% 80% at 68% 24%, rgba(23,18,8,.55) 0%, var(--bg) 66%)}
+#lastcall .wrap{position:relative;z-index:2}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--well)}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:26px}
+@media(max-width:760px){.f-grid{grid-template-columns:1fr 1fr}}
+.f-brand p{color:var(--muted);font-size:13.5px;max-width:32ch;margin-top:12px}
+footer h4{font:700 11px var(--font-m);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin:0 0 12px}
+footer .f-grid a{display:block;color:var(--muted);font-size:14px;padding:3px 0}
+footer .f-grid a:hover{color:var(--fg)}
+.f-legal{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:40px;padding-top:22px;
+  border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+.f-legal a{color:var(--dim)} .f-legal a:hover{color:var(--muted)}
+
+/* reveal helper (non-pinned sections) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+
+/* reduced-motion / no-js: everything static & readable */
+.no-anim .tt-row{clip-path:none}
+.no-anim .rv{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .wordmark span{transform:none}
+  .tt-row{clip-path:none}
+  .rv{opacity:1;transform:none}
+  .scrollcue,.board-track{animation:none}
+}
+</style>
+</head><body>
+
+<a class="skip" href="#build">Skip to the products</a>
+
+<nav class="nav" id="nav"><div class="nav-in">
+  <a class="brand" href="/v4/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="var(--bg)"/></svg><span>STATION</span></a>
+  <div class="nav-links">
+    <a class="quiet" href="#stops">The stops</a>
+    <a class="quiet" href="mailto:main@station.solutions">Talk to a human</a>
+    <a class="cta" href="#build">Build your line</a>
+  </div>
+</div></nav>
+<div class="rail" aria-hidden="true"><i id="rail"></i></div>
+
+<main id="main">
+
+<!-- ================= S1 · ARRIVAL ================= -->
+<header id="arrival">
+  <div class="film">
+    <video autoplay muted loop playsinline poster="/media/hero-key.jpg" id="heroFilm">
+      <source src="/media/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="grade"></div><div class="grain"></div>
+  <div class="arrival-in"><div class="wrap">
+    <p class="eyebrow"><span class="tick"></span>The front office that never clocks out</p>
+    <div class="wordmark" aria-label="STATION" id="wordmark">
+      <span>S</span><span>T</span><span>A</span><span>T</span><span>I</span><span>O</span><span>N</span>
+    </div>
+    <p class="arrival-sub" id="arrivalSub">Every call answered. Every lead chased. Every review handled.
+      Fourteen products, one line — live in days, not months.</p>
+    <div class="arrival-cta" id="arrivalCta">
+      <a class="btn primary" href="#build">Find your first stop</a>
+      <a class="btn ghost" href="#stops">Ride the line</a>
+    </div>
+  </div></div>
+  <div class="scrollcue" aria-hidden="true"><span>Scroll</span><span class="bar"></span></div>
+</header>
+
+<!-- departure board -->
+<div class="board" aria-hidden="true"><div class="board-track" id="boardTrack">
+  <span class="board-item">02:14 AM &nbsp;<b>MISSED CALL CAUGHT</b>&nbsp;→ booked, 7:00 AM slot <span class="ok">●</span></span>
+  <span class="board-item">08:31 AM &nbsp;<b>REVIEW REQUEST OUT</b>&nbsp;→ ★★★★★ landed 6:40 PM <span class="ok">●</span></span>
+  <span class="board-item">11:52 AM &nbsp;<b>WEB CHAT</b>&nbsp;→ name + number captured <span class="ok">●</span></span>
+  <span class="board-item">01:07 PM &nbsp;<b>REMINDER SENT</b>&nbsp;→ confirmed by reply <span class="ok">●</span></span>
+  <span class="board-item">03:26 PM &nbsp;<b>QUIET LEAD RE-POKED</b>&nbsp;→ replied after 19 days <span class="ok">●</span></span>
+  <span class="board-item">05:44 PM &nbsp;<b>INVOICE PAID</b>&nbsp;→ tap to phone, receipt sent <span class="ok">●</span></span>
+  <span class="board-item">09:03 PM &nbsp;<b>AFTER-HOURS CALL</b>&nbsp;→ answered, message taken <span class="ok">●</span></span>
+</div></div>
+
+<!-- ================= S2 · THE MISS ================= -->
+<section id="miss" class="sec"><div class="miss-stage">
+  <p class="eyebrow rv"><span class="tick"></span>Friday, 4:47 PM</p>
+  <h2 class="big rv">Small businesses don't lose to worse work.<br>They lose to slower answers.</h2>
+  <div class="tt" id="ttable">
+    <div class="tt-row lost"><span class="tt-time">4:47 PM</span><span class="tt-ev">The phone rings. You're under a sink.</span></div>
+    <div class="tt-row lost"><span class="tt-time">4:48 PM</span><span class="tt-ev">Voicemail. Nobody leaves one anymore.</span></div>
+    <div class="tt-row lost"><span class="tt-time">5:10 PM</span><span class="tt-ev">She's booked your competitor. Nice people. Slightly faster.</span></div>
+    <div class="tt-row won"><span class="tt-time">4:48 PM</span><span class="tt-ev">Station answers in seconds — text-back, live chat, or a receptionist that never clocks out.</span></div>
+  </div>
+</div></section>
+
+<!-- ================= S3 · THE LINE DRAWS ================= -->
+<section id="draw" class="sec"><div class="wrap draw-stage">
+  <p class="eyebrow rv"><span class="tick"></span>The network</p>
+  <h2 class="big rv">Five lines. Fourteen stops.<br>All of them connect.</h2>
+  <p class="lede rv">Every business boards at a different stop — the one that hurts. The line draws itself as you ride down. Amber stops are the entry doors.</p>
+  <svg class="draw-svg" viewBox="0 0 1060 566" role="img" aria-label="Transit map of Station's five product lines">
+    <g fill="none" stroke-linecap="round">
+      <path d="M100 80H875" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+      <path d="M100 180H720" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+      <path d="M100 280H565" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+      <path d="M100 380H410" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+      <path d="M100 480H410" stroke="rgba(255,255,255,.12)" stroke-width="5"/>
+      <path class="drawpath" d="M100 80H875" stroke="#FFB000" stroke-width="5"/>
+      <path class="drawpath" d="M100 180H720" stroke="#FFB000" stroke-width="5"/>
+      <path class="drawpath" d="M100 280H565" stroke="#FFB000" stroke-width="5"/>
+      <path class="drawpath" d="M100 380H410" stroke="#FFB000" stroke-width="5"/>
+      <path class="drawpath" d="M100 480H410" stroke="#FFB000" stroke-width="5"/>
+    </g>
+    <text class="ln-label" x="8" y="52">A · PRESENCE</text>
+    <text class="ln-label" x="8" y="152">B · THE PHONE</text>
+    <text class="ln-label" x="8" y="252">C · THE LIST</text>
+    <text class="ln-label" x="8" y="352">D · THE COUNTER</text>
+    <text class="ln-label" x="8" y="452">E · THE HUNT</text>
+    <g stroke="rgba(255,255,255,.35)" stroke-width="3" fill="#12151A">
+      <circle cx="100" cy="80" r="11" fill="#FFB000" stroke="#8A5A00"/><circle cx="255" cy="80" r="11" fill="#FFB000" stroke="#8A5A00"/>
+      <circle cx="410" cy="80" r="11"/><circle cx="565" cy="80" r="11"/><circle cx="720" cy="80" r="11"/><circle cx="875" cy="80" r="11"/>
+      <circle cx="100" cy="180" r="11" fill="#FFB000" stroke="#8A5A00"/><circle cx="255" cy="180" r="11"/><circle cx="410" cy="180" r="11"/><circle cx="565" cy="180" r="11"/><circle cx="720" cy="180" r="11"/>
+      <circle cx="100" cy="280" r="11" fill="#FFB000" stroke="#8A5A00"/><circle cx="255" cy="280" r="11"/><circle cx="410" cy="280" r="11"/><circle cx="565" cy="280" r="11"/>
+      <circle cx="100" cy="380" r="11" fill="#FFB000" stroke="#8A5A00"/><circle cx="255" cy="380" r="11"/><circle cx="410" cy="380" r="11"/>
+      <circle cx="100" cy="480" r="11" fill="#FFB000" stroke="#8A5A00"/><circle cx="255" cy="480" r="11"/><circle cx="410" cy="480" r="11"/>
+    </g>
+    <g text-anchor="middle">
+      <text class="st-name" x="100" y="112">STOREFRONT</text><text class="st-price" x="100" y="126">$500</text>
+      <text class="st-name" x="255" y="112">GREET</text><text class="st-price" x="255" y="126">$79/mo</text>
+      <text class="st-name" x="410" y="112">SLATE</text><text class="st-price" x="410" y="126">$97/mo</text>
+      <text class="st-name" x="565" y="112">REPUTE</text><text class="st-price" x="565" y="126">$197/mo</text>
+      <text class="st-name" x="720" y="112">MAP</text><text class="st-price" x="720" y="126">$147/mo</text>
+      <text class="st-name" x="875" y="112">MARQUEE</text><text class="st-price" x="875" y="126">$197/mo</text>
+      <text class="st-name" x="100" y="212">DIAL</text><text class="st-price" x="100" y="226">$47/mo</text>
+      <text class="st-name" x="255" y="212">LINEBACK</text><text class="st-price" x="255" y="226">$197/mo</text>
+      <text class="st-name" x="410" y="212">FRONTDESK</text><text class="st-price" x="410" y="226">$397/mo</text>
+      <text class="st-name" x="565" y="212">SLATE</text><text class="st-price" x="565" y="226">incl.</text>
+      <text class="st-name" x="720" y="212">PURSUIT</text><text class="st-price" x="720" y="226">$247/mo</text>
+      <text class="st-name" x="100" y="312">REVIVE</text><text class="st-price" x="100" y="326">$497</text>
+      <text class="st-name" x="255" y="312">PURSUIT</text><text class="st-price" x="255" y="326">$247/mo</text>
+      <text class="st-name" x="410" y="312">DISPATCH</text><text class="st-price" x="410" y="326">$94/mo</text>
+      <text class="st-name" x="565" y="312">REPUTE</text><text class="st-price" x="565" y="326">$197/mo</text>
+      <text class="st-name" x="100" y="412">TAP</text><text class="st-price" x="100" y="426">$147/mo</text>
+      <text class="st-name" x="255" y="412">SLATE</text><text class="st-price" x="255" y="426">$97/mo</text>
+      <text class="st-name" x="410" y="412">DISPATCH</text><text class="st-price" x="410" y="426">$94/mo</text>
+      <text class="st-name" x="100" y="512">RADAR</text><text class="st-price" x="100" y="526">$197/mo</text>
+      <text class="st-name" x="255" y="512">DISPATCH</text><text class="st-price" x="255" y="526">$94/mo</text>
+      <text class="st-name" x="410" y="512">PURSUIT</text><text class="st-price" x="410" y="526">$247/mo</text>
+    </g>
+  </svg>
+</div></section>
+
+<!-- ================= S4 · THE STOPS (horizontal) ================= -->
+<section id="stops" aria-label="The fourteen product stops">
+  <div class="htrack" id="htrack">
+    <div class="hintro">
+      <p class="eyebrow"><span class="tick"></span>Ride the line →</p>
+      <h2>Every stop sells on its own.<br>Board where it hurts.</h2>
+      <p class="lede">Fourteen products, each live in days and cancellable any time. Buy one stop now, or build the whole line below.</p>
+    </div>
+    <!-- cards injected by JS -->
+  </div>
+  <div class="hprogress" aria-hidden="true"><span id="hlabel">A · PRESENCE</span></div>
+</section>
+
+<!-- ================= S5 · BUILD YOUR LINE ================= -->
+<section id="build" class="sec"><div class="wrap">
+  <p class="eyebrow rv"><span class="tick"></span>Build your line</p>
+  <h2 class="big rv">Start with what's costing you most.</h2>
+  <p class="lede rv">Answer one question and the shelf re-orders itself. Tick stops, watch the receipt — cost per day, the jobs that cover it, and when a line pass beats the stack. It'll also tell you when to stop adding.</p>
+  <div class="q-chips rv">
+    <button class="q-chip" data-pain="calls">Missed calls</button>
+    <button class="q-chip" data-pain="noshows">No-shows</button>
+    <button class="q-chip" data-pain="reviews">Too few reviews</button>
+    <button class="q-chip" data-pain="invisible">Invisible on Google</button>
+    <button class="q-chip" data-pain="quiet">Old customers gone quiet</button>
+    <button class="q-chip" data-pain="slow">Slow season</button>
+  </div>
+  <div class="builder">
+    <div id="tiles" class="tiles rv"></div>
+    <aside class="receipt rv">
+      <p class="r-eyebrow">Your front office</p>
+      <div class="r-total" id="rTotal">$0<small>/month</small></div>
+      <div class="r-rows" id="rRows"></div>
+      <div class="r-kpis">
+        <div class="r-kpi"><span class="k">Cost / day</span><div class="v" id="rDay">$0.00</div></div>
+        <div class="r-kpi"><span class="k">Jobs/mo to cover</span><div class="v" id="rJobs">0</div></div>
+      </div>
+      <div class="r-row" style="border-top:1px solid var(--line);font-size:13px"><span>One-time (builds &amp; setups)</span><b id="rOnce">$0</b></div>
+      <div class="r-verdict" id="rVerdict" style="margin-top:12px">Pick the stop that fixes what hurt this week.</div>
+      <p class="r-note">Job math assumes a $425 average ticket. Every product page has a calculator with <i>your</i> numbers — and each one tells you not to buy when the math doesn't clear.</p>
+    </aside>
+  </div>
+</div></section>
+
+<!-- ================= S6 · PROOF ================= -->
+<section class="sec" style="background:var(--bg)"><div class="wrap">
+  <p class="eyebrow rv"><span class="tick"></span>No invented numbers</p>
+  <h2 class="big rv">Measured, not promised.</h2>
+  <p class="lede rv">We publish what the system actually does across live client accounts — not a brochure statistic.</p>
+  <div class="cards3">
+    <div class="pcard rv"><div class="big"><span class="count" data-to="9" data-suffix="s">0</span></div><p class="cap">from missed call to text-back on every Lineback account — measured on every single miss.</p></div>
+    <div class="pcard rv"><div class="big">~<span class="count" data-to="38" data-suffix="%">0</span></div><p class="cap">fewer no-shows when reminders run — the published industry effect Slate is built on, tracked per account.</p></div>
+    <div class="pcard rv"><div class="big">24/7</div><p class="cap">Frontdesk answer coverage — every call transcribed and recorded, so you can audit us any night.</p></div>
+  </div>
+</div></section>
+
+<!-- ================= S7 · TWO WAYS TO RIDE ================= -->
+<section class="sec" style="background:var(--well);border-top:1px solid var(--line)"><div class="wrap">
+  <p class="eyebrow rv"><span class="tick"></span>Two ways to ride</p>
+  <h2 class="big rv">Stop by stop, or a line pass.</h2>
+  <p class="lede rv">Every product above sells on its own — that's the point. Stack four or more and a flat line pass usually beats the sum. Passes are sized on a short call, because they come with a human who owns your account.</p>
+  <div class="cards3">
+    <div class="pcard rv"><div class="big" style="font-size:1.4rem">CORE</div><p class="cap">The working front office — the six stops most businesses land on, as one flat plan.</p><a class="btn ghost small" style="margin-top:16px" href="mailto:main@station.solutions?subject=Core%20line%20pass">Size it on a call →</a></div>
+    <div class="pcard rv"><div class="big" style="font-size:1.4rem">PRO</div><p class="cap">Core plus the receptionist, the map and the marquee — the whole street presence, handled.</p><a class="btn ghost small" style="margin-top:16px" href="mailto:main@station.solutions?subject=Pro%20line%20pass">Size it on a call →</a></div>
+    <div class="pcard rv"><div class="big" style="font-size:1.4rem">CUSTOM</div><p class="cap">The full network plus a custom-built site and a named strategist. For businesses done doing this halfway.</p><a class="btn ghost small" style="margin-top:16px" href="mailto:main@station.solutions?subject=Custom%20line%20pass">Size it on a call →</a></div>
+  </div>
+</div></section>
+
+<!-- ================= S8 · LAST CALL ================= -->
+<section id="lastcall">
+  <div class="film"><img src="/media/lastcall.jpg" alt="" loading="lazy"
+    onerror="this.parentElement.style.background='radial-gradient(90% 70% at 70% 20%, #171208 0%, var(--bg) 60%)';this.remove()"></div>
+  <div class="grade"></div>
+  <div class="wrap">
+    <p class="eyebrow rv"><span class="tick"></span>Last call</p>
+    <h2 class="big rv" style="max-width:16ch">Start with one stop. $47 to $500. Live this week.</h2>
+    <p class="lede rv" style="margin:18px 0 28px">No contracts. No setup marathon. Billing starts when it's live, not when you pay. And if the math doesn't clear, our own pages will tell you to keep your money.</p>
+    <div class="arrival-cta rv">
+      <a class="btn primary" href="#build">Find your first stop</a>
+      <a class="btn ghost" href="mailto:main@station.solutions">Talk to a human</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand"><a class="brand" href="/v4/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="var(--well)"/></svg><span>STATION</span></a>
+      <p>The front office that never clocks out. Independent — your account, your data, your numbers.</p></div>
+    <div><h4>Line A · Presence</h4><a href="/storefront/">Storefront</a><a href="/greet/">Greet</a><a href="/slate/">Slate</a><a href="/repute/">Repute</a><a href="/map/">Map</a><a href="/marquee/">Marquee</a></div>
+    <div><h4>Line B · The Phone</h4><a href="/dial/">Dial</a><a href="/lineback/">Lineback</a><a href="/frontdesk/">Frontdesk</a><a href="/pursuit/">Pursuit</a></div>
+    <div><h4>Lines C · D · E</h4><a href="/revive/">Revive</a><a href="/dispatch/">Dispatch</a><a href="/tap/">Tap</a><a href="/radar/">Radar</a></div>
+  </div>
+  <div class="f-legal">
+    <span>© 2026 Station Automations Group LLC</span>
+    <a href="/legal/privacy.html">Privacy</a><a href="/legal/tos.html">Terms</a>
+    <a href="/legal/sms-terms.html">SMS terms</a><a href="/legal/cancellation.html">Cancellation</a>
+    <a href="mailto:main@station.solutions">main@station.solutions</a>
+  </div>
+</div></footer>
+
+<!-- GSAP + Lenis (vendor locally for production) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+/* =====================================================================
+   STATION V4 — Night Shift runtime
+   ===================================================================== */
+(function(){
+"use strict";
+var RM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+var JUMP = new URLSearchParams(location.search).get("jump");
+var HAS_GSAP = !!(window.gsap && window.ScrollTrigger);
+if (RM || !HAS_GSAP) document.documentElement.classList.add("no-anim");
+
+/* ---------- ?ref → Stripe client_reference_id ---------- */
+var REF=null;
+try{var q=new URLSearchParams(location.search);REF=q.get("ref")||sessionStorage.getItem("station_ref");
+  if(REF)sessionStorage.setItem("station_ref",REF);}catch(e){}
+function decorate(url){
+  if(!REF||!url||url.indexOf("buy.stripe.com")===-1)return url;
+  return url+(url.indexOf("?")>-1?"&":"?")+"client_reference_id="+encodeURIComponent(REF);
+}
+function decorateAll(root){
+  (root||document).querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+    a.href=decorate(a.getAttribute("href"));a.target="_blank";a.rel="noopener";
+  });
+}
+
+/* ---------- the fourteen stops (order = the ride) ---------- */
+var STOPS=[
+ {k:"storefront",line:"A · Presence",n:"Storefront",pr:"$500 + $49/mo",d:"A website built to book — live in 48 hours.",buy:"https://buy.stripe.com/6oUeV64SEgR3eIN0Fi2Fa0W"},
+ {k:"greet",line:"A · Presence",n:"Greet",pr:"$79/mo",d:"A chat that captures the name and number, day or night.",buy:"https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z"},
+ {k:"slate",line:"A · Presence",n:"Slate",pr:"$97/mo",d:"Booking and reminders that end the no-show.",buy:"https://buy.stripe.com/3cIfZa84QbwJ8kpgEg2Fa12"},
+ {k:"repute",line:"A · Presence",n:"Repute",pr:"$197/mo",d:"A review engine that turns finished jobs into five stars.",buy:"https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b"},
+ {k:"map",line:"A · Presence",n:"Map",pr:"$147/mo + $297",d:"Your Google listing, managed until it ranks.",buy:"https://buy.stripe.com/5kQeV62Kw6cp6chafS2Fa1c"},
+ {k:"marquee",line:"A · Presence",n:"Marquee",pr:"$197 / $597",d:"Social, ads and a brand board — handled.",buy:"https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k"},
+ {k:"dial",line:"B · The Phone",n:"Dial",pr:"$47/mo",d:"A real business number with texting built in.",buy:"https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h"},
+ {k:"lineback",line:"B · The Phone",n:"Lineback",pr:"$197/mo",d:"Every missed call texted back in seconds.",buy:"https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14"},
+ {k:"frontdesk",line:"B · The Phone",n:"Frontdesk",pr:"$397/mo",d:"An AI receptionist that never clocks out — Slate included.",buy:"https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16"},
+ {k:"pursuit",line:"B · The Phone",n:"Pursuit",pr:"$247/mo",d:"Automatic follow-up until they finally reply.",buy:"https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19"},
+ {k:"revive",line:"C · The List",n:"Revive",pr:"$497 once",d:"One campaign that wakes your old customers up.",buy:"https://buy.stripe.com/9B69AMacYfMZasx2Nq2Fa1f"},
+ {k:"dispatch",line:"C · The List",n:"Dispatch",pr:"$94/mo",d:"Email campaigns that actually land.",buy:"https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d"},
+ {k:"tap",line:"D · The Counter",n:"Tap",pr:"$147/mo",d:"Payments, POS and an app in your customer's pocket.",buy:"https://buy.stripe.com/3cI4gsdpa30d8kp5ZC2Fa1i"},
+ {k:"radar",line:"E · The Hunt",n:"Radar",pr:"$197/mo",d:"A prospecting engine that fills the top of the line.",buy:"https://buy.stripe.com/00w5kw0Co9oB9ot5ZC2Fa1m"}
+];
+var htrack=document.getElementById("htrack");
+STOPS.forEach(function(s){
+  var c=document.createElement("article");c.className="stopcard";c.setAttribute("data-line",s.line);
+  c.innerHTML=
+    '<div class="shot"><span class="line-tag">'+s.line+'</span>'+
+      '<img src="/media/'+s.k+'.jpg" alt="" loading="lazy" onerror="this.style.display=\'none\'"></div>'+
+    '<div class="body"><h3>'+s.n+' <span class="pr">'+s.pr+'</span></h3>'+
+      '<p>'+s.d+'</p>'+
+      '<div class="acts"><a class="buy" href="'+s.buy+'">Start '+s.n+' →</a>'+
+        '<a class="more" href="/'+s.k+'/">all tiers</a></div></div>';
+  htrack.appendChild(c);
+});
+
+/* ---------- homepage configurator (ported from The Line) ---------- */
+var PRODUCTS=[
+ {k:"storefront",n:"Storefront",sub:"Website, built to book",pricelab:"$500 + $49/mo",ttl:"48 hours",mo:49,once:500},
+ {k:"greet",n:"Greet",sub:"Website chat assistant",pricelab:"$79/mo",ttl:"minutes",mo:79},
+ {k:"slate",n:"Slate",sub:"Booking + reminders",pricelab:"$97/mo",ttl:"today",mo:97},
+ {k:"lineback",n:"Lineback",sub:"Missed-call text-back",pricelab:"$197/mo",ttl:"~2 days",mo:197},
+ {k:"frontdesk",n:"Frontdesk",sub:"AI receptionist · Slate incl.",pricelab:"$397/mo",ttl:"same day",mo:397},
+ {k:"pursuit",n:"Pursuit",sub:"Automatic follow-up",pricelab:"$247/mo",ttl:"instant",mo:247},
+ {k:"repute",n:"Repute",sub:"Review engine",pricelab:"$197/mo",ttl:"same day",mo:197},
+ {k:"map",n:"Map",sub:"Google listing, managed",pricelab:"$147/mo + $297",ttl:"2–3 days",mo:147,once:297},
+ {k:"dispatch",n:"Dispatch",sub:"Email campaigns",pricelab:"$94/mo",ttl:"instant",mo:94},
+ {k:"revive",n:"Revive",sub:"Reactivation campaign",pricelab:"$497 once",ttl:"1–2 days",mo:0,once:497},
+ {k:"radar",n:"Radar",sub:"Prospecting engine",pricelab:"$197/mo",ttl:"same day",mo:197},
+ {k:"dial",n:"Dial",sub:"Number + texting",pricelab:"$47/mo",ttl:"~2 days",mo:47},
+ {k:"tap",n:"Tap",sub:"Payments + POS + app",pricelab:"$147/mo",ttl:"1–2 days",mo:147},
+ {k:"marquee",n:"Marquee",sub:"Social + ads + brand board",pricelab:"$197 / $597",ttl:"5–7 days",mo:197}
+];
+(function(){
+  var tilesEl=document.getElementById("tiles");if(!tilesEl)return;
+  var f$=function(n){return "$"+Math.round(n).toLocaleString("en-US");};
+  var on={},TICKET=425;
+  var PAIN={calls:["lineback","frontdesk","dial","pursuit"],noshows:["slate","frontdesk","pursuit"],
+    reviews:["repute","map"],invisible:["map","storefront","marquee","repute"],
+    quiet:["revive","dispatch","pursuit"],slow:["radar","dispatch","marquee"]};
+  var order=PRODUCTS.map(function(p){return p.k;});
+  function render(){
+    tilesEl.innerHTML="";
+    order.forEach(function(k){
+      var p=PRODUCTS.find(function(x){return x.k===k;});if(!p)return;
+      var l=document.createElement("label");l.className="tile"+(on[k]?" on":"");
+      l.innerHTML='<span class="t-hit"><input type="checkbox" data-k="'+k+'"'+(on[k]?" checked":"")+'>'+
+        '<span><span class="t-name">'+p.n+'</span><br><span class="t-sub">'+p.sub+'</span></span>'+
+        '<span class="t-price">'+p.pricelab+'<span class="t-ttl">'+p.ttl+' · <a href="/'+p.k+'/">learn</a></span></span></span>';
+      tilesEl.appendChild(l);
+    });
+  }
+  function recalc(){
+    var mo=0,once=0,names=[],count=0;
+    PRODUCTS.forEach(function(p){
+      if(!on[p.k])return;count++;var m=p.mo,o=p.once||0;
+      if(p.k==="slate"&&on.frontdesk)m=0;
+      mo+=m;once+=o;names.push({n:p.n,m:m,o:o,inc:(p.k==="slate"&&on.frontdesk)});
+    });
+    document.getElementById("rTotal").innerHTML=f$(mo)+'<small>/month</small>';
+    document.getElementById("rDay").textContent="$"+(mo/30.4).toFixed(2);
+    document.getElementById("rJobs").textContent=mo?(mo/TICKET).toFixed(1):"0";
+    document.getElementById("rOnce").textContent=f$(once);
+    var rows=document.getElementById("rRows");
+    rows.innerHTML=count?names.map(function(x){
+      return '<div class="r-row"><span>'+x.n+(x.inc?' <span class="inc">included</span>':"")+'</span><b>'+
+        (x.inc?"$0":(x.m?f$(x.m):f$(x.o)+" once"))+"</b></div>";
+    }).join(""):'<div class="r-row"><span style="color:var(--dim)">Nothing aboard yet — tick a stop.</span></div>';
+    var v=document.getElementById("rVerdict"),hit=false,t;
+    if(!count)t="Pick the stop that fixes what hurt this week. One is enough to start.";
+    else if(mo>=2300){hit=true;t="<b>This is the whole network.</b> At this size you want the Custom line pass — talk to us and we'll price it as one.";}
+    else if(mo>=1550){hit=true;t="<b>Worth a call:</b> the Pro line pass covers this for less as one flat plan.";}
+    else if(mo>=800){hit=true;t="<b>Worth a call:</b> six stops together is the Core line pass — one plan, one number, less than this stack.";}
+    else t=f$(mo)+"/mo is "+(mo/TICKET).toFixed(1)+" average jobs. Everything after that is yours.";
+    v.className="r-verdict"+(hit?" hit":"");v.innerHTML=t;
+  }
+  tilesEl.addEventListener("change",function(e){
+    var k=e.target.getAttribute("data-k");if(!k)return;
+    on[k]=e.target.checked;e.target.closest(".tile").classList.toggle("on",e.target.checked);recalc();
+  });
+  document.querySelectorAll(".q-chip[data-pain]").forEach(function(c){
+    c.addEventListener("click",function(){
+      document.querySelectorAll(".q-chip[data-pain]").forEach(function(x){x.classList.remove("on");});
+      c.classList.add("on");
+      var pref=PAIN[c.getAttribute("data-pain")]||[];
+      order=pref.concat(PRODUCTS.map(function(p){return p.k;}).filter(function(k){return pref.indexOf(k)===-1;}));
+      render();
+      Object.keys(on).forEach(function(k){
+        var el=tilesEl.querySelector('input[data-k="'+k+'"]');
+        if(el){el.checked=!!on[k];el.closest(".tile").classList.toggle("on",!!on[k]);}
+      });
+      var first=pref[0];
+      if(first&&!on[first]){var el2=tilesEl.querySelector('input[data-k="'+first+'"]');if(el2){el2.checked=true;on[first]=true;el2.closest(".tile").classList.add("on");}}
+      recalc();
+    });
+  });
+  render();recalc();
+})();
+
+/* ---------- version switcher (V1·V2·V3·V4) ---------- */
+(function(){
+  var d=document.createElement("div");
+  d.style.cssText="position:fixed;left:14px;bottom:14px;z-index:95;display:flex;gap:2px;background:rgba(20,20,22,.85);backdrop-filter:blur(10px);border-radius:999px;padding:4px;font:600 11px Inter,'Segoe UI',sans-serif";
+  [["/","V1"],["/v2/","V2"],["/v3/","V3"],["/v4/","V4"]].forEach(function(v){
+    var a=document.createElement("a");a.href=v[0];a.textContent=v[1];
+    var active=v[1]==="V4";
+    a.style.cssText="text-decoration:none;padding:5px 11px;border-radius:999px;"+(active?"background:#fff;color:#111":"color:#bbb");
+    d.appendChild(a);
+  });
+  document.body.appendChild(d);
+})();
+
+/* ---------- nav solidify + progress rail ---------- */
+var nav=document.getElementById("nav"),rail=document.getElementById("rail");
+function chrome(){
+  var y=window.pageYOffset||document.documentElement.scrollTop;
+  nav.classList.toggle("solid",y>innerHeight*0.7);
+  var h=document.documentElement.scrollHeight-innerHeight;
+  rail.style.width=(h>0?(y/h*100):0).toFixed(2)+"%";
+}
+addEventListener("scroll",chrome,{passive:true});chrome();
+
+/* pause hero film once it's well off-screen */
+(function(){var v=document.getElementById("heroFilm");if(!v)return;
+  if(RM){v.removeAttribute("autoplay");try{v.pause();}catch(e){}}
+  addEventListener("scroll",function(){var p=scrollY>innerHeight*1.3;
+    if(p&&!v.paused)v.pause();else if(!p&&v.paused&&!RM)v.play().catch(function(){});},{passive:true});
+})();
+
+/* =====================================================================
+   MOTION — only when GSAP present and motion allowed
+   ===================================================================== */
+function ready(){window.__ready=true;}
+
+if (RM || !HAS_GSAP){
+  /* static fallback: reveal everything, no pins */
+  document.querySelectorAll(".rv").forEach(function(e){e.classList.add("on");});
+  document.querySelectorAll(".count").forEach(function(e){e.textContent=e.getAttribute("data-to")+(e.getAttribute("data-suffix")||"");});
+  ready();
+} else {
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis smooth scroll — skip when doing a ?jump screenshot */
+  var lenis=null;
+  if (JUMP===null && window.Lenis){
+    lenis=new Lenis({lerp:0.09,smoothWheel:true});
+    lenis.on("scroll",ScrollTrigger.update);
+    gsap.ticker.add(function(t){lenis.raf(t*1000);});
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    history.scrollRestoration="manual";
+  }
+
+  /* anchor links should route through Lenis */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener("click",function(e){
+      var id=a.getAttribute("href");if(id.length<2)return;
+      var el=document.querySelector(id);if(!el)return;
+      e.preventDefault();
+      if(lenis)lenis.scrollTo(el,{offset:-50});else el.scrollIntoView();
+    });
+  });
+
+  /* ---- PINNED SCENES FIRST (ordering law) ---- */
+
+  /* S1 · hero wordmark reveal + push-in on scroll.
+     NB: initial hidden state is set here (not in CSS) — a CSS *percentage*
+     transform is read by GSAP as a fixed px y and silently breaks yPercent. */
+  gsap.set("#wordmark span",{yPercent:120});
+  gsap.to("#wordmark span",{yPercent:0,duration:1.1,ease:"power4.out",stagger:0.055,delay:0.15});
+  gsap.from("#arrivalSub",{y:20,opacity:0,duration:.9,ease:"power3.out",delay:.7});
+  gsap.from("#arrivalCta",{y:20,opacity:0,duration:.9,ease:"power3.out",delay:.85});
+  gsap.timeline({scrollTrigger:{trigger:"#arrival",start:"top top",end:"bottom top",scrub:true,pin:false}})
+    .to("#arrival .film",{scale:1.14,yPercent:8,ease:"none"},0)
+    .to(".arrival-in",{yPercent:-14,opacity:0,ease:"none"},0);
+
+  /* S2 · the miss — timeline rows wipe in on scrub, won row overtakes */
+  gsap.timeline({scrollTrigger:{trigger:"#miss",start:"top 62%",end:"top 8%",scrub:true}})
+    .to("#ttable .tt-row.lost",{clipPath:"inset(0 0% 0 0)",stagger:.5,ease:"none"})
+    .to("#ttable .tt-row.won",{clipPath:"inset(0 0% 0 0)",ease:"none"},">0.15");
+
+  /* S3 · the line draws itself down the page (stroke-dash on scrub) */
+  document.querySelectorAll("#draw .drawpath").forEach(function(path){
+    var len=path.getTotalLength();
+    path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+  });
+  gsap.to("#draw .drawpath",{strokeDashoffset:0,stagger:.12,ease:"none",
+    scrollTrigger:{trigger:"#draw",start:"top 70%",end:"bottom 75%",scrub:true}});
+
+  /* S4 · THE STOPS — horizontal pinned run */
+  var track=document.getElementById("htrack");
+  var getX=function(){return -(track.scrollWidth-innerWidth);};
+  var hx=gsap.to(track,{x:getX,ease:"none",
+    scrollTrigger:{trigger:"#stops",start:"top top",
+      end:function(){return "+="+(track.scrollWidth-innerWidth);},
+      pin:true,scrub:1,invalidateOnRefresh:true,
+      onUpdate:function(self){
+        var cards=track.querySelectorAll(".stopcard"),i=Math.min(cards.length-1,Math.floor(self.progress*cards.length));
+        var lbl=cards[i]&&cards[i].getAttribute("data-line");
+        var el=document.getElementById("hlabel");if(lbl&&el)el.textContent=lbl.toUpperCase();
+      }}});
+  /* per-card parallax on the still images, tied to the horizontal run */
+  track.querySelectorAll(".stopcard .shot img").forEach(function(img){
+    gsap.fromTo(img,{xPercent:-6},{xPercent:6,ease:"none",
+      scrollTrigger:{trigger:img,containerAnimation:hx,start:"left right",end:"right left",scrub:true}});
+  });
+
+  /* ---- AMBIENT / REVEAL TRIGGERS AFTER PINS ---- */
+
+  /* reveals */
+  gsap.utils.toArray(".rv").forEach(function(el){
+    ScrollTrigger.create({trigger:el,start:"top 88%",once:true,
+      onEnter:function(){el.classList.add("on");}});
+  });
+
+  /* proof counters */
+  gsap.utils.toArray(".count").forEach(function(el){
+    var to=+el.getAttribute("data-to"),suf=el.getAttribute("data-suffix")||"";
+    ScrollTrigger.create({trigger:el,start:"top 85%",once:true,onEnter:function(){
+      var o={v:0};gsap.to(o,{v:to,duration:1.4,ease:"power2.out",
+        onUpdate:function(){el.textContent=Math.round(o.v)+suf;}});
+    }});
+  });
+
+  /* departure board — infinite drift, skewed by scroll velocity */
+  var bt=document.getElementById("boardTrack");
+  if(bt){
+    bt.innerHTML=bt.innerHTML+bt.innerHTML; /* double for seamless loop */
+    var bw=bt.scrollWidth/2;
+    gsap.to(bt,{x:-bw,duration:34,ease:"none",repeat:-1});
+    var qs=gsap.quickTo(bt,"skewX",{duration:.4,ease:"power3"});
+    ScrollTrigger.create({onUpdate:function(self){
+      qs(gsap.utils.clamp(-10,10,self.getVelocity()/-180));}});
+  }
+
+  ScrollTrigger.refresh();
+
+  /* ---- dev contract ---- */
+  if (JUMP!==null){
+    requestAnimationFrame(function(){
+      scrollTo(0,+JUMP||0);
+      ScrollTrigger.update();
+      requestAnimationFrame(ready);
+    });
+  } else { ready(); }
+
+  /* ---- jank meter (console only) ---- */
+  (function(){var last=performance.now(),mx=0,t0=last;
+    function loop(now){var d=now-last;last=now;if(d>mx)mx=d;
+      if(now-t0>2000){if(mx>50)console.log("[jank] max frame "+mx.toFixed(0)+"ms");mx=0;t0=now;}
+      requestAnimationFrame(loop);}requestAnimationFrame(loop);})();
+}
+
+/* decorate Stripe links after cards + everything exist */
+decorateAll();
+})();
+</script>
+</body></html>
