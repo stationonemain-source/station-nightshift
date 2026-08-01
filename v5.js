@@ -679,3 +679,315 @@
 
   window.__ready = true;
 })();
+
+
+/* ===================== ROUND 4 JS ===================== */
+(function () {
+  "use strict";
+  function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
+  var f$ = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
+
+  /* nav hide on scroll down, show on scroll up */
+  ready(function () {
+    var nav = document.querySelector(".nav"); if (!nav) return;
+    var last = 0;
+    addEventListener("scroll", function () {
+      var y = scrollY;
+      nav.classList.toggle("hide", y > 140 && y > last);
+      last = y;
+    }, { passive: true });
+  });
+
+  /* cart: single-payment checkout via n8n -> Stripe session */
+  ready(function () {
+    var cart = document.querySelector(".cart"); if (!cart) return;
+    var foot = cart.querySelector(".c-foot"); if (!foot) return;
+    var co = foot.querySelector(".co-list");
+    var one = document.createElement("button");
+    one.className = "btn dark"; one.style.cssText = "width:100%;margin-bottom:10px;background:var(--blue)";
+    one.textContent = "Check out everything — one payment";
+    foot.insertBefore(one, co);
+    var note = foot.querySelector(".c-note");
+    if (note) note.textContent = "One secure Stripe checkout for the whole cart. Prefer separate subscriptions you can cancel independently? Use the per-product buttons below.";
+    one.addEventListener("click", function () {
+      var items = [];
+      try { items = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) {}
+      var cat = window.STATION_CATALOG || [];
+      var prices = [], hasRecurring = false;
+      items.forEach(function (k) {
+        var p = cat.find(function (x) { return x.k === k; });
+        if (p && p.link) {
+          var pid = p.price_id;
+          if (pid) { prices.push(pid); if (p.mo > 0) hasRecurring = true; }
+        }
+      });
+      if (!prices.length) return;
+      one.disabled = true; one.textContent = "Building your checkout…";
+      var ref = null; try { ref = sessionStorage.getItem("station_ref"); } catch (e) {}
+      fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prices: prices, has_recurring: hasRecurring, ref: ref || undefined })
+      }).then(function (r) { return r.json(); }).then(function (d) {
+        if (d && d.url) { location.href = d.url; }
+        else { one.textContent = "Hmm — use the per-product buttons below"; }
+      }).catch(function () {
+        one.disabled = false; one.textContent = "Check out everything — one payment";
+      });
+    });
+  });
+
+  /* hero parallax (subtle, white, Station mark layer) */
+  ready(function () {
+    var par = document.querySelector(".hero-par"); if (!par) return;
+    var mark = par.querySelector(".hp-mark"), img = par.querySelector(".hp-img");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    addEventListener("scroll", function () {
+      var y = scrollY;
+      if (y > 900) return;
+      if (mark) mark.style.transform = "translateX(-50%) translateY(" + (y * 0.18) + "px)";
+      if (img) img.style.transform = "translateY(" + (y * -0.05) + "px)";
+    }, { passive: true });
+  });
+
+  /* iphone2 — the old site's phone UI, interactive */
+  function iphone2(hostId, cfg) {
+    var host = document.getElementById(hostId); if (!host) return;
+    var mark = '<svg viewBox="0 0 100 100" fill="currentColor"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="currentColor" opacity="0"/></svg>';
+    host.className = "iphone2";
+    host.innerHTML = '<div class="scr"><div class="isl"></div>' +
+      '<div class="thead"><span class="av">' + mark + '</span><div><b>' + cfg.title + '</b><small>' + (cfg.sub || "") + '</small></div></div>' +
+      '<div class="tbody"><div class="sysline">' + cfg.sys + '</div></div>' +
+      '<div class="chips"></div>' +
+      '<div class="tin"><input type="text" placeholder="' + (cfg.placeholder || "Text like a customer...") + '" maxlength="140"><button aria-label="Send">↑</button></div></div>';
+    var body = host.querySelector(".tbody"), chips = host.querySelector(".chips");
+    var input = host.querySelector(".tin input"), send = host.querySelector(".tin button");
+    function bubble(who, text, delay) {
+      setTimeout(function () {
+        var b = document.createElement("div"); b.className = "pm-b " + who; b.textContent = text;
+        body.appendChild(b); requestAnimationFrame(function(){ requestAnimationFrame(function(){ b.classList.add("show"); }); });
+        body.scrollTop = body.scrollHeight;
+        setTimeout(function(){ body.scrollTop = body.scrollHeight; }, delay ? 60 : 380);
+      }, delay || 0);
+    }
+    function setChips(arr) {
+      chips.innerHTML = "";
+      (arr || []).forEach(function (c) {
+        var b = document.createElement("button"); b.type = "button"; b.textContent = c;
+        b.addEventListener("click", function () { userSend(c); });
+        chips.appendChild(b);
+      });
+    }
+    function userSend(text) {
+      if (!text) return;
+      bubble("me", text); input.value = ""; setChips([]);
+      var r = cfg.reply(text);
+      if (r) { bubble("biz", r.text, 800 + Math.random() * 500); if (r.chips) setTimeout(function () { setChips(r.chips); }, 1100); }
+    }
+    send.addEventListener("click", function () { userSend(input.value.trim()); });
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") userSend(input.value.trim()); });
+    (cfg.opening || []).forEach(function (m, i) { bubble(m.who, m.t, 400 + i * 900); });
+    if (cfg.chips) setTimeout(function () { setChips(cfg.chips); }, (cfg.opening || []).length * 900 + 500);
+    if (cfg.picker) setChips(cfg.picker);
+  }
+
+  ready(function () {
+    /* DIAL — pick a business, then text it */
+    if (document.getElementById("dialPhone")) {
+      var biz = null;
+      var OPEN = { Plumber: "Do y'all clear main-line clogs?", Salon: "Any openings for a cut this week?",
+        Dentist: "Do you take new patients?", "Auto shop": "How much for brakes on a Tacoma?",
+        Gym: "What are day passes?", Restaurant: "Do you take reservations for 6?" };
+      iphone2("dialPhone", {
+        title: "Station business line", sub: "two-way texting demo",
+        sys: "Station's business texting works for any business — pick one and text it like a customer.",
+        picker: ["Plumber", "Salon", "Dentist", "Auto shop", "Gym", "Restaurant", "Something else"],
+        reply: function (t) {
+          if (!biz && (OPEN[t] || t === "Something else")) {
+            biz = t === "Something else" ? "Local business" : t;
+            return { text: "You're texting the " + biz.toLowerCase() + "'s business line now — go ahead, ask anything.", chips: OPEN[t] ? [OPEN[t], "What are your hours?"] : ["What are your hours?", "How much do you charge?"] };
+          }
+          var s = t.toLowerCase();
+          if (/hour|open|close/.test(s)) return { text: "We're open Mon–Sat, 8 to 6. Want us to pencil you in?", chips: ["Yes — tomorrow?", "Just checking"] };
+          if (/price|much|cost|\$|pass/.test(s)) return { text: "Depends on the job — we quote fast and flat. What's the address (or what are you after)?", chips: ["Send a quote request"] };
+          if (/yes|tomorrow|book|reserve|opening|patient/.test(s)) return { text: "Done — you're on the books. Confirmation text lands the night before. That whole exchange? A business line, not somebody's personal cell." };
+          return { text: "Happy to help with that. And notice — this thread lives on the business number, searchable forever, sharable with staff. What else?" };
+        }
+      });
+    }
+    /* PURSUIT — sequence plays, reply stops it */
+    if (document.getElementById("pursuitPhone")) iphone2("pursuitPhone", {
+      title: "Demo Plumbing Co.", sub: "day 1 → day 10, compressed",
+      sys: "You asked about a water heater, then went quiet. Pursuit chases — reply and watch it stop.",
+      opening: [
+        { who: "biz", t: "Hi Sarah — got your request about the water heater. When works for a look, tomorrow or Thursday?" },
+        { who: "biz", t: "(next morning) Morning! Still happy to help — mornings or afternoons better?" },
+        { who: "biz", t: "(day 4) No rush — want me to pencil you in for early next week?" }
+      ],
+      chips: ["Yes sorry! Thursday works", "Who is this?", "STOP"],
+      reply: function (t) {
+        var s = t.toLowerCase();
+        if (/^stop$/.test(s.trim())) return { text: "You're opted out — no more messages, automatically, always." };
+        if (/who/.test(s)) return { text: "It's Demo Plumbing — you reached out about a water heater on our site. Want that quote?", chips: ["Yes — Thursday works"] };
+        return { text: "SEQUENCE STOPPED ✓ The instant you replied, the automation ended and a human took the thread. That's the product." };
+      }
+    });
+
+    /* SLATE — booked popup in the middle of the calendar */
+    var cal = document.querySelector(".mcal");
+    if (cal) {
+      var pop = document.createElement("div");
+      pop.className = "slate-pop";
+      pop.innerHTML = '<div class="sp-ok">✓</div><b id="spTitle">Booked</b>' +
+        '<div class="sp-rem" id="spRem"></div><button type="button">Nice — close</button>';
+      cal.appendChild(pop);
+      pop.querySelector("button").addEventListener("click", function () { pop.classList.remove("on"); });
+      cal.addEventListener("click", function (e) {
+        var t = e.target.getAttribute && e.target.getAttribute("data-slot");
+        if (!t) return;
+        var day = e.target.getAttribute("data-day");
+        document.getElementById("spTitle").textContent = "Booked — Aug " + day + " at " + t;
+        document.getElementById("spRem").innerHTML = "<b style='font-size:11px;letter-spacing:.06em;color:var(--faint)'>THE REMINDER THEY GET AT 8 PM THE NIGHT BEFORE</b><br>“Reminder — " + t + " tomorrow with Demo Plumbing Co. Reply C to confirm or R to reschedule.”";
+        setTimeout(function(){ pop.classList.add("on"); }, 150);
+        var out = document.getElementById("slateOut"); if (out) out.textContent = "";
+      });
+    }
+
+    /* MAP v2 — search field + check cards */
+    var mbtn2 = document.querySelector("[data-map2-run]");
+    if (mbtn2) {
+      var sf = document.querySelector(".searchf input");
+      var sfw = document.querySelector(".searchf");
+      if (sf) {
+        sf.addEventListener("input", function(){ sfw.classList.toggle("has", !!sf.value); });
+        sfw.querySelector(".clr").addEventListener("click", function(){ sf.value = ""; sfw.classList.remove("has"); sf.focus(); });
+        sf.addEventListener("keydown", function(e){ if (e.key === "Enter") mbtn2.click(); });
+      }
+      mbtn2.addEventListener("click", function () {
+        var v = (sf && sf.value || "").trim();
+        var out = document.getElementById("mapChecks");
+        if (!v) { sf && sf.focus(); return; }
+        out.innerHTML = "";
+        var CH = [
+          ["📍", "Primary category", "The single biggest ranking lever — 6 in 10 listings we scan have the wrong one. The full audit pulls yours and verifies it."],
+          ["🕐", "Hours drift", "Google accepts public “corrections” to your hours. We diff what Google shows against what you actually run."],
+          ["✏️", "Public edits & duplicates", "Competitor edits, stale duplicates, spam rivals — we pull your listing's real edit exposure."]];
+        CH.forEach(function (c, i) {
+          var d = document.createElement("div"); d.className = "map-check";
+          d.innerHTML = '<span class="ic">' + c[0] + '</span><div><b>' + c[1] + '</b><span>' + c[2] + '</span></div>';
+          out.appendChild(d);
+          setTimeout(function () { d.classList.add("show"); }, 250 + i * 420);
+        });
+        setTimeout(function () {
+          var w = document.createElement("div"); w.className = "map-check";
+          w.innerHTML = '<span class="ic">→</span><div><b>Checks 4–11 run against your real listing</b>' +
+            '<span>Reviews vs your top 3 competitors, citations, site speed, response time and more — free, emailed to you.</span>' +
+            '<a class="btn dark sm" style="margin-top:10px;display:inline-flex" href="/audit/?biz=' + encodeURIComponent(v) + '">Run the full audit on ' + v + ' →</a></div>';
+          out.appendChild(w);
+          setTimeout(function () { w.classList.add("show"); }, 60);
+        }, 250 + 3 * 420 + 300);
+      });
+    }
+
+    /* REVIVE v2 — timeline cards */
+    var rv2 = document.getElementById("reviveV2");
+    if (rv2) {
+      var touches = [["1", "It's been a while — want us to take a look before summer?"],
+        ["4", "Quick nudge — our schedule's filling for the season."],
+        ["8", "Past customers get priority booking this month."],
+        ["12", "Anything we did last time you'd like re-checked?"],
+        ["16", "Last one from us — we'll leave you be after this, promise."],
+        ["21", "Text leg (consent-gated): Hi — it's Demo Plumbing. Want your spring check?"]];
+      var wrap = document.createElement("div"); wrap.className = "rev2";
+      touches.forEach(function (t) {
+        var d = document.createElement("div"); d.className = "rt";
+        d.innerHTML = '<span class="day">D' + t[0] + '</span><div class="card">' +
+          '<div class="ch"><span>Email touch · click text to edit</span><span class="sent-tag">SENT ✓</span></div>' +
+          '<div contenteditable="true" spellcheck="false"></div></div>';
+        d.querySelector("[contenteditable]").textContent = t[1];
+        wrap.appendChild(d);
+      });
+      rv2.appendChild(wrap);
+      var play = document.createElement("button");
+      play.className = "btn dark sm"; play.style.marginTop = "14px";
+      play.textContent = "▶ Play the 3-week campaign";
+      play.addEventListener("click", function () {
+        var items = wrap.querySelectorAll(".rt");
+        items.forEach(function (it) { it.classList.remove("sent"); });
+        items.forEach(function (it, i) { setTimeout(function () { it.classList.add("sent"); }, 350 + i * 500); });
+      });
+      rv2.appendChild(play);
+    }
+
+    /* MARQUEE board v2 */
+    function board2() {
+      var tradeEl = document.getElementById("mqTrade"), palEl = document.getElementById("mqPal");
+      if (!tradeEl) return;
+      var trade = tradeEl.value, pal = palEl.value;
+      var PALS = {
+        ink: { c: ["#1D1D1F", "#8A5A00", "#EFC26A", "#F5F4F1", "#6E6E73"], n: "Ink & brass" },
+        pine: { c: ["#1E3D2F", "#5B7F6B", "#C86A3A", "#F4F1E8", "#7A8B80"], n: "Pine & cream" },
+        slate: { c: ["#2A3440", "#4C6172", "#7FA8C9", "#F2F4F6", "#8E99A6"], n: "Slate & sky" } };
+      var POSTS = { Plumbing: "Before your water heater quits mid-shower: the 5 warning signs.",
+        HVAC: "The $89 tune-up that keeps July from costing you $4,000.",
+        Landscaping: "Three beds, one weekend — the fall cleanup that pays off in April.",
+        Cleaning: "What a deep clean actually includes (and what it usually means).",
+        Roofing: "Hail season: 4 things to photograph before you call anyone." };
+      var P = PALS[pal];
+      var b = document.getElementById("board2"); b.classList.add("on");
+      b.innerHTML = '<div class="b2-name">' + trade + ' Co.</div><div class="b2-tag">Brand board · built in week one · yours forever</div>' +
+        '<div class="b2-sec">Color palette</div><div class="b2-pal">' +
+        P.c.map(function (c) { return '<div class="b2-sw"><i style="background:' + c + '"></i><span>' + c + '</span></div>'; }).join("") + '</div>' +
+        '<div class="b2-sec">Logo variations</div><div class="b2-logos">' +
+        '<div class="b2-logo" style="background:' + P.c[0] + ';color:' + P.c[3] + '">' + trade[0] + '</div>' +
+        '<div class="b2-logo" style="background:' + P.c[3] + ';color:' + P.c[0] + ';border:1px solid rgba(0,0,0,.08)">' + trade[0] + '</div>' +
+        '<div class="b2-logo" style="background:' + P.c[2] + ';color:' + P.c[0] + '">' + trade[0] + '</div></div>' +
+        '<div class="b2-sec">Typography</div><div class="b2-type">' +
+        '<span style="font:700 26px var(--fd)">Inter Bold — headlines</span>' +
+        '<span style="font:400 15px var(--fb);color:var(--muted)">Inter Regular — body, plainspoken and outcome-first</span></div>' +
+        '<div class="b2-sec">Sample post</div>' +
+        '<div class="b2-post"><b>' + trade + ' Co. · written for you</b>' + (POSTS[trade] || "") + '</div>';
+    }
+    var mqb2 = document.querySelector("[data-mq-run]");
+    if (mqb2 && document.getElementById("board2")) {
+      mqb2.addEventListener("click", board2);
+      document.getElementById("mqTrade").addEventListener("change", board2);
+      document.getElementById("mqPal").addEventListener("change", board2);
+      board2();
+    }
+
+    /* DISPATCH — email draft with send + undo */
+    var ed = document.getElementById("edraft");
+    if (ed) {
+      ed.innerHTML = '<h4>Spring tune-up week</h4>' +
+        '<table><tr><td class="l">From</td><td>Demo Plumbing Co. &lt;hello@demoplumbing.co&gt;</td></tr>' +
+        '<tr><td class="l">To</td><td>Your customer list · 400 people</td></tr></table>' +
+        '<div class="esep"></div>' +
+        '<div contenteditable="true" spellcheck="false">Subject: A/C ready for the first 95° day?\n\nWe’re doing tune-ups in your area next week — $89, takes an hour, and it’s the difference between June working and June waiting on parts.\n\nBook by Friday and we’ll bump you to the front of the line.\n\n— The Demo Plumbing crew</div>' +
+        '<div class="eact"><span class="status" style="margin-right:auto">Click the text — every word is editable</span>' +
+        '<button class="btn lite sm" data-e-cancel>Cancel</button><button class="btn dark sm" data-e-send>Send campaign</button></div>';
+      var act = ed.querySelector(".eact"), timer = null, count = 5;
+      ed.addEventListener("click", function (e) {
+        if (e.target.closest("[data-e-send]")) {
+          count = 5;
+          act.innerHTML = '<span class="status" style="margin-right:auto">Sending in <b id="eCount">5</b>s…</span><button class="btn lite sm" data-e-undo>Undo</button>';
+          timer = setInterval(function () {
+            count--;
+            var c = document.getElementById("eCount");
+            if (c) c.textContent = count;
+            if (count <= 0) {
+              clearInterval(timer);
+              act.innerHTML = '<span class="ok" style="margin-left:auto">Sent to 400 people ✓ &nbsp;(not really — it’s a demo. But that’s the whole flow.)</span>';
+            }
+          }, 1000);
+        }
+        if (e.target.closest("[data-e-undo]")) {
+          clearInterval(timer);
+          act.innerHTML = '<span class="status" style="margin-right:auto">Caught it — nothing sent. That undo window ships on every campaign.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
+        }
+        if (e.target.closest("[data-e-cancel]")) {
+          act.innerHTML = '<span class="status" style="margin-right:auto">Draft kept. Click the text to keep editing.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
+        }
+      });
+    }
+  });
+})();

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAMBER Auto Works — Precision Auto Care, Houston TX</title>
+<meta name="description" content="Houston's measured auto shop. Every car gets a 50-point digital inspection — photos, measurements, honest verdicts — before we touch a wrench.">
+<meta property="og:title" content="CAMBER Auto Works — Precision Auto Care">
+<meta property="og:description" content="We measure. Then we fix. 50-point digital inspection with every visit.">
+<meta property="og:image" content="assets/photos/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/premium.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230B0C0E'/><path d='M8 22 L16 8 L24 22' stroke='%23F0A32F' stroke-width='2.5' fill='none'/></svg>">
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <a class="hdr-logo" href="#top" aria-label="CAMBER Auto Works — home">
+    <svg class="logo-mark" viewBox="0 0 34 26" aria-hidden="true">
+      <path d="M4 23 L17 3 L30 23" fill="none" stroke="currentColor" stroke-width="2.6"/>
+      <path d="M11 23 A14 14 0 0 1 23 23" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".55"/>
+    </svg>
+    <span class="logo-word">CAMBER</span>
+    <span class="logo-sub">AUTO WORKS</span>
+  </a>
+  <nav class="hdr-nav" aria-label="Main navigation" id="nav"></nav>
+  <button class="hdr-burger" id="burger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true"></div>
+
+<main id="top">
+
+  <!-- 1 · INTAKE -->
+  <section class="intake" id="intake" aria-label="CAMBER Auto Works">
+    <div class="intake-media">
+      <img id="heroImg" src="assets/photos/hero.jpg" alt="" width="2048" height="1152" fetchpriority="high">
+      <div class="intake-shade" aria-hidden="true"></div>
+    </div>
+    <div class="intake-body">
+      <p class="mono intake-readout" id="introReadout"></p>
+      <h1 class="intake-word" aria-label="CAMBER"><span class="word-row" id="wordRow"></span></h1>
+      <p class="intake-line" id="heroLine"></p>
+    </div>
+    <div class="intake-cue mono" id="intakeCue">
+      <span id="cueText"></span>
+      <svg viewBox="0 0 12 30" aria-hidden="true"><path d="M6 2 V24 M2 20 L6 26 L10 20" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+    </div>
+  </section>
+
+  <!-- 2 · THE INSPECTION (pinned signature) -->
+  <section class="insp" id="inspection" aria-label="The 50-point digital inspection">
+    <div class="insp-stage" id="inspStage">
+      <div class="insp-grid" aria-hidden="true"></div>
+
+      <div class="insp-head">
+        <p class="mono insp-title" id="inspTitle"></p>
+        <p class="mono insp-count" id="inspCount">CHECKS 00/50</p>
+      </div>
+
+      <!-- the car on the lift -->
+      <div class="insp-scene" aria-hidden="true">
+        <svg id="carSvg" viewBox="0 0 900 460" preserveAspectRatio="xMidYMax meet">
+          <!-- lift posts -->
+          <g id="liftPosts">
+            <rect x="118" y="60" width="16" height="360" rx="3" class="post"/>
+            <rect x="766" y="60" width="16" height="360" rx="3" class="post"/>
+            <rect x="98" y="412" width="56" height="10" rx="3" class="post"/>
+            <rect x="746" y="412" width="56" height="10" rx="3" class="post"/>
+          </g>
+          <!-- floor -->
+          <line id="floorLine" x1="40" y1="424" x2="860" y2="424" class="floor"/>
+          <!-- lift arms + car (this whole group rises) -->
+          <g id="carGroup">
+            <g id="liftArms">
+              <rect x="134" y="340" width="240" height="9" rx="4" class="arm"/>
+              <rect x="540" y="340" width="226" height="9" rx="4" class="arm"/>
+            </g>
+            <g id="carLines" class="carlines">
+              <!-- body: angular GT wedge, nose right -->
+              <path class="cl" d="M200 330 L196 306 L210 282 L318 238 L420 220 L500 218 L575 248 L640 258 L730 272 L742 284 L744 310 L736 326 L716 332"/>
+              <path class="cl" d="M592 344 L370 344"/>
+              <path class="cl" d="M252 344 L216 344 L200 330"/>
+              <!-- greenhouse -->
+              <path class="cl" d="M340 246 L424 228 L494 226 L560 250"/>
+              <path class="cl dim" d="M494 226 L498 250"/>
+              <!-- door + character line -->
+              <path class="cl dim" d="M505 252 L505 338"/>
+              <path class="cl dim" d="M212 292 L732 286"/>
+              <!-- headlight + taillight -->
+              <path class="cl" d="M714 274 L736 282"/>
+              <path class="cl" d="M198 296 L216 292"/>
+              <!-- wheels -->
+              <g class="wheel"><circle cx="310" cy="334" r="46" class="cl"/><circle cx="310" cy="334" r="26" class="cl dim"/><circle cx="310" cy="334" r="8" class="cl dim"/></g>
+              <g class="wheel"><circle cx="650" cy="334" r="46" class="cl"/><circle cx="650" cy="334" r="26" class="cl dim"/><circle cx="650" cy="334" r="8" class="cl dim"/></g>
+            </g>
+            <!-- inspection zones -->
+            <g id="zones">
+              <g class="zone" id="z-brakes"><circle cx="650" cy="334" r="52"/><circle class="dot" cx="650" cy="334" r="5"/></g>
+              <g class="zone" id="z-suspension"><circle cx="310" cy="334" r="52"/><circle class="dot" cx="310" cy="334" r="5"/></g>
+              <g class="zone" id="z-engine"><circle cx="596" cy="262" r="36"/><circle class="dot" cx="596" cy="262" r="5"/></g>
+              <g class="zone" id="z-alignment"><circle cx="470" cy="340" r="38"/><circle class="dot" cx="470" cy="340" r="5"/></g>
+            </g>
+          </g>
+          <!-- scan line sweeps the stage -->
+          <line id="scanLine" x1="0" y1="30" x2="0" y2="430" class="scan"/>
+        </svg>
+      </div>
+
+      <!-- system readout panel -->
+      <aside class="insp-panel" id="inspPanel" aria-live="polite">
+        <p class="mono panel-sys" id="panelSys"></p>
+        <div class="panel-specs" id="panelSpecs"></div>
+        <p class="mono panel-stamp" id="panelStamp"></p>
+      </aside>
+
+      <!-- intro + complete beats -->
+      <div class="insp-beat insp-intro" id="inspIntro">
+        <p class="insp-intro-text" id="inspIntroText"></p>
+      </div>
+      <div class="insp-beat insp-done" id="inspDone">
+        <p class="mono done-tag" id="doneTag"></p>
+        <p class="done-verdict" id="doneVerdict"></p>
+      </div>
+
+      <div class="insp-fade" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- 3 · MANIFESTO -->
+  <section class="manifesto light" id="manifesto" aria-labelledby="man-l0">
+    <div class="man-lines">
+      <h2 class="man-line" id="man-l0"><span></span></h2>
+      <h2 class="man-line" id="man-l1"><span></span></h2>
+    </div>
+    <p class="man-support" id="manSupport"></p>
+    <div class="man-stats" id="manStats"></div>
+  </section>
+
+  <!-- 4 · SERVICE MENU -->
+  <section class="services light" id="services" aria-labelledby="svcTitle">
+    <div class="sec-head">
+      <p class="mono sec-kicker">THE SERVICE MENU</p>
+      <h2 class="sec-title" id="svcTitle">Work we put our name on.</h2>
+    </div>
+    <div class="svc-rows" id="svcRows"></div>
+    <div class="svc-float" id="svcFloat" aria-hidden="true"><img alt="" id="svcFloatImg"></div>
+  </section>
+
+  <!-- 5 · THE SHOP -->
+  <section class="shop light" id="shop" aria-labelledby="shopTitle">
+    <div class="sec-head">
+      <p class="mono sec-kicker">THE SHOP</p>
+      <h2 class="sec-title" id="shopTitle">Clean floor. Calibrated tools. Good coffee.</h2>
+    </div>
+    <div class="shop-photos" id="shopPhotos"></div>
+    <div class="shop-story">
+      <figure class="shop-tech">
+        <img id="techPhoto" alt="" width="800" height="1067" loading="lazy">
+        <figcaption class="mono" id="techCap"></figcaption>
+      </figure>
+      <div class="shop-story-body">
+        <p id="shopStory"></p>
+        <ul class="mono shop-certs" id="shopCerts"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · THE LOGBOOK -->
+  <section class="logbook light" id="logbook" aria-labelledby="logTitle">
+    <div class="sec-head">
+      <p class="mono sec-kicker">THE LOGBOOK</p>
+      <h2 class="sec-title" id="logTitle">Entries from people we’ve called back.</h2>
+    </div>
+    <div class="log-grid" id="logGrid"></div>
+  </section>
+
+  <!-- 7 · BOOK YOUR BAY -->
+  <section class="book" id="book" aria-labelledby="bookTitle">
+    <div class="book-inner">
+      <p class="mono sec-kicker amber">NEXT AVAILABLE BAY</p>
+      <h2 class="book-title" id="bookTitle"></h2>
+      <p class="book-sub" id="bookSub"></p>
+      <div class="book-cta">
+        <a class="btn-call" id="bookPhone" href="#"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 3 C3 3 2.5 4 2.6 5 C3.2 11.5 8.5 16.8 15 17.4 C16 17.5 17 17 17 16 L17 13.6 C17 13 16.6 12.5 16 12.3 L13.6 11.6 C13.1 11.4 12.5 11.6 12.2 12 L11.4 13 C9.4 12 7.9 10.6 7 8.6 L8 7.8 C8.4 7.5 8.6 6.9 8.4 6.4 L7.7 4 C7.5 3.4 7 3 6.4 3 Z" fill="currentColor"/></svg><span></span></a>
+        <a class="btn-ghost" id="bookEmail" href="#"><span></span></a>
+      </div>
+      <ul class="mono book-badges" id="bookBadges"></ul>
+      <div class="book-meta">
+        <dl class="mono book-hours" id="bookHours"></dl>
+        <address class="mono book-addr" id="bookAddr"></address>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="ftr">
+  <div class="ftr-row">
+    <p class="ftr-line" id="ftrLine"></p>
+    <div class="ftr-social" id="ftrSocial"></div>
+  </div>
+  <p class="mono ftr-fine" id="ftrFine"></p>
+</footer>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/lenis.min.js"></script>
+<script src="content.js"></script>
+<script src="js/premium.js"></script>
+</body>
+</html>
