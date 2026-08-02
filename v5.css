@@ -926,10 +926,11 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:fo
 }
 
 /* ---- live art layers: motion on top of the bled plate ---- */
-.bleed-art.radar-art,.bleed-art.fd-art{position:relative}
+.bleed-art.radar-art,.bleed-art.fd-art,.bleed-art.slate-art{position:relative}
 @media(prefers-reduced-motion:reduce){
-  .radar-sweep,.blip,.blip::after,.fd-flow i{animation:none!important}
+  .radar-sweep,.blip,.blip::after,.fd-flow i,.slate-key,.slate-socket{animation:none!important}
   .blip,.blip::after{opacity:0}
+  .slate-socket{opacity:0}
 }
 
 /* Radar. radar_sweep.py lifted the sweep off the still and repaired the plate behind it,
@@ -974,6 +975,48 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:fo
   animation:fd-flow 3.6s linear infinite}
 .fd-flow i:nth-child(2){animation-delay:1.8s}
 @keyframes fd-flow{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+
+/* Slate. keycap.py engraved the Station mark into the floating keycap, then lifted the cap
+   off the still and repaired the plate behind it — so the cap is its own sprite and can be
+   pressed. At rest it sits back on its exact original pixels, which is also the no-JS and
+   reduced-motion state: nothing here needs script. Every number is a % of the art, so the
+   cap tracks the plate at any viewport width.
+   The cycle is mostly stillness — a slow hover breath, then one deliberate press. A key
+   that taps constantly reads as a loading spinner; one that waits reads as a product. */
+.slate-key{position:absolute;left:35.25%;top:18.4676%;width:11.6667%;height:20.8251%;
+  pointer-events:none;will-change:transform;
+  animation:slate-press 6.4s cubic-bezier(.4,0,.2,1) infinite}
+.slate-key img{display:block;width:100%;height:auto}
+@keyframes slate-press{
+  /* hover breath */
+  0%   {transform:translateY(0) scaleY(1)}
+  22%  {transform:translateY(-1.15%) scaleY(1)}
+  46%  {transform:translateY(0) scaleY(1)}
+  /* the throw: accelerate in, land hard */
+  56%  {transform:translateY(0) scaleY(1); animation-timing-function:cubic-bezier(.45,0,.85,.3)}
+  62%  {transform:translateY(21.7%) scaleY(.988)}
+  /* seated */
+  67%  {transform:translateY(21.7%) scaleY(.988); animation-timing-function:cubic-bezier(.2,.85,.3,1)}
+  /* release, with just enough overshoot to feel sprung */
+  76%  {transform:translateY(-2.1%) scaleY(1.006)}
+  86%  {transform:translateY(0) scaleY(1)}
+  100% {transform:translateY(0) scaleY(1)}
+}
+/* The well lights as the cap seats — the cap is lit from underneath in the render, so the
+   light it has been holding off the plate arrives on contact. Screen, so it adds glow to
+   the brushed metal instead of painting a grey disc on it. */
+.slate-socket{position:absolute;left:34.2%;top:34.8%;width:14.2%;height:9.4%;
+  pointer-events:none;opacity:0;mix-blend-mode:screen;
+  background:radial-gradient(50% 50% at 50% 50%,
+    rgba(255,201,132,.92) 0%, rgba(255,178,96,.42) 42%, rgba(255,170,84,0) 72%);
+  animation:slate-socket 6.4s linear infinite}
+@keyframes slate-socket{
+  0%,57%{opacity:0}
+  62%   {opacity:1}
+  70%   {opacity:.55}
+  80%   {opacity:0}
+  100%  {opacity:0}
+}
 
 /* ===================== ROUND 6 ===================== */
 /* The 100vw breakouts (bled hero art, the marquee) are centred on their own column, not
