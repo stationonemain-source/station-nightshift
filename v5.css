@@ -946,3 +946,176 @@ footer{border:0;padding:0;margin-top:64px}
 /* keyboard focus, everywhere */
 a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:focus-visible{
  outline:2px solid var(--blue);outline-offset:2px}
+/* ===== bleed art — product hero, full viewport, floating on --bg =====
+   The 21:9 still (Higgsfield outpaint, backdrop flat-fielded to --bg by whiten_bg.py)
+   breaks out of the .flow column and runs the full width of the page. No card, no
+   radius, no frame: the shot's own backdrop IS the page background, so the edges of
+   the frame are invisible and the subject reads as floating. */
+.pp > .flow{min-width:0}          /* grid items default to min-width:auto — without this
+                                     a 100vw child widens the column and the breakout
+                                     offsets cancel out to zero */
+.flow > .bleed-art{
+  position:relative; left:50%; transform:translateX(-50%);
+  width:100vw; max-width:100vw; margin:22px 0 26px; padding:0;
+  background:none; border:0; border-radius:0; overflow:visible; z-index:0;
+}
+/* Only two edges need masking: the far left, so the art stays clear of the sticky price
+   rail, and the bottom, so the subject dissolves instead of ending on a cut line. */
+.flow > .bleed-art > img{
+  display:block; width:100%; height:auto; border-radius:0;
+  -webkit-mask-image:
+     linear-gradient(to bottom, #000 0, #000 74%, transparent 100%),
+     linear-gradient(to right,  transparent 0, #000 24%, #000 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+     linear-gradient(to bottom, #000 0, #000 74%, transparent 100%),
+     linear-gradient(to right,  transparent 0, #000 24%, #000 100%);
+          mask-composite:intersect;
+}
+.rail-l{z-index:3}
+@media(max-width:940px){
+  /* single column — no rail to keep clear, so let it go edge to edge */
+  .flow > .bleed-art{margin:16px 0 18px}
+  .flow > .bleed-art > img{
+    -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
+            mask-image:linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
+  }
+}
+
+/* ---- live art layers: motion on top of the bled plate ---- */
+.bleed-art.radar-art,.bleed-art.fd-art{position:relative}
+@media(prefers-reduced-motion:reduce){
+  .radar-sweep,.blip,.blip::after,.fd-flow i{animation:none!important}
+  .blip,.blip::after{opacity:0}
+}
+
+/* Radar. radar_sweep.py lifted the sweep off the still and repaired the plate behind it,
+   so the wedge can turn. The box is the sprite's own square, centred on the scope and
+   sized in % of the art so it tracks the ring at any viewport width. */
+.radar-scope{position:absolute;left:40.797%;top:22.822%;width:18.3975%;height:43.3733%;
+  pointer-events:none}
+.radar-sweep{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%;
+  mix-blend-mode:screen;animation:radar-spin 5.5s linear infinite}
+@keyframes radar-spin{to{transform:rotate(360deg)}}
+
+/* Contacts: each lights as the wedge reaches its bearing, then rings out. The delays are
+   the sweep's travel time to that bearing (period x degrees/360 from the wedge's rest
+   angle of 300deg), so the ping stays locked to the sweep. */
+.blip{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;
+  background:#FFDCA8;box-shadow:0 0 12px 3px rgba(255,168,74,.85);opacity:0;
+  animation:blip-lit 5.5s linear infinite}
+.blip::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;
+  margin:-4.5px 0 0 -4.5px;border-radius:50%;border:1px solid rgba(255,176,92,.9);
+  animation:blip-ring 5.5s linear infinite}
+.blip.a{left:24.5%;top:38.1%;animation-delay:4.05s}
+.blip.a::after{animation-delay:4.05s}
+.blip.b{left:79.9%;top:39.1%;animation-delay:.61s}
+.blip.b::after{animation-delay:.61s}
+@keyframes blip-lit{0%{opacity:0}3%{opacity:1}24%{opacity:.8}48%{opacity:0}100%{opacity:0}}
+@keyframes blip-ring{0%{transform:scale(1);opacity:.85}34%{transform:scale(6);opacity:0}
+  100%{transform:scale(6);opacity:0}}
+
+/* Frontdesk. A pulse runs along the sound ribbons, confined by the alpha mask cut by
+   frontdesk_wave.py so it reads as signal travelling rather than a band sweeping across
+   the picture. Multiply, not screen: the ribbons are already pale peach on near-white, so
+   a light pass washes them out — deepening the colour is what actually reads as motion.
+   Two pulses half a cycle apart keep the wave alive rather than blinking once a cycle. */
+.fd-flow{position:absolute;inset:0;display:block;overflow:hidden;pointer-events:none;
+  mix-blend-mode:multiply;
+  -webkit-mask-image:url(/media/v5/frontdesk-wave.png);
+          mask-image:url(/media/v5/frontdesk-wave.png);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.fd-flow i{position:absolute;top:0;bottom:0;left:0;width:30%;
+  background:linear-gradient(90deg,#fff 0%,#EFA254 50%,#fff 100%);
+  animation:fd-flow 3.6s linear infinite}
+.fd-flow i:nth-child(2){animation-delay:1.8s}
+@keyframes fd-flow{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+
+/* ===================== ROUND 6 ===================== */
+/* The 100vw breakouts (bled hero art, the marquee) are centred on their own column, not
+   on the viewport, so they push the document ~200px wider than the window — which is what
+   made sections look cut off at the edge. `clip` contains them WITHOUT creating a scroll
+   container, so the sticky price rail keeps working (overflow:hidden would break it). */
+html,body{overflow-x:clip}
+/* ---- demos float: the wrapper behind every "try it" is gone ---- */
+.flow-demo{background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;
+ padding:34px 0 30px}
+.flow-demo::before,.flow-demo::after{display:none;content:none}
+.demo-sim,.demo-live{background:none;border:0;box-shadow:none;padding:0}
+/* The rule is "no box BEHIND the demo" — the demo's own surface stays. The calendar,
+   the phone body and the email compose window are the product, not packaging; stripping
+   the calendar's card left it reading as loose numbers on the page. */
+/* ---- pricing cards: horizontal, money left, what-you-get right ---- */
+.tiers-glass .price-grid{gap:14px}
+.tiers-glass .price-card{display:grid;grid-template-columns:minmax(250px,.92fr) 1.08fr;
+ gap:clamp(22px,3.4vw,44px);align-items:start;padding:clamp(24px,3vw,34px) clamp(24px,3.4vw,38px);
+ text-align:left}
+.tiers-glass .pc-l{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tiers-glass .pc-r{min-width:0;border-left:1px solid rgba(29,29,31,.09);
+ padding-left:clamp(20px,2.6vw,34px);align-self:stretch;display:flex;align-items:center}
+.tiers-glass .pc-r ul{margin:0;width:100%}
+.tiers-glass .pc-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.tiers-glass .price-card .pv{margin:8px 0 2px}
+.tiers-glass .price-card .reframe{margin:2px 0 0}
+@media(max-width:860px){
+  .tiers-glass .price-card{grid-template-columns:1fr;gap:18px}
+  .tiers-glass .pc-r{border-left:0;padding-left:0;border-top:1px solid rgba(29,29,31,.09);padding-top:18px}
+}
+/* ---- bundles: PRO's saving is the same green as CORE's ---- */
+.bcard li.worth,.bcard li.worth.lt{color:#7ED9A7}
+/* ---- integration marquee: true full-viewport, fades match the page (were #fff) ---- */
+.integ{overflow:hidden}
+/* margin breakout, NOT translateX: .iwrap is also a .rv reveal element, and the reveal
+   rules own `transform` — a transform-based breakout gets silently cancelled by .rv.on. */
+.integ .iwrap{position:relative;width:100vw;max-width:100vw;
+ margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+.iwrap::before,.iwrap::after{width:clamp(40px,7vw,120px)}
+.iwrap::before{background:linear-gradient(90deg,var(--bg),rgba(245,244,241,0))}
+.iwrap::after{background:linear-gradient(270deg,var(--bg),rgba(245,244,241,0))}
+.irow{padding:6px 0}
+/* ---- cart bubble: the exact same liquid glass as "Build your line" ---- */
+.cartbtn{width:42px;height:42px;border-radius:50%;border:0;color:var(--ink);
+ background:rgba(255,255,255,.32);backdrop-filter:blur(14px) saturate(1.5);
+ -webkit-backdrop-filter:blur(14px) saturate(1.5);
+ box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.08),
+  inset 3px 3px .5px -3px rgba(0,0,0,.55),inset -3px -3px .5px -3px rgba(0,0,0,.5),
+  inset 1px 1px 1px -.5px rgba(0,0,0,.35),inset -1px -1px 1px -.5px rgba(0,0,0,.35),
+  inset 0 0 6px 6px rgba(0,0,0,.06),inset 0 0 2px 2px rgba(0,0,0,.03),0 0 12px rgba(255,255,255,.6);
+ transition:transform .2s,background .2s}
+.cartbtn:hover{transform:scale(1.04);background:rgba(255,255,255,.45);border:0}
+.cartbtn:active{transform:scale(.985)}
+/* ---- HERO: the Osmo layered parallax, in Station white ----
+   Four layers stacked in one box; the headline is layer 3, sandwiched between the art.
+   Every still was flat-fielded to --bg by whiten_bg.py, so `mix-blend-mode:darken` makes
+   each layer's backdrop vanish into the page — the objects composite, the boxes don't. */
+.parallax{position:relative;background:var(--bg)}
+.parallax__visuals{position:relative;height:100vh;min-height:660px;max-height:1000px;overflow:hidden}
+.parallax__layers{position:absolute;inset:0}
+/* Each plate is a rectangle of near-white with an object on it. `darken` drops the
+   backdrop, but the stills carry a soft vignette, so the rectangle can still ghost in at
+   the edges — an elliptical mask dissolves every border and leaves only the subject. */
+.parallax__layer-img{position:absolute;display:block;height:auto;pointer-events:none;
+ mix-blend-mode:darken;will-change:transform;
+ -webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 42%,transparent 100%);
+         mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 42%,transparent 100%)}
+.parallax__layer-img.pl-1{width:80%;left:-15%;top:0;opacity:.6}
+.parallax__layer-img.pl-2{width:64%;right:-12%;top:12%;opacity:.8}
+.parallax__layer-img.pl-4{width:54%;left:2%;bottom:3%;opacity:.92}
+.parallax__layer-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+ width:min(var(--wrap),calc(100% - 44px));text-align:center;z-index:2;will-change:transform}
+.parallax__layer-title .kicker{font:600 12px var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.parallax__title{font:700 clamp(2.6rem,6.4vw,4.8rem)/1.03 var(--fd);letter-spacing:-.034em;
+ max-width:18ch;margin:16px auto 0}
+.parallax__layer-title .sub{color:var(--muted);font-size:clamp(1rem,1.4vw,1.18rem);max-width:52ch;margin:18px auto 0}
+.parallax__layer-title .hf-ctas{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+.parallax__fade{position:absolute;left:0;right:0;bottom:0;height:15%;z-index:3;pointer-events:none;
+ background:linear-gradient(180deg,rgba(245,244,241,0),var(--bg) 90%)}
+@media(max-width:760px){
+  .parallax__visuals{height:88vh;min-height:560px}
+  .parallax__layer-img.pl-1{width:120%;left:-24%}
+  .parallax__layer-img.pl-2{width:96%;right:-26%}
+  .parallax__layer-img.pl-4{width:118%;left:-14%;bottom:-10%}
+}
+@media(prefers-reduced-motion:reduce){.parallax__layer-img,.parallax__layer-title{transform:none!important}
+  .parallax__layer-title{transform:translate(-50%,-50%)!important}}

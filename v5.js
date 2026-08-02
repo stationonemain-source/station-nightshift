@@ -849,26 +849,35 @@
     render();
   });
 
-  /* hero film — layered parallax (osmo-style, vanilla): media drifts slow, copy rides faster */
+  /* HERO — the Osmo layered parallax, ported to vanilla.
+     Same contract as the GSAP original: one scrubbed timeline over the layers box,
+     start "0% 0%" -> end "100% 0%", each layer travelling a fixed share of its own
+     height (yPercent 70 / 55 / 40 / 10, ease none). The title is layer 3, so it drifts
+     with the art instead of sitting on top of it. */
   ready(function () {
-    var film = document.querySelector(".hero-film"); if (!film) return;
-    var media = film.querySelector(".hf-media"), copy = film.querySelector(".hf-copy");
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var target = 0, cur = -1;
-    function frame() {
-      cur += (target - cur) * 0.18;
-      if (Math.abs(target - cur) < 0.1) cur = target;
-      if (media) media.style.transform = "translateY(" + (cur * 0.42) + "px) scale(1.06)";
-      if (copy) copy.style.transform = "translateY(" + (cur * 0.16) + "px)";
-      if (cur !== target) requestAnimationFrame(frame);
+    var box = document.querySelector("[data-parallax-layers]"); if (!box) return;
+    var RM = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (RM) return;
+    var LAYERS = [[1, 70], [2, 55], [3, 40], [4, 10]].map(function (l) {
+      return { el: box.querySelector('[data-parallax-layer="' + l[0] + '"]'), pct: l[1] / 100 };
+    }).filter(function (l) { return l.el; });
+    var ticking = false;
+    function apply() {
+      ticking = false;
+      var r = box.getBoundingClientRect();
+      /* progress 0 -> 1 as the box's top travels from the viewport top to fully past it */
+      var p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
+      LAYERS.forEach(function (l) {
+        var d = p * l.pct * l.el.offsetHeight;
+        l.el.style.transform = l.el.classList.contains("parallax__layer-title")
+          ? "translate(-50%,-50%) translateY(" + d + "px)"
+          : "translateY(" + d + "px)";
+      });
     }
-    addEventListener("scroll", function () {
-      var y = Math.min(scrollY, 1100);
-      if (y === target) return;
-      var was = target; target = y;
-      if (cur === was || cur === -1) { cur = was === -1 ? 0 : cur; requestAnimationFrame(frame); }
-    }, { passive: true });
-    requestAnimationFrame(frame);
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }
+    addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
+    apply();
   });
 
   /* iphone2 — the old site's phone UI, interactive */
