@@ -5,12 +5,57 @@
   var f$ = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
 
+  /* ---------- affiliate engine ---------- */
+  var AFF_ENGINE = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
+  var AFF_PUB = "stnpub-84cc5c8bdf9168da20e4923921d8743c"; // engine rejects anything else
+  function affSend(payload) {
+    try {
+      payload.pub = AFF_PUB;
+      var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+      if (navigator.sendBeacon) { navigator.sendBeacon(AFF_ENGINE, blob); return; }
+      fetch(AFF_ENGINE, { method: "POST", mode: "no-cors", body: blob });
+    } catch (e) {}
+  }
+
   /* ---------- ref capture -> stripe ---------- */
+  /* Persisted in localStorage + a 30-day cookie: the referral has to survive the
+     visitor closing the tab and coming back, which sessionStorage does not. */
   var REF = null;
+  var REF_DAYS = 30;
+  function refCookie(v) {
+    try {
+      var d = new Date(Date.now() + REF_DAYS * 864e5);
+      document.cookie = "station_ref=" + encodeURIComponent(v) + ";expires=" + d.toUTCString() +
+                        ";path=/;SameSite=Lax";
+    } catch (e) {}
+  }
+  function readRefCookie() {
+    try {
+      var m = document.cookie.match(/(?:^|;\s*)station_ref=([^;]+)/);
+      return m ? decodeURIComponent(m[1]) : null;
+    } catch (e) { return null; }
+  }
   try {
     var q = new URLSearchParams(location.search);
-    REF = q.get("ref") || sessionStorage.getItem("station_ref");
-    if (REF) sessionStorage.setItem("station_ref", REF);
+    REF = q.get("ref") || localStorage.getItem("station_ref") || readRefCookie() ||
+          sessionStorage.getItem("station_ref"); /* legacy readers, one release only */
+    if (REF) {
+      REF = String(REF).toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 32) || null;
+    }
+    if (REF) {
+      localStorage.setItem("station_ref", REF);
+      sessionStorage.setItem("station_ref", REF);
+      refCookie(REF);
+    }
+  } catch (e) {}
+
+  /* Count the click. Once per tab session so ordinary page-to-page navigation
+     does not inflate a partner's click count. */
+  try {
+    if (REF && !sessionStorage.getItem("station_ref_seen")) {
+      sessionStorage.setItem("station_ref_seen", "1");
+      affSend({ action: "attribute", code: REF, kind: "visit", label: (location.pathname || "/").slice(0, 64) });
+    }
   } catch (e) {}
   function stripeUrl(u){
     if (REF && u && u.indexOf("client_reference_id") === -1)
@@ -271,7 +316,6 @@
 
   /* ---------- forms (n8n contract) + ?biz= prefill ---------- */
   var AUDIT_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/free-audit";
-  var AFF_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
   ready(function () {
     try {
       var biz = new URLSearchParams(location.search).get("biz");
@@ -286,11 +330,22 @@
         fd.set("_t", String(Date.now() - t0));
         try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
         try {
-          if (navigator.sendBeacon && REF) {
-            navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
-              action: "attribute", pub: "station", code: REF, kind: "audit-submit",
+          if (REF) {
+            affSend({
+              action: "attribute", code: REF, kind: "audit-submit",
               label: "v5-" + (form.getAttribute("data-variant") || "form")
-            })], { type: "application/json" }));
+            });
+            /* The one that actually pays the partner: tags the GHL contact
+               aff-<code>, which is what the engine counts as a lead and later
+               as a client. Without this the referral is invisible to payout. */
+            var refEmail = String(fd.get("email") || "").trim();
+            if (refEmail) {
+              affSend({
+                action: "leadref", code: REF, email: refEmail,
+                name: String(fd.get("name") || "").trim().slice(0, 80),
+                phone: String(fd.get("phone") || "").trim().slice(0, 24)
+              });
+            }
           }
         } catch (err) {}
         form.querySelectorAll("input,textarea,button,select").forEach(function (el) { el.disabled = true; });
