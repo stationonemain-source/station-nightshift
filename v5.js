@@ -5,57 +5,12 @@
   var f$ = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
 
-  /* ---------- affiliate engine ---------- */
-  var AFF_ENGINE = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
-  var AFF_PUB = "stnpub-84cc5c8bdf9168da20e4923921d8743c"; // engine rejects anything else
-  function affSend(payload) {
-    try {
-      payload.pub = AFF_PUB;
-      var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
-      if (navigator.sendBeacon) { navigator.sendBeacon(AFF_ENGINE, blob); return; }
-      fetch(AFF_ENGINE, { method: "POST", mode: "no-cors", body: blob });
-    } catch (e) {}
-  }
-
   /* ---------- ref capture -> stripe ---------- */
-  /* Persisted in localStorage + a 30-day cookie: the referral has to survive the
-     visitor closing the tab and coming back, which sessionStorage does not. */
   var REF = null;
-  var REF_DAYS = 30;
-  function refCookie(v) {
-    try {
-      var d = new Date(Date.now() + REF_DAYS * 864e5);
-      document.cookie = "station_ref=" + encodeURIComponent(v) + ";expires=" + d.toUTCString() +
-                        ";path=/;SameSite=Lax";
-    } catch (e) {}
-  }
-  function readRefCookie() {
-    try {
-      var m = document.cookie.match(/(?:^|;\s*)station_ref=([^;]+)/);
-      return m ? decodeURIComponent(m[1]) : null;
-    } catch (e) { return null; }
-  }
   try {
     var q = new URLSearchParams(location.search);
-    REF = q.get("ref") || localStorage.getItem("station_ref") || readRefCookie() ||
-          sessionStorage.getItem("station_ref"); /* legacy readers, one release only */
-    if (REF) {
-      REF = String(REF).toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 32) || null;
-    }
-    if (REF) {
-      localStorage.setItem("station_ref", REF);
-      sessionStorage.setItem("station_ref", REF);
-      refCookie(REF);
-    }
-  } catch (e) {}
-
-  /* Count the click. Once per tab session so ordinary page-to-page navigation
-     does not inflate a partner's click count. */
-  try {
-    if (REF && !sessionStorage.getItem("station_ref_seen")) {
-      sessionStorage.setItem("station_ref_seen", "1");
-      affSend({ action: "attribute", code: REF, kind: "visit", label: (location.pathname || "/").slice(0, 64) });
-    }
+    REF = q.get("ref") || sessionStorage.getItem("station_ref");
+    if (REF) sessionStorage.setItem("station_ref", REF);
   } catch (e) {}
   function stripeUrl(u){
     if (REF && u && u.indexOf("client_reference_id") === -1)
@@ -316,6 +271,7 @@
 
   /* ---------- forms (n8n contract) + ?biz= prefill ---------- */
   var AUDIT_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/free-audit";
+  var AFF_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
   ready(function () {
     try {
       var biz = new URLSearchParams(location.search).get("biz");
@@ -330,22 +286,11 @@
         fd.set("_t", String(Date.now() - t0));
         try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
         try {
-          if (REF) {
-            affSend({
-              action: "attribute", code: REF, kind: "audit-submit",
+          if (navigator.sendBeacon && REF) {
+            navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
+              action: "attribute", pub: "station", code: REF, kind: "audit-submit",
               label: "v5-" + (form.getAttribute("data-variant") || "form")
-            });
-            /* The one that actually pays the partner: tags the GHL contact
-               aff-<code>, which is what the engine counts as a lead and later
-               as a client. Without this the referral is invisible to payout. */
-            var refEmail = String(fd.get("email") || "").trim();
-            if (refEmail) {
-              affSend({
-                action: "leadref", code: REF, email: refEmail,
-                name: String(fd.get("name") || "").trim().slice(0, 80),
-                phone: String(fd.get("phone") || "").trim().slice(0, 24)
-              });
-            }
+            })], { type: "application/json" }));
           }
         } catch (err) {}
         form.querySelectorAll("input,textarea,button,select").forEach(function (el) { el.disabled = true; });
@@ -357,76 +302,8 @@
 
   /* ================= DEMOS ================= */
 
-  /* iPhone thread helper — interactive */
-  function iphoneThread(hostId, cfg) {
-    var host = document.getElementById(hostId); if (!host) return;
-    host.innerHTML = '<div class="notch"></div><div class="scr">' +
-      '<div class="thead">' + cfg.title + '<small>' + (cfg.sub || "") + '</small></div>' +
-      '<div class="tbody"></div>' +
-      '<div class="chips"></div>' +
-      '<div class="tin"><input type="text" placeholder="' + (cfg.placeholder || "Text something…") + '" maxlength="120"><button aria-label="Send">↑</button></div></div>';
-    var body = host.querySelector(".tbody"), chips = host.querySelector(".chips");
-    var input = host.querySelector(".tin input"), send = host.querySelector(".tin button");
-    function bubble(who, text, delay){
-      setTimeout(function(){
-        var b = document.createElement("div"); b.className = "pm-b " + who; b.textContent = text;
-        body.appendChild(b); body.scrollTop = body.scrollHeight;
-      }, delay || 0);
-    }
-    function setChips(arr){
-      chips.innerHTML = "";
-      (arr || []).forEach(function(c){
-        var b = document.createElement("button"); b.type = "button"; b.textContent = c;
-        b.addEventListener("click", function(){ userSend(c); });
-        chips.appendChild(b);
-      });
-    }
-    function userSend(text){
-      if (!text) return;
-      bubble("me", text);
-      input.value = "";
-      var r = cfg.reply(text);
-      if (r) { bubble("biz", r.text, 700 + Math.random() * 500); if (r.chips) setTimeout(function(){ setChips(r.chips); }, 900); }
-    }
-    send.addEventListener("click", function(){ userSend(input.value.trim()); });
-    input.addEventListener("keydown", function(e){ if (e.key === "Enter") userSend(input.value.trim()); });
-    (cfg.opening || []).forEach(function(m, i){ bubble(m.who, m.t, 300 + i * 800); });
-    setTimeout(function(){ setChips(cfg.chips); }, (cfg.opening || []).length * 800 + 500);
-  }
 
   ready(function () {
-    /* DIAL — interactive business texting */
-    if (document.getElementById("dialSim")) iphoneThread("dialSim", {
-      title: "Demo Plumbing Co.", sub: "your business line", placeholder: "Text as the customer…",
-      opening: [{ who: "biz", t: "Thanks for reaching out — this is Demo Plumbing. How can we help?" }],
-      chips: ["Do y'all do gutter guards?", "How much for a drain clear?", "Can someone come Thursday?"],
-      reply: function (t) {
-        var s = t.toLowerCase();
-        if (/price|much|cost|\$/.test(s)) return { text: "Most jobs like that run a fixed quote after a quick look — want us to swing by? Address is all we need.", chips: ["3114 Maple Ct", "What times do you have?"] };
-        if (/thursday|come|when|time|schedule/.test(s)) return { text: "We've got Thursday 9–11 AM or 1–3 PM open. Which works?", chips: ["9–11 works", "1–3 works"] };
-        if (/9|1–3|works|yes/.test(s)) return { text: "Booked ✓ You'll get a reminder the night before. Anything else?" };
-        if (/gutter|drain|heater|leak|install|repair/.test(s)) return { text: "We do — that's one of our most common calls. Want a quick quote? Just need the address.", chips: ["3114 Maple Ct"] };
-        if (/maple|street|ave|dr|ct|rd/.test(s)) return { text: "Got it. We can come Thursday between 9 and 11 — work for you?", chips: ["Perfect", "Later that day?"] };
-        return { text: "Absolutely — and notice this whole thread is happening on a business line, not somebody's personal cell. What else can I answer?" };
-      }
-    });
-
-    /* PURSUIT — sequence plays, user reply stops it */
-    if (document.getElementById("pursuitSim")) iphoneThread("pursuitSim", {
-      title: "Demo Plumbing Co.", sub: "day 1 → day 10, compressed", placeholder: "Reply as the lead…",
-      opening: [
-        { who: "biz", t: "Hi Sarah — got your request about the water heater. When works for a look, tomorrow or Thursday?" },
-        { who: "biz", t: "(next morning) Morning! Still happy to help with that water heater — mornings or afternoons better?" },
-        { who: "biz", t: "(day 4) No rush at all — want me to pencil you in for early next week?" }
-      ],
-      chips: ["Yes sorry! Thursday works", "Who is this?", "Stop"],
-      reply: function (t) {
-        var s = t.toLowerCase();
-        if (/stop/.test(s)) return { text: "You're opted out — no more messages. (And that's automatic, always.)" };
-        if (/who/.test(s)) return { text: "It's Demo Plumbing — you asked about a water heater on our site. Want that quote?" };
-        return { text: "SEQUENCE STOPPED ✓ — the moment you replied, the automation ended and a human took over. That's the whole product." };
-      }
-    });
 
     /* REPUTE — Google-review composer + sentiment engine with common sense */
     var grev = document.querySelector(".grev");
@@ -521,78 +398,8 @@
       });
     }
 
-    /* MAP — teaser scan + prefilled audit CTA */
-    var mbtn = document.querySelector("[data-map-run]");
-    if (mbtn) mbtn.addEventListener("click", function () {
-      var v = (document.getElementById("mapDemoIn").value || "").trim();
-      var out = document.getElementById("mapDemoOut");
-      if (!v) { out.textContent = "Type your business name first."; return; }
-      out.innerHTML = "";
-      var lines = [
-        "Queueing “" + v + "” for the real scan…",
-        "Check 1 · PRIMARY CATEGORY — the single biggest ranking lever. 6 in 10 listings we scan have the wrong one. Yours gets pulled and verified in the full audit.",
-        "Check 2 · HOURS DRIFT — Google accepts public \"corrections\" to your hours. We diff what Google shows against what you actually run.",
-        "Check 3 · PUBLIC EDITS & DUPLICATES — competitor edits, stale duplicate listings, spam rivals. We pull your listing's actual edit exposure.",
-        "…checks 4–11 (reviews vs your top 3 competitors, citations, site speed, response time and more) run against your real listing in the free audit."
-      ];
-      var i = 0;
-      (function step() {
-        if (i < lines.length) { out.textContent += (i ? "\n\n" : "") + lines[i++]; setTimeout(step, 700); }
-        else {
-          var a = document.createElement("a");
-          a.className = "btn dark sm"; a.style.marginTop = "12px"; a.style.display = "inline-flex";
-          a.href = "/audit/?biz=" + encodeURIComponent(v);
-          a.textContent = "Run the full 11-check audit on " + v + " — free →";
-          out.appendChild(document.createElement("br")); out.appendChild(a);
-        }
-      })();
-    });
 
-    /* DISPATCH — editable templates */
-    var dsm = document.getElementById("dispatchSim");
-    if (dsm) {
-      [["Spring tune-up week", "Subject: A/C ready for the first 95° day?\n\nWe're doing tune-ups in your area next week — $89, takes an hour, and it's the difference between June working and June waiting on parts. Book by Friday and we'll bump you to the front."],
-       ["We-miss-you", "Subject: It's been a while\n\nWe did your place two summers ago — want us to take a look before the season hits? Past customers get first pick of the schedule."],
-       ["Review thank-you", "Subject: Thank you (really)\n\nYour review means the world to a local shop. Here's $25 off your next visit — no expiry, no fine print."]].forEach(function (t, i) {
-        var d = document.createElement("div"); d.className = "tpl" + (i === 0 ? " open" : "");
-        d.innerHTML = '<div class="t-h">' + t[0] + ' <span style="color:var(--faint);font-weight:500;font-size:11px">· click text to edit</span></div><div class="t-b" contenteditable="true" spellcheck="false"></div>';
-        d.querySelector(".t-b").textContent = t[1];
-        d.addEventListener("click", function (e) {
-          if (e.target.closest(".t-b")) return;
-          dsm.querySelectorAll(".tpl").forEach(function (x) { x.classList.remove("open"); });
-          d.classList.add("open");
-        });
-        dsm.appendChild(d);
-      });
-    }
 
-    /* REVIVE — editable touches + play */
-    var rs = document.getElementById("reviveSim");
-    if (rs) {
-      var touches = [["Day 1", "It's been a while — want us to take a look before summer?"],
-        ["Day 4", "Quick nudge — our schedule's filling for the season."],
-        ["Day 8", "Past customers get priority booking this month."],
-        ["Day 12", "Anything we did last time you'd like re-checked?"],
-        ["Day 16", "Last one from us — we'll leave you be after this, promise."],
-        ["Day 21", "Text leg (consent-gated): Hi — it's Demo Plumbing. Want your spring check?"]];
-      touches.forEach(function (t) {
-        var d = document.createElement("div"); d.className = "touch";
-        d.innerHTML = "<b>" + t[0] + "</b><span contenteditable='true' spellcheck='false'>" + t[1] + "</span>";
-        rs.appendChild(d);
-      });
-      var hint = document.createElement("p");
-      hint.style.cssText = "font-size:12px;color:var(--faint);margin:10px 0 0";
-      hint.innerHTML = "Every line is editable — click any message and rewrite it. That's exactly how it works in your account (Settings → Your Words).";
-      rs.appendChild(hint);
-      var play = document.createElement("button");
-      play.className = "btn lite sm"; play.style.marginTop = "12px"; play.textContent = "▶ Play the 3-week campaign";
-      play.addEventListener("click", function () {
-        var items = rs.querySelectorAll(".touch");
-        items.forEach(function (it) { it.classList.remove("sent"); });
-        items.forEach(function (it, i) { setTimeout(function () { it.classList.add("sent"); }, 400 + i * 550); });
-      });
-      rs.appendChild(play);
-    }
 
     /* TAP — amount → estimate → invoice → tap → receipt */
     var ts = document.getElementById("tapSim");
@@ -627,15 +434,6 @@
       });
     }
 
-    /* STOREFRONT before/after slider */
-    var ba = document.getElementById("baSlider");
-    if (ba) {
-      var img = "/media/v5/storefront.jpg";
-      ba.querySelector(".ba-after").style.backgroundImage = "url('" + img + "')";
-      ba.querySelector("input").addEventListener("input", function () {
-        ba.querySelector(".ba-after").style.clipPath = "inset(0 0 0 " + (100 - this.value) + "%)";
-      });
-    }
 
   });
 
@@ -768,8 +566,19 @@
     } catch (e) {}
   });
 
-  /* ---------- version pill (top-right, desktop only) ---------- */
+  /* ---------- version pill — internal review tool, hidden from customers ----------
+     This is a build-comparison switcher, not a product feature: shipping V5/V2/V3/V4
+     toggles to a prospect makes a sales site look like a staging build. It stays one
+     query string away for us — /?v=1 turns it on and remembers, /?v=0 turns it off. */
   ready(function () {
+    var show = false;
+    try {
+      var q = new URLSearchParams(location.search).get("v");
+      if (q === "1") localStorage.setItem("station_vswitch", "1");
+      if (q === "0") localStorage.removeItem("station_vswitch");
+      show = localStorage.getItem("station_vswitch") === "1";
+    } catch (e) {}
+    if (!show) return;
     if (document.querySelector("[data-vswitch]")) return;
     var path = location.pathname, active = 5, sub = path;
     if (path.indexOf("/v2/") === 0) { active = 2; sub = path.slice(3); }
