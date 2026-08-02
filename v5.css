@@ -206,6 +206,9 @@ html.js .rv.on{opacity:1;transform:none}
 .rail-l .alt-tiers a{color:var(--muted)}
 .flow > *{margin-bottom:64px}
 .flow .im{border-radius:var(--r);overflow:hidden}
+/* Art shot on the page background (--bg) — let it bleed: no radius, no clip, no frame. */
+.flow .im.bleed{border-radius:0;overflow:visible;background:none}
+.flow .im.bleed img{display:block;width:100%;height:auto}
 .flow h2{font-size:clamp(1.5rem,2.8vw,2rem);margin-bottom:14px}
 .flow .k{font:600 11.5px var(--fb);letter-spacing:.15em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}
 
@@ -708,7 +711,7 @@ footer{border:0;padding:0;margin-top:64px}
 }
 /* Only two edges need masking: the far left, so the art stays clear of the sticky price
    rail, and the bottom, so the subject dissolves instead of ending on a cut line. */
-.flow > .bleed-art img{
+.flow > .bleed-art > img{
   display:block; width:100%; height:auto; border-radius:0;
   -webkit-mask-image:
      linear-gradient(to bottom, #000 0, #000 74%, transparent 100%),
@@ -723,8 +726,58 @@ footer{border:0;padding:0;margin-top:64px}
 @media(max-width:940px){
   /* single column — no rail to keep clear, so let it go edge to edge */
   .flow > .bleed-art{margin:16px 0 18px}
-  .flow > .bleed-art img{
+  .flow > .bleed-art > img{
     -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
             mask-image:linear-gradient(to bottom, #000 0, #000 80%, transparent 100%);
   }
 }
+
+/* ---- live art layers: motion on top of the bled plate ---- */
+.bleed-art.radar-art,.bleed-art.fd-art{position:relative}
+@media(prefers-reduced-motion:reduce){
+  .radar-sweep,.blip,.blip::after,.fd-flow i{animation:none!important}
+  .blip,.blip::after{opacity:0}
+}
+
+/* Radar. radar_sweep.py lifted the sweep off the still and repaired the plate behind it,
+   so the wedge can turn. The box is the sprite's own square, centred on the scope and
+   sized in % of the art so it tracks the ring at any viewport width. */
+.radar-scope{position:absolute;left:40.797%;top:22.822%;width:18.3975%;height:43.3733%;
+  pointer-events:none}
+.radar-sweep{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 50%;
+  mix-blend-mode:screen;animation:radar-spin 5.5s linear infinite}
+@keyframes radar-spin{to{transform:rotate(360deg)}}
+
+/* Contacts: each lights as the wedge reaches its bearing, then rings out. The delays are
+   the sweep's travel time to that bearing (period x degrees/360 from the wedge's rest
+   angle of 300deg), so the ping stays locked to the sweep. */
+.blip{position:absolute;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;
+  background:#FFDCA8;box-shadow:0 0 12px 3px rgba(255,168,74,.85);opacity:0;
+  animation:blip-lit 5.5s linear infinite}
+.blip::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;
+  margin:-4.5px 0 0 -4.5px;border-radius:50%;border:1px solid rgba(255,176,92,.9);
+  animation:blip-ring 5.5s linear infinite}
+.blip.a{left:24.5%;top:38.1%;animation-delay:4.05s}
+.blip.a::after{animation-delay:4.05s}
+.blip.b{left:79.9%;top:39.1%;animation-delay:.61s}
+.blip.b::after{animation-delay:.61s}
+@keyframes blip-lit{0%{opacity:0}3%{opacity:1}24%{opacity:.8}48%{opacity:0}100%{opacity:0}}
+@keyframes blip-ring{0%{transform:scale(1);opacity:.85}34%{transform:scale(6);opacity:0}
+  100%{transform:scale(6);opacity:0}}
+
+/* Frontdesk. A pulse runs along the sound ribbons, confined by the alpha mask cut by
+   frontdesk_wave.py so it reads as signal travelling rather than a band sweeping across
+   the picture. Multiply, not screen: the ribbons are already pale peach on near-white, so
+   a light pass washes them out — deepening the colour is what actually reads as motion.
+   Two pulses half a cycle apart keep the wave alive rather than blinking once a cycle. */
+.fd-flow{position:absolute;inset:0;display:block;overflow:hidden;pointer-events:none;
+  mix-blend-mode:multiply;
+  -webkit-mask-image:url(/media/v5/frontdesk-wave.png);
+          mask-image:url(/media/v5/frontdesk-wave.png);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.fd-flow i{position:absolute;top:0;bottom:0;left:0;width:30%;
+  background:linear-gradient(90deg,#fff 0%,#EFA254 50%,#fff 100%);
+  animation:fd-flow 3.6s linear infinite}
+.fd-flow i:nth-child(2){animation-delay:1.8s}
+@keyframes fd-flow{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
