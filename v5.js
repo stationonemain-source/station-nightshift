@@ -412,18 +412,17 @@
           "broken|wrong|fix|redo|leak|fail|didn't work|didnt work|doesn't work|doesnt work|not work": "the work itself",
           "call|phone|answer|response|ignored|ghosted|voicemail": "how hard we were to reach" };
         for (var pat in topics) { if (new RegExp(pat).test(s)) { topic = topics[pat]; break; } }
-        var name = (txt.match(/^[A-Z][a-z]{2,}\b/) || ["there"])[0];
         var starRef = stars ? (stars <= 2 ? "A " + stars + "-star review stings, and it should — " : "") : "";
         var r;
         if (mood === "neg") {
           r = (tone === "warm")
-            ? "Hi " + name + " — " + (starRef ? starRef.toLowerCase().replace(/^a/, "a") : "") + "thank you for being straight with us" + (topic ? " about " + topic : "") + ". You're clearly frustrated, and reading this, I get why. That's not the standard we run this shop on and I won't make excuses for it. I'd like to fix it personally — call and ask for the owner, and we'll make it right this week."
+            ? "Hi there — " + (starRef ? starRef.charAt(0).toLowerCase() + starRef.slice(1) : "") + "thank you for being straight with us" + (topic ? " about " + topic : "") + ". You're clearly frustrated, and reading this, I get why. That's not the standard we run this shop on and I won't make excuses for it. I'd like to fix it personally — call and ask for the owner, and we'll make it right this week."
             : "Thank you for the candid feedback" + (topic ? " regarding " + topic : "") + ". " + (starRef || "") + "This experience falls short of our standard and we take it seriously. Please contact us directly so the owner can resolve it promptly.";
         } else if (mood === "mixed") {
-          r = "Thank you for the honest review, " + name + " — glad the good parts landed, and we hear you" + (topic ? " on " + topic : " on the rest") + ". We're on it, and we'd love another shot at all five stars.";
+          r = "Thank you for the honest review — glad the good parts landed, and we hear you" + (topic ? " on " + topic : " on the rest") + ". We're on it, and we'd love another shot at all five stars.";
         } else {
           r = (tone === "warm")
-            ? "Thank you, " + name + (stars === 5 ? " — five stars genuinely made our week." : " — this genuinely made our week.") + " It was a pleasure doing the work, and we're a call away whenever you need us again."
+            ? "Thank you" + (stars === 5 ? " — five stars genuinely made our week." : " — this genuinely made our week.") + " It was a pleasure doing the work, and we're a call away whenever you need us again."
             : "Thank you for the kind words and for trusting us with the work. We appreciate the review and look forward to serving you again.";
         }
         out.hidden = false; outT.textContent = ""; var i = 0;
@@ -1166,7 +1165,12 @@
     function run() {
       var q = input.value.trim().toLowerCase();
       if (!q) { res.innerHTML = ""; return; }
-      var hits = INDEX.filter(function (i) { return i.kw.indexOf(q) > -1 || i.t.toLowerCase().indexOf(q) > -1; }).slice(0, 7);
+      var words = q.split(/\s+/).filter(Boolean).map(function (w) { return w.replace(/(ies|es|s)$/, ""); });
+      var hits = INDEX.filter(function (i) {
+        var hay = (i.kw + " " + i.t).toLowerCase();
+        return i.kw.indexOf(q) > -1 || i.t.toLowerCase().indexOf(q) > -1 ||
+          words.every(function (w) { return w.length > 1 && hay.indexOf(w) > -1; });
+      }).slice(0, 7);
       res.innerHTML = hits.length
         ? hits.map(function (h) { return '<a href="' + h.u + '" role="option"><b>' + h.t + '</b><span>' + h.s + '</span></a>'; }).join("")
         : '<div class="sb-none">Nothing on the shelf matches "' + q.replace(/[<>&]/g, "") + '" — try a product name, or <a href="/audit/">get the free audit</a>.</div>';
