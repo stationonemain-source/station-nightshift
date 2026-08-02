@@ -3,114 +3,134 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Station Partners — sell Station, get paid every month</title>
-<meta name="description" content="Refer local businesses to Station and earn recurring commission. Partners get a login, a live dashboard, and Foundry demo sites to open cold calls with.">
+<title>Partner portal — Station</title>
+<meta name="description" content="Refer local businesses to Station and earn recurring commission. Partners get a login, a live dashboard, and demo sites to open cold calls with.">
 <meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<!-- The site stylesheet is the source of truth for brand tokens (--bg, --ink,
+     --accent, .btn, .wrap). Everything below only adds partner-portal parts
+     that don't exist on the marketing site, built from those same tokens. -->
+<link rel="stylesheet" href="/v5.css">
 <style>
-:root{
-  --bg:#0B0D10;--surface:#12151A;--raise:#171B21;--text:#E8E6E1;--text2:rgba(232,230,225,.72);
-  --label:rgba(232,230,225,.45);--amber:#FFB000;--green:#2FBF71;--red:#FF6B5A;
-  --line:rgba(255,255,255,.08);--glass:rgba(255,255,255,.10);
-  --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
-  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:60rem;margin:0 auto;padding:2.2rem 1.3rem 5rem}
-a{color:var(--amber);text-decoration:none}a:hover{text-decoration:underline}
-.top{display:flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;color:var(--label);margin-bottom:2rem}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:p 2s infinite}
-@keyframes p{50%{opacity:.35}}
-.brand{color:var(--text);font-weight:700;letter-spacing:.1em}.brand b{color:var(--amber)}
-.spacer{flex:1}
-h1{font-size:clamp(1.9rem,5.4vw,3rem);font-weight:800;letter-spacing:-.03em;line-height:1.07;margin-bottom:.6rem}
-h2{font-size:1.15rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.9rem}
-.lede{color:var(--text2);font-size:1.1rem;margin-bottom:2rem;max-width:50ch}
-.card{background:var(--surface);border:1px solid var(--glass);border-radius:16px;padding:1.7rem;margin-bottom:1.1rem}
-.lbl{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
-.field{margin-bottom:.95rem}
-.field label{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:.4em}
-.field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--text);font-size:16px;padding:.8em 1em;font-family:inherit}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--amber)}
-.field.bad input{border-color:var(--red)}
-.hint{font-size:.78rem;color:var(--label);margin-top:.35em}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-@media(max-width:560px){.row{grid-template-columns:1fr}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;width:100%;min-height:50px;background:var(--amber);color:#131008;font-weight:700;border:none;border-radius:11px;font-size:1rem;cursor:pointer;font-family:inherit;transition:background .15s}
-.btn:hover{background:#FFC133}
-.btn:disabled{opacity:.55;cursor:default}
-.btn.ghost{background:transparent;border:1px solid var(--glass);color:var(--text)}
-.btn.ghost:hover{background:var(--raise)}
-.btn.sm{min-height:38px;font-size:.85rem;width:auto;padding:0 1.1em}
-.tabs{display:flex;gap:.4rem;margin-bottom:1.3rem;border-bottom:1px solid var(--line);overflow-x:auto}
-.tab{background:none;border:none;color:var(--text2);font-family:var(--mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
-.tab[data-on]{color:var(--amber);border-bottom-color:var(--amber)}
+body{padding-top:56px}
+.mono{font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+.p-wrap{max-width:960px;margin:0 auto;padding:0 22px}
+.p-head{padding:44px 0 26px}
+.p-head h1{font-size:clamp(2.1rem,5vw,3.2rem);font-weight:700;line-height:1.04}
+.p-head .sub{color:var(--muted);font-size:1.08rem;max-width:52ch;margin:16px 0 0}
+
+/* nav: the marketing mega-menu is wrong for a signed-in surface, so this is a
+   reduced version of .nav using the same mark, height and blur. */
+.nav-in .who{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav-in .who .nm{font:600 13px var(--fd);color:var(--muted)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;margin-bottom:16px}
+.card h2{font-size:1.22rem;font-weight:700;margin-bottom:14px}
+.card h2.tight{margin-bottom:6px}
+
+.field{margin-bottom:15px}
+.field label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.field input,.field textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;
+  color:var(--ink);font:16px/1.5 var(--fb);padding:13px 15px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--ink)}
+.field textarea{resize:vertical;min-height:74px}
+.field .hint{font-size:13px;color:var(--faint);margin-top:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.btn.full{width:100%}
+
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:none;border:0;color:var(--muted);font:600 13.5px var(--fd);padding:13px 16px;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[data-on]{color:var(--ink);border-bottom-color:var(--ink)}
 .panel{display:none}.panel[data-on]{display:block}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.1rem}
-@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:1rem;text-align:center}
-.stat .v{font-size:1.7rem;font-weight:800;color:var(--amber);letter-spacing:-.02em}
-.stat .k{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--label);text-transform:uppercase;margin-top:.2rem}
-.pill{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;padding:.34em .8em;border-radius:20px;text-transform:uppercase}
-.pill.active,.pill.ready{background:rgba(47,191,113,.15);color:var(--green)}
-.pill.pending,.pill.queued,.pill.building{background:rgba(255,176,0,.15);color:var(--amber)}
-.pill.failed,.pill.rejected{background:rgba(255,107,90,.15);color:var(--red)}
-.linkbox{background:var(--raise);border:1px dashed rgba(255,176,0,.5);border-radius:12px;padding:1.1rem 1.2rem;margin-bottom:1.1rem}
-.linkbox .link{font-family:var(--mono);font-size:1rem;color:var(--amber);word-break:break-all;margin:.4rem 0 .7rem;font-weight:700}
-.copy{background:var(--surface);border:1px solid var(--glass);color:var(--text);font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;padding:.5em 1em;border-radius:8px;cursor:pointer}
-.copy:hover{border-color:var(--amber)}
-.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:.4rem 0 1rem}
-@media(max-width:560px){.ladder{grid-template-columns:1fr}}
-.rung{background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:1rem}
-.rung[data-now]{border-color:var(--amber);box-shadow:0 0 0 1px rgba(255,176,0,.25)}
-.rung .r{font-size:1.5rem;font-weight:800;color:var(--amber)}
-.rung .n{font-weight:700;font-size:.95rem}
-.rung .g{font-size:.8rem;color:var(--text2)}
-.bar{height:6px;background:var(--raise);border-radius:4px;overflow:hidden;margin:.5rem 0}
-.bar i{display:block;height:100%;background:var(--amber);border-radius:4px}
-.job{background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:1.1rem;margin-bottom:.75rem}
-.job .h{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.5rem}
-.job .biz{font-weight:700}
-.job .meta{font-size:.82rem;color:var(--label)}
-.ammo{background:var(--bg);border:1px solid rgba(255,176,0,.28);border-radius:10px;padding:.9rem 1rem;margin-top:.7rem}
-.ammo .gap{font-weight:700;color:var(--amber);font-size:.95rem}
-.ammo .leak{font-size:.86rem;color:var(--text2);margin-top:.2rem}
-.actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
-.msg{font-family:var(--mono);font-size:.78rem;margin-top:.8rem;display:none}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.stat .v{font:700 2rem/1.1 var(--fd);letter-spacing:-.03em}
+.stat .k{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+.linkbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:16px}
+.linkbox .link{font-family:var(--fm);font-size:15px;color:var(--accent);word-break:break-all;margin:8px 0 14px;font-weight:600}
+
+.pill{display:inline-flex;align-items:center;font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:5px 11px;border-radius:999px;font-weight:600}
+.pill.active,.pill.ready{background:rgba(22,122,68,.1);color:var(--good)}
+.pill.pending,.pill.queued,.pill.building{background:rgba(138,90,0,.1);color:var(--accent)}
+.pill.failed,.pill.rejected{background:rgba(192,59,43,.1);color:var(--red)}
+
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+@media(max-width:620px){.ladder{grid-template-columns:1fr}}
+.rung{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}
+.rung[data-now]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.rung .r{font:700 1.7rem/1 var(--fd);letter-spacing:-.03em}
+.rung .n{font-weight:600;font-size:.95rem;margin-top:4px}
+.rung .g{font-size:.86rem;color:var(--muted);margin-top:3px}
+.bar{height:6px;background:var(--line);border-radius:999px;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;background:var(--ink);border-radius:999px}
+
+.job{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;margin-bottom:12px}
+.job .h{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:6px}
+.job .biz{font:700 1.02rem var(--fd)}
+.job .meta{font-size:.88rem;color:var(--muted)}
+.ammo{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-top:14px}
+.ammo .gap{font-weight:600;font-size:.96rem}
+.ammo .leak{font-size:.89rem;color:var(--muted);margin-top:4px}
+.ammo .leak b{color:var(--ink)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+
+.msg{font-size:.9rem;margin-top:14px;display:none;padding:12px 15px;border-radius:12px}
 .msg.show{display:block}
-.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
-.empty{color:var(--label);font-size:.92rem;text-align:center;padding:2rem 1rem}
-.foot{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;color:var(--label);text-align:center}
-.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(19,16,8,.3);border-top-color:currentColor;border-radius:50%;animation:sp .7s linear infinite}
+.msg.err{background:rgba(192,59,43,.08);color:var(--red)}
+.msg.ok{background:rgba(22,122,68,.08);color:var(--good)}
+.empty{color:var(--muted);text-align:center;padding:44px 20px;background:var(--card);
+  border:1px dashed var(--line);border-radius:var(--r)}
+.note{color:var(--muted);font-size:.94rem}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+ol.steps li{counter-increment:s;padding:9px 0 9px 40px;position:relative;color:var(--muted);font-size:.96rem}
+ol.steps li b{color:var(--ink)}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:999px;
+  background:var(--ink);color:#fff;font:600 12px var(--fm);display:flex;align-items:center;justify-content:center}
+.p-foot{border-top:1px solid var(--line);margin-top:52px;padding:26px 0 60px;color:var(--faint);font-size:13px}
+.spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+.btn.lite .spin{border-color:rgba(29,29,31,.25);border-top-color:var(--ink)}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hide{display:none!important}
-.note{font-size:.84rem;color:var(--text2)}
-ol.steps{list-style:none;counter-reset:s}
-ol.steps li{counter-increment:s;padding:.5rem 0 .5rem 2.3rem;position:relative;color:var(--text2);font-size:.94rem}
-ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width:25px;height:25px;border-radius:7px;background:var(--raise);border:1px solid rgba(255,176,0,.4);color:var(--amber);font-family:var(--mono);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.76rem}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="top">
-    <span class="dot"></span><span class="brand">STATION<b>.</b></span><span>PARTNERS</span>
-    <span class="spacer"></span>
-    <span id="whoami" class="hide"></span>
-    <button id="logout" class="copy hide" style="margin-left:.7rem">SIGN OUT</button>
+<nav class="nav"><div class="nav-in">
+  <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
+  <div class="who">
+    <span class="nm" id="whoami"></span>
+    <button class="btn lite sm hide" id="logout">Sign out</button>
   </div>
+</div></nav>
+
+<div class="p-wrap">
 
   <!-- ================= LOGGED OUT ================= -->
   <div id="authView">
-    <h1>Sell Station. Get paid every month.</h1>
-    <p class="lede">Refer local businesses that miss calls and lose jobs. You get a real login, a live dashboard, and demo sites built for you to open cold calls with.</p>
+    <div class="p-head">
+      <p class="mono" style="margin:0 0 14px">Partner programme</p>
+      <h1>Sell Station.<br>Get paid every month.</h1>
+      <p class="sub">Refer local businesses that miss calls and lose jobs. You get a real login, a live dashboard, and demo sites built for the businesses you're about to call.</p>
+    </div>
 
     <div class="ladder">
       <div class="rung"><div class="r">20%</div><div class="n">Scout</div><div class="g">Where everyone starts, from your first client.</div></div>
       <div class="rung"><div class="r">30%</div><div class="n">Partner</div><div class="g">3 active clients, each past 60 days.</div></div>
       <div class="rung"><div class="r">40%</div><div class="n">Lead Partner</div><div class="g">10 active clients.</div></div>
     </div>
-    <p class="note" style="margin-bottom:1.6rem">Recurring — paid on what your clients actually pay Station, every month they stay. Plus a one-time 20% setup bonus per client.</p>
+    <p class="note" style="margin-bottom:30px">Recurring — paid on what your clients actually pay Station, every month they stay. Plus a one-time 20% setup bonus per client.</p>
 
     <div class="tabs">
       <button class="tab" data-tab="login" data-on>Sign in</button>
@@ -118,19 +138,17 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
       <button class="tab" data-tab="claim">First time here</button>
     </div>
 
-    <!-- SIGN IN -->
     <div class="panel" data-panel="login" data-on>
       <div class="card">
         <form id="loginForm" novalidate>
           <div class="field"><label>Email</label><input name="email" type="email" autocomplete="email" required></div>
           <div class="field"><label>Password</label><input name="password" type="password" autocomplete="current-password" required></div>
-          <button class="btn" type="submit"><span class="t">Sign in</span></button>
+          <button class="btn dark full" type="submit"><span class="t">Sign in</span></button>
         </form>
         <div class="msg err" id="loginMsg"></div>
       </div>
     </div>
 
-    <!-- APPLY -->
     <div class="panel" data-panel="apply">
       <div class="card">
         <form id="applyForm" novalidate>
@@ -145,17 +163,16 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
           <div class="field"><label>Choose a password</label><input name="password" type="password" autocomplete="new-password" required>
             <div class="hint">At least 10 characters. This is your portal login.</div></div>
           <div class="field"><label>Who do you know? (optional)</label><textarea name="audience" rows="2" placeholder="e.g. I do bookkeeping for 30 local shops, or I run a 12k-follower barber IG"></textarea></div>
-          <button class="btn" type="submit"><span class="t">Apply to become a partner</span></button>
-          <p class="hint" style="text-align:center;margin-top:.8rem">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
+          <button class="btn dark full" type="submit"><span class="t">Apply to become a partner</span></button>
+          <p class="hint" style="text-align:center;margin-top:14px">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
         </form>
         <div class="msg" id="applyMsg"></div>
       </div>
     </div>
 
-    <!-- CLAIM (existing partners with a code but no password yet) -->
     <div class="panel" data-panel="claim">
       <div class="card">
-        <p class="note" style="margin-bottom:1rem">Already have a referral code from Station but never set a password? Set one here — you only get to do this once.</p>
+        <p class="note" style="margin-bottom:18px">Already have a referral code from Station but never set a password? Set one here — you only get to do this once.</p>
         <form id="claimForm" novalidate>
           <div class="row">
             <div class="field"><label>Your referral code</label><input name="code" placeholder="e.g. charli" required></div>
@@ -163,7 +180,7 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
           </div>
           <div class="field"><label>Choose a password</label><input name="password" type="password" autocomplete="new-password" required>
             <div class="hint">At least 10 characters.</div></div>
-          <button class="btn ghost" type="submit"><span class="t">Set my password</span></button>
+          <button class="btn lite full" type="submit"><span class="t">Set my password</span></button>
         </form>
         <div class="msg" id="claimMsg"></div>
       </div>
@@ -172,18 +189,22 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
 
   <!-- ================= LOGGED IN ================= -->
   <div id="appView" class="hide">
+    <div class="p-head" style="padding-bottom:18px">
+      <p class="mono" style="margin:0 0 12px">Partner portal</p>
+      <h1 style="font-size:clamp(1.7rem,4vw,2.4rem)">Your desk</h1>
+    </div>
+
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
       <button class="tab" data-tab="demos">Demo sites</button>
       <button class="tab" data-tab="paid">How you get paid</button>
     </div>
 
-    <!-- DASHBOARD -->
     <div class="panel" data-panel="dash" data-on>
       <div class="linkbox">
-        <div class="lbl">Your referral link</div>
+        <div class="mono">Your referral link</div>
         <div class="link" id="myLink">—</div>
-        <button class="copy" id="copyLink">COPY LINK</button>
+        <button class="btn lite sm" id="copyLink">Copy link</button>
       </div>
       <div class="stats">
         <div class="stat"><div class="v" id="stClicks">—</div><div class="k">Clicks</div></div>
@@ -195,16 +216,15 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
         <h2>Your rung</h2>
         <div class="ladder" id="ladderBox"></div>
         <div id="nextBox"></div>
-        <p class="note" id="basisNote" style="margin-top:.9rem"></p>
+        <p class="note" id="basisNote" style="margin-top:14px"></p>
       </div>
       <div class="card" id="taxCard"></div>
     </div>
 
-    <!-- DEMOS -->
     <div class="panel" data-panel="demos">
       <div class="card">
-        <h2>Get a demo site to open a call with</h2>
-        <p class="note" style="margin-bottom:1.1rem">Give us a business you're about to call. Station builds them a real working site plus the specific gap costing them money — so you open with something true and concrete instead of a pitch. You make the call; we build the ammo.</p>
+        <h2 class="tight">Get a demo site to open a call with</h2>
+        <p class="note" style="margin-bottom:20px">Give us a business you're about to call. Station builds them a real working site plus the specific gap costing them money — so you open with something true and concrete instead of a pitch. You make the call; we build the ammo.</p>
         <form id="demoForm" novalidate>
           <div class="row">
             <div class="field"><label>Business name</label><input name="business" required placeholder="Katy Pool Co"></div>
@@ -216,34 +236,33 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.45rem;width
           </div>
           <div class="field"><label>Their website (optional)</label><input name="website" placeholder="katypoolco.com">
             <div class="hint">If you have it, we can find more. If they have none, that's often the pitch.</div></div>
-          <button class="btn" type="submit"><span class="t">Build me a demo</span></button>
+          <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
         </form>
         <div class="msg" id="demoMsg"></div>
       </div>
       <div id="jobList"></div>
     </div>
 
-    <!-- PAID -->
     <div class="panel" data-panel="paid">
       <div class="card">
         <h2>How the money works</h2>
         <ol class="steps">
-          <li><b style="color:var(--text)">Share your link or make the call.</b> Anyone who arrives through your link is tracked to you for 30 days.</li>
-          <li><b style="color:var(--text)">They book a free audit.</b> Station does the selling — you never demo software or answer tech questions.</li>
-          <li><b style="color:var(--text)">They become a client.</b> You earn your rung's rate of what they actually pay Station, every month they stay.</li>
-          <li><b style="color:var(--text)">Plus a setup bonus.</b> One-time 20% of their setup fee, once they're delivered and live.</li>
-          <li><b style="color:var(--text)">You get paid monthly.</b> $50 minimum, and we need your tax form on file first.</li>
+          <li><b>Share your link or make the call.</b> Anyone who arrives through your link is tracked to you for 30 days.</li>
+          <li><b>They book a free audit.</b> Station does the selling — you never demo software or answer tech questions.</li>
+          <li><b>They become a client.</b> You earn your rung's rate of what they actually pay Station, every month they stay.</li>
+          <li><b>Plus a setup bonus.</b> One-time 20% of their setup fee, once they're delivered and live.</li>
+          <li><b>You get paid monthly.</b> $50 minimum, and we need your tax form on file first.</li>
         </ol>
-        <p class="note" style="margin-top:1rem">Commission is calculated on cleared invoices — what actually landed, never list price. Annual prepayments credit to you across 12 months.</p>
+        <p class="note" style="margin-top:16px">Commission is calculated on cleared invoices — what actually landed, never list price. Annual prepayments credit to you across 12 months.</p>
       </div>
       <div class="card">
-        <h2>Questions</h2>
-        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question">main@station.solutions</a>. Full terms are in your Partner Agreement.</p>
+        <h2 class="tight">Questions</h2>
+        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--accent);font-weight:600">main@station.solutions</a>. Full terms are in your Partner Agreement.</p>
       </div>
     </div>
   </div>
 
-  <div class="foot">STATION AUTOMATIONS GROUP · HOUSTON TX · <a href="mailto:main@station.solutions">MAIN@STATION.SOLUTIONS</a></div>
+  <div class="p-foot">Station Automations Group · Houston TX · <a href="mailto:main@station.solutions" style="color:var(--muted)">main@station.solutions</a></div>
 </div>
 
 <script>
@@ -271,10 +290,9 @@ function busy(form,on,label){
   else{t.innerHTML=b.dataset.old||label||"Go";}
 }
 function copyTo(btn,text,done){
-  try{navigator.clipboard.writeText(text);var o=btn.textContent;btn.textContent=done||"COPIED ✓";
+  try{navigator.clipboard.writeText(text);var o=btn.textContent;btn.textContent=done||"Copied";
     setTimeout(function(){btn.textContent=o;},1500);}catch(e){}
 }
-/* tab wiring, scoped so the two views don't fight over each other */
 function wireTabs(root){
   var tabs=root.querySelectorAll(".tab"),panels=root.querySelectorAll(".panel");
   tabs.forEach(function(t){t.addEventListener("click",function(){
@@ -284,24 +302,22 @@ function wireTabs(root){
 }
 wireTabs($("authView"));wireTabs($("appView"));
 
-/* ---------------- session ---------------- */
 function saveToken(t){token=t;try{localStorage.setItem(TKEY,t);}catch(e){}}
 function dropToken(){token=null;try{localStorage.removeItem(TKEY);}catch(e){}}
 
 function showApp(){
   $("authView").classList.add("hide");$("appView").classList.remove("hide");
-  $("logout").classList.remove("hide");$("whoami").classList.remove("hide");
+  $("logout").classList.remove("hide");
   loadMe();loadJobs();
   if(pollTimer)clearInterval(pollTimer);
-  pollTimer=setInterval(loadJobs,20000); /* demos finish server-side */
+  pollTimer=setInterval(loadJobs,20000);
 }
 function showAuth(){
   $("appView").classList.add("hide");$("authView").classList.remove("hide");
-  $("logout").classList.add("hide");$("whoami").classList.add("hide");
+  $("logout").classList.add("hide");$("whoami").textContent="";
   if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
 }
 
-/* ---------------- dashboard ---------------- */
 var LADDER=[{n:"Scout",r:20,g:0},{n:"Partner",r:30,g:3},{n:"Lead Partner",r:40,g:10}];
 
 function loadMe(){
@@ -314,7 +330,7 @@ function loadMe(){
     $("stLeads").textContent=d.leads||0;
     $("stClients").textContent=d.clients||0;
     $("stComm").textContent=money(d.commission_monthly);
-    $("copyLink").onclick=function(){copyTo($("copyLink"),d.link,"COPIED ✓");};
+    $("copyLink").onclick=function(){copyTo($("copyLink"),d.link,"Copied");};
 
     var cur=d.rung||"Scout";
     $("ladderBox").innerHTML=LADDER.map(function(x){
@@ -324,9 +340,9 @@ function loadMe(){
 
     var nx=d.next_rung;
     if(nx){
-      var have=Math.max(0,(nx.need!=null?(LADDER.filter(function(x){return x.n===nx.rung;})[0]||{g:0}).g-nx.need:0));
       var goal=(LADDER.filter(function(x){return x.n===nx.rung;})[0]||{g:1}).g||1;
-      $("nextBox").innerHTML='<div class="lbl">Next rung</div><div class="bar"><i style="width:'+
+      var have=Math.max(0,goal-(nx.need||0));
+      $("nextBox").innerHTML='<div class="mono">Next rung</div><div class="bar"><i style="width:'+
         Math.min(100,Math.round(have/goal*100))+'%"></i></div><p class="note">'+
         esc(nx.need)+' more '+(nx.need===1?"client":"clients")+' past 60 days to reach <b>'+
         esc(nx.rung)+' — '+esc(nx.rate_pct)+'%</b>.</p>';
@@ -337,12 +353,11 @@ function loadMe(){
 
     var tf=d.taxform||{};
     $("taxCard").innerHTML= tf.received
-      ? '<h2>Payouts</h2><p class="note"><span class="pill active">Tax form on file</span> You\'re clear to be paid. Payouts run monthly, $50 minimum.</p>'
-      : '<h2>Before we can pay you</h2><p class="note"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it. Email it to <a href="mailto:main@station.solutions?subject=Tax%20form%20'+encodeURIComponent(me.code)+'">main@station.solutions</a> and we\'ll mark you cleared.</p>';
+      ? '<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run monthly, $50 minimum.</p>'
+      : '<h2 class="tight">Before we can pay you</h2><p class="note"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it. Email it to <a href="mailto:main@station.solutions?subject=Tax%20form%20'+encodeURIComponent(me.code)+'" style="color:var(--accent);font-weight:600">main@station.solutions</a> and we\'ll mark you cleared.</p>';
   }).catch(function(){});
 }
 
-/* ---------------- foundry demos ---------------- */
 function callScript(j){
   var h=j.hook||{},biz=j.business||"there";
   var line=h.gap?("I noticed "+String(h.gap).toLowerCase()):"I noticed a couple of things on your listing";
@@ -366,13 +381,13 @@ function jobCard(j){
   var acts="";
   if(st==="ready"){
     acts='<div class="actions">'+
-      (j.url?'<a class="btn ghost sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open demo</a>':'')+
-      (j.url?'<button class="copy" data-copy="'+esc(j.url)+'">COPY LINK</button>':'')+
-      '<button class="copy" data-script="'+esc(j.id)+'">COPY CALL OPENER</button></div>';
+      (j.url?'<a class="btn dark sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open demo</a>':'')+
+      (j.url?'<button class="btn lite sm" data-copy="'+esc(j.url)+'">Copy link</button>':'')+
+      '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button></div>';
   } else if(st==="failed"){
-    acts='<p class="note" style="margin-top:.6rem;color:var(--red)">'+esc(j.error||"Build failed — try again or tell Station.")+'</p>';
+    acts='<p class="note" style="margin-top:10px;color:var(--red)">'+esc(j.error||"Build failed — try again or tell Station.")+'</p>';
   } else {
-    acts='<p class="note" style="margin-top:.6rem">Building now — this page updates itself.</p>';
+    acts='<p class="note" style="margin-top:10px">Building now — this page updates itself.</p>';
   }
   return '<div class="job"><div class="h"><div><div class="biz">'+esc(j.business)+'</div>'+
     '<div class="meta">'+esc(j.city||"")+(j.state?", "+esc(j.state):"")+(j.niche?" · "+esc(j.niche):"")+'</div></div>'+
@@ -392,12 +407,11 @@ function loadJobs(){
       b.onclick=function(){
         var id=b.getAttribute("data-script");
         var j=JOBS.filter(function(x){return x.id===id;})[0];
-        if(j)copyTo(b,callScript(j),"SCRIPT COPIED ✓");
+        if(j)copyTo(b,callScript(j),"Script copied");
       };});
   }).catch(function(){});
 }
 
-/* ---------------- forms ---------------- */
 $("loginForm").addEventListener("submit",function(e){
   e.preventDefault();var f=e.target,m=$("loginMsg");clear(m);busy(f,true);
   post({action:"login",email:f.email.value.trim(),password:f.password.value})
@@ -419,7 +433,7 @@ $("applyForm").addEventListener("submit",function(e){
       busy(f,false,"Apply to become a partner");
       if(!d.ok){say(m,d.error||"Something went wrong.");return;}
       if(d.note==="already registered"){
-        say(m,"You've already applied with that email. Use Sign in, or 'First time here' if you never set a password.","err");
+        say(m,"You've already applied with that email. Use Sign in, or 'First time here' if you never set a password.");
         return;
       }
       f.reset();
@@ -457,7 +471,6 @@ $("logout").addEventListener("click",function(){
   if(t)post({action:"logout",token:t}).catch(function(){});
 });
 
-/* ---------------- boot ---------------- */
 try{token=localStorage.getItem(TKEY);}catch(e){}
 if(token){showApp();}else{showAuth();}
 })();
