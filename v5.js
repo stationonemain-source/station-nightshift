@@ -867,8 +867,12 @@
       var r = box.getBoundingClientRect();
       /* progress 0 -> 1 as the box's top travels from the viewport top to fully past it */
       var p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
+      /* travel is measured against the SCENE, not each plate's own height — the plates are
+         cropped to different ridge bands, so per-element height would make the far layer
+         drift slower than the mid one and invert the depth. */
+      var H = box.offsetHeight || 1;
       LAYERS.forEach(function (l) {
-        var d = p * l.pct * l.el.offsetHeight;
+        var d = p * l.pct * H;
         l.el.style.transform = l.el.classList.contains("parallax__layer-title")
           ? "translate(-50%,-50%) translateY(" + d + "px)"
           : "translateY(" + d + "px)";

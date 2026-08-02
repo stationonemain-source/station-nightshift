@@ -1092,30 +1092,33 @@ html,body{overflow-x:clip}
 .parallax{position:relative;background:var(--bg)}
 .parallax__visuals{position:relative;height:100vh;min-height:660px;max-height:1000px;overflow:hidden}
 .parallax__layers{position:absolute;inset:0}
-/* Each plate is a rectangle of near-white with an object on it. `darken` drops the
-   backdrop, but the stills carry a soft vignette, so the rectangle can still ghost in at
-   the edges — an elliptical mask dissolves every border and leaves only the subject. */
+/* The plates arrive as PNGs already keyed to transparency and re-toned to white paper by
+   make_hero_layers.py, so they need no blend mode and no mask — they just stack, bottom
+   anchored, each one wider and darker than the one behind it. */
 .parallax__layer-img{position:absolute;display:block;height:auto;pointer-events:none;
- mix-blend-mode:darken;will-change:transform;
- -webkit-mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 42%,transparent 100%);
-         mask-image:radial-gradient(ellipse 62% 62% at 50% 50%,#000 42%,transparent 100%)}
-.parallax__layer-img.pl-1{width:80%;left:-15%;top:0;opacity:.6}
-.parallax__layer-img.pl-2{width:64%;right:-12%;top:12%;opacity:.8}
-.parallax__layer-img.pl-4{width:54%;left:2%;bottom:3%;opacity:.92}
-.parallax__layer-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+ will-change:transform;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+         mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.parallax__layer-img.pl-1{width:132%;left:-16%;bottom:34%}
+.parallax__layer-img.pl-2{width:118%;left:-9%;bottom:16%}
+.parallax__layer-img.pl-4{width:108%;left:-4%;bottom:-2%}
+/* Layer 3 is the headline — it sits between the mid range and the near ridge, so the
+   figure on the summit crosses in front of the type exactly as in the reference. */
+.parallax__layer-title{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
  width:min(var(--wrap),calc(100% - 44px));text-align:center;z-index:2;will-change:transform}
+.parallax__layer-title .sub{color:rgba(29,29,31,.72)}
 .parallax__layer-title .kicker{font:600 12px var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .parallax__title{font:700 clamp(2.6rem,6.4vw,4.8rem)/1.03 var(--fd);letter-spacing:-.034em;
  max-width:18ch;margin:16px auto 0}
 .parallax__layer-title .sub{color:var(--muted);font-size:clamp(1rem,1.4vw,1.18rem);max-width:52ch;margin:18px auto 0}
 .parallax__layer-title .hf-ctas{display:flex;gap:12px;justify-content:center;margin-top:28px;flex-wrap:wrap}
-.parallax__fade{position:absolute;left:0;right:0;bottom:0;height:15%;z-index:3;pointer-events:none;
- background:linear-gradient(180deg,rgba(245,244,241,0),var(--bg) 90%)}
+.parallax__fade{position:absolute;left:0;right:0;bottom:0;height:26%;z-index:3;pointer-events:none;
+ background:linear-gradient(180deg,rgba(245,244,241,0),var(--bg) 82%)}
 @media(max-width:760px){
   .parallax__visuals{height:88vh;min-height:560px}
-  .parallax__layer-img.pl-1{width:120%;left:-24%}
-  .parallax__layer-img.pl-2{width:96%;right:-26%}
-  .parallax__layer-img.pl-4{width:118%;left:-14%;bottom:-10%}
+  .parallax__layer-img.pl-1{width:170%;left:-35%}
+  .parallax__layer-img.pl-2{width:150%;left:-25%}
+  .parallax__layer-img.pl-4{width:140%;left:-20%;bottom:-4%}
 }
 @media(prefers-reduced-motion:reduce){.parallax__layer-img,.parallax__layer-title{transform:none!important}
   .parallax__layer-title{transform:translate(-50%,-50%)!important}}
