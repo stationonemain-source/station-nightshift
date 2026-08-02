@@ -2,24 +2,24 @@
   "layers": [
     {
       "name": "far",
-      "file": "far.png",
+      "file": "far.webp",
       "w": 2200,
-      "h": 704,
-      "coverage": 0.215
+      "h": 438,
+      "coverage": 0.311
     },
     {
       "name": "mid",
-      "file": "mid.png",
+      "file": "mid.webp",
       "w": 2200,
-      "h": 909,
-      "coverage": 0.263
+      "h": 656,
+      "coverage": 0.333
     },
     {
       "name": "near",
-      "file": "near.png",
+      "file": "near.webp",
       "w": 2200,
-      "h": 1005,
-      "coverage": 0.411
+      "h": 792,
+      "coverage": 0.499
     }
   ]
 }
