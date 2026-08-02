@@ -1,0 +1,54 @@
+{
+  "templates": [
+    {
+      "file": "hvac.jpg",
+      "name": "Spring A/C Tune-Up",
+      "why": "Cuts breakdowns before they cost you a July emergency call."
+    },
+    {
+      "file": "roofing.jpg",
+      "name": "Storm Response",
+      "why": "Turns a scary night into a booked, documented claim."
+    },
+    {
+      "file": "salon.jpg",
+      "name": "We Miss You",
+      "why": "Wins back quiet clients with a warm, specific nudge."
+    },
+    {
+      "file": "auto.jpg",
+      "name": "Service Reminder",
+      "why": "Brings cars back on schedule with a personal, timed reminder."
+    },
+    {
+      "file": "dental.jpg",
+      "name": "New Patient Welcome",
+      "why": "Converts first-time searchers into booked new patients."
+    },
+    {
+      "file": "restaurant.jpg",
+      "name": "Weekend Special",
+      "why": "Fills weekend covers with a time-boxed, appetizing offer."
+    },
+    {
+      "file": "plumbing.jpg",
+      "name": "Maintenance Plan",
+      "why": "Turns one-off calls into recurring, predictable revenue."
+    },
+    {
+      "file": "landscaping.jpg",
+      "name": "Fall Cleanup",
+      "why": "Books seasonal work early and secures next season's client."
+    },
+    {
+      "file": "fitness.jpg",
+      "name": "Membership Offer",
+      "why": "Removes the risk barrier and fills the class schedule."
+    },
+    {
+      "file": "realestate.jpg",
+      "name": "Market Update",
+      "why": "Generates seller leads with a hyper-local, timely hook."
+    }
+  ]
+}

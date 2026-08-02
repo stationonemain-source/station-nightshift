@@ -65,31 +65,32 @@
       foot.style.display = "none"; return;
     }
     foot.style.display = "";
-    var mo = 0, once = 0;
+    var mo = 0, once = 0, allTrial = true;
     body.innerHTML = c.map(function(k){
       var p = prod(k); if (!p) return "";
       mo += p.mo || 0; once += p.once || 0;
+      var tr = p.mo > 0 && !(p.once > 0) && p.k !== "storefront";
+      if (!tr) allTrial = false;
       return '<div class="c-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : "") +
-        '<div><div class="ci-n">' + p.n + '</div><div class="ci-p">' + p.pricelab + ' · ' + p.ttl + '</div></div>' +
-        '<button class="ci-x" data-rm="' + k + '" aria-label="Remove">×</button></div>';
+        '<div class="ci-m"><div class="ci-n">' + p.n + '</div><div class="ci-s">' + p.sub + '</div>' +
+        '<div class="ci-p">' + p.pricelab + ' · live ' + p.ttl + (tr ? ' · <span class="ci-tr">7-day free trial</span>' : '') + '</div></div>' +
+        '<button class="ci-x" data-rm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
     }).join("");
-    var tot = drawer.querySelector(".c-tot b");
-    tot.textContent = f$(mo) + "/mo" + (once ? " + " + f$(once) + " once" : "");
+    var rows = drawer.querySelector(".c-rows");
+    rows.innerHTML = '<div class="c-row"><span>Per month</span><b>' + f$(mo) + '/mo</b></div>' +
+      (once ? '<div class="c-row"><span>One-time (builds &amp; setups)</span><b>' + f$(once) + '</b></div>' : '') +
+      (allTrial && c.length ? '<div class="c-row tr"><span>Due today</span><b>$0 — 7-day free trial</b></div>' : '');
     drawer.querySelector(".c-nudge").classList.toggle("on", mo >= 800);
-    drawer.querySelector(".co-list").innerHTML = c.map(function(k){
-      var p = prod(k); if (!p || !p.link) return "";
-      return '<a href="' + stripeUrl(p.link) + '" target="_blank" rel="noopener"><span>Check out ' + p.n + '</span><span>' + p.pricelab + '</span></a>';
-    }).join("");
   }
   ready(function () {
     scrim = document.createElement("div"); scrim.className = "cart-scrim"; scrim.addEventListener("click", closeCart);
     drawer = document.createElement("aside"); drawer.className = "cart";
     drawer.innerHTML = '<div class="c-h"><b>Your cart</b><button class="c-x" aria-label="Close">×</button></div>' +
       '<div class="c-body"></div>' +
-      '<div class="c-foot"><div class="c-tot"><span>Total</span><b>$0</b></div>' +
+      '<div class="c-foot"><div class="c-rows"></div>' +
       '<div class="c-nudge"><b>This stack is bundle territory.</b> A line pass covers it for less — <a href="/#bundles" style="color:inherit;font-weight:700">see the bundles</a>.</div>' +
-      '<div class="co-list"></div>' +
-      '<p class="c-note">Each product checks out on its own secure page (about 20 seconds each) — subscriptions stay independently cancellable that way. Prefer one bill? That\'s exactly what bundles are.</p></div>';
+      '<a class="btn dark c-go" href="/checkout/">Continue to checkout →</a>' +
+      '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time — billing starts when your products are verified live.</p></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
     drawer.querySelector(".c-x").addEventListener("click", closeCart);
     drawer.addEventListener("click", function(e){
@@ -109,7 +110,7 @@
   ready(function () {
     var h = document.querySelector(".hamb"); if (!h) return;
     var sheet = document.createElement("div"); sheet.className = "msheet";
-    sheet.innerHTML = '<a href="/lines/">Shop all products</a><a href="/frontdesk/">Frontdesk</a>' +
+    sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Frontdesk</a>' +
       '<a href="/storefront/">Storefront</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
       '<a href="/book/">Book a call</a><a href="/#help">Build your line</a>';
     document.body.appendChild(sheet);
@@ -135,10 +136,14 @@
     sweep();
   });
 
-  /* ---------- pp sticky bar ---------- */
+  /* ---------- pp sticky bar — replaces the global nav while it's on ---------- */
   ready(function () {
     var b = document.getElementById("ppBar"); if (!b) return;
-    addEventListener("scroll", function () { b.classList.toggle("on", scrollY > 520); }, { passive: true });
+    addEventListener("scroll", function () {
+      var on = scrollY > 520;
+      b.classList.toggle("on", on);
+      document.body.classList.toggle("ppbar", on);
+    }, { passive: true });
   });
 
   /* ---------- calculator (unchanged contract) ---------- */
@@ -368,41 +373,63 @@
       }
     });
 
-    /* REPUTE — sentiment-aware reply drafter */
-    var rbtn = document.querySelector("[data-rep-run]");
-    if (rbtn) rbtn.addEventListener("click", function () {
-      var txt = (document.getElementById("repDemoIn").value || "").trim();
-      var tone = (document.querySelector('input[name="repTone"]:checked') || {}).value || "warm";
-      var out = document.getElementById("repDemoOut");
-      if (!txt) { out.textContent = "Paste a review first — good or bad, any review."; return; }
-      var s = " " + txt.toLowerCase() + " ";
-      var NEG = ["shit","crap","terrible","awful","bad","worst","rude","late","never","slow","dirty","broken","refund","scam","horrible","poor","overpriced","disappoint","unprofessional","no show","noshow","damage","waste","avoid","don't use","dont use","sucks","mess","wrong","cancel"];
-      var POS = ["great","amazing","excellent","fantastic","love","perfect","awesome","best","professional","friendly","fast","clean","recommend","wonderful","happy","thank","incredible","fair","honest","on time"];
-      var negHit = NEG.filter(function(w){ return s.indexOf(w) > -1; });
-      var posHit = POS.filter(function(w){ return s.indexOf(w) > -1; });
-      var neg = negHit.length > posHit.length;
-      var mixed = negHit.length && posHit.length;
-      var name = (txt.match(/^[A-Z][a-z]{2,}/) || ["there"])[0];
-      var topic = "";
-      var topics = { "wait|late|slow|no show|noshow": "the wait", "price|overpriced|charge|expensive|\\$": "the pricing",
-        "rude|unprofessional|attitude": "how you were treated", "dirty|mess|damage": "the state we left things in",
-        "broken|wrong|fix|redo": "the work itself", "call|phone|answer|response": "how hard we were to reach" };
-      for (var pat in topics) { if (new RegExp(pat).test(s)) { topic = topics[pat]; break; } }
-      var r;
-      if (neg) {
-        r = (tone === "warm")
-          ? "Hi " + name + " — thank you for being straight with us" + (topic ? " about " + topic : "") + ". That's not the standard we run this shop on, and I'm not going to make excuses for it. I'd like to make it right personally — call us and ask for the owner, and we'll fix it this week."
-          : "Thank you for the candid feedback" + (topic ? " regarding " + topic : "") + ". This falls short of our standard and we take it seriously. Please contact us directly so we can resolve it promptly.";
-      } else if (mixed) {
-        r = "Thank you for the honest review, " + name + " — glad the good parts landed, and we hear you" + (topic ? " on " + topic : " on the rest") + ". We're on it, and we'd love another shot at five stars.";
-      } else {
-        r = (tone === "warm")
-          ? "Thank you, " + name + " — this genuinely made our week. It was a pleasure doing the work, and we're a call away whenever you need us again."
-          : "Thank you for the kind words and for trusting us with the work. We appreciate the review and look forward to serving you again.";
-      }
-      out.textContent = ""; var i = 0;
-      var iv = setInterval(function () { out.textContent = r.slice(0, i += 3); if (i >= r.length) clearInterval(iv); }, 16);
-    });
+    /* REPUTE — Google-review composer + sentiment engine with common sense */
+    var grev = document.querySelector(".grev");
+    if (grev) {
+      var stars = 0;
+      var starBtns = grev.querySelectorAll("#grStars button");
+      function paintStars(){ starBtns.forEach(function(b){ b.classList.toggle("on", +b.getAttribute("data-star") <= stars); }); }
+      starBtns.forEach(function(b){
+        b.addEventListener("click", function(){ stars = +b.getAttribute("data-star"); paintStars(); });
+      });
+      grev.querySelector("[data-rep-run]").addEventListener("click", function () {
+        var txt = (document.getElementById("repDemoIn").value || "").trim();
+        var tone = (grev.querySelector('input[name="repTone"]:checked') || {}).value || "warm";
+        var out = document.getElementById("repDemoOut"), outT = out.querySelector(".gr-rt");
+        if (!txt && !stars) { out.hidden = false; outT.textContent = "Tap a star rating or write a line first — good or bad, any review."; return; }
+        var s = " " + txt.toLowerCase().replace(/[^a-z0-9$' ]/g, " ") + " ";
+        function hits(list){ return list.filter(function(w){ return s.indexOf(" " + w) > -1 || s.indexOf(w + " ") > -1 || s.indexOf(w) > -1; }).length; }
+        /* profanity is ALWAYS a negative signal, no matter what surrounds it */
+        var PROF = ["fuck","fucking","fucked","shit","shitty","bullshit","ass","asshole","bitch","damn","dammit","crap","crappy","wtf","pissed","piss","sucks","suck","garbage","trash","hell"];
+        var NEG = ["terrible","awful","bad","worst","rude","never again","slow","dirty","broken","refund","scam","scammed","horrible","poor","overpriced","disappoint","disappointed","disappointing","unprofessional","no show","noshow","damage","damaged","waste","wasted","avoid","don't use","dont use","mess","wrong","cancel","cancelled","late","ripoff","rip off","rip-off","liar","lied","lies","dishonest","incompetent","useless","joke","regret","stay away","not worth","never coming","won't be back","wont be back","unacceptable","ignored","ghosted","hung up","attitude","sloppy","lazy","overcharged","hidden fee","upsell","pressure","angry","furious","upset","frustrated"];
+        var POS = ["great","amazing","excellent","fantastic","love","loved","perfect","awesome","best","professional","friendly","fast","quick","clean","recommend","recommended","wonderful","happy","thank","thanks","incredible","fair","honest","on time","early","polite","courteous","helpful","lifesaver","impressed","fantastic","five stars","5 stars","superb","outstanding","top notch","reasonable","affordable","went above","above and beyond"];
+        var NEGATORS = ["not","no","never","hardly","barely","wasn't","wasnt","isn't","isnt","won't","wont"];
+        var prof = hits(PROF), neg = hits(NEG), pos = hits(POS);
+        /* "not great", "never recommend" — flip cheap positives that sit next to a negator */
+        POS.forEach(function(w){
+          NEGATORS.forEach(function(nw){ if (s.indexOf(nw + " " + w) > -1) { pos = Math.max(0, pos - 1); neg++; } });
+        });
+        var score = pos - neg - prof * 2;
+        var mood; /* profanity or a net-negative text always wins over the stars */
+        if (prof > 0 || score < 0) mood = "neg";
+        else if (stars && stars <= 2) mood = "neg";
+        else if (stars === 3 || (neg > 0 && pos > 0)) mood = "mixed";
+        else if (score > 0 || stars >= 4) mood = "pos";
+        else mood = stars ? (stars >= 4 ? "pos" : "mixed") : "mixed";
+        var topic = "";
+        var topics = { "wait|late|slow|no show|noshow|took forever|hours": "the wait", "price|overpriced|charge|expensive|fee|\\$|cost": "the pricing",
+          "rude|unprofessional|attitude|disrespect": "how you were treated", "dirty|mess|damage|stain": "the state we left things in",
+          "broken|wrong|fix|redo|leak|fail|didn't work|didnt work|doesn't work|doesnt work|not work": "the work itself",
+          "call|phone|answer|response|ignored|ghosted|voicemail": "how hard we were to reach" };
+        for (var pat in topics) { if (new RegExp(pat).test(s)) { topic = topics[pat]; break; } }
+        var name = (txt.match(/^[A-Z][a-z]{2,}\b/) || ["there"])[0];
+        var starRef = stars ? (stars <= 2 ? "A " + stars + "-star review stings, and it should — " : "") : "";
+        var r;
+        if (mood === "neg") {
+          r = (tone === "warm")
+            ? "Hi " + name + " — " + (starRef ? starRef.toLowerCase().replace(/^a/, "a") : "") + "thank you for being straight with us" + (topic ? " about " + topic : "") + ". You're clearly frustrated, and reading this, I get why. That's not the standard we run this shop on and I won't make excuses for it. I'd like to fix it personally — call and ask for the owner, and we'll make it right this week."
+            : "Thank you for the candid feedback" + (topic ? " regarding " + topic : "") + ". " + (starRef || "") + "This experience falls short of our standard and we take it seriously. Please contact us directly so the owner can resolve it promptly.";
+        } else if (mood === "mixed") {
+          r = "Thank you for the honest review, " + name + " — glad the good parts landed, and we hear you" + (topic ? " on " + topic : " on the rest") + ". We're on it, and we'd love another shot at all five stars.";
+        } else {
+          r = (tone === "warm")
+            ? "Thank you, " + name + (stars === 5 ? " — five stars genuinely made our week." : " — this genuinely made our week.") + " It was a pleasure doing the work, and we're a call away whenever you need us again."
+            : "Thank you for the kind words and for trusting us with the work. We appreciate the review and look forward to serving you again.";
+        }
+        out.hidden = false; outT.textContent = ""; var i = 0;
+        var iv = setInterval(function () { outT.textContent = r.slice(0, i += 3); if (i >= r.length) clearInterval(iv); }, 16);
+      });
+    }
 
     /* SLATE — month calendar */
     var cs = document.getElementById("slateSim");
@@ -556,33 +583,6 @@
       });
     }
 
-    /* MARQUEE — live board */
-    function mqRender() {
-      var tradeEl = document.getElementById("mqTrade"), palEl = document.getElementById("mqPal");
-      if (!tradeEl) return;
-      var trade = tradeEl.value, pal = palEl.value;
-      var PALS = { ink: ["#1D1D1F", "#8A5A00", "#F5F4F1", "#6E6E73"], pine: ["#1E3D2F", "#C86A3A", "#F4F1E8", "#7A8B80"], slate: ["#2A3440", "#7FA8C9", "#F2F4F6", "#8E99A6"] };
-      var POSTS = { Plumbing: "Before your water heater quits mid-shower: 5 signs it's on the way out.",
-        HVAC: "The $89 tune-up that keeps July from costing you $4,000.",
-        Landscaping: "Three beds, one weekend — the fall cleanup that pays off in April.",
-        Cleaning: "What a deep clean actually includes (and what \"deep clean\" usually means).",
-        Roofing: "Hail season checklist: 4 things to photograph before you call anyone." };
-      var b = document.getElementById("mqBoard"); b.classList.add("on");
-      b.innerHTML = '<div class="mq-name">' + trade + ' Co.</div>' +
-        '<div class="mq-logo" style="background:' + PALS[pal][0] + '">' + trade[0] + '</div>' +
-        '<div class="mq-post"><b>Sample post, written for you</b>' + (POSTS[trade] || "") + '</div>' +
-        PALS[pal].map(function (c) { return '<div class="mq-sw" style="background:' + c + '" title="' + c + '"></div>'; }).join("") +
-        '<div class="mq-sw" style="background:#fff;border:1px solid var(--line);display:grid;place-items:center;font:700 10px var(--fm);color:var(--faint)">Aa</div>' +
-        '<div class="mq-sw" style="background:' + PALS[pal][1] + ';display:grid;place-items:center;color:#fff;font:700 10px var(--fm)">CTA</div>' +
-        '<div class="mq-tag">Inter · plainspoken, outcome-first · posts to 9 platforms from one desk. The real board is a full deliverable in week one.</div>';
-    }
-    var mqb = document.querySelector("[data-mq-run]");
-    if (mqb) {
-      mqb.addEventListener("click", mqRender);
-      document.getElementById("mqTrade").addEventListener("change", mqRender);
-      document.getElementById("mqPal").addEventListener("change", mqRender);
-      mqRender();
-    }
   });
 
   /* ---------- chat launcher ---------- */
@@ -592,15 +592,72 @@
     fab.innerHTML = '<svg viewBox="0 0 100 100" fill="currentColor"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#1D1D1F"/></svg>';
     var panel = document.createElement("div");
     panel.className = "chat-panel";
-    panel.innerHTML = '<div class="ch-h">Station</div>' +
-      '<p>Fastest ways to get an answer right now:</p>' +
-      '<a href="/audit/">Get the free audit →</a>' +
-      '<a href="/book/">Book the 15-min intro call →</a>' +
-      '<a href="tel:+18444936381">Call us — (844) 493-6381 →</a>' +
-      '<a href="mailto:main@station.solutions">Email a human →</a>' +
-      '<p style="margin:10px 0 0;font-size:11.5px;color:#A9A9AE">Live chat (our Greet product) connects here shortly.</p>';
+    panel.innerHTML = '<div class="ch-h"><svg viewBox="0 0 100 100" fill="currentColor" style="width:18px;height:18px"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g></svg> Station <span class="ch-live">● online</span></div>' +
+      '<div class="ch-body" id="chBody"></div>' +
+      '<div class="ch-chips" id="chChips"></div>' +
+      '<div class="ch-in"><input type="text" id="chIn" placeholder="Ask anything — pricing, products, how fast…" maxlength="200" aria-label="Ask Station"><button id="chSend" aria-label="Send">↑</button></div>' +
+      '<p class="ch-fine">This is our Greet product answering — the same one you can put on your site.</p>';
     document.body.appendChild(fab); document.body.appendChild(panel);
-    function toggle() { panel.classList.toggle("open"); }
+    var chBody = panel.querySelector("#chBody"), chChips = panel.querySelector("#chChips"),
+        chIn = panel.querySelector("#chIn"), chSend = panel.querySelector("#chSend");
+    function msg(who, htmlStr, delay) {
+      setTimeout(function () {
+        var d = document.createElement("div"); d.className = "ch-m " + who; d.innerHTML = htmlStr;
+        chBody.appendChild(d); chBody.scrollTop = chBody.scrollHeight;
+      }, delay || 0);
+    }
+    function chips(arr) {
+      chChips.innerHTML = "";
+      arr.forEach(function (c) {
+        var b = document.createElement("button"); b.type = "button"; b.textContent = c;
+        b.addEventListener("click", function () { ask(c); });
+        chChips.appendChild(b);
+      });
+    }
+    var CAT2 = window.STATION_CATALOG || [];
+    function plink(k) { var p = CAT2.find(function (x) { return x.k === k; }); return p ? '<a href="/' + k + '/">' + p.n + ' — ' + p.pricelab + ' →</a>' : ''; }
+    function answer(q) {
+      var s = q.toLowerCase();
+      /* direct product hit first */
+      var hit = CAT2.find(function (p) { return s.indexOf(p.n.toLowerCase()) > -1; });
+      if (hit) return "<b>" + hit.n + "</b> — " + hit.sub + ". " + hit.pricelab + ", live " + hit.ttl + ", cancel anytime. Try it on the page before you buy:<br>" + plink(hit.k);
+      if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='tel:+18444936381'>Call (844) 493-6381 →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
+      if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
+      if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month, cancels in one click, and billing doesn't even start until the product is verified live on your account.";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,500/mo</b> (adds the AI receptionist, Map and Marquee), <b>Custom $2,500/mo</b> (everything + a custom website + a named strategist).<br><a href='/#bundles'>See the bundles →</a>";
+      if (/website|web site|site/.test(s)) return "Storefront: <b>$500 + $49/mo</b> premium build live in 48 hours, <b>$1,250</b> custom in 72 hours, <b>$10,000</b> enterprise flat. Real examples you can click:<br><a href='/portfolio/'>Open the portfolio →</a>";
+      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$29–$347/mo</b> a-la-carte, each priced on its own page — websites from <b>$500</b>. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
+      if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. Call our line and hang up to feel it:<br>" + plink("lineback");
+      if (/answer|reception|24|after hours|phone rings|ai voice|voice ai/.test(s)) return "That's <b>Frontdesk</b> — an AI receptionist that answers 24/7, books appointments and never puts anyone on hold. It's answering our real line right now:<br>" + plink("frontdesk");
+      if (/review|stars|reputation/.test(s)) return "That's <b>Repute</b> — asks every happy customer for the review, catches the unhappy ones before they post, and drafts your replies. Try the live demo:<br>" + plink("repute");
+      if (/no.?show|remind|book|calendar|appointment/.test(s)) return "That's <b>Slate</b> — real online booking plus reminders that cut no-shows hard:<br>" + plink("slate");
+      if (/google|map|listing|found|rank|seo/.test(s)) return "That's <b>Map</b> — your Google Business Profile managed and defended, the single biggest local-visibility lever:<br>" + plink("map");
+      if (/social|post|instagram|facebook|tiktok|content/.test(s)) return "That's <b>Marquee</b> — one post published to nine platforms at the same time, plus your brand board:<br>" + plink("marquee");
+      if (/follow.?up|lead|quote|chase|went quiet/.test(s)) return "That's <b>Pursuit</b> — it chases every lead for 10 days and stops the second they reply:<br>" + plink("pursuit");
+      if (/email|campaign|newsletter|blast/.test(s)) return "That's <b>Dispatch</b> — mass email campaigns with hundreds of real templates included:<br>" + plink("dispatch") + "<a href='/portfolio/emails/'>See the template gallery →</a>";
+      if (/pay|card|invoice|estimate|charge customer|pos/.test(s)) return "That's <b>Tap</b> — estimate → invoice → tap their card on your phone → paid in the driveway:<br>" + plink("tap");
+      if (/start|begin|first|recommend|which one|what should/.test(s)) return "Honest answer: start where it hurts most. Missing calls → <b>Lineback</b>. Nobody finds you → <b>Map</b>. Few reviews → <b>Repute</b>. Or answer one question and the shelf reorders itself:<br><a href='/#help'>Build my line →</a><a href='/audit/'>Or get the free audit →</a>";
+      if (/audit|free|check/.test(s)) return "The free audit runs eleven checks on your listing, reviews, site and response speed — no card, no call, emailed to you:<br><a href='/audit/'>Get the free audit →</a>";
+      if (/hi|hello|hey|yo\b/.test(s)) return "Hey! Ask me anything — what a product costs, what fixes missed calls, how fast things go live. Or tell me what's hurting and I'll point you at the fix.";
+      return "Good question — here's the fastest path to a real answer:<br><a href='/audit/'>Get the free audit →</a><a href='/book/'>Book the 15-min call →</a><a href='mailto:main@station.solutions'>Email us →</a><br>Or try asking about a product by name, pricing, trials, or what fixes missed calls / no-shows / reviews.";
+    }
+    function ask(q) {
+      if (!q) return;
+      msg("me", q.replace(/[<>&]/g, "")); chIn.value = "";
+      msg("biz", answer(q), 600 + Math.random() * 400);
+    }
+    chSend.addEventListener("click", function () { ask(chIn.value.trim()); });
+    chIn.addEventListener("keydown", function (e) { if (e.key === "Enter") ask(chIn.value.trim()); });
+    var booted = false;
+    function toggle() {
+      panel.classList.toggle("open");
+      if (panel.classList.contains("open") && !booted) {
+        booted = true;
+        msg("biz", "Hey — Station here. Ask me anything, or tap one of these.", 300);
+        chips(["What should I start with?", "Pricing", "How does the free trial work?", "Talk to a human"]);
+        setTimeout(function () { chIn.focus(); }, 400);
+      }
+    }
     fab.addEventListener("click", toggle);
     document.querySelectorAll("[data-open-chat]").forEach(function (b) { b.addEventListener("click", toggle); });
   });
@@ -625,6 +682,8 @@
           var scr = document.createElement("div"); scr.className = "pop-scrim open";
           var pop = document.createElement("div"); pop.className = "pop open";
           pop.innerHTML = '<button class="x" aria-label="Close">×</button>' +
+            '<div class="pop-mark" aria-hidden="true"><svg viewBox="0 0 100 100" fill="currentColor"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#fff"/></svg></div>' +
+            '<p class="pop-k">The Station newsletter</p>' +
             '<h3 style="font-family:var(--fd);font-weight:700">10% off your first month.</h3>' +
             '<p>Join the list and we\'ll send the discount code, plus one useful note a month. No noise.</p>' +
             '<form data-audit data-variant="newsletter" class="audit-form" style="border:0;padding:0;margin-top:14px">' +
@@ -687,66 +746,130 @@
   function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
   var f$ = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
 
-  /* nav hide on scroll down, show on scroll up */
+  /* nav hide on scroll down, show on scroll up — and stay hidden while a product bar owns the top */
   ready(function () {
     var nav = document.querySelector(".nav"); if (!nav) return;
     var last = 0;
     addEventListener("scroll", function () {
       var y = scrollY;
-      nav.classList.toggle("hide", y > 140 && y > last);
+      nav.classList.toggle("hide", (y > 140 && y > last) || document.body.classList.contains("ppbar"));
       last = y;
     }, { passive: true });
   });
 
-  /* cart: single-payment checkout via n8n -> Stripe session */
+  /* ---------- /checkout/ — the one-payment page: summary, trial, upsells, Stripe ---------- */
   ready(function () {
-    var cart = document.querySelector(".cart"); if (!cart) return;
-    var foot = cart.querySelector(".c-foot"); if (!foot) return;
-    var co = foot.querySelector(".co-list");
-    var one = document.createElement("button");
-    one.className = "btn dark"; one.style.cssText = "width:100%;margin-bottom:10px;background:var(--blue)";
-    one.textContent = "Check out everything — one payment";
-    foot.insertBefore(one, co);
-    var note = foot.querySelector(".c-note");
-    if (note) note.textContent = "One secure Stripe checkout for the whole cart. Prefer separate subscriptions you can cancel independently? Use the per-product buttons below.";
-    one.addEventListener("click", function () {
-      var items = [];
-      try { items = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) {}
-      var cat = window.STATION_CATALOG || [];
-      var prices = [], hasRecurring = false;
-      items.forEach(function (k) {
-        var p = cat.find(function (x) { return x.k === k; });
-        if (p && p.link) {
-          var pid = p.price_id;
-          if (pid) { prices.push(pid); if (p.mo > 0) hasRecurring = true; }
+    var host = document.getElementById("coItems"); if (!host) return;
+    var cat = window.STATION_CATALOG || [];
+    var ups = document.getElementById("coUps"), rows = document.getElementById("coRows"),
+        tot = document.getElementById("coTot"), tr = document.getElementById("coTrial"),
+        pay = document.getElementById("coPay");
+    function get() { try { return JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) { return []; } }
+    function set(c) {
+      try { localStorage.setItem("station_cart", JSON.stringify(c)); } catch (e) {}
+      document.querySelectorAll(".cartbtn .n").forEach(function (b) { b.textContent = c.length; b.classList.toggle("on", c.length > 0); });
+      render();
+    }
+    function P2(k) { return cat.find(function (x) { return x.k === k; }); }
+    function trialable(p) { return p.mo > 0 && !(p.once > 0) && p.k !== "storefront"; }
+    /* last-second pairings — what actually gets added together */
+    var PAIR = { lineback: ["frontdesk", "dial"], frontdesk: ["slate", "repute"], storefront: ["greet", "map"],
+      greet: ["slate", "pursuit"], slate: ["pursuit", "lineback"], pursuit: ["revive", "dispatch"],
+      repute: ["map", "marquee"], map: ["repute", "marquee"], dispatch: ["revive", "radar"],
+      revive: ["dispatch", "pursuit"], radar: ["dispatch", "dial"], dial: ["lineback", "tap"],
+      tap: ["dial", "slate"], marquee: ["repute", "map"] };
+    function render() {
+      var c = get();
+      if (!c.length) {
+        host.innerHTML = '<div class="c-empty" style="padding:60px 10px">Your cart is empty — <a href="/#shop">the shelf is this way</a>.</div>';
+        ups.innerHTML = ""; rows.innerHTML = ""; tot.innerHTML = ""; tr.hidden = true; pay.disabled = true; return;
+      }
+      pay.disabled = false;
+      var mo = 0, once = 0, allTrial = true;
+      host.innerHTML = '<p class="k" style="margin-bottom:12px">Your line · ' + c.length + (c.length === 1 ? ' product' : ' products') + '</p>' + c.map(function (k) {
+        var p = P2(k); if (!p) return "";
+        mo += p.mo || 0; once += p.once || 0;
+        var t = trialable(p); if (!t) allTrial = false;
+        return '<div class="co-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
+          '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span>' +
+          '<span class="co-meta">' + p.pricelab + ' · live ' + p.ttl + '</span>' +
+          (t ? '<span class="co-tr">7-day free trial — $0 today</span>' : '') + '</div>' +
+          '<button class="ci-x" data-corm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
+      }).join("");
+      /* the last-second nudge: two highest-affinity products not yet in the cart */
+      var sug = [];
+      c.forEach(function (k) { (PAIR[k] || []).forEach(function (s) { if (c.indexOf(s) === -1 && sug.indexOf(s) === -1) sug.push(s); }); });
+      sug = sug.slice(0, 2);
+      ups.innerHTML = sug.length ? '<p class="k" style="margin:26px 0 10px">Added together 9 times out of 10</p>' + sug.map(function (k) {
+        var p = P2(k); if (!p) return "";
+        return '<div class="co-up">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
+          '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span><span class="co-meta">' + p.pricelab +
+          (trialable(p) ? ' · free for 7 days' : '') + '</span></div>' +
+          '<button class="co-add" data-coadd="' + k + '">Add</button></div>';
+      }).join("") : "";
+      rows.innerHTML = '<div class="c-row"><span>Per month</span><b>' + f$(mo) + '/mo</b></div>' +
+        (once ? '<div class="c-row"><span>One-time (builds &amp; setups)</span><b>' + f$(once) + '</b></div>' : '');
+      tr.hidden = !allTrial;
+      tot.innerHTML = allTrial
+        ? '<span>Due today</span><b>$0</b><small>then ' + f$(mo) + '/mo after your 7-day trial — cancel anytime inside it</small>'
+        : '<span>Due today</span><b>' + f$(once + mo) + '</b><small>' + f$(mo) + '/mo after — month to month, cancel anytime</small>';
+      pay.setAttribute("data-trial", allTrial ? "1" : "");
+    }
+    document.addEventListener("click", function (e) {
+      var rm = e.target.getAttribute && e.target.getAttribute("data-corm");
+      if (rm) { set(get().filter(function (x) { return x !== rm; })); return; }
+      var ad = e.target.getAttribute && e.target.getAttribute("data-coadd");
+      if (ad) { var c = get(); if (c.indexOf(ad) === -1) c.push(ad); set(c); }
+    });
+    pay.addEventListener("click", function () {
+      var c = get(); if (!c.length) return;
+      var prices = [], hasRecurring = false, hasOnetime = false, allTrial = true;
+      c.forEach(function (k) {
+        var p = P2(k);
+        if (p && p.price_id) {
+          prices.push(p.price_id);
+          if (p.mo > 0) hasRecurring = true;
+          if (p.once > 0) hasOnetime = true;
+          if (!trialable(p)) allTrial = false;
         }
       });
       if (!prices.length) return;
-      one.disabled = true; one.textContent = "Building your checkout…";
+      pay.disabled = true; pay.textContent = "Building your secure checkout…";
       var ref = null; try { ref = sessionStorage.getItem("station_ref"); } catch (e) {}
       fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prices: prices, has_recurring: hasRecurring, ref: ref || undefined })
+        body: JSON.stringify({ prices: prices, has_recurring: hasRecurring, has_onetime: hasOnetime,
+          trial: allTrial && hasRecurring && !hasOnetime, ref: ref || undefined })
       }).then(function (r) { return r.json(); }).then(function (d) {
         if (d && d.url) { location.href = d.url; }
-        else { one.textContent = "Hmm — use the per-product buttons below"; }
+        else { pay.disabled = false; pay.textContent = "Try again — continue to secure payment →"; }
       }).catch(function () {
-        one.disabled = false; one.textContent = "Check out everything — one payment";
+        pay.disabled = false; pay.textContent = "Try again — continue to secure payment →";
       });
     });
+    render();
   });
 
-  /* hero parallax (subtle, white, Station mark layer) */
+  /* hero film — layered parallax (osmo-style, vanilla): media drifts slow, copy rides faster */
   ready(function () {
-    var par = document.querySelector(".hero-par"); if (!par) return;
-    var mark = par.querySelector(".hp-mark"), img = par.querySelector(".hp-img");
+    var film = document.querySelector(".hero-film"); if (!film) return;
+    var media = film.querySelector(".hf-media"), copy = film.querySelector(".hf-copy");
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var target = 0, cur = -1;
+    function frame() {
+      cur += (target - cur) * 0.18;
+      if (Math.abs(target - cur) < 0.1) cur = target;
+      if (media) media.style.transform = "translateY(" + (cur * 0.42) + "px) scale(1.06)";
+      if (copy) copy.style.transform = "translateY(" + (cur * 0.16) + "px)";
+      if (cur !== target) requestAnimationFrame(frame);
+    }
     addEventListener("scroll", function () {
-      var y = scrollY;
-      if (y > 900) return;
-      if (mark) mark.style.transform = "translateX(-50%) translateY(" + (y * 0.18) + "px)";
-      if (img) img.style.transform = "translateY(" + (y * -0.05) + "px)";
+      var y = Math.min(scrollY, 1100);
+      if (y === target) return;
+      var was = target; target = y;
+      if (cur === was || cur === -1) { cur = was === -1 ? 0 : cur; requestAnimationFrame(frame); }
     }, { passive: true });
+    requestAnimationFrame(frame);
   });
 
   /* iphone2 — the old site's phone UI, interactive */
@@ -785,9 +908,19 @@
     }
     send.addEventListener("click", function () { userSend(input.value.trim()); });
     input.addEventListener("keydown", function (e) { if (e.key === "Enter") userSend(input.value.trim()); });
-    (cfg.opening || []).forEach(function (m, i) { bubble(m.who, m.t, 400 + i * 900); });
-    if (cfg.chips) setTimeout(function () { setChips(cfg.chips); }, (cfg.opening || []).length * 900 + 500);
+    /* the phone sits full-size from the start; the conversation begins when you scroll to it */
     if (cfg.picker) setChips(cfg.picker);
+    function boot() {
+      (cfg.opening || []).forEach(function (m, i) { bubble(m.who, m.t, 400 + i * 900); });
+      if (cfg.chips) setTimeout(function () { setChips(cfg.chips); }, (cfg.opening || []).length * 900 + 500);
+    }
+    if (!("IntersectionObserver" in window)) boot();
+    else {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) { if (en.isIntersecting) { io.disconnect(); boot(); } });
+      }, { threshold: 0.35 });
+      io.observe(host);
+    }
   }
 
   ready(function () {
@@ -918,76 +1051,170 @@
       rv2.appendChild(play);
     }
 
-    /* MARQUEE board v2 */
-    function board2() {
-      var tradeEl = document.getElementById("mqTrade"), palEl = document.getElementById("mqPal");
-      if (!tradeEl) return;
-      var trade = tradeEl.value, pal = palEl.value;
-      var PALS = {
-        ink: { c: ["#1D1D1F", "#8A5A00", "#EFC26A", "#F5F4F1", "#6E6E73"], n: "Ink & brass" },
-        pine: { c: ["#1E3D2F", "#5B7F6B", "#C86A3A", "#F4F1E8", "#7A8B80"], n: "Pine & cream" },
-        slate: { c: ["#2A3440", "#4C6172", "#7FA8C9", "#F2F4F6", "#8E99A6"], n: "Slate & sky" } };
-      var POSTS = { Plumbing: "Before your water heater quits mid-shower: the 5 warning signs.",
-        HVAC: "The $89 tune-up that keeps July from costing you $4,000.",
-        Landscaping: "Three beds, one weekend — the fall cleanup that pays off in April.",
-        Cleaning: "What a deep clean actually includes (and what it usually means).",
-        Roofing: "Hail season: 4 things to photograph before you call anyone." };
-      var P = PALS[pal];
-      var b = document.getElementById("board2"); b.classList.add("on");
-      b.innerHTML = '<div class="b2-name">' + trade + ' Co.</div><div class="b2-tag">Brand board · built in week one · yours forever</div>' +
-        '<div class="b2-sec">Color palette</div><div class="b2-pal">' +
-        P.c.map(function (c) { return '<div class="b2-sw"><i style="background:' + c + '"></i><span>' + c + '</span></div>'; }).join("") + '</div>' +
-        '<div class="b2-sec">Logo variations</div><div class="b2-logos">' +
-        '<div class="b2-logo" style="background:' + P.c[0] + ';color:' + P.c[3] + '">' + trade[0] + '</div>' +
-        '<div class="b2-logo" style="background:' + P.c[3] + ';color:' + P.c[0] + ';border:1px solid rgba(0,0,0,.08)">' + trade[0] + '</div>' +
-        '<div class="b2-logo" style="background:' + P.c[2] + ';color:' + P.c[0] + '">' + trade[0] + '</div></div>' +
-        '<div class="b2-sec">Typography</div><div class="b2-type">' +
-        '<span style="font:700 26px var(--fd)">Inter Bold — headlines</span>' +
-        '<span style="font:400 15px var(--fb);color:var(--muted)">Inter Regular — body, plainspoken and outcome-first</span></div>' +
-        '<div class="b2-sec">Sample post</div>' +
-        '<div class="b2-post"><b>' + trade + ' Co. · written for you</b>' + (POSTS[trade] || "") + '</div>';
-    }
-    var mqb2 = document.querySelector("[data-mq-run]");
-    if (mqb2 && document.getElementById("board2")) {
-      mqb2.addEventListener("click", board2);
-      document.getElementById("mqTrade").addEventListener("change", board2);
-      document.getElementById("mqPal").addEventListener("change", board2);
-      board2();
+    /* MARQUEE — one post fans out to nine platforms */
+    var mqp = document.getElementById("mqPlats");
+    if (mqp) {
+      var PLATS = [["Facebook","facebook"],["Instagram","instagram"],["Google Business","google"],
+        ["LinkedIn","linkedin"],["TikTok","tiktok"],["YouTube","youtube"],
+        ["Pinterest","pinterest"],["Threads","threads"],["Bluesky","bluesky"]];
+      mqp.innerHTML = PLATS.map(function(p){
+        return '<div class="mq-pl"><img src="https://cdn.simpleicons.org/' + p[1] + '" alt="" loading="lazy" onerror="this.remove()">' +
+          '<span>' + p[0] + '</span><i class="ck" aria-hidden="true">✓</i></div>';
+      }).join("");
+      var mqBtn = document.querySelector("[data-mq-post]");
+      if (mqBtn) mqBtn.addEventListener("click", function(){
+        var chips = mqp.querySelectorAll(".mq-pl");
+        chips.forEach(function(c){ c.classList.remove("lit"); });
+        mqBtn.disabled = true; mqBtn.textContent = "Publishing…";
+        chips.forEach(function(c, i){ setTimeout(function(){ c.classList.add("lit"); }, 260 + i * 210); });
+        setTimeout(function(){ mqBtn.disabled = false; mqBtn.textContent = "Delivered to all 9 ✓ — run it again"; }, 260 + chips.length * 210 + 300);
+      });
     }
 
-    /* DISPATCH — email draft with send + undo */
+    /* DISPATCH — email draft with send + undo + scenario generator */
     var ed = document.getElementById("edraft");
     if (ed) {
-      ed.innerHTML = '<h4>Spring tune-up week</h4>' +
-        '<table><tr><td class="l">From</td><td>Demo Plumbing Co. &lt;hello@demoplumbing.co&gt;</td></tr>' +
-        '<tr><td class="l">To</td><td>Your customer list · 400 people</td></tr></table>' +
-        '<div class="esep"></div>' +
-        '<div contenteditable="true" spellcheck="false">Subject: A/C ready for the first 95° day?\n\nWe’re doing tune-ups in your area next week — $89, takes an hour, and it’s the difference between June working and June waiting on parts.\n\nBook by Friday and we’ll bump you to the front of the line.\n\n— The Demo Plumbing crew</div>' +
-        '<div class="eact"><span class="status" style="margin-right:auto">Click the text — every word is editable</span>' +
-        '<button class="btn lite sm" data-e-cancel>Cancel</button><button class="btn dark sm" data-e-send>Send campaign</button></div>';
-      var act = ed.querySelector(".eact"), timer = null, count = 5;
+      var SCEN = [
+        ["Spring tune-up week", "Demo Plumbing Co.", "Your customer list · 400 people",
+         "Subject: A/C ready for the first 95° day?\n\nWe’re doing tune-ups in your area next week — $89, takes an hour, and it’s the difference between June working and June waiting on parts.\n\nBook by Friday and we’ll bump you to the front of the line.\n\n— The Demo Plumbing crew"],
+        ["We-miss-you win-back", "Riverside Salon", "Customers quiet 6+ months · 180 people",
+         "Subject: It’s been a while — chair’s open\n\nWe did your hair two seasons ago and we’d love to see you back. This week only, returning clients get $15 off any service.\n\nTap below and pick your time — takes 20 seconds.\n\n— Riverside Salon"],
+        ["Storm-response blast", "Summit Roofing", "Every past customer in ZIP 77433 · 260 people",
+         "Subject: Hail came through last night — free roof checks this week\n\nIf last night’s storm hit your street, don’t wait for the ceiling stain. We’re running free 15-minute inspections in your neighborhood through Saturday.\n\nReply or book below — insurance photos included.\n\n— Summit Roofing"],
+        ["Review thank-you + offer", "Demo Plumbing Co.", "Everyone who left 5 stars this year · 74 people",
+         "Subject: Thank you (really)\n\nYour review means the world to a local shop. Here’s $25 off your next visit — no expiry, no fine print.\n\nIt’s attached to your number automatically. See you next time.\n\n— The Demo Plumbing crew"],
+        ["Slow-season filler", "Peak HVAC", "Full list · 520 people",
+         "Subject: The $89 tune-up that saves the $4,000 July\n\nOur calendar has a quiet week — your gain. Book a maintenance visit this week and we’ll waive the trip fee.\n\nFirst 20 bookings only, then the schedule’s full again.\n\n— Peak HVAC"],
+        ["New service launch", "Cedar Lawn Co.", "Full list · 310 people",
+         "Subject: We do that now.\n\nYou asked, we listened: irrigation installs and repair are officially on the menu, same crew you already trust.\n\nLaunch month: 10% off any irrigation job booked by the 31st.\n\n— Cedar Lawn Co."]
+      ];
+      var si = 0;
+      function renderDraft() {
+        var t = SCEN[si % SCEN.length];
+        ed.innerHTML = '<h4>' + t[0] + '</h4>' +
+          '<table><tr><td class="l">From</td><td>' + t[1] + '</td></tr>' +
+          '<tr><td class="l">To</td><td>' + t[2] + '</td></tr></table>' +
+          '<div class="esep"></div>' +
+          '<div contenteditable="true" spellcheck="false"></div>' +
+          '<div class="eact"><span class="status" style="margin-right:auto">Click the text — every word is editable</span>' +
+          '<button class="btn lite sm" data-e-cancel>Cancel</button><button class="btn dark sm" data-e-send>Send campaign</button></div>';
+        ed.querySelector("[contenteditable]").textContent = t[3];
+      }
+      renderDraft();
+      var gen = document.querySelector("[data-e-gen]");
+      if (gen) gen.addEventListener("click", function(){ si++; clearInterval(timer); renderDraft(); });
+      var timer = null, count = 5;
+      function act(){ return ed.querySelector(".eact"); }
       ed.addEventListener("click", function (e) {
         if (e.target.closest("[data-e-send]")) {
           count = 5;
-          act.innerHTML = '<span class="status" style="margin-right:auto">Sending in <b id="eCount">5</b>s…</span><button class="btn lite sm" data-e-undo>Undo</button>';
+          act().innerHTML = '<span class="status" style="margin-right:auto">Sending in <b id="eCount">5</b>s…</span><button class="btn lite sm" data-e-undo>Undo</button>';
           timer = setInterval(function () {
             count--;
             var c = document.getElementById("eCount");
             if (c) c.textContent = count;
             if (count <= 0) {
               clearInterval(timer);
-              act.innerHTML = '<span class="ok" style="margin-left:auto">Sent to 400 people ✓ &nbsp;(not really — it’s a demo. But that’s the whole flow.)</span>';
+              act().innerHTML = '<span class="ok" style="margin-left:auto">Sent to the whole list ✓ &nbsp;(not really — it’s a demo. But that’s the whole flow.)</span>';
             }
           }, 1000);
         }
         if (e.target.closest("[data-e-undo]")) {
           clearInterval(timer);
-          act.innerHTML = '<span class="status" style="margin-right:auto">Caught it — nothing sent. That undo window ships on every campaign.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
+          act().innerHTML = '<span class="status" style="margin-right:auto">Caught it — nothing sent. That undo window ships on every campaign.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
         }
         if (e.target.closest("[data-e-cancel]")) {
-          act.innerHTML = '<span class="status" style="margin-right:auto">Draft kept. Click the text to keep editing.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
+          act().innerHTML = '<span class="status" style="margin-right:auto">Draft kept. Click the text to keep editing.</span><button class="btn dark sm" data-e-send>Send campaign</button>';
         }
       });
     }
+  });
+})();
+
+
+/* ===================== ROUND 5 JS ===================== */
+(function () {
+  "use strict";
+  function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
+
+  /* ---------- site search (nav) ---------- */
+  ready(function () {
+    var btn = document.querySelector(".searchbtn"), bar = document.getElementById("searchbar");
+    if (!btn || !bar) return;
+    var input = document.getElementById("searchIn"), res = document.getElementById("searchRes");
+    var cat = window.STATION_CATALOG || [];
+    var INDEX = cat.map(function (p) {
+      return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
+    }).concat([
+      { t: "Bundles — Core / Pro / Custom", s: "Ride the whole line for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
+      { t: "Free audit", s: "Eleven checks on your front office — free", u: "/audit/", kw: "audit free check listing reviews report" },
+      { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },
+      { t: "Website portfolio", s: "Real premium templates, clickable", u: "/portfolio/", kw: "portfolio website templates examples work roofing pool auto golf" },
+      { t: "Email template gallery", s: "Real campaign templates included with Dispatch", u: "/portfolio/emails/", kw: "email templates campaigns newsletter examples dispatch" },
+      { t: "Contact", s: "Write to the humans at Station", u: "/contact/", kw: "contact email support help question human" },
+      { t: "Checkout", s: "Your cart, one payment", u: "/checkout/", kw: "checkout cart pay buy purchase" }
+    ]);
+    function open() {
+      bar.hidden = false; btn.setAttribute("aria-expanded", "true");
+      requestAnimationFrame(function(){ bar.classList.add("open"); input.focus(); });
+    }
+    function close() {
+      bar.classList.remove("open"); btn.setAttribute("aria-expanded", "false");
+      setTimeout(function(){ bar.hidden = true; }, 200);
+      input.value = ""; res.innerHTML = "";
+    }
+    function run() {
+      var q = input.value.trim().toLowerCase();
+      if (!q) { res.innerHTML = ""; return; }
+      var hits = INDEX.filter(function (i) { return i.kw.indexOf(q) > -1 || i.t.toLowerCase().indexOf(q) > -1; }).slice(0, 7);
+      res.innerHTML = hits.length
+        ? hits.map(function (h) { return '<a href="' + h.u + '" role="option"><b>' + h.t + '</b><span>' + h.s + '</span></a>'; }).join("")
+        : '<div class="sb-none">Nothing on the shelf matches "' + q.replace(/[<>&]/g, "") + '" — try a product name, or <a href="/audit/">get the free audit</a>.</div>';
+    }
+    btn.addEventListener("click", function (e) { e.stopPropagation(); bar.hidden ? open() : close(); });
+    input.addEventListener("input", run);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+      if (e.key === "Enter") { var a = res.querySelector("a"); if (a) location.href = a.getAttribute("href"); }
+    });
+    bar.querySelector(".sb-x").addEventListener("click", close);
+    document.addEventListener("click", function (e) { if (!bar.hidden && !bar.contains(e.target) && e.target !== btn && !btn.contains(e.target)) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "/" && !/input|textarea/i.test((document.activeElement || {}).tagName || "") ) { e.preventDefault(); open(); }
+    });
+    /* mobile: a Search row in the sheet opens the same bar */
+    var sheet = document.querySelector(".msheet");
+    if (sheet) {
+      var sl = document.createElement("a"); sl.href = "#"; sl.textContent = "Search";
+      sl.addEventListener("click", function (e) { e.preventDefault(); sheet.classList.remove("open"); open(); });
+      sheet.insertBefore(sl, sheet.firstChild);
+    }
+  });
+
+  /* ---------- scroll-open dropdown cards (activity-dropdown port) ---------- */
+  ready(function () {
+    var cards = document.querySelectorAll("[data-sdrop]");
+    if (!cards.length) return;
+    function setOpen(card, on) {
+      card.classList.toggle("open", on);
+      var h = card.querySelector(".sd-h"); if (h) h.setAttribute("aria-expanded", on ? "true" : "false");
+    }
+    cards.forEach(function (card) {
+      var h = card.querySelector(".sd-h");
+      if (h) {
+        h.addEventListener("click", function () { setOpen(card, !card.classList.contains("open")); });
+        h.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setOpen(card, !card.classList.contains("open")); } });
+      }
+    });
+    if (!("IntersectionObserver" in window) || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      cards.forEach(function (c) { setOpen(c, true); });
+      return;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) { setOpen(en.target, true); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.45 });
+    cards.forEach(function (c) { io.observe(c); });
   });
 })();
