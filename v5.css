@@ -1038,6 +1038,8 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:fo
    made sections look cut off at the edge. `clip` contains them WITHOUT creating a scroll
    container, so the sticky price rail keeps working (overflow:hidden would break it). */
 html,body{overflow-x:clip}
+/* ---- no hairline under either header: the nav floats on the page ---- */
+.nav,.pp-bar{border-bottom:0}
 /* ---- demos float: the wrapper behind every "try it" is gone ---- */
 .flow-demo{background:none;border:0;border-radius:0;box-shadow:none;overflow:visible;
  padding:34px 0 30px}
