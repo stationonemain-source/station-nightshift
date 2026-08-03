@@ -1147,6 +1147,14 @@ html,body{overflow-x:clip}
   .parallax__layer-img.pl-1{width:170%;left:-35%}
   .parallax__layer-img.pl-2{width:150%;left:-25%}
   .parallax__layer-img.pl-4{width:140%;left:-20%;bottom:-4%}
+  /* backdrop-filter is the single most expensive CSS property a phone GPU can run, and
+     these glass surfaces sit fixed/pinned directly over the parallax scene while it
+     animates on every scroll frame -- on mobile that reads as scroll jank. Desktop keeps
+     the live blur (plenty of GPU headroom); phones get a plain higher-opacity fill that
+     still reads as translucent glass without the per-frame resample cost. */
+  .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(245,244,241,.96)}
+  .cartbtn,.hamb{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.85)}
+  .btn.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.55)}
 }
 @media(prefers-reduced-motion:reduce){.parallax__layer-img,.parallax__layer-title{transform:none!important}
   .parallax__layer-title{transform:translate(-50%,-50%)!important}}
