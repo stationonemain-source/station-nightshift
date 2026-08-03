@@ -218,9 +218,9 @@ html.js .rv.on{opacity:1;transform:none}
 .shop-hero{padding:120px 0 20px}
 /* ---- nav: logo left · links centered · actions right ---- */
 .nav-in{height:58px;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}
-.nav-in > .home{justify-self:start}
-.nav-center{display:flex;gap:22px;align-items:center;justify-self:center}
-.nav-actions{display:flex;gap:10px;align-items:center;justify-self:end}
+.nav-in > .home{grid-column:1;justify-self:start}
+.nav-center{grid-column:2;display:flex;gap:22px;align-items:center;justify-self:center}
+.nav-actions{grid-column:3;display:flex;gap:10px;align-items:center;justify-self:end}
 .mwrap{position:static}
 .mtop{color:var(--muted);font-size:13.5px;text-decoration:none;font-weight:500;padding:19px 2px;display:inline-block;white-space:nowrap}
 .mtop:hover{color:var(--ink)}
@@ -928,9 +928,10 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:fo
 /* ---- live art layers: motion on top of the bled plate ---- */
 .bleed-art.radar-art,.bleed-art.fd-art,.bleed-art.slate-art{position:relative}
 @media(prefers-reduced-motion:reduce){
-  .radar-sweep,.blip,.blip::after,.fd-flow i,.slate-key,.slate-socket{animation:none!important}
+  .radar-sweep,.blip,.blip::after,.fd-flow i,
+  .slate-key,.slate-throw,.slate-throw img.lit,.slate-contact,.slate-bloom{animation:none!important}
+  .slate-throw img.lit,.slate-contact,.slate-bloom{opacity:0}
   .blip,.blip::after{opacity:0}
-  .slate-socket{opacity:0}
 }
 
 /* Radar. radar_sweep.py lifted the sweep off the still and repaired the plate behind it,
@@ -981,42 +982,75 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,[tabindex]:fo
    pressed. At rest it sits back on its exact original pixels, which is also the no-JS and
    reduced-motion state: nothing here needs script. Every number is a % of the art, so the
    cap tracks the plate at any viewport width.
-   The cycle is mostly stillness — a slow hover breath, then one deliberate press. A key
-   that taps constantly reads as a loading spinner; one that waits reads as a product. */
+
+   Four layers move, and they are what make it read as a key rather than a picture sliding:
+     .slate-key     the breath — a slow sine drift, on its own clock so it never lines up
+                    the same way twice with the press
+     .slate-throw   the press itself, nested inside the breath so each owns its easing
+                    instead of one keyframe track fighting both
+     .slate-contact the shadow tightening under the cap as it arrives. Objects do not read
+                    as touching a surface until their shadow does; this is the layer doing
+                    most of the work
+     .slate-bloom   the light in the well, which the cap has been holding off the plate
+
+   The press is 190ms down and 500ms back: fast in, slow out. A symmetric press feels like
+   a slider; the asymmetry is what feels sprung. There is a 2-frame bounce at the bottom
+   and the cycle is 7.2s, most of it stillness — a key that taps constantly reads as a
+   loading spinner, one that waits reads as a product. */
 .slate-key{position:absolute;left:35.25%;top:18.4676%;width:11.6667%;height:20.8251%;
-  pointer-events:none;will-change:transform;
-  animation:slate-press 6.4s cubic-bezier(.4,0,.2,1) infinite}
-.slate-key img{display:block;width:100%;height:auto}
-@keyframes slate-press{
-  /* hover breath */
-  0%   {transform:translateY(0) scaleY(1)}
-  22%  {transform:translateY(-1.15%) scaleY(1)}
-  46%  {transform:translateY(0) scaleY(1)}
-  /* the throw: accelerate in, land hard */
-  56%  {transform:translateY(0) scaleY(1); animation-timing-function:cubic-bezier(.45,0,.85,.3)}
-  62%  {transform:translateY(21.7%) scaleY(.988)}
-  /* seated */
-  67%  {transform:translateY(21.7%) scaleY(.988); animation-timing-function:cubic-bezier(.2,.85,.3,1)}
-  /* release, with just enough overshoot to feel sprung */
-  76%  {transform:translateY(-2.1%) scaleY(1.006)}
-  86%  {transform:translateY(0) scaleY(1)}
-  100% {transform:translateY(0) scaleY(1)}
+  pointer-events:none;transform:translateZ(0);
+  animation:slate-breath 2.9s cubic-bezier(.45,0,.55,1) infinite alternate}
+.slate-throw{display:block;width:100%;height:100%;will-change:transform;
+  animation:slate-throw 7.2s 1.4s both infinite}
+.slate-throw img{display:block;width:100%;height:auto}
+/* the cap is lit from underneath in the render, so seating it puts the source closer —
+   a second pass of the same (cached) sprite, pre-brightened, cross-faded in on contact.
+   Filtering a copy rather than animating a filter keeps this on the compositor. */
+.slate-throw img.lit{position:absolute;inset:0;opacity:0;
+  filter:brightness(1.05) saturate(1.05);
+  animation:slate-lit 7.2s 1.4s both infinite}
+@keyframes slate-breath{from{transform:translateY(.55%)}to{transform:translateY(-.55%)}}
+@keyframes slate-throw{
+  0%,6%   {transform:translateY(0);         animation-timing-function:cubic-bezier(.33,0,.68,1)}
+  7.8%    {transform:translateY(-1.3%);     animation-timing-function:cubic-bezier(.42,0,.88,.42)}
+  10.3%   {transform:translateY(21.7%);     animation-timing-function:cubic-bezier(.3,0,.2,1)}
+  11.2%   {transform:translateY(19.9%);     animation-timing-function:cubic-bezier(.6,0,.7,1)}
+  12.1%,15.3%{transform:translateY(21.7%);  animation-timing-function:cubic-bezier(.14,.86,.28,1)}
+  22.2%   {transform:translateY(-1.5%);     animation-timing-function:cubic-bezier(.3,0,.3,1)}
+  28.2%,100%{transform:translateY(0)}
 }
-/* The well lights as the cap seats — the cap is lit from underneath in the render, so the
-   light it has been holding off the plate arrives on contact. Screen, so it adds glow to
-   the brushed metal instead of painting a grey disc on it. */
-.slate-socket{position:absolute;left:34.2%;top:34.8%;width:14.2%;height:9.4%;
-  pointer-events:none;opacity:0;mix-blend-mode:screen;
+@keyframes slate-lit{
+  0%,9.5%{opacity:0}  10.3%{opacity:.45}  15.3%{opacity:.36}  20%,100%{opacity:0}
+}
+/* Contact shadow. Wide and faint while the cap is up, tight and dark the moment it lands —
+   multiply, so it deepens the brushed metal instead of laying grey over it. */
+.slate-contact{position:absolute;left:33.3%;top:35.0%;width:15.0%;height:9.8%;
+  pointer-events:none;opacity:0;mix-blend-mode:multiply;will-change:transform,opacity;
   background:radial-gradient(50% 50% at 50% 50%,
-    rgba(255,201,132,.92) 0%, rgba(255,178,96,.42) 42%, rgba(255,170,84,0) 72%);
-  animation:slate-socket 6.4s linear infinite}
-@keyframes slate-socket{
-  0%,57%{opacity:0}
-  62%   {opacity:1}
-  70%   {opacity:.55}
-  80%   {opacity:0}
-  100%  {opacity:0}
+    rgba(104,84,66,.50) 0%, rgba(104,84,66,.20) 42%, rgba(104,84,66,0) 72%);
+  animation:slate-contact 7.2s 1.4s both infinite}
+@keyframes slate-contact{
+  0%,6%{opacity:0;transform:scale(1.38)}
+  9.6% {opacity:.5;transform:scale(1.1);  animation-timing-function:cubic-bezier(.3,0,.2,1)}
+  10.3%{opacity:1;transform:scale(1)}
+  15.3%{opacity:1;transform:scale(1)}
+  22.2%,100%{opacity:0;transform:scale(1.32)}
 }
+/* The well lights as the cap seats. Screen, and it scales as it fades — light that only
+   changes opacity reads as a lamp being switched; light that expands reads as an event. */
+.slate-bloom{position:absolute;left:33.9%;top:34.3%;width:15.0%;height:9.8%;
+  pointer-events:none;opacity:0;mix-blend-mode:screen;will-change:transform,opacity;
+  background:radial-gradient(50% 50% at 50% 50%,
+    rgba(255,214,160,.55) 0%, rgba(255,196,128,.20) 42%, rgba(255,190,118,0) 74%);
+  animation:slate-bloom 7.2s 1.4s both infinite}
+@keyframes slate-bloom{
+  0%,9%{opacity:0;transform:scale(.72)}
+  10.3%{opacity:1;transform:scale(1)}
+  12.5%{opacity:.82;transform:scale(1.05)}
+  15.3%{opacity:.7;transform:scale(1)}
+  20%,100%{opacity:0;transform:scale(1.14)}
+}
+
 
 /* ===================== ROUND 6 ===================== */
 /* The 100vw breakouts (bled hero art, the marquee) are centred on their own column, not
@@ -1110,3 +1144,72 @@ html,body{overflow-x:clip}
 }
 @media(prefers-reduced-motion:reduce){.parallax__layer-img,.parallax__layer-title{transform:none!important}
   .parallax__layer-title{transform:translate(-50%,-50%)!important}}
+
+/* ---- shelf cards: a storefront grid, not a row of buttons ----
+   Every card used to carry two competing CTAs — an amber "Learn more ›" next to a black
+   pill — so fourteen products put twenty-eight buttons on the homepage and the amber
+   fought the ink. The card is now ONE link: the whole surface, via a stretched ::after on
+   the product name. Adding to the cart survives as a quiet + in the corner of the plate.
+   Price moves onto the card, because a shop grid without prices doesn't read as a shop. */
+.shelf{gap:clamp(18px,2.2vw,30px) clamp(14px,1.7vw,22px)}
+.pcard{position:relative}
+.pcard:hover{transform:translateY(-3px)}
+/* The fourteen product stills were each shot on their own backdrop, so the row scanned as
+   fourteen mismatched rectangles even though the boxes are pixel-identical. The plate
+   supplies one shared tone and one shared hairline edge for all of them — that edge is
+   what makes them read as a set. Stills are 16:9 and centre-weighted, so a 3:2 plate
+   tightens the crop without clipping any product. */
+.pcard .im{position:relative;aspect-ratio:3/2;border-radius:18px;background:var(--card);
+ box-shadow:inset 0 0 0 1px rgba(29,29,31,.06)}
+.pcard .im img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.pcard .bd{padding:14px 2px 0;text-align:left;gap:3px}
+.pcard .nm{font:600 16.5px var(--fd);letter-spacing:-.017em;color:var(--ink);text-decoration:none}
+.pcard .nm::after{content:"";position:absolute;inset:0;border-radius:18px}
+.pcard .pl{font-size:13.2px;color:var(--muted);line-height:1.42;min-height:0}
+/* margin-top:auto pins the price to the bottom of the body, so prices stay on one line
+   across a row even when one product's descriptor wraps and its neighbours' don't. */
+.pcard .pr{margin-top:auto;padding-top:9px;font:500 13.6px var(--fd);color:var(--ink);
+ font-variant-numeric:tabular-nums;letter-spacing:-.008em}
+/* The base .pr small is a stacked uppercase micro-caption built for the old price block.
+   Every one of those properties has to be named to undo it — setting only font/colour left
+   the unit sitting UPPERCASE on its own line under the number. */
+.pcard .pr small{display:inline;font:inherit;color:var(--faint);letter-spacing:inherit;
+ text-transform:none;margin:0}
+/* .shelf-h's `margin:44px 0 14px` wiped the `margin:0 auto` it inherits from .wrap, so
+   every section heading sat flush against the viewport while its own grid stayed centred
+   ~75px to the right. Only the block margins belong in that shorthand. */
+.shelf-h{margin:44px auto 14px}
+/* the quiet add — a plus that only asks for attention on hover, a tick once it's in */
+.pcard .qadd{position:absolute;right:10px;top:10px;z-index:2;width:32px;height:32px;padding:0;
+ display:grid;place-items:center;border-radius:999px;font:400 18px/1 var(--fb);
+ background:rgba(255,255,255,.84);color:var(--ink);
+ -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+ box-shadow:0 1px 2px rgba(29,29,31,.10),0 6px 16px rgba(29,29,31,.10);
+ opacity:0;transform:scale(.9);
+ transition:opacity .2s,transform .2s,background .2s,color .2s}
+.pcard .qadd::before{content:"+"}
+.pcard:hover .qadd{opacity:1;transform:none}
+.pcard .qadd:focus-visible{opacity:1;transform:none;outline:2px solid var(--ink);outline-offset:2px}
+.pcard .qadd:hover{background:#fff}
+.pcard .qadd.in{opacity:1;transform:none;background:var(--good);color:#fff}
+.pcard .qadd.in::before{content:"\2713"}
+/* touch has no hover state, so the add would be unreachable there */
+@media(hover:none){.pcard .qadd{opacity:1;transform:none}}
+/* Fourteen products stacked one-up is a very long phone scroll and stops reading as a
+   catalogue. Two-up keeps it scannable; the price staying pinned to the bottom of the body
+   keeps a row even when one descriptor wraps to two lines and its neighbour doesn't. */
+@media(max-width:560px){
+  .shelf,.shelf.c3{grid-template-columns:1fr 1fr}
+  .pcard .im{border-radius:14px}
+  .pcard .bd{padding-top:11px}
+  .pcard .nm{font-size:15px}
+  .pcard .pl{font-size:12.4px}
+  .pcard .pr{font-size:12.8px;padding-top:7px}
+  /* the note can't share a baseline row with the heading in 390px — it forced "The phone."
+     to break across two lines while the note sat beside it */
+  .shelf-h{flex-direction:column;align-items:flex-start;gap:2px;margin-top:34px}
+}
+/* Belt and braces on the add button: `hover:none` is the correct signal but some touch
+   devices report `hover:hover`, and an add-to-cart that never becomes visible is a dead
+   control. At phone widths it is simply always shown. */
+@media(max-width:760px){.pcard .qadd{opacity:1;transform:none}}
