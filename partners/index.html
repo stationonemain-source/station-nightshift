@@ -499,11 +499,9 @@ function loadMe(){
     $("stComm").textContent=money(d.commission_monthly);
     $("copyLink").onclick=function(){copyTo($("copyLink"),d.link,"Copied");};
 
-    // Two tracks only (Scout / Partner). The engine still only reports the legacy
-    // rung (Scout/Partner/Lead Partner) — Partner + Lead Partner both map to the
-    // new flat-40% Partner track until the engine natively supports the new model.
-    var legacyRung=d.rung||"Scout";
-    var track=(legacyRung.indexOf("Partner")>=0)?"Partner":"Scout";
+    // Two tracks only (Scout / Partner) — reads the engine's real track field
+    // (v4.5, set by Station via the admin panel's Scout/Partner toggle).
+    var track=(d.track==="partner")?"Partner":"Scout";
     if(track==="Scout"){
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
         '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
@@ -512,7 +510,7 @@ function loadMe(){
         '<div class="n">40% recurring</div><div class="g">On every client in your book, for as long as they stay.</div></div>';
     }
     $("nextBox").innerHTML="";
-    $("basisNote").textContent="Shown from your account's current rate ("+legacyRung+", "+(d.rate_pct)+"%) mapped to the new track structure — full detail in “How you get paid.”";
+    $("basisNote").textContent="You're on the "+track+" track"+(d.rate_pct!=null?" — current rate "+d.rate_pct+"%.":".")+" Full detail in “How you get paid.”";
 
     var tf=d.taxform||{};
     if(tf.received){
