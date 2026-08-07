@@ -499,29 +499,44 @@ function loadMe(){
     $("stComm").textContent=money(d.commission_monthly);
     $("copyLink").onclick=function(){copyTo($("copyLink"),d.link,"Copied");};
 
-    var cur=d.rung||"Scout";
-    $("ladderBox").innerHTML=LADDER.map(function(x){
-      var on=(cur.indexOf(x.n)===0)?" data-now":"";
-      return '<div class="rung"'+on+'><div class="r">'+x.r+'%</div><div class="n">'+x.n+'</div></div>';
-    }).join("");
-
-    var nx=d.next_rung;
-    if(nx){
-      var goal=(LADDER.filter(function(x){return x.n===nx.rung;})[0]||{g:1}).g||1;
-      var have=Math.max(0,goal-(nx.need||0));
-      $("nextBox").innerHTML='<div class="mono">Next rung</div><div class="bar"><i style="width:'+
-        Math.min(100,Math.round(have/goal*100))+'%"></i></div><p class="note">'+
-        esc(nx.need)+' more '+(nx.need===1?"client":"clients")+' past 60 days to reach <b>'+
-        esc(nx.rung)+' — '+esc(nx.rate_pct)+'%</b>.</p>';
-    } else {
-      $("nextBox").innerHTML='<p class="note">You\'re at the top rung.</p>';
+    // Two tracks only (Scout / Partner). The engine still only reports the legacy
+    // rung (Scout/Partner/Lead Partner) — Partner + Lead Partner both map to the
+    // new flat-40% Partner track until the engine natively supports the new model.
+    var legacyRung=d.rung||"Scout";
+    var track=(legacyRung.indexOf("Partner")>=0)?"Partner":"Scout";
+    if(track==="Scout"){
+      $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
+        '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
+    }else{
+      $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Partner</div>'+
+        '<div class="n">40% recurring</div><div class="g">On every client in your book, for as long as they stay.</div></div>';
     }
-    $("basisNote").textContent="You're on "+(d.rate_pct)+"%. "+(d.commission_model||"");
+    $("nextBox").innerHTML="";
+    $("basisNote").textContent="Shown from your account's current rate ("+legacyRung+", "+(d.rate_pct)+"%) mapped to the new track structure — full detail in “How you get paid.”";
 
     var tf=d.taxform||{};
-    $("taxCard").innerHTML= tf.received
-      ? '<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run monthly, $50 minimum.</p>'
-      : '<h2 class="tight">Before we can pay you</h2><p class="note"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it. Email it to <a href="mailto:main@station.solutions?subject=Tax%20form%20'+encodeURIComponent(me.code)+'" style="color:var(--accent);font-weight:600">main@station.solutions</a> and we\'ll mark you cleared.</p>';
+    if(tf.received){
+      $("taxCard").innerHTML='<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run monthly, $50 minimum.</p>';
+    }else{
+      $("taxCard").innerHTML='<h2 class="tight">Before we can pay you</h2>'+
+        '<p class="note" style="margin-bottom:16px"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it.</p>'+
+        '<div class="field"><label>Which document</label><select id="tfType">'+
+          '<option value="W-9 (US)">W-9 — US person</option>'+
+          '<option value="W-8BEN (non-US)">W-8BEN — outside the US</option>'+
+        '</select></div>'+
+        '<div class="field"><label>Your file</label><input type="file" id="tfFile" accept=".pdf,.jpg,.jpeg,.png">'+
+        '<div class="hint">Stays on your device — this page can\'t receive a file directly yet, so it just gets your email ready to send with the file attached.</div></div>'+
+        '<button class="btn dark full" id="tfPrep" type="button"><span class="t">Prepare email to Station</span></button>'+
+        '<div class="msg" id="tfMsg"></div>';
+      $("tfPrep").onclick=function(){
+        var type=$("tfType").value,f=$("tfFile").files[0];
+        var subj="Tax form ("+type+") — "+(me.code||"");
+        var body="Hi Station,\n\nAttached is my "+type+" for the affiliate program.\n\nName: "+
+          (me.name||"")+"\nCode: "+(me.code||"")+"\n\n(File attached separately — please confirm once received.)";
+        window.location.href="mailto:main@station.solutions?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);
+        say($("tfMsg"), f ? 'Email draft opened — attach "'+f.name+'" before you hit send.' : "Email draft opened — attach your "+type+" file before you hit send.", "ok");
+      };
+    }
   }).catch(function(){});
 }
 
