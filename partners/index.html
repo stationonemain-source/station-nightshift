@@ -97,18 +97,42 @@ ol.steps li{counter-increment:s;padding:9px 0 9px 40px;position:relative;color:v
 ol.steps li b{color:var(--ink)}
 ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:999px;
   background:var(--ink);color:#fff;font:600 12px var(--fm);display:flex;align-items:center;justify-content:center}
-.lesson{border-bottom:1px solid var(--line);padding:14px 0}
-.lesson:last-child{border-bottom:0}
-.lesson h3{font:700 1rem var(--fd);margin-bottom:3px}
-.lesson h3 .dur{font-family:var(--fm);font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-left:8px;font-weight:600}
-.lesson p{font-size:.92rem;color:var(--muted);margin-top:3px}
-.lesson ul{margin:6px 0 0;padding-left:18px}
-.lesson li{font-size:.9rem;color:var(--muted);margin:2px 0}
-.track-badge{display:inline-flex;align-items:center;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;font-weight:600;background:rgba(0,0,0,.06);color:var(--muted);margin-bottom:10px}
 .bounty-tbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}
 .bounty-tbl th{text-align:left;font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:6px 8px;border-bottom:1px solid var(--line)}
 .bounty-tbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
 .bounty-tbl td.r{text-align:right;font-weight:700;font-family:var(--fd)}
+
+.course-progress .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.course-progress .bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.course-progress .bar i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .35s ease}
+.course-divider{font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
+  margin:22px 2px 10px;padding-top:6px;border-top:1px solid var(--line)}
+.course-divider:first-child{border-top:0;margin-top:0}
+.course-item{border:1px solid var(--line);border-radius:var(--r);background:var(--card);margin-bottom:10px;overflow:hidden}
+.course-item .head{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;user-select:none}
+.course-item[data-state="locked"] .head{cursor:not-allowed}
+.course-item[data-state="locked"] .ti,.course-item[data-state="locked"] .me{opacity:.45}
+.course-item .num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:700 13px var(--fd);border:1.5px solid var(--line);color:var(--muted);background:#fff}
+.course-item[data-state="done"] .num{background:#1a6b3c;border-color:#1a6b3c;color:#fff}
+.course-item[data-state="current"] .num{background:var(--ink);border-color:var(--ink);color:#fff}
+.course-item[data-state="locked"] .num{color:var(--faint)}
+.course-item .info{flex:1;min-width:0}
+.course-item .ti{font:700 1rem var(--fd)}
+.course-item .me{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.course-item .chev{flex:0 0 auto;color:var(--faint);transition:transform .2s;font-size:12px}
+.course-item[data-open] .chev{transform:rotate(180deg)}
+.course-item .body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.course-item[data-open] .body{max-height:2400px}
+.course-item .body-in{padding:0 18px 20px}
+.course-item video{width:100%;border-radius:12px;background:#000;display:block;margin-bottom:14px}
+.course-item .summary{font-size:.94rem;color:var(--muted);line-height:1.55}
+.course-item .more{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.course-item .more .lbl{font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.course-item .more ul{margin:0;padding-left:18px}
+.course-item .more li{font-size:.88rem;color:var(--muted);margin:5px 0}
+.course-item .watched-tag{font-size:.82rem;color:#1a6b3c;font-weight:600;margin-top:12px}
+.course-item .lock-note{font-size:.85rem;color:var(--faint);padding:0 18px 16px;margin-top:-4px}
 .lvid{width:100%;border-radius:12px;margin:10px 0 8px;background:#1D1D1F;display:block}
 .p-foot{border-top:1px solid var(--line);margin-top:52px;padding:26px 0 60px;color:var(--faint);font-size:13px}
 .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);
@@ -276,105 +300,16 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
 
     <div class="panel" data-panel="training">
       <div class="card">
-        <h2 class="tight">Which track are you?</h2>
-        <video class="lvid" controls preload="metadata" src="media/lessons/module-0.mp4"></video>
-        <p class="note">Station has two ways to earn, and they work completely differently. <b>Scout</b> is open to anyone — no call, no approval. Sign up, get your link, share it, and earn a one-time bounty every time someone you referred goes live as a paying client. <b>Partner</b> is by invitation — you've talked to us, we've approved you, and you're closing and managing your own clients for a flat 40% recurring. If you're not sure which you are, it's almost always Scout — Partner is something we offer, not something you apply for.</p>
+        <h2 class="tight">The Partner &amp; Scout course</h2>
+        <p class="note">12 short lessons, ~25 minutes total. Watch each video to unlock the next one — your progress is saved on this device.</p>
       </div>
 
-      <div class="card">
-        <span class="track-badge">Scout &middot; self-serve</span>
-        <h2 class="tight">Your training</h2>
-
-        <div class="lesson">
-          <h3>1. Your link and how bounties work<span class="dur">2.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/scout-1.mp4"></video>
-          <p>Your link is <code>station.solutions/?ref=YOURCODE</code>, tracked for 30 days from click. You earn a one-time bounty the moment someone you referred becomes a paying client. If that client starts on a free trial, your bounty doesn't release until the trial ends and they're actually billed.</p>
-          <table class="bounty-tbl">
-            <tr><th>Product</th><th style="text-align:right">Bounty</th></tr>
-            <tr><td>Dial &mdash; number + texting</td><td class="r">$25</td></tr>
-            <tr><td>Greet, Dispatch, Slate, Mobile App add-on</td><td class="r">$50</td></tr>
-            <tr><td>Tap, Map, Marquee, Repute, Radar, Lineback, Pursuit, Frontdesk, Revive</td><td class="r">$100</td></tr>
-            <tr><td>Storefront &mdash; Basic ($500 build)</td><td class="r">$250</td></tr>
-            <tr><td>Storefront &mdash; Custom ($1,250 build)</td><td class="r">$500</td></tr>
-            <tr><td>Storefront &mdash; Enterprise ($10,000 build)</td><td class="r">$2,000</td></tr>
-            <tr><td>Core bundle ($750/mo)</td><td class="r">$300</td></tr>
-            <tr><td>Pro bundle ($1,500/mo)</td><td class="r">$750</td></tr>
-            <tr><td>Custom bundle ($2,500/mo)</td><td class="r">$1,000</td></tr>
-          </table>
-        </div>
-
-        <div class="lesson">
-          <h3>2. Sharing your link<span class="dur">1.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/scout-2.mp4"></video>
-          <p>You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 14 products or answer technical questions.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>3. What happens after you refer someone<span class="dur">1 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/scout-3.mp4"></video>
-          <p>Once someone you referred is genuinely interested, they get handed off to a Partner who closes them, onboards them, and manages the account going forward. That's not a demotion of your referral &mdash; it's the model. You still get your full bounty the moment they go live and paying; you just won't be the one managing them afterward.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>4. Getting your bounty<span class="dur">1.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/scout-4.mp4"></video>
-          <p>Once someone you referred is a live, paying client &mdash; trial over if they had one &mdash; your bounty is queued for the next payout run, monthly. You'll need a tax form on file (W-9 US / W-8BEN outside the US) before your first payout clears. No cap on how many bounties you can stack.</p>
-        </div>
+      <div class="card course-progress">
+        <div class="row"><span class="mono" id="cProgLabel">0 of 12 complete</span><span class="mono" id="cProgPct">0%</span></div>
+        <div class="bar"><i id="cProgBar" style="width:0%"></i></div>
       </div>
 
-      <div class="card">
-        <span class="track-badge">Partner &middot; invite-only</span>
-        <h2 class="tight">Partner reference material</h2>
-        <p class="note" style="margin-bottom:14px">Shown here for reference. You'll get full access once we've talked and you're approved as a Partner.</p>
-
-        <div class="lesson">
-          <h3>1. How the money works<span class="dur">1.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-1.mp4"></video>
-          <p>One number: 40%, recurring, on every client in your book, for as long as they stay. Calculated on cleared invoices, never list price. Annual prepays spread across 12 months. If a client starts on a trial, your commission starts once it ends and their first invoice clears. No bounty on top, no tier to climb toward.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>2. Your book of business<span class="dur">2 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-2.mp4"></video>
-          <p>When a client becomes yours &mdash; whether you closed them yourself or a Scout's warm lead was distributed to you &mdash; they're yours going forward. You own the full relationship: every upsell conversation, every general question, every support request that isn't a technical break/fix. Think of it like an insurance agent's book of business &mdash; tracked as permanently assigned to you. Leaving the program requires written notice; your book is then redistributed.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>3. What to lead with, by business type<span class="dur">3 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-3.mp4"></video>
-          <ul>
-            <li>Answers their own phone &rarr; <b>Frontdesk</b> ($397&ndash;$897)</li>
-            <li>No real website / ugly one &rarr; <b>Storefront</b> ($500+$49/mo)</li>
-            <li>Unanswered 1-2 star reviews &rarr; <b>Repute</b> ($197)</li>
-            <li>Already asking about "the AI phone thing" &rarr; <b>Lineback</b> ($197&ndash;$297)</li>
-          </ul>
-          <p>If you're not sure, ask what's costing them the most right now.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>4. Use the demo tool, don't pitch blind<span class="dur">2.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-4.mp4"></video>
-          <p>Before you call a business, go to Demo sites, enter their name and city, and Station builds a real working example for THAT business plus a specific dollar figure for what their gap is costing them. Then you're showing something real, not pitching an idea.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>5. The call script pattern<span class="dur">3 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-5.mp4"></video>
-          <p>Confirm who you're talking to, fast. State the specific gap you found, with a number if you have one. Offer to text the demo link live, on the call. You're not closing the sale &mdash; Station's free audit does that. Your only job is to get them to look at the demo.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>6. Handling objections<span class="dur">2.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-6.mp4"></video>
-          <p><b>"We already have a receptionist"</b> &rarr; catches what they can't, nights and weekends. <b>"Sounds expensive"</b> &rarr; the audit's free and shows the real number first. <b>"Sounds too good to be true"</b> &rarr; that's why there's a real demo instead of just being told. Redirect to something they can verify, never argue.</p>
-        </div>
-
-        <div class="lesson">
-          <h3>7. Compliance, taxes, and what never to say<span class="dur">3.5 min</span></h3>
-          <video class="lvid" controls preload="metadata" src="media/lessons/partner-7.mp4"></video>
-          <p>No income claims, ever. No unauthorized branding or landing pages. You represent what Station does, you don't promise a result. W-9/W-8BEN on file before your first payout. Never name the platform Station is built on, and never state a stat you haven't personally verified.</p>
-        </div>
-      </div>
+      <div id="courseList"></div>
     </div>
   </div>
 
@@ -435,6 +370,122 @@ function showAuth(){
 }
 
 var LADDER=[{n:"Scout",r:20,g:0},{n:"Partner",r:30,g:3},{n:"Lead Partner",r:40,g:10}];
+
+var COURSE=[
+ {id:"module-0",div:"GETTING STARTED",title:"Which track are you?",dur:"",
+  summary:"Station has two ways to earn, and they work completely differently. <b>Scout</b> is open to anyone — no call, no approval. Sign up, get your link, share it, and earn a one-time bounty every time someone you referred goes live as a paying client. <b>Partner</b> is by invitation — you've talked to us, we've approved you, and you're closing and managing your own clients for a flat 40% recurring. If you're not sure which you are, it's almost always Scout — Partner is something we offer, not something you apply for.",
+  more:["Most affiliates are Scouts. Partner is something Station offers after a real conversation — don't wait for an invite to start as a Scout today.","You can hold both roles over time: start as a Scout, and if you start closing real clients yourself, that's usually when a Partner conversation happens."]},
+
+ {id:"scout-1",div:"SCOUT TRACK &middot; SELF-SERVE",title:"Your link and how bounties work",dur:"2.5 min",
+  summary:"Your link is <code>station.solutions/?ref=YOURCODE</code>, tracked for 30 days from click. You earn a one-time bounty the moment someone you referred becomes a paying client. If that client starts on a free trial, your bounty doesn't release until the trial ends and they're actually billed.",
+  extra:'<table class="bounty-tbl"><tr><th>Product</th><th style="text-align:right">Bounty</th></tr><tr><td>Dial — number + texting</td><td class="r">$25</td></tr><tr><td>Greet, Dispatch, Slate, Mobile App add-on</td><td class="r">$50</td></tr><tr><td>Tap, Map, Marquee, Repute, Radar, Lineback, Pursuit, Frontdesk, Revive</td><td class="r">$100</td></tr><tr><td>Storefront — Basic ($500 build)</td><td class="r">$250</td></tr><tr><td>Storefront — Custom ($1,250 build)</td><td class="r">$500</td></tr><tr><td>Storefront — Enterprise ($10,000 build)</td><td class="r">$2,000</td></tr><tr><td>Core bundle ($750/mo)</td><td class="r">$300</td></tr><tr><td>Pro bundle ($1,500/mo)</td><td class="r">$750</td></tr><tr><td>Custom bundle ($2,500/mo)</td><td class="r">$1,000</td></tr></table>',
+  more:["Bounties don't stack in tiers — the amount is fixed to the product, not to your history or volume.","If a client buys more than one product, you get a separate bounty for each one that goes live.","Trial length (7/14/30 days) is decided per client, not by you — just know your bounty timing follows whatever trial they're on."]},
+
+ {id:"scout-2",title:"Sharing your link",dur:"1.5 min",
+  summary:"You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 14 products or answer technical questions.",
+  more:["You are not expected to be a salesperson. Your only real job is getting the link in front of the right business owner.","The best-performing Scouts share their own real story — why they trust Station — rather than a generic pitch."]},
+
+ {id:"scout-3",title:"What happens after you refer someone",dur:"1 min",
+  summary:"Once someone you referred is genuinely interested, they get handed off to a Partner who closes them, onboards them, and manages the account going forward. That's not a demotion of your referral — it's the model. You still get your full bounty the moment they go live and paying; you just won't be the one managing them afterward.",
+  more:["The Partner who receives your lead may reach out to you directly with questions about the business you referred — that's normal, help if you can.","You keep earning bounties on every future referral even after this one is handed off — there's no limit."]},
+
+ {id:"scout-4",title:"Getting your bounty",dur:"1.5 min",
+  summary:"Once someone you referred is a live, paying client — trial over if they had one — your bounty is queued for the next payout run, monthly. You'll need a tax form on file (W-9 US / W-8BEN outside the US) before your first payout clears. No cap on how many bounties you can stack.",
+  more:["Bounties are tracked automatically from your link — you don't need to submit anything to get credited.","Payout runs are monthly; if you don't yet have a tax form on file, your bounty still accrues, it just won't release until the form is in."]},
+
+ {id:"partner-1",div:"PARTNER TRACK &middot; REFERENCE (INVITE-ONLY)",title:"How the money works",dur:"1.5 min",
+  summary:"One number: 40%, recurring, on every client in your book, for as long as they stay. Calculated on cleared invoices, never list price. Annual prepays spread across 12 months. If a client starts on a trial, your commission starts once it ends and their first invoice clears. No bounty on top, no tier to climb toward.",
+  more:["Example: a client paying $750/mo Core nets you $300/mo, every month, for as long as they stay a client — no renewal negotiation needed.","Commission is based on invoices that actually cleared — refunds, failed charges, and disputes don't count."]},
+
+ {id:"partner-2",title:"Your book of business",dur:"2 min",
+  summary:"When a client becomes yours — whether you closed them yourself or a Scout's warm lead was distributed to you — they're yours going forward. You own the full relationship: every upsell conversation, every general question, every support request that isn't a technical break/fix. Think of it like an insurance agent's book of business — tracked as permanently assigned to you. Leaving the program requires written notice; your book is then redistributed.",
+  more:["Practically, this means: if a client emails asking to add a product, that's your conversation to have, not Station's support inbox.","Written notice for leaving the program protects your book from just evaporating if you go quiet without warning anyone."]},
+
+ {id:"partner-3",title:"What to lead with, by business type",dur:"3 min",
+  summary:"Answers their own phone → <b>Frontdesk</b> ($397–$897). No real website, or an ugly one → <b>Storefront</b> ($500+$49/mo). Unanswered 1-2 star reviews → <b>Repute</b> ($197). Already asking about “the AI phone thing” → <b>Lineback</b> ($197–$297). If you're not sure, ask what's costing them the most right now.",
+  more:["Don't lead with all 14 products — leading with the ONE most obviously broken thing gets a faster yes than a full catalog dump.","If two gaps are equally obvious, lead with the higher-value one first, and mention the second as a fast follow."]},
+
+ {id:"partner-4",title:"Use the demo tool, don't pitch blind",dur:"2.5 min",
+  summary:"Before you call a business, go to Demo sites, enter their name and city, and Station builds a real working example for THAT business plus a specific dollar figure for what their gap is costing them. Then you're showing something real, not pitching an idea.",
+  more:["The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
+
+ {id:"partner-5",title:"The call script pattern",dur:"3 min",
+  summary:"Confirm who you're talking to, fast. State the specific gap you found, with a number if you have one. Offer to text the demo link live, on the call. You're not closing the sale — Station's free audit does that. Your only job is to get them to look at the demo.",
+  more:["Keep the first call under 3 minutes if you can — the goal is a “yes, send it” on the demo, not a full close.","If they ask a question you don't know, say so honestly and offer to get them a straight answer instead of guessing."]},
+
+ {id:"partner-6",title:"Handling objections",dur:"2.5 min",
+  summary:"<b>“We already have a receptionist”</b> → catches what they can't, nights and weekends. <b>“Sounds expensive”</b> → the audit's free and shows the real number first. <b>“Sounds too good to be true”</b> → that's why there's a real demo instead of just being told. Redirect to something they can verify, never argue.",
+  more:["Never argue past one rebuttal — if they push back twice, offer to let the demo/audit speak for itself instead of continuing to sell.","The free audit exists specifically to remove your burden of proving ROI on the phone."]},
+
+ {id:"partner-7",title:"Compliance, taxes, and what never to say",dur:"3.5 min",
+  summary:"No income claims, ever. No unauthorized branding or landing pages. You represent what Station does, you don't promise a result. W-9/W-8BEN on file before your first payout. Never name the platform Station is built on, and never state a stat you haven't personally verified.",
+  more:["This applies to social posts and DMs too, not just calls — same rules everywhere you represent Station.","If you're ever unsure whether a claim is compliant, don't send it — ask first."]}
+];
+
+var CKEY="stationTrainingDone_v1",courseOpenId=null;
+function courseDone(){try{return new Set(JSON.parse(localStorage.getItem(CKEY)||"[]"));}catch(e){return new Set();}}
+function courseSave(s){try{localStorage.setItem(CKEY,JSON.stringify(Array.from(s)));}catch(e){}}
+
+function renderCourse(){
+  var list=$("courseList");
+  if(!list)return;
+  var done=courseDone(),html="";
+  COURSE.forEach(function(l,i){
+    var state=done.has(l.id)?"done":((i===0||done.has(COURSE[i-1].id))?"current":"locked");
+    if(courseOpenId===null&&state==="current")courseOpenId=l.id;
+    var open=(l.id===courseOpenId&&state!=="locked");
+    if(l.div)html+='<div class="course-divider">'+l.div+'</div>';
+    html+='<div class="course-item" data-state="'+state+'" data-id="'+l.id+'"'+(open?" data-open":"")+'>';
+    html+='<div class="head" data-headfor="'+l.id+'"><div class="num">'+
+      (state==="done"?"&#10003;":(state==="locked"?"&#128274;":(i+1)))+'</div>';
+    html+='<div class="info"><div class="ti">'+l.title+'</div>'+(l.dur?'<div class="me">'+l.dur+'</div>':'')+'</div>';
+    html+='<div class="chev">&#9660;</div></div>';
+    if(state==="locked"){
+      html+='<div class="lock-note">Finish the lesson above to unlock this one.</div>';
+    }else{
+      html+='<div class="body"><div class="body-in">';
+      html+='<video class="lvid" controls preload="metadata" data-vid="'+l.id+'" src="media/lessons/'+l.id+'.mp4"></video>';
+      html+='<div class="summary">'+l.summary+'</div>';
+      if(l.extra)html+=l.extra;
+      if(l.more&&l.more.length)html+='<div class="more"><div class="lbl">More detail</div><ul>'+
+        l.more.map(function(m){return "<li>"+m+"</li>";}).join("")+'</ul></div>';
+      html+='<div class="watched-tag"'+(state==="done"?"":' style="display:none"')+'>&#10003; Watched</div>';
+      html+='</div></div>';
+    }
+    html+='</div>';
+  });
+  list.innerHTML=html;
+
+  var n=done.size,total=COURSE.length;
+  $("cProgLabel").textContent=n+" of "+total+" complete";
+  $("cProgPct").textContent=Math.round(n/total*100)+"%";
+  $("cProgBar").style.width=Math.round(n/total*100)+"%";
+
+  list.querySelectorAll(".head").forEach(function(h){
+    h.addEventListener("click",function(){
+      var item=h.closest(".course-item");
+      if(item.dataset.state==="locked")return;
+      var id=h.dataset.headfor;
+      courseOpenId=(courseOpenId===id)?null:id;
+      renderCourse();
+      if(courseOpenId===id){var el=list.querySelector('[data-id="'+id+'"]');
+        if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},50);}
+    });
+  });
+  list.querySelectorAll("video[data-vid]").forEach(function(v){
+    v.addEventListener("ended",function(){
+      var id=v.dataset.vid,d=courseDone();
+      if(d.has(id))return;
+      d.add(id);courseSave(d);
+      var idx=COURSE.findIndex(function(x){return x.id===id;}),nxt=COURSE[idx+1];
+      courseOpenId=nxt?nxt.id:id;
+      renderCourse();
+      if(nxt){var el=list.querySelector('[data-id="'+nxt.id+'"]');
+        if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},80);}
+    });
+  });
+}
+renderCourse();
 
 function loadMe(){
   post({action:"me",token:token}).then(function(d){
