@@ -49,7 +49,7 @@
     <div class="verdict no" id="calcVerdict">—</div>
     <p class="fine">Assumptions shown, all of them adjustable: Modeled as capturing 3% of map-pack clicks at half-credit. Deliberately conservative.</p>
   </div>
-  <script>window.CALC={price:147,clearAt:1.5,
+  <script>window.CALC={price:47,clearAt:1.5,
     refer:"No physical presence or service area? This one isn't your lever.",
     sliders:[{id:"s",label:"People searching your trade + city monthly",min:100,max:5000,step:100,val:800,fmt:null},{id:"p",label:"Of those, the share the top 3 listings take (%)",min:30,max:70,step:5,val:44,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
     compute:function(__v){var s=__v.s;var p=__v.p;var t=__v.t;return{loss:(s*(p/100)*0.03*t*0.5),note:"Modeled as capturing 3% of map-pack clicks at half-credit. Deliberately conservative."}}
