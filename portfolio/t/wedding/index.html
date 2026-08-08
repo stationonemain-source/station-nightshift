@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" id="top">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
 <meta name="description" content="A 40-acre Hill Country wedding venue around one 300-year live oak. One wedding a weekend, golden hour in every contract. Weekends from $7,800.">
 <meta property="og:title" content="Oakhollow — Begin under the oak.">
 <meta property="og:description" content="A 40-acre Hill Country wedding venue around one 300-year live oak. One wedding a weekend.">
-<meta property="og:image" content="https://oakhollow.higgsfield.app/img/og.jpg">
+<meta property="og:image" content="https://station.solutions/portfolio/t/wedding//og.jpg">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://station.solutions/portfolio/t/wedding/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.5 21v-7.5a7.5 7.5 0 0 1 15 0V21' fill='none' stroke='%23d3b98c' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M2.5 21h19' fill='none' stroke='%23d3b98c' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='9.2' r='1.15' fill='%23d3b98c'/%3E%3C/svg%3E">
@@ -15,23 +15,30 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="kit/css/base.css">
-<link rel="stylesheet" href="kit/css/simple.css">
+<link rel="stylesheet" href="kit/css/premium.css">
 <link rel="preload" as="image" href="img/poster.jpg" fetchpriority="high">
 </head>
-<body data-tier="simple" style="--seam:#814c29">
+<body data-tier="premium" data-poster="img/poster.jpg" style="--seam:#814c29">
 
 <header id="siteHead" class="site-head"></header>
 
-<section class="hero" aria-labelledby="hero-h">
-  <img class="hero-bg" src="img/poster.jpg" alt="The Oakhollow meadow at dawn — mist on the grass and the 300-year live oak" width="2048" height="1149" loading="eager" fetchpriority="high">
-  <div class="hero-copy">
-    <p class="kicker">Hill Country wedding venue · Dripping Springs, TX</p>
-    <h1 id="hero-h">Begin under the oak.</h1>
-    <p>Forty acres, one 300-year live oak, and every hour of golden light.</p>
-    <div class="hero-ctas">
-      <a class="btn btn-primary" href="#inquire">Check your date</a>
-      <a class="btn btn-ghost" href="#spaces">Tour the spaces</a>
-    </div>
+<div id="filmLoader" class="film-loader" aria-hidden="true">
+  <div class="loader-inner">
+    <span class="wm-big">OAKHOLLOW</span>
+    <span class="loader-bar"><i></i></span>
+    <span class="loader-pct">Setting the meadow · 0%</span>
+  </div>
+</div>
+
+<section class="film-driver" aria-label="Oakhollow — one continuous shot: the wedding assembles from dawn to dusk under the oak">
+  <div class="film-stage">
+    <div class="film-poster"></div>
+    <canvas id="filmCanvas"></canvas>
+    <canvas id="ambientCanvas" class="film-ambient" aria-hidden="true"></canvas>
+    <div class="film-vignette" aria-hidden="true"></div>
+    <div class="film-grain" aria-hidden="true"></div>
+    <div class="film-seamfade" aria-hidden="true"></div>
+    <div id="beatLayer"></div>
   </div>
 </section>
 
@@ -39,6 +46,8 @@
 <footer id="siteFoot"></footer>
 
 <script src="content.js"></script>
+<script src="kit/js/frames-manifest.js"></script>
 <script src="kit/js/site.js"></script>
+<script src="kit/js/film.js"></script>
 </body>
 </html>
