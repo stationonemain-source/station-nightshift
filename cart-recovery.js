@@ -28,12 +28,16 @@
   function cookieConsent() { try { return ls("rangeConsent") || "unset"; } catch (e) { return "unset"; } }
   function track(ev, label) { try { if (window.__rangeTrack) window.__rangeTrack(ev, label); } catch (e) {} }
 
+  // Always resolves — never rejects. A network blip or a CORS hiccup at the
+  // endpoint must degrade silently (the hold still works from localStorage),
+  // not throw an uncaught rejection into a customer's console.
   function post(body) {
     try {
       return fetch(ENDPOINT, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body), keepalive: true
-      }).then(function (r) { return r.ok ? r.json().catch(function () { return {}; }) : {}; });
+      }).then(function (r) { return r.ok ? r.json().catch(function () { return {}; }) : {}; })
+        .catch(function () { return {}; });
     } catch (e) { return Promise.resolve({}); }
   }
 

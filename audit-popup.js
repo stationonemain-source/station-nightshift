@@ -102,7 +102,9 @@
       fd.set("consent_ts", new Date().toISOString());
       fd.set("consent_url", String(location.href).slice(0, 1000));
       try { fd.set("consent_ua", String(navigator.userAgent || "").slice(0, 600)); } catch (e2) {}
-      try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd, keepalive: true }); } catch (err) {}
+      // no-cors is fire-and-forget: the reply is opaque and unreadable either
+      // way, so the only thing to handle is the rejection itself.
+      try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd, keepalive: true }).catch(function () {}); } catch (err) {}
       lsSet("station_lead_done", "1");
       form.querySelectorAll("input,button").forEach(function (el) { el.disabled = true; });
       msg.textContent = "On its way — audits usually land within the hour.";

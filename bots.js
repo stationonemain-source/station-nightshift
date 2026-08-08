@@ -291,7 +291,7 @@
         "A local business number is included on every plan — or we connect the one you already have."
       ]],
       [/(app\b|mobile app)/, [
-        "A branded mobile app for your business is an add-on at $250/mo."
+        "The mobile app is included with every Station account — no extra charge."
       ]],
       [/(pos|payment|card reader|checkout)/, [
         "POS and payments setup is quoted on the Custom plan."

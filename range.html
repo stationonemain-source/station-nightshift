@@ -1098,8 +1098,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
             <li>Local business number included</li>
             <li>Website chat widget</li>
           </ul>
-          <label class="app-addon"><input type="checkbox" id="coreAppToggle"> Add the Station app <span>+ $250/mo</span></label>
-          <a class="pg-cta pg-cta-glass" id="coreCta" href="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" data-core="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" data-app="https://buy.stripe.com/7sY5kw98U9oBfMRbjW2Fa0Q" target="_blank" rel="noopener">Start with Core</a>
+                    <a class="pg-cta pg-cta-glass" id="coreCta" href="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" data-core="https://buy.stripe.com/8x200c1GsgR330573G2Fa0O" target="_blank" rel="noopener">Start with Core</a>
         </div>
         <div class="gtier featured">
           <i class="pg-beam" aria-hidden="true"></i>
@@ -1171,7 +1170,7 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
         </div>
       </div>
 
-      <p class="pricing-note addons"><strong>Add-ons:</strong> branded mobile app $250/mo · POS setup — quoted · your business number is included on every plan</p>
+      <p class="pricing-note addons"><strong>Add-ons:</strong> POS setup — quoted · your business number and the mobile app are included on every plan</p>
       <p class="pricing-note">Every plan starts with the free audit — if we can't find you money, we'll tell you that too.</p>
     </section>
 
@@ -1850,15 +1849,8 @@ html.js-anim .reveal.in .rv-u{opacity:1;transform:none}
       }, 210);
     });
   });
-  /* Core "+ app" toggle: swaps the Core button between the plain Core sale link
-     and the Core + App sale link (which provisions with the Station mobile app). */
-  var appTgl = document.getElementById("coreAppToggle"), coreCta = document.getElementById("coreCta");
-  if (appTgl && coreCta) {
-    appTgl.addEventListener("change", function () {
-      if (appTgl.checked) { coreCta.href = coreCta.dataset.app; coreCta.textContent = "Start with Core + App"; }
-      else { coreCta.href = coreCta.dataset.core; coreCta.textContent = "Start with Core"; }
-    });
-  }
+  /* The Core "+ app" toggle was removed 2026-08-08: the mobile app is now included
+     with every account, so there is no Core + App SKU to switch the button to. */
 })();
 </script>
 <script>
