@@ -1,0 +1,313 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank you — Station</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Your order is confirmed. Here's what happens next.">
+<link rel="canonical" href="https://station.solutions/thanks/">
+<meta property="og:title" content="Thank you — Station"><meta property="og:description" content="Your order is confirmed. Here's what happens next.">
+<meta property="og:image" content="https://station.solutions/media/og/hero-share.jpg"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#F5F4F1">
+
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%231D1D1F" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="white"/></svg>'>
+<link rel="stylesheet" href="/v5.css">
+<style>
+/* ---- /thanks/ — page-scoped, built on the v5 tokens ---- */
+.ty-hero{padding:132px 0 8px;text-align:center}
+.ty-tick{width:60px;height:60px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;
+ background:rgba(22,122,68,.10);border:1px solid rgba(22,122,68,.28);color:var(--good)}
+.ty-tick svg{width:28px;height:28px}
+.ty-hero h1{font:800 clamp(2.2rem,5.4vw,3.5rem)/1.04 var(--fd);letter-spacing:-.03em;margin:0 0 14px}
+.ty-hero .lede{max-width:52ch;margin:0 auto;color:var(--muted);font-size:clamp(1rem,1.4vw,1.12rem);text-wrap:pretty}
+.ty-hero .lede b{color:var(--ink);font-weight:600}
+
+/* what they just bought */
+.ty-bought{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0 6px}
+.ty-chip{display:inline-flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);
+ border-radius:999px;padding:7px 16px 7px 7px;box-shadow:0 2px 8px rgba(29,29,31,.05)}
+.ty-chip img{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none}
+.ty-chip b{font:600 14.5px var(--fd)}
+.ty-chip span{color:var(--muted);font-size:13px}
+.ty-due{margin-top:22px;display:inline-flex;align-items:baseline;gap:10px;font-size:14px;color:var(--muted)}
+.ty-due b{font:700 15px var(--fd);color:var(--ink)}
+
+/* what happens next */
+.ty-steps{display:grid;gap:16px;grid-template-columns:1fr;max-width:1000px;margin:0 auto}
+@media(min-width:800px){.ty-steps{grid-template-columns:repeat(3,1fr)}}
+.ty-step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.ty-step .n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;
+ font:700 12.5px var(--fd);display:grid;place-items:center;margin-bottom:14px}
+.ty-step h3{font:700 16px var(--fd);margin:0 0 7px;letter-spacing:-.01em}
+.ty-step p{color:var(--muted);font-size:14.5px;margin:0;line-height:1.6}
+
+/* the add-on */
+.ty-adds{display:grid;gap:16px;grid-template-columns:1fr;max-width:1000px;margin:0 auto}
+@media(min-width:860px){.ty-adds{grid-template-columns:1fr 1fr}}
+.ty-add{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);
+ border-radius:var(--r);padding:18px;transition:border-color .18s,box-shadow .18s}
+.ty-add:hover{border-color:#d8d3ca;box-shadow:0 6px 22px rgba(29,29,31,.07)}
+.ty-add img{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}
+.ty-add .m{min-width:0;flex:1}
+.ty-add b{display:block;font:700 15.5px var(--fd);letter-spacing:-.01em}
+.ty-add .sub{color:var(--muted);font-size:13.5px}
+.ty-add .why{display:block;margin-top:5px;font-size:12.5px;color:var(--accent);font-weight:600}
+.ty-add .go{flex:none;white-space:nowrap;padding:10px 16px;font-size:13.5px}
+/* Below this the text column gets squeezed to ~100px between the thumb and the button,
+   and every line wraps. Drop the button to its own full-width row instead. */
+@media(max-width:520px){
+ .ty-add{flex-wrap:wrap}
+ .ty-add .m{flex:1 1 0}
+ .ty-add .go{flex:1 1 100%;order:3}
+}
+.ty-free{display:inline-block;margin-top:6px;font:600 11.5px var(--fd);letter-spacing:.04em;
+ text-transform:uppercase;color:var(--good);background:rgba(22,122,68,.09);border-radius:999px;padding:3px 9px}
+
+/* the list */
+.ty-list{max-width:560px;margin:0 auto;text-align:center}
+.ty-list form{margin-top:22px;text-align:left}
+.ty-list .row{display:flex;gap:10px;flex-wrap:wrap}
+.ty-list input[type=email]{flex:1 1 240px;font:500 15px var(--fd);color:var(--ink);background:var(--card);
+ border:1px solid var(--line);border-radius:999px;padding:14px 20px}
+.ty-list input[type=email]:focus{outline:none;border-color:var(--ink)}
+.ty-list .row .btn{flex:0 0 auto}
+@media(max-width:560px){.ty-list .row .btn{flex:1 1 100%}}
+.ty-list .consent{margin-top:14px}
+.ty-list .err{display:none;margin-top:12px;font-size:13.5px;font-weight:600;color:var(--red)}
+.ty-list .err.show{display:block}
+.ty-done{text-align:center}
+.ty-done .tick{width:52px;height:52px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;
+ background:rgba(22,122,68,.10);border:1px solid rgba(22,122,68,.28);color:var(--good)}
+.ty-done .tick svg{width:24px;height:24px}
+.ty-done h3{font:700 19px var(--fd);margin:0 0 6px}
+.ty-done p{color:var(--muted);font-size:14.5px;margin:0}
+
+.ty-out{text-align:center}
+.ty-out .alt{display:block;margin-top:16px;font-size:13.5px;color:var(--muted)}
+.ty-out .alt a{color:var(--ink);font-weight:600}
+[hidden]{display:none !important}
+</style>
+</head><body><a class="skip" href="#main">Skip to content</a>
+<nav class="nav"><div class="nav-in">
+  <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
+  <div class="nav-center">
+    <div class="mwrap"><a href="/frontdesk/" class="mtop">Frontdesk</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Explore the phone</span><a class="mbig" href="/frontdesk/">Frontdesk</a><a class="mbig" href="/lineback/">Lineback</a><a class="mbig" href="/dial/">Dial</a><a class="mbig" href="/pursuit/">Pursuit</a></div><div class="mcol"><span class="mhead">Try it live</span><a class="msmall" href="/frontdesk/#demo">Call the demo — (844) 493-6381</a><a class="msmall" href="/lineback/#demo">Watch a missed call get caught</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/#bundles">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <div class="mwrap"><a href="/storefront/" class="mtop">Storefront</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Explore presence</span><a class="mbig" href="/storefront/">Storefront</a><a class="mbig" href="/map/">Map</a><a class="mbig" href="/repute/">Repute</a><a class="mbig" href="/marquee/">Marquee</a></div><div class="mcol"><span class="mhead">See the work</span><a class="msmall" href="/portfolio/">Our website portfolio →</a><a class="msmall" href="/greet/">Greet — the chat on this page</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/audit/">Free audit — see what's broken</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <a class="mtop" href="/#bundles">Bundles</a>
+    <a class="mtop" href="/audit/">Free audit</a>
+    <a class="mtop" href="/book/">Book a call</a>
+    <button class="mtop searchbtn" type="button" aria-label="Search the site" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><span>Search</span></button>
+  </div>
+  <div class="nav-actions">
+    <button class="cartbtn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 3.8h2.3l2.45 11.1a1.7 1.7 0 001.66 1.35h8.55a1.7 1.7 0 001.66-1.33l1.62-6.62H6"/><circle cx="9.7" cy="20.2" r="1.5"/><circle cx="17.3" cy="20.2" r="1.5"/></svg><span class="n">0</span></button>
+    <a class="btn glass navbtn" style="padding:9px 18px;font-size:13px" href="/#help">Build your line</a>
+    <button class="hamb" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div>
+<div class="searchbar" id="searchbar" hidden>
+  <div class="sb-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><input id="searchIn" type="search" placeholder="Search products, prices, pages…" aria-label="Search the site" autocomplete="off">
+  <button class="sb-x" type="button" aria-label="Close search">×</button></div>
+  <div class="sb-res" id="searchRes" role="listbox"></div>
+</div></nav><main id="main">
+
+<section class="sec ty-hero"><div class="wrap">
+  <div class="ty-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
+  <p class="k">Payment confirmed</p>
+  <h1 class="serif">You're in.</h1>
+  <p class="lede" id="tyLede">Your order went through. The receipt is on its way to your inbox.</p>
+  <div class="ty-bought" id="tyBought"></div>
+  <div class="ty-due" id="tyDue" hidden></div>
+</div></section>
+
+<section class="sec alt"><div class="wrap">
+  <p class="k" style="text-align:center">What happens next</p>
+  <div class="ty-steps">
+    <div class="ty-step"><div class="n">1</div>
+      <h3>Your receipt lands</h3>
+      <p>Stripe emails it straight away — that's your proof of purchase and your billing portal link.</p></div>
+    <div class="ty-step"><div class="n">2</div>
+      <h3>We build and verify</h3>
+      <p id="tyStep2">We set your products up and check every one of them live before anything counts as delivered.</p></div>
+    <div class="ty-step"><div class="n">3</div>
+      <h3>You get your logins</h3>
+      <p>We email your access when it's live. Billing only starts once your products are verified live — and it stays month&#8209;to&#8209;month.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="tyAddSec" hidden><div class="wrap">
+  <p class="k" style="text-align:center">Added together 9 times out of 10</p>
+  <h2 class="serif" style="text-align:center;font-size:clamp(1.5rem,3.2vw,2.1rem);margin:0 0 8px" id="tyAddHead">Worth having on day one.</h2>
+  <p style="text-align:center;color:var(--muted);max-width:52ch;margin:0 auto 30px;font-size:15px" id="tyAddSub"></p>
+  <div class="ty-adds" id="tyAdds"></div>
+</div></section>
+
+<section class="sec alt"><div class="wrap"><div class="ty-list">
+  <p class="k">One more thing</p>
+  <h2 class="serif" style="font-size:clamp(1.5rem,3.2vw,2.1rem);margin:0 0 10px">Don't lose the thread.</h2>
+  <p style="color:var(--muted);font-size:15px;max-width:46ch;margin:0 auto">One useful note a month — what's actually
+    working for businesses like yours, and what we ship next. No noise, unsubscribe in a click.</p>
+
+  <form id="tyForm" novalidate>
+    <div class="row">
+      <input type="email" id="tyEmail" name="email" placeholder="you@yourbusiness.com" autocomplete="email" required aria-label="Email address">
+      <button class="btn dark" type="submit" id="tyBtn">Keep me posted</button>
+    </div>
+    <input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <label class="consent"><input type="checkbox" id="tyConsent" checked><span>Email me the monthly note. Unsubscribe anytime.</span></label>
+    <p class="err" id="tyErr" role="alert"></p>
+  </form>
+
+  <div class="ty-done" id="tyListDone" hidden>
+    <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
+    <h3>You're on the list.</h3>
+    <p id="tyListDoneMsg">Nothing else to do.</p>
+  </div>
+</div></div></section>
+
+<section class="sec ty-out"><div class="wrap">
+  <a class="btn lite" href="/">Back to the site</a>
+  <span class="alt">Questions about your order? <a href="/contact/">Get in touch</a> — or reply to your receipt.</span>
+</div></section>
+
+</main><footer><div class="f-shell">
+  <div class="f-in">
+    <div class="f-grid">
+      <div class="f-brand"><a class="home" href="/" style="display:flex;gap:10px;align-items:center;font:700 12.5px var(--fb);letter-spacing:.14em;text-decoration:none"><svg class="mark" style="width:24px;height:24px" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg>STATION</a>
+      <p>The front office that never clocks out. Independent — your account, your data, your numbers.</p>
+      <p style="margin-top:10px"><a href="/audit/" style="color:#EFC26A;font-weight:600">Get your free audit →</a></p></div>
+      <div><h4>Start here</h4><a href="/storefront/">Storefront</a><a href="/greet/">Greet</a><a href="/dial/">Dial</a><a href="/revive/">Revive</a></div><div><h4>The phone</h4><a href="/lineback/">Lineback</a><a href="/frontdesk/">Frontdesk</a><a href="/pursuit/">Pursuit</a><a href="/slate/">Slate</a></div><div><h4>Get found</h4><a href="/map/">Map</a><a href="/repute/">Repute</a><a href="/marquee/">Marquee</a></div><div><h4>Run the business</h4><a href="/tap/">Tap</a><a href="/dispatch/">Dispatch</a><a href="/radar/">Radar</a></div>
+    </div>
+    <div class="f-soc"><a href="https://www.instagram.com/stationautomations/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a href="https://www.tiktok.com/@stationautomations" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24"><path d="M14 3v9.5a3.75 3.75 0 11-3-3.68" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 5.5c.8 1.9 2.4 3.2 4.5 3.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></a><a href="https://x.com/stationsolns" target="_blank" rel="noopener" aria-label="X" title="X"><svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></a><a href="https://www.facebook.com/profile.php?id=61592213552189" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8h2.5V4.5H14A4.5 4.5 0 009.5 9v2.5H7V15h2.5v5.5H13V15h2.5l.5-3.5h-3V9.5A1.5 1.5 0 0114 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></a><a href="https://www.youtube.com/@stationsolns" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M10.5 9.5l4.5 2.5-4.5 2.5z" fill="currentColor"/></svg></a><a href="https://www.linkedin.com/in/station-solutions-996073424/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10.5V17M8 7.6v.2M12 17v-3.7a2.3 2.3 0 014.6 0V17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></a><a href="https://www.reddit.com/user/Station_Automations/" target="_blank" rel="noopener" aria-label="Reddit" title="Reddit"><svg viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="9.5" cy="13" r="1" fill="currentColor"/><circle cx="14.5" cy="13" r="1" fill="currentColor"/><path d="M9.5 16c1.6 1 3.4 1 5 0M12 7l1-3.5 3 1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="17" cy="4.8" r="1.1" fill="currentColor"/></svg></a><a href="https://www.snapchat.com/add/stationsolns" target="_blank" rel="noopener" aria-label="Snapchat" title="Snapchat"><svg viewBox="0 0 24 24"><path d="M12 3.5c2.6 0 4.3 1.9 4.3 4.5v1.8c.8.4 1.5.3 2.2.1-.2.9-.9 1.4-1.8 1.8.7 1.6 2 2.7 3.3 3-1 .8-2.2 1.2-3.4 1.3-.4 1-1.4 1.6-4.6 1.6s-4.2-.6-4.6-1.6c-1.2-.1-2.4-.5-3.4-1.3 1.3-.3 2.6-1.4 3.3-3-.9-.4-1.6-.9-1.8-1.8.7.2 1.4.3 2.2-.1V8c0-2.6 1.7-4.5 4.3-4.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></a><a href="https://www.pinterest.com/stationsolutions/" target="_blank" rel="noopener" aria-label="Pinterest" title="Pinterest"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5c-2 0-3.5 1.4-3.5 3.2 0 1.1.5 1.9 1.4 2.3l.4-1.3c-.3-.3-.5-.7-.5-1.1 0-1.1.9-2 2.2-2 1.2 0 2 .7 2 1.8 0 1.5-.7 2.8-1.8 2.8-.6 0-1-.4-.9-1l.5-2M11 14l-1 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></a></div>
+    <div class="f-legal"><span>© 2026 Station Automations Group LLC</span>
+      <a href="/legal/privacy.html">Privacy</a><a href="/legal/tos.html">Terms</a>
+      <a href="/legal/sms-terms.html">SMS terms</a><a href="/legal/cancellation.html">Cancellation</a>
+      <a href="/legal/cookies.html">Cookies</a><a href="/legal/accessibility.html">Accessibility</a><a href="/contact/">Contact</a><a href="/partners/">Partners</a>
+      <a href="mailto:main@station.solutions">main@station.solutions</a></div>
+  </div>
+  <div class="f-mark" aria-hidden="true"><svg viewBox="0 0 1200 175"><text x="50%" y="60%" text-anchor="middle" dominant-baseline="middle" font-size="138">STATION</text></svg></div>
+</div></footer>
+<script>window.STATION_CATALOG=[{"k": "storefront", "n": "Storefront", "sub": "Website", "pricelab": "$500 + $49/mo care", "ttl": "Live in 48 hours", "mo": 49, "once": 500, "link": "https://buy.stripe.com/6oUeV64SEgR3eIN0Fi2Fa0W", "img": "/media/v5/storefront.jpg", "price_id": "price_1TzVcb4Y7C8no2ikodaSjl0E"}, {"k": "greet", "n": "Greet", "sub": "Website chat assistant", "pricelab": "$79 /mo", "ttl": "Live in minutes", "mo": 79, "once": 0, "link": "https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z", "img": "/media/v5/greet.jpg", "price_id": "price_1TzVcd4Y7C8no2ikRlFIdU8q"}, {"k": "slate", "n": "Slate", "sub": "Booking calendar & reminders", "pricelab": "$97 /mo", "ttl": "Live today", "mo": 97, "once": 0, "link": "https://buy.stripe.com/3cIfZa84QbwJ8kpgEg2Fa12", "img": "/media/v5/slate.jpg", "price_id": "price_1TzVce4Y7C8no2ikPG8R7wBp"}, {"k": "lineback", "n": "Lineback", "sub": "Missed-call text-back", "pricelab": "$197 /mo", "ttl": "Live in ~2 business days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14", "img": "/media/v5/lineback.jpg", "price_id": "price_1TzVcf4Y7C8no2ikSQwPLLHG"}, {"k": "frontdesk", "n": "Frontdesk", "sub": "AI phone receptionist", "pricelab": "$397 /mo", "ttl": "Live same day", "mo": 397, "once": 0, "link": "https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16", "img": "/media/v5/frontdesk.jpg", "price_id": "price_1TzVcg4Y7C8no2iknK94keOq"}, {"k": "pursuit", "n": "Pursuit", "sub": "Automatic follow-up", "pricelab": "$247 /mo", "ttl": "Live instantly", "mo": 247, "once": 0, "link": "https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19", "img": "/media/v5/pursuit.jpg", "price_id": "price_1TzVci4Y7C8no2ikGmZ0IJA0"}, {"k": "repute", "n": "Repute", "sub": "Review engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b", "img": "/media/v5/repute.jpg", "price_id": "price_1TzVcj4Y7C8no2ikEe64LSwt"}, {"k": "map", "n": "Map", "sub": "Google listing management", "pricelab": "$147 /mo + $297 setup", "ttl": "Live in 2\u20133 days", "mo": 147, "once": 297, "link": "https://buy.stripe.com/5kQeV62Kw6cp6chafS2Fa1c", "img": "/media/v5/map.jpg", "price_id": "price_1TzVcj4Y7C8no2ikjsW7rbyt"}, {"k": "dispatch", "n": "Dispatch", "sub": "Email campaigns", "pricelab": "$94 /mo", "ttl": "Live instantly", "mo": 94, "once": 0, "link": "https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d", "img": "/media/v5/dispatch.jpg", "price_id": "price_1TzVck4Y7C8no2ikU1Jq6hp3"}, {"k": "revive", "n": "Revive", "sub": "Reactivation campaign", "pricelab": "$497 once", "ttl": "Runs in 1\u20132 days", "mo": 0, "once": 497, "link": "https://buy.stripe.com/9B69AMacYfMZasx2Nq2Fa1f", "img": "/media/v5/revive.jpg", "price_id": "price_1TzVcm4Y7C8no2ikOhRSfoNn"}, {"k": "radar", "n": "Radar", "sub": "Prospecting engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/00w5kw0Co9oB9ot5ZC2Fa1m", "img": "/media/v5/radar.jpg", "price_id": "price_1TzVcn4Y7C8no2ikpUvKxgUE"}, {"k": "dial", "n": "Dial", "sub": "Business number & texting", "pricelab": "$47 /mo", "ttl": "Live in ~2 business days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h", "img": "/media/v5/dial.jpg", "price_id": "price_1TzVcn4Y7C8no2ikq0LlSCRA"}, {"k": "tap", "n": "Tap", "sub": "Payments & POS", "pricelab": "$147 /mo + card rates", "ttl": "Live in 1\u20132 days", "mo": 147, "once": 0, "link": "https://buy.stripe.com/3cI4gsdpa30d8kp5ZC2Fa1i", "img": "/media/v5/tap.jpg", "price_id": "price_1TzVco4Y7C8no2ikZAvSyKM3"}, {"k": "marquee", "n": "Marquee", "sub": "Social, ads & brand board", "pricelab": "$197 /mo", "ttl": "Live in 5\u20137 days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k", "img": "/media/v5/marquee.jpg", "price_id": "price_1TzVcp4Y7C8no2ikHA1mMp89"}];</script>
+<script>
+(function () {
+  var CART = "station_cart";
+  var cat = window.STATION_CATALOG || [];
+  function P(k) { for (var i = 0; i < cat.length; i++) if (cat[i].k === k) return cat[i]; return null; }
+  function f$(n) { return "$" + Number(n || 0).toLocaleString("en-US"); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var el = function (id) { return document.getElementById(id); };
+
+  /* Same pairings the checkout page nudges with, so the add-on we suggest here is the
+     one they already saw and passed on — not a fresh pitch out of nowhere. */
+  var PAIR = { lineback: ["frontdesk", "dial"], frontdesk: ["slate", "repute"], storefront: ["greet", "map"],
+    greet: ["slate", "pursuit"], slate: ["pursuit", "lineback"], pursuit: ["revive", "dispatch"],
+    repute: ["map", "marquee"], map: ["repute", "marquee"], dispatch: ["revive", "radar"],
+    revive: ["dispatch", "pursuit"], radar: ["dispatch", "dial"], dial: ["lineback", "tap"],
+    tap: ["dial", "slate"], marquee: ["repute", "map"] };
+  var WHY = { greet: "Answers the visitors your new site brings in.",
+    map: "Gets that site found on Google Maps.", slate: "Turns those conversations into booked jobs.",
+    pursuit: "Chases the ones who don't reply the first time.", frontdesk: "Picks up when the texts turn into calls.",
+    dial: "Gives it a real business number to text from.", repute: "Turns finished jobs into reviews.",
+    marquee: "Keeps the socials fed without you writing them.", lineback: "Catches the calls you miss.",
+    revive: "Wakes up the customers already in your list.", dispatch: "Emails that list on a schedule.",
+    radar: "Finds new names to put into it.", tap: "Takes the payment at the end of it." };
+
+  /* The cart is read BEFORE it's cleared — it's the only record of what they bought that
+     this static page can see. Clearing it here is the fix for the cart that stayed full
+     after paying: Stripe used to hand people back to the homepage with their line intact. */
+  var bought = [];
+  try { bought = JSON.parse(localStorage.getItem(CART) || "[]"); } catch (e) { bought = []; }
+  try { localStorage.removeItem(CART); } catch (e) {}
+  document.querySelectorAll(".cartbtn .n").forEach(function (b) { b.textContent = "0"; b.classList.remove("on"); });
+
+  var items = bought.map(P).filter(Boolean);
+
+  /* ---- what they bought ---- */
+  if (items.length) {
+    var names = items.map(function (p) { return p.n; });
+    var list = names.length === 1 ? names[0]
+      : names.slice(0, -1).join(", ") + " and " + names[names.length - 1];
+    el("tyLede").innerHTML = "<b>" + esc(list) + "</b> " + (names.length === 1 ? "is" : "are") +
+      " on the build board. Your receipt is on its way to your inbox.";
+    el("tyBought").innerHTML = items.map(function (p) {
+      return '<span class="ty-chip">' + (p.img ? '<img src="' + esc(p.img) + '" alt="">' : "") +
+        "<span><b>" + esc(p.n) + "</b> <span>" + esc(p.pricelab) + "</span></span></span>";
+    }).join("");
+
+    /* Longest lead time in the order — promising the fastest one would be a promise we'd miss. */
+    var slow = items.slice().sort(function (a, b) { return (b.once || 0) - (a.once || 0); })[0];
+    if (slow && slow.ttl) el("tyStep2").textContent =
+      "We set your products up and verify every one live. " + slow.n + ": " + slow.ttl.toLowerCase() + ".";
+  }
+
+  /* ---- the add-on ---- */
+  /* Round-robin across what they bought rather than draining the first product's list —
+     buy a website and a phone product and you should see one add-on for each, not two
+     website ones. */
+  var sug = [];
+  for (var depth = 0; depth < 2 && sug.length < 2; depth++) {
+    for (var i = 0; i < items.length && sug.length < 2; i++) {
+      var s = (PAIR[items[i].k] || [])[depth];
+      if (s && bought.indexOf(s) === -1 && sug.indexOf(s) === -1) sug.push(s);
+    }
+  }
+  sug = sug.map(P).filter(Boolean);
+
+  if (sug.length) {
+    el("tyAddSub").textContent = sug.length === 1
+      ? "One thing pairs with what you just bought more than anything else."
+      : "These two pair with what you just bought more than anything else.";
+    el("tyAdds").innerHTML = sug.map(function (p) {
+      /* Same trial rule the checkout page uses — a subscription with no setup fee is $0 today. */
+      var trial = p.mo > 0 && !(p.once > 0) && p.k !== "storefront";
+      return '<div class="ty-add">' + (p.img ? '<img src="' + esc(p.img) + '" alt="">' : "") +
+        '<div class="m"><b>' + esc(p.n) + '</b><span class="sub">' + esc(p.pricelab) + "</span>" +
+        (WHY[p.k] ? '<span class="why">' + esc(WHY[p.k]) + "</span>" : "") +
+        (trial ? '<span class="ty-free">Free for 7 days</span>' : "") +
+        '</div><button class="btn dark go" data-tyadd="' + esc(p.k) + '">' +
+        (trial ? "Add — $0 today" : "Add it") + "</button></div>";
+    }).join("");
+    el("tyAddSec").hidden = false;
+
+    el("tyAdds").addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-tyadd]"); if (!b) return;
+      var k = b.getAttribute("data-tyadd"), c = [];
+      try { c = JSON.parse(localStorage.getItem(CART) || "[]"); } catch (err) { c = []; }
+      if (c.indexOf(k) === -1) c.push(k);
+      try { localStorage.setItem(CART, JSON.stringify(c)); } catch (err) {}
+      location.href = "/checkout/";
+    });
+  }
+
+  /* ---- the list ---- */
+  el("tyForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var err = el("tyErr"); err.classList.remove("show");
+    var email = el("tyEmail").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) {
+      err.textContent = "Please enter a valid email address."; err.classList.add("show"); return;
+    }
+    if (!el("tyConsent").checked) {
+      err.textContent = "Tick the box so we know it's OK to email you."; err.classList.add("show"); return;
+    }
+    var btn = el("tyBtn"); btn.disabled = true; btn.textContent = "Adding you…";
+
+    /* Deliberately NOT the /free-audit intake the other forms post to: its spam gate scores a
+       missing name and business as two strikes, so an email-only signup is silently dropped —
+       and anything that does get through has a free audit generated and emailed to it, which
+       is the wrong thing to send someone who just bought. This is its own endpoint. */
+    var fd = new FormData();
+    fd.set("email", email);
+    fd.set("source", "post-purchase");
+    fd.set("leak", document.querySelector('#tyForm input[name=leak]').value || "");
+    if (bought.length) fd.set("bought", bought.join(","));
+    try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/newsletter", { method: "POST", mode: "no-cors", body: fd }); } catch (err2) {}
+
+    el("tyForm").hidden = true;
+    el("tyListDoneMsg").textContent = "We'll write to " + email + ". Nothing else to do.";
+    el("tyListDone").hidden = false;
+    try { localStorage.setItem("station_news", "joined"); } catch (err3) {}
+  });
+})();
+</script>
+<script src="/v5.js" defer></script></body></html>
