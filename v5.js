@@ -555,7 +555,7 @@
             '<input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">' +
             '<input type="hidden" name="_t" value=""><input type="hidden" name="variant" value="newsletter">' +
             '<label class="consent"><input type="checkbox" name="consent_email" value="yes" required><span>Email me the monthly note. Unsubscribe anytime.</span></label>' +
-            '<label class="consent"><input type="checkbox" name="consent_sms" value="yes"><span>Texts are OK too. Msg &amp; data rates may apply; reply STOP to opt out. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a>.</span></label>' +
+            '<label class="consent"><input type="checkbox" name="consent_sms" value="yes"><span>Text me Station tips &amp; offers too. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a> · <a href="/legal/privacy.html" target="_blank">Privacy</a>.</span></label>' +
             '<button class="btn dark" type="submit" style="width:100%">Join the list</button>' +
             '<p class="af-done" hidden><b>You\'re on the list.</b> Nothing else to do.</p></form>';
           function close() { scr.remove(); pop.remove(); localStorage.setItem("station_news", "dismissed"); }
