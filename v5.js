@@ -544,17 +544,20 @@
           pop.innerHTML = '<button class="x" aria-label="Close">×</button>' +
             '<div class="pop-mark" aria-hidden="true"><svg viewBox="0 0 100 100" fill="currentColor"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#fff"/></svg></div>' +
             '<p class="pop-k">The Station newsletter</p>' +
-            '<h3 style="font-family:var(--fd);font-weight:700">10% off your first month.</h3>' +
-            '<p>Join the list and we\'ll send the discount code, plus one useful note a month. No noise.</p>' +
-            '<form data-audit data-variant="newsletter" class="audit-form" style="border:0;padding:0;margin-top:14px">' +
+            '<h3 style="font-family:var(--fd);font-weight:700">One useful note a month.</h3>' +
+            '<p>What\'s actually working for businesses like yours, and what we ship next. No noise.</p>' +
+            /* `data-audit` deliberately dropped: the global form[data-audit] binder posts to the
+               free-audit intake, and this form must not go there — see the endpoint note below.
+               It only ever bound forms present at DOM ready anyway, and this one is built later. */
+            '<form data-variant="newsletter" class="audit-form" style="border:0;padding:0;margin-top:14px">' +
             '<div class="af-grid"><input name="email" type="email" placeholder="Email" required style="grid-column:1/-1">' +
             '<input name="phone" type="tel" placeholder="Phone (optional)" style="grid-column:1/-1"></div>' +
             '<input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">' +
             '<input type="hidden" name="_t" value=""><input type="hidden" name="variant" value="newsletter">' +
-            '<label class="consent"><input type="checkbox" name="consent_email" value="yes" required><span>Email me the code + the monthly note. Unsubscribe anytime.</span></label>' +
+            '<label class="consent"><input type="checkbox" name="consent_email" value="yes" required><span>Email me the monthly note. Unsubscribe anytime.</span></label>' +
             '<label class="consent"><input type="checkbox" name="consent_sms" value="yes"><span>Texts are OK too. Msg &amp; data rates may apply; reply STOP to opt out. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a>.</span></label>' +
-            '<button class="btn dark" type="submit" style="width:100%">Send my code</button>' +
-            '<p class="af-done" hidden><b>Check your inbox.</b> The code is on its way.</p></form>';
+            '<button class="btn dark" type="submit" style="width:100%">Join the list</button>' +
+            '<p class="af-done" hidden><b>You\'re on the list.</b> Nothing else to do.</p></form>';
           function close() { scr.remove(); pop.remove(); localStorage.setItem("station_news", "dismissed"); }
           pop.querySelector(".x").addEventListener("click", close);
           scr.addEventListener("click", close);
@@ -562,7 +565,14 @@
             e.preventDefault();
             var form = e.target; if (!form.reportValidity()) return;
             var fd = new FormData(form); fd.set("_t", "9999");
-            try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/free-audit", { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
+            /* NOT the free-audit intake. Its spam gate scores a missing name and business as
+               two strikes, so an email-only signup was classified spam and dropped with no
+               reply — every signup this popup ever took went nowhere. And anything that did
+               pass had a website derived from the email domain and a paid audit report
+               generated and emailed to it. /webhook/newsletter is the list endpoint: honeypot
+               + email validity only, GHL upsert, SMS suppressed unless consent_sms is real. */
+            fd.set("source", "newsletter");
+            try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/newsletter", { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
             form.querySelectorAll("input,button").forEach(function (el) { el.disabled = true; });
             form.querySelector(".af-done").hidden = false;
             localStorage.setItem("station_news", "joined");
