@@ -50,6 +50,14 @@
     document.querySelectorAll(".addcart[data-add]").forEach(function(b){
       var inCart = cartGet().indexOf(b.getAttribute("data-add")) > -1;
       b.classList.toggle("in", inCart);
+      /* The shelf's compact + carries its glyph in CSS (a plus that becomes a tick), so
+         writing a label into it would blow the icon away on every badge render. It gets
+         an accessible name instead — it has no visible text to read. */
+      if (b.classList.contains("qadd")){
+        var nm = b.getAttribute("data-name") || "";
+        b.setAttribute("aria-label", (inCart ? "In cart: " : "Add to cart: ") + nm);
+        return;
+      }
       b.textContent = inCart ? "In cart ✓" : (b.getAttribute("data-label") || "Add to cart");
     });
   }

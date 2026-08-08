@@ -134,6 +134,95 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
 .course-item .watched-tag{font-size:.82rem;color:#1a6b3c;font-weight:600;margin-top:12px}
 .course-item .lock-note{font-size:.85rem;color:var(--faint);padding:0 18px 16px;margin-top:-4px}
 .lvid{width:100%;border-radius:12px;margin:10px 0 8px;background:#1D1D1F;display:block}
+
+/* ================= SHEET =================
+   One grid engine, two surfaces: the leads worklist and the book of business.
+   Spreadsheet habits on purpose — sticky header, click-to-sort, inline edit,
+   type-to-filter, CSV out. Built from the same tokens as everything above. */
+.breakout{width:min(1300px,calc(100vw - 40px));margin-left:50%;transform:translateX(-50%)}
+@media(max-width:1000px){.breakout{width:auto;margin-left:0;transform:none}}
+
+.sheet-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.sheet-head .grow{flex:1 1 200px;min-width:170px}
+.srch{width:100%;background:#fff;border:1px solid var(--line);border-radius:11px;
+  padding:10px 13px;font:14px var(--fb);color:var(--ink)}
+.srch:focus{outline:none;border-color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;
+  font:600 11.5px var(--fd);color:var(--muted);cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--ink)}
+.chip[data-on]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip .n{font-family:var(--fm);font-size:10px;opacity:.6;margin-left:6px}
+
+.sheet-scroll{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  overflow:auto;max-height:min(70vh,760px)}
+table.sheet{width:100%;border-collapse:separate;border-spacing:0;font:13.5px/1.45 var(--fb)}
+table.sheet th{position:sticky;top:0;z-index:2;background:#FAF9F7;text-align:left;white-space:nowrap;
+  font:600 10.5px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
+  padding:12px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+table.sheet th:hover{color:var(--ink)}
+table.sheet th.num{text-align:right}
+table.sheet th .ar{opacity:0;margin-left:5px;font-size:8px;vertical-align:middle}
+table.sheet th[data-sorted] .ar{opacity:1;color:var(--ink)}
+table.sheet th[data-sorted]{color:var(--ink)}
+table.sheet td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.sheet tr.r:hover>td{background:#F4F1EB}
+table.sheet tr.r[data-open]>td{background:#F4F1EB}
+table.sheet td.num{text-align:right;font-family:var(--fm);font-size:12.5px;white-space:nowrap}
+table.sheet td.b{font-weight:600;white-space:nowrap}
+table.sheet td.dim{color:var(--muted)}
+table.sheet .sub{color:var(--faint);font-size:11.5px;font-weight:400}
+table.sheet a.cell{color:var(--accent);font-weight:600;text-decoration:none}
+table.sheet a.cell:hover{text-decoration:underline}
+.sheet-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  font:11px var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:12px 4px 0}
+
+/* inline-editable cells — invisible until you reach for them, like a real sheet */
+.cell-sel,.cell-date{border:1px solid transparent;background:transparent;color:var(--ink);
+  border-radius:8px;padding:5px 7px;cursor:pointer;max-width:150px}
+.cell-sel{font:600 12px var(--fd)}
+.cell-date{font:12px var(--fm)}
+.cell-sel:hover,.cell-date:hover{border-color:var(--line);background:#fff}
+.cell-sel:focus,.cell-date:focus{outline:none;border-color:var(--ink);background:#fff}
+.cell-date:not([value]),.cell-date[value=""]{color:var(--faint)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.dot.s-{background:var(--faint)}.dot.s-called{background:#8A5A00}
+.dot.s-no_answer{background:#A9A9AE}.dot.s-interested{background:#167A44}
+.dot.s-demo_sent{background:#2B6CB0}.dot.s-won{background:#167A44}
+.dot.s-not_interested{background:#C03B2B}
+.due{color:var(--red);font-weight:600}
+.today{color:var(--accent);font-weight:600}
+
+.nbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;
+  font:600 11px var(--fd);color:var(--muted);cursor:pointer;white-space:nowrap}
+.nbtn:hover{border-color:var(--ink);color:var(--ink)}
+.nbtn[data-has]{border-color:var(--ink);color:var(--ink)}
+.xbtn{border:0;background:none;color:var(--faint);cursor:pointer;font-size:15px;line-height:1;
+  padding:3px 6px;border-radius:7px}
+.xbtn:hover{color:var(--red);background:rgba(192,59,43,.08)}
+
+/* the notes drawer — a per-row journal, opened from the Notes cell */
+tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
+.drawer-in{padding:18px 20px}
+.drawer-in .dh{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:12px}
+.nitem{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px 40px 11px 14px;
+  margin-bottom:8px;position:relative}
+.nitem .t{font-size:13.5px;white-space:pre-wrap;word-break:break-word;line-height:1.55}
+.nitem .m{font:10px var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin-top:7px}
+.nitem .xbtn{position:absolute;top:9px;right:10px}
+.nadd{display:flex;gap:9px;align-items:flex-start;margin-top:10px}
+.nadd textarea{flex:1;min-height:46px;background:#fff;border:1px solid var(--line);border-radius:12px;
+  color:var(--ink);font:14px/1.5 var(--fb);padding:11px 13px;resize:vertical}
+.nadd textarea:focus{outline:none;border-color:var(--ink)}
+.nempty{color:var(--faint);font-size:13px;padding:2px 0 4px}
+
+.addrow{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px 22px;margin-bottom:14px}
+.addrow .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.addrow .grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.addrow .grid{grid-template-columns:1fr}}
+.addrow .field{margin-bottom:0}
 .p-foot{border-top:1px solid var(--line);margin-top:52px;padding:26px 0 60px;color:var(--faint);font-size:13px}
 .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);
   border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
@@ -232,6 +321,8 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
 
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
+      <button class="tab" data-tab="leads">Leads</button>
+      <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
       <button class="tab" data-tab="paid">How you get paid</button>
       <button class="tab" data-tab="training">Training</button>
@@ -257,6 +348,70 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
         <p class="note" id="basisNote" style="margin-top:14px"></p>
       </div>
       <div class="card" id="taxCard"></div>
+    </div>
+
+    <!-- ---------------- LEADS: the worklist, as a spreadsheet ------------- -->
+    <div class="panel" data-panel="leads">
+      <div class="breakout">
+        <div class="card" style="margin-bottom:14px">
+          <h2 class="tight">Your leads</h2>
+          <p class="note" style="margin-bottom:0">Every business you're working, in one sheet. Click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
+        </div>
+
+        <div class="addrow hide" id="addLeadBox">
+          <form id="addLeadForm" novalidate>
+            <div class="grid">
+              <div class="field"><label>Business</label><input name="name" required placeholder="Katy Pool Co"></div>
+              <div class="field"><label>City</label><input name="city" placeholder="Katy"></div>
+              <div class="field"><label>Trade</label><input name="niche" placeholder="pools"></div>
+              <div class="field"><label>Phone</label><input name="phone" placeholder="(281) 555-0142"></div>
+              <div class="field"><label>Website</label><input name="website" placeholder="katypoolco.com"></div>
+              <div class="field"><label>The gap</label><input name="gap" placeholder="No one answers after 5pm"></div>
+              <div class="field"><label>Pitch</label><input name="sku" placeholder="Frontdesk"></div>
+              <div class="field"><label>Est. leak / mo</label><input name="leak" inputmode="numeric" placeholder="2400"></div>
+            </div>
+            <div class="actions" style="margin-top:16px">
+              <button class="btn dark sm" type="submit"><span class="t">Add to sheet</span></button>
+              <button class="btn lite sm" type="button" id="addLeadCancel">Cancel</button>
+            </div>
+            <div class="msg" id="addLeadMsg"></div>
+          </form>
+        </div>
+
+        <div class="sheet-head">
+          <div class="grow"><input class="srch" id="leadQ" placeholder="Filter — business, city, trade, phone, gap…"></div>
+          <div class="chips" id="leadChips"></div>
+          <button class="btn dark sm" id="addLeadBtn">Add lead</button>
+          <button class="btn lite sm" id="leadCsv">Export CSV</button>
+        </div>
+        <div class="sheet-scroll"><table class="sheet" id="leadSheet"></table></div>
+        <div class="sheet-foot"><span id="leadCount">—</span><span id="leadCap"></span></div>
+      </div>
+    </div>
+
+    <!-- ---------------- BOOK OF BUSINESS --------------------------------- -->
+    <div class="panel" data-panel="book">
+      <div class="breakout">
+        <div class="stats" id="bookStats">
+          <div class="stat"><div class="v" id="bkClients">—</div><div class="k">Clients in book</div></div>
+          <div class="stat"><div class="v" id="bkMrr">—</div><div class="k">Their spend / mo</div></div>
+          <div class="stat"><div class="v" id="bkComm">—</div><div class="k">Your cut / mo</div></div>
+          <div class="stat"><div class="v" id="bkRate">—</div><div class="k">Your rate</div></div>
+        </div>
+
+        <div class="card" style="margin-bottom:14px">
+          <h2 class="tight">Your book</h2>
+          <p class="note" style="margin-bottom:0" id="bookIntro">Every client assigned to you — the ones you closed and the warm leads Station distributed to you. They stay yours for as long as they stay a client: upsells, general questions, account decisions. Keep the running record of each relationship here so nothing lives only in your head.</p>
+        </div>
+
+        <div class="sheet-head">
+          <div class="grow"><input class="srch" id="bookQ" placeholder="Filter — client, email, phone, plan…"></div>
+          <div class="chips" id="bookChips"></div>
+          <button class="btn lite sm" id="bookCsv">Export CSV</button>
+        </div>
+        <div class="sheet-scroll"><table class="sheet" id="bookSheet"></table></div>
+        <div class="sheet-foot"><span id="bookCount">—</span><span id="bookBasis"></span></div>
+      </div>
     </div>
 
     <div class="panel" data-panel="demos">
@@ -359,7 +514,7 @@ function dropToken(){token=null;try{localStorage.removeItem(TKEY);}catch(e){}}
 function showApp(){
   $("authView").classList.add("hide");$("appView").classList.remove("hide");
   $("logout").classList.remove("hide");
-  loadMe();loadJobs();
+  loadMe();loadJobs();loadLeads();
   if(pollTimer)clearInterval(pollTimer);
   pollTimer=setInterval(loadJobs,20000);
 }
@@ -367,6 +522,7 @@ function showAuth(){
   $("appView").classList.add("hide");$("authView").classList.remove("hide");
   $("logout").classList.add("hide");$("whoami").textContent="";
   if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
+  bookLoaded=false;
 }
 
 var LADDER=[{n:"Scout",r:20,g:0},{n:"Partner",r:30,g:3},{n:"Lead Partner",r:40,g:10}];
@@ -486,6 +642,363 @@ function renderCourse(){
   });
 }
 renderCourse();
+
+/* ================= SHEET ENGINE =================
+   One grid, two surfaces (leads worklist + book of business). A config is:
+     {id, mount, cols, rows, notes, key(r), subject(r), label(r),
+      filters:[{k,label,fn}], empty, csvName}
+   A column is:
+     {k, h, cls, get(r), html(r), sortv(r), csv(r), noSort, noExport}
+   Everything re-renders from state on every change — these sheets are
+   hundreds of rows at most (the engine caps a partner at 200 leads), so
+   there is nothing to gain from being clever about it. */
+var SHEET={};
+function sst(id){
+  if(!SHEET[id]){SHEET[id]={q:"",filter:"all",sortK:null,dir:1,open:null};}
+  return SHEET[id];
+}
+function pad2(n){return (n<10?"0":"")+n;}
+function todayStr(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+function when(iso){
+  var d=new Date(iso);
+  if(isNaN(d))return "";
+  var M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var h=d.getHours(),ap=h>=12?"pm":"am";h=h%12;if(!h)h=12;
+  return d.getDate()+" "+M[d.getMonth()]+" "+d.getFullYear()+" · "+h+":"+pad2(d.getMinutes())+ap;
+}
+function cellVal(c,r){return c.get?c.get(r):r[c.k];}
+function sortVal(c,r){var v=c.sortv?c.sortv(r):cellVal(c,r);return v==null?"":v;}
+
+function visibleRows(cfg){
+  var st=sst(cfg.id),rows=(cfg.rows||[]).slice();
+  if(st.filter!=="all"){
+    var f=(cfg.filters||[]).filter(function(x){return x.k===st.filter;})[0];
+    if(f)rows=rows.filter(f.fn);
+  }
+  var q=st.q.trim().toLowerCase();
+  if(q){
+    rows=rows.filter(function(r){
+      // searchExtra covers what a column renders but doesn't hold — the city
+      // under a business name, the company under a client name.
+      if(cfg.searchExtra&&String(cfg.searchExtra(r)||"").toLowerCase().indexOf(q)>=0)return true;
+      return cfg.cols.some(function(c){
+        var v=cellVal(c,r);
+        return String(v==null?"":v).toLowerCase().indexOf(q)>=0;});
+    });
+  }
+  if(st.sortK){
+    var c=cfg.cols.filter(function(x){return x.k===st.sortK;})[0];
+    if(c){rows.sort(function(a,b){
+      var x=sortVal(c,a),y=sortVal(c,b);
+      if(typeof x==="number"&&typeof y==="number")return (x-y)*st.dir;
+      return String(x).localeCompare(String(y),undefined,{numeric:true})*st.dir;});}
+  }
+  return rows;
+}
+
+function drawerHtml(cfg,r,span){
+  var subj=cfg.subject(r),list=(cfg.notes&&cfg.notes[subj])||[];
+  var h='<tr class="drawer"><td colspan="'+span+'"><div class="drawer-in">';
+  h+='<div class="dh">Notes — '+esc(cfg.label(r))+'</div>';
+  if(!list.length)h+='<div class="nempty">Nothing filed yet. Write the first note below — it\'s only visible to you.</div>';
+  list.forEach(function(n){
+    h+='<div class="nitem"><div class="t">'+esc(n.text)+'</div>'+
+       '<div class="m">'+esc(when(n.at))+'</div>'+
+       '<button class="xbtn" data-ndel="'+esc(n.id)+'" title="Delete this note">&times;</button></div>';
+  });
+  h+='<div class="nadd"><textarea id="nt_'+esc(cfg.id)+'" placeholder="What happened, what they said, what you owe them next…"></textarea>'+
+     '<button class="btn dark sm" data-nadd="'+esc(subj)+'"><span class="t">Save note</span></button></div>';
+  return h+'</div></td></tr>';
+}
+
+function renderSheet(cfg){
+  var st=sst(cfg.id),tbl=$(cfg.mount);
+  if(!tbl)return;
+  var rows=visibleRows(cfg),span=cfg.cols.length;
+
+  var h='<thead><tr>';
+  cfg.cols.forEach(function(c){
+    var isNum=(c.cls||"").indexOf("num")>=0;
+    h+='<th'+(isNum?' class="num"':'')+(c.noSort?"":' data-col="'+esc(c.k)+'"')+
+       (st.sortK===c.k?" data-sorted":"")+'>'+esc(c.h)+
+       (c.noSort?"":'<span class="ar">'+(st.sortK===c.k&&st.dir<0?"&#9650;":"&#9660;")+'</span>')+'</th>';
+  });
+  h+='</tr></thead><tbody>';
+
+  if(!rows.length){
+    h+='<tr><td colspan="'+span+'" style="border:0"><div class="empty" style="border:0;background:none">'+cfg.empty+'</div></td></tr>';
+  }
+  rows.forEach(function(r){
+    var key=String(cfg.key(r));
+    h+='<tr class="r" data-row="'+esc(key)+'"'+(st.open===key?" data-open":"")+'>';
+    cfg.cols.forEach(function(c){
+      var v=c.html?c.html(r):esc(cellVal(c,r));
+      h+='<td'+(c.cls?' class="'+c.cls+'"':"")+'>'+v+'</td>';
+    });
+    h+='</tr>';
+    if(st.open===key)h+=drawerHtml(cfg,r,span);
+  });
+  tbl.innerHTML=h+'</tbody>';
+
+  tbl.querySelectorAll("th[data-col]").forEach(function(th){
+    th.onclick=function(){
+      var k=th.getAttribute("data-col");
+      if(st.sortK===k){st.dir=-st.dir;}else{st.sortK=k;st.dir=1;}
+      renderSheet(cfg);
+    };
+  });
+  tbl.querySelectorAll("[data-notes]").forEach(function(btn){
+    btn.onclick=function(e){
+      e.stopPropagation();
+      var k=btn.getAttribute("data-notes");
+      st.open=(st.open===k)?null:k;
+      renderSheet(cfg);
+      if(st.open){var ta=$("nt_"+cfg.id);if(ta)ta.focus();}
+    };
+  });
+  tbl.querySelectorAll("[data-nadd]").forEach(function(btn){
+    btn.onclick=function(){
+      var subj=btn.getAttribute("data-nadd"),ta=$("nt_"+cfg.id);
+      var text=ta?ta.value.trim():"";
+      if(!text)return;
+      var t=btn.querySelector(".t"),old=t.innerHTML;
+      btn.disabled=true;t.innerHTML='<span class="spin"></span>';
+      post({action:"note_add",token:token,subject:subj,text:text}).then(function(d){
+        btn.disabled=false;t.innerHTML=old;
+        if(!d||!d.ok)return;
+        cfg.notes[subj]=d.notes||[];
+        renderSheet(cfg);
+      }).catch(function(){btn.disabled=false;t.innerHTML=old;});
+    };
+  });
+  tbl.querySelectorAll("[data-ndel]").forEach(function(btn){
+    btn.onclick=function(){
+      var id=btn.getAttribute("data-ndel");
+      post({action:"note_del",token:token,id:id}).then(function(d){
+        if(!d||!d.ok)return;
+        cfg.notes[d.subject]=d.notes||[];
+        renderSheet(cfg);
+      }).catch(function(){});
+    };
+  });
+  if(cfg.wire)cfg.wire(tbl,cfg);
+
+  renderChips(cfg);
+  if(cfg.count)cfg.count(rows.length,(cfg.rows||[]).length);
+}
+
+function renderChips(cfg){
+  var box=$(cfg.chips);
+  if(!box||!cfg.filters)return;
+  var st=sst(cfg.id),all=(cfg.rows||[]);
+  var h='<button class="chip" data-f="all"'+(st.filter==="all"?" data-on":"")+'>All<span class="n">'+all.length+'</span></button>';
+  cfg.filters.forEach(function(f){
+    h+='<button class="chip" data-f="'+esc(f.k)+'"'+(st.filter===f.k?" data-on":"")+'>'+esc(f.label)+
+       '<span class="n">'+all.filter(f.fn).length+'</span></button>';
+  });
+  box.innerHTML=h;
+  box.querySelectorAll(".chip").forEach(function(c){
+    c.onclick=function(){st.filter=c.getAttribute("data-f");st.open=null;renderSheet(cfg);};
+  });
+}
+
+function exportCsv(cfg){
+  var rows=visibleRows(cfg),cols=cfg.cols.filter(function(c){return !c.noExport;});
+  function q(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';}
+  var lines=[cols.map(function(c){return q(c.h);}).join(",")];
+  rows.forEach(function(r){
+    lines.push(cols.map(function(c){return q(c.csv?c.csv(r):cellVal(c,r));}).join(","));
+  });
+  var blob=new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=cfg.csvName+"-"+todayStr()+".csv";
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},400);
+}
+
+/* ---------------- LEADS ---------------- */
+var OUTCOMES=[["","New"],["called","Called"],["no_answer","No answer"],
+  ["interested","Interested"],["demo_sent","Demo sent"],["won","Won"],
+  ["not_interested","Not interested"]];
+function outLabel(o){
+  var hit=OUTCOMES.filter(function(x){return x[0]===(o||"");})[0];
+  return hit?hit[1]:o;
+}
+function dueClass(d){
+  if(!d)return "";
+  var t=todayStr();
+  return d<t?"due":(d===t?"today":"");
+}
+var LEADS=[],LEAD_NOTES={};
+var leadCfg={
+  id:"leads",mount:"leadSheet",chips:"leadChips",csvName:"station-leads",
+  rows:LEADS,notes:LEAD_NOTES,
+  key:function(r){return r.id;},
+  subject:function(r){return "lead:"+r.id;},
+  label:function(r){return r.name||"Lead";},
+  searchExtra:function(r){return [r.city,r.website,r.price_line].join(" ");},
+  empty:"No leads on the sheet yet. Add the next business you plan to call.",
+  filters:[
+    {k:"open",label:"Open",fn:function(r){return ["won","not_interested"].indexOf(r.outcome||"")<0;}},
+    {k:"due",label:"Due",fn:function(r){return !!r.next_at&&r.next_at<=todayStr();}},
+    {k:"interested",label:"Interested",fn:function(r){return ["interested","demo_sent"].indexOf(r.outcome||"")>=0;}},
+    {k:"won",label:"Won",fn:function(r){return r.outcome==="won";}}
+  ],
+  cols:[
+    {k:"name",h:"Business",cls:"b",html:function(r){
+      return esc(r.name||"—")+(r.city?'<div class="sub">'+esc(r.city)+'</div>':"");}},
+    {k:"niche",h:"Trade",cls:"dim",get:function(r){return r.niche||"";}},
+    {k:"phone",h:"Phone",html:function(r){
+      return r.phone?'<a class="cell" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>':'<span class="sub">—</span>';}},
+    {k:"gap",h:"The gap",cls:"dim",get:function(r){return r.gap||"";},html:function(r){
+      return r.gap?esc(r.gap):'<span class="sub">—</span>';}},
+    {k:"leak",h:"Leak / mo",cls:"num",get:function(r){return Number(r.leak)||0;},
+      html:function(r){return r.leak?money(r.leak):'<span class="sub">—</span>';},
+      csv:function(r){return r.leak||"";}},
+    {k:"sku",h:"Pitch",cls:"dim",get:function(r){return r.sku||"";},html:function(r){
+      return r.sku?esc(r.sku):'<span class="sub">—</span>';}},
+    {k:"outcome",h:"Status",get:function(r){return outLabel(r.outcome||"");},
+      html:function(r){
+        var o=r.outcome||"";
+        var h='<span class="dot s-'+esc(o)+'"></span><select class="cell-sel" data-out="'+esc(r.id)+'">';
+        OUTCOMES.forEach(function(x){
+          h+='<option value="'+esc(x[0])+'"'+(x[0]===o?" selected":"")+'>'+esc(x[1])+'</option>';});
+        return h+'</select>';},
+      csv:function(r){return outLabel(r.outcome||"");}},
+    {k:"next_at",h:"Follow up",get:function(r){return r.next_at||"";},
+      html:function(r){
+        return '<input type="date" class="cell-date '+dueClass(r.next_at)+'" data-next="'+esc(r.id)+'" value="'+esc(r.next_at||"")+'">';},
+      csv:function(r){return r.next_at||"";}},
+    {k:"notes",h:"Notes",noSort:true,noExport:true,html:function(r){
+      var n=((LEAD_NOTES["lead:"+r.id])||[]).length;
+      return '<button class="nbtn" data-notes="'+esc(r.id)+'"'+(n?" data-has":"")+'>'+
+             (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}},
+    {k:"_x",h:"",noSort:true,noExport:true,html:function(r){
+      return r.source==="manual"?'<button class="xbtn" data-ldel="'+esc(r.id)+'" title="Remove this row">&times;</button>':"";}}
+  ],
+  count:function(shown,total){
+    $("leadCount").textContent=shown===total?(total+" row"+(total===1?"":"s")):(shown+" of "+total+" rows");
+  },
+  wire:function(tbl,cfg){
+    tbl.querySelectorAll("[data-out]").forEach(function(sel){
+      sel.onchange=function(){
+        var id=sel.getAttribute("data-out");
+        post({action:"lead_update",token:token,id:id,outcome:sel.value}).then(function(d){
+          if(!d||!d.ok)return;
+          var r=LEADS.filter(function(x){return x.id===id;})[0];
+          if(r){r.outcome=sel.value;r.outcome_at=d.lead&&d.lead.outcome_at;}
+          renderSheet(cfg);
+        }).catch(function(){});
+      };
+    });
+    tbl.querySelectorAll("[data-next]").forEach(function(inp){
+      inp.onchange=function(){
+        var id=inp.getAttribute("data-next");
+        post({action:"lead_update",token:token,id:id,next_at:inp.value}).then(function(d){
+          if(!d||!d.ok)return;
+          var r=LEADS.filter(function(x){return x.id===id;})[0];
+          if(r){if(inp.value){r.next_at=inp.value;}else{delete r.next_at;}}
+          renderSheet(cfg);
+        }).catch(function(){});
+      };
+    });
+    tbl.querySelectorAll("[data-ldel]").forEach(function(btn){
+      btn.onclick=function(){
+        var id=btn.getAttribute("data-ldel");
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        if(!confirm("Remove "+((r&&r.name)||"this row")+" from your sheet? Its notes go with it."))return;
+        post({action:"lead_del",token:token,id:id}).then(function(d){
+          if(!d||!d.ok)return;
+          for(var i=LEADS.length-1;i>=0;i--){if(LEADS[i].id===id)LEADS.splice(i,1);}
+          delete LEAD_NOTES["lead:"+id];
+          renderSheet(cfg);
+        }).catch(function(){});
+      };
+    });
+  }
+};
+
+function loadLeads(){
+  if(!token)return;
+  post({action:"leads_list",token:token}).then(function(d){
+    if(!d.ok)return;
+    LEADS.length=0;(d.leads||[]).forEach(function(l){LEADS.push(l);});
+    Object.keys(LEAD_NOTES).forEach(function(k){delete LEAD_NOTES[k];});
+    var nx=d.notes||{};
+    Object.keys(nx).forEach(function(k){if(k.indexOf("lead:")===0)LEAD_NOTES[k]=nx[k];});
+    $("leadCap").textContent="rows you add stay until you remove them · leads Station assigns you expire after "+(d.claim_days||14)+" days";
+    renderSheet(leadCfg);
+  }).catch(function(){});
+}
+
+/* ---------------- BOOK OF BUSINESS ---------------- */
+var TIER={core:"Core",pro:"Pro",custom:"Custom"};
+var BOOK=[],BOOK_NOTES={};
+var bookCfg={
+  id:"book",mount:"bookSheet",chips:"bookChips",csvName:"station-book-of-business",
+  rows:BOOK,notes:BOOK_NOTES,
+  key:function(r){return r.email||r.id;},
+  subject:function(r){return "client:"+(r.email||r.id);},
+  label:function(r){return r.name||r.email||"Client";},
+  searchExtra:function(r){return r.company||"";},
+  empty:"No clients in your book yet. A client lands here once they're live and tagged to you — the ones you close, and the warm leads Station distributes to you.",
+  filters:[
+    {k:"core",label:"Core",fn:function(r){return r.tier==="core";}},
+    {k:"pro",label:"Pro",fn:function(r){return r.tier==="pro";}},
+    {k:"custom",label:"Custom",fn:function(r){return r.tier==="custom";}},
+    {k:"new",label:"Inside 60d",fn:function(r){return !r.qualified;}}
+  ],
+  cols:[
+    {k:"name",h:"Client",cls:"b",html:function(r){
+      return esc(r.name||r.email||"—")+(r.company&&r.company!==r.name?'<div class="sub">'+esc(r.company)+'</div>':"");}},
+    {k:"email",h:"Email",html:function(r){
+      return r.email?'<a class="cell" href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>':'<span class="sub">—</span>';}},
+    {k:"phone",h:"Phone",html:function(r){
+      return r.phone?'<a class="cell" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>':'<span class="sub">—</span>';}},
+    {k:"tier",h:"Plan",cls:"dim",get:function(r){return TIER[r.tier]||r.tier||"";}},
+    {k:"mrr",h:"They pay / mo",cls:"num",get:function(r){return Number(r.mrr)||0;},
+      html:function(r){return money(r.mrr);},csv:function(r){return r.mrr||0;}},
+    {k:"commission",h:"Your cut / mo",cls:"num",get:function(r){return Number(r.commission)||0;},
+      html:function(r){return '<b>'+money(r.commission)+'</b>';},csv:function(r){return r.commission||0;}},
+    {k:"since",h:"Client since",cls:"dim",get:function(r){return r.since||"";},
+      html:function(r){return r.since?esc(r.since):'<span class="sub">—</span>';}},
+    {k:"qualified",h:"Standing",get:function(r){return r.qualified?"Established":"Inside 60d";},
+      html:function(r){return r.qualified?'<span class="pill active">Established</span>':'<span class="pill pending">Inside 60d</span>';}},
+    {k:"notes",h:"Notes",noSort:true,noExport:true,html:function(r){
+      var n=((BOOK_NOTES["client:"+(r.email||r.id)])||[]).length;
+      return '<button class="nbtn" data-notes="'+esc(r.email||r.id)+'"'+(n?" data-has":"")+'>'+
+             (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}}
+  ],
+  count:function(shown,total){
+    $("bookCount").textContent=shown===total?(total+" client"+(total===1?"":"s")):(shown+" of "+total+" clients");
+  }
+};
+
+var bookLoaded=false;
+function loadBook(force){
+  if(!token)return;
+  if(bookLoaded&&!force)return;
+  bookLoaded=true;
+  $("bookCount").textContent="Loading…";
+  post({action:"book_list",token:token}).then(function(d){
+    if(!d.ok){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";return;}
+    BOOK.length=0;(d.clients||[]).forEach(function(c){BOOK.push(c);});
+    Object.keys(BOOK_NOTES).forEach(function(k){delete BOOK_NOTES[k];});
+    var nx=d.notes||{};
+    Object.keys(nx).forEach(function(k){if(k.indexOf("client:")===0)BOOK_NOTES[k]=nx[k];});
+    var mrr=BOOK.reduce(function(s,c){return s+(Number(c.mrr)||0);},0);
+    $("bkClients").textContent=BOOK.length;
+    $("bkMrr").textContent=money(mrr);
+    $("bkComm").textContent=money(d.commission_monthly);
+    $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
+    $("bookBasis").textContent="basis: "+(d.basis||"—");
+    if(d.track!=="partner"){
+      $("bookIntro").innerHTML="You're on the <b>Scout</b> track, so you don't manage a book — once a lead you referred turns warm, Station hands it to a Partner to close and run. Anything that does get tagged to you shows here, and your bounties are unaffected.";
+    }
+    renderSheet(bookCfg);
+  }).catch(function(){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";});
+}
 
 function loadMe(){
   post({action:"me",token:token}).then(function(d){
@@ -660,6 +1173,49 @@ $("demoForm").addEventListener("submit",function(e){
       f.reset();say(m,"Queued. It usually takes a few minutes — this page updates itself.","ok");
       loadJobs();
     }).catch(function(){busy(f,false,"Build me a demo");say(m,"Network error — try again.");});
+});
+
+/* ---- sheet controls: filter boxes, CSV, and the add-lead row ---------- */
+$("leadQ").addEventListener("input",function(){
+  sst("leads").q=this.value;sst("leads").open=null;renderSheet(leadCfg);});
+$("bookQ").addEventListener("input",function(){
+  sst("book").q=this.value;sst("book").open=null;renderSheet(bookCfg);});
+$("leadCsv").addEventListener("click",function(){exportCsv(leadCfg);});
+$("bookCsv").addEventListener("click",function(){exportCsv(bookCfg);});
+
+$("addLeadBtn").addEventListener("click",function(){
+  var box=$("addLeadBox"),showing=!box.classList.contains("hide");
+  box.classList.toggle("hide",showing);
+  this.textContent=showing?"Add lead":"Close";
+  if(!showing)box.querySelector("[name=name]").focus();
+});
+$("addLeadCancel").addEventListener("click",function(){
+  $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";clear($("addLeadMsg"));});
+
+$("addLeadForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var f=e.target,m=$("addLeadMsg");clear(m);
+  if(!f.name.value.trim()){say(m,"A business name is the one thing we need.");return;}
+  busy(f,true);
+  post({action:"lead_add",token:token,name:f.name.value.trim(),city:f.city.value.trim(),
+        niche:f.niche.value.trim(),phone:f.phone.value.trim(),website:f.website.value.trim(),
+        gap:f.gap.value.trim(),sku:f.sku.value.trim(),
+        leak:String(f.leak.value).replace(/[^0-9]/g,"")})
+    .then(function(d){
+      busy(f,false,"Add to sheet");
+      if(!d.ok){say(m,d.error||"Could not add that row.");return;}
+      LEADS.push(d.lead);f.reset();
+      $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";
+      sst("leads").filter="all";renderSheet(leadCfg);
+    }).catch(function(){busy(f,false,"Add to sheet");say(m,"Network error — try again.");});
+});
+
+// The book costs a GHL round trip, so it loads the first time you open the tab.
+$("appView").querySelectorAll(".tab").forEach(function(t){
+  t.addEventListener("click",function(){
+    if(t.dataset.tab==="book")loadBook();
+    if(t.dataset.tab==="leads")renderSheet(leadCfg);
+  });
 });
 
 $("logout").addEventListener("click",function(){
