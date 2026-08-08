@@ -952,7 +952,7 @@
         ["LinkedIn","linkedin"],["TikTok","tiktok"],["YouTube","youtube"],
         ["Pinterest","pinterest"],["Threads","threads"],["Bluesky","bluesky"]];
       mqp.innerHTML = PLATS.map(function(p){
-        return '<div class="mq-pl"><img src="https://cdn.simpleicons.org/' + p[1] + '" alt="" loading="lazy" onerror="this.remove()">' +
+        return '<div class="mq-pl"><img src="/media/logos/' + p[1] + '.svg" alt="" loading="lazy" onerror="this.remove()">' +
           '<span>' + p[0] + '</span><i class="ck" aria-hidden="true">✓</i></div>';
       }).join("");
       var mqBtn = document.querySelector("[data-mq-post]");
