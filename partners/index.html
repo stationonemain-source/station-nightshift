@@ -1012,6 +1012,64 @@ var bookCfg={
   }
 };
 
+/* A Scout has no book of clients -- Station hands their warm leads to a Partner to close.
+   What a Scout owns is the bounty ledger, so that is what this tab shows them: which referral
+   paid, what it paid for, and whether the money is held, ready or already out. Same sheet
+   engine, same CSV export, different rows. */
+var BOUNTIES=[];
+var bookActiveCfg=null;   // bookCfg for a Partner, bountyCfg for a Scout
+var bountyCfg={
+  id:"book",mount:"bookSheet",chips:"bookChips",csvName:"station-bounties",
+  rows:BOUNTIES,notes:{},
+  key:function(r){return r.id;},
+  subject:function(r){return "bounty:"+r.id;},
+  label:function(r){return r.client||r.id;},
+  searchExtra:function(r){return (r.products||[]).join(" ");},
+  empty:"No bounties yet. One lands here the moment someone you referred is actually billed \u2014 a free trial earns nothing until it converts.",
+  filters:[
+    {k:"ready",label:"Ready to pay",fn:function(r){return r.status==="ready";}},
+    {k:"held",label:"Still held",fn:function(r){return r.status==="held";}},
+    {k:"paid",label:"Paid out",fn:function(r){return r.status==="paid";}},
+    {k:"reversed",label:"Reversed",fn:function(r){return r.status==="reversed";}}
+  ],
+  cols:[
+    {k:"client",h:"Referral",cls:"b",html:function(r){
+      return r.client?esc(r.client):'<span class="sub">\u2014</span>';}},
+    {k:"products",h:"What they bought",html:function(r){
+      return esc((r.products||[]).join(", "))||'<span class="sub">\u2014</span>';}},
+    {k:"amount",h:"Bounty",cls:"num",html:function(r){return money(r.amount);}},
+    {k:"paid_at",h:"Earned",html:function(r){
+      return '<span class="sub">'+esc(String(r.paid_at||"").slice(0,10))+'</span>';}},
+    {k:"status",h:"Standing",html:function(r){
+      var m={ready:["ready","Ready to pay"],held:["pending","Held"],
+              paid:["active","Paid out"],reversed:["failed","Reversed"]}[r.status]||["pending",r.status];
+      return '<span class="pill '+m[0]+'">'+esc(m[1])+'</span>';}},
+    {k:"hold_until",h:"Available",html:function(r){
+      if(r.status==="paid"||r.status==="reversed")return '<span class="sub">\u2014</span>';
+      if(r.status==="ready")return '<span class="sub">now</span>';
+      return '<span class="sub">'+esc(String(r.hold_until||"").slice(0,10))+'</span>';}}
+  ],
+  count:function(shown,total){
+    $("bookCount").textContent=shown===total?(total+" bount"+(total===1?"y":"ies"))
+                                            :(shown+" of "+total+" bounties");}
+};
+function statLabel(id,text){
+  var el=$(id); if(!el)return;
+  var k=el.parentNode&&el.parentNode.querySelector(".k"); if(k)k.textContent=text;
+}
+function renderScoutBounties(d){
+  BOUNTIES.length=0;(d.bounties||[]).forEach(function(b){BOUNTIES.push(b);});
+  statLabel("bkClients","Bounties earned"); $("bkClients").textContent=money(d.bounties_earned||0);
+  statLabel("bkMrr","Ready to pay");        $("bkMrr").textContent=money(d.bounties_releasable||0);
+  statLabel("bkComm","Still held");         $("bkComm").textContent=money(d.bounties_held||0);
+  statLabel("bkRate","Bounties");           $("bkRate").textContent=String(BOUNTIES.length);
+  $("bookBasis").textContent="basis: one-time bounty per product, paid after the 30-day window";
+  $("bookIntro").innerHTML="You're on the <b>Scout</b> track, so you don't manage a book \u2014 "+
+    "once a lead you referred turns warm, Station hands it to a Partner to close and run. "+
+    "What you own is below: every bounty you've earned, what it was for, and when it's payable. "+
+    "A referral on a free trial earns nothing until their first payment actually clears.";
+  bookActiveCfg=bountyCfg; renderSheet(bountyCfg);
+}
 var bookLoaded=false;
 function loadBook(force){
   if(!token)return;
@@ -1031,9 +1089,10 @@ function loadBook(force){
     $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
     $("bookBasis").textContent="basis: "+(d.basis||"—");
     if(d.track!=="partner"){
-      $("bookIntro").innerHTML="You're on the <b>Scout</b> track, so you don't manage a book — once a lead you referred turns warm, Station hands it to a Partner to close and run. Anything that does get tagged to you shows here, and your bounties are unaffected.";
-    }
-    renderSheet(bookCfg);
+          // Scout: the bounty ledger replaces the client book entirely.
+          renderScoutBounties(me||{}); return;
+        }
+        bookActiveCfg=bookCfg; renderSheet(bookCfg);
   }).catch(function(){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";});
 }
 
@@ -1216,9 +1275,9 @@ $("demoForm").addEventListener("submit",function(e){
 $("leadQ").addEventListener("input",function(){
   sst("leads").q=this.value;sst("leads").open=null;renderSheet(leadCfg);});
 $("bookQ").addEventListener("input",function(){
-  sst("book").q=this.value;sst("book").open=null;renderSheet(bookCfg);});
+  sst("book").q=this.value;sst("book").open=null;renderSheet(bookActiveCfg||bookCfg);});
 $("leadCsv").addEventListener("click",function(){exportCsv(leadCfg);});
-$("bookCsv").addEventListener("click",function(){exportCsv(bookCfg);});
+$("bookCsv").addEventListener("click",function(){exportCsv(bookActiveCfg||bookCfg);});
 
 $("addLeadBtn").addEventListener("click",function(){
   var box=$("addLeadBox"),showing=!box.classList.contains("hide");
