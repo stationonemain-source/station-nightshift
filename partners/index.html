@@ -310,8 +310,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 
     <div class="tabs">
       <button class="tab" data-tab="login" data-on>Sign in</button>
-      <button class="tab" data-tab="apply">Become a partner</button>
-      <button class="tab" data-tab="claim">First time here</button>
+      <button class="tab" data-tab="apply">Become a Scout</button>
+      <button class="tab" data-tab="claim">Activate invite</button>
     </div>
 
     <div class="panel" data-panel="login" data-on>
@@ -339,7 +339,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           <div class="field"><label>Choose a password</label><input name="password" type="password" autocomplete="new-password" required>
             <div class="hint">At least 10 characters. This is your portal login.</div></div>
           <div class="field"><label>Who do you know? (optional)</label><textarea name="audience" rows="2" placeholder="e.g. I do bookkeeping for 30 local shops, or I run a 12k-follower barber IG"></textarea></div>
-          <button class="btn dark full" type="submit"><span class="t">Apply to become a partner</span></button>
+          <button class="btn dark full" type="submit"><span class="t">Apply to become a Scout</span></button>
           <p class="hint" style="text-align:center;margin-top:14px">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
           <p class="hint" style="text-align:center;margin-top:6px">By applying you agree to the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Station Affiliate Program Agreement</a>.</p>
         </form>
@@ -349,7 +349,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 
     <div class="panel" data-panel="claim">
       <div class="card">
-        <p class="note" style="margin-bottom:18px">Already have a referral code from Station but never set a password? Set one here — you only get to do this once.</p>
+        <p class="note" style="margin-bottom:18px">For Partners Station has already invited: if you have a referral code but never set a password, set one here — you only get to do this once.</p>
         <form id="claimForm" novalidate>
           <div class="row">
             <div class="field"><label>Your referral code</label><input name="code" placeholder="e.g. charli" required></div>
@@ -1447,15 +1447,15 @@ $("applyForm").addEventListener("submit",function(e){
         phone:f.phone.value.trim(),country:f.country.value.trim(),
         audience:f.audience.value.trim(),password:f.password.value})
     .then(function(d){
-      busy(f,false,"Apply to become a partner");
+      busy(f,false,"Apply to become a Scout");
       if(!d.ok){say(m,d.error||"Something went wrong.");return;}
       if(d.note==="already registered"){
-        say(m,"You've already applied with that email. Use Sign in, or 'First time here' if you never set a password.");
+        say(m,"You've already applied with that email. Use Sign in, or 'Activate invite' if you never set a password.");
         return;
       }
       f.reset();
       say(m,"You're in — code "+d.code+". We review same day and you'll get an email the moment you're approved. You can sign in then.","ok");
-    }).catch(function(){busy(f,false,"Apply to become a partner");say(m,"Network error — try again.");});
+    }).catch(function(){busy(f,false,"Apply to become a Scout");say(m,"Network error — try again.");});
 });
 
 $("claimForm").addEventListener("submit",function(e){
