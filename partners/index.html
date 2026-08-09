@@ -300,6 +300,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           <div class="field"><label>Who do you know? (optional)</label><textarea name="audience" rows="2" placeholder="e.g. I do bookkeeping for 30 local shops, or I run a 12k-follower barber IG"></textarea></div>
           <button class="btn dark full" type="submit"><span class="t">Apply to become a partner</span></button>
           <p class="hint" style="text-align:center;margin-top:14px">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
+          <p class="hint" style="text-align:center;margin-top:6px">By applying you agree to the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Station Affiliate Program Agreement</a>.</p>
         </form>
         <div class="msg" id="applyMsg"></div>
       </div>
@@ -459,7 +460,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       </div>
       <div class="card">
         <h2 class="tight">Questions</h2>
-        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--accent);font-weight:600">main@station.solutions</a>. Full terms are in your Partner Agreement.</p>
+        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--blue);font-weight:600">main@station.solutions</a>. Full terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Partner Agreement</a>.</p>
       </div>
     </div>
 
@@ -544,8 +545,8 @@ var COURSE=[
 
  {id:"scout-1",div:"SCOUT TRACK &middot; SELF-SERVE",title:"Your link and how bounties work",dur:"2.5 min",
   summary:"Your link is <code>station.solutions/?ref=YOURCODE</code>, tracked for 30 days from click. You earn a one-time bounty the moment someone you referred becomes a paying client. If that client starts on a free trial, your bounty doesn't release until the trial ends and they're actually billed.",
-  extra:'<table class="bounty-tbl"><tr><th>Product</th><th style="text-align:right">Bounty</th></tr><tr><td>Dial — number + texting</td><td class="r">$25</td></tr><tr><td>Greet, Dispatch, Slate, Mobile App add-on</td><td class="r">$50</td></tr><tr><td>Tap, Map, Marquee, Repute, Radar, Lineback, Pursuit, Frontdesk, Revive</td><td class="r">$100</td></tr><tr><td>Storefront — Basic ($500 build)</td><td class="r">$250</td></tr><tr><td>Storefront — Custom ($1,250 build)</td><td class="r">$500</td></tr><tr><td>Storefront — Enterprise ($10,000 build)</td><td class="r">$2,000</td></tr><tr><td>Core bundle ($750/mo)</td><td class="r">$300</td></tr><tr><td>Pro bundle ($1,500/mo)</td><td class="r">$750</td></tr><tr><td>Custom bundle ($2,500/mo)</td><td class="r">$1,000</td></tr></table>',
-  more:["Bounties don't stack in tiers — the amount is fixed to the product, not to your history or volume.","If a client buys more than one product, you get a separate bounty for each one that goes live.","Trial length (7/14/30 days) is decided per client, not by you — just know your bounty timing follows whatever trial they're on."]},
+  extra:'<table class="bounty-tbl" data-bounty-tbl><tr><th>Product</th><th style="text-align:right">Bounty</th></tr><tr><td colspan="2" style="color:var(--faint)">Loading current rates\u2026</td></tr></table><div class="more"><div class="lbl">More detail</div><ul data-bounty-notes></ul></div>',
+  more:[]},
 
  {id:"scout-2",title:"Sharing your link",dur:"1.5 min",
   summary:"You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 14 products or answer technical questions.",
@@ -651,6 +652,32 @@ function renderCourse(){
     });
   });
 }
+/* The bounty table and its rules come from the engine (action:"bounty_table"), which reads
+   the same constants it pays from -- so what a partner is shown and what they are actually
+   credited can never drift apart. Wrapping renderCourse covers every later re-render too. */
+var BOUNTY_ROWS=null,BOUNTY_NOTES=null;
+function bEsc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+function fillBounty(){
+  var tbl=document.querySelector("[data-bounty-tbl]");
+  if(!tbl||!BOUNTY_ROWS)return;
+  tbl.innerHTML='<tr><th>Product</th><th style="text-align:right">Bounty</th></tr>'+
+    BOUNTY_ROWS.map(function(r){
+      return '<tr><td>'+bEsc(r.product)+'</td><td class="r">$'+Number(r.bounty).toLocaleString()+'</td></tr>';
+    }).join("");
+  var ul=document.querySelector("[data-bounty-notes]");
+  if(ul&&BOUNTY_NOTES){ul.innerHTML=BOUNTY_NOTES.map(function(x){return "<li>"+bEsc(x)+"</li>";}).join("");}
+}
+function paintBounty(){
+  if(!document.querySelector("[data-bounty-tbl]"))return;
+  if(BOUNTY_ROWS){fillBounty();return;}
+  post({action:"bounty_table"}).then(function(d){
+    if(!d||!d.ok||!d.rows)return;
+    BOUNTY_ROWS=d.rows;BOUNTY_NOTES=d.notes||[];fillBounty();
+  }).catch(function(){});
+}
+var _renderCourse0=renderCourse;
+renderCourse=function(){var r=_renderCourse0.apply(this,arguments);paintBounty();return r;};
 renderCourse();
 
 /* ================= SHEET ENGINE =================
