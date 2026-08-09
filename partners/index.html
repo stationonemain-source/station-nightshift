@@ -235,6 +235,47 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 @keyframes sp{to{transform:rotate(360deg)}}
 .hide{display:none!important}
 
+.inbox{display:grid;grid-template-columns:305px 1fr;gap:14px;align-items:start}
+@media(max-width:860px){.inbox{grid-template-columns:1fr}}
+.ibx-list{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;max-height:min(66vh,700px);overflow-y:auto}
+.ibx-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
+  padding:13px 15px;border-bottom:1px solid var(--line)}
+.ibx-item:hover{background:color-mix(in srgb,var(--blue) 5%,var(--card))}
+.ibx-item[data-on]{background:color-mix(in srgb,var(--blue) 9%,var(--card))}
+.ibx-item .nm{font:600 13.5px var(--fd);color:var(--ink)}
+.ibx-item .pv{font-size:12px;color:var(--faint);margin-top:3px;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.ibx-item .un{display:inline-block;min-width:18px;padding:1px 6px;border-radius:999px;
+  background:var(--blue);color:var(--card);font:600 10.5px var(--fm);text-align:center;float:right}
+.ibx-pane{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  display:flex;flex-direction:column;min-height:340px;max-height:min(66vh,700px)}
+.ibx-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;
+  align-items:center;gap:12px;flex-wrap:wrap}
+.ibx-head .who{font:700 15px var(--fd)}
+.ibx-head .meta{font-size:12px;color:var(--faint)}
+.ibx-msgs{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+/* NB: the portal already owns a .msg class for status lines, and it is display:none until
+   populated -- so these bubbles get their own name rather than fighting it. */
+.ibx-msg{max-width:78%;padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.45;
+  white-space:pre-wrap;word-break:break-word}
+.ibx-msg.in{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.ibx-msg.out{align-self:flex-end;background:var(--blue);color:var(--card)}
+.ibx-msg .mt{display:block;font:10px var(--fm);opacity:.65;margin-top:5px}
+.ibx-comp{border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:9px;align-items:flex-end}
+.ibx-comp textarea{flex:1;min-height:44px;max-height:130px;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:14px/1.45 var(--fb);
+  color:var(--ink);resize:vertical}
+.ibx-comp textarea:focus{outline:none;border-color:var(--blue)}
+.ibx-empty{flex:1;display:grid;place-items:center;color:var(--faint);font-size:13.5px;
+  text-align:center;padding:30px}
+.slotgrid{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.slot{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;
+  font:600 12px var(--fd);color:var(--ink);cursor:pointer}
+.slot:hover{border-color:var(--blue);color:var(--blue)}
+.slot[data-on]{background:var(--blue);border-color:var(--blue);color:var(--card)}
+.slotday{font:600 10.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--faint);margin:13px 0 2px}
 /* Primary actions use the site commerce blue (--blue), same as the product-page
    add-to-cart and tier CTAs. Ink stays for text; white/paper stay for surface. */
 .btn.dark{background:var(--blue);color:var(--card)}
@@ -333,7 +374,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
       <button class="tab" data-tab="leads">Leads</button>
-      <button class="tab" data-tab="book">Book of business</button>
+      <button class="tab" data-tab="clients" id="tabClients">Clients</button>
+        <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
       <button class="tab" data-tab="paid">How you get paid</button>
       <button class="tab" data-tab="training">Training</button>
@@ -398,6 +440,46 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
         <div class="sheet-scroll"><table class="sheet" id="leadSheet"></table></div>
         <div class="sheet-foot"><span id="leadCount">—</span><span id="leadCap"></span></div>
       </div>
+    </div>
+
+    <!-- ---------------- CLIENTS (partner workspace) ----------------------- -->
+    <div class="panel" data-panel="clients">
+      <div class="card" style="margin-bottom:14px">
+        <h2 class="tight">Your clients</h2>
+        <p class="note" style="margin-bottom:0">Everything for the clients in your book, in one
+          place — the live message thread from Station's CRM, replies by text or email, and a
+          call booked straight into your calendar. You only ever see the clients tagged to you.</p>
+      </div>
+      <div class="inbox">
+        <div class="ibx-list" id="ibxList"></div>
+        <div class="ibx-pane">
+          <div class="ibx-head" id="ibxHead" style="display:none">
+            <div><div class="who" id="ibxWho">—</div><div class="meta" id="ibxMeta">—</div></div>
+            <button class="btn lite sm" id="ibxBook" style="margin-left:auto">Book a call</button>
+          </div>
+          <div class="ibx-msgs" id="ibxMsgs"></div>
+          <div id="ibxBookBox" style="display:none;border-top:1px solid var(--line);padding:14px 16px">
+            <div class="field" style="margin-bottom:8px">
+              <label>Calendar</label>
+              <select class="cell-sel" id="ibxCal" style="max-width:100%;width:100%;border-color:var(--line);padding:9px 11px"></select>
+            </div>
+            <div id="ibxSlots" class="note" style="font-size:13px">Pick a calendar to see open times.</div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn dark sm" id="ibxConfirm" disabled>Confirm booking</button>
+              <button class="btn lite sm" id="ibxCancelBook">Cancel</button>
+            </div>
+            <div id="ibxBookMsg" class="hint" style="font-size:13px;margin-top:9px"></div>
+          </div>
+          <div class="ibx-comp" id="ibxComp" style="display:none">
+            <textarea id="ibxText" placeholder="Write a reply…"></textarea>
+            <select class="cell-sel" id="ibxChan" style="border-color:var(--line);padding:9px 11px">
+              <option value="SMS">Text</option><option value="Email">Email</option>
+            </select>
+            <button class="btn dark sm" id="ibxSend">Send</button>
+          </div>
+        </div>
+      </div>
+      <p class="hint" id="ibxNote" style="margin-top:10px"></p>
     </div>
 
     <!-- ---------------- BOOK OF BUSINESS --------------------------------- -->
@@ -1070,7 +1152,133 @@ function renderScoutBounties(d){
     "A referral on a free trial earns nothing until their first payment actually clears.";
   bookActiveCfg=bountyCfg; renderSheet(bountyCfg);
 }
-var bookLoaded=false;
+/* ---------------- CLIENTS: the partner workspace ----------------
+   Every call here is scoped server-side to the partner's own book — the engine re-derives it
+   from the CRM on each request, so nothing here is trusted to be honest about whose client
+   it is asking for. This code only draws what it is handed back. */
+var THREADS=[],curClient=null,SLOTPICK=null;
+function ibxTime(iso){ var d=new Date(iso); if(isNaN(d))return "";
+  return d.toLocaleString(undefined,{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}); }
+function drawThreadList(){
+  var box=$("ibxList"); if(!box)return;
+  if(!THREADS.length){ box.innerHTML='<div class="empty" style="border:0;background:none">'+
+    'No clients tagged to you yet. Once you close one — or Station distributes a warm lead to you — '+
+    'they appear here and you can talk to them from this screen.</div>'; return; }
+  box.innerHTML=THREADS.map(function(t){
+    return '<button class="ibx-item" data-cid="'+esc(t.contactId)+'"'+
+      (curClient&&curClient.contactId===t.contactId?" data-on":"")+'>'+
+      (t.unread?'<span class="un">'+t.unread+'</span>':'')+
+      '<div class="nm">'+esc(t.name)+'</div>'+
+      '<div class="pv">'+esc(t.last||"No messages yet")+'</div></button>';
+  }).join("");
+  box.querySelectorAll("[data-cid]").forEach(function(b){
+    b.onclick=function(){ openThread(b.getAttribute("data-cid")); };
+  });
+}
+function drawMessages(d){
+  var box=$("ibxMsgs");
+  if(!d.messages||!d.messages.length){
+    box.innerHTML='<div class="ibx-empty">No messages with '+esc((d.client&&(d.client.name||d.client.email))||"this client")+
+      ' yet. Send the first one below — it goes out from Station, on the same thread they already know.</div>';
+    return;
+  }
+  box.innerHTML=d.messages.slice().reverse().map(function(m){
+    var out=String(m.direction||"").toLowerCase()==="outbound";
+    return '<div class="ibx-msg '+(out?"out":"in")+'">'+esc(m.body||"")+
+      '<span class="mt">'+esc((m.type||"")+" · "+ibxTime(m.at))+'</span></div>';
+  }).join("");
+  box.scrollTop=box.scrollHeight;
+}
+function openThread(cid){
+  var t=THREADS.filter(function(x){return x.contactId===cid;})[0]; if(!t)return;
+  curClient=t; drawThreadList();
+  $("ibxHead").style.display="flex"; $("ibxComp").style.display="flex";
+  $("ibxBookBox").style.display="none";
+  $("ibxWho").textContent=t.name;
+  $("ibxMeta").textContent=[t.email,t.phone,(TIER[t.tier]||t.tier||"")].filter(Boolean).join(" · ");
+  $("ibxMsgs").innerHTML='<div class="ibx-empty">Loading…</div>';
+  post({action:"conv_thread",token:token,contactId:cid}).then(function(d){
+    if(!d.ok){ $("ibxMsgs").innerHTML='<div class="ibx-empty">'+esc(d.error||"Could not load that thread.")+'</div>'; return; }
+    drawMessages(d);
+  }).catch(function(){ $("ibxMsgs").innerHTML='<div class="ibx-empty">Could not load that thread.</div>'; });
+}
+function sendIbx(){
+  if(!curClient)return;
+  var ta=$("ibxText"),txt=ta.value.trim(); if(!txt)return;
+  var btn=$("ibxSend"); btn.disabled=true; var old=btn.textContent; btn.textContent="Sending…";
+  post({action:"conv_send",token:token,contactId:curClient.contactId,
+        message:txt,channel:$("ibxChan").value}).then(function(d){
+    btn.disabled=false; btn.textContent=old;
+    if(!d.ok){ $("ibxNote").textContent=d.error||"Could not send."; return; }
+    ta.value=""; $("ibxNote").textContent="Sent to "+(d.to||"your client")+".";
+    openThread(curClient.contactId);
+  }).catch(function(){ btn.disabled=false; btn.textContent=old;
+    $("ibxNote").textContent="Could not send — try again."; });
+}
+function drawSlots(days){
+  var box=$("ibxSlots"); SLOTPICK=null; $("ibxConfirm").disabled=true;
+  var any=(days||[]).some(function(d){return (d.slots||[]).length;});
+  if(!any){ box.innerHTML="No open times on that calendar in the next week."; return; }
+  box.innerHTML=(days||[]).filter(function(d){return (d.slots||[]).length;}).map(function(d){
+    return '<div class="slotday">'+esc(d.date)+'</div><div class="slotgrid">'+
+      d.slots.map(function(sl){
+        return '<button class="slot" data-slot="'+esc(sl)+'">'+esc(ibxTime(sl).split(", ").pop())+'</button>';
+      }).join("")+'</div>';
+  }).join("");
+  box.querySelectorAll("[data-slot]").forEach(function(b){
+    b.onclick=function(){
+      box.querySelectorAll("[data-slot]").forEach(function(x){x.removeAttribute("data-on");});
+      b.setAttribute("data-on",""); SLOTPICK=b.getAttribute("data-slot");
+      $("ibxConfirm").disabled=false;
+    };
+  });
+}
+function loadSlots(){
+  var cal=$("ibxCal").value; if(!cal)return;
+  $("ibxSlots").textContent="Looking for open times…";
+  var d=new Date(),day=d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());
+  post({action:"cal_slots",token:token,calendarId:cal,date:day}).then(function(r){
+    if(!r.ok){ $("ibxSlots").textContent=r.error||"Could not read that calendar."; return; }
+    drawSlots(r.days);
+  }).catch(function(){ $("ibxSlots").textContent="Could not read that calendar."; });
+}
+function openBooking(){
+  if(!curClient)return;
+  $("ibxBookBox").style.display="block"; $("ibxBookMsg").textContent="";
+  post({action:"cal_list",token:token}).then(function(d){
+    if(!d.ok)return;
+    $("ibxCal").innerHTML=(d.calendars||[]).map(function(c){
+      return '<option value="'+esc(c.id)+'"'+(c.mine?" selected":"")+'>'+esc(c.name)+(c.mine?" (yours)":"")+'</option>';
+    }).join("");
+    if(!d.assigned){ $("ibxBookMsg").textContent=
+      "No calendar is assigned to you yet, so these are Station's shared calendars. Ask Station to assign you one."; }
+    loadSlots();
+  }).catch(function(){});
+}
+function confirmBooking(){
+  if(!curClient||!SLOTPICK)return;
+  var btn=$("ibxConfirm"); btn.disabled=true; btn.textContent="Booking…";
+  post({action:"cal_book",token:token,contactId:curClient.contactId,
+        calendarId:$("ibxCal").value,start:SLOTPICK}).then(function(d){
+    btn.textContent="Confirm booking";
+    if(!d.ok){ $("ibxBookMsg").textContent=d.error||"Could not book that time."; btn.disabled=false; return; }
+    $("ibxBookMsg").textContent="Booked — "+ibxTime(SLOTPICK)+" with "+curClient.name+".";
+    setTimeout(function(){ $("ibxBookBox").style.display="none"; },2200);
+  }).catch(function(){ btn.disabled=false; btn.textContent="Confirm booking";
+    $("ibxBookMsg").textContent="Could not book that time."; });
+}
+var clientsLoaded=false;
+function loadClients(force){
+  if(!token)return; if(clientsLoaded&&!force)return; clientsLoaded=true;
+  $("ibxList").innerHTML='<div class="empty" style="border:0;background:none">Loading…</div>';
+  post({action:"conv_list",token:token}).then(function(d){
+    if(!d.ok){ clientsLoaded=false;
+      $("ibxList").innerHTML='<div class="empty" style="border:0;background:none">'+esc(d.error||"Could not load your clients.")+'</div>';
+      return; }
+    THREADS=d.threads||[]; drawThreadList();
+  }).catch(function(){ clientsLoaded=false; });
+}
+var bookLoaded=false;var bookLoaded=false;
 function loadBook(force){
   if(!token)return;
   if(bookLoaded&&!force)return;
@@ -1111,6 +1319,10 @@ function loadMe(){
     // Two tracks only (Scout / Partner) — reads the engine's real track field
     // (v4.5, set by Station via the admin panel's Scout/Partner toggle).
     var track=(d.track==="partner")?"Partner":"Scout";
+      // The client workspace is a Partner surface: a Scout never manages an account, so the
+      // tab is removed outright rather than shown empty. The engine refuses these actions for
+      // a Scout regardless — this is only the cosmetic half.
+      var ct=$("tabClients"); if(ct){ ct.style.display=(track==="Partner")?"":"none"; }
     if(track==="Scout"){
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
         '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
@@ -1278,6 +1490,15 @@ $("bookQ").addEventListener("input",function(){
   sst("book").q=this.value;sst("book").open=null;renderSheet(bookActiveCfg||bookCfg);});
 $("leadCsv").addEventListener("click",function(){exportCsv(leadCfg);});
 $("bookCsv").addEventListener("click",function(){exportCsv(bookActiveCfg||bookCfg);});
+$("ibxSend").addEventListener("click",sendIbx);
+$("ibxText").addEventListener("keydown",function(e){
+  if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();sendIbx();}});
+$("ibxBook").addEventListener("click",openBooking);
+$("ibxCancelBook").addEventListener("click",function(){$("ibxBookBox").style.display="none";});
+$("ibxCal").addEventListener("change",loadSlots);
+$("ibxConfirm").addEventListener("click",confirmBooking);
+document.querySelectorAll('.tab[data-tab="clients"]').forEach(function(t){
+  t.addEventListener("click",function(){loadClients();});});
 
 $("addLeadBtn").addEventListener("click",function(){
   var box=$("addLeadBox"),showing=!box.classList.contains("hide");
