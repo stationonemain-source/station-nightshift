@@ -7,10 +7,42 @@
 
   /* ---------- ref capture -> stripe ---------- */
   var REF = null;
+  var AFF_PUB = "stnpub-84cc5c8bdf9168da20e4923921d8743c";
   try {
     var q = new URLSearchParams(location.search);
-    REF = q.get("ref") || sessionStorage.getItem("station_ref");
-    if (REF) sessionStorage.setItem("station_ref", REF);
+    var fresh = (q.get("ref") || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 24);
+    // 30 days, to match what the Scout is told their link is worth. sessionStorage died
+    // with the tab, so a visitor who came back later counted for nobody.
+    var TTL = 30 * 86400000;
+    if (fresh) {
+      REF = fresh;
+      try { localStorage.setItem("station_ref", fresh);
+            localStorage.setItem("station_ref_ts", String(Date.now())); } catch (e) {}
+    } else {
+      try {
+        var saved = localStorage.getItem("station_ref");
+        var ts = Number(localStorage.getItem("station_ref_ts") || 0);
+        if (saved && ts && (Date.now() - ts) < TTL) REF = saved;
+        else if (saved) { localStorage.removeItem("station_ref"); localStorage.removeItem("station_ref_ts"); }
+      } catch (e) {}
+    }
+    if (REF) sessionStorage.setItem("station_ref", REF);   // kept: checkout still reads this
+  } catch (e) {}
+  // Count the visit itself. Once per tab, so a reload does not inflate the number.
+  try {
+    if (REF && !sessionStorage.getItem("station_ref_pinged")) {
+      sessionStorage.setItem("station_ref_pinged", "1");
+      var _p = JSON.stringify({ action: "attribute", pub: AFF_PUB, code: REF,
+                                kind: "visit", label: location.pathname.slice(0, 60) });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
+                             new Blob([_p], { type: "application/json" }));
+      } else {
+        fetch("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
+              { method: "POST", mode: "no-cors",
+                headers: { "Content-Type": "application/json" }, body: _p });
+      }
+    }
   } catch (e) {}
   function stripeUrl(u){
     if (REF && u && u.indexOf("client_reference_id") === -1)
@@ -296,9 +328,18 @@
         try {
           if (navigator.sendBeacon && REF) {
             navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
-              action: "attribute", pub: "station", code: REF, kind: "audit-submit",
+              action: "attribute", pub: AFF_PUB, code: REF, kind: "audit-submit",
               label: "v5-" + (form.getAttribute("data-variant") || "form")
             })], { type: "application/json" }));
+            // and register the actual lead, so the Scout's Leads count moves too
+            var _em = (fd.get("email") || "").toString().trim();
+            if (_em) {
+              navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
+                new Blob([JSON.stringify({ action: "leadref", pub: AFF_PUB, code: REF, email: _em,
+                  name: (fd.get("name") || fd.get("business") || "").toString().trim(),
+                  phone: (fd.get("phone") || "").toString().trim() })],
+                  { type: "application/json" }));
+            }
           }
         } catch (err) {}
         form.querySelectorAll("input,textarea,button,select").forEach(function (el) { el.disabled = true; });
