@@ -276,6 +276,13 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .slot[data-on]{background:var(--blue);border-color:var(--blue);color:var(--card)}
 .slotday{font:600 10.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;
   color:var(--faint);margin:13px 0 2px}
+.course-done{display:flex;align-items:flex-start;gap:13px;border-color:var(--good);
+  background:color-mix(in srgb,var(--good) 7%,var(--card));margin-bottom:14px}
+.course-done .tickmark{flex:none;width:30px;height:30px;border-radius:50%;background:var(--good);
+  color:var(--card);display:grid;place-items:center;font-size:15px;font-weight:700}
+.course-done .t{font:700 15px var(--fd);color:var(--good)}
+.course-done .s{font-size:.9rem;color:var(--muted);margin-top:3px;line-height:1.5}
+.course-progress[data-complete="1"] .bar i{background:var(--good)}
 /* Primary actions use the site commerce blue (--blue), same as the product-page
    add-to-cart and tier CTAs. Ink stays for text; white/paper stay for surface. */
 .btn.dark{background:var(--blue);color:var(--card)}
@@ -552,10 +559,11 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
         <p class="note">12 short lessons, ~25 minutes total. Watch each video to unlock the next one — your progress is saved on this device.</p>
       </div>
 
-      <div class="card course-progress">
+      <div class="card course-progress" id="courseProgWrap">
         <div class="row"><span class="mono" id="cProgLabel">0 of 12 complete</span><span class="mono" id="cProgPct">0%</span></div>
         <div class="bar"><i id="cProgBar" style="width:0%"></i></div>
       </div>
+      <div class="card course-done" id="courseDone" style="display:none"></div>
 
       <div id="courseList"></div>
     </div>
@@ -706,9 +714,25 @@ function renderCourse(){
   list.innerHTML=html;
 
   var n=done.size,total=COURSE.length;
+  var pct=Math.round(n/total*100);
   $("cProgLabel").textContent=n+" of "+total+" complete";
-  $("cProgPct").textContent=Math.round(n/total*100)+"%";
-  $("cProgBar").style.width=Math.round(n/total*100)+"%";
+  $("cProgPct").textContent=pct+"%";
+  $("cProgBar").style.width=pct+"%";
+  // Finishing the course is worth marking — the bar alone never says "you're done".
+  var box=$("courseDone");
+  if(box){
+    if(n>=total&&total>0){
+      box.style.display="";
+      box.innerHTML='<span class="tickmark">&#10003;</span>'+
+        '<div><div class="t">Training complete</div>'+
+        '<div class="s">You have finished all '+total+' lessons. Your link and your bounties '+
+        'work exactly the same either way \u2014 but you now know the pitch cold.</div></div>';
+    } else {
+      box.style.display="none";
+    }
+  }
+  var wrap=$("courseProgWrap");
+  if(wrap){ wrap.setAttribute("data-complete", (n>=total&&total>0) ? "1" : "0"); }
 
   list.querySelectorAll(".head").forEach(function(h){
     h.addEventListener("click",function(){
@@ -1404,7 +1428,21 @@ function jobCard(j){
   } else if(st==="failed"){
     acts='<p class="note" style="margin-top:10px;color:var(--red)">'+esc(j.error||"Build failed — try again or tell Station.")+'</p>';
   } else {
-    acts='<p class="note" style="margin-top:10px">Building now — this page updates itself.</p>';
+    // A Foundry build takes minutes (scrape -> generate -> render -> publish). Saying so,
+    // and showing elapsed time, stops a Scout assuming it broke and re-queueing.
+    var since = j.created ? (Date.now() - Date.parse(j.created)) : 0;
+    var mins  = since > 0 ? Math.floor(since / 60000) : 0;
+    var age   = mins >= 1 ? (" · " + mins + " min ago") : "";
+    var line  = (st === "building")
+      ? "Building now — usually 3&ndash;5 minutes."
+      : "Queued — the builder picks this up within about 3 minutes.";
+    if (mins >= 12) {
+      line = "Still working — this one is taking longer than usual. If it has not finished in "
+           + "another few minutes, tell Station and we will look.";
+    }
+    acts = '<p class="note" style="margin-top:10px">' + line +
+           '<span class="sub">' + age + '</span><br>' +
+           '<span class="sub">This page updates itself — you can leave it open.</span></p>';
   }
   return '<div class="job"><div class="h"><div><div class="biz">'+esc(j.business)+'</div>'+
     '<div class="meta">'+esc(j.city||"")+(j.state?", "+esc(j.state):"")+(j.niche?" · "+esc(j.niche):"")+'</div></div>'+
