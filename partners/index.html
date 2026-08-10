@@ -283,6 +283,10 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .course-done .t{font:700 15px var(--fd);color:var(--good)}
 .course-done .s{font-size:.9rem;color:var(--muted);margin-top:3px;line-height:1.5}
 .course-progress[data-complete="1"] .bar i{background:var(--good)}
+.getform{border:1px solid var(--line);border-radius:14px;padding:15px 16px;
+  background:color-mix(in srgb,var(--blue) 4%,var(--card))}
+.getform .gf-lbl{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:10px}
 /* Primary actions use the site commerce blue (--blue), same as the product-page
    add-to-cart and tier CTAs. Ink stays for text; white/paper stay for surface. */
 .btn.dark{background:var(--blue);color:var(--card)}
@@ -1366,14 +1370,21 @@ function loadMe(){
     }else{
       $("taxCard").innerHTML='<h2 class="tight">Before we can pay you</h2>'+
         '<p class="note" style="margin-bottom:16px"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it.</p>'+
-        '<div class="field"><label>Which document</label><select id="tfType">'+
-          '<option value="W-9 (US)">W-9 — US person</option>'+
-          '<option value="W-8BEN (non-US)">W-8BEN — outside the US</option>'+
-        '</select></div>'+
-        '<div class="field"><label>Your file</label><input type="file" id="tfFile" accept=".pdf,.jpg,.jpeg,.png">'+
+        '<div class="getform">'+'<div class="gf-lbl">Step 1 &middot; get the form</div>'+'<a class="btn lite full" id="tfGet" target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/fw9.pdf">Open the W-9 to fill in</a>'+'<div class="hint" style="margin-top:8px">Opens the official IRS form. It is fillable and signable right in your browser &mdash; fill it in, sign it, save it, then upload it below. Nothing to print.</div></div>'+'<div class="field" style="margin-top:16px"><label>Step 2 &middot; which document</label><select id="tfType">'+'<option value="W-9 (US)">W-9 &mdash; US person</option>'+'<option value="W-8BEN (non-US)">W-8BEN &mdash; outside the US</option>'+'</select></div>'+
+        '<div class="field"><label>Step 3 &middot; your file</label><input type="file" id="tfFile" accept=".pdf,.jpg,.jpeg,.png">'+
         '<div class="hint">PDF, JPG, or PNG, under 5MB. Uploaded straight to Station — nothing else to do after this.</div></div>'+
         '<button class="btn dark full" id="tfPrep" type="button"><span class="t">Upload document</span></button>'+
         '<div class="msg" id="tfMsg"></div>';
+      // The link follows the choice, and the choice defaults to whatever their country actually
+      // requires -- a non-US affiliate should not have to notice the dropdown said W-9.
+      (function(){
+        var sel=$("tfType"), a=$("tfGet");
+        var URLS={"W-9 (US)":["https://www.irs.gov/pub/irs-pdf/fw9.pdf","Open the W-9 to fill in"],
+                  "W-8BEN (non-US)":["https://www.irs.gov/pub/irs-pdf/fw8ben.pdf","Open the W-8BEN to fill in"]};
+        if(String(tf.required||"").toUpperCase().indexOf("8BEN")>=0){ sel.value="W-8BEN (non-US)"; }
+        function sync(){ var u=URLS[sel.value]; if(u&&a){ a.href=u[0]; a.textContent=u[1]; } }
+        sel.addEventListener("change",sync); sync();
+      })();
       $("tfPrep").onclick=function(){
         var type=$("tfType").value,f=$("tfFile").files[0];
         if(!f){say($("tfMsg"),"Choose a file first.","err");return;}
