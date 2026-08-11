@@ -293,7 +293,23 @@
       else if (mo >= 800) { hit = true; t = "<b>Bundle territory:</b> a line pass covers this for less. <a href='#bundles' style='color:inherit;font-weight:700'>See the bundles ↓</a>"; }
       else t = f$(mo) + "/mo is " + (mo / TICKET).toFixed(1) + " average jobs. Everything after that is yours.";
       v.className = "r-verdict" + (hit ? " hit" : ""); v.innerHTML = t;
+      /* The shelf priced a line up and then offered no way to buy it - the visitor had
+         to go find each product again. Hand the ticked keys straight to the cart. */
+      var buy = document.getElementById("rBuy");
+      if (buy) {
+        buy.hidden = !count;
+        buy.textContent = count === 1 ? "Continue with this →"
+                                      : "Continue with these " + count + " →";
+      }
     }
+    var rBuy = document.getElementById("rBuy");
+    if (rBuy) rBuy.addEventListener("click", function () {
+      var picked = CATALOG.filter(function (p) { return on[p.k]; })
+                          .map(function (p) { return p.k; });
+      if (!picked.length) return;
+      try { localStorage.setItem("station_cart", JSON.stringify(picked)); } catch (e) {}
+      location.href = "/checkout/";
+    });
     tilesEl.addEventListener("change", function (e) {
       var k = e.target.getAttribute("data-k"); if (!k) return;
       on[k] = e.target.checked; e.target.closest(".tile").classList.toggle("on", e.target.checked); recalc();
