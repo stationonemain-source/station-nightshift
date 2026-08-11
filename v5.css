@@ -706,6 +706,9 @@ footer{border:0;padding:0;margin-top:64px}
 .sb-in svg{width:18px;height:18px;color:var(--faint);flex:none}
 .sb-in input{flex:1;border:0;background:none;font:500 17px var(--fb);color:var(--ink);outline:none}
 .sb-x{background:none;border:0;font-size:22px;color:var(--faint);cursor:pointer;padding:4px 10px}
+/* input[type=search] draws its own clear "x" in Chrome/Safari, which sat next to our
+   .sb-x and gave the bar two close buttons the moment anything was typed. */
+#searchIn::-webkit-search-cancel-button,#searchIn::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
 .sb-res{max-width:720px;margin:0 auto;padding:0 22px 14px;display:grid;gap:4px}
 .sb-res a{display:block;padding:10px 14px;border-radius:12px;text-decoration:none}
 .sb-res a b{font:650 14.5px var(--fd);color:var(--ink);display:block}
