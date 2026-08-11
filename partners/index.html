@@ -579,6 +579,10 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           </div>
           <div class="field"><label>Their website (optional)</label><input name="website" placeholder="katypoolco.com">
             <div class="hint">If you have it, we can find more. If they have none, that's often the pitch.</div></div>
+          <div class="field"><label>Design (optional)</label>
+            <select name="template" id="demoTemplate"><option value="">Let Station choose</option></select>
+            <div class="hint">The same designs Station builds with. Leave it on "Let Station choose" and
+              we pick one that suits their trade. You can change it after it is built.</div></div>
           <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
         </form>
         <div class="msg" id="demoMsg"></div>
@@ -691,6 +695,133 @@ function post(payload){
     .then(function(r){return r.json();})
     .then(function(d){return Array.isArray(d)?d[0]:d;});
 }
+/* ================= SITE BUILDER =================
+   The portal cannot reach Foundry (its API is tailnet-only), so an edit or a send is QUEUED
+   on the engine and demo_worker.py does the Foundry work within ~3 minutes. The template
+   list is pushed into the engine by that same worker, so this picker never talks to Foundry
+   either. The CAN-SPAM footer is added server-side by pipeline/partner.py and is shown here
+   read-only -- there is deliberately no way to edit or remove it from the browser. */
+var TEMPLATES=null;
+function loadTemplates(){
+  if(TEMPLATES)return Promise.resolve(TEMPLATES);
+  return post({action:"site_templates",token:token}).then(function(d){
+    TEMPLATES=(d&&d.ok&&d.templates)||[];
+    var sel=$("demoTemplate");
+    if(sel&&TEMPLATES.length){
+      sel.innerHTML='<option value="">Let Station choose</option>'+templateOptions("");
+    }
+    return TEMPLATES;
+  }).catch(function(){TEMPLATES=[];return TEMPLATES;});
+}
+function templateOptions(current){
+  // "fits" marks designs build.py considers suited to that trade; the rest stay selectable
+  // because a partner may know the business better than the niche guess does.
+  var fit=(TEMPLATES||[]).filter(function(t){return t.fits;});
+  var rest=(TEMPLATES||[]).filter(function(t){return !t.fits;});
+  function opts(list){
+    return list.map(function(t){
+      return '<option value="'+esc(t.file)+'"'+(t.file===current?" selected":"")+'>'
+        +esc(t.label)+'</option>';}).join("");
+  }
+  var out="";
+  if(fit.length)out+='<optgroup label="Suits this trade">'+opts(fit)+'</optgroup>';
+  if(rest.length)out+='<optgroup label="Other designs">'+opts(rest)+'</optgroup>';
+  return out;
+}
+function boxClose(id){var b=$("bx-"+id);if(b)b.innerHTML="";}
+function openEditor(id){
+  var j=JOBS.filter(function(x){return x.id===id;})[0];if(!j)return;
+  var box=$("bx-"+id);if(!box)return;
+  if(box.getAttribute("data-mode")==="edit"){box.innerHTML="";box.removeAttribute("data-mode");return;}
+  loadTemplates().then(function(){
+    box.setAttribute("data-mode","edit");
+    box.innerHTML='<div class="card" style="margin-top:10px">'
+      +'<div class="mono">Change this site</div>'
+      +'<label class="lbl" style="margin-top:10px">Design</label>'
+      +'<select class="inp" id="ed-t-'+esc(id)+'"><option value="">Keep the current design</option>'
+      +templateOptions(j.template||"")+'</select>'
+      +'<label class="lbl" style="margin-top:10px">Headline</label>'
+      +'<input class="inp" id="ed-h-'+esc(id)+'" maxlength="80" placeholder="Leave blank to keep it">'
+      +'<label class="lbl" style="margin-top:10px">Sub-headline</label>'
+      +'<input class="inp" id="ed-s-'+esc(id)+'" maxlength="200" placeholder="Leave blank to keep it">'
+      +'<label class="lbl" style="margin-top:10px">About</label>'
+      +'<textarea class="inp" id="ed-a-'+esc(id)+'" rows="3" maxlength="1200" placeholder="Leave blank to keep it"></textarea>'
+      +'<label class="lbl" style="margin-top:10px">Button text</label>'
+      +'<input class="inp" id="ed-c-'+esc(id)+'" maxlength="40" placeholder="Leave blank to keep it">'
+      +'<p class="note" style="margin:10px 0 0">Anything left blank keeps what is there now. '
+      +'Rebuilding takes a few minutes and the live link stays the same.</p>'
+      +'<div class="row" style="gap:8px;margin-top:12px">'
+      +'<button class="btn sm" type="button" id="ed-go-'+esc(id)+'">Apply changes</button>'
+      +'<button class="btn lite sm" type="button" id="ed-x-'+esc(id)+'">Cancel</button></div>'
+      +'<p class="msg" id="ed-m-'+esc(id)+'"></p></div>';
+    $("ed-x-"+id).onclick=function(){boxClose(id);box.removeAttribute("data-mode");};
+    $("ed-go-"+id).onclick=function(){
+      var m=$("ed-m-"+id);clear(m);
+      var copy={};
+      var map={headline:"ed-h-",subhead:"ed-s-",about:"ed-a-",cta_label:"ed-c-"};
+      Object.keys(map).forEach(function(k){
+        var v=String(($(map[k]+id)||{}).value||"").trim();
+        if(v)copy[k]=v;});
+      var tpl=$("ed-t-"+id).value;
+      if(!tpl&&!Object.keys(copy).length){say(m,"Change a design or some wording first.","err");return;}
+      var btn=$("ed-go-"+id);btn.disabled=true;btn.textContent="Applying…";
+      post({action:"site_edit",token:token,job:id,template:tpl,copy:copy}).then(function(d){
+        btn.disabled=false;btn.textContent="Apply changes";
+        if(!d||!d.ok){say(m,(d&&d.error)||"Could not apply that.","err");return;}
+        say(m,"Queued — the site rebuilds in a few minutes. We will tell you in Discord when it is live.","ok");
+        loadJobs();
+      }).catch(function(){btn.disabled=false;btn.textContent="Apply changes";
+        say(m,"Network error — try again.","err");});
+    };
+  });
+}
+function openSender(id){
+  var j=JOBS.filter(function(x){return x.id===id;})[0];if(!j)return;
+  var box=$("bx-"+id);if(!box)return;
+  if(box.getAttribute("data-mode")==="send"){box.innerHTML="";box.removeAttribute("data-mode");return;}
+  box.setAttribute("data-mode","send");
+  var subj="A new website for "+(j.business||"your business");
+  var msg="Hi,\n\nI put together a working website for "+(j.business||"your business")
+    +" so you can see it rather than imagine it. Nothing to sign up for — have a look and "
+    +"tell me what you think.\n\n"+(j.url||"");
+  box.innerHTML='<div class="card" style="margin-top:10px">'
+    +'<div class="mono">Send this site</div>'
+    +'<label class="lbl" style="margin-top:10px">Their email</label>'
+    +'<input class="inp" id="sd-to-'+esc(id)+'" type="email" placeholder="owner@business.com">'
+    +'<label class="lbl" style="margin-top:10px">Subject</label>'
+    +'<input class="inp" id="sd-su-'+esc(id)+'" maxlength="180" value="'+esc(subj)+'">'
+    +'<label class="lbl" style="margin-top:10px">Message</label>'
+    +'<textarea class="inp" id="sd-ms-'+esc(id)+'" rows="7" maxlength="4000">'+esc(msg)+'</textarea>'
+    +'<p class="note" style="margin:12px 0 4px"><b>Added automatically, and required by law:</b></p>'
+    +'<div class="linkbox" style="margin:0"><p class="note" style="margin:0;white-space:pre-line">'
+    +esc("— \nYour name\nStation Partner | Station\nhttps://station.solutions\n"
+        +"Station Automations Group LLC, 1856 Branard St, Houston, TX 77098\n"
+        +'Don\'t want these? Reply "unsubscribe" and we\'ll delete your info and never contact you again.')
+    +'</p></div>'
+    +'<p class="note" style="margin:8px 0 0">The footer goes on every send and cannot be removed — '
+    +'a commercial email without a postal address and an opt-out is illegal. It sends from Station, '
+    +'so their reply lands in your Clients inbox here.</p>'
+    +'<div class="row" style="gap:8px;margin-top:12px">'
+    +'<button class="btn sm" type="button" id="sd-go-'+esc(id)+'">Send it</button>'
+    +'<button class="btn lite sm" type="button" id="sd-x-'+esc(id)+'">Cancel</button></div>'
+    +'<p class="msg" id="sd-m-'+esc(id)+'"></p></div>';
+  $("sd-x-"+id).onclick=function(){boxClose(id);box.removeAttribute("data-mode");};
+  $("sd-go-"+id).onclick=function(){
+    var m=$("sd-m-"+id);clear(m);
+    var to=String($("sd-to-"+id).value||"").trim();
+    if(!to||to.indexOf("@")<0){say(m,"Put in their email address.","err");return;}
+    if(!window.confirm("Send this to "+to+"?"))return;
+    var btn=$("sd-go-"+id);btn.disabled=true;btn.textContent="Sending…";
+    post({action:"site_send",token:token,job:id,to:to,
+          subject:$("sd-su-"+id).value,message:$("sd-ms-"+id).value}).then(function(d){
+      btn.disabled=false;btn.textContent="Send it";
+      if(!d||!d.ok){say(m,(d&&d.error)||"Could not send that.","err");return;}
+      say(m,"Queued — it goes out within a few minutes and we will confirm in Discord.","ok");
+    }).catch(function(){btn.disabled=false;btn.textContent="Send it";
+      say(m,"Network error — try again.","err");});
+  };
+}
+
 /* ================= CALENDAR =================
    cal_list gives the calendars, the partner's own name/email, and their bookable leads in
    one round trip. Clients come from conv_list, which is already the authority on whose book
@@ -1824,7 +1955,10 @@ function jobCard(j){
     acts='<div class="actions">'+
       (j.url?'<a class="btn dark sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open demo</a>':'')+
       (j.url?'<button class="btn lite sm" data-copy="'+esc(j.url)+'">Copy link</button>':'')+
-      '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button></div>';
+      '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button>'+
+      '<button class="btn lite sm" data-edit="'+esc(j.id)+'">Change design or wording</button>'+
+      '<button class="btn sm" data-send="'+esc(j.id)+'">Send it to them</button></div>'+
+      '<div id="bx-'+esc(j.id)+'"></div>';
   } else if(st==="failed"){
     acts='<p class="note" style="margin-top:10px;color:var(--red)">'+esc(j.error||"Build failed — try again or tell Station.")+'</p>';
   } else {
@@ -1858,6 +1992,10 @@ function loadJobs(){
       :'<div class="empty">No demos yet. Add the next business you plan to call.</div>';
     $("jobList").querySelectorAll("[data-copy]").forEach(function(b){
       b.onclick=function(){copyTo(b,b.getAttribute("data-copy"));};});
+    $("jobList").querySelectorAll("[data-edit]").forEach(function(b){
+      b.onclick=function(){openEditor(b.getAttribute("data-edit"));};});
+    $("jobList").querySelectorAll("[data-send]").forEach(function(b){
+      b.onclick=function(){openSender(b.getAttribute("data-send"));};});
     $("jobList").querySelectorAll("[data-script]").forEach(function(b){
       b.onclick=function(){
         var id=b.getAttribute("data-script");
@@ -1912,7 +2050,8 @@ $("demoForm").addEventListener("submit",function(e){
   e.preventDefault();var f=e.target,m=$("demoMsg");clear(m);busy(f,true);
   post({action:"demo_request",token:token,business:f.business.value.trim(),
         city:f.city.value.trim(),state:f.state.value.trim(),
-        niche:f.niche.value.trim(),website:f.website.value.trim()})
+        niche:f.niche.value.trim(),website:f.website.value.trim(),
+        template:((f.template&&f.template.value)||"")})
     .then(function(d){
       busy(f,false,"Build me a demo");
       if(!d.ok){say(m,d.error||"Could not queue that.");return;}
@@ -1971,6 +2110,7 @@ $("appView").querySelectorAll(".tab").forEach(function(t){
     if(t.dataset.tab==="book")loadBook();
     if(t.dataset.tab==="products")loadProducts();
     if(t.dataset.tab==="calendar")calLoad();
+    if(t.dataset.tab==="demos")loadTemplates();
     if(t.dataset.tab==="leads")renderSheet(leadCfg);
   });
 });
