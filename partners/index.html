@@ -388,11 +388,35 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       <button class="tab" data-tab="clients" id="tabClients">Clients</button>
         <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
+      <button class="tab" data-tab="products">Products &amp; scripts</button>
       <button class="tab" data-tab="paid">How you get paid</button>
       <button class="tab" data-tab="training">Training</button>
     </div>
 
     <div class="panel" data-panel="dash" data-on>
+      <div class="card" id="alertCard">
+        <h2 class="tight">Alerts in your Discord</h2>
+        <p class="note">Get your client alerts in your own Discord: new messages, add-ons and
+          change requests, the setup steps to action when a client buys a product, plus demos
+          finishing, leads landing and bounties clearing. You still reply to clients here in
+          the portal.</p>
+        <p class="note" id="alertState">&mdash;</p>
+        <form id="alertForm" autocomplete="off">
+          <label class="lbl" for="alertHook">Discord webhook URL</label>
+          <input class="inp" id="alertHook" type="url" placeholder="https://discord.com/api/webhooks/..."
+                 spellcheck="false">
+          <p class="note" style="margin:6px 0 0">In Discord: your channel &rarr; Edit Channel &rarr;
+            Integrations &rarr; Webhooks &rarr; New Webhook &rarr; Copy Webhook URL. We send a test
+            message the moment you save, so you will know straight away that it works. The link only
+            lets us post into that one channel &mdash; it gives us no access to read your server.</p>
+          <div class="row" style="gap:8px;margin-top:12px">
+            <button class="btn" type="submit"><span class="t">Save &amp; send test</span></button>
+            <button class="btn lite sm" type="button" id="alertTest">Send test</button>
+            <button class="btn lite sm" type="button" id="alertOff">Turn off</button>
+          </div>
+          <p class="msg" id="alertMsg"></p>
+        </form>
+      </div>
       <div class="linkbox">
         <div class="mono">Your referral link</div>
         <div class="link" id="myLink">—</div>
@@ -571,6 +595,18 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 
       <div id="courseList"></div>
     </div>
+
+    <div class="panel" data-panel="products">
+      <div class="card">
+        <h2 class="tight">Every product, and what to say</h2>
+        <p class="note">What each product does, what you earn, the selling points, a call script and
+          an email you can send. Prices here are the live ones &mdash; quote these, not anything
+          you have written down.</p>
+        <input class="inp" id="prodSearch" type="search" placeholder="Search products, e.g. missed calls, reviews, payments">
+      </div>
+      <p class="msg" id="prodMsg"></p>
+      <div id="prodList"></div>
+    </div>
   </div>
 
   <div class="p-foot">Station Automations Group · Houston TX · <a href="mailto:main@station.solutions" style="color:var(--muted)">main@station.solutions</a></div>
@@ -588,6 +624,137 @@ function post(payload){
   return fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
     .then(function(r){return r.json();})
     .then(function(d){return Array.isArray(d)?d[0]:d;});
+}
+/* ================= PRODUCTS & SCRIPTS =================
+   Content lives in partners/products.json, same origin, so it is one file to edit and
+   both this tab and the alert workflows read the same wording. Fetched once per session. */
+var PRODUCTS=null;
+function loadProducts(){
+  var msg=$("prodMsg"), list=$("prodList");
+  if(PRODUCTS){renderProducts();return;}
+  msg.className="msg show note";msg.textContent="Loading…";
+  fetch("products.json",{cache:"no-cache"}).then(function(r){
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    return r.json();
+  }).then(function(d){
+    PRODUCTS=(d&&d.products)||[];
+    clear(msg);renderProducts();
+  }).catch(function(e){
+    say(msg,"Could not load the product list ("+e.message+"). Refresh and try again.","err");
+  });
+}
+function scriptBlock(title,rows){
+  var out='<div class="card" style="margin-top:10px"><div class="mono">'+esc(title)+'</div>';
+  rows.forEach(function(r){
+    if(!r[1]||r[1]==="—")return;
+    out+='<p class="note" style="margin:8px 0 0"><b>'+esc(r[0])+'</b><br>'+esc(r[1]).replace(/\n/g,"<br>")+'</p>';
+  });
+  return out+'</div>';
+}
+function renderProducts(){
+  var q=String(($("prodSearch")||{}).value||"").trim().toLowerCase();
+  var items=(PRODUCTS||[]).filter(function(p){
+    if(!q)return true;
+    return (p.name+" "+p.plain+" "+(p.selling_points||[]).join(" ")).toLowerCase().indexOf(q)>=0;
+  });
+  if(!items.length){$("prodList").innerHTML='<div class="card"><p class="note">Nothing matches that.</p></div>';return;}
+  $("prodList").innerHTML=items.map(function(p,i){
+    var earn=(p.bounty>0)?("You earn $"+p.bounty):"No bounty — it is included free";
+    return '<div class="card" style="margin-bottom:12px">'
+      +'<div class="row" style="justify-content:space-between;align-items:flex-start;gap:10px">'
+      +'<div><h2 class="tight" style="margin:0">'+esc(p.name)+'</h2>'
+      +'<p class="note" style="margin:2px 0 0">'+esc(p.plain)+'</p></div>'
+      +'<div style="text-align:right;white-space:nowrap">'
+      +'<div class="mono">'+esc(p.price)+'</div>'
+      +'<div class="mono" style="color:var(--amber)">'+esc(earn)+'</div></div></div>'
+      +'<p class="note" style="margin:12px 0 4px"><b>Why they buy it</b></p>'
+      +'<ul class="note" style="margin:0;padding-left:18px">'
+      +(p.selling_points||[]).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ul>'
+      +'<p class="note" style="margin:12px 0 4px"><b>Set-up you have to do after they buy</b></p>'
+      +'<ol class="note" style="margin:0;padding-left:18px">'
+      +(p.setup_actions||[]).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ol>'
+      +'<button class="btn lite sm" type="button" data-scripts="'+i+'" style="margin-top:12px">'
+      +'Show call &amp; email script</button>'
+      +'<div id="sc'+i+'" style="display:none">'
+      +scriptBlock("On the phone",[
+          ["Open with",(p.call_script||{}).opener],
+          ["Then ask",(p.call_script||{}).discovery],
+          ["The pitch",(p.call_script||{}).pitch],
+          ["If they push back",(p.call_script||{}).objection],
+          ["Close",(p.call_script||{}).close]])
+      +scriptBlock("By email",[
+          ["Subject",(p.email_script||{}).subject],
+          ["Body",(p.email_script||{}).body]])
+      +'<button class="btn lite sm" type="button" data-copy="'+i+'" style="margin-top:10px">Copy the email</button>'
+      +'</div></div>';
+  }).join("");
+  $("prodList").querySelectorAll("[data-scripts]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var d=$("sc"+b.dataset.scripts),on=d.style.display!=="none";
+      d.style.display=on?"none":"block";
+      b.textContent=on?"Show call & email script":"Hide call & email script";
+    });
+  });
+  $("prodList").querySelectorAll("[data-copy]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var p=items[+b.dataset.copy],e=p.email_script||{};
+      var txt="Subject: "+(e.subject||"")+"\n\n"+(e.body||"");
+      navigator.clipboard.writeText(txt).then(function(){
+        b.textContent="Copied";setTimeout(function(){b.textContent="Copy the email";},1400);
+      });
+    });
+  });
+}
+
+/* ================= DISCORD ALERTS ================= */
+function renderAlertState(){
+  var el=$("alertState");if(!el)return;
+  var d=(me&&me.discord)||{};
+  if(!d.set){el.innerHTML='<span class="mono">Not connected</span> — paste a webhook below to start getting alerts.';return;}
+  if(d.ok===false){
+    el.innerHTML='<span class="mono" style="color:var(--amber)">Connected, but the last alert FAILED</span>'
+      +(d.error?(" — "+esc(d.error)):"")+'<br>Alerts are not reaching you. Re-copy the webhook URL and save it again.';
+    return;
+  }
+  el.innerHTML='<span class="mono" style="color:#2ecc71">Connected</span> — alerts are going to your Discord.';
+}
+function wireAlerts(){
+  var f=$("alertForm");if(!f)return;
+  f.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var msg=$("alertMsg");clear(msg);
+    var hook=String($("alertHook").value||"").trim();
+    if(!hook){say(msg,"Paste the webhook URL first.","err");return;}
+    busy(f,true,"Saving");
+    post({action:"notify_set",token:token,webhook:hook}).then(function(d){
+      busy(f,false);
+      if(!d||!d.ok){say(msg,(d&&d.error)||"Could not save that.","err");return;}
+      me=me||{};me.discord=d.discord||{set:true,ok:true};
+      $("alertHook").value="";
+      say(msg,"Saved. Check your Discord channel — a test message should already be there.","ok");
+      renderAlertState();
+    }).catch(function(){busy(f,false);say(msg,"Network problem. Try again.","err");});
+  });
+  $("alertTest").addEventListener("click",function(){
+    var msg=$("alertMsg");clear(msg);
+    post({action:"notify_test",token:token}).then(function(d){
+      if(!d||!d.ok){say(msg,(d&&d.error)||"Test failed.","err");}
+      else{say(msg,"Test sent — look in your Discord channel.","ok");}
+      if(d&&d.discord){me=me||{};me.discord=d.discord;renderAlertState();}
+    });
+  });
+  $("alertOff").addEventListener("click",function(){
+    var msg=$("alertMsg");clear(msg);
+    post({action:"notify_set",token:token,webhook:""}).then(function(d){
+      if(d&&d.ok){me=me||{};me.discord={set:false};say(msg,"Discord alerts turned off.","ok");renderAlertState();}
+      else{say(msg,(d&&d.error)||"Could not turn it off.","err");}
+    });
+  });
+}
+
+function wireProductSearch(){
+  var el=$("prodSearch");
+  if(el)el.addEventListener("input",function(){if(PRODUCTS)renderProducts();});
 }
 function money(n){return "$"+Math.round(n||0).toLocaleString("en-US");}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){
@@ -617,6 +784,7 @@ function saveToken(t){token=t;try{localStorage.setItem(TKEY,t);}catch(e){}}
 function dropToken(){token=null;try{localStorage.removeItem(TKEY);}catch(e){}}
 
 function showApp(){
+
   $("authView").classList.add("hide");$("appView").classList.remove("hide");
   $("logout").classList.remove("hide");
   loadMe();loadJobs();loadLeads();
@@ -1337,6 +1505,7 @@ function loadMe(){
     if(!d.ok){dropToken();showAuth();return;}
     me=d;
     $("whoami").textContent=d.name+" · "+d.code;
+    try{renderAlertState();}catch(e){}
     $("myLink").textContent=d.link;
     $("stClicks").textContent=d.clicks||0;
     $("stLeads").textContent=d.leads||0;
@@ -1580,6 +1749,7 @@ $("addLeadForm").addEventListener("submit",function(e){
 $("appView").querySelectorAll(".tab").forEach(function(t){
   t.addEventListener("click",function(){
     if(t.dataset.tab==="book")loadBook();
+    if(t.dataset.tab==="products")loadProducts();
     if(t.dataset.tab==="leads")renderSheet(leadCfg);
   });
 });
@@ -1589,6 +1759,7 @@ $("logout").addEventListener("click",function(){
   if(t)post({action:"logout",token:t}).catch(function(){});
 });
 
+try{wireAlerts();wireProductSearch();}catch(e){}
 try{token=localStorage.getItem(TKEY);}catch(e){}
 if(token){showApp();}else{showAuth();}
 })();
