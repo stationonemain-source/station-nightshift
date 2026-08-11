@@ -388,6 +388,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       <button class="tab" data-tab="clients" id="tabClients">Clients</button>
         <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
+      <button class="tab" data-tab="calendar">Calendar</button>
       <button class="tab" data-tab="products">Products &amp; scripts</button>
       <button class="tab" data-tab="paid">How you get paid</button>
       <button class="tab" data-tab="training">Training</button>
@@ -596,6 +597,50 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       <div id="courseList"></div>
     </div>
 
+    <div class="panel" data-panel="calendar">
+      <div class="card">
+        <h2 class="tight">Book a call with Station</h2>
+        <p class="note">Intro calls and support calls &mdash; for yourself, for one of your
+          clients, or for a lead you are still working. Times come from the real calendar, so
+          anything you see here is genuinely free.</p>
+      </div>
+
+      <div class="card">
+        <label class="lbl" for="calWho">Who is this call for?</label>
+        <select class="inp" id="calWho">
+          <option value="self">Me &mdash; my own intro or support call</option>
+          <option value="client">One of my clients</option>
+          <option value="lead">One of my leads</option>
+        </select>
+
+        <div id="calPickClient" style="display:none;margin-top:12px">
+          <label class="lbl" for="calClient">Which client?</label>
+          <select class="inp" id="calClient"></select>
+        </div>
+        <div id="calPickLead" style="display:none;margin-top:12px">
+          <label class="lbl" for="calLead">Which lead?</label>
+          <select class="inp" id="calLead"></select>
+          <p class="note" style="margin:6px 0 0">Only leads with an email or phone can be
+            booked &mdash; Station needs a way to send the invite.</p>
+        </div>
+
+        <div style="margin-top:12px">
+          <label class="lbl" for="calWhich">Which call?</label>
+          <select class="inp" id="calWhich"></select>
+        </div>
+        <div style="margin-top:12px">
+          <label class="lbl" for="calDate">From which date?</label>
+          <input class="inp" id="calDate" type="date">
+        </div>
+        <div class="row" style="gap:8px;margin-top:12px">
+          <button class="btn" type="button" id="calFind"><span class="t">Find times</span></button>
+        </div>
+        <p class="msg" id="calMsg"></p>
+      </div>
+
+      <div id="calSlots"></div>
+    </div>
+
     <div class="panel" data-panel="products">
       <div class="card">
         <h2 class="tight">Every product, and what to say</h2>
@@ -625,6 +670,124 @@ function post(payload){
     .then(function(r){return r.json();})
     .then(function(d){return Array.isArray(d)?d[0]:d;});
 }
+/* ================= CALENDAR =================
+   cal_list gives the calendars, the partner's own name/email, and their bookable leads in
+   one round trip. Clients come from conv_list, which is already the authority on whose book
+   a contact is in. Every one of these is re-checked server-side on cal_book -- the selects
+   here are convenience, never authorisation. */
+var CAL=null, CAL_CLIENTS=null;
+function calLoad(){
+  var msg=$("calMsg");
+  if(CAL){calPaint();return;}
+  msg.className="msg show note";msg.textContent="Loading your calendars…";
+  post({action:"cal_list",token:token}).then(function(d){
+    if(!d||!d.ok){say(msg,(d&&d.error)||"Could not load the calendars.","err");return;}
+    CAL=d;clear(msg);calPaint();
+  }).catch(function(){say(msg,"Network problem loading the calendars.","err");});
+}
+function calPaint(){
+  var w=$("calWhich");
+  w.innerHTML=((CAL.calendars)||[]).map(function(c){
+    return '<option value="'+esc(c.id)+'">'+esc(c.name)+(c.mine?" (yours)":"")+'</option>';
+  }).join("")||'<option value="">No calendar available</option>';
+  var ls=$("calLead");
+  ls.innerHTML=((CAL.leads)||[]).map(function(l){
+    return '<option value="'+esc(l.id)+'">'+esc(l.name||l.email||l.phone)
+      +(l.city?(" — "+esc(l.city)):"")+'</option>';
+  }).join("")||'<option value="">No leads with contact details yet</option>';
+  if(!$("calDate").value){$("calDate").value=new Date().toISOString().slice(0,10);}
+}
+function calClients(){
+  var sel=$("calClient");
+  if(CAL_CLIENTS){return Promise.resolve();}
+  sel.innerHTML='<option value="">Loading…</option>';
+  return post({action:"conv_list",token:token}).then(function(d){
+    CAL_CLIENTS=(d&&d.ok&&d.threads)||[];
+    sel.innerHTML=CAL_CLIENTS.map(function(c){
+      return '<option value="'+esc(c.contactId)+'">'+esc(c.name)+'</option>';
+    }).join("")||'<option value="">No clients in your book yet</option>';
+  }).catch(function(){sel.innerHTML='<option value="">Could not load your clients</option>';});
+}
+function calWhoChanged(){
+  var v=$("calWho").value;
+  $("calPickClient").style.display=(v==="client")?"block":"none";
+  $("calPickLead").style.display=(v==="lead")?"block":"none";
+  if(v==="client")calClients();
+}
+function calFind(){
+  var msg=$("calMsg");clear(msg);
+  var calId=$("calWhich").value, date=$("calDate").value;
+  if(!calId){say(msg,"There is no calendar to book on yet — message us and we will set one up.","err");return;}
+  if(!date){say(msg,"Pick a date to look from.","err");return;}
+  $("calSlots").innerHTML="";
+  msg.className="msg show note";msg.textContent="Checking the calendar…";
+  post({action:"cal_slots",token:token,calendarId:calId,date:date}).then(function(d){
+    if(!d||!d.ok){say(msg,(d&&d.error)||"Could not read that calendar.","err");return;}
+    var days=(d.days||[]).filter(function(x){return (x.slots||[]).length;});
+    if(!days.length){
+      say(msg,"Nothing free in that week. Try a later date.","err");return;}
+    clear(msg);
+    $("calSlots").innerHTML=days.map(function(day){
+      return '<div class="card" style="margin-bottom:10px"><div class="mono">'
+        +esc(calDayLabel(day.date))+'</div><div class="row" style="flex-wrap:wrap;gap:6px;margin-top:8px">'
+        +day.slots.map(function(sl){
+            return '<button class="btn lite sm" type="button" data-slot="'+esc(sl)+'">'
+              +esc(calTime(sl))+'</button>';
+          }).join("")+'</div></div>';
+    }).join("");
+    $("calSlots").querySelectorAll("[data-slot]").forEach(function(btn){
+      btn.addEventListener("click",function(){calBook(btn.dataset.slot,btn);});
+    });
+  }).catch(function(){say(msg,"Network problem checking the calendar.","err");});
+}
+function calDayLabel(d){
+  try{
+    var dt=new Date(d+"T12:00:00");
+    return dt.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+  }catch(e){return d;}
+}
+function calTime(iso){
+  try{return new Date(iso).toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});}
+  catch(e){return iso;}
+}
+function calBook(slot,btn){
+  var msg=$("calMsg");clear(msg);
+  var who=$("calWho").value;
+  var payload={action:"cal_book",token:token,calendarId:$("calWhich").value,
+               start:slot,subject:who};
+  var label="you";
+  if(who==="client"){
+    payload.contactId=$("calClient").value;
+    if(!payload.contactId){say(msg,"Pick which client the call is for.","err");return;}
+    label=$("calClient").selectedOptions[0].textContent;
+  }
+  if(who==="lead"){
+    payload.leadId=$("calLead").value;
+    if(!payload.leadId){say(msg,"Pick which lead the call is for.","err");return;}
+    label=$("calLead").selectedOptions[0].textContent;
+  }
+  if(!window.confirm("Book "+calTime(slot)+" on "+calDayLabel(slot.slice(0,10))+" for "+label+"?")){return;}
+  btn.disabled=true;btn.textContent="Booking…";
+  post(payload).then(function(d){
+    if(!d||!d.ok){
+      btn.disabled=false;btn.textContent=calTime(slot);
+      say(msg,(d&&d.error)||"Could not book that time.","err");return;}
+    btn.textContent="Booked";
+    var bf=(d.booked_for||{});
+    say(msg,"Booked — "+(bf.who==="self"?"your call with Station":("call with "+(bf.label||label)))
+      +" on "+calDayLabel(slot.slice(0,10))+" at "+calTime(slot)+".","ok");
+    $("calSlots").querySelectorAll("[data-slot]").forEach(function(b){b.disabled=true;});
+  }).catch(function(){
+    btn.disabled=false;btn.textContent=calTime(slot);
+    say(msg,"Network problem booking that time.","err");
+  });
+}
+function wireCalendar(){
+  var w=$("calWho");if(!w)return;
+  w.addEventListener("change",calWhoChanged);
+  var f=$("calFind");if(f)f.addEventListener("click",calFind);
+}
+
 /* ================= PRODUCTS & SCRIPTS =================
    Content lives in partners/products.json, same origin, so it is one file to edit and
    both this tab and the alert workflows read the same wording. Fetched once per session. */
@@ -1750,6 +1913,7 @@ $("appView").querySelectorAll(".tab").forEach(function(t){
   t.addEventListener("click",function(){
     if(t.dataset.tab==="book")loadBook();
     if(t.dataset.tab==="products")loadProducts();
+    if(t.dataset.tab==="calendar")calLoad();
     if(t.dataset.tab==="leads")renderSheet(leadCfg);
   });
 });
@@ -1759,7 +1923,7 @@ $("logout").addEventListener("click",function(){
   if(t)post({action:"logout",token:t}).catch(function(){});
 });
 
-try{wireAlerts();wireProductSearch();}catch(e){}
+try{wireAlerts();wireProductSearch();wireCalendar();}catch(e){}
 try{token=localStorage.getItem(TKEY);}catch(e){}
 if(token){showApp();}else{showAuth();}
 })();
