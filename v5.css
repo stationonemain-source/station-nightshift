@@ -513,6 +513,16 @@ footer{border:0;padding:0;margin-top:64px}
 .pp .addcart,.pp-bar .btn.dark{background:var(--blue);box-shadow:inset 0 1px 1px rgba(255,255,255,.35),inset 0 -2px 5px rgba(0,0,0,.25),0 6px 16px rgba(37,99,235,.35)}
 .pp .addcart:hover,.pp-bar .btn.dark:hover{background:var(--blue-d)}
 .pp .addcart.in{background:var(--good)}
+/* In-cart confirmation as a green GLASS bubble, same material as .btn.glass so the
+   two buttons in a product's CTA stack read as one family instead of a flat fill. */
+.addcart.in,.pp .addcart.in{background:rgba(22,122,68,.30);color:#0A4325;
+ backdrop-filter:blur(14px) saturate(1.6);-webkit-backdrop-filter:blur(14px) saturate(1.6);
+ box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(22,122,68,.20),
+  inset 3px 3px .5px -3px rgba(0,0,0,.45),inset -3px -3px .5px -3px rgba(0,0,0,.40),
+  inset 1px 1px 1px -.5px rgba(0,0,0,.28),inset -1px -1px 1px -.5px rgba(0,0,0,.28),
+  inset 0 0 6px 6px rgba(22,122,68,.07),inset 0 0 2px 2px rgba(22,122,68,.04),
+  0 0 12px rgba(255,255,255,.55)}
+.addcart.in:hover,.pp .addcart.in:hover{background:rgba(22,122,68,.42)}
 /* border beam on demo cards */
 .flow-demo{position:relative;border:1px solid var(--line);overflow:hidden}
 .flow-demo::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;
@@ -1158,6 +1168,7 @@ html,body{overflow-x:clip}
   .nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(245,244,241,.96)}
   .cartbtn,.hamb{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.85)}
   .btn.glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.55)}
+  .addcart.in,.pp .addcart.in{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(22,122,68,.42)}
 }
 @media(prefers-reduced-motion:reduce){.parallax__layer-img,.parallax__layer-title{transform:none!important}
   .parallax__layer-title{transform:translate(-50%,-50%)!important}}
