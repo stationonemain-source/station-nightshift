@@ -73,16 +73,12 @@
 
   /* The cart drawer is built at runtime by v5.js, so the hold line injects
    * itself rather than asking 20 HTML files to carry markup. */
-  function injectDrawerHold() {
-    var foot = document.querySelector(".cart .c-foot");
-    if (!foot || foot.querySelector("[data-hold-wrap]")) return;
-    var d = document.createElement("div");
-    d.setAttribute("data-hold-wrap", "");
-    d.hidden = true;
-    d.style.cssText = "margin:0 0 10px;padding:9px 12px;border:1px solid rgba(160,120,20,.35);border-radius:8px;font-size:12.5px;color:#7A5A0E;background:rgba(239,194,106,.16)";
-    d.innerHTML = "Cart price locked for <b data-hold-countdown></b>";
-    foot.insertBefore(d, foot.firstChild);
-  }
+  /* The "cart price locked for 23h 24m" banner is deliberately gone. Nothing on the
+     site ever raises a price, so the countdown invented urgency for a risk that does
+     not exist, and it appeared on every product — nobody could tell what it meant.
+     The hold record itself stays: it is what lets a recovery email reopen the exact
+     cart via /checkout/?cart=…&hold=… . It is plumbing now, not a promise. */
+  function injectDrawerHold() {}
 
   function paint() {
     injectDrawerHold();

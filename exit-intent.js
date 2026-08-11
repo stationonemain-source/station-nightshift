@@ -86,11 +86,12 @@
     }
 
     if (isCheckout) {
-      var h = hold(), hrs = h && h.expires ? Math.max(1, Math.round((h.expires - Date.now()) / 3600e3)) : 24;
+      /* No countdown here either — the price does not expire, so promising a lock
+         was inventing pressure we do not actually apply. */
       box.innerHTML = '<button class="sx-x" aria-label="Close">×</button>' +
         '<p class="sx-k">NO RUSH — GENUINELY</p>' +
-        "<h3>Your price is locked for " + hrs + " more hours.</h3>" +
-        "<p>You don't have to decide this minute. Save the cart to your inbox and finish from any device — the hold and the price come with it.</p>" +
+        "<h3>Keep your cart, decide later.</h3>" +
+        "<p>You don't have to decide this minute. Save the cart to your inbox and finish from any device — everything you picked comes with it.</p>" +
         '<div class="sx-cta"><button class="sx-buy" data-sx="save">Email me this cart</button>' +
         '<button class="sx-see" data-sx="stay">Back to checkout</button></div>';
     } else {
