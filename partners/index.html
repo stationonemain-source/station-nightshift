@@ -402,6 +402,27 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           finishing, leads landing and bounties clearing. You still reply to clients here in
           the portal.</p>
         <p class="note" id="alertState">&mdash;</p>
+
+        <div id="dcSlot" style="display:none">
+          <div class="linkbox" style="margin:0 0 14px">
+            <div class="mono">Your Station channel</div>
+            <div class="link" id="dcChan">&mdash;</div>
+            <a class="btn lite sm" id="dcJoin" href="#" target="_blank" rel="noopener">Join the channel</a>
+          </div>
+          <form id="dcUserForm" autocomplete="off" style="margin-bottom:18px">
+            <label class="lbl" for="dcUser">Your Discord username</label>
+            <input class="inp" id="dcUser" placeholder="yourname" spellcheck="false" autocapitalize="off">
+            <p class="note" style="margin:6px 0 0">Join with the link above first, then give us your
+              username so we can let you into your channel. It is the lowercase @handle from
+              Discord &rarr; Settings &rarr; My Account &mdash; not your display name.</p>
+            <div class="row" style="gap:8px;margin-top:12px">
+              <button class="btn" type="submit"><span class="t">Give me access</span></button>
+            </div>
+            <p class="msg" id="dcUserMsg"></p>
+          </form>
+          <p class="note" style="margin:0 0 10px">Or send alerts to your own Discord server instead:</p>
+        </div>
+
         <form id="alertForm" autocomplete="off">
           <label class="lbl" for="alertHook">Discord webhook URL</label>
           <input class="inp" id="alertHook" type="url" placeholder="https://discord.com/api/webhooks/..."
@@ -870,7 +891,26 @@ function renderProducts(){
 }
 
 /* ================= DISCORD ALERTS ================= */
+function renderGrantState(){
+  var d=(me&&me.discord)||{}, wrap=$("dcSlot");
+  if(!wrap)return;
+  // Only offer the Station channel when a slot is actually assigned. A partner who has
+  // pointed alerts at their own server has no slot and should not see this at all.
+  if(!d.slot){wrap.style.display="none";return;}
+  wrap.style.display="block";
+  $("dcChan").textContent=d.channel||d.slot;
+  var j=$("dcJoin");
+  if(d.invite){j.href=d.invite;j.style.display="";}else{j.style.display="none";}
+  var m=$("dcUserMsg");
+  if(d.grant==="granted"){say(m,"You have access to "+(d.channel||"your channel")+".","ok");}
+  else if(d.grant==="not_joined"){say(m,"We could not find you in the server yet — click Join the channel above, then submit your username again.","err");}
+  else if(d.grant==="failed"){say(m,"We could not grant access"+(d.grant_error?(" ("+d.grant_error+")"):"")+". Message us and we will do it by hand.","err");}
+  else if(d.grant==="pending"){m.className="msg show note";m.textContent="Access is queued — it lands within about five minutes.";}
+  else{clear(m);}
+  if(d.user&&!$("dcUser").value){$("dcUser").value=d.user;}
+}
 function renderAlertState(){
+  try{renderGrantState();}catch(e){}
   var el=$("alertState");if(!el)return;
   var d=(me&&me.discord)||{};
   if(!d.set){el.innerHTML='<span class="mono">Not connected</span> — paste a webhook below to start getting alerts.';return;}
@@ -882,6 +922,23 @@ function renderAlertState(){
   el.innerHTML='<span class="mono" style="color:#2ecc71">Connected</span> — alerts are going to your Discord.';
 }
 function wireAlerts(){
+  var uf=$("dcUserForm");
+  if(uf){
+    uf.addEventListener("submit",function(ev){
+      ev.preventDefault();
+      var m=$("dcUserMsg");clear(m);
+      var u=String($("dcUser").value||"").trim().replace(/^@+/,"");
+      if(!u){say(m,"Type your Discord username first.","err");return;}
+      busy(uf,true,"Saving");
+      post({action:"discord_user",token:token,username:u}).then(function(d){
+        busy(uf,false);
+        if(!d||!d.ok){say(m,(d&&d.error)||"Could not save that.","err");return;}
+        me=me||{};me.discord=me.discord||{};
+        me.discord.user=d.discord_user;me.discord.grant=d.grant||null;
+        say(m,"Got it — access lands within about five minutes. Keep this tab open or check Discord shortly.","ok");
+      }).catch(function(){busy(uf,false);say(m,"Network problem. Try again.","err");});
+    });
+  }
   var f=$("alertForm");if(!f)return;
   f.addEventListener("submit",function(ev){
     ev.preventDefault();
