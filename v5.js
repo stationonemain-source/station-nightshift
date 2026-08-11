@@ -145,6 +145,26 @@
          already drifted: six products advertise "free for 7 days" and the payment link
          billed immediately at full price, and storefront/map links missed their second
          price. One path now, so they cannot diverge again. */
+      /* Bundles are a single Stripe price that grants many products, so they skip the
+         cart and open a session directly. Their old buy.stripe.com links had been
+         DEACTIVATED in Stripe - every bundle button led to "this link is no longer
+         active", which is every bundle sale lost. */
+      var bun = e.target.closest && e.target.closest("[data-bundle]");
+      if (bun){
+        e.preventDefault();
+        var was = bun.textContent;
+        bun.disabled = true; bun.textContent = "Building your secure checkout…";
+        var bref = null; try { bref = sessionStorage.getItem("station_ref"); } catch (x) {}
+        fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prices: [bun.getAttribute("data-bundle")],
+            has_recurring: true, has_onetime: false, trial: false, ref: bref || undefined })
+        }).then(function (r) { return r.json(); }).then(function (d) {
+          if (d && d.url) { location.href = d.url; }
+          else { bun.disabled = false; bun.textContent = "Try again — " + was; }
+        }).catch(function () { bun.disabled = false; bun.textContent = "Try again — " + was; });
+        return;
+      }
       var buy = e.target.closest && e.target.closest("[data-buynow]");
       if (buy){
         e.preventDefault();
