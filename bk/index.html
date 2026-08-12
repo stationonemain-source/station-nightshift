@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Book an appointment</title>
+<!--
+  Client booking page. Serves EVERY client's booking link on station.solutions so a
+  client's own customer never sees a vendor domain in the address bar.
+
+  Usage:  https://station.solutions/bk/?c=<calendarId>[&n=<Business+Name>]
+
+  Deliberately unbranded — the visitor is the CLIENT's customer, not a Station
+  prospect, so there is no Station wordmark, nav or footer here. The calendar
+  widget itself carries the client's own branding.
+
+  ?c= is validated against a strict id charset before it ever reaches the iframe
+  src, and ?n= is written with textContent, so neither can inject into the page.
+-->
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#F4F5F7;color:#16181d;
+    font:400 15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:900px;margin:0 auto;padding:20px 16px 40px}
+  h1{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:6px 0 16px;text-align:center;color:#16181d}
+  .shell{background:#fff;border:1px solid rgba(22,24,29,.11);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(22,24,29,.05)}
+  iframe{width:100%;min-height:760px;border:0;display:block}
+  .msg{padding:56px 24px;text-align:center;color:#5c626d}
+  .msg strong{display:block;font-size:17px;color:#16181d;margin-bottom:8px}
+  @media (max-width:600px){
+    .page{padding:12px 10px 24px}
+    .shell{border-radius:12px}
+    iframe{min-height:640px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1 id="head" hidden></h1>
+  <div class="shell" id="shell">
+    <div class="msg" id="msg"><strong>This booking link is incomplete.</strong>
+    Please use the link exactly as it was sent to you, or contact the business directly.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+
+  // Calendar ids are opaque alphanumeric handles. Anything else is not ours —
+  // refuse it rather than letting it reach the iframe src.
+  var id = (q.get('c') || '').trim();
+  if (!/^[A-Za-z0-9_-]{8,64}$/.test(id)) return;
+
+  var name = (q.get('n') || '').trim().slice(0, 80);
+  if (name) {
+    var h = document.getElementById('head');
+    h.textContent = 'Book with ' + name;
+    h.hidden = false;
+    document.title = 'Book with ' + name;
+  }
+
+  var f = document.createElement('iframe');
+  f.src = 'https://api.leadconnectorhq.com/widget/booking/' + encodeURIComponent(id);
+  f.title = name ? ('Book an appointment with ' + name) : 'Book an appointment';
+  f.setAttribute('scrolling', 'no');
+  f.id = id;                       // form_embed.js resizes by matching this to the calendar id
+
+  var shell = document.getElementById('shell');
+  shell.replaceChild(f, document.getElementById('msg'));
+
+  // Auto-resize so the calendar never scrolls inside a fixed-height box on mobile.
+  var s = document.createElement('script');
+  s.src = 'https://link.msgsndr.com/js/form_embed.js';
+  s.async = true;
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>
