@@ -194,10 +194,24 @@
   /* ---------- shimmer (gradient-shimmer vanilla port) ---------- */
   ready(function () {
     var el = document.querySelector(".shimmer"); if (!el) return;
-    var stops = ["#1D1D1F 0%","#6E5A2E 38%","#C9973B 46%","#EFC26A 50%","#C9973B 54%","#6E5A2E 62%","#1D1D1F 100%"];
-    el.style.backgroundColor = "#1D1D1F"; /* base ink under the band — text never disappears */
+    /* The band is clipped to the glyphs, so its lightest stop IS the text colour for the
+       words under it. The old peak #EFC26A sits at 1.52:1 on the #F5F4F1 page and
+       #C9973B at 2.39:1 — both under the 3:1 large-text floor, so the sweep washed
+       words out as it passed. (The backgroundColor below cannot rescue them: the
+       gradient is opaque, so it paints over the ink rather than blending.) Peaking on
+       --accent #8A5A00 holds 5.39:1 at the brightest point. */
+    var stops = ["#1D1D1F 0%","#4A3410 38%","#6E4A05 46%","#8A5A00 50%","#6E4A05 54%","#4A3410 62%","#1D1D1F 100%"];
+    el.style.backgroundColor = "#1D1D1F";
+    /* Reduced motion used to keep the gradient and just stop moving it, parking a
+       permanent washed-out band across the middle of the biggest headline on the site.
+       The accommodation made it less readable. Now it renders flat ink. */
+    if (RM || typeof el.animate !== "function") {
+      el.style.backgroundImage = "none";
+      el.style.webkitTextFillColor = "";
+      el.style.color = "#1D1D1F";
+      return;
+    }
     el.style.backgroundImage = "linear-gradient(105deg," + stops.join(",") + ")";
-    if (RM || typeof el.animate !== "function") { el.style.backgroundSize = "200% 100%"; return; }
     function sweep(){
       var w = el.getBoundingClientRect().width || 600, band = w * 1.6;
       el.style.backgroundSize = band + "px 100%";
