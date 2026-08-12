@@ -626,20 +626,13 @@
     document.querySelectorAll("[data-open-chat]").forEach(function (b) { b.addEventListener("click", toggle); });
   });
 
-  /* ---------- cookie bar (Accept / Deny · bottom-left) ---------- */
+  /* ---------- newsletter popup ---------- */
   ready(function () {
     try {
-      if (!localStorage.getItem("station_cookies")) {
-        var cb = document.createElement("div"); cb.className = "cookiebar open";
-        cb.innerHTML = '<p>We use essential cookies to make the site work — nothing that follows you around. <a href="/legal/cookies.html">Details</a>.</p>' +
-          '<div style="display:flex;gap:8px"><button class="btn dark sm" data-ck="accept">Accept</button>' +
-          '<button class="btn lite sm" data-ck="deny">Deny</button></div>';
-        cb.addEventListener("click", function (e) {
-          var v = e.target.getAttribute && e.target.getAttribute("data-ck");
-          if (v) { localStorage.setItem("station_cookies", v); cb.remove(); }
-        });
-        document.body.appendChild(cb);
-      }
+      /* The second consent bar used to be built here. It wrote localStorage
+         'station_cookies' and nothing ever read it, so its Accept/Deny were wired
+         to nothing — while telling visitors nothing follows them around, on a page
+         that also loads the Meta Pixel. The real, gated banner is analytics.js. */
       if (!localStorage.getItem("station_news") && !localStorage.getItem("station_lead_done")) {
         setTimeout(function () {
           if (localStorage.getItem("station_news")) return;
