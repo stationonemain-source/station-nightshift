@@ -1413,3 +1413,14 @@ button,input,select,textarea{font:inherit;color:inherit}
    a run-on rather than the start of the form.
    Selector matches .audit-form .af-h so it actually outranks that shorthand. */
 .audit-form .af-h{margin-top:34px}
+
+
+/* ===================== BUY BUTTON, TOUCH =====================
+   The coarse-pointer pass in HIT TARGETS covered chips, tabs, nav and footer links but
+   not .addcart — so the product page's buy button was 331x40 on a phone, the shortest
+   primary button on the page and the one at the end of the funnel. A mis-tap here costs
+   a sale, so it gets the comfortable size rather than the compliant one. */
+@media(pointer:coarse){
+  .pp .addcart{min-height:48px}
+  .addcart,.pp-bar .btn,.cart .c-go,.co-add,.co-card .co-pay{min-height:44px}
+}
