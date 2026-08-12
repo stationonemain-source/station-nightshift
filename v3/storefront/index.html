@@ -45,7 +45,7 @@
     <p class="fine">Assumptions shown, all of them adjustable: Counting only half those bookings as truly new.</p>
   </div>
   <script>window.CALC={price:500,clearAt:1.5,
-    refer:"If almost nobody searches for you yet, fix being found first \u2014 that's <a href='/map/'>Map</a>.",
+    refer:"If almost nobody searches for you yet, fix being found first \u2014 that's <a href='/map/'>Echo</a>.",
     sliders:[{id:"v",label:"People who look for you online each month",min:50,max:2000,step:50,val:300,fmt:null},{id:"c",label:"How many would book if the site made it easy (%)",min:1,max:8,step:1,val:2,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
     compute:function(__v){var v=__v.v;var c=__v.c;var t=__v.t;return{loss:(v*(c/100)*t*0.5),note:"Counting only half those bookings as truly new."}}
   };</script>

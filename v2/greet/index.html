@@ -50,7 +50,7 @@
     <p class="fine">Assumptions shown, all of them adjustable: Counting only a quarter of those chats becoming jobs.</p>
   </div>
   <script>window.CALC={price:79,clearAt:2,
-    refer:"Under ~150 visits a month, fix traffic first \u2014 <a href='/map/'>Map</a> gets you found.",
+    refer:"Under ~150 visits a month, fix traffic first \u2014 <a href='/map/'>Echo</a> gets you found.",
     sliders:[{id:"v",label:"Website visitors a month",min:100,max:3000,step:50,val:500,fmt:null},{id:"e",label:"Visitors who'd ask a question if they could (%)",min:1,max:10,step:1,val:3,fmt:function(v){return v+"%"}},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
     compute:function(__v){var v=__v.v;var e=__v.e;var t=__v.t;return{loss:(v*(e/100)*t*0.25),note:"Counting only a quarter of those chats becoming jobs."}}
   };</script>

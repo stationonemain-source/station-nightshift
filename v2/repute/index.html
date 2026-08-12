@@ -50,7 +50,7 @@
     <p class="fine">Assumptions shown, all of them adjustable: Review count drives ranking; ranking drives calls. Modeled as the calls a stronger profile adds at your job value — conservative for anyone under 60 reviews.</p>
   </div>
   <script>window.CALC={price:197,clearAt:1.5,
-    refer:"Over ~150 reviews already? Your engine is running \u2014 <a href='/map/'>Map</a> defends the listing itself.",
+    refer:"Over ~150 reviews already? Your engine is running \u2014 <a href='/map/'>Echo</a> defends the listing itself.",
     sliders:[{id:"j",label:"Jobs you finish a month",min:5,max:100,step:5,val:20,fmt:null},{id:"r",label:"Your review count today",min:0,max:300,step:5,val:30,fmt:null},{id:"t",label:"Your average job ($)",min:100,max:2000,step:25,val:425,fmt:function(v){return "$"+v.toLocaleString()}}],
     compute:function(__v){var j=__v.j;var r=__v.r;var t=__v.t;return{loss:(Math.max(0, (60-r))/60 * j * 0.06 * t * 3),note:"Review count drives ranking; ranking drives calls. Modeled as the calls a stronger profile adds at your job value \u2014 conservative for anyone under 60 reviews."}}
   };</script>
