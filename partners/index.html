@@ -1162,7 +1162,7 @@ var COURSE=[
   more:[]},
 
  {id:"scout-2",title:"Sharing your link",dur:"1.5 min",
-  summary:"You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 14 products or answer technical questions.",
+  summary:"You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 17 products or answer technical questions.",
   more:["You are not expected to be a salesperson. Your only real job is getting the link in front of the right business owner.","The best-performing Scouts share their own real story — why they trust Station — rather than a generic pitch."]},
 
  {id:"scout-3",title:"What happens after you refer someone",dur:"1 min",
@@ -1185,9 +1185,9 @@ var COURSE=[
   summary:"Answers their own phone → <b>Frontdesk</b> ($397–$897). No real website, or an ugly one → <b>Storefront</b> ($500+$49/mo). Unanswered 1-2 star reviews → <b>Repute</b> ($197). Already asking about “the AI phone thing” → <b>Lineback</b> ($197–$297). If you're not sure, ask what's costing them the most right now.",
   more:["Don't lead with all 14 products — leading with the ONE most obviously broken thing gets a faster yes than a full catalog dump.","If two gaps are equally obvious, lead with the higher-value one first, and mention the second as a fast follow."]},
 
- {id:"partner-4",title:"Use the demo tool, don't pitch blind",dur:"2.5 min",
-  summary:"Before you call a business, go to Demo sites, enter their name and city, and Station builds a real working example for THAT business plus a specific dollar figure for what their gap is costing them. Then you're showing something real, not pitching an idea.",
-  more:["The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
+ {id:"partner-4",title:"Your two power tools: the Call Sheet and the Demo Builder",dur:"3 min",
+  summary:"Two Partner-only tools do the heavy lifting. The <b>Call Sheet</b> pulls a fresh list of real local businesses by trade and city — each with the specific gap costing them money and an estimated dollar leak — straight into your Leads sheet. The <b>Demo Builder</b> then builds a real working example for a business before you call, so you open with something true instead of a pitch.",
+  more:["Call Sheet: pick a trade and a city, pull your leads, then work the sheet — status, follow-up dates and notes on every row. It's rate-limited so the leads stay fresh, not a dump you never touch. Both tools are Partner-only; Scouts earn by sharing their link.","The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
 
  {id:"partner-5",title:"The call script pattern",dur:"3 min",
   summary:"Confirm who you're talking to, fast. State the specific gap you found, with a number if you have one. Offer to text the demo link live, on the call. You're not closing the sale — Station's free audit does that. Your only job is to get them to look at the demo.",
@@ -1871,6 +1871,10 @@ function loadMe(){
       // tab is removed outright rather than shown empty. The engine refuses these actions for
       // a Scout regardless — this is only the cosmetic half.
       var ct=$("tabClients"); if(ct){ ct.style.display=(track==="Partner")?"":"none"; }
+      // Demo Builder is a Partner-only tool — hide the tab for Scouts (the engine
+      // also refuses demo_request off the Partner track; this is the cosmetic half).
+      var dt=document.querySelector('#appView .tab[data-tab="demos"]');
+      if(dt){ dt.style.display=(track==="Partner")?"":"none"; }
     if(track==="Scout"){
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
         '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
