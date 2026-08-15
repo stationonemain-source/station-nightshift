@@ -468,6 +468,22 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           <p class="note" style="margin-bottom:0">Every business you're working, in one sheet. Click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
         </div>
 
+        <div class="addrow hide" id="pullLeadBox">
+          <form id="pullLeadForm" novalidate>
+            <div class="grid" style="grid-template-columns:1fr 1fr 120px">
+              <div class="field"><label>Trade</label><input name="niche" required placeholder="plumbing, hvac, roofing…"></div>
+              <div class="field"><label>City</label><input name="location" required placeholder="Katy, TX"></div>
+              <div class="field"><label>How many</label><input name="count" inputmode="numeric" value="15"></div>
+            </div>
+            <div class="actions" style="margin-top:16px">
+              <button class="btn dark sm" type="submit"><span class="t">Pull leads</span></button>
+              <button class="btn lite sm" type="button" id="pullLeadCancel">Cancel</button>
+            </div>
+            <p class="note" style="margin-top:10px">Station finds real local businesses in that trade and city — each with the specific gap that's costing them money and a dollar figure — ranked by leak and dropped straight into your sheet. Up to 15 a day; they land within a few minutes.</p>
+            <div class="msg" id="pullLeadMsg"></div>
+          </form>
+        </div>
+
         <div class="addrow hide" id="addLeadBox">
           <form id="addLeadForm" novalidate>
             <div class="grid">
@@ -491,7 +507,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
         <div class="sheet-head">
           <div class="grow"><input class="srch" id="leadQ" placeholder="Filter — business, city, trade, phone, gap…"></div>
           <div class="chips" id="leadChips"></div>
-          <button class="btn dark sm" id="addLeadBtn">Add lead</button>
+          <button class="btn dark sm" id="pullLeadBtn">Pull leads</button>
+          <button class="btn lite sm" id="addLeadBtn">Add lead</button>
           <button class="btn lite sm" id="leadCsv">Export CSV</button>
         </div>
         <div class="sheet-scroll"><table class="sheet" id="leadSheet"></table></div>
@@ -2108,6 +2125,37 @@ $("addLeadForm").addEventListener("submit",function(e){
     }).catch(function(){busy(f,false,"Add to sheet");say(m,"Network error — try again.");});
 });
 
+$("pullLeadBtn").addEventListener("click",function(){
+  var box=$("pullLeadBox"),showing=!box.classList.contains("hide");
+  box.classList.toggle("hide",showing);
+  this.textContent=showing?"Pull leads":"Close";
+  $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";
+  if(!showing)box.querySelector("[name=niche]").focus();
+});
+$("pullLeadCancel").addEventListener("click",function(){
+  $("pullLeadBox").classList.add("hide");$("pullLeadBtn").textContent="Pull leads";clear($("pullLeadMsg"));});
+var pullPollTimer=null;
+function pollLeads(n){
+  loadLeads();
+  if(n<12){clearTimeout(pullPollTimer);pullPollTimer=setTimeout(function(){pollLeads(n+1);},20000);}
+}
+$("pullLeadForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var f=e.target,m=$("pullLeadMsg");clear(m);
+  var niche=f.niche.value.trim(),location=f.location.value.trim();
+  var count=parseInt(String(f.count.value).replace(/[^0-9]/g,""),10)||15;
+  if(!niche||!location){say(m,"Trade and city are both needed.","err");return;}
+  busy(f,true);
+  post({action:"leads_pull",token:token,niche:niche,location:location,count:count}).then(function(d){
+    busy(f,false,"Pull leads");
+    if(!d.ok){say(m,d.error||"Could not start that pull.","err");return;}
+    say(m,"Pulling "+esc(niche)+" in "+esc(location)+" — your leads land here within a few minutes. Keep working; the sheet refreshes them for you.","ok");
+    f.niche.value="";f.location.value="";
+    sst("leads").filter="all";
+    pollLeads(0);
+  }).catch(function(){busy(f,false,"Pull leads");say(m,"Network error — try again.","err");});
+});
+
 // The book costs a GHL round trip, so it loads the first time you open the tab.
 $("appView").querySelectorAll(".tab").forEach(function(t){
   t.addEventListener("click",function(){
@@ -2115,7 +2163,7 @@ $("appView").querySelectorAll(".tab").forEach(function(t){
     if(t.dataset.tab==="products")loadProducts();
     if(t.dataset.tab==="calendar")calLoad();
     if(t.dataset.tab==="demos")loadTemplates();
-    if(t.dataset.tab==="leads")renderSheet(leadCfg);
+    if(t.dataset.tab==="leads")loadLeads();
   });
 });
 
