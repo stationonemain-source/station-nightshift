@@ -57,12 +57,12 @@ body{padding-top:56px}
 .stat .k{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:6px}
 
 .linkbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;margin-bottom:16px}
-.linkbox .link{font-family:var(--fm);font-size:15px;color:var(--blue);word-break:break-all;margin:8px 0 14px;font-weight:600}
+.linkbox .link{font-family:var(--fm);font-size:15px;color:var(--pay);word-break:break-all;margin:8px 0 14px;font-weight:600}
 
 .pill{display:inline-flex;align-items:center;font-family:var(--fm);font-size:10.5px;letter-spacing:.1em;
   text-transform:uppercase;padding:5px 11px;border-radius:999px;font-weight:600}
 .pill.active,.pill.ready{background:rgba(22,122,68,.1);color:var(--good)}
-.pill.pending,.pill.queued,.pill.building{background:color-mix(in srgb,var(--blue) 10%,transparent);color:var(--blue-d)}
+.pill.pending,.pill.queued,.pill.building{background:color-mix(in srgb,var(--pay) 10%,transparent);color:var(--pay-d)}
 .pill.failed,.pill.rejected{background:rgba(192,59,43,.1);color:var(--red)}
 
 .ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
@@ -104,7 +104,7 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
 
 .course-progress .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
 .course-progress .bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
-.course-progress .bar i{display:block;height:100%;background:var(--blue);border-radius:999px;transition:width .35s ease}
+.course-progress .bar i{display:block;height:100%;background:var(--pay);border-radius:999px;transition:width .35s ease}
 .course-divider{font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);
   margin:22px 2px 10px;padding-top:6px;border-top:1px solid var(--line)}
 .course-divider:first-child{border-top:0;margin-top:0}
@@ -168,13 +168,13 @@ table.sheet th[data-sorted]{color:var(--ink)}
 table.sheet td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 table.sheet tr.r:hover>td{background:var(--bg)}
 table.sheet tr.r[data-open]>td{background:var(--bg)}
-table.sheet tr.r:hover>td{background:color-mix(in srgb,var(--blue) 5%,var(--card))}
-table.sheet tr.r[data-open]>td{background:color-mix(in srgb,var(--blue) 6%,var(--card))}
+table.sheet tr.r:hover>td{background:color-mix(in srgb,var(--pay) 5%,var(--card))}
+table.sheet tr.r[data-open]>td{background:color-mix(in srgb,var(--pay) 6%,var(--card))}
 table.sheet td.num{text-align:right;font-family:var(--fm);font-size:12.5px;white-space:nowrap}
 table.sheet td.b{font-weight:600;white-space:nowrap}
 table.sheet td.dim{color:var(--muted)}
 table.sheet .sub{color:var(--faint);font-size:11.5px;font-weight:400}
-table.sheet a.cell{color:var(--blue);font-weight:600;text-decoration:none}
+table.sheet a.cell{color:var(--pay);font-weight:600;text-decoration:none}
 table.sheet a.cell:hover{text-decoration:underline}
 .sheet-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
   font:11px var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:12px 4px 0}
@@ -191,12 +191,12 @@ table.sheet a.cell:hover{text-decoration:underline}
 .dot.s-{background:transparent;box-shadow:inset 0 0 0 1.5px var(--faint)}
 .dot.s-called{background:var(--faint)}
 .dot.s-no_answer{background:var(--muted)}
-.dot.s-interested{background:var(--blue)}
-.dot.s-demo_sent{background:var(--blue-d)}
+.dot.s-interested{background:var(--pay)}
+.dot.s-demo_sent{background:var(--pay-d)}
 .dot.s-won{background:var(--good)}
 .dot.s-not_interested{background:var(--red)}
 .due{color:var(--red);font-weight:600}
-.today{color:var(--blue);font-weight:600}
+.today{color:var(--pay);font-weight:600}
 
 .nbtn{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px;
   font:600 11px var(--fd);color:var(--muted);cursor:pointer;white-space:nowrap}
@@ -241,13 +241,13 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
   overflow:hidden;max-height:min(66vh,700px);overflow-y:auto}
 .ibx-item{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;
   padding:13px 15px;border-bottom:1px solid var(--line)}
-.ibx-item:hover{background:color-mix(in srgb,var(--blue) 5%,var(--card))}
-.ibx-item[data-on]{background:color-mix(in srgb,var(--blue) 9%,var(--card))}
+.ibx-item:hover{background:color-mix(in srgb,var(--pay) 5%,var(--card))}
+.ibx-item[data-on]{background:color-mix(in srgb,var(--pay) 9%,var(--card))}
 .ibx-item .nm{font:600 13.5px var(--fd);color:var(--ink)}
 .ibx-item .pv{font-size:12px;color:var(--faint);margin-top:3px;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap}
 .ibx-item .un{display:inline-block;min-width:18px;padding:1px 6px;border-radius:999px;
-  background:var(--blue);color:var(--card);font:600 10.5px var(--fm);text-align:center;float:right}
+  background:var(--pay);color:var(--card);font:600 10.5px var(--fm);text-align:center;float:right}
 .ibx-pane{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   display:flex;flex-direction:column;min-height:340px;max-height:min(66vh,700px)}
 .ibx-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;
@@ -260,20 +260,20 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .ibx-msg{max-width:78%;padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.45;
   white-space:pre-wrap;word-break:break-word}
 .ibx-msg.in{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
-.ibx-msg.out{align-self:flex-end;background:var(--blue);color:var(--card)}
+.ibx-msg.out{align-self:flex-end;background:var(--pay);color:var(--card)}
 .ibx-msg .mt{display:block;font:10px var(--fm);opacity:.65;margin-top:5px}
 .ibx-comp{border-top:1px solid var(--line);padding:12px 14px;display:flex;gap:9px;align-items:flex-end}
 .ibx-comp textarea{flex:1;min-height:44px;max-height:130px;background:var(--card);
   border:1px solid var(--line);border-radius:12px;padding:11px 13px;font:14px/1.45 var(--fb);
   color:var(--ink);resize:vertical}
-.ibx-comp textarea:focus{outline:none;border-color:var(--blue)}
+.ibx-comp textarea:focus{outline:none;border-color:var(--pay)}
 .ibx-empty{flex:1;display:grid;place-items:center;color:var(--faint);font-size:13.5px;
   text-align:center;padding:30px}
 .slotgrid{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
 .slot{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;
   font:600 12px var(--fd);color:var(--ink);cursor:pointer}
-.slot:hover{border-color:var(--blue);color:var(--blue)}
-.slot[data-on]{background:var(--blue);border-color:var(--blue);color:var(--card)}
+.slot:hover{border-color:var(--pay);color:var(--pay)}
+.slot[data-on]{background:var(--pay);border-color:var(--pay);color:var(--card)}
 .slotday{font:600 10.5px var(--fm);letter-spacing:.1em;text-transform:uppercase;
   color:var(--faint);margin:13px 0 2px}
 .course-done{display:flex;align-items:flex-start;gap:13px;border-color:var(--good);
@@ -284,13 +284,44 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .course-done .s{font-size:.9rem;color:var(--muted);margin-top:3px;line-height:1.5}
 .course-progress[data-complete="1"] .bar i{background:var(--good)}
 .getform{border:1px solid var(--line);border-radius:14px;padding:15px 16px;
-  background:color-mix(in srgb,var(--blue) 4%,var(--card))}
+  background:color-mix(in srgb,var(--pay) 4%,var(--card))}
 .getform .gf-lbl{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
   color:var(--faint);margin-bottom:10px}
-/* Primary actions use the site commerce blue (--blue), same as the product-page
-   add-to-cart and tier CTAs. Ink stays for text; white/paper stay for surface. */
-.btn.dark{background:var(--blue);color:var(--card)}
-.btn.dark:hover{background:var(--blue-d)}
+/* 2026-08-22 audit fix PP-01: v5.css dropped --blue/--blue-d on 2026-08-11 (commit 5d16864) and
+   only defines --pay/--pay-d, so every primary button here rendered as a blank white pill.
+   Primary actions now use the site commerce blue under its real name (--pay, same as the
+   product-page add-to-cart and tier CTAs). The old names are aliased on `html` (lower
+   specificity than v5.css :root, so the site stylesheet always wins when it defines them) so
+   any straggler var(--pay) still paints, and --card is declared defensively the same way. */
+html{--blue:var(--pay,#2563EB);--blue-d:var(--pay-d,#1D4ED8);--card:#FFFFFF;--pay:#2563EB;--pay-d:#1D4ED8}
+.btn.dark{background:var(--pay);color:var(--card)}
+.btn.dark:hover{background:var(--pay-d)}
+
+/* 2026-08-22 audit fix PP-04: the product price column was white-space:nowrap inside a 1fr grid
+   cell, which forced the card to 442px at 390px wide (overflow-x:clip made it unreachable).
+   The header row's children may now shrink and the price wraps; on phones it stacks left. */
+.row>*{min-width:0}
+.prod-price{text-align:right}
+.prod-price .mono{white-space:normal;overflow-wrap:anywhere}
+@media(max-width:600px){.prod-price{text-align:left}}
+#pullLeadForm .grid{grid-template-columns:1fr 1fr 120px}
+@media(max-width:600px){#pullLeadForm .grid{grid-template-columns:1fr}}
+
+/* 2026-08-22 audit fix LP-02 / F7 / PP-02: status lines for a lead pull, a site send, and a
+   demo whose site is no longer live (the worker now marks those failed/expired). */
+.pull-status{font-size:.9rem;color:var(--muted);padding:12px 15px;border-radius:12px;
+  background:var(--card);border:1px solid var(--line);margin-bottom:14px;line-height:1.6}
+.pill.expired{background:rgba(192,59,43,.1);color:var(--red)}
+.sends{margin-top:12px;font-size:.88rem;color:var(--muted);line-height:1.6}
+.sends .bad{color:var(--red)}
+.sends .ok{color:var(--good)}
+/* 2026-08-22 audit fix (seen while fixing F4/F8): the Send / Change-site boxes, the Discord alert
+   form and the Calendar controls use .lbl/.inp, which v5.css never defined -- labels ran inline
+   and inputs were browser defaults. Same look as .field label / .field input. */
+.lbl{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.inp{display:block;width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:16px/1.5 var(--fb);padding:13px 15px;margin-bottom:4px}
+.inp:focus{outline:none;border-color:var(--ink)}
+textarea.inp{resize:vertical;min-height:74px}
 </style>
 </head>
 <body>
@@ -352,7 +383,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           <div class="field"><label>Who do you know? (optional)</label><textarea name="audience" rows="2" placeholder="e.g. I do bookkeeping for 30 local shops, or I run a 12k-follower barber IG"></textarea></div>
           <button class="btn dark full" type="submit"><span class="t">Apply to become a Scout</span></button>
           <p class="hint" style="text-align:center;margin-top:14px">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
-          <p class="hint" style="text-align:center;margin-top:6px">By applying you agree to the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Station Affiliate Program Agreement</a>.</p>
+          <p class="hint" style="text-align:center;margin-top:6px">By applying you agree to the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Station Affiliate Program Agreement</a>.</p>
         </form>
         <div class="msg" id="applyMsg"></div>
       </div>
@@ -384,7 +415,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
-      <button class="tab" data-tab="leads">Leads</button>
+      <button class="tab" data-tab="leads" id="tabLeads">Leads</button>
       <button class="tab" data-tab="clients" id="tabClients">Clients</button>
         <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
@@ -446,13 +477,14 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       </div>
       <div class="stats">
         <div class="stat"><div class="v" id="stClicks">—</div><div class="k">Clicks</div></div>
-        <div class="stat"><div class="v" id="stLeads">—</div><div class="k">Leads</div></div>
+        <!-- 2026-08-22 audit fix PP-08: this tile counts referral-form leads, not the Leads sheet -->
+        <div class="stat"><div class="v" id="stLeads">—</div><div class="k">Referral leads</div></div>
         <div class="stat"><div class="v" id="stClients">—</div><div class="k">Clients</div></div>
         <div class="stat"><div class="v" id="stComm">—</div><div class="k">Commission / mo</div></div>
       </div>
       <div class="card">
         <h2>Your current payout rate</h2>
-        <p class="note" style="margin-bottom:12px">We're mid-migration to the new Scout/Partner structure (see "How you get paid") — the figures below still reflect the prior rate system until your account moves over.</p>
+        <!-- 2026-08-22 audit fix PP-08: the "mid-migration" paragraph is gone; the ladder below already shows the live track -->
         <div class="ladder" id="ladderBox"></div>
         <div id="nextBox"></div>
         <p class="note" id="basisNote" style="margin-top:14px"></p>
@@ -470,7 +502,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 
         <div class="addrow hide" id="pullLeadBox">
           <form id="pullLeadForm" novalidate>
-            <div class="grid" style="grid-template-columns:1fr 1fr 120px">
+            <div class="grid">
               <div class="field"><label>Trade</label><input name="niche" required placeholder="plumbing, hvac, roofing…"></div>
               <div class="field"><label>City</label><input name="location" required placeholder="Katy, TX"></div>
               <div class="field"><label>How many</label><input name="count" inputmode="numeric" value="15"></div>
@@ -483,6 +515,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
             <div class="msg" id="pullLeadMsg"></div>
           </form>
         </div>
+        <!-- 2026-08-22 audit fix LP-02: the latest pull's status (queued / pulling / done N / 0 new / failed + reason) -->
+        <div class="pull-status hide" id="pullStatus"></div>
 
         <div class="addrow hide" id="addLeadBox">
           <form id="addLeadForm" novalidate>
@@ -599,7 +633,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
           <div class="field"><label>Design (optional)</label>
             <select name="template" id="demoTemplate"><option value="">Let Station choose</option></select>
             <div class="hint">The same designs Station builds with. Leave it on "Let Station choose" and
-              we pick one that suits their trade. You can change it after it is built.</div></div>
+              we pick one that suits their trade. You can change it after it is built.</div>
+            <div class="hint" id="tplPreview"></div></div>
           <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
         </form>
         <div class="msg" id="demoMsg"></div>
@@ -620,7 +655,7 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
       </div>
       <div class="card">
         <h2 class="tight">Questions</h2>
-        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--blue);font-weight:600">main@station.solutions</a>. Full terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600">Partner Agreement</a>.</p>
+        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--pay);font-weight:600">main@station.solutions</a>. Full terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Partner Agreement</a>.</p>
       </div>
     </div>
 
@@ -669,6 +704,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
         <div style="margin-top:12px">
           <label class="lbl" for="calWhich">Which call?</label>
           <select class="inp" id="calWhich"></select>
+          <!-- 2026-08-22 audit fix PP-07: filled by calPaint() when cal_list says no calendar is assigned -->
+          <p class="note" id="calAssignNote" style="margin:6px 0 0;display:none"></p>
         </div>
         <div style="margin-top:12px">
           <label class="lbl" for="calDate">From which date?</label>
@@ -718,32 +755,57 @@ function post(payload){
    list is pushed into the engine by that same worker, so this picker never talks to Foundry
    either. The CAN-SPAM footer is added server-side by pipeline/partner.py and is shown here
    read-only -- there is deliberately no way to edit or remove it from the browser. */
-var TEMPLATES=null;
+var TEMPLATES=null, FOOTER=null;
 function loadTemplates(){
   if(TEMPLATES)return Promise.resolve(TEMPLATES);
   return post({action:"site_templates",token:token}).then(function(d){
     TEMPLATES=(d&&d.ok&&d.templates)||[];
-    var sel=$("demoTemplate");
-    if(sel&&TEMPLATES.length){
-      sel.innerHTML='<option value="">Let Station choose</option>'+templateOptions("");
-    }
+    // 2026-08-22 audit fix F8: when the engine carries the real CAN-SPAM footer (pushed by the
+    // worker from pipeline/partner.py), the Send box shows that instead of a hardcoded sample.
+    FOOTER=(d&&d.ok&&typeof d.footer==="string"&&d.footer.trim())?d.footer:null;
+    paintTemplateSelect();
     return TEMPLATES;
   }).catch(function(){TEMPLATES=[];return TEMPLATES;});
 }
-function templateOptions(current){
-  // "fits" marks designs build.py considers suited to that trade; the rest stay selectable
-  // because a partner may know the business better than the niche guess does.
-  var fit=(TEMPLATES||[]).filter(function(t){return t.fits;});
-  var rest=(TEMPLATES||[]).filter(function(t){return !t.fits;});
+function demoNiche(){var f=$("demoForm");var i=f&&f.querySelector("[name=niche]");return i?i.value:"";}
+function paintTemplateSelect(){
+  var sel=$("demoTemplate");
+  if(sel&&TEMPLATES&&TEMPLATES.length){
+    var cur=sel.value;
+    sel.innerHTML='<option value="">Let Station choose</option>'+templateOptions(cur,demoNiche());
+    sel.value=cur;
+    var pv=$("tplPreview");if(pv)pv.innerHTML=previewHtml(sel.value);
+  }
+}
+function normNiche(x){return String(x||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function templateFits(t,niche){
+  // 2026-08-22 audit fix PP-05: the engine's `fits` is one boolean computed with no trade (it is
+  // true on all 34 designs), so it cannot tell one trade from another. Only a real list of
+  // trades on the row (suits / fits_niches / niches) earns "Suits this trade", and only when it
+  // contains the trade typed on the form. Unknown -> null, and the picker stays one plain list.
+  var list=t.suits||t.fits_niches||t.niches;
+  if(!Array.isArray(list)||!list.length)return null;
+  var n=normNiche(niche);if(!n)return null;
+  return list.some(function(x){x=normNiche(x);return !!x&&(x===n||n.indexOf(x)>=0||x.indexOf(n)>=0);});
+}
+function previewHtml(file){
+  var t=(TEMPLATES||[]).filter(function(x){return x.file===file;})[0];
+  var u=t&&(t.preview||t.preview_url);
+  if(!u||!/^https?:\/\//.test(String(u)))return "";
+  return '<a href="'+esc(u)+'" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Preview this design &#8599;</a>';
+}
+function templateOptions(current,niche){
+  var all=(TEMPLATES||[]);
+  var fit=all.filter(function(t){return templateFits(t,niche)===true;});
+  var rest=all.filter(function(t){return templateFits(t,niche)!==true;});
   function opts(list){
     return list.map(function(t){
       return '<option value="'+esc(t.file)+'"'+(t.file===current?" selected":"")+'>'
         +esc(t.label)+'</option>';}).join("");
   }
-  var out="";
-  if(fit.length)out+='<optgroup label="Suits this trade">'+opts(fit)+'</optgroup>';
-  if(rest.length)out+='<optgroup label="Other designs">'+opts(rest)+'</optgroup>';
-  return out;
+  if(!fit.length)return opts(rest);   // no trade-level knowledge: a plain list, no claim
+  return '<optgroup label="Suits this trade">'+opts(fit)+'</optgroup>'
+    +(rest.length?'<optgroup label="Other designs">'+opts(rest)+'</optgroup>':"");
 }
 function boxClose(id){var b=$("bx-"+id);if(b)b.innerHTML="";}
 function openEditor(id){
@@ -756,7 +818,8 @@ function openEditor(id){
       +'<div class="mono">Change this site</div>'
       +'<label class="lbl" style="margin-top:10px">Design</label>'
       +'<select class="inp" id="ed-t-'+esc(id)+'"><option value="">Keep the current design</option>'
-      +templateOptions(j.template||"")+'</select>'
+      +templateOptions(j.template||"",j.niche||"")+'</select>'
+      +'<div class="hint" id="ed-p-'+esc(id)+'">'+previewHtml(j.template||"")+'</div>'
       +'<label class="lbl" style="margin-top:10px">Headline</label>'
       +'<input class="inp" id="ed-h-'+esc(id)+'" maxlength="80" placeholder="Leave blank to keep it">'
       +'<label class="lbl" style="margin-top:10px">Sub-headline</label>'
@@ -772,6 +835,7 @@ function openEditor(id){
       +'<button class="btn lite sm" type="button" id="ed-x-'+esc(id)+'">Cancel</button></div>'
       +'<p class="msg" id="ed-m-'+esc(id)+'"></p></div>';
     $("ed-x-"+id).onclick=function(){boxClose(id);box.removeAttribute("data-mode");};
+    $("ed-t-"+id).onchange=function(){var p=$("ed-p-"+id);if(p)p.innerHTML=previewHtml(this.value);};
     $("ed-go-"+id).onclick=function(){
       var m=$("ed-m-"+id);clear(m);
       var copy={};
@@ -809,15 +873,22 @@ function openSender(id){
     +'<input class="inp" id="sd-su-'+esc(id)+'" maxlength="180" value="'+esc(subj)+'">'
     +'<label class="lbl" style="margin-top:10px">Message</label>'
     +'<textarea class="inp" id="sd-ms-'+esc(id)+'" rows="7" maxlength="4000">'+esc(msg)+'</textarea>'
-    +'<p class="note" style="margin:12px 0 4px"><b>Added automatically, and required by law:</b></p>'
+    // 2026-08-22 audit fix F8: the real footer comes from the engine when the worker has pushed
+    // it (FOOTER); until then this is labelled as a sample so a config change cannot silently
+    // diverge what is shown from what is sent.
+    +'<p class="note" style="margin:12px 0 4px"><b>Added automatically, and required by law'
+    +(FOOTER?"":" (sample — the exact wording is added when it sends)")+':</b></p>'
     +'<div class="linkbox" style="margin:0"><p class="note" style="margin:0;white-space:pre-line">'
-    +esc("— \nYour name\nStation Partner | Station\nhttps://station.solutions\n"
+    +esc(FOOTER||("— \n"+((me&&me.name)||"Your name")+"\nStation Partner | Station\nhttps://station.solutions\n"
         +"Station Automations Group LLC, 1856 Branard St, Houston, TX 77098\n"
-        +'Don\'t want these? Reply "unsubscribe" and we\'ll delete your info and never contact you again.')
+        +'Don\'t want these? Reply "unsubscribe" and we\'ll delete your info and never contact you again.'))
     +'</p></div>'
+    // 2026-08-22 audit fix F4: replies go to Station (the send is from Station's CRM, and the
+    // contact is not in the partner's Clients book), so say that rather than promise an inbox.
     +'<p class="note" style="margin:8px 0 0">The footer goes on every send and cannot be removed — '
     +'a commercial email without a postal address and an opt-out is illegal. It sends from Station, '
-    +'so their reply lands in your Clients inbox here.</p>'
+    +'so their reply goes to Station — we forward it to your Discord channel (or email you) and '
+    +'the follow-up call is yours.</p>'
     +'<div class="row" style="gap:8px;margin-top:12px">'
     +'<button class="btn sm" type="button" id="sd-go-'+esc(id)+'">Send it</button>'
     +'<button class="btn lite sm" type="button" id="sd-x-'+esc(id)+'">Cancel</button></div>'
@@ -833,7 +904,11 @@ function openSender(id){
           subject:$("sd-su-"+id).value,message:$("sd-ms-"+id).value}).then(function(d){
       btn.disabled=false;btn.textContent="Send it";
       if(!d||!d.ok){say(m,(d&&d.error)||"Could not send that.","err");return;}
-      say(m,"Queued — it goes out within a few minutes and we will confirm in Discord.","ok");
+      // 2026-08-22 audit fix F7: the send's status is rendered under this card (loadJobs reads
+      // site_sends), so a failed send is visible here and not only in Discord.
+      say(m,"Queued — it goes out within a few minutes. Its status shows under this site's card (and in Discord if you have alerts on).","ok");
+      SENDS.unshift({id:(d.send&&d.send.id)||"",job:id,to:to,business:j.business||"",status:"queued",created:new Date().toISOString()});
+      setTimeout(function(){boxClose(id);box.removeAttribute("data-mode");loadJobs();},1800);
     }).catch(function(){btn.disabled=false;btn.textContent="Send it";
       say(m,"Network error — try again.","err");});
   };
@@ -865,6 +940,13 @@ function calPaint(){
       +(l.city?(" — "+esc(l.city)):"")+'</option>';
   }).join("")||'<option value="">No leads with contact details yet</option>';
   if(!$("calDate").value){$("calDate").value=new Date().toISOString().slice(0,10);}
+  // 2026-08-22 audit fix PP-07: say so when none of these calendars is the partner's own.
+  var an=$("calAssignNote");
+  if(an){
+    var shared=!CAL.assigned&&((CAL.calendars||[]).length>0);
+    an.style.display=shared?"":"none";
+    an.textContent=shared?"No calendar is assigned to you yet, so these are Station's shared calendars. Ask Station to assign you one.":"";
+  }
 }
 function calClients(){
   var sel=$("calClient");
@@ -996,7 +1078,7 @@ function renderProducts(){
       +'<div class="row" style="justify-content:space-between;align-items:flex-start;gap:10px">'
       +'<div><h2 class="tight" style="margin:0">'+esc(p.name)+'</h2>'
       +'<p class="note" style="margin:2px 0 0">'+esc(p.plain)+'</p></div>'
-      +'<div style="text-align:right;white-space:nowrap">'
+      +'<div class="prod-price">'
       +'<div class="mono">'+esc(p.price)+'</div>'
       +'<div class="mono" style="color:var(--amber)">'+esc(earn)+'</div></div></div>'
       +'<p class="note" style="margin:12px 0 4px"><b>Why they buy it</b></p>'
@@ -1557,6 +1639,9 @@ var leadCfg={
       var n=((LEAD_NOTES["lead:"+r.id])||[]).length;
       return '<button class="nbtn" data-notes="'+esc(r.id)+'"'+(n?" data-has":"")+'>'+
              (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}},
+    // 2026-08-22 audit fix F9: one click carries a sheet row into the Demo Builder.
+    {k:"_demo",h:"",noSort:true,noExport:true,html:function(r){
+      return '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business">Build a demo</button>';}},
     {k:"_x",h:"",noSort:true,noExport:true,html:function(r){
       return r.source==="manual"?'<button class="xbtn" data-ldel="'+esc(r.id)+'" title="Remove this row">&times;</button>':"";}}
   ],
@@ -1586,6 +1671,13 @@ var leadCfg={
         }).catch(function(){});
       };
     });
+    tbl.querySelectorAll("[data-demo]").forEach(function(btn){
+      btn.onclick=function(){
+        var id=btn.getAttribute("data-demo");
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        if(r)prefillDemo({business:r.name,city:r.city,state:r.state,niche:r.niche,website:r.website});
+      };
+    });
     tbl.querySelectorAll("[data-ldel]").forEach(function(btn){
       btn.onclick=function(){
         var id=btn.getAttribute("data-ldel");
@@ -1602,17 +1694,55 @@ var leadCfg={
   }
 };
 
+/* 2026-08-22 audit fix LP-02 / PP-06: loadLeads resolves true while a pull is still open so the
+   poller knows when to stop; the latest pull's status and "pulled today X of Y" are rendered. */
+function renderPullStatus(d){
+  var el=$("pullStatus");if(!el)return false;
+  var j=(d.jobs||[])[0];
+  if(!j){el.classList.add("hide");el.innerHTML="";return false;}
+  var st=String(j.status||"").toLowerCase(), open=(st==="queued"||st==="running");
+  var where=esc(j.niche||"")+" in "+esc(j.location||"");
+  var h;
+  if(open){
+    h='<span class="pill queued">'+(st==="running"?"Pulling":"Queued")+'</span> '+where
+      +' — up to '+esc(j.want||"")+' leads land in this sheet within a few minutes. <span class="sub">This page checks for them itself.</span>';
+  }else if(st==="failed"){
+    h='<span class="pill failed">Failed</span> '+where+' — '+esc(j.error||"the pull could not run")
+      +'. Try again in a few minutes, or a nearby city.';
+  }else{
+    var n=Number(j.delivered||0);
+    if(n>0){
+      h='<span class="pill ready">Done</span> '+where+' — '+n+' new lead'+(n===1?"":"s")+' added'
+        +((j.want&&n<j.want)?' (you asked for '+esc(j.want)+')':'')+'.';
+    }else{
+      h='<span class="pill failed">0 new</span> '+where+' — every match in this area is already on a sheet, '
+        +'or today\'s search budget is used. Try a nearby city or a different trade.';
+    }
+  }
+  var at=j.updated||j.created;
+  if(at)h+=' <span class="sub">'+esc(when(at))+'</span>';
+  el.innerHTML=h;el.classList.remove("hide");
+  return open;
+}
 function loadLeads(){
-  if(!token)return;
-  post({action:"leads_list",token:token}).then(function(d){
-    if(!d.ok)return;
+  if(!token)return Promise.resolve(false);
+  return post({action:"leads_list",token:token}).then(function(d){
+    if(!d.ok)return false;
     LEADS.length=0;(d.leads||[]).forEach(function(l){LEADS.push(l);});
     Object.keys(LEAD_NOTES).forEach(function(k){delete LEAD_NOTES[k];});
     var nx=d.notes||{};
     Object.keys(nx).forEach(function(k){if(k.indexOf("lead:")===0)LEAD_NOTES[k]=nx[k];});
-    $("leadCap").textContent="rows you add stay until you remove them · leads Station assigns you expire after "+(d.claim_days||14)+" days";
+    var cap=(d.per_day&&d.pulled_today!=null)?("pulled today "+d.pulled_today+" of "+d.per_day+" · "):"";
+    $("leadCap").textContent=cap+"rows you add stay until you remove them · leads Station assigns you expire after "+(d.claim_days||14)+" days";
+    var pb=$("pullLeadBtn");
+    if(pb){
+      var capped=!!(d.per_day&&Number(d.pulled_today||0)>=Number(d.per_day));
+      pb.disabled=capped;
+      pb.title=capped?("You've pulled your "+d.per_day+" leads for today — resets tomorrow."):"";
+    }
     renderSheet(leadCfg);
-  }).catch(function(){});
+    return renderPullStatus(d);
+  }).catch(function(){return false;});
 }
 
 /* ---------------- BOOK OF BUSINESS ---------------- */
@@ -1859,7 +1989,7 @@ function loadBook(force){
     $("bkMrr").textContent=money(mrr);
     $("bkComm").textContent=money(d.commission_monthly);
     $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
-    $("bookBasis").textContent="basis: "+(d.basis||"—");
+    $("bookBasis").textContent="Basis: "+basisText(d.basis);
     if(d.track!=="partner"){
           // Scout: the bounty ledger replaces the client book entirely.
           renderScoutBounties(me||{}); return;
@@ -1867,6 +1997,9 @@ function loadBook(force){
         bookActiveCfg=bookCfg; renderSheet(bookCfg);
   }).catch(function(){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";});
 }
+// 2026-08-22 audit fix PP-08: the engine's basis key in plain English, never the raw string.
+var BASIS_TEXT={cleared_stripe_invoices:"what they actually paid Station — cleared invoices, not list price"};
+function basisText(b){return BASIS_TEXT[b]||String(b||"—").replace(/_/g," ");}
 
 function loadMe(){
   post({action:"me",token:token}).then(function(d){
@@ -1892,6 +2025,11 @@ function loadMe(){
       // also refuses demo_request off the Partner track; this is the cosmetic half).
       var dt=document.querySelector('#appView .tab[data-tab="demos"]');
       if(dt){ dt.style.display=(track==="Partner")?"":"none"; }
+      // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update /
+      // lead_del) is a Partner tool too — the engine now refuses it for Scouts, so the tab
+      // is hidden for them exactly like Clients and Demos.
+      var lt=$("tabLeads");
+      if(lt){ lt.style.display=(track==="Partner")?"":"none"; }
     if(track==="Scout"){
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
         '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
@@ -1953,10 +2091,14 @@ function loadMe(){
 
 function callScript(j){
   var h=j.hook||{},biz=j.business||"there";
-  var line=h.gap?("I noticed "+String(h.gap).toLowerCase()):"I noticed a couple of things on your listing";
+  // 2026-08-22 audit fix PP-03: the opener leads with the specific gap and the dollar figure
+  // when the build produced them (hook.gap / hook.leak_monthly), and names the pitch (sku).
+  var gap=String(h.gap||"").replace(/\.$/,"");
+  var line=gap?("I noticed "+gap.charAt(0).toLowerCase()+gap.slice(1)):"I noticed a couple of things on your listing";
   var cost=h.leak_monthly?(" By my math that's around "+money(h.leak_monthly)+" a month in work you're not getting."):"";
+  var pitch=h.sku?(" The fix is "+h.sku+(h.price?(" — "+money(h.price)+"/mo"):"")+"."):"";
   return "Hi, is this "+biz+"? My name's "+((me&&me.name)||"")+" — I'll be quick.\n\n"+
-    line+"."+cost+"\n\n"+
+    line+"."+cost+pitch+"\n\n"+
     "I already built you a working example so you can see it rather than take my word for it. "+
     "Can I text you the link right now while we're talking?\n\n"+
     (j.url?("Demo: "+j.url):"");
@@ -1965,7 +2107,8 @@ function jobCard(j){
   var st=(j.status||"queued").toLowerCase();
   var h=j.hook||{};
   var ammo="";
-  if(st==="ready"&&(h.gap||h.leak_monthly)){
+  // 2026-08-22 audit fix PP-03: the ammo block shows gap, $ leak, and the pitch (sku + price).
+  if(st==="ready"&&(h.gap||h.leak_monthly||h.sku)){
     ammo='<div class="ammo"><div class="gap">'+esc(h.gap||"Gap found")+'</div>'+
       (h.leak_monthly?'<div class="leak">Costing them about <b>'+money(h.leak_monthly)+'/mo</b></div>':'')+
       (h.sku?'<div class="leak">Pitch: <b>'+esc(h.sku)+'</b>'+(h.price?" — "+money(h.price)+"/mo":"")+'</div>':'')+
@@ -1979,9 +2122,15 @@ function jobCard(j){
       '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button>'+
       '<button class="btn lite sm" data-edit="'+esc(j.id)+'">Change design or wording</button>'+
       '<button class="btn sm" data-send="'+esc(j.id)+'">Send it to them</button></div>'+
+      sendsHtml(j)+
       '<div id="bx-'+esc(j.id)+'"></div>';
-  } else if(st==="failed"){
-    acts='<p class="note" style="margin-top:10px;color:var(--red)">'+esc(j.error||"Build failed — try again or tell Station.")+'</p>';
+  } else if(st==="failed"||st==="expired"){
+    // 2026-08-22 audit fix PP-02: a dead site (the worker marks it failed/expired with a reason)
+    // gets no Open / Send — it gets "Build again", which refills the form from this job.
+    acts='<p class="note" style="margin-top:10px;color:var(--red)">'
+      +esc(j.error||(st==="expired"?"The demo site is no longer live — build it again.":"Build failed — try again or tell Station."))+'</p>'
+      +'<div class="actions"><button class="btn dark sm" data-again="'+esc(j.id)+'">Build again</button></div>'
+      +sendsHtml(j);
   } else {
     // A Foundry build takes minutes (scrape -> generate -> render -> publish). Saying so,
     // and showing elapsed time, stops a Scout assuming it broke and re-queueing.
@@ -2003,14 +2152,58 @@ function jobCard(j){
     '<div class="meta">'+esc(j.city||"")+(j.state?", "+esc(j.state):"")+(j.niche?" · "+esc(j.niche):"")+'</div></div>'+
     '<span class="pill '+esc(st)+'">'+esc(st)+'</span></div>'+ammo+acts+'</div>';
 }
-var JOBS=[];
+var JOBS=[],SENDS=[];
+/* 2026-08-22 audit fix F7: every send for a job, newest first, under its card. The engine's
+   site_sends rows carry no job id yet, so a row is matched by job id when present and by
+   business name otherwise. */
+function sendsFor(j){
+  return SENDS.filter(function(s){return s.job?(s.job===j.id):(s.business&&s.business===j.business);}).slice(0,3);
+}
+function sendsHtml(j){
+  var rows=sendsFor(j);if(!rows.length)return "";
+  return '<div class="sends">'+rows.map(function(s){
+    var st=String(s.status||"").toLowerCase();
+    if(st==="sent")return '<div class="ok">&#10003; Sent to '+esc(s.to)+(s.sent_at?(" at "+esc(when(s.sent_at))):"")+'</div>';
+    if(st==="failed")return '<div class="bad">&#10007; Failed to send to '+esc(s.to)+': '+esc(s.error||"unknown reason")+'</div>';
+    return '<div>&#8987; Sending to '+esc(s.to)+' — queued, goes out within a few minutes.</div>';
+  }).join("")+'</div>';
+}
+/* 2026-08-22 audit fix PP-02 / F9: refill the Demo Builder from a job or a sheet row. */
+function prefillDemo(src){
+  var f=$("demoForm");if(!f)return;
+  var city=String(src.city||""),state=String(src.state||"");
+  if(!state&&city.indexOf(",")>0){var parts=city.split(",");state=parts.pop().trim();city=parts.join(",").trim();}
+  f.business.value=src.business||"";f.city.value=city;f.state.value=state;
+  f.niche.value=src.niche||"";f.website.value=src.website||"";
+  var dt=document.querySelector('#appView .tab[data-tab="demos"]');
+  if(dt)dt.click();
+  paintTemplateSelect();
+  clear($("demoMsg"));
+  try{f.scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}
+  f.business.focus();
+}
 function loadJobs(){
   if(!token)return;
   post({action:"demo_list",token:token}).then(function(d){
     if(!d.ok)return;
     JOBS=d.jobs||[];
+    // F7: the send list is only worth a round trip when something could have a send on it.
+    var wantSends=JOBS.some(function(j){return String(j.status||"").toLowerCase()==="ready";})
+      ||SENDS.some(function(s){return s.status==="queued";});
+    var p=wantSends?post({action:"site_sends",token:token}).then(function(r){if(r&&r.ok)SENDS=r.sends||[];}).catch(function(){}):Promise.resolve();
+    return p.then(drawJobs);
+  }).catch(function(){});
+}
+function drawJobs(){
+    // A poll must not wipe an editor or sender box the partner is typing in.
+    if($("jobList").querySelector("[data-mode]"))return;
     $("jobList").innerHTML=JOBS.length?JOBS.map(jobCard).join("")
       :'<div class="empty">No demos yet. Add the next business you plan to call.</div>';
+    $("jobList").querySelectorAll("[data-again]").forEach(function(b){
+      b.onclick=function(){
+        var j=JOBS.filter(function(x){return x.id===b.getAttribute("data-again");})[0];
+        if(j)prefillDemo(j);
+      };});
     $("jobList").querySelectorAll("[data-copy]").forEach(function(b){
       b.onclick=function(){copyTo(b,b.getAttribute("data-copy"));};});
     $("jobList").querySelectorAll("[data-edit]").forEach(function(b){
@@ -2023,7 +2216,6 @@ function loadJobs(){
         var j=JOBS.filter(function(x){return x.id===id;})[0];
         if(j)copyTo(b,callScript(j),"Script copied");
       };});
-  }).catch(function(){});
 }
 
 $("loginForm").addEventListener("submit",function(e){
@@ -2067,6 +2259,12 @@ $("claimForm").addEventListener("submit",function(e){
     }).catch(function(){busy(f,false,"Set my password");say(m,"Network error — try again.");});
 });
 
+// 2026-08-22 audit fix PP-05: the picker regroups on the typed trade and shows a preview link.
+(function(){
+  var f=$("demoForm"),ni=f&&f.querySelector("[name=niche]"),sel=$("demoTemplate");
+  if(ni)ni.addEventListener("input",paintTemplateSelect);
+  if(sel)sel.addEventListener("change",function(){var pv=$("tplPreview");if(pv)pv.innerHTML=previewHtml(sel.value);});
+})();
 $("demoForm").addEventListener("submit",function(e){
   e.preventDefault();var f=e.target,m=$("demoMsg");clear(m);busy(f,true);
   post({action:"demo_request",token:token,business:f.business.value.trim(),
@@ -2135,9 +2333,13 @@ $("pullLeadBtn").addEventListener("click",function(){
 $("pullLeadCancel").addEventListener("click",function(){
   $("pullLeadBox").classList.add("hide");$("pullLeadBtn").textContent="Pull leads";clear($("pullLeadMsg"));});
 var pullPollTimer=null;
+// 2026-08-22 audit fix LP-02: poll every 20 s only while the latest pull is still queued/running
+// (loadLeads resolves true in that case); stop as soon as it is done or failed, or after 12 polls.
 function pollLeads(n){
-  loadLeads();
-  if(n<12){clearTimeout(pullPollTimer);pullPollTimer=setTimeout(function(){pollLeads(n+1);},20000);}
+  clearTimeout(pullPollTimer);
+  loadLeads().then(function(open){
+    if(open&&n<12){pullPollTimer=setTimeout(function(){pollLeads(n+1);},20000);}
+  });
 }
 $("pullLeadForm").addEventListener("submit",function(e){
   e.preventDefault();
@@ -2149,7 +2351,14 @@ $("pullLeadForm").addEventListener("submit",function(e){
   post({action:"leads_pull",token:token,niche:niche,location:location,count:count}).then(function(d){
     busy(f,false,"Pull leads");
     if(!d.ok){say(m,d.error||"Could not start that pull.","err");return;}
-    say(m,"Pulling "+esc(niche)+" in "+esc(location)+" — your leads land here within a few minutes. Keep working; the sheet refreshes them for you.","ok");
+    // 2026-08-22 audit fix PP-06: the engine trims the count to what is left today — say so.
+    var want=Number((d.job&&d.job.want)||count), left=(d.remaining_today!=null)?Number(d.remaining_today):null;
+    var txt="Pulling up to "+want+" "+niche+" lead"+(want===1?"":"s")+" in "+location+" — they land here within a few minutes. Keep working; the sheet refreshes them for you.";
+    if(want<count){
+      txt="You asked for "+count+"; "+(left!=null?(left+" left today"):("only "+want+" left today"))
+        +" — pulling up to "+want+" "+niche+" lead"+(want===1?"":"s")+" in "+location+". They land here within a few minutes.";
+    }
+    say(m,txt,"ok");
     f.niche.value="";f.location.value="";
     sst("leads").filter="all";
     pollLeads(0);
