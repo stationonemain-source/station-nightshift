@@ -649,7 +649,7 @@ textarea.inp{resize:vertical;min-height:74px}
         <ol class="steps">
           <li><b>Scout — flat bounty, one time.</b> Share your link. Once someone you referred is a live, paying client (trial period over if they had one), you're paid a flat bounty for that product — $25 to $2,000 depending which one. No recurring %, but no cap on how many you stack.</li>
           <li><b>Partner — 40% recurring, forever.</b> You close and manage your own clients (or ones distributed to you). You earn 40% of what they actually pay Station, every month they stay — calculated on cleared invoices, never list price. No bounty on top, no tier to climb.</li>
-          <li><b>You get paid monthly.</b> We need your tax form on file first (W-9 US / W-8BEN outside the US).</li>
+          <li><b>You get paid every two weeks.</b> We need your tax form on file first (W-9 US / W-8BEN outside the US).</li>
         </ol>
         <p class="note" style="margin-top:16px">Annual prepayments credit to you across 12 months either way.</p>
       </div>
@@ -1269,8 +1269,8 @@ var COURSE=[
   more:["The Partner who receives your lead may reach out to you directly with questions about the business you referred — that's normal, help if you can.","You keep earning bounties on every future referral even after this one is handed off — there's no limit."]},
 
  {id:"scout-4",title:"Getting your bounty",dur:"1.5 min",
-  summary:"Once someone you referred is a live, paying client — trial over if they had one — your bounty is queued for the next payout run, monthly. You'll need a tax form on file (W-9 US / W-8BEN outside the US) before your first payout clears. No cap on how many bounties you can stack.",
-  more:["Bounties are tracked automatically from your link — you don't need to submit anything to get credited.","Payout runs are monthly; if you don't yet have a tax form on file, your bounty still accrues, it just won't release until the form is in."]},
+  summary:"Once someone you referred is a live, paying client — trial over if they had one — your bounty is queued for the next payout run (every two weeks). You'll need a tax form on file (W-9 US / W-8BEN outside the US) before your first payout clears. No cap on how many bounties you can stack.",
+  more:["Bounties are tracked automatically from your link — you don't need to submit anything to get credited.","Payout runs are every two weeks; if you don't yet have a tax form on file, your bounty still accrues, it just won't release until the form is in."]},
 
  {id:"partner-1",div:"PARTNER TRACK &middot; REFERENCE (INVITE-ONLY)",title:"How the money works",dur:"1.5 min",
   summary:"One number: 40%, recurring, on every client in your book, for as long as they stay. Calculated on cleared invoices, never list price. Annual prepays spread across 12 months. If a client starts on a trial, your commission starts once it ends and their first invoice clears. No bounty on top, no tier to climb toward.",
@@ -2042,7 +2042,7 @@ function loadMe(){
 
     var tf=d.taxform||{};
     if(tf.received){
-      $("taxCard").innerHTML='<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run monthly, $50 minimum.</p>';
+      $("taxCard").innerHTML='<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run every two weeks, $50 minimum.</p>';
     }else if(tf.pending_review){
       $("taxCard").innerHTML='<h2 class="tight">Tax form submitted</h2>'+
         '<p class="note"><span class="pill pending">Under review</span><br><br>Your '+esc(tf.type||"document")+' is in — Station will mark you cleared once it\'s checked. No need to resend.</p>';
