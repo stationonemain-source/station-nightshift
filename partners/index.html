@@ -350,6 +350,45 @@ html{--blue:var(--pay,#2563EB);--blue-d:var(--pay-d,#1D4ED8);--card:#FFFFFF;--pa
 .inp{display:block;width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:16px/1.5 var(--fb);padding:13px 15px;margin-bottom:4px}
 .inp:focus{outline:none;border-color:var(--ink)}
 textarea.inp{resize:vertical;min-height:74px}
+
+/* ================= STATION NIGHT — the portal in Foundry's gear =================
+   Same palette as Circle Command Center's Foundry board (board.html :root, "Station
+   Night" in the design-system kb). The portal is token-driven off v5.css, so flipping
+   the tokens flips every component; the rules after the token block are the spots
+   that carried their own values (incl. the PP-01 defensive html{} fallbacks, which
+   this block sits AFTER on purpose. :root, not html — v5 declares its tokens on
+   :root, and the pseudo-class (0,1,0) outranks a type selector (0,0,1) regardless
+   of order, which is exactly how the first cut of this skin silently lost. */
+:root{
+ --bg:#0B0D10;--card:#12151A;--bg-2:#171B21;--bg-3:#141820;
+ --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.16);
+ --ink:#E8E6E1;--muted:#9AA0A8;--faint:#7A828C;
+ --accent:#7DB2F7;--accent-dk:#EFC26A;
+ --good:#2FBF71;--good-bg:rgba(47,191,113,.13);--good-lite:#2FBF71;
+ --red:#FF6B5A;--amber:#D4A72C;
+ --pay:#5B9DF5;--pay-d:#7DB2F7;--blue:#5B9DF5;--blue-d:#7DB2F7;
+ color-scheme:dark}
+body{background:
+ radial-gradient(1100px 520px at 85% -120px,rgba(91,157,245,.08),transparent 60%),
+ radial-gradient(700px 380px at -10% 30%,rgba(47,191,113,.04),transparent 55%),
+ var(--bg)}
+/* filled buttons carry dark ink, the board's --on-accent rule */
+.btn.dark{color:#0D1117}
+.btn.dark:hover{color:#0D1117}
+/* the active tab underlines in accent like the board's nav, not in ink */
+.tab[data-on]{border-bottom-color:var(--pay)}
+/* the two pipeline spots that hardcoded paper white */
+.pcard{background:var(--card)}
+.pwhy div{color:var(--ink)}
+/* hairline shadows read as glow on dark, the board's --sh-sm */
+.pcard,.pcol{box-shadow:0 1px 2px rgba(0,0,0,.35)}
+/* v5's lite button is paper white with a white inset glow — dark ground versions */
+.btn.lite{background:var(--bg-3);color:var(--ink);border:1px solid var(--line-2);
+ box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.btn.lite:hover{border-color:var(--pay);color:var(--ink)}
+/* the fixed nav is light glass in v5; nav.nav outranks both of its declarations
+   (the base one and the reduced-transparency fallback) without !important */
+nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 </style>
 </head>
 <body>
