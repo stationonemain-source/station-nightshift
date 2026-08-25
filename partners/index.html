@@ -538,6 +538,7 @@ textarea.inp{resize:vertical;min-height:74px}
               <div class="field"><label>Est. leak / mo</label><input name="leak" inputmode="numeric" placeholder="2400"></div>
             </div>
             <div class="actions" style="margin-top:16px">
+              <button class="btn lite sm" type="button" id="addLeadLookup">Look it up</button>
               <button class="btn dark sm" type="submit"><span class="t">Add to sheet</span></button>
               <button class="btn lite sm" type="button" id="addLeadCancel">Cancel</button>
             </div>
@@ -2339,6 +2340,37 @@ $("addLeadBtn").addEventListener("click",function(){
 $("addLeadCancel").addEventListener("click",function(){
   $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";clear($("addLeadMsg"));});
 
+/* Fill the row from the business itself rather than making someone type it. Foundry
+   resolves the business, reads their site and prices the biggest gap -- the three
+   fields (gap / pitch / leak) a partner cannot know by looking. Nothing is written to
+   Foundry's book; this stays a preview until "Add to sheet". */
+$("addLeadLookup").addEventListener("click",function(){
+  var f=$("addLeadForm"), m=$("addLeadMsg"), btn=this;
+  clear(m);
+  var nm=f.name.value.trim();
+  if(!nm){ say(m,"Type the business name first, then look it up."); return; }
+  btn.disabled=true; var old=btn.textContent; btn.textContent="Looking\u2026";
+  fetch(PEDIT_BASE+"/api/partner_lookup?pt="+encodeURIComponent(token||""),{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name:nm,city:f.city.value.trim()})
+  }).then(function(r){return r.json();}).then(function(d){
+    btn.disabled=false; btn.textContent=old;
+    if(!d||!d.ok){ say(m,(d&&d.error)||"could not find that business"); return; }
+    var L=d.lead||{};
+    /* never overwrite something already typed -- the partner was there, we were not */
+    ["name","city","niche","phone","website","gap","sku","leak"].forEach(function(k){
+      if(L[k] && f[k] && !String(f[k].value).trim()) f[k].value=L[k];
+    });
+    var b=d.business||{}, bits=[], k=d.kit||{};
+    if(b.address) bits.push(b.address);
+    if(b.rating) bits.push(b.rating+"\u2605 ("+(b.reviews||0)+")");
+    if(k.slug) bits.push("design: "+k.slug+(k.exact?"":" (closest fit)"));
+    say(m,"Found it. "+bits.join(" \u00b7 ")+". Check it over, then add it.","ok");
+  }).catch(function(){
+    btn.disabled=false; btn.textContent=old;
+    say(m,"could not reach the lookup service");
+  });
+});
 $("addLeadForm").addEventListener("submit",function(e){
   e.preventDefault();
   var f=e.target,m=$("addLeadMsg");clear(m);
