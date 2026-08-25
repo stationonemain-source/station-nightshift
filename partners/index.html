@@ -101,6 +101,11 @@ body{padding-top:56px}
 .pacts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .pempty{font-size:.78rem;color:var(--faint);padding:6px 2px}
 .pwait{font-size:.78rem;color:var(--pay)}
+.pwhy{margin-top:8px;font-size:.8rem}
+.pwhy summary{cursor:pointer;color:var(--muted);font-weight:600}
+.pwhy div{white-space:pre-wrap;margin-top:6px;line-height:1.5;color:var(--ink)}
+.pcb{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--muted);margin-top:2px}
+.pcb input{border:1px solid var(--line);border-radius:8px;padding:3px 6px;font:inherit;font-size:.76rem}
 .ammo-why span{display:block;color:var(--muted);margin-top:3px}
 .ammo-pts{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
 .ammo-h{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
@@ -2257,22 +2262,29 @@ function pipeCard(l){
  h+='<div class="pmeta">'+esc([l.city,l.phone].filter(Boolean).join(" \u00b7 "))+'</div>';
  if(l.gap)h+='<div class="pgap">'+esc(l.gap)+'</div>';
  if(l.sku||(l.leak|0)>0)h+='<div class="pchip">'+esc(l.sku||"")+((l.leak|0)>0?((l.sku?" \u00b7 ":"")+money(l.leak)+"/mo leaking"):"")+'</div>';
+ var nts=(typeof LEAD_NOTES!=="undefined"&&LEAD_NOTES["lead:"+l.id])||[];
+ if(nts.length&&nts[0]&&nts[0].text)
+  h+='<details class="pwhy"><summary>Why &amp; what to say</summary><div>'+esc(nts[0].text)+'</div></details>';
  h+='<div class="pacts">';
  if(st==="find")h+='<button class="btn dark sm" data-pdiag="'+esc(l.id)+'">Diagnose</button>';
  if(st==="diag"){
   h+='<button class="btn dark sm" data-pbuild="'+esc(l.id)+'">Build the site</button>';
   h+='<button class="btn lite sm" data-pdiag="'+esc(l.id)+'">Re-diagnose</button>';}
  if((st==="find"||st==="diag")&&l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+ if((st==="find"||st==="diag")&&l.source==="manual")
+  h+='<button class="btn lite sm" data-pdel="'+esc(l.id)+'" title="Remove this row from your sheet">Remove</button>';
  if(st==="built"&&j){
   if(j.status==="building")h+='<span class="pwait">Forging\u2026 check back in a minute</span>';
   if(j.url)h+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
   if(j.foundry_id)h+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+'&pt='+encodeURIComponent(token||"")+'">Edit photos &amp; text</a>';
   if(l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
-  h+='<button class="btn dark sm" data-pout="demo_sent" data-plead="'+esc(l.id)+'">I sent it</button>';}
+  h+='<button class="btn dark sm" data-psend="'+esc(j.id)+'">Send it</button>';
+  h+='<button class="btn lite sm" data-pout="demo_sent" data-plead="'+esc(l.id)+'">Mark sent</button>';}
  if(st==="work"){
   h+='<span class="pchip">'+esc(outLabel(l.outcome))+'</span>';
   ["interested","no_answer","won","not_interested"].forEach(function(o){
-   if(o!==l.outcome)h+='<button class="btn lite sm" data-pout="'+o+'" data-plead="'+esc(l.id)+'">'+esc(outLabel(o))+'</button>';});}
+   if(o!==l.outcome)h+='<button class="btn lite sm" data-pout="'+o+'" data-plead="'+esc(l.id)+'">'+esc(outLabel(o))+'</button>';});
+  h+='<label class="pcb">Ring back <input type="date" data-pnext="'+esc(l.id)+'" value="'+esc(l.next_at||"")+'"></label>';}
  if(st==="done")h+='<span class="pchip '+(l.outcome==="won"?"pwon":"plost")+'">'+esc(outLabel(l.outcome))+'</span>';
  h+='</div></div>';
  return h;}
@@ -2315,6 +2327,13 @@ document.addEventListener("click",function(e){
    if(L.phone&&!l.phone)patch.phone=L.phone;
    if(L.website&&!l.website)patch.website=L.website;
    if(L.niche&&!l.niche)patch.niche=L.niche;
+   /* the board's Diagnose shows WHY and hands you the call script; the partner's
+      version files the same points as a note on the lead, so they survive a reload
+      and travel with the row into the sheet's notes drawer. */
+   if(d.points&&d.points.length){
+    var ntxt=("Diagnosis \u2014 what to say:\n\u2022 "+d.points.join("\n\u2022 ")).slice(0,1450);
+    post({action:"note_add",token:token,subject:"lead:"+l.id,text:ntxt}).then(function(nn){
+     if(nn&&nn.ok){LEAD_NOTES["lead:"+l.id]=nn.notes||[];renderPipe();}}).catch(function(){});}
    post(patch).then(function(u){
     if(u&&u.ok&&u.lead){Object.keys(u.lead).forEach(function(k){l[k]=u.lead[k];});}
     renderPipe();
@@ -2327,6 +2346,27 @@ document.addEventListener("click",function(e){
   if(!l2)return;
   prefillDemo({business:l2.name,city:l2.city,niche:l2.niche,website:l2.website});
   return;}
+ if(t.hasAttribute("data-psend")){
+  /* the REAL sender -- editable message, welded footer, suppression + caps -- lives on
+     the demo card; jump there and open it rather than duplicating the flow. */
+  var dtab=document.querySelector('#appView .tab[data-tab="demos"]');
+  if(dtab)dtab.click();
+  var jid=t.getAttribute("data-psend");
+  setTimeout(function(){
+   try{openSender(jid);
+    var bx=document.getElementById("bx-"+jid);
+    if(bx)bx.scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}},300);
+  return;}
+ if(t.hasAttribute("data-pdel")){
+  var did=t.getAttribute("data-pdel");
+  var dl=(LEADS||[]).filter(function(x){return x.id===did;})[0];
+  if(!confirm("Remove "+((dl&&dl.name)||"this row")+" from your sheet? Its notes go with it."))return;
+  post({action:"lead_del",token:token,id:did}).then(function(d){
+   if(!d||!d.ok)return;
+   for(var i=LEADS.length-1;i>=0;i--){if(LEADS[i].id===did)LEADS.splice(i,1);}
+   delete LEAD_NOTES["lead:"+did];
+   renderPipe();});
+  return;}
  if(t.hasAttribute("data-pout")){
   var id=t.getAttribute("data-plead"),o=t.getAttribute("data-pout");
   post({action:"lead_update",token:token,id:id,outcome:o}).then(function(d){
@@ -2335,6 +2375,15 @@ document.addEventListener("click",function(e){
    if(r){r.outcome=o;}
    renderPipe();});
   return;}
+});
+document.addEventListener("change",function(e){
+ var t=e.target;
+ if(t&&t.hasAttribute&&t.hasAttribute("data-pnext")){
+  post({action:"lead_update",token:token,id:t.getAttribute("data-pnext"),
+        next_at:t.value||""}).then(function(d){
+   if(d&&d.ok&&d.lead){
+    var r=(LEADS||[]).filter(function(x){return x.id===d.lead.id;})[0];
+    if(r){if(d.lead.next_at)r.next_at=d.lead.next_at;else delete r.next_at;}}}).catch(function(){});}
 });
 (function(){
  var pt=document.querySelector('#appView .tab[data-tab="pipeline"]');
