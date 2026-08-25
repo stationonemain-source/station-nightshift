@@ -389,6 +389,31 @@ body{background:
 /* the fixed nav is light glass in v5; nav.nav outranks both of its declarations
    (the base one and the reduced-transparency fallback) without !important */
 nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
+/* Circle's restart list (2026-08-25): Dashboard, Foundry, Book of business, Calendar,
+   Products & scripts, How you get paid -- "that's it". These are HIDDEN, not deleted;
+   remove a selector to bring its tab straight back. !important because the Partner
+   track-gating JS writes inline display on some of them. */
+#appView .tab[data-tab="pipeline"],#appView .tab[data-tab="leads"],
+#appView .tab[data-tab="clients"],#appView .tab[data-tab="demos"],
+#appView .tab[data-tab="training"]{display:none !important}
+/* the board fills the panel */
+#foundryFrame{width:100%;height:calc(100vh - 210px);min-height:640px;border:0;
+ border-radius:14px;background:#0B0D10}
+.fdy-open{font-size:.8rem;color:var(--muted);margin:6px 2px 0;display:block}
+/* the month grid */
+.calgrid-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.calgrid-head b{font-size:1.02rem}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.calgrid .dow{font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+ color:var(--faint);text-align:center;padding:4px 0}
+.calgrid .day{min-height:74px;border:1px solid var(--line);border-radius:10px;
+ padding:5px 7px;font-size:.74rem;color:var(--muted);background:var(--card)}
+.calgrid .day.out{opacity:.35}
+.calgrid .day.today{border-color:var(--pay)}
+.calgrid .day .n{font-weight:650;color:var(--ink)}
+.calgrid .bk{display:block;margin-top:4px;padding:2px 6px;border-radius:6px;
+ background:var(--good-bg);color:var(--good);font-size:.68rem;line-height:1.35;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -482,6 +507,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
+        <button class="tab" data-tab="foundry" id="tabFoundry">Foundry</button>
       <button class="tab" data-tab="pipeline" id="tabPipe">Pipeline</button>
         <button class="tab" data-tab="leads" id="tabLeads">Leads</button>
       <button class="tab" data-tab="clients" id="tabClients">Clients</button>
@@ -665,7 +691,11 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     </div>
 
     <!-- ---------------- BOOK OF BUSINESS --------------------------------- -->
-    <div class="panel" data-panel="book">
+    <div class="panel" data-panel="foundry">
+        <iframe id="foundryFrame" title="Foundry" src="about:blank"></iframe>
+        <a class="fdy-open" id="foundryFull" href="#" target="_blank" rel="noopener">Open Foundry full screen \u2197</a>
+      </div>
+      <div class="panel" data-panel="book">
       <div class="breakout">
         <div class="stats" id="bookStats">
           <div class="stat"><div class="v" id="bkClients">—</div><div class="k">Clients in book</div></div>
@@ -756,7 +786,16 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           anything you see here is genuinely free.</p>
       </div>
 
-      <div class="card">
+      <div class="card" id="calGridCard">
+          <div class="calgrid-head">
+            <button class="btn lite sm" id="calPrev">‹</button>
+            <b id="calGridTitle">—</b>
+            <button class="btn lite sm" id="calNext">›</button>
+          </div>
+          <div class="calgrid" id="calGrid"></div>
+          <p class="note">Everything you book through this portal lands here on its day.</p>
+        </div>
+        <div class="card">
         <label class="lbl" for="calWho">Who is this call for?</label>
         <select class="inp" id="calWho">
           <option value="self">Me &mdash; my own intro or support call</option>
@@ -2468,6 +2507,63 @@ document.addEventListener("change",function(e){
 (function(){
  var pt=document.querySelector('#appView .tab[data-tab="pipeline"]');
  if(pt)pt.addEventListener("click",pipeRefresh);
+})();
+
+/* ---------------- FOUNDRY: the Command Center board, as-is ---------------- */
+var PFOUNDRY_BASE="https://circle-vps.tail61db65.ts.net/pfoundry";
+(function(){
+ var ft=document.querySelector('#appView .tab[data-tab="foundry"]');
+ if(!ft)return;
+ ft.addEventListener("click",function(){
+  var f=$("foundryFrame");
+  if(f&&f.getAttribute("src")==="about:blank")
+   f.setAttribute("src",PFOUNDRY_BASE+"/?pt="+encodeURIComponent(token||""));
+  var o=$("foundryFull");
+  if(o)o.setAttribute("href",PFOUNDRY_BASE+"/?pt="+encodeURIComponent(token||""));
+ });
+})();
+
+/* ---------------- CALENDAR: a month that shows what you booked ---------------- */
+var CAL_Y=null,CAL_M=null,CAL_BK=[];
+function calGridDraw(){
+ var grid=$("calGrid");if(!grid)return;
+ var now=new Date();
+ if(CAL_Y===null){CAL_Y=now.getFullYear();CAL_M=now.getMonth();}
+ var first=new Date(CAL_Y,CAL_M,1);
+ $("calGridTitle").textContent=first.toLocaleString("en-US",{month:"long",year:"numeric"});
+ var byDay={};
+ CAL_BK.forEach(function(b){
+  var d=new Date(b.start);if(isNaN(d))return;
+  var k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+  (byDay[k]=byDay[k]||[]).push(b);});
+ var h="";
+ ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(function(d){h+='<div class="dow">'+d+'</div>';});
+ var start=new Date(CAL_Y,CAL_M,1-first.getDay());
+ for(var i=0;i<42;i++){
+  var d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i);
+  var out=d.getMonth()!==CAL_M;
+  var today=d.toDateString()===now.toDateString();
+  var k=d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
+  h+='<div class="day'+(out?" out":"")+(today?" today":"")+'"><span class="n">'+d.getDate()+'</span>';
+  (byDay[k]||[]).forEach(function(b){
+   var t=new Date(b.start);
+   var hh=t.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+   h+='<span class="bk" title="'+esc(b.label||"call")+'">'+hh+" \u00b7 "+esc(b.label||"call")+'</span>';});
+  h+='</div>';}
+ grid.innerHTML=h;}
+function calGridLoad(){
+ if(!token)return;
+ post({action:"cal_mine",token:token}).then(function(d){
+  if(d&&d.ok){CAL_BK=d.bookings||[];}
+  calGridDraw();
+ }).catch(function(){calGridDraw();});}
+(function(){
+ var ct=document.querySelector('#appView .tab[data-tab="calendar"]');
+ if(ct)ct.addEventListener("click",calGridLoad);
+ document.addEventListener("click",function(e){
+  if(e.target&&e.target.id==="calPrev"){CAL_M--;if(CAL_M<0){CAL_M=11;CAL_Y--;}calGridDraw();}
+  if(e.target&&e.target.id==="calNext"){CAL_M++;if(CAL_M>11){CAL_M=0;CAL_Y++;}calGridDraw();}
+ });
 })();
 
 function prefillDemo(src){
