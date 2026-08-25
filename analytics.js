@@ -627,7 +627,7 @@
 
     // audit-form funnel: first focus in, and leaving without submitting.
     // (the submit side is in wireAuditLead below — one listener, one Lead event)
-    var af = document.getElementById("audit-form");
+    var af = auditForm();
     if (af) { wireFormFunnel(af); wireFormAbandon(); }
 
     // demo usage — first message per surface per visit
@@ -648,6 +648,23 @@
     document.addEventListener("range:popup", function (e) {
       track("popup", (e.detail && e.detail.action) || "shown");
     });
+  }
+
+  /* The live pages ship <form class="audit-form" data-audit ...> with NO id, but
+     both call sites below looked the form up by getElementById("audit-form") --
+     so form_start/form_abandon never fired and wireAuditLead() never bound, on
+     every page. Verified 2026-08-25: zero id matches on / or /audit/, which is
+     why the Funnel panel read empty and the n8n intake node was the ONLY feeder
+     of the consent ledger.
+
+     Deliberately ONE resolver shared by both call sites: they were duplicated
+     lookups before, which is exactly how they came to disagree with the markup
+     and stay wrong. #audit-form stays first so any page still on the old id
+     keeps working. */
+  function auditForm() {
+    return document.getElementById("audit-form")
+        || document.querySelector("form[data-audit]")
+        || document.querySelector("form.audit-form");
   }
 
   /* ---------------- audit-form lead capture (NOT consent-gated) ----------------
@@ -675,7 +692,7 @@
   }
 
   function wireAuditLead() {
-    var form = document.getElementById("audit-form");
+    var form = auditForm();
     if (!form) return;
     form.addEventListener("submit", function () {
       formSubmitted = true;      // they submitted: no form_abandon on the way out
