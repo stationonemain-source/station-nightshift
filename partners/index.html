@@ -2294,6 +2294,25 @@ function pipeStage(l){
  if(pipeJob(l))return "built";
  if(l.gap||l.sku||(l.leak|0)>0)return "diag";
  return "find";}
+function pipeJobCard(j){
+ /* a demo with no lead row: everything the job knows, plus the one action that turns
+    it into a real row. Outcome buttons need a lead id, so they appear after that. */
+ var h=(j.hook||{});
+ var out='<div class="pcard">';
+ out+='<div class="pname">'+esc(j.business||"")+'</div>';
+ out+='<div class="pmeta">'+esc([j.city,j.niche].filter(Boolean).join(" \u00b7 "))+'</div>';
+ if(h.gap)out+='<div class="pgap">'+esc(h.gap)+'</div>';
+ if(h.sku||h.leak_monthly)out+='<div class="pchip">'+esc(h.product||h.sku||"")+
+   ((h.leak_monthly|0)>0?((h.sku?" \u00b7 ":"")+money(h.leak_monthly)+"/mo leaking"):"")+'</div>';
+ out+='<div class="pacts">';
+ if(j.status==="building"){out+='<span class="pwait">Forging\u2026 check back in a minute</span>';}
+ else{
+  if(j.url)out+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
+  if(j.foundry_id)out+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+'&pt='+encodeURIComponent(token||"")+'">Edit photos &amp; text</a>';
+  out+='<button class="btn sm" data-psend="'+esc(j.id)+'">Send it</button>';
+  out+='<button class="btn dark sm" data-pjadd="'+esc(j.id)+'" title="File this business on your sheet so outcomes and ring-backs work on it">Add to sheet</button>';}
+ out+='</div></div>';
+ return out;}
 function pipeCard(l){
  var st=pipeStage(l),j=pipeJob(l),h="";
  h+='<div class="pcard">';
@@ -2331,12 +2350,20 @@ function renderPipe(){
  var box=$("pipeCols");if(!box)return;
  var by={find:[],diag:[],built:[],work:[],done:[]};
  (LEADS||[]).forEach(function(l){by[pipeStage(l)].push(l);});
+ /* demos with no lead row (built pre-v4.24, or still forging) belong in Built too --
+    a job the partner cannot see in the funnel is the "does not correlate" disease. */
+ var claimed={};
+ (LEADS||[]).forEach(function(l){claimed[pipeNorm(l.name)]=1;});
+ (JOBS||[]).forEach(function(j){
+  if(j.status!=="ready"&&j.status!=="building")return;
+  if(claimed[pipeNorm(j.business)])return;
+  by.built.push({__job:j});});
  var h="";
  PIPE_STAGES.forEach(function(sdef){
   var rows=by[sdef[0]];
   h+='<div class="pcol"><div class="pcol-h">'+sdef[1]+'<span class="pcount">'+rows.length+'</span></div>';
   if(sdef[2])h+='<div class="pcol-sub">'+sdef[2]+'</div>';
-  h+=rows.map(pipeCard).join("")||'<div class="pempty">nothing here</div>';
+  h+=rows.map(function(x){return x.__job?pipeJobCard(x.__job):pipeCard(x);}).join("")||'<div class="pempty">nothing here</div>';
   h+='</div>';});
  box.innerHTML=h;}
 function pipeSay(t){var el=$("pipeHint");if(el)el.textContent=t;}
@@ -2395,6 +2422,20 @@ document.addEventListener("click",function(e){
    try{openSender(jid);
     var bx=document.getElementById("bx-"+jid);
     if(bx)bx.scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}},300);
+  return;}
+ if(t.hasAttribute("data-pjadd")){
+  var jb=(JOBS||[]).filter(function(x){return x.id===t.getAttribute("data-pjadd");})[0];
+  if(!jb)return;
+  var hk=jb.hook||{};
+  t.disabled=true;t.textContent="Filing\u2026";
+  post({action:"lead_add",token:token,name:jb.business||"",city:jb.city||"",
+        niche:jb.niche||"",phone:"",website:jb.website||"",
+        gap:hk.gap||"",sku:hk.sku||"",leak:String(hk.leak_monthly||0)})
+  .then(function(d){
+   if(!d||!d.ok){t.disabled=false;t.textContent="Add to sheet";
+    pipeSay((d&&d.error)||"could not add it");return;}
+   loadLeads().then(function(){renderPipe();});
+  }).catch(function(){t.disabled=false;t.textContent="Add to sheet";});
   return;}
  if(t.hasAttribute("data-pdel")){
   var did=t.getAttribute("data-pdel");
