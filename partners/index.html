@@ -85,6 +85,22 @@ body{padding-top:56px}
 .ammo .leak b{color:var(--ink)}
 .ammo-why{font-size:.9rem;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--line)}
 .ammo-why b{color:var(--ink)}
+.pipe{display:grid;grid-template-columns:repeat(5,minmax(215px,1fr));gap:12px;align-items:start;min-width:1090px}
+.pipe-scroll{overflow-x:auto;padding-bottom:6px}
+.pcol{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px}
+.pcol-h{font-weight:700;font-size:.85rem;display:flex;justify-content:space-between;align-items:center;letter-spacing:.02em}
+.pcount{color:var(--faint);font-weight:600}
+.pcol-sub{font-size:.73rem;color:var(--faint);margin:2px 0 10px}
+.pcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.pname{font-weight:650;font-size:.92rem}
+.pmeta{font-size:.78rem;color:var(--muted);margin-top:2px}
+.pgap{font-size:.8rem;margin-top:6px;line-height:1.45}
+.pchip{display:inline-block;font-size:.73rem;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin-top:6px}
+.pchip.pwon{color:var(--good);border-color:var(--good)}
+.pchip.plost{color:var(--red);border-color:var(--red)}
+.pacts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.pempty{font-size:.78rem;color:var(--faint);padding:6px 2px}
+.pwait{font-size:.78rem;color:var(--pay)}
 .ammo-why span{display:block;color:var(--muted);margin-top:3px}
 .ammo-pts{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
 .ammo-h{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
@@ -422,7 +438,8 @@ textarea.inp{resize:vertical;min-height:74px}
 
     <div class="tabs">
       <button class="tab" data-tab="dash" data-on>Dashboard</button>
-      <button class="tab" data-tab="leads" id="tabLeads">Leads</button>
+      <button class="tab" data-tab="pipeline" id="tabPipe">Pipeline</button>
+        <button class="tab" data-tab="leads" id="tabLeads">Leads</button>
       <button class="tab" data-tab="clients" id="tabClients">Clients</button>
         <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
@@ -500,7 +517,12 @@ textarea.inp{resize:vertical;min-height:74px}
     </div>
 
     <!-- ---------------- LEADS: the worklist, as a spreadsheet ------------- -->
-    <div class="panel" data-panel="leads">
+    <div class="panel" data-panel="pipeline">
+        <h2>Pipeline</h2>
+        <p class="note" id="pipeHint">The same flow Foundry runs itself — find → diagnose → build → work the phone → won — over your own book. Diagnose prices the gap from the business’s real website and it stays on the lead.</p>
+        <div class="pipe-scroll"><div id="pipeCols" class="pipe"></div></div>
+      </div>
+      <div class="panel" data-panel="leads">
       <div class="breakout">
         <div class="card" style="margin-bottom:14px">
           <h2 class="tight">Your leads</h2>
@@ -2040,6 +2062,8 @@ function loadMe(){
       // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update /
       // lead_del) is a Partner tool too — the engine now refuses it for Scouts, so the tab
       // is hidden for them exactly like Clients and Demos.
+      var pt=$("tabPipe");
+      if(pt){ pt.style.display=(track==="Partner")?"":"none"; }
       var lt=$("tabLeads");
       if(lt){ lt.style.display=(track==="Partner")?"":"none"; }
     if(track==="Scout"){
@@ -2204,6 +2228,119 @@ function sendsHtml(j){
   }).join("")+'</div>';
 }
 /* 2026-08-22 audit fix PP-02 / F9: refill the Demo Builder from a job or a sheet row. */
+/* ---------------- PIPELINE: Foundry's funnel over the partner's own book ----------
+   The board itself cannot ship to partners (one shared book, Station's leads, other
+   partners' work, the send caps). The FLOW can. Stage is derived, never stored, so
+   this can never disagree with the sheet or the demo list it reads from. */
+var PIPE_STAGES=[["find","01 \u00b7 Find","no diagnosis yet \u2014 run one"],
+ ["diag","02 \u00b7 Diagnosed","the gap is priced \u2014 build the site"],
+ ["built","03 \u00b7 Built","site is live \u2014 open it, edit it, send it"],
+ ["work","04 \u00b7 Working","on the phone \u2014 log what happened"],
+ ["done","Won \u00b7 Closed",""]];
+function pipeNorm(x){return String(x||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function pipeJob(l){var n=pipeNorm(l.name),hit=null;
+ (JOBS||[]).forEach(function(j){
+  if(pipeNorm(j.business)!==n)return;
+  if(j.status==="ready"){hit=j;}
+  else if(j.status==="building"&&!hit){hit=j;}});
+ return hit;}
+function pipeStage(l){
+ if(l.outcome==="won"||l.outcome==="not_interested")return "done";
+ if(l.outcome)return "work";
+ if(pipeJob(l))return "built";
+ if(l.gap||l.sku||(l.leak|0)>0)return "diag";
+ return "find";}
+function pipeCard(l){
+ var st=pipeStage(l),j=pipeJob(l),h="";
+ h+='<div class="pcard">';
+ h+='<div class="pname">'+esc(l.name)+'</div>';
+ h+='<div class="pmeta">'+esc([l.city,l.phone].filter(Boolean).join(" \u00b7 "))+'</div>';
+ if(l.gap)h+='<div class="pgap">'+esc(l.gap)+'</div>';
+ if(l.sku||(l.leak|0)>0)h+='<div class="pchip">'+esc(l.sku||"")+((l.leak|0)>0?((l.sku?" \u00b7 ":"")+money(l.leak)+"/mo leaking"):"")+'</div>';
+ h+='<div class="pacts">';
+ if(st==="find")h+='<button class="btn dark sm" data-pdiag="'+esc(l.id)+'">Diagnose</button>';
+ if(st==="diag"){
+  h+='<button class="btn dark sm" data-pbuild="'+esc(l.id)+'">Build the site</button>';
+  h+='<button class="btn lite sm" data-pdiag="'+esc(l.id)+'">Re-diagnose</button>';}
+ if((st==="find"||st==="diag")&&l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+ if(st==="built"&&j){
+  if(j.status==="building")h+='<span class="pwait">Forging\u2026 check back in a minute</span>';
+  if(j.url)h+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
+  if(j.foundry_id)h+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+'&pt='+encodeURIComponent(token||"")+'">Edit photos &amp; text</a>';
+  if(l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+  h+='<button class="btn dark sm" data-pout="demo_sent" data-plead="'+esc(l.id)+'">I sent it</button>';}
+ if(st==="work"){
+  h+='<span class="pchip">'+esc(outLabel(l.outcome))+'</span>';
+  ["interested","no_answer","won","not_interested"].forEach(function(o){
+   if(o!==l.outcome)h+='<button class="btn lite sm" data-pout="'+o+'" data-plead="'+esc(l.id)+'">'+esc(outLabel(o))+'</button>';});}
+ if(st==="done")h+='<span class="pchip '+(l.outcome==="won"?"pwon":"plost")+'">'+esc(outLabel(l.outcome))+'</span>';
+ h+='</div></div>';
+ return h;}
+function renderPipe(){
+ var box=$("pipeCols");if(!box)return;
+ var by={find:[],diag:[],built:[],work:[],done:[]};
+ (LEADS||[]).forEach(function(l){by[pipeStage(l)].push(l);});
+ var h="";
+ PIPE_STAGES.forEach(function(sdef){
+  var rows=by[sdef[0]];
+  h+='<div class="pcol"><div class="pcol-h">'+sdef[1]+'<span class="pcount">'+rows.length+'</span></div>';
+  if(sdef[2])h+='<div class="pcol-sub">'+sdef[2]+'</div>';
+  h+=rows.map(pipeCard).join("")||'<div class="pempty">nothing here</div>';
+  h+='</div>';});
+ box.innerHTML=h;}
+function pipeSay(t){var el=$("pipeHint");if(el)el.textContent=t;}
+function pipeRefresh(){
+ if(!token)return;
+ loadLeads().then(function(){renderPipe();});
+ post({action:"demo_list",token:token}).then(function(d){
+  if(d&&d.ok){JOBS=d.jobs||[];renderPipe();}}).catch(function(){});}
+document.addEventListener("click",function(e){
+ var t=e.target.closest?e.target.closest("[data-pdiag],[data-pbuild],[data-pout]"):null;
+ if(!t)return;
+ if(t.hasAttribute("data-pdiag")){
+  var l=(LEADS||[]).filter(function(x){return x.id===t.getAttribute("data-pdiag");})[0];
+  if(!l)return;
+  t.disabled=true;t.textContent="Diagnosing\u2026";
+  fetch(PEDIT_BASE+"/api/partner_lookup?pt="+encodeURIComponent(token||""),{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({name:l.name,city:l.city||""})})
+  .then(function(r){return r.json();}).then(function(d){
+   if(!d||!d.ok){t.disabled=false;t.textContent="Diagnose";
+    pipeSay((d&&d.error)||"Could not diagnose that one \u2014 try again in a minute.");return;}
+   var L=d.lead||{};
+   /* gap/sku/leak refresh on every run; contact facts only fill blanks -- the
+      partner typed those standing in front of the business, we did not. */
+   var patch={action:"lead_update",token:token,id:l.id,
+    gap:L.gap||l.gap||"",sku:L.sku||l.sku||"",leak:(L.leak||l.leak||0)};
+   if(L.phone&&!l.phone)patch.phone=L.phone;
+   if(L.website&&!l.website)patch.website=L.website;
+   if(L.niche&&!l.niche)patch.niche=L.niche;
+   post(patch).then(function(u){
+    if(u&&u.ok&&u.lead){Object.keys(u.lead).forEach(function(k){l[k]=u.lead[k];});}
+    renderPipe();
+    pipeSay(L.gap?("Diagnosed: "+L.gap):"Diagnosed \u2014 no single gap stood out; their site may already be solid.");});
+  }).catch(function(){t.disabled=false;t.textContent="Diagnose";
+   pipeSay("Could not reach the lookup service.");});
+  return;}
+ if(t.hasAttribute("data-pbuild")){
+  var l2=(LEADS||[]).filter(function(x){return x.id===t.getAttribute("data-pbuild");})[0];
+  if(!l2)return;
+  prefillDemo({business:l2.name,city:l2.city,niche:l2.niche,website:l2.website});
+  return;}
+ if(t.hasAttribute("data-pout")){
+  var id=t.getAttribute("data-plead"),o=t.getAttribute("data-pout");
+  post({action:"lead_update",token:token,id:id,outcome:o}).then(function(d){
+   if(!d||!d.ok)return;
+   var r=(LEADS||[]).filter(function(x){return x.id===id;})[0];
+   if(r){r.outcome=o;}
+   renderPipe();});
+  return;}
+});
+(function(){
+ var pt=document.querySelector('#appView .tab[data-tab="pipeline"]');
+ if(pt)pt.addEventListener("click",pipeRefresh);
+})();
+
 function prefillDemo(src){
   var f=$("demoForm");if(!f)return;
   var city=String(src.city||""),state=String(src.state||"");
