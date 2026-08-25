@@ -95,11 +95,45 @@
     } catch (e) { return "anon"; }
   }
 
+  /* ---- internal self-visit exclusion -------------------------------------
+     Our own visits were the bulk of what the 2026-08-25 analytics wipe cleared.
+     A browser opts out for good by visiting any page once with
+
+         ?station_optout=1
+
+     which sets a durable localStorage flag (?station_optout=0 clears it again).
+     The check sits inside beacon(), the single chokepoint BOTH the event and the
+     lead endpoints funnel through, so an opted-out browser sends nothing at all
+     rather than sending something the collector then has to recognise and drop.
+
+     Deliberately client-side: it must work without asking the collector to trust
+     a self-declared "I am internal" field, which the relay's field whitelist
+     would strip anyway. Clearing site data re-enables tracking, same as any
+     analytics opt-out. */
+  var OPTOUT_KEY = "stationInternalOptOut";
+
+  function optedOut() {
+    try {
+      var m = /[?&]station_optout=([01])/.exec(location.search);
+      if (m) {
+        if (m[1] === "1") localStorage.setItem(OPTOUT_KEY, "1");
+        else localStorage.removeItem(OPTOUT_KEY);
+        // say so out loud: an opt-out you cannot confirm is one you will not trust
+        try {
+          console.info("[station] analytics opt-out "
+            + (m[1] === "1" ? "ENABLED for this browser" : "cleared for this browser"));
+        } catch (e) {}
+      }
+      return localStorage.getItem(OPTOUT_KEY) === "1";
+    } catch (e) { return false; }
+  }
+
   // text/plain keeps sendBeacon CORS-safelisted (no preflight) AND gives the
   // collector a content-type it will actually parse (a type-less Blob arrives
   // as an empty body at n8n). Fire-and-forget: an unreachable collector must
   // never affect the visitor.
   function beacon(url, obj) {
+    if (optedOut()) return;
     var data = JSON.stringify(obj);
     try {
       if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([data], { type: "text/plain" }))) return;
