@@ -83,6 +83,13 @@ body{padding-top:56px}
 .ammo .gap{font-weight:600;font-size:.96rem}
 .ammo .leak{font-size:.89rem;color:var(--muted);margin-top:4px}
 .ammo .leak b{color:var(--ink)}
+.ammo-why{font-size:.9rem;margin-bottom:9px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.ammo-why b{color:var(--ink)}
+.ammo-why span{display:block;color:var(--muted);margin-top:3px}
+.ammo-pts{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
+.ammo-h{font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.ammo-pts ol{margin:0;padding-left:19px}
+.ammo-pts li{font-size:.9rem;line-height:1.5;margin-bottom:5px}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
 
 .msg{font-size:.9rem;margin-top:14px;display:none;padding:12px 15px;border-radius:12px}
@@ -2096,10 +2103,13 @@ function callScript(j){
   var gap=String(h.gap||"").replace(/\.$/,"");
   var line=gap?("I noticed "+gap.charAt(0).toLowerCase()+gap.slice(1)):"I noticed a couple of things on your listing";
   var cost=h.leak_monthly?(" By my math that's around "+money(h.leak_monthly)+" a month in work you're not getting."):"";
-  var pitch=h.sku?(" The fix is "+h.sku+(h.price?(" — "+money(h.price)+"/mo"):"")+"."):"";
+  // h.price is an already-formatted string from Foundry ("$397/mo"); money() rounds a
+  // NUMBER, so this used to put "$NaN/mo" in the opener a partner copies and reads out.
+  var pitch=h.sku?(" The fix is "+(h.product||h.sku)+(h.price?(" — "+h.price):"")+"."):"";
   return "Hi, is this "+biz+"? My name's "+((me&&me.name)||"")+" — I'll be quick.\n\n"+
     line+"."+cost+pitch+"\n\n"+
-    "I already built you a working example so you can see it rather than take my word for it. "+
+    (h.covers?(" "+h.covers.charAt(0).toUpperCase()+h.covers.slice(1)+"."):"")+
+    "\n\nI already built you a working example so you can see it rather than take my word for it. "+
     "Can I text you the link right now while we're talking?\n\n"+
     (j.url?("Demo: "+j.url):"");
 }
@@ -2108,11 +2118,24 @@ function jobCard(j){
   var h=j.hook||{};
   var ammo="";
   // 2026-08-22 audit fix PP-03: the ammo block shows gap, $ leak, and the pitch (sku + price).
-  if(st==="ready"&&(h.gap||h.leak_monthly||h.sku)){
-    ammo='<div class="ammo"><div class="gap">'+esc(h.gap||"Gap found")+'</div>'+
+  if(st==="ready"&&(h.gap||h.leak_monthly||h.sku||h.design||(h.points&&h.points.length))){
+    // WHY this design. Foundry chooses the kit by the business's trade and has always
+    // known the reason; the partner used to get a URL and no rationale at all.
+    var why=h.design?('<div class="ammo-why"><b>Built on '+esc(h.design)+'</b>'+
+      ((h.designs&&h.designs>1)?' · two versions to show them':'')+
+      (h.design_why?'<span>'+esc(h.design_why)+'</span>':'')+'</div>'):'';
+    // What to SAY. Assembled by Foundry from the same figures the board runs on.
+    var pts=(h.points&&h.points.length)
+      ?('<div class="ammo-pts"><div class="ammo-h">What to say</div><ol>'+
+         h.points.map(function(p){return '<li>'+esc(p)+'</li>';}).join('')+'</ol></div>')
+      :'';
+    ammo='<div class="ammo">'+why+
+      (h.gap?'<div class="gap">'+esc(h.gap)+'</div>':'')+
       (h.leak_monthly?'<div class="leak">Costing them about <b>'+money(h.leak_monthly)+'/mo</b></div>':'')+
-      (h.sku?'<div class="leak">Pitch: <b>'+esc(h.sku)+'</b>'+(h.price?" — "+money(h.price)+"/mo":"")+'</div>':'')+
-      '</div>';
+      (h.sku?'<div class="leak">Pitch: <b>'+esc(h.product||h.sku)+'</b>'+(h.price?" — "+esc(h.price):"")+'</div>':'')+
+      (h.covers?'<div class="leak">'+esc(h.covers)+'</div>':'')+
+      (h.trial_days?'<div class="leak">Free trial: <b>'+esc(h.trial_days)+' days</b></div>':'')+
+      pts+'</div>';
   }
   var acts="";
   if(st==="ready"){
