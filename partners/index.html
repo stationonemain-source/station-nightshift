@@ -747,6 +747,10 @@ textarea.inp{resize:vertical;min-height:74px}
 (function(){
 "use strict";
 var API="https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
+/* Foundry's visual editor, served by Circle under its own partner-authenticated mount.
+   Foundry itself is tailnet-only; this is the only public way in, and every request is
+   re-checked against the partner's own book server-side. */
+var PEDIT_BASE="https://circle-vps.tail61db65.ts.net/pedit";
 var TKEY="station_partner_token";
 var token=null, me=null, pollTimer=null;
 
@@ -2143,7 +2147,14 @@ function jobCard(j){
       (j.url?'<a class="btn dark sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open demo</a>':'')+
       (j.url?'<button class="btn lite sm" data-copy="'+esc(j.url)+'">Copy link</button>':'')+
       '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button>'+
-      '<button class="btn lite sm" data-edit="'+esc(j.id)+'">Change design or wording</button>'+
+      (j.foundry_id
+        ? '<a class="btn lite sm" target="_blank" rel="noopener" href="'+
+          PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+
+          '&pt='+encodeURIComponent(token||'')+
+          '" title="Foundry\'s own editor - swap in their real photos and retype any text">'+
+          'Edit photos &amp; text</a>'
+        : '')+
+      '<button class="btn lite sm" data-edit="'+esc(j.id)+'">Change the design</button>'+
       '<button class="btn sm" data-send="'+esc(j.id)+'">Send it to them</button></div>'+
       sendsHtml(j)+
       '<div id="bx-'+esc(j.id)+'"></div>';
