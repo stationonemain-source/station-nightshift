@@ -397,7 +397,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 #appView .tab[data-tab="clients"],#appView .tab[data-tab="demos"],
 #appView .tab[data-tab="training"]{display:none !important}
 /* the board fills the panel */
-#foundryFrame{width:100%;height:calc(100vh - 210px);min-height:640px;border:0;
+/* The board is built for a full viewport; the portal column is ~920px. Break the
+   panel out to the viewport edge (same trick as the sheets' .breakout) and give the
+   frame the window's height, so the board scrolls INSIDE itself instead of stacking
+   a second scrollbar onto the page. */
+.panel[data-panel="foundry"]{width:min(1560px,calc(100vw - 28px));margin-left:50%;
+ transform:translateX(-50%)}
+#foundryFrame{width:100%;height:calc(100vh - 132px);min-height:700px;border:0;
  border-radius:14px;background:#0B0D10}
 .fdy-open{font-size:.8rem;color:var(--muted);margin:6px 2px 0;display:block}
 /* the month grid */
