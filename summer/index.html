@@ -343,6 +343,27 @@
           color:#FF5C4D;flex:none;text-align:right;font-weight:600}
   @media (max-width:700px){#tcui{flex-direction:column;align-items:flex-start}#tcread{text-align:left}}
 
+  /* ── phone: desktop captures get zoomed, not squeezed ── */
+  @media (max-width:760px){
+    .stw{height:340vh}
+    .stw .bframe{width:94vw}
+    .stw .viewport{height:min(62vh,500px)}
+    .stw .viewport img{width:200%;max-width:none}
+    #tourstack{aspect-ratio:auto;height:46vh}
+    #tourstack img{object-position:top left;transform-origin:top left}
+    #tourstack img.on{transform:scale(1.7)}
+    .bframe > img,.bframe > video{width:180%;max-width:none}
+    .flapimg{position:static}
+    .flapimg video,.flapimg img{width:100%}
+    .tccast img{width:100%}
+    #tourcap{font-size:12.5px;min-height:0}
+    .tour-in{gap:18px}
+    .fcap,.stw .stcap{font-size:10.5px;line-height:1.5}
+    #fcap .t{font-size:1.25rem}
+    #fcap .d{font-size:13px}
+    .snum{font-size:clamp(4rem,22vw,7rem)}
+  }
+
   /* interstitial + finale */
   .inter{padding:clamp(80px,14vh,150px) 0;text-align:center;background:var(--bg2)}
   .inter .mono{color:var(--faint);letter-spacing:.24em;font-size:11.5px;text-transform:uppercase}
@@ -819,22 +840,38 @@
   <div class="wrap">
     <div class="eyebrow rv"><span class="dot"></span>Stop 07 · The toolchain — who does what</div>
     <h2 class="rv">Using AI is a systems job.<br>Here's our production line.</h2>
-    <p class="lede rv">"Talking to an AI" undersells it. This summer ran on <b>four different AI
-      surfaces</b>, each doing the one job it's best at, each with a real cost line — and a human
-      directing all of them.</p>
-    <div class="flow rv">
-      <div><span class="n">01 · CLAUDE</span><h3>Builds &amp; researches</h3>
-        <p>Every system in this deck — the code, the copy, the design tokens, the 200-datapoint
-        studies — produced in directed conversation. Including this deck.</p></div>
-      <div><span class="n">02 · HIGGSFIELD</span><h3>Shoots &amp; films</h3>
-        <p>The hero film, the flap board, the felt cast, the clay street — generated to locked
-        references. 2 credits a still, 22.5 a film clip.</p></div>
-      <div><span class="n">03 · HEADLESS CHROME</span><h3>Proves it works</h3>
-        <p>A robot browser verified every screen, scrub and number here before it shipped —
-        the same rig that grades Foundry's sites at A.</p></div>
-      <div><span class="n">04 · THE WATCHERS</span><h3>Never clock out</h3>
-        <p>A second, independent AI monitors what the first one built — preflights, sentinels,
-        drift checks, alerts to one channel while we sleep.</p></div>
+    <p class="lede rv">"Talking to an AI" undersells it. This summer ran on <b>ten different engines</b>,
+      each doing the one job it's best at, each with a real cost line — and a human deciding which job
+      goes where. Routing is the skill; no single model does all of this well.</p>
+    <div class="spec rv">
+      <div class="sh"><b>The production line</b><span>who does what, and what it costs</span></div>
+      <div class="srow"><div class="sk">Claude</div><div class="sv">The builder and the researcher —
+        every system here, the code, the copy, the design tokens, the 200-datapoint studies. Also
+        <b>inside</b> the products: three tiers routed by job (a heavy model for synthesis, a middle
+        one for interpretation, a fast one for triage) so a personalized newspaper costs eleven cents
+        instead of a dollar.</div></div>
+      <div class="srow"><div class="sk">Higgsfield</div><div class="sv">The film crew — Seedance for
+        motion, Nano Banana Pro and GPT Image 2 for stills, Kling for loops. The hero film, the board
+        that spells STATION, the clay town, the riso poster. <b>2 credits a still, 22.5 a clip.</b></div></div>
+      <div class="srow"><div class="sk">fal.ai</div><div class="sv">The volume shop — FLUX for
+        photoreal at <b>four cents an image</b>, half a cent for drafts, an upscaler for anything that
+        has to print. Pay-per-use, so cost scales with what we actually ship.</div></div>
+      <div class="srow"><div class="sk">OpenAI</div><div class="sv">Images with legible text baked in,
+        and text-to-speech for voiceover — a hard-capped account, because that's the lane where spend
+        runs away from you.</div></div>
+      <div class="srow"><div class="sk">Local models</div><div class="sv">Two run on our own machine
+        at zero marginal cost: <b>Whisper</b> transcribes video and voice, and a local vision model
+        reads frames. Sending every frame to a paid API is how people burn a budget on nothing.</div></div>
+      <div class="srow"><div class="sk">Google's data</div><div class="sv">Places, reviews and
+        PageSpeed are the ground truth every audit is checked against. The AI never gets to invent a
+        review count — it reads the real one.</div></div>
+      <div class="srow"><div class="sk">Headless Chrome</div><div class="sv">The verifier. A robot
+        browser opens the thing we just built, scrolls it, screenshots it and measures it — it graded
+        Foundry's sites, caught a film that had silently frozen, and checked every claim on this page
+        before it published.</div></div>
+      <div class="srow"><div class="sk">The watchers</div><div class="sv">A second, independent AI
+        monitors what the first one built — hourly preflights, stall sentinels, price-drift checks,
+        alerts into one channel while we sleep.</div></div>
     </div>
     <p class="pull rv">The skill isn't any single tool. It's routing the right job
       to the right tool and verifying what comes back.</p>
@@ -902,7 +939,7 @@
 <section class="tc" data-stop="STOP 09" data-name="Taste Circle">
   <div class="wrap">
     <div class="eyebrow rv"><span class="dot"></span>Stop 09 · Taste Circle — the other lane</div>
-    <h2 class="rv">The same hands can build software<br>— and a world made of felt.</h2>
+    <h2 class="rv">The same hands can build software<br>— and a world made of clay.</h2>
     <p class="lede rv">Taste Circle is our other company — a social food-discovery app, live on the App
       Store. In July we built the <b>first mockup</b> of its website as a <b>scroll world</b>: one
       continuous claymation set the camera walks through — the street, the taco shop, the dinner table,
@@ -931,10 +968,38 @@
       <div class="ch"><img src="data:image/webp;base64,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" alt="Biscuit, a needle-felt golden retriever with a navy collar"><div class="n"><b>Biscuit</b> · loves everything</div></div>
       <div class="ch"><img src="data:image/webp;base64,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" alt="Crumb, a needle-felt grey pigeon"><div class="n"><b>Crumb</b> · the local</div></div>
     </div>
-    <p class="tcnote rv"><b>How it's made:</b> the cast is generated with <b>Higgsfield</b> against a
-      locked character sheet so every render is the same animal in the same wool; the sets are clay; the
-      loops are animated from stills. The one thing never generated is the logo — it's extracted from the
-      real mark, because a brand's face doesn't get redrawn.</p>
+    <p class="tcnote rv"><b>The cast, in two materials.</b> Above they're clay, walking a clay town.
+      Below is the same crew explored in needle-felt for social — every render generated against a locked
+      character sheet so it's always the same animal, in the same material, with the same face. The one
+      thing never generated is the logo: it's extracted from the real mark, because a brand's face
+      doesn't get redrawn.</p>
+
+    <div class="grid2 rv" style="margin-top:64px;align-items:center">
+      <div>
+        <div class="eyebrow" style="color:#C2452F"><span class="dot" style="background:#FF5C4D"></span>The flagship in build</div>
+        <h2 style="font-size:clamp(1.7rem,3.4vw,2.4rem)">Cal AI — point your camera<br>at dinner.</h2>
+        <p style="color:#4A4A55;max-width:52ch">Taste Circle's next chapter is health, and the flagship is a
+          food log that doesn't feel like homework. Photograph a plate and it's logged. Say what you ate
+          and it's logged. Scan a barcode and it's logged — <b style="color:#14182B">free, from a public
+          food database</b>. The AI only steps in when it has to, and it says so when it isn't sure.</p>
+      </div>
+      <div class="card" style="background:#fff;border-color:#E3D9C6">
+        <span class="tag" style="color:#C2452F">What makes it different</span>
+        <ul>
+          <li><b>It shuts up when it's confident.</b> Above a certainty threshold the meal logs
+              silently — no confirm screen, no friction.</li>
+          <li><b>It learns your usual.</b> Confirm the same coffee twice and it becomes yours; the
+              third time it just knows.</li>
+          <li><b>Every log is a post.</b> One tap turns a meal into a Plate Story on your Table —
+              logging feeds the social app instead of competing with it.</li>
+          <li><b>The coach reads your real week.</b> The copilot answers from your actual seven-day
+              diary, not from vibes, and its numbers are grounded against the USDA food database.</li>
+        </ul>
+        <p style="font-size:13.5px;color:#8A867B;margin-top:16px">Five free AI scans a month, then
+          $2.99 — built as a drop-in module and handed to the app developer. Vision lane is the last
+          piece under test.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -977,6 +1042,25 @@
       of their vocabulary, a sudoku that gets harder as the week goes on. They cost nothing to
       generate, no two readers get the same one, and they're the reason people come back on a slow
       news day.</p>
+    </div>
+
+    <div class="spec rv">
+      <div class="sh"><b>Why a newspaper is really a sales funnel</b><span>the distribution play</span></div>
+      <div class="srow"><div class="sk">Who reads it</div><div class="sv">Onboarding starts from a
+        preset — <b>local service operator, restaurant owner, landlord, college student, retiree,
+        founder</b>. Those aren't personas we invented for the deck; each one is a customer segment
+        for something else we sell. Every signup self-identifies.</div></div>
+      <div class="srow"><div class="sk">The placement</div><div class="sv">Every edition carries a
+        link to our free audit, tagged to that reader — <code>?ref=brief-…</code> — and the click is
+        counted as an event. The paper hands a warm, self-segmented reader to the top of the Station
+        funnel, every single morning, forever.</div></div>
+      <div class="srow"><div class="sk">The loop</div><div class="sv">Each reader gets their own
+        <b>masthead</b>, a printable PDF and a share card. A subscriber showing someone "the newspaper
+        about my business" is doing the marketing — the growth mechanism is the product, not an ad.</div></div>
+      <div class="srow"><div class="sk">What's next</div><div class="sv">The distribution layer is
+        already in motion: sponsors per vertical (an HVAC supplier belongs in an HVAC operator's paper),
+        team seats at $9 a head, and every edition doubling as a durable, quotable archive of what we
+        publish. One product that pays for itself <em>and</em> feeds every other one.</div></div>
     </div>
   </div>
 </section>
