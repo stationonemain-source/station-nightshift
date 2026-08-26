@@ -946,33 +946,78 @@
       their expressions where yarn flattened them. The one thing never generated is the logo: it's
       extracted from the real mark, because a brand's face doesn't get redrawn.</p>
 
-    <div class="grid2 rv" style="margin-top:64px;align-items:center">
-      <div>
-        <div class="eyebrow" style="color:#C2452F"><span class="dot" style="background:#FF5C4D"></span>The flagship in build</div>
-        <h2 style="font-size:clamp(1.7rem,3.4vw,2.4rem)">Plate — point your camera<br>at dinner.</h2>
-        <p style="color:#4A4A55;max-width:52ch">Taste Circle's next chapter is health, and the flagship is a
-          food log that doesn't feel like homework. Photograph a plate and it's logged. Say what you ate
-          and it's logged. Scan a barcode and it's logged — <b style="color:#14182B">free, from a public
-          food database</b>. The AI only steps in when it has to, and it says so when it isn't sure.</p>
+    <div class="rv" style="margin-top:72px">
+      <div class="eyebrow" style="color:#C2452F"><span class="dot" style="background:#FF5C4D"></span>The flagship in build</div>
+      <h2 style="font-size:clamp(1.9rem,3.8vw,2.7rem)">Plate — point your camera at dinner.</h2>
+      <p class="lede" style="color:#4A4A55">Every calorie app on the market is a database you feed. You
+        search, you scroll, you pick "chicken breast, raw, 4 oz," and you quit by week three — because
+        logging is a chore you do <em>for</em> the app. Taste Circle already has the part those apps
+        never got: <b style="color:#14182B">friends, tables, and a reason to post a meal.</b> Plate puts
+        the food log inside that — so the thing you'd share anyway becomes the thing that tracks you.</p>
+    </div>
+
+    <div class="flow rv" style="background:#fff;border-color:#E3D9C6">
+      <div style="border-color:#E3D9C6">
+        <span class="n" style="color:#C2452F">LANE 01 · BARCODE</span><h3>Scan it</h3>
+        <p style="color:#4A4A55">Straight to a public food database — a real product, real macros,
+        <b style="color:#14182B">no AI, no cost.</b> Verified live: a 330 ml Coke resolves to 139 calories.</p>
       </div>
-      <div class="card" style="background:#fff;border-color:#E3D9C6">
-        <span class="tag" style="color:#C2452F">What makes it different</span>
-        <ul>
-          <li><b>It shuts up when it's confident.</b> Above a certainty threshold the meal logs
-              silently — no confirm screen, no friction.</li>
-          <li><b>It learns your usual.</b> Confirm the same coffee twice and it becomes yours; the
-              third time it just knows.</li>
-          <li><b>Every log is a post.</b> One tap turns a meal into a story on your Table —
-              logging feeds the social app instead of competing with it.</li>
-          <li><b>The coach reads your real week.</b> The copilot answers from your actual seven-day
-              diary, not from vibes, and its numbers are grounded against the USDA food database.</li>
-        </ul>
-        <p style="font-size:13.5px;color:#8A867B;margin-top:16px">Five free AI scans a month, then
-          $2.99 — built as a drop-in module and handed to the app developer. The camera lane is the
-          last piece under test. <b style="color:#14182B">Plate</b> is the working name: it's already
-          the word the app uses for a logged meal, so the feature and the post share one noun.</p>
+      <div style="border-color:#E3D9C6">
+        <span class="n" style="color:#C2452F">LANE 02 · CAMERA</span><h3>Photograph it</h3>
+        <p style="color:#4A4A55">Vision reads the plate, returns structured data — never prose — and its
+        numbers are <b style="color:#14182B">checked against the USDA database</b> before they're saved.
+        If it can't tell, it refuses instead of guessing.</p>
+      </div>
+      <div style="border-color:#E3D9C6">
+        <span class="n" style="color:#C2452F">LANE 03 · VOICE</span><h3>Just say it</h3>
+        <p style="color:#4A4A55">Speech is transcribed <b style="color:#14182B">on the phone</b>, then
+        parsed by the cheapest model in the stack. "Two eggs and toast" is a sentence, not a search.</p>
       </div>
     </div>
+
+    <div class="spec rv" style="background:#fff;border-color:#E3D9C6">
+      <div class="sh" style="background:#FFFDF8;border-color:#E3D9C6"><b style="color:#14182B">How it actually operates</b><span>the rules underneath</span></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">The confidence gate</div>
+        <div class="sv" style="color:#4A4A55">Every read comes back with a certainty score. Above the
+        threshold the meal <b style="color:#14182B">logs silently</b> — no confirm screen, no friction.
+        Below it, you get one tap to fix it. The AI interrupts you only when it has earned the right to.</div></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">Habit memory</div>
+        <div class="sv" style="color:#4A4A55">Confirm the same oat latte twice and it becomes
+        <b style="color:#14182B">your usual</b>. The third morning it applies itself — and costs nothing,
+        because remembering is cheaper than re-reading.</div></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">Log = post</div>
+        <div class="sv" style="color:#4A4A55">One tap turns the entry into a story on your Table. This is
+        the whole thesis: in every other app, tracking and sharing compete for the same moment. Here
+        <b style="color:#14182B">one action does both</b>, so the diary fills itself while the feed stays alive.</div></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">The coach</div>
+        <div class="sv" style="color:#4A4A55">Ask it anything and it answers from your
+        <b style="color:#14182B">real seven-day diary</b> — not a generic wellness script. It can only
+        cite what you actually ate, which is the difference between a coach and a chatbot.</div></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">The economics</div>
+        <div class="sv" style="color:#4A4A55">Most logs never touch a paid model — barcodes are free,
+        habits are free, voice runs on the cheapest tier. AI spend concentrates on the one lane that needs
+        it. That's what makes <b style="color:#14182B">five free scans a month and $2.99 after</b> a real
+        business rather than a subsidy, and it's enforced in code: the free tier stops at five and the
+        coach stays behind the paywall.</div></div>
+      <div class="srow" style="border-color:#E3D9C6"><div class="sk" style="color:#C2452F">Where it stands</div>
+        <div class="sv" style="color:#4A4A55">Shipped as a backend plus a drop-in mobile module and handed
+        to the app developer. <b style="color:#14182B">Proven live:</b> the barcode lane against the real
+        database, diary writes, streaks, habit learning, the paywall returning the right refusal, and the
+        premium gate. <b style="color:#14182B">Still under test:</b> the camera lane — it needs its first
+        run against a live key. Said plainly because a demo that hides its last untested piece isn't a demo.</div></div>
+    </div>
+
+    <div class="callout rv" style="background:#fff;border-color:#E3D9C6">
+      <svg class="mk" viewBox="0 0 100 100" aria-hidden="true" style="color:#FF5C4D"><use href="#stmark"/></svg>
+      <p style="color:#4A4A55"><b style="color:#14182B">Why this is the game-changer, not just a feature.</b>
+      A calorie app knows what you ate. A discovery app knows where you like to eat. Nobody has both — so
+      recommendations are guesses and diaries are lonely. Put them in one product and each one makes the
+      other smarter: your log teaches the app which restaurants actually fit you, and your friends' tables
+      make logging something you'd do anyway. That loop is the moat, and it's why the food log belongs
+      inside Taste Circle instead of shipping as one more tracker nobody opens in February.</p>
+    </div>
+    <p class="tcnote rv" style="margin-top:20px"><b>Plate</b> is the working name — the app already calls
+      a logged meal a plate, so the feature and the post share one noun.</p>
   </div>
 </section>
 
