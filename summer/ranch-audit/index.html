@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
   :root{
+    color-scheme:light;
     --bg:#F5F4F1; --card:#FFFFFF; --bg2:#FAF9F6; --bg3:#F1EFE9;
     --line:#E7E4DE; --line2:#DDD9D0;
     --ink:#1D1D1F; --muted:#5F5F64; --faint:#6E6E73;
@@ -67,7 +68,8 @@
      background:var(--bg3);border:1px solid var(--line);padding:9px 12px;text-align:left}
   td{border:1px solid var(--line);padding:11px 12px;color:var(--muted);vertical-align:top}
   td b{color:var(--ink);font-weight:600}
-  tr.me td{background:#FBF7EE}
+  tr.me td{background:#FBF7EE;color:#4A463E}
+  tr.me td b{color:#1D1D1F}
   .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch}
 
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
@@ -85,7 +87,7 @@
   .plan li{list-style:none;position:relative;padding-left:44px;margin:14px 0;font-size:15.5px;color:var(--muted)}
   .plan li b{color:var(--ink);font-weight:600}
   .plan li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:1px;
-    width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;
+    width:28px;height:28px;border-radius:50%;background:#1D1D1F;color:#FFFFFF;
     font-family:var(--fm);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
   ul.srcs{margin-top:14px;list-style:none}
   ul.srcs li{font-size:14px;color:var(--muted);padding:8px 0;border-top:1px solid var(--line)}
@@ -94,20 +96,9 @@
          font-family:var(--fm);font-size:12px;color:var(--faint);letter-spacing:.04em}
   footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
 
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --bg:#161513; --card:#1E1D1A; --bg2:#131211; --bg3:#232220;
-      --line:#302E2A; --line2:#3A3833;
-      --ink:#F2F0EC; --muted:#A9A69F; --faint:#8B8880;
-      --accent:#D9A441; --pay:#7BA7F5; --good:#5FBF8B; --bad:#E08B84;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#161513; --card:#1E1D1A; --bg2:#131211; --bg3:#232220;
-    --line:#302E2A; --line2:#3A3833;
-    --ink:#F2F0EC; --muted:#A9A69F; --faint:#8B8880;
-    --accent:#D9A441; --pay:#7BA7F5; --good:#5FBF8B; --bad:#E08B84;
-  }
+  /* Committed light, exactly like the deck this page belongs to — the palette is the
+     live station.solutions paper. Every surface and every ink is painted explicitly so
+     the page never borrows a host theme. */
 </style>
 </head>
 <body>
