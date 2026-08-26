@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Butterfly Ranch Audit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A full cold audit and registry-level deep dive on Butterfly Rescue Ranch, Norman OK — every claim checked against a primary source on August 26, 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --bg:#F5F4F1; --card:#FFFFFF; --bg2:#FAF9F6; --bg3:#F1EFE9;
+    --line:#E7E4DE; --line2:#DDD9D0;
+    --ink:#1D1D1F; --muted:#5F5F64; --faint:#6E6E73;
+    --accent:#8A5A00; --good:#167A44; --pay:#2563EB; --bad:#B3413A;
+    --fb:'Inter','Segoe UI',system-ui,sans-serif;
+    --fm:'JetBrains Mono',Consolas,ui-monospace,monospace;
+    --max:920px; --pad:clamp(20px,4vw,44px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:17px;line-height:1.65;
+       -webkit-font-smoothing:antialiased;overflow-x:clip}
+  img{max-width:100%;display:block}
+  a{color:var(--pay);text-decoration:none}
+  a:hover,a:focus-visible{text-decoration:underline}
+  :focus-visible{outline:2px solid var(--pay);outline-offset:3px;border-radius:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+  h1,h2,h3{text-wrap:balance;letter-spacing:-.025em}
+  p{max-width:68ch}
+  .mono{font-family:var(--fm)}
+
+  header.top{padding:clamp(54px,9vh,96px) 0 0}
+  .back{font-family:var(--fm);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .mark{width:36px;color:var(--ink);margin:26px 0 22px}
+  .kicker{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.15em;
+          text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  h1{font-size:clamp(2.3rem,6vw,3.6rem);font-weight:800;line-height:1.02}
+  .sub{margin-top:20px;font-size:clamp(1.02rem,1.6vw,1.18rem);color:var(--muted);max-width:60ch}
+  .sub b{color:var(--ink)}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .chip{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+        color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 15px;background:var(--card)}
+  .chip.b{color:#fff;background:var(--pay);border-color:var(--pay);font-weight:600}
+
+  section{padding:clamp(48px,7vh,78px) 0}
+  .eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--fm);font-size:11.5px;
+           letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;font-weight:600}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--pay);flex:none}
+  h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:800;line-height:1.1;margin-bottom:14px}
+  .lede{font-size:clamp(1rem,1.5vw,1.1rem);color:var(--muted);margin-bottom:8px}
+  .lede b{color:var(--ink)}
+
+  .find{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:22px 24px;margin-top:16px}
+  .find .h{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:8px}
+  .find .n{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.13em;color:var(--accent)}
+  .find h3{font-size:1.14rem;font-weight:700}
+  .find p{font-size:15.5px;color:var(--muted)}
+  .find p b{color:var(--ink);font-weight:600}
+  .find .ev{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);
+            font-family:var(--fm);font-size:11.5px;color:var(--faint);letter-spacing:.02em}
+  .find .ev b{color:var(--accent);font-weight:600}
+  .find.hot{border-color:var(--bad);border-left:4px solid var(--bad)}
+  .find.good{border-left:4px solid var(--good)}
+
+  table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15px}
+  th{font-family:var(--fm);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+     background:var(--bg3);border:1px solid var(--line);padding:9px 12px;text-align:left}
+  td{border:1px solid var(--line);padding:11px 12px;color:var(--muted);vertical-align:top}
+  td b{color:var(--ink);font-weight:600}
+  tr.me td{background:#FBF7EE}
+  .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .kv{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:18px 20px}
+  .kv .k{font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:4px}
+  .kv .v{font-size:1.02rem;font-weight:600}
+  .kv .v small{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:3px}
+
+  .callout{border:1px solid var(--line);border-left:4px solid var(--pay);border-radius:12px;
+           background:var(--card);padding:22px 26px;margin-top:22px}
+  .callout p{font-size:15.5px;color:var(--muted)}
+  .callout p b{color:var(--ink)}
+  .plan{counter-reset:s;margin-top:18px}
+  .plan li{list-style:none;position:relative;padding-left:44px;margin:14px 0;font-size:15.5px;color:var(--muted)}
+  .plan li b{color:var(--ink);font-weight:600}
+  .plan li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:1px;
+    width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;
+    font-family:var(--fm);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  ul.srcs{margin-top:14px;list-style:none}
+  ul.srcs li{font-size:14px;color:var(--muted);padding:8px 0;border-top:1px solid var(--line)}
+  ul.srcs li b{color:var(--ink);font-weight:600}
+  footer{border-top:1px solid var(--line);background:var(--bg2);padding:30px 0 46px;
+         font-family:var(--fm);font-size:12px;color:var(--faint);letter-spacing:.04em}
+  footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#161513; --card:#1E1D1A; --bg2:#131211; --bg3:#232220;
+      --line:#302E2A; --line2:#3A3833;
+      --ink:#F2F0EC; --muted:#A9A69F; --faint:#8B8880;
+      --accent:#D9A441; --pay:#7BA7F5; --good:#5FBF8B; --bad:#E08B84;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#161513; --card:#1E1D1A; --bg2:#131211; --bg3:#232220;
+    --line:#302E2A; --line2:#3A3833;
+    --ink:#F2F0EC; --muted:#A9A69F; --faint:#8B8880;
+    --accent:#D9A441; --pay:#7BA7F5; --good:#5FBF8B; --bad:#E08B84;
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g>
+  <mask id="core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask>
+  <g id="stmark" mask="url(#core)" fill="currentColor" transform="rotate(45 50 50)">
+    <use href="#arm"/><use href="#arm" transform="rotate(90 50 50)"/>
+    <use href="#arm" transform="rotate(180 50 50)"/><use href="#arm" transform="rotate(270 50 50)"/>
+  </g>
+</defs></svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="../">← The Summer Line</a>
+    <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><use href="#stmark"/></svg>
+    <p class="kicker">Station Automations Group · Field audit</p>
+    <h1>The Butterfly Ranch audit</h1>
+    <p class="sub">A working example of what we do before we build anything: forty minutes walking the
+      customer's path, then an hour in the registries. <b>Every claim below is checked against a primary
+      source</b> — and where something couldn't be verified, it says so.</p>
+    <div class="meta">
+      <span class="chip b">Verified August 26, 2026</span>
+      <span class="chip">Butterfly Rescue Ranch · Norman, OK</span>
+      <span class="chip">Unsolicited — no engagement</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Part one · What a stranger sees in forty minutes</div>
+    <h2>The surface audit</h2>
+    <p class="lede">Phone in hand, incognito, no special tools — the same walk any customer takes. The rule
+      is evidence only: a claim needs a URL, a screenshot or a timestamp, or it doesn't get written down.</p>
+
+    <div class="find hot">
+      <div class="h"><span class="n">F-01</span><h3>Google tells everyone they're permanently closed</h3></div>
+      <p>The Maps listing reads <b>"Permanently closed"</b> — and there are <b>two duplicate listings</b>,
+      both closed, at neighbouring addresses on the same road. Meanwhile the ranch is actively running
+      summer camps and posting them on Instagram. Every stranger who searches for a horse rescue in Norman
+      is being told this organization no longer exists.</p>
+      <div class="ev"><b>Evidence ·</b> Google Maps search "Butterfly Ranch Norman", 12:20p Aug 26 — cross-checked against current-season Instagram activity.</div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">F-02</span><h3>You cannot give them money</h3></div>
+      <p>The Donate button leads to a page that asks you to <b>phone the founder</b>. No form, no payment
+      link, no giving levels — and across the entire site there are <b>zero input fields and zero tappable
+      phone numbers</b>. For a rescue that runs on donations, the donation path doesn't exist.</p>
+      <div class="ev"><b>Evidence ·</b> butterflyrescueranch.org/donate, 12:17p Aug 26 — page source contains no form, no payment link, no mailto. <b>Correction:</b> an earlier draft of this audit said donations "ride on a PayPal path" — that was wrong. The PayPal strings in the page are the site-builder's own feature flags, not a payment integration. Re-checked and corrected here.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">F-03</span><h3>The channels are islands</h3></div>
+      <p>Instagram (<b>1,072 followers</b>) and Facebook (<b>284</b>) both carry the website link. The
+      website links back to <b>neither</b>, and captures no email anywhere. Traffic flows one way into a
+      page that can't do anything with it — the textbook definition of a <em>dis</em>-integrated system.</p>
+      <div class="ev"><b>Evidence ·</b> Both profiles read logged-out, Aug 26 — follower counts taken from the profiles themselves, not a search result.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">F-04</span><h3>Search can't read the page</h3></div>
+      <p>The browser-tab title is <b>"Home | Butterfly Ranch"</b> and there's no meta description on any
+      page — so the words "Norman," "horse rescue" and "donate" never reach a search engine, and pasting
+      the link into a text message produces a naked URL instead of a preview. The tab icon is still the
+      site-builder's default.</p>
+      <div class="ev"><b>Evidence ·</b> Page source of /, /about and /donate, Aug 26 — no description tag on any of the three.</div>
+    </div>
+
+    <div class="find good">
+      <div class="h"><span class="n">F-05</span><h3>The mission is already the asset</h3></div>
+      <p>Not everything is broken. Rescued horses, a real kids' program, genuine camp photography, a
+      <b>5.0-star rating</b>, and a story no competitor in this market can copy. The site itself loads in
+      about a second and reads fine on a phone. <b>The problem isn't the product — it's the plumbing.</b></p>
+      <div class="ev"><b>Evidence ·</b> Site loaded at 390px, ~1s; Google rating 5.0 from 6 reviews; program described on their own About page.</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Part two · What the registries know</div>
+    <h2>The deep dive</h2>
+    <p class="lede">The surface audit reads what a stranger sees. This layer reads what the <b>IRS, the
+      local market and the grant-makers</b> see. It found a different organization than the website shows.</p>
+
+    <div class="grid">
+      <div class="kv"><div class="k">Legal entity</div><div class="v">Butterfly Ranch Inc<small>A registered nonprofit corporation</small></div></div>
+      <div class="kv"><div class="k">IRS status</div><div class="v">501(c)(3) public charity<small>Ruled January 2024 — donations are tax-deductible</small></div></div>
+      <div class="kv"><div class="k">Team</div><div class="v">Three<small>Founder, barn manager, and an instructor who also administers the website</small></div></div>
+      <div class="kv"><div class="k">Operating since</div><div class="v">2022<small>Four years of program before this audit</small></div></div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">D-01</span><h3>The buried asset: a real charity that never says so</h3></div>
+      <p>We verified the tax exemption directly against the <b>IRS Business Master File</b>. Every gift to
+      this organization is tax-deductible, and corporate matching programs would double some of them.
+      Then we searched their entire public presence for that fact and found it <b>nowhere</b> — not the
+      website, not the Donate page, not either social bio. A supporter literally cannot find the number
+      their employer's matching-gift form asks for. <b>They paid the full cost of becoming a charity and
+      collect none of the return.</b></p>
+      <div class="ev"><b>Evidence ·</b> IRS Business Master File (via ProPublica Nonprofit Explorer API), exemption ruled Jan 2024 · full-text search of site + both social bios, Aug 26.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">D-02</span><h3>Charging roughly half the market</h3></div>
+      <p>Read from the competitors' own published pages, today:</p>
+      <div class="tbl">
+      <table>
+        <tr><th>Operator</th><th>Lessons</th><th>Camps</th><th>Reviews</th></tr>
+        <tr class="me"><td><b>Butterfly Rescue Ranch</b></td><td>$25 / 30-min ground<br>$50 / hr horseback</td><td>runs them — <b>no published price</b></td><td>5.0★ (6)</td></tr>
+        <tr><td>The riding school across town</td><td><b>$45 / 30-min</b> private</td><td><b>$450</b> full-day week<br>$350 half-day</td><td>4.8★ (51)</td></tr>
+        <tr><td>The boarding ranch</td><td>offered, unpublished</td><td>—</td><td>4.2★ (42)</td></tr>
+      </table>
+      </div>
+      <p style="margin-top:14px">Per riding minute she's about <b>45% under</b> the going local rate, with a
+      story the others can't tell — and Norman parents demonstrably pay <b>$450 a week</b> for camp with a
+      nonrefundable deposit. For a nonprofit the move isn't raising the access price; it's <b>naming the
+      gap</b>: "a lesson costs us $90, families pay $50, sponsors close the rest." The discount becomes a
+      donation product instead of quiet underpricing.</p>
+      <div class="ev"><b>Evidence ·</b> Competitor camp page and lesson listings read Aug 26; ranch prices from her own posted flyer.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">D-03</span><h3>Money she's eligible for and never asked for</h3></div>
+      <p>Two funders whose published criteria she matches. One is <b>local</b>, funds animal wellbeing in
+      Central Oklahoma, reviews small grants <b>monthly</b>, and states a vision of making Oklahoma the
+      most humane place for animals — a kill-pen rescue serving underprivileged kids is that brief,
+      verbatim. The other is national, gives <b>$500–$5,000</b> for exactly her cost centers (vet, farrier,
+      feed), and uses a <b>free transparency profile as the application itself</b>. Current grant revenue
+      is zero — not because she was turned down, but because the prerequisite paperwork was never filed.</p>
+      <div class="ev"><b>Evidence ·</b> Both funders' own grant pages, read Aug 26 — amounts, cycles and eligibility as published.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">D-04</span><h3>An open lane, and a credential to defend it</h3></div>
+      <p>A for-profit neighbour already markets equine-assisted learning and therapy partnerships. The
+      ranch has the charity status that schools and referral partners prefer <b>and</b> an instructor
+      pursuing graduate study in equine-assisted counseling — the defensible version of that same offer,
+      sitting completely unmarketed.</p>
+      <div class="ev"><b>Evidence ·</b> Competitor site positioning + the ranch's own staff bios, Aug 26.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">D-05</span><h3>A local story with zero coverage</h3></div>
+      <p>We searched for press and found <b>none — not one article, ever</b>. Consider what an assignment
+      editor is being offered: kill-pen horses rehabilitated by a young founder who still competes in
+      rodeo, paired with kids who may end up owning the horse they healed, with a summer of photography
+      already shot. One pitch email is plausibly worth more reach than the ranch's entire social history.</p>
+      <div class="ev"><b>Evidence ·</b> Press search across news and local outlets, Aug 26 — no results.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>What we'd do about it</div>
+    <h2>Ninety days, in order</h2>
+    <p class="lede">Sequenced deliberately — each step is a prerequisite for the next, and nearly all of
+      it is free. The expensive-looking problems turn out to be switch-flipping.</p>
+    <ol class="plan">
+      <li><b>Week one — stop the bleeding.</b> Claim the Google listing, mark it open with real hours,
+      merge the duplicate. Put the charity status and tax ID in the site footer and on the Donate page.
+      Make the phone number tappable. Confirm the annual IRS filing is current.</li>
+      <li><b>Weeks two to four — open the giving lane.</b> Point the existing Donate button at one hosted
+      giving page that issues receipts automatically. Switch the Facebook page to its nonprofit category
+      to unlock a native donate button. Add one email field. Claim the transparency profile that grant
+      portals check.</li>
+      <li><b>Month two — go to market.</b> Publish the camp page at market-anchored tiers with sponsored
+      seats funded by donors. Launch "sponsor a horse" monthly giving at feed-bill price points. Put a QR
+      review card in every parent's hand at camp pickup. Send the press pitch.</li>
+      <li><b>Month three — compound.</b> Submit the local grant letter of inquiry. Partner with a
+      university service organization for volunteer days. Give the equine-assisted lane its own page,
+      aimed at schools and counselors.</li>
+    </ol>
+
+    <div class="callout">
+      <p><b>The one-paragraph version.</b> "You already did the hard part — a real charity, a real
+      program, and a story nobody in this market can copy. What's missing is plumbing: Google thinks
+      you're closed, donors can't find your tax ID, and parents can't book the camp they'd happily pay
+      for. Ninety days of switch-flipping, almost all of it free, connects what you built to the people
+      trying to fund it."</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>How this was made</div>
+    <h2>Method &amp; honest limits</h2>
+    <p class="lede">The surface audit took about forty minutes; the deep dive about an hour on top of it.
+      No paid tools were used — the whole thing is knowing which primary source answers which question.</p>
+    <ul class="srcs">
+      <li><b>Sources ·</b> IRS Business Master File · the organization's own website, read page by page ·
+      Google Maps listings · both social profiles read directly, logged out · competitors' published
+      pricing pages · the funders' own grant criteria pages.</li>
+      <li><b>Not claimed ·</b> Search-ranking position — an automated check was blocked partway, so no
+      ranking claim appears anywhere in this audit. Whether the annual IRS filing is current is a question
+      for the founder, not an assertion. The ranch's own camp pricing is unpublished, so it isn't stated.</li>
+      <li><b>Corrected in public ·</b> An earlier draft claimed donations ran through PayPal. Re-checking
+      showed those strings were the site-builder's own feature flags. The corrected finding — that no
+      payment path exists at all — is worse for the organization and better as an audit.</li>
+      <li><b>Standing ·</b> This is unsolicited analysis of a public-facing organization, produced as a
+      demonstration. Nothing here is a client engagement, and no non-public information was used.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Station Automations Group · Field audit · August 2026</span>
+    <span><a href="../">← Back to The Summer Line</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
