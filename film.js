@@ -456,7 +456,7 @@
      mirrors it onto the FormData either way. Two reasons for both halves: the DOM write is what
      analytics.js's own submit handler picks up when it builds its FormData a moment later, and
      the FormData write means a hidden input the form agent hasn't added yet still reaches the
-     GHL intake webhook instead of vanishing. */
+     CRM intake webhook instead of vanishing. */
   function put(fd, name, value) {
     if (value === null || value === undefined) return;
     value = String(value);
@@ -522,7 +522,7 @@
       try { put(fd, "lt_attr", JSON.stringify(A.last())); } catch (e3) {}
       /* The FLAT ft_/lt_ columns, IN ADDITION to the blobs above (§7.1). The intake node reads
          individual columns (b.ft_utm_source, …) and cannot index into a JSON string, so posting
-         only the blobs left most of the provisioned GHL fields empty on every paid lead. The
+         only the blobs left most of the provisioned CRM fields empty on every paid lead. The
          blobs stay because the dashboard's touch comparison falls back to them. Only ft_/lt_
          spellings are emitted — one vocabulary, per §7.1. */
       try {

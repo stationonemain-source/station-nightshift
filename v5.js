@@ -667,7 +667,7 @@
                reply — every signup this popup ever took went nowhere. And anything that did
                pass had a website derived from the email domain and a paid audit report
                generated and emailed to it. /webhook/newsletter is the list endpoint: honeypot
-               + email validity only, GHL upsert, SMS suppressed unless consent_sms is real. */
+               + email validity only, CRM upsert, SMS suppressed unless consent_sms is real. */
             fd.set("source", "newsletter");
             try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/newsletter", { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
             form.querySelectorAll("input,button").forEach(function (el) { el.disabled = true; });

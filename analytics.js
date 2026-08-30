@@ -46,7 +46,7 @@
    dropped without an error anywhere (SCHEMA_CONTRACT §0, the five-place rule).
    Meta retargeting itself is handled by the Pixel — Meta builds the audience on
    their side; we never store a visitor's name/email here (that only arrives when
-   someone submits the audit form → GHL + the leads board). */
+   someone submits the audit form → the CRM + the leads board). */
 (function () {
   "use strict";
 
@@ -670,7 +670,7 @@
   /* ---------------- audit-form lead capture (NOT consent-gated) ----------------
      A lead typing their details into the audit form and pressing submit is a
      direct request for contact — that's first-party form data, not tracking, so
-     it's captured regardless of the cookie choice (same as the GHL webhook the
+     it's captured regardless of the cookie choice (same as the intake webhook the
      form already posts to). Bots that fill the honeypot are dropped, matching
      film.js.
 
