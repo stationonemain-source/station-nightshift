@@ -273,7 +273,7 @@
     },
     {
       "sku": "map",
-      "name": "Map",
+      "name": "Echo",
       "plain": "Their Google listing managed properly so they show up in the local map results",
       "price": "$297 setup + $147/mo",
       "bounty": 100,
