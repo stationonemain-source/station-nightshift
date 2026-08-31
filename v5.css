@@ -352,9 +352,11 @@ html.js .rv.on{opacity:1;transform:none}
 .cart .c-nudge.on{display:block}
 .cart .c-empty{color:var(--faint);text-align:center;padding:44px 10px;font-size:13.5px}
 /* ---- shimmer hero (gradient-shimmer port) ---- */
-.shimmer{position:relative;display:inline-block;background-repeat:no-repeat;background-size:100% 100%;
- -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--ink)}
-@supports not (-webkit-background-clip:text){.shimmer{background:none;-webkit-text-fill-color:currentColor}}
+/* 2026-08-31 audit: the shimmer is retired. Two generations of stop-tuning (see the
+   history in v5.js) never got the sweep's lightest band above the 3:1 large-text floor —
+   the live page still measured 2.84:1 on the h1. A decorative effect that keeps failing
+   the most-read line on the site loses the argument. Solid ink, permanently. */
+.shimmer{color:var(--ink)}
 /* ---- bundles glass band (pricing-glass port) ---- */
 .bundles{background:var(--dark);color:var(--bg);border-top:1px solid var(--line);padding:72px 0}
 .bundles .k{color:rgba(255,255,255,.52)}
@@ -1424,3 +1426,13 @@ button,input,select,textarea{font:inherit;color:inherit}
   .pp .addcart{min-height:48px}
   .addcart,.pp-bar .btn,.cart .c-go,.co-add,.co-card .co-pay{min-height:44px}
 }
+
+/* ---- 2026-08-31 audit additions ---- */
+/* footer column labels were h4 directly under h2 sections (heading-level skip). They
+   are h3 now; this pins them to the UA's h4 metrics so only semantics changed. */
+.ftcol{font-size:1em;font-weight:bold;margin:1.33em 0}
+/* placeholders inherited the UA grey, under 4.5:1 on the cream ground; the examples
+   are part of the form's voice, so they clear AA like every other text step. */
+::placeholder{color:var(--faint);opacity:1}
+/* the SMS-consent sentence ran the full grid width (~1280px at 13px). */
+.consent span{max-width:74ch}

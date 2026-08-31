@@ -191,36 +191,20 @@
     document.addEventListener("click", function(){ sheet.classList.remove("open"); });
   });
 
-  /* ---------- shimmer (gradient-shimmer vanilla port) ---------- */
+  /* ---------- shimmer — RETIRED 2026-08-31 ----------
+     Kept as history: the sweep's lightest stop is the text colour of whatever glyphs
+     sit under it. Round one peaked at #EFC26A (1.52:1 on the page) and washed the
+     headline out; round two re-peaked on --accent #8A5A00 (5.39:1 at the crest) and
+     STILL measured 2.84:1 live, because the band's shoulders pass through lighter
+     interpolations on every sweep. Two failed tunings on the first line every visitor
+     reads is enough evidence: the effect is structurally at war with contrast. The h1
+     now renders flat ink from v5.css and this block only cleans up any inline state
+     an old cached stylesheet might have left. */
   ready(function () {
     var el = document.querySelector(".shimmer"); if (!el) return;
-    /* The band is clipped to the glyphs, so its lightest stop IS the text colour for the
-       words under it. The old peak #EFC26A sits at 1.52:1 on the #F5F4F1 page and
-       #C9973B at 2.39:1 — both under the 3:1 large-text floor, so the sweep washed
-       words out as it passed. (The backgroundColor below cannot rescue them: the
-       gradient is opaque, so it paints over the ink rather than blending.) Peaking on
-       --accent #8A5A00 holds 5.39:1 at the brightest point. */
-    var stops = ["#1D1D1F 0%","#4A3410 38%","#6E4A05 46%","#8A5A00 50%","#6E4A05 54%","#4A3410 62%","#1D1D1F 100%"];
-    el.style.backgroundColor = "#1D1D1F";
-    /* Reduced motion used to keep the gradient and just stop moving it, parking a
-       permanent washed-out band across the middle of the biggest headline on the site.
-       The accommodation made it less readable. Now it renders flat ink. */
-    if (RM || typeof el.animate !== "function") {
-      el.style.backgroundImage = "none";
-      el.style.webkitTextFillColor = "";
-      el.style.color = "#1D1D1F";
-      return;
-    }
-    el.style.backgroundImage = "linear-gradient(105deg," + stops.join(",") + ")";
-    function sweep(){
-      var w = el.getBoundingClientRect().width || 600, band = w * 1.6;
-      el.style.backgroundSize = band + "px 100%";
-      var a = el.animate(
-        [{ backgroundPosition: (-band) + "px 0" }, { backgroundPosition: w + "px 0" }],
-        { duration: 1900, easing: "cubic-bezier(0.45,0,0.55,1)", fill: "forwards" });
-      a.onfinish = function(){ setTimeout(sweep, 1400); };
-    }
-    sweep();
+    el.style.backgroundImage = "none";
+    el.style.webkitTextFillColor = "";
+    el.style.color = "";
   });
 
   /* ---------- pp sticky bar — replaces the global nav while it's on ---------- */

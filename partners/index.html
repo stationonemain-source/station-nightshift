@@ -8,8 +8,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <!-- The site stylesheet is the source of truth for brand tokens (--bg, --ink,
      --accent, .btn, .wrap). Everything below only adds partner-portal parts
      that don't exist on the marketing site, built from those same tokens. -->
@@ -322,8 +321,11 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
    specificity than v5.css :root, so the site stylesheet always wins when it defines them) so
    any straggler var(--pay) still paints, and --card is declared defensively the same way. */
 html{--blue:var(--pay,#2563EB);--blue-d:var(--pay-d,#1D4ED8);--card:#FFFFFF;--pay:#2563EB;--pay-d:#1D4ED8}
-.btn.dark{background:var(--pay);color:var(--card)}
-.btn.dark:hover{background:var(--pay-d)}
+/* 2026-08-31 audit: --pay blue is the COMMERCE colour (buy buttons, cart). A sign-in
+   is not a payment; the portal's primary action now wears the documented dark-ground
+   gold (--accent-dk #EFC26A, 11.4:1 on this ground) instead of borrowing money-blue. */
+.btn.dark{background:#EFC26A;color:#0D1117}
+.btn.dark:hover{background:#E4B24E}
 
 /* 2026-08-22 audit fix PP-04: the product price column was white-space:nowrap inside a 1fr grid
    cell, which forced the card to 442px at 390px wide (overflow-x:clip made it unreachable).
@@ -2799,7 +2801,7 @@ $("pullLeadForm").addEventListener("submit",function(e){
   }).catch(function(){busy(f,false,"Pull leads");say(m,"Network error — try again.","err");});
 });
 
-// The book costs a GHL round trip, so it loads the first time you open the tab.
+// The book costs a CRM round trip, so it loads the first time you open the tab.
 $("appView").querySelectorAll(".tab").forEach(function(t){
   t.addEventListener("click",function(){
     if(t.dataset.tab==="book")loadBook();
