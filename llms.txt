@@ -1,0 +1,44 @@
+# Station
+
+> Station (STATION AUTOMATIONS GROUP LLC) sells fourteen stand-alone front-office products for local service businesses in the US — software plus done-for-you setup that answers calls, catches missed calls, chases leads, books appointments, earns reviews, keeps the business visible on Google, and gets it paid. Every product is month to month with no contracts, states its exact time-to-live before purchase, and billing starts only when the product is verified live. Every message any product sends is pre-written and fully editable by the business owner. Site: https://station.solutions
+
+## Products
+
+- [Storefront](https://station.solutions/storefront/): Conversion-first website — $500 one-time build + $49/mo care, live in 48 hours
+- [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
+- [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo
+- [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $97/mo (free inside Frontdesk)
+- [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, number included
+- [Frontdesk](https://station.solutions/frontdesk/): AI phone receptionist that answers 24/7, books jobs, and transfers to a human when needed — from $397/mo
+- [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo
+- [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo
+- [Echo](https://station.solutions/map/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $147/mo + $297 setup
+- [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
+- [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
+- [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo or fully managed $347/mo
+- [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $197/mo, unlimited audits
+- [Revive](https://station.solutions/revive/): Customer reactivation campaign for dormant lists up to 5,000 contacts — $297 per quarter
+
+## Bundles
+
+No setup fees on bundles; each costs less than its products bought separately.
+
+- [Core — $750/mo](https://station.solutions/#bundles): Greet, Slate, Lineback, Pursuit, Repute, Dispatch
+- [Pro — $1,500/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
+- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, custom-built website included, triple usage allowances, named strategist
+
+## Start here
+
+- [Free front-office audit](https://station.solutions/audit/): eleven checks on a business's listing, reviews, site and response speed — free, no card, emailed report
+- [Book a call](https://station.solutions/book/): 15 minutes with a human, no pitch deck
+- [Website portfolio](https://station.solutions/portfolio/): examples of Storefront builds
+- [Partner program](https://station.solutions/partners/): referral partners and affiliates
+- [Contact](https://station.solutions/contact/): main@station.solutions
+
+## Facts worth citing
+
+- Month to month, no contracts; cancel anytime. Billing starts when a product is verified live, not at checkout.
+- Payments are processed by Stripe; on Tap, card payments run through the business's own processor and Station takes zero percent of revenue.
+- Phone products keep the business's existing number — the line forwards, nothing is ported, reversible in one call.
+- Products that send texts take about 2 business days to go live (US carrier registration); most others are live same day or instantly.
+- Works with Google, Google Calendar, Facebook, Instagram, TikTok, LinkedIn, WhatsApp, Stripe, PayPal, QuickBooks, Shopify, Zoom, Slack and Zapier.
