@@ -223,7 +223,11 @@ footer{border-top:1px solid var(--line);padding:52px 0 44px;margin-top:70px}
 .f-brand p{color:var(--faint);font-size:13.5px;max-width:34ch;margin:12px 0 0}
 .f-legal{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:18px;flex-wrap:wrap;color:var(--faint);font-size:12px}
 .f-legal a{color:var(--faint)}
-html.js .rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease-out,transform .5s ease-out}
+/* 2026-08-31 audit: reveals used to fade from 0, so any renderer sampling mid-transition
+   (accessibility scanners, Lighthouse, social scrapers) measured ~1.2:1 text contrast on
+   whatever it caught mid-fade. Starting at .6 keeps the fade (the translate carries most
+   of the perceived motion) while the blended colour never drops below AA at any frame. */
+html.js .rv{opacity:.6;transform:translateY(16px);transition:opacity .5s ease-out,transform .5s ease-out}
 html.js .rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}}
 /* product page V3: sticky rail + flow */
