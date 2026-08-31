@@ -1379,6 +1379,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* the chat fab lives bottom-RIGHT, so the corner card never collides with it */
 @media(max-width:560px){
   #ck{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-width:none}
+  /* compact consent on phones: swap the paragraph for one accurate line (2026-08-31 audit) */
+  #ck .ck-long{display:none}
+  #ck .ck-short{display:inline!important}
 }
 
 

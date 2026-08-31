@@ -461,10 +461,17 @@
     el.setAttribute("role", "dialog");
     el.setAttribute("aria-label", "Cookie and advertising choices");
     el.innerHTML =
-      '<div class="ck-txt"><b>Cookies &amp; ads.</b> Essentials keep the site working. ' +
+      '<div class="ck-txt"><b>Cookies &amp; ads.</b> ' +
+      /* Desktop keeps the full explanation; on phones it covered ~40% of the viewport as the
+         very first impression (2026-08-31 audit), so small screens get one accurate line that
+         still names Meta advertising — the detail stays one tap away in the Cookie notice.
+         The short span is inline-hidden so pages that load this file without v5.css (the
+         generated /a/ audits) render exactly as before. */
+      '<span class="ck-long">Essentials keep the site working. ' +
       'Accept and we also turn on first-party analytics <b>and advertising</b> — that means the ' +
       'Meta&nbsp;Pixel, so we can show you Station ads on Facebook &amp; Instagram after your visit. ' +
-      'Your choice, and you can pick essentials only. ' +
+      'Your choice, and you can pick essentials only.</span> ' +
+      '<span class="ck-short" style="display:none">Accept adds first-party analytics &amp; Meta advertising; Deny keeps essentials only.</span> ' +
       '<a href="/legal/cookies.html" target="_blank" rel="noopener">Cookie notice</a> · ' +
       '<a href="/legal/privacy.html" target="_blank" rel="noopener">Privacy</a></div>' +
       '<div class="ck-actions">' +
