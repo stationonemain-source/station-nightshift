@@ -1896,7 +1896,7 @@ function loadLeads(){
 
 /* ---------------- BOOK OF BUSINESS ---------------- */
 var TIER={core:"Core",pro:"Pro",custom:"Custom"};
-var BOOK=[],BOOK_NOTES={};
+var BOOK=[],BOOK_NOTES={},BOOK_RATE=0;
 var bookCfg={
   id:"book",mount:"bookSheet",chips:"bookChips",csvName:"station-book-of-business",
   rows:BOOK,notes:BOOK_NOTES,
@@ -2138,6 +2138,7 @@ function loadBook(force){
     $("bkMrr").textContent=money(mrr);
     $("bkComm").textContent=money(d.commission_monthly);
     $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
+    BOOK_RATE=Number(d.rate_pct)||0;
     $("bookBasis").textContent="Basis: "+basisText(d.basis);
     if(d.track!=="partner"){
           // Scout: the bounty ledger replaces the client book entirely — and a
@@ -2762,8 +2763,22 @@ $("addClientForm").addEventListener("submit",function(e){
       if(!d.ok){say(m,d.error||"Could not add that client.");return;}
       say(m,d.already?"They were already in your book — details refreshed."
                      :"Added — "+((d.client&&d.client.name)||"they")+" is in your book now.","ok");
+      /* The engine has tagged them, but GHL's search index (which book_list
+         reads) lags tag writes by a few minutes — a forced reload here would
+         draw the book WITHOUT the client and look like the add failed. So the
+         row is drawn from the engine's own response instead; the next fresh
+         page load reads the caught-up index. */
+      var c=d.client||{};
+      for(var i=BOOK.length-1;i>=0;i--){if(BOOK[i].email===c.email){BOOK.splice(i,1);}}
+      var mrr={core:750,pro:1500,custom:2500}[c.tier]||0;
+      BOOK.push({id:c.id||c.email,name:c.name||c.email,company:c.company||"",
+        email:c.email,phone:c.phone||"",tier:c.tier,
+        since:new Date().toISOString().slice(0,10),qualified:false,
+        mrr:mrr,commission:Math.round(mrr*BOOK_RATE/100)});
+      $("bkClients").textContent=BOOK.length;
+      $("bkMrr").textContent=money(BOOK.reduce(function(s,x){return s+(Number(x.mrr)||0);},0));
+      renderSheet(bookCfg);
       f.reset();
-      loadBook(true);
       setTimeout(function(){
         $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";clear($("addClientMsg"));
       },2200);
