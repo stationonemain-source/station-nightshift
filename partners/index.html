@@ -717,9 +717,33 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           <p class="note" style="margin-bottom:0" id="bookIntro">Every client assigned to you — the ones you closed and the warm leads Station distributed to you. They stay yours for as long as they stay a client: upsells, general questions, account decisions. Keep the running record of each relationship here so nothing lives only in your head.</p>
         </div>
 
+        <div class="addrow hide" id="addClientBox">
+          <form id="addClientForm" novalidate>
+            <div class="grid">
+              <div class="field"><label>Client name</label><input name="name" required placeholder="Dana Reeve"></div>
+              <div class="field"><label>Email</label><input name="email" type="email" required placeholder="dana@katypool.co"></div>
+              <div class="field"><label>Company</label><input name="company" placeholder="Katy Pool Co"></div>
+              <div class="field"><label>Phone</label><input name="phone" placeholder="(281) 555-0142"></div>
+              <div class="field"><label>Plan</label>
+                <select name="tier">
+                  <option value="core">Core — $750/mo</option>
+                  <option value="pro">Pro — $1,500/mo</option>
+                  <option value="custom">Custom — $2,500/mo</option>
+                </select></div>
+            </div>
+            <div class="actions" style="margin-top:16px">
+              <button class="btn dark sm" type="submit"><span class="t">Add to my book</span></button>
+              <button class="btn lite sm" type="button" id="addClientCancel">Cancel</button>
+            </div>
+            <p class="note" style="margin-top:10px">For a client you closed yourself. They go straight into your book — tagged to you in Station's system, on your cut once their invoices clear. Warm leads Station distributes to you still land here automatically.</p>
+            <div class="msg" id="addClientMsg"></div>
+          </form>
+        </div>
+
         <div class="sheet-head">
           <div class="grow"><input class="srch" id="bookQ" placeholder="Filter — client, email, phone, plan…"></div>
           <div class="chips" id="bookChips"></div>
+          <button class="btn dark sm hide" id="addClientBtn">Add client</button>
           <button class="btn lite sm" id="bookCsv">Export CSV</button>
         </div>
         <div class="sheet-scroll"><table class="sheet" id="bookSheet"></table></div>
@@ -1880,7 +1904,7 @@ var bookCfg={
   subject:function(r){return "client:"+(r.email||r.id);},
   label:function(r){return r.name||r.email||"Client";},
   searchExtra:function(r){return r.company||"";},
-  empty:"No clients in your book yet. A client lands here once they're live and tagged to you — the ones you close, and the warm leads Station distributes to you.",
+  empty:"No clients in your book yet. Close one and put them in with the Add client button above — or wait for Station to distribute you a warm lead; those land here automatically.",
   filters:[
     {k:"core",label:"Core",fn:function(r){return r.tier==="core";}},
     {k:"pro",label:"Pro",fn:function(r){return r.tier==="pro";}},
@@ -2116,9 +2140,14 @@ function loadBook(force){
     $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
     $("bookBasis").textContent="Basis: "+basisText(d.basis);
     if(d.track!=="partner"){
-          // Scout: the bounty ledger replaces the client book entirely.
+          // Scout: the bounty ledger replaces the client book entirely — and a
+          // Scout never adds clients (the engine refuses client_add for them;
+          // this is the cosmetic half).
+          var acb=$("addClientBtn"); if(acb)acb.classList.add("hide");
+          var acx=$("addClientBox"); if(acx)acx.classList.add("hide");
           renderScoutBounties(me||{}); return;
         }
+        var acb2=$("addClientBtn"); if(acb2)acb2.classList.remove("hide");
         bookActiveCfg=bookCfg; renderSheet(bookCfg);
   }).catch(function(){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";});
 }
@@ -2709,6 +2738,37 @@ $("addLeadBtn").addEventListener("click",function(){
 });
 $("addLeadCancel").addEventListener("click",function(){
   $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";clear($("addLeadMsg"));});
+
+/* ---- add-client row: a Partner puts a closed client straight into their own
+   book. The engine (client_add) re-checks everything server-side: partner
+   track only, and a contact already tagged to another partner is refused. */
+$("addClientBtn").addEventListener("click",function(){
+  var box=$("addClientBox"),showing=!box.classList.contains("hide");
+  box.classList.toggle("hide",showing);
+  this.textContent=showing?"Add client":"Close";
+  if(!showing)box.querySelector("[name=name]").focus();
+});
+$("addClientCancel").addEventListener("click",function(){
+  $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";clear($("addClientMsg"));});
+$("addClientForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  var f=e.target,m=$("addClientMsg");clear(m);
+  if(!f.name.value.trim()||!f.email.value.trim()){say(m,"Name and email are the two things we need.");return;}
+  busy(f,true);
+  post({action:"client_add",token:token,name:f.name.value.trim(),email:f.email.value.trim(),
+        company:f.company.value.trim(),phone:f.phone.value.trim(),tier:f.tier.value})
+    .then(function(d){
+      busy(f,false,"Add to my book");
+      if(!d.ok){say(m,d.error||"Could not add that client.");return;}
+      say(m,d.already?"They were already in your book — details refreshed."
+                     :"Added — "+((d.client&&d.client.name)||"they")+" is in your book now.","ok");
+      f.reset();
+      loadBook(true);
+      setTimeout(function(){
+        $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";clear($("addClientMsg"));
+      },2200);
+    }).catch(function(){busy(f,false,"Add to my book");say(m,"Network error — try again.");});
+});
 
 /* Fill the row from the business itself rather than making someone type it. Foundry
    resolves the business, reads their site and prices the biggest gap -- the three
