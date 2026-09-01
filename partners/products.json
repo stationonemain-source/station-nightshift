@@ -3,13 +3,15 @@
   "_pricing_note": "Prices verified 2026-08-11 against BOTH station.solutions and active Stripe prices. Tap is $47 (the $147 price is archived in Stripe); Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py — its manifest was built 2026-08-01 and still carries two archived prices.",
   "_bounty_note": "Bounty amounts come from the engine's bounty_table, which mirrors Partner Agreement v4 section 4.2. A bounty vests when the client is ACTUALLY BILLED — never during a free trial. Changing an amount is a contract change, not a tweak.",
   "_trial": "Free trial is 7 days standard, 14 available on request, 30 maximum. Clients provision in full during a trial; the bounty simply does not vest until real billing starts.",
-  "updated": "2026-08-11",
+  "updated": "2026-09-01",
   "products": [
     {
       "sku": "storefront",
       "name": "Storefront — Premium",
       "plain": "A real website built to book the job",
       "price": "$500 one-time build + $49/mo Care",
+      "mrr": 49,
+      "setup": 500,
       "bounty": 250,
       "selling_points": [
         "It is built to get the phone ringing, not to win a design award — every page pushes toward a call or a booking.",
@@ -39,6 +41,8 @@
       "name": "Storefront — Custom",
       "plain": "A bespoke website, designed from scratch",
       "price": "$1,250 one-time build + $49/mo Care",
+      "mrr": 49,
+      "setup": 1250,
       "bounty": 500,
       "selling_points": [
         "Designed from nothing to their brand — no template underneath it.",
@@ -68,6 +72,8 @@
       "name": "Storefront — Enterprise",
       "plain": "A multi-location or large-scale website build",
       "price": "$10,000 one-time build + $49/mo Care",
+      "mrr": 49,
+      "setup": 10000,
       "bounty": 2000,
       "selling_points": [
         "Built for multiple locations, large service catalogues or booking that has to integrate with existing systems.",
@@ -97,6 +103,9 @@
       "name": "Greet",
       "plain": "AI chat on their website that answers and captures every visitor",
       "price": "$79/mo (100 chats) · $149 busy · $249 high volume",
+      "mrr": 79,
+      "setup": 0,
+      "from_tier": true,
       "bounty": 50,
       "selling_points": [
         "Answers at 11pm on a Sunday, which is when half of website visitors actually browse.",
@@ -127,6 +136,9 @@
       "name": "Slate",
       "plain": "Customers book themselves, and reminders make sure they turn up",
       "price": "$97/mo (300 reminders) · $147 busy",
+      "mrr": 97,
+      "setup": 0,
+      "from_tier": true,
       "bounty": 50,
       "selling_points": [
         "Kills the back-and-forth — they pick a slot from real availability instead of six texts agreeing a time.",
@@ -157,6 +169,9 @@
       "name": "Lineback",
       "plain": "Every missed call gets a text back within seconds",
       "price": "$197/mo (500 texts) · $297 busy",
+      "mrr": 197,
+      "setup": 0,
+      "from_tier": true,
       "bounty": 100,
       "selling_points": [
         "A missed call is usually a lost job — the caller rings the next name on the list within two minutes.",
@@ -186,6 +201,9 @@
       "name": "Frontdesk",
       "plain": "An AI receptionist that answers every call 24/7 and books the job",
       "price": "$397/mo (500 min) · $597 busy · $897 high volume",
+      "mrr": 397,
+      "setup": 0,
+      "from_tier": true,
       "bounty": 100,
       "selling_points": [
         "Answers every call, day or night, without hiring anyone.",
@@ -217,6 +235,8 @@
       "name": "Pursuit",
       "plain": "Every lead followed up by text and email until they reply or book",
       "price": "$247/mo (1,000 texts)",
+      "mrr": 247,
+      "setup": 0,
       "bounty": 100,
       "selling_points": [
         "Most businesses follow up once and quietly give up; the booking usually comes on the third or fourth touch.",
@@ -246,6 +266,8 @@
       "name": "Repute",
       "plain": "Asks every happy customer for a review, and replies to the ones that come in",
       "price": "$197/mo",
+      "mrr": 197,
+      "setup": 0,
       "bounty": 100,
       "selling_points": [
         "Reviews are the first thing a stranger checks, and the business with more of them wins the call.",
@@ -276,6 +298,8 @@
       "name": "Echo",
       "plain": "Their Google listing managed properly so they show up in the local map results",
       "price": "$297 setup + $147/mo",
+      "mrr": 147,
+      "setup": 297,
       "bounty": 100,
       "selling_points": [
         "The map pack is where local buying decisions actually happen, above the website results.",
@@ -306,6 +330,8 @@
       "name": "Dispatch",
       "plain": "Email marketing to their customer list, self-serve",
       "price": "$94/mo",
+      "mrr": 94,
+      "setup": 0,
       "bounty": 50,
       "selling_points": [
         "Their past customers are the cheapest work they will ever get — they already trust them.",
@@ -336,6 +362,8 @@
       "name": "Revive",
       "plain": "A one-off campaign to bring back customers who have gone quiet",
       "price": "$497 one-time",
+      "mrr": 0,
+      "setup": 497,
       "bounty": 100,
       "selling_points": [
         "Fastest money in the whole catalogue — these people already bought once.",
@@ -366,6 +394,8 @@
       "name": "Radar",
       "plain": "Watches their competitors and their local search position",
       "price": "$197/mo",
+      "mrr": 197,
+      "setup": 0,
       "bounty": 100,
       "selling_points": [
         "They find out when a competitor changes prices or starts advertising, instead of noticing months later.",
@@ -395,6 +425,8 @@
       "name": "Dial",
       "plain": "A proper business number with texting",
       "price": "$47/mo",
+      "mrr": 47,
+      "setup": 0,
       "bounty": 25,
       "selling_points": [
         "Their personal mobile stops being the business line — work stays at work.",
@@ -425,6 +457,8 @@
       "name": "Tap",
       "plain": "Taking payments, in person and online",
       "price": "$47/mo",
+      "mrr": 47,
+      "setup": 0,
       "bounty": 25,
       "selling_points": [
         "Getting paid on the spot beats invoicing and waiting three weeks.",
@@ -454,6 +488,8 @@
       "name": "Marquee",
       "plain": "Social content posted for them, self-serve",
       "price": "$197/mo",
+      "mrr": 197,
+      "setup": 0,
       "bounty": 100,
       "selling_points": [
         "Their profiles stop looking abandoned, which is what a stranger checks after the reviews.",
@@ -483,6 +519,8 @@
       "name": "Mobile App",
       "plain": "A branded mobile app, included free with every product",
       "price": "Free — included, not sold separately",
+      "mrr": 0,
+      "setup": 0,
       "bounty": 0,
       "selling_points": [
         "It is free, so it is a genuine sweetener rather than an upsell.",
@@ -506,5 +544,29 @@
         "body": "Hi {first_name},\n\nOne thing I did not mention: the branded mobile app is included at no extra cost with what we talked about.\n\nYour business, your icon, on your customers' home screens. We do not sell it separately — it just comes with it.\n\nWant me to include it when I set the rest up?"
       }
     }
-  ]
+  ],
+  "bundles": [
+    {
+      "key": "core",
+      "name": "Core",
+      "mrr": 750,
+      "setup": 0,
+      "plain": "The starter bundle"
+    },
+    {
+      "key": "pro",
+      "name": "Pro",
+      "mrr": 1500,
+      "setup": 0,
+      "plain": "The full stack for a busy operator"
+    },
+    {
+      "key": "custom",
+      "name": "Custom",
+      "mrr": 2500,
+      "setup": 0,
+      "plain": "Built to what the client actually needs"
+    }
+  ],
+  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has volume tiers, flagged from_tier). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the number together. Bundles carry no setup fee."
 }
