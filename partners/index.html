@@ -271,6 +271,14 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 .pk input{position:absolute;opacity:0;width:0;height:0;margin:0}
 .pk .pk-n{font-weight:600}
 .pk .pk-p{color:var(--faint);font-variant-numeric:tabular-nums}
+/* Volume tier. Hidden until the product is ticked, so 17 dropdowns don't shout
+   at a partner picking one thing. A <select> is interactive content, so clicking
+   it does not activate the label it sits in — the chip stays ticked. */
+.pk .pk-t{display:none;background:transparent;border:0;padding:0 2px;cursor:pointer;
+  color:var(--ink);font:inherit;font-variant-numeric:tabular-nums;max-width:170px}
+.pk .pk-t:focus{outline:none;text-decoration:underline}
+.pk[data-on] .pk-t{display:inline-block}
+.pk[data-on] .pk-p.tiered{display:none}
 /* data-on rather than :has() — the portal already speaks data-on for selected
    state (tabs, slots, inbox rows) and it needs no modern-selector support. */
 .pk[data-on]{border-color:var(--pay);background:rgba(91,157,245,.10)}
@@ -1930,10 +1938,15 @@ var TIER={core:"Core",pro:"Pro",custom:"Custom",products:"Products"};
 var BOOK=[],BOOK_NOTES={},BOOK_RATE=0;
 /* One plain-English string for what a client is on — used by the sheet cell's
    sort key, its CSV column and the filter box, so the three cannot disagree. */
+function prodLabel(p){
+  /* Name the volume tier only when it isn't the base one — "Frontdesk" reads
+     better than "Frontdesk (500 min)" for the common case. */
+  return (p.name||p.sku)+((p.plan&&p.plan!=="base")?(" ("+(p.plan_label||p.plan)+")"):"");
+}
 function planLabel(r){
   var bits=[];
   if(r.bundle){bits.push((TIER[r.bundle]||r.bundle)+" bundle");}
-  (r.products||[]).forEach(function(p){bits.push(p.name||p.sku);});
+  (r.products||[]).forEach(function(p){bits.push(prodLabel(p));});
   return bits.join(" + ")||(TIER[r.tier]||r.tier||"");
 }
 var bookCfg={
@@ -1962,7 +1975,7 @@ var bookCfg={
        cell leads with whichever is the headline and names the rest underneath. */
     {k:"tier",h:"On",cls:"dim",get:function(r){return planLabel(r);},
       html:function(r){
-        var ps=(r.products||[]).map(function(p){return p.name||p.sku;});
+        var ps=(r.products||[]).map(prodLabel);
         var head=r.bundle?((TIER[r.bundle]||r.bundle)+" bundle")
                          :(ps.length?(ps.length+" product"+(ps.length>1?"s":"")):"—");
         return esc(head)+(ps.length?'<div class="sub">'+esc(ps.join(", "))+'</div>':"");},
@@ -2800,14 +2813,34 @@ $("addLeadCancel").addEventListener("click",function(){
    prices against, so the picker cannot drift from what Station actually sells. */
 var PICK_BUNDLES=null;
 function pkMoney(n){return "$"+Number(n||0).toLocaleString("en-US");}
-function pkChip(kind,key,name,price,from){
+function pkChip(kind,key,name,price,plans){
+  /* A product that ships at several volume tiers carries a picker for them; it
+     only shows once the chip is ticked (see .pk[data-on] .pk-t). */
+  var sel="";
+  if(plans&&plans.length>1){
+    sel='<select class="pk-t" data-tier="'+esc(key)+'">'+plans.map(function(p){
+      return '<option value="'+esc(p.key)+'">'+esc(p.label)+' — '+pkMoney(p.mrr)+'/mo</option>';
+    }).join("")+'</select>';
+  }
   return '<label class="pk"><input type="checkbox" data-'+kind+'="'+esc(key)+'">'+
     '<span class="pk-n">'+esc(name)+'</span>'+
-    '<span class="pk-p">'+esc(price)+'</span></label>';
+    '<span class="pk-p'+(sel?" tiered":"")+'">'+esc(price)+'</span>'+sel+'</label>';
 }
+/* What the partner picked, each with the tier they chose. The engine validates
+   both again and refuses a tier a product does not have. */
 function pickedSkus(){
   return Array.prototype.slice.call(document.querySelectorAll('#pickProducts input:checked'))
-    .map(function(i){return i.getAttribute("data-sku");});
+    .map(function(i){
+      var sku=i.getAttribute("data-sku");
+      var sel=i.parentNode.querySelector(".pk-t");
+      return {sku:sku,plan:(sel?sel.value:"base")};
+    });
+}
+function planMrrOf(sku,plan){
+  var p=(PRODUCT_BY_SKU||{})[sku];
+  if(!p)return 0;
+  if(p.plans){for(var i=0;i<p.plans.length;i++){if(p.plans[i].key===plan)return p.plans[i].mrr;}}
+  return Number(p.mrr)||0;
 }
 function pickedBundle(){
   var b=document.querySelector('#pickBundles input:checked');
@@ -2818,9 +2851,13 @@ function paintPickTotal(){
   var mrr=0,setup=0,bits=[];
   var bk=pickedBundle();
   if(bk&&PICK_BUNDLES&&PICK_BUNDLES[bk]){mrr+=PICK_BUNDLES[bk].mrr;bits.push(PICK_BUNDLES[bk].name+" bundle");}
-  pickedSkus().forEach(function(k){
-    var p=(PRODUCT_BY_SKU||{})[k];if(!p)return;
-    mrr+=Number(p.mrr)||0;setup+=Number(p.setup)||0;bits.push(p.name);
+  pickedSkus().forEach(function(x){
+    var p=(PRODUCT_BY_SKU||{})[x.sku];if(!p)return;
+    mrr+=planMrrOf(x.sku,x.plan);setup+=Number(p.setup)||0;
+    var lab="";
+    if(p.plans&&x.plan!=="base"){
+      for(var i=0;i<p.plans.length;i++){if(p.plans[i].key===x.plan)lab=p.plans[i].label;}}
+    bits.push(p.name+(lab?" ("+lab+")":""));
   });
   if(!bits.length){
     t.innerHTML='<span>Nothing picked yet — tick what they pay for.</span>';return;}
@@ -2836,7 +2873,9 @@ function paintPicker(){
   if(pb.dataset.done)return;
   PRODUCT_BY_SKU={};
   PRODUCTS.forEach(function(p){PRODUCT_BY_SKU[p.sku]={name:p.name,mrr:Number(p.mrr)||0,
-    setup:Number(p.setup)||0,from_tier:!!p.from_tier};});
+    setup:Number(p.setup)||0,from_tier:!!p.from_tier,
+    plans:((p.plans&&p.plans.length>1)?p.plans.map(function(x){
+      return {key:x.key,label:x.label,mrr:Number(x.mrr)||0};}):null)};});
   pb.innerHTML=Object.keys(PICK_BUNDLES||{}).map(function(k){
     return pkChip("bundle",k,PICK_BUNDLES[k].name,pkMoney(PICK_BUNDLES[k].mrr)+"/mo");
   }).join("")||'<span class="hint">No bundles in the catalogue.</span>';
@@ -2846,7 +2885,7 @@ function paintPicker(){
     else if(m){price=(p.from_tier?"from ":"")+pkMoney(m)+"/mo";}
     else if(s){price=pkMoney(s)+" once";}
     else{price="free";}
-    return pkChip("sku",p.sku,p.name,price);
+    return pkChip("sku",p.sku,p.name,price,(PRODUCT_BY_SKU[p.sku]||{}).plans);
   }).join("");
   /* Bundles behave like radios (a client is on at most one) but stay clickable
      off, which a real <input type=radio> cannot do. */
@@ -2858,7 +2897,17 @@ function paintPicker(){
     paintPickTotal();
   });
   pp.addEventListener("change",function(e){
-    var l=e.target.closest(".pk");if(l)l.toggleAttribute("data-on",e.target.checked);
+    /* The tier <select> fires change here too, and it has no .checked — passing
+       that undefined to toggleAttribute would switch the chip straight back off. */
+    if(e.target.type==="checkbox"){
+      var l=e.target.closest(".pk");
+      if(l){
+        l.toggleAttribute("data-on",e.target.checked);
+        // Unticking clears the tier, so re-ticking never carries a stale one.
+        var t=l.querySelector(".pk-t");
+        if(t&&!e.target.checked)t.selectedIndex=0;
+      }
+    }
     paintPickTotal();
   });
   pb.dataset.done="1";
@@ -2867,6 +2916,7 @@ function paintPicker(){
 function resetPicker(){
   document.querySelectorAll("#pickBundles input,#pickProducts input").forEach(function(i){i.checked=false;});
   document.querySelectorAll("#pickBundles .pk,#pickProducts .pk").forEach(function(l){l.removeAttribute("data-on");});
+  document.querySelectorAll("#pickProducts .pk-t").forEach(function(s){s.selectedIndex=0;});
   paintPickTotal();
 }
 /* The picker needs products.json, which the Products tab also loads. Fetch it
