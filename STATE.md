@@ -23,9 +23,13 @@ the push.
 ## Position (2026-09-01)
 
 - Partner portal: **Add client** shipped — Partners put closed clients straight
-  into their own book (engine v4.26 `client_add`). ⚠️ GHL search lags tag
-  writes ~5 min; the portal draws just-added rows from the engine response —
-  never force-reload the book right after a write.
+  into their own book (engine v4.26 `client_add`), and a client is a **stack**
+  of any of the 17 catalogue products, optionally on a bundle (v4.27).
+  ⚠️ GHL search lags tag writes ~5 min; the portal draws just-added rows from
+  the engine response — never force-reload the book right after a write.
+- `partners/products.json` is now the price authority for the portal AND the
+  engine (machine-readable `mrr`/`setup` per product + `bundles`). It must be
+  deployed BEFORE any engine change that prices against it.
 - GEO layer (llms.txt + structured data) live since `9e1b4b6`.
 - Site visual audit clean as of 08-31 (see memory `station-site-visual-audit-2026-08-31`).
 
