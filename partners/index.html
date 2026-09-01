@@ -255,6 +255,32 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 @media(max-width:900px){.addrow .grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.addrow .grid{grid-template-columns:1fr}}
 .addrow .field{margin-bottom:0}
+/* Product picker — a client is a stack, so every product is a toggle rather than
+   one entry in a dropdown. Same visual family as the sheet's filter chips. */
+.pick{margin-top:18px}
+.pick-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:9px}
+.pick-h label{display:block;font-family:var(--fm);font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin:0}
+.pick-h .hint{font-size:13px;color:var(--faint);margin:0}
+.pick-row{display:flex;flex-wrap:wrap;gap:8px}
+.pk{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;
+  padding:8px 14px;font-size:13px;color:var(--ink);line-height:1.2;
+  transition:border-color .12s,background .12s}
+.pk:hover{border-color:var(--faint)}
+.pk input{position:absolute;opacity:0;width:0;height:0;margin:0}
+.pk .pk-n{font-weight:600}
+.pk .pk-p{color:var(--faint);font-variant-numeric:tabular-nums}
+/* data-on rather than :has() — the portal already speaks data-on for selected
+   state (tabs, slots, inbox rows) and it needs no modern-selector support. */
+.pk[data-on]{border-color:var(--pay);background:rgba(91,157,245,.10)}
+.pk[data-on] .pk-p{color:var(--ink)}
+.pk:focus-within{outline:2px solid var(--pay);outline-offset:2px}
+.pick-total{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;
+  font-size:14px;color:var(--faint)}
+.pick-total b{color:var(--ink);font-variant-numeric:tabular-nums}
+.pick-total .cut b{color:var(--pay)}
 .p-foot{border-top:1px solid var(--line);margin-top:52px;padding:26px 0 60px;color:var(--faint);font-size:13px}
 .spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.35);
   border-top-color:var(--card);border-radius:50%;animation:sp .7s linear infinite}
@@ -724,18 +750,23 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
               <div class="field"><label>Email</label><input name="email" type="email" required placeholder="dana@katypool.co"></div>
               <div class="field"><label>Company</label><input name="company" placeholder="Katy Pool Co"></div>
               <div class="field"><label>Phone</label><input name="phone" placeholder="(281) 555-0142"></div>
-              <div class="field"><label>Plan</label>
-                <select name="tier">
-                  <option value="core">Core — $750/mo</option>
-                  <option value="pro">Pro — $1,500/mo</option>
-                  <option value="custom">Custom — $2,500/mo</option>
-                </select></div>
             </div>
+
+            <div class="pick">
+              <div class="pick-h"><label>Bundle</label><span class="hint">If they're on one. Otherwise leave it on None and tick the products.</span></div>
+              <div class="pick-row" id="pickBundles"></div>
+            </div>
+            <div class="pick">
+              <div class="pick-h"><label>Products</label><span class="hint">Tick everything they're paying for — they stack.</span></div>
+              <div class="pick-row" id="pickProducts"></div>
+            </div>
+            <div class="pick-total" id="pickTotal"></div>
+
             <div class="actions" style="margin-top:16px">
               <button class="btn dark sm" type="submit"><span class="t">Add to my book</span></button>
               <button class="btn lite sm" type="button" id="addClientCancel">Cancel</button>
             </div>
-            <p class="note" style="margin-top:10px">For a client you closed yourself. They go straight into your book — tagged to you in Station's system, on your cut once their invoices clear. Warm leads Station distributes to you still land here automatically.</p>
+            <p class="note" style="margin-top:10px">For a client you closed yourself. They go straight into your book — tagged to you in Station's system, on your cut once their invoices clear. Warm leads Station distributes to you still land here automatically. To record an upsell later, add the same client again with the extra product ticked.</p>
             <div class="msg" id="addClientMsg"></div>
           </form>
         </div>
@@ -1895,20 +1926,29 @@ function loadLeads(){
 }
 
 /* ---------------- BOOK OF BUSINESS ---------------- */
-var TIER={core:"Core",pro:"Pro",custom:"Custom"};
+var TIER={core:"Core",pro:"Pro",custom:"Custom",products:"Products"};
 var BOOK=[],BOOK_NOTES={},BOOK_RATE=0;
+/* One plain-English string for what a client is on — used by the sheet cell's
+   sort key, its CSV column and the filter box, so the three cannot disagree. */
+function planLabel(r){
+  var bits=[];
+  if(r.bundle){bits.push((TIER[r.bundle]||r.bundle)+" bundle");}
+  (r.products||[]).forEach(function(p){bits.push(p.name||p.sku);});
+  return bits.join(" + ")||(TIER[r.tier]||r.tier||"");
+}
 var bookCfg={
   id:"book",mount:"bookSheet",chips:"bookChips",csvName:"station-book-of-business",
   rows:BOOK,notes:BOOK_NOTES,
   key:function(r){return r.email||r.id;},
   subject:function(r){return "client:"+(r.email||r.id);},
   label:function(r){return r.name||r.email||"Client";},
-  searchExtra:function(r){return r.company||"";},
+  searchExtra:function(r){return (r.company||"")+" "+planLabel(r);},
   empty:"No clients in your book yet. Close one and put them in with the Add client button above — or wait for Station to distribute you a warm lead; those land here automatically.",
   filters:[
-    {k:"core",label:"Core",fn:function(r){return r.tier==="core";}},
-    {k:"pro",label:"Pro",fn:function(r){return r.tier==="pro";}},
-    {k:"custom",label:"Custom",fn:function(r){return r.tier==="custom";}},
+    {k:"core",label:"Core",fn:function(r){return r.bundle==="core";}},
+    {k:"pro",label:"Pro",fn:function(r){return r.bundle==="pro";}},
+    {k:"custom",label:"Custom",fn:function(r){return r.bundle==="custom";}},
+    {k:"products",label:"À la carte",fn:function(r){return !r.bundle&&(r.products||[]).length>0;}},
     {k:"new",label:"Inside 60d",fn:function(r){return !r.qualified;}}
   ],
   cols:[
@@ -1918,11 +1958,21 @@ var bookCfg={
       return r.email?'<a class="cell" href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>':'<span class="sub">—</span>';}},
     {k:"phone",h:"Phone",html:function(r){
       return r.phone?'<a class="cell" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>':'<span class="sub">—</span>';}},
-    {k:"tier",h:"Plan",cls:"dim",get:function(r){return TIER[r.tier]||r.tier||"";}},
+    /* A client is a stack: an optional bundle plus any number of products. The
+       cell leads with whichever is the headline and names the rest underneath. */
+    {k:"tier",h:"On",cls:"dim",get:function(r){return planLabel(r);},
+      html:function(r){
+        var ps=(r.products||[]).map(function(p){return p.name||p.sku;});
+        var head=r.bundle?((TIER[r.bundle]||r.bundle)+" bundle")
+                         :(ps.length?(ps.length+" product"+(ps.length>1?"s":"")):"—");
+        return esc(head)+(ps.length?'<div class="sub">'+esc(ps.join(", "))+'</div>':"");},
+      csv:function(r){return planLabel(r);}},
     {k:"mrr",h:"They pay / mo",cls:"num",get:function(r){return Number(r.mrr)||0;},
-      html:function(r){return money(r.mrr);},csv:function(r){return r.mrr||0;}},
+      html:function(r){return r.mrr==null?'<span class="sub">—</span>':money(r.mrr);},
+      csv:function(r){return r.mrr==null?"":r.mrr;}},
     {k:"commission",h:"Your cut / mo",cls:"num",get:function(r){return Number(r.commission)||0;},
-      html:function(r){return '<b>'+money(r.commission)+'</b>';},csv:function(r){return r.commission||0;}},
+      html:function(r){return r.commission==null?'<span class="sub">—</span>':'<b>'+money(r.commission)+'</b>';},
+      csv:function(r){return r.commission==null?"":r.commission;}},
     {k:"since",h:"Client since",cls:"dim",get:function(r){return r.since||"";},
       html:function(r){return r.since?esc(r.since):'<span class="sub">—</span>';}},
     {k:"qualified",h:"Standing",get:function(r){return r.qualified?"Established":"Inside 60d";},
@@ -2742,22 +2792,121 @@ $("addLeadCancel").addEventListener("click",function(){
 
 /* ---- add-client row: a Partner puts a closed client straight into their own
    book. The engine (client_add) re-checks everything server-side: partner
-   track only, and a contact already tagged to another partner is refused. */
+   track only, and a contact already tagged to another partner is refused.
+
+   A client is a STACK — any number of products, optionally on top of a bundle —
+   so every product is a toggle rather than one entry in a dropdown. The list is
+   built from the SAME products.json the Products tab renders and the engine
+   prices against, so the picker cannot drift from what Station actually sells. */
+var PICK_BUNDLES=null;
+function pkMoney(n){return "$"+Number(n||0).toLocaleString("en-US");}
+function pkChip(kind,key,name,price,from){
+  return '<label class="pk"><input type="checkbox" data-'+kind+'="'+esc(key)+'">'+
+    '<span class="pk-n">'+esc(name)+'</span>'+
+    '<span class="pk-p">'+esc(price)+'</span></label>';
+}
+function pickedSkus(){
+  return Array.prototype.slice.call(document.querySelectorAll('#pickProducts input:checked'))
+    .map(function(i){return i.getAttribute("data-sku");});
+}
+function pickedBundle(){
+  var b=document.querySelector('#pickBundles input:checked');
+  return b?b.getAttribute("data-bundle"):"";
+}
+function paintPickTotal(){
+  var t=$("pickTotal");if(!t)return;
+  var mrr=0,setup=0,bits=[];
+  var bk=pickedBundle();
+  if(bk&&PICK_BUNDLES&&PICK_BUNDLES[bk]){mrr+=PICK_BUNDLES[bk].mrr;bits.push(PICK_BUNDLES[bk].name+" bundle");}
+  pickedSkus().forEach(function(k){
+    var p=(PRODUCT_BY_SKU||{})[k];if(!p)return;
+    mrr+=Number(p.mrr)||0;setup+=Number(p.setup)||0;bits.push(p.name);
+  });
+  if(!bits.length){
+    t.innerHTML='<span>Nothing picked yet — tick what they pay for.</span>';return;}
+  t.innerHTML='<span>'+esc(bits.join(" + "))+'</span>'+
+    '<span>They pay <b>'+pkMoney(mrr)+'</b>/mo</span>'+
+    (setup?'<span>plus <b>'+pkMoney(setup)+'</b> one-time</span>':'')+
+    '<span class="cut">Your cut <b>'+pkMoney(Math.round(mrr*BOOK_RATE/100))+'</b>/mo</span>';
+}
+var PRODUCT_BY_SKU=null;
+function paintPicker(){
+  var pb=$("pickBundles"),pp=$("pickProducts");
+  if(!pb||!pp||!PRODUCTS)return;
+  if(pb.dataset.done)return;
+  PRODUCT_BY_SKU={};
+  PRODUCTS.forEach(function(p){PRODUCT_BY_SKU[p.sku]={name:p.name,mrr:Number(p.mrr)||0,
+    setup:Number(p.setup)||0,from_tier:!!p.from_tier};});
+  pb.innerHTML=Object.keys(PICK_BUNDLES||{}).map(function(k){
+    return pkChip("bundle",k,PICK_BUNDLES[k].name,pkMoney(PICK_BUNDLES[k].mrr)+"/mo");
+  }).join("")||'<span class="hint">No bundles in the catalogue.</span>';
+  pp.innerHTML=PRODUCTS.map(function(p){
+    var m=Number(p.mrr)||0,s=Number(p.setup)||0,price;
+    if(m&&s){price=pkMoney(s)+" + "+pkMoney(m)+"/mo";}
+    else if(m){price=(p.from_tier?"from ":"")+pkMoney(m)+"/mo";}
+    else if(s){price=pkMoney(s)+" once";}
+    else{price="free";}
+    return pkChip("sku",p.sku,p.name,price);
+  }).join("");
+  /* Bundles behave like radios (a client is on at most one) but stay clickable
+     off, which a real <input type=radio> cannot do. */
+  pb.addEventListener("change",function(e){
+    var me=e.target;
+    if(me.checked){pb.querySelectorAll("input").forEach(function(i){if(i!==me)i.checked=false;});}
+    pb.querySelectorAll(".pk").forEach(function(l){
+      l.toggleAttribute("data-on",!!l.querySelector("input").checked);});
+    paintPickTotal();
+  });
+  pp.addEventListener("change",function(e){
+    var l=e.target.closest(".pk");if(l)l.toggleAttribute("data-on",e.target.checked);
+    paintPickTotal();
+  });
+  pb.dataset.done="1";
+  paintPickTotal();
+}
+function resetPicker(){
+  document.querySelectorAll("#pickBundles input,#pickProducts input").forEach(function(i){i.checked=false;});
+  document.querySelectorAll("#pickBundles .pk,#pickProducts .pk").forEach(function(l){l.removeAttribute("data-on");});
+  paintPickTotal();
+}
+/* The picker needs products.json, which the Products tab also loads. Fetch it
+   once and share it rather than shipping a second copy of the catalogue. */
+function ensureCatalogue(){
+  if(PRODUCTS&&PICK_BUNDLES){paintPicker();return Promise.resolve(true);}
+  return fetch("products.json",{cache:"no-cache"}).then(function(r){
+    if(!r.ok)throw new Error("HTTP "+r.status);return r.json();
+  }).then(function(d){
+    PRODUCTS=(d&&d.products)||[];
+    PICK_BUNDLES={};
+    ((d&&d.bundles)||[]).forEach(function(b){PICK_BUNDLES[b.key]={name:b.name,mrr:Number(b.mrr)||0};});
+    paintPicker();return true;
+  }).catch(function(){
+    var t=$("pickTotal");
+    if(t)t.innerHTML='<span>Could not load the product list — refresh and try again.</span>';
+    return false;
+  });
+}
 $("addClientBtn").addEventListener("click",function(){
   var box=$("addClientBox"),showing=!box.classList.contains("hide");
   box.classList.toggle("hide",showing);
   this.textContent=showing?"Add client":"Close";
-  if(!showing)box.querySelector("[name=name]").focus();
+  if(!showing){ensureCatalogue();box.querySelector("[name=name]").focus();}
 });
-$("addClientCancel").addEventListener("click",function(){
-  $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";clear($("addClientMsg"));});
+function closeAddClient(){
+  $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";
+  clear($("addClientMsg"));}
+$("addClientCancel").addEventListener("click",closeAddClient);
 $("addClientForm").addEventListener("submit",function(e){
   e.preventDefault();
   var f=e.target,m=$("addClientMsg");clear(m);
   if(!f.name.value.trim()||!f.email.value.trim()){say(m,"Name and email are the two things we need.");return;}
+  var skus=pickedSkus(),bundle=pickedBundle();
+  if(!skus.length&&!bundle){
+    say(m,"Tick what they're paying for — a bundle, some products, or both.");return;}
   busy(f,true);
   post({action:"client_add",token:token,name:f.name.value.trim(),email:f.email.value.trim(),
-        company:f.company.value.trim(),phone:f.phone.value.trim(),tier:f.tier.value})
+        company:f.company.value.trim(),phone:f.phone.value.trim(),
+        bundle:bundle,products:skus})
     .then(function(d){
       busy(f,false,"Add to my book");
       if(!d.ok){say(m,d.error||"Could not add that client.");return;}
@@ -2768,20 +2917,18 @@ $("addClientForm").addEventListener("submit",function(e){
          draw the book WITHOUT the client and look like the add failed. So the
          row is drawn from the engine's own response instead; the next fresh
          page load reads the caught-up index. */
-      var c=d.client||{};
+      var c=d.client||{},mrr=Number(c.mrr)||0;
       for(var i=BOOK.length-1;i>=0;i--){if(BOOK[i].email===c.email){BOOK.splice(i,1);}}
-      var mrr={core:750,pro:1500,custom:2500}[c.tier]||0;
       BOOK.push({id:c.id||c.email,name:c.name||c.email,company:c.company||"",
-        email:c.email,phone:c.phone||"",tier:c.tier,
+        email:c.email,phone:c.phone||"",tier:c.tier,bundle:c.bundle||null,
+        products:c.products||[],
         since:new Date().toISOString().slice(0,10),qualified:false,
         mrr:mrr,commission:Math.round(mrr*BOOK_RATE/100)});
       $("bkClients").textContent=BOOK.length;
       $("bkMrr").textContent=money(BOOK.reduce(function(s,x){return s+(Number(x.mrr)||0);},0));
       renderSheet(bookCfg);
-      f.reset();
-      setTimeout(function(){
-        $("addClientBox").classList.add("hide");$("addClientBtn").textContent="Add client";clear($("addClientMsg"));
-      },2200);
+      f.reset();resetPicker();
+      setTimeout(closeAddClient,2200);
     }).catch(function(){busy(f,false,"Add to my book");say(m,"Network error — try again.");});
 });
 
