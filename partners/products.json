@@ -106,6 +106,23 @@
       "mrr": 79,
       "setup": 0,
       "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "100 chats",
+          "mrr": 79
+        },
+        {
+          "key": "busy",
+          "label": "busy",
+          "mrr": 149
+        },
+        {
+          "key": "high",
+          "label": "high volume",
+          "mrr": 249
+        }
+      ],
       "bounty": 50,
       "selling_points": [
         "Answers at 11pm on a Sunday, which is when half of website visitors actually browse.",
@@ -139,6 +156,18 @@
       "mrr": 97,
       "setup": 0,
       "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "300 reminders",
+          "mrr": 97
+        },
+        {
+          "key": "busy",
+          "label": "busy",
+          "mrr": 147
+        }
+      ],
       "bounty": 50,
       "selling_points": [
         "Kills the back-and-forth — they pick a slot from real availability instead of six texts agreeing a time.",
@@ -172,6 +201,18 @@
       "mrr": 197,
       "setup": 0,
       "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "500 texts",
+          "mrr": 197
+        },
+        {
+          "key": "busy",
+          "label": "busy",
+          "mrr": 297
+        }
+      ],
       "bounty": 100,
       "selling_points": [
         "A missed call is usually a lost job — the caller rings the next name on the list within two minutes.",
@@ -204,6 +245,23 @@
       "mrr": 397,
       "setup": 0,
       "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "500 min",
+          "mrr": 397
+        },
+        {
+          "key": "busy",
+          "label": "busy",
+          "mrr": 597
+        },
+        {
+          "key": "high",
+          "label": "high volume",
+          "mrr": 897
+        }
+      ],
       "bounty": 100,
       "selling_points": [
         "Answers every call, day or night, without hiring anyone.",
@@ -568,5 +626,5 @@
       "plain": "Built to what the client actually needs"
     }
   ],
-  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has volume tiers, flagged from_tier). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the number together. Bundles carry no setup fee."
+  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has volume tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee."
 }
