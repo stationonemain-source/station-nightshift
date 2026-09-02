@@ -456,6 +456,55 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 .calgrid .bk{display:block;margin-top:4px;padding:2px 6px;border-radius:6px;
  background:var(--good-bg);color:var(--good);font-size:.68rem;line-height:1.35;
  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ================= YOUR DEMOS (dashboard) + the design picker — 2026-09-02 audit =================
+   Same tokens as everything above; the card sits first on the Dashboard and carries the
+   demo-request form. The picker is cards for the trade-matched kits and the flagship, and a
+   plain chip list for everything else behind a disclosure. */
+.dm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+.dm-head h2{margin-bottom:6px}
+.dm-head .note{margin:0;max-width:60ch}
+.dm-head .btn{flex:none}
+#demoReqBox{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.dm-empty{color:var(--muted);font-size:.94rem;padding:18px 0 2px;line-height:1.55}
+.dm-job{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px;background:var(--bg-3)}
+.dm-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.dm-name{font:700 1rem var(--fd);line-height:1.3}
+.dm-city{color:var(--muted);font-weight:500;font-size:.9rem}
+.dm-url{display:inline-block;margin-top:7px;font-family:var(--fm);font-size:13px;color:var(--pay);
+ word-break:break-all;text-decoration:none;font-weight:600}
+.dm-url:hover{text-decoration:underline}
+.dm-line{font-size:.88rem;color:var(--muted);margin-top:7px}
+.dm-line b{color:var(--ink)}
+.dm-err{font-size:.88rem;color:var(--red);margin-top:7px;line-height:1.5}
+.dm-why{margin-top:10px;font-size:.88rem}
+.dm-why summary{cursor:pointer;color:var(--muted);font-weight:600}
+.dm-why summary:hover{color:var(--ink)}
+.dm-why .in{margin-top:8px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:var(--card);line-height:1.55}
+.dm-why .in>div{margin-top:4px}
+.dm-why .in b{color:var(--ink)}
+.dm-why ol{margin:6px 0 0;padding-left:19px}
+.dm-why li{margin-bottom:4px}
+.dm-job .actions{margin-top:11px}
+.tpl-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:8px}
+.tpl-card{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;
+ cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:3px;min-width:0}
+.tpl-card:hover{border-color:var(--line-2)}
+.tpl-card:focus-visible{outline:2px solid var(--pay);outline-offset:2px}
+.tpl-card[data-on]{border-color:var(--pay);box-shadow:inset 0 0 0 1px var(--pay);background:color-mix(in srgb,var(--pay) 9%,var(--card))}
+.tpl-tag{font:600 10px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--good);margin-bottom:3px}
+.tpl-name{font:700 .98rem var(--fd)}
+.tpl-sub{font-size:.84rem;color:var(--muted);line-height:1.4}
+.tpl-fam{font:600 10px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-top:5px}
+.tpl-more{margin-top:12px;font-size:.9rem}
+.tpl-more summary{cursor:pointer;color:var(--muted);font-weight:600}
+.tpl-more summary:hover{color:var(--ink)}
+.tpl-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tpl-item{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+ font:600 12px var(--fd);color:var(--muted);cursor:pointer;text-align:left}
+.tpl-item:hover{color:var(--ink);border-color:var(--line-2)}
+.tpl-item[data-on]{background:var(--pay);border-color:var(--pay);color:#0D1117}
+.tpl-state{font-size:13px;color:var(--faint);margin-top:9px}
 </style>
 </head>
 <body>
@@ -562,6 +611,59 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     </div>
 
     <div class="panel" data-panel="dash" data-on>
+      <!-- 2026-09-02 audit: the demo journey starts and ends here. The request form moved in
+           from the (hidden) Demo sites tab; the list under it is the compact view of demo_list.
+           Order on this tab: your demos, link + stats, payout rate, Discord alerts, tax form. -->
+      <div class="card" id="demosCard">
+        <div class="dm-head">
+          <div>
+            <h2 class="tight">Your demos</h2>
+            <p class="note">Real working sites, built for the businesses you are about to call. Each one lands here with its link, the design it was built on, and what to say.</p>
+          </div>
+          <button class="btn dark sm" type="button" id="demoReqBtn">Request a demo</button>
+        </div>
+        <div id="demoReqBox" class="hide">
+          <p class="note" style="margin:0 0 16px">Give us a business you're about to call. Station builds them a real working site plus the specific gap costing them money &mdash; so you open with something true and concrete instead of a pitch. You make the call; we build the ammo.</p>
+          <form id="demoForm" novalidate>
+            <div class="row">
+              <div class="field"><label>Business name</label><input name="business" required placeholder="Katy Pool Co"></div>
+              <div class="field"><label>City</label><input name="city" required placeholder="Katy"></div>
+            </div>
+            <div class="row">
+              <div class="field"><label>State</label><input name="state" placeholder="TX"></div>
+              <div class="field"><label>Trade (optional)</label><input name="niche" placeholder="pools"></div>
+            </div>
+            <div class="field"><label>Their website (optional)</label><input name="website" placeholder="katypoolco.com">
+              <div class="hint">If you have it, we can find more. If they have none, that's often the pitch.</div></div>
+            <div class="field"><label>Design (optional)</label>
+              <input type="hidden" name="template" id="demoTemplate" value="">
+              <div id="tplPick"><div class="hint">Loading designs&hellip;</div></div>
+              <div class="hint" style="margin-top:8px">Type their trade above and we pick the design made for it. Leave nothing picked and Station chooses. You can change the design after it is built.</div></div>
+            <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
+          </form>
+          <div class="msg" id="demoMsg"></div>
+        </div>
+        <div id="dashJobs"></div>
+      </div>
+      <div class="linkbox">
+        <div class="mono">Your referral link</div>
+        <div class="link" id="myLink">—</div>
+        <button class="btn lite sm" id="copyLink">Copy link</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v" id="stClicks">—</div><div class="k">Clicks</div></div>
+        <!-- 2026-08-22 audit fix PP-08: this tile counts referral-form leads, not the Leads sheet -->
+        <div class="stat"><div class="v" id="stLeads">—</div><div class="k">Referral leads</div></div>
+        <div class="stat"><div class="v" id="stClients">—</div><div class="k">Clients</div></div>
+        <div class="stat"><div class="v" id="stComm">—</div><div class="k">Commission / mo</div></div>
+      </div>
+      <div class="card">
+        <h2>Your current payout rate</h2>
+        <!-- 2026-08-22 audit fix PP-08: the "mid-migration" paragraph is gone; the ladder below already shows the live track -->
+        <div class="ladder" id="ladderBox"></div>
+        <div id="nextBox"></div>
+        <p class="note" id="basisNote" style="margin-top:14px"></p>
+      </div>
       <div class="card" id="alertCard">
         <h2 class="tight">Alerts in your Discord</h2>
         <p class="note">Get your client alerts in your own Discord: new messages, add-ons and
@@ -605,25 +707,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           </div>
           <p class="msg" id="alertMsg"></p>
         </form>
-      </div>
-      <div class="linkbox">
-        <div class="mono">Your referral link</div>
-        <div class="link" id="myLink">—</div>
-        <button class="btn lite sm" id="copyLink">Copy link</button>
-      </div>
-      <div class="stats">
-        <div class="stat"><div class="v" id="stClicks">—</div><div class="k">Clicks</div></div>
-        <!-- 2026-08-22 audit fix PP-08: this tile counts referral-form leads, not the Leads sheet -->
-        <div class="stat"><div class="v" id="stLeads">—</div><div class="k">Referral leads</div></div>
-        <div class="stat"><div class="v" id="stClients">—</div><div class="k">Clients</div></div>
-        <div class="stat"><div class="v" id="stComm">—</div><div class="k">Commission / mo</div></div>
-      </div>
-      <div class="card">
-        <h2>Your current payout rate</h2>
-        <!-- 2026-08-22 audit fix PP-08: the "mid-migration" paragraph is gone; the ladder below already shows the live track -->
-        <div class="ladder" id="ladderBox"></div>
-        <div id="nextBox"></div>
-        <p class="note" id="basisNote" style="margin-top:14px"></p>
       </div>
       <div class="card" id="taxCard"></div>
     </div>
@@ -790,29 +873,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       </div>
     </div>
 
+    <!-- 2026-09-02 audit: this tab stays hidden (CSS rule above); the request form now lives in
+         the Dashboard's "Your demos" card. The full cards below keep the send / change-design
+         tools, which the Pipeline still opens here (data-psend). -->
     <div class="panel" data-panel="demos">
       <div class="card">
-        <h2 class="tight">Get a demo site to open a call with</h2>
-        <p class="note" style="margin-bottom:20px">Give us a business you're about to call. Station builds them a real working site plus the specific gap costing them money — so you open with something true and concrete instead of a pitch. You make the call; we build the ammo.</p>
-        <form id="demoForm" novalidate>
-          <div class="row">
-            <div class="field"><label>Business name</label><input name="business" required placeholder="Katy Pool Co"></div>
-            <div class="field"><label>City</label><input name="city" required placeholder="Katy"></div>
-          </div>
-          <div class="row">
-            <div class="field"><label>State</label><input name="state" placeholder="TX"></div>
-            <div class="field"><label>Trade (optional)</label><input name="niche" placeholder="pools"></div>
-          </div>
-          <div class="field"><label>Their website (optional)</label><input name="website" placeholder="katypoolco.com">
-            <div class="hint">If you have it, we can find more. If they have none, that's often the pitch.</div></div>
-          <div class="field"><label>Design (optional)</label>
-            <select name="template" id="demoTemplate"><option value="">Let Station choose</option></select>
-            <div class="hint">The same designs Station builds with. Leave it on "Let Station choose" and
-              we pick one that suits their trade. You can change it after it is built.</div>
-            <div class="hint" id="tplPreview"></div></div>
-          <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
-        </form>
-        <div class="msg" id="demoMsg"></div>
+        <h2 class="tight">Your demo sites</h2>
+        <p class="note" style="margin-bottom:0">Request a new one from your Dashboard. Every site you have built is below, with the tools to change it and send it.</p>
       </div>
       <div id="jobList"></div>
     </div>
@@ -956,14 +1023,121 @@ function loadTemplates(){
   }).catch(function(){TEMPLATES=[];return TEMPLATES;});
 }
 function demoNiche(){var f=$("demoForm");var i=f&&f.querySelector("[name=niche]");return i?i.value:"";}
-function paintTemplateSelect(){
-  var sel=$("demoTemplate");
-  if(sel&&TEMPLATES&&TEMPLATES.length){
-    var cur=sel.value;
-    sel.innerHTML='<option value="">Let Station choose</option>'+templateOptions(cur,demoNiche());
-    sel.value=cur;
-    var pv=$("tplPreview");if(pv)pv.innerHTML=previewHtml(sel.value);
+/* 2026-09-02 audit: the picker is no longer one <select> of ~90 rows. The engine's `fits`
+   flag cannot mean "fits THIS trade" -- demo_worker.push_templates() pushes ONE catalogue
+   for every partner with no trade, so the engine's copy has fits=true on the flagship and
+   every flat template and fits=false on every kit row. The trade match is made HERE from
+   the kit row's own label, which partner.py writes as "<Name> -- <trade> · <design>".
+   Matched kits first (the first one pre-selected and tagged), then the flagship, then
+   everything else behind a disclosure. Nothing picked = no `template` sent = Foundry picks. */
+var TPL_USER_PICK=false;   // true once the partner has clicked a design themselves
+function parseKitLabel(label){
+  var s=String(label||""),m=/^(.*?)\s+--\s+(.*?)(?:\s+\u00b7\s+(.*))?$/.exec(s);
+  if(!m)return {name:s,trade:"",variant:""};
+  return {name:m[1].trim(),trade:m[2].trim(),variant:(m[3]||"").trim()};
+}
+function tradeWords(x){
+  var stop={and:1,the:1,of:1,a:1,an:1};
+  return normNiche(x).split(" ").filter(function(w){return w.length>=3&&!stop[w];});
+}
+function wordsMatch(a,b){
+  // 3 = the same word, 2 = one starts the other (barber / barbershop), 1 = same stem
+  // (plumber / plumbing). Short words never match by prefix, so "bar" is not "barber".
+  if(a===b)return 3;
+  var s=a.length<b.length?a:b,l=a.length<b.length?b:a;
+  if(s.length>=4&&l.indexOf(s)===0)return 2;
+  if(a.length>=5&&b.length>=5){var n=0;while(n<a.length&&n<b.length&&a.charAt(n)===b.charAt(n))n++;if(n>=4)return 1;}
+  return 0;
+}
+function tplTradeScore(t,niche){
+  if(String(t.family||"").toLowerCase()!=="kit")return 0;
+  var typed=tradeWords(niche);if(!typed.length)return 0;
+  var have=tradeWords(parseKitLabel(t.label).trade);if(!have.length)return 0;
+  var best=0;
+  typed.forEach(function(a){have.forEach(function(b){var s=wordsMatch(a,b);if(s>best)best=s;});});
+  return best;
+}
+function isFlagship(t){
+  return /^premium_one(\.html)?$/.test(String(t.file||""))||String(t.family||"").toLowerCase()==="flagship";
+}
+/* "strand" -> "Strand kit", "glass-pools:simple" -> "Glass Pools kit (still hero)",
+   "premium_one" -> "Station flagship", "lux_aurora.html" -> "Lux Aurora design". Used by the
+   Dashboard card and the hidden Demo sites cards for hook.design / job.template. */
+function designName(x){
+  var s=String(x||"").trim();if(!s)return "";
+  if(/^premium_one(\.html)?$/.test(s))return "Station flagship";
+  var simple=/:simple$/.test(s);s=s.replace(/:simple$/,"");
+  var html=/\.html$/.test(s);s=s.replace(/\.html$/,"");
+  var name=s.replace(/[-_]+/g," ").trim().split(" ").map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(" ");
+  if(html)return name+" design";
+  return name+" kit"+(simple?" (still hero)":"");
+}
+function tplTitle(t){
+  if(isFlagship(t))return "Station flagship";
+  if(String(t.family||"").toLowerCase()==="kit"){
+    var k=parseKitLabel(t.label);
+    return k.name+" kit"+(k.trade?" \u2014 "+k.trade:"")+(k.variant?" \u00b7 "+k.variant:"");
   }
+  return String(t.label||t.file||"");
+}
+function pickTemplate(file,byUser){
+  var inp=$("demoTemplate");if(!inp)return;
+  // a second click on the picked design hands the choice back to Station
+  inp.value=(byUser&&inp.value===file)?"":String(file||"");
+  if(byUser)TPL_USER_PICK=true;
+  var box=$("tplPick");if(!box)return;
+  box.querySelectorAll("[data-file]").forEach(function(el){
+    var on=inp.value!==""&&el.getAttribute("data-file")===inp.value;
+    el.toggleAttribute("data-on",on);el.setAttribute("aria-pressed",on?"true":"false");});
+  var st=$("tplState");
+  if(st){
+    var t=(TEMPLATES||[]).filter(function(x){return x.file===inp.value;})[0];
+    st.textContent=inp.value?("Picked: "+(t?tplTitle(t):inp.value)+". Click it again to let Station choose.")
+                            :"Nothing picked \u2014 Station chooses a design to suit their trade.";
+  }
+}
+function paintTemplateSelect(){
+  var box=$("tplPick"),inp=$("demoTemplate");
+  if(!box||!inp)return;
+  var all=(TEMPLATES||[]);
+  if(!all.length){
+    box.innerHTML='<div class="hint">'+(TEMPLATES?"No designs to choose from right now \u2014 Station picks one.":"Loading designs\u2026")+'</div>';
+    return;
+  }
+  var niche=demoNiche();
+  var fit=all.map(function(t){return {t:t,s:tplTradeScore(t,niche)};}).filter(function(x){return x.s>0;});
+  fit.sort(function(a,b){return (b.s-a.s)||String(a.t.label||"").localeCompare(String(b.t.label||""));});
+  var fits=fit.map(function(x){return x.t;});
+  var flag=all.filter(isFlagship)[0]||null;
+  var shown={};fits.forEach(function(t){shown[t.file]=1;});if(flag)shown[flag.file]=1;
+  var rest=all.filter(function(t){return !shown[t.file];});
+  // the pre-selection follows the typed trade until the partner clicks a design themselves
+  if(!TPL_USER_PICK)inp.value=fits.length?fits[0].file:"";
+  else if(inp.value&&!all.some(function(t){return t.file===inp.value;}))inp.value="";
+  var more=box.querySelector(".tpl-more"),wasOpen=!!(more&&more.open);
+  function card(t,tag){
+    var k=parseKitLabel(t.label),on=(t.file===inp.value&&inp.value!=="");
+    var name=isFlagship(t)?"Station flagship":(k.name+" kit");
+    var sub=isFlagship(t)?"Same as our own builds":[k.trade,k.variant].filter(Boolean).join(" \u00b7 ");
+    return '<button type="button" class="tpl-card" aria-pressed="'+(on?"true":"false")+'" data-file="'+esc(t.file)+'"'+(on?" data-on":"")+'>'+
+      (tag?'<span class="tpl-tag">'+tag+'</span>':'')+
+      '<span class="tpl-name">'+esc(name)+'</span>'+
+      (sub?'<span class="tpl-sub">'+esc(sub)+'</span>':'')+
+      '<span class="tpl-fam">'+esc(t.family||"")+'</span></button>';
+  }
+  var h='';
+  if(fits.length||flag){
+    h+='<div class="tpl-cards">'+fits.map(function(t,i){return card(t,i===0?"We picked this for your trade":"");}).join("")
+      +(flag?card(flag,""):"")+'</div>';
+  }
+  if(rest.length){
+    h+='<details class="tpl-more"'+(wasOpen?" open":"")+'><summary>Show all designs ('+rest.length+')</summary><div class="tpl-list">'
+      +rest.map(function(t){return '<button type="button" class="tpl-item" aria-pressed="false" data-file="'+esc(t.file)+'">'+esc(tplTitle(t))+'</button>';}).join("")
+      +'</div></details>';
+  }
+  h+='<div class="tpl-state" id="tplState"></div>';
+  box.innerHTML=h;
+  pickTemplate(inp.value,false);
 }
 function normNiche(x){return String(x||"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
 function templateFits(t,niche){
@@ -1425,14 +1599,14 @@ function showApp(){
 
   $("authView").classList.add("hide");$("appView").classList.remove("hide");
   $("logout").classList.remove("hide");
+  // 2026-09-02 audit: no standing 20 s poll -- loadJobs re-arms itself only while a demo
+  // is queued/building (see scheduleJobPoll), and an idle desk never reads the engine.
   loadMe();loadJobs();loadLeads();
-  if(pollTimer)clearInterval(pollTimer);
-  pollTimer=setInterval(loadJobs,20000);
 }
 function showAuth(){
   $("appView").classList.add("hide");$("authView").classList.remove("hide");
   $("logout").classList.add("hide");$("whoami").textContent="";
-  if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
+  if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}
   bookLoaded=false;
 }
 
@@ -2243,6 +2417,8 @@ function loadMe(){
       // also refuses demo_request off the Partner track; this is the cosmetic half).
       var dt=document.querySelector('#appView .tab[data-tab="demos"]');
       if(dt){ dt.style.display=(track==="Partner")?"":"none"; }
+      // 2026-09-02 audit: the Dashboard's Your demos card is the same Partner-only tool
+      var dc=$("demosCard"); if(dc){ dc.style.display=(track==="Partner")?"":"none"; }
       // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update /
       // lead_del) is a Partner tool too — the engine now refuses it for Scouts, so the tab
       // is hidden for them exactly like Clients and Demos.
@@ -2334,8 +2510,8 @@ function jobCard(j){
   if(st==="ready"&&(h.gap||h.leak_monthly||h.sku||h.design||(h.points&&h.points.length))){
     // WHY this design. Foundry chooses the kit by the business's trade and has always
     // known the reason; the partner used to get a URL and no rationale at all.
-    var why=h.design?('<div class="ammo-why"><b>Built on '+esc(h.design)+'</b>'+
-      ((h.designs&&h.designs>1)?' · two versions to show them':'')+
+    var why=h.design?('<div class="ammo-why"><b>Built on '+esc(designName(h.design))+'</b>'+
+      ((h.designs&&h.designs>1)?' \u00b7 two versions built \u2014 show them both':'')+
       (h.design_why?'<span>'+esc(h.design_why)+'</span>':'')+'</div>'):'';
     // What to SAY. Assembled by Foundry from the same figures the board runs on.
     var pts=(h.points&&h.points.length)
@@ -2357,9 +2533,7 @@ function jobCard(j){
       (j.url?'<button class="btn lite sm" data-copy="'+esc(j.url)+'">Copy link</button>':'')+
       '<button class="btn lite sm" data-script="'+esc(j.id)+'">Copy call opener</button>'+
       (j.foundry_id
-        ? '<a class="btn lite sm" target="_blank" rel="noopener" href="'+
-          PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+
-          '&pt='+encodeURIComponent(token||'')+
+        ? '<a class="btn lite sm" target="_blank" rel="noopener" href="'+esc(editorHref(j))+
           '" title="Foundry\'s own editor - swap in their real photos and retype any text">'+
           'Edit photos &amp; text</a>'
         : '')+
@@ -2375,25 +2549,11 @@ function jobCard(j){
       +'<div class="actions"><button class="btn dark sm" data-again="'+esc(j.id)+'">Build again</button></div>'
       +sendsHtml(j);
   } else {
-    // A Foundry build takes minutes (scrape -> generate -> render -> publish). Saying so,
-    // and showing elapsed time, stops a Scout assuming it broke and re-queueing.
-    var since = j.created ? (Date.now() - Date.parse(j.created)) : 0;
-    var mins  = since > 0 ? Math.floor(since / 60000) : 0;
-    var age   = mins >= 1 ? (" · " + mins + " min ago") : "";
-    var line  = (st === "building")
-      ? "Building now — usually 3&ndash;5 minutes."
-      : "Queued — the builder picks this up within about 3 minutes.";
-    if (mins >= 12) {
-      line = "Still working — this one is taking longer than usual. If it has not finished in "
-           + "another few minutes, tell Station and we will look.";
-    }
-    acts = '<p class="note" style="margin-top:10px">' + line +
-           '<span class="sub">' + age + '</span><br>' +
-           '<span class="sub">This page updates itself — you can leave it open.</span></p>';
+    acts=buildingLine(j);   // shared with the Dashboard's Your demos card
   }
   return '<div class="job"><div class="h"><div><div class="biz">'+esc(j.business)+'</div>'+
     '<div class="meta">'+esc(j.city||"")+(j.state?", "+esc(j.state):"")+(j.niche?" · "+esc(j.niche):"")+'</div></div>'+
-    '<span class="pill '+esc(st)+'">'+esc(st)+'</span></div>'+ammo+acts+'</div>';
+    statusPill(st)+'</div>'+ammo+acts+'</div>';
 }
 var JOBS=[],SENDS=[];
 /* 2026-08-22 audit fix F7: every send for a job, newest first, under its card. The engine's
@@ -2448,7 +2608,7 @@ function pipeJobCard(j){
  if(j.status==="building"){out+='<span class="pwait">Forging\u2026 check back in a minute</span>';}
  else{
   if(j.url)out+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
-  if(j.foundry_id)out+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+'&pt='+encodeURIComponent(token||"")+'">Edit photos &amp; text</a>';
+  if(j.foundry_id)out+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+esc(editorHref(j))+'">Edit photos &amp; text</a>';
   out+='<button class="btn sm" data-psend="'+esc(j.id)+'">Send it</button>';
   out+='<button class="btn dark sm" data-pjadd="'+esc(j.id)+'" title="File this business on your sheet so outcomes and ring-backs work on it">Add to sheet</button>';}
  out+='</div></div>';
@@ -2474,7 +2634,7 @@ function pipeCard(l){
  if(st==="built"&&j){
   if(j.status==="building")h+='<span class="pwait">Forging\u2026 check back in a minute</span>';
   if(j.url)h+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
-  if(j.foundry_id)h+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id)+'&pt='+encodeURIComponent(token||"")+'">Edit photos &amp; text</a>';
+  if(j.foundry_id)h+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+esc(editorHref(j))+'">Edit photos &amp; text</a>';
   if(l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
   h+='<button class="btn dark sm" data-psend="'+esc(j.id)+'">Send it</button>';
   h+='<button class="btn lite sm" data-pout="demo_sent" data-plead="'+esc(l.id)+'">Mark sent</button>';}
@@ -2667,21 +2827,44 @@ function calGridLoad(){
  });
 })();
 
+/* 2026-09-02 audit: the request form lives in the Dashboard's Your demos card. show=true
+   opens it, false closes it, nothing toggles. Opening loads the design catalogue (one
+   site_templates read per session). */
+function openDemoRequest(show){
+  var box=$("demoReqBox"),btn=$("demoReqBtn");if(!box)return;
+  var want=(show==null)?box.classList.contains("hide"):!!show;
+  box.classList.toggle("hide",!want);
+  if(btn)btn.textContent=want?"Close":"Request a demo";
+  if(want){loadTemplates().then(function(){paintTemplateSelect();});}
+}
 function prefillDemo(src){
   var f=$("demoForm");if(!f)return;
   var city=String(src.city||""),state=String(src.state||"");
   if(!state&&city.indexOf(",")>0){var parts=city.split(",");state=parts.pop().trim();city=parts.join(",").trim();}
   f.business.value=src.business||"";f.city.value=city;f.state.value=state;
   f.niche.value=src.niche||"";f.website.value=src.website||"";
-  var dt=document.querySelector('#appView .tab[data-tab="demos"]');
+  TPL_USER_PICK=false;
+  var dt=document.querySelector('#appView .tab[data-tab="dash"]');
   if(dt)dt.click();
-  paintTemplateSelect();
+  openDemoRequest(true);
   clear($("demoMsg"));
   try{f.scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}
   f.business.focus();
 }
+/* 2026-09-02 audit: demo_list is read once when the desk renders, then every 20 s ONLY while
+   a job is queued/building. The engine's store is last-writer-wins and a read that overlaps
+   the worker's write can roll that write back, so an idle desk never polls. */
+function jobsOpen(){
+  return (JOBS||[]).some(function(j){var s=String(j.status||"").toLowerCase();return s==="queued"||s==="building";});
+}
+function scheduleJobPoll(){
+  if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}
+  if(!token||!jobsOpen())return;
+  pollTimer=setTimeout(loadJobs,20000);
+}
 function loadJobs(){
   if(!token)return;
+  if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}
   post({action:"demo_list",token:token}).then(function(d){
     if(!d.ok)return;
     JOBS=d.jobs||[];
@@ -2689,8 +2872,79 @@ function loadJobs(){
     var wantSends=JOBS.some(function(j){return String(j.status||"").toLowerCase()==="ready";})
       ||SENDS.some(function(s){return s.status==="queued";});
     var p=wantSends?post({action:"site_sends",token:token}).then(function(r){if(r&&r.ok)SENDS=r.sends||[];}).catch(function(){}):Promise.resolve();
-    return p.then(drawJobs);
-  }).catch(function(){});
+    return p.then(function(){drawJobs();drawDashJobs();scheduleJobPoll();});
+  }).catch(function(){scheduleJobPoll();});
+}
+/* ---- shared pieces: the Dashboard card and the hidden Demo sites cards draw from these ---- */
+function editorHref(j){
+  return PEDIT_BASE+'/edit?id='+encodeURIComponent(j.foundry_id||"")+'&pt='+encodeURIComponent(token||"");
+}
+function buildingLine(j){
+  // A Foundry build takes minutes (scrape -> generate -> render -> publish). Saying so,
+  // and showing elapsed time, stops a partner assuming it broke and re-queueing.
+  var st=String(j.status||"queued").toLowerCase();
+  var since=j.created?(Date.now()-Date.parse(j.created)):0;
+  var mins=since>0?Math.floor(since/60000):0;
+  var age=mins>=1?(" \u00b7 "+mins+" min ago"):"";
+  var line=(st==="building")?"Building now \u2014 usually 3\u20135 minutes."
+                            :"Queued \u2014 the builder picks this up within about 3 minutes.";
+  if(mins>=12)line="Still working \u2014 this one is taking longer than usual. If it has not finished in another few minutes, tell Station and we will look.";
+  return '<p class="note" style="margin-top:10px">'+line+'<span class="sub">'+age+'</span><br>'+
+         '<span class="sub">This page updates itself \u2014 you can leave it open.</span></p>';
+}
+function pointsHtml(h){
+  return (h.points&&h.points.length)?'<ol>'+h.points.map(function(p){return '<li>'+esc(p)+'</li>';}).join('')+'</ol>':'';
+}
+function statusPill(st){
+  var names={queued:"Queued",building:"Building",ready:"Ready",failed:"Failed",expired:"Failed"};
+  return '<span class="pill '+esc(st==="expired"?"failed":st)+'">'+esc(names[st]||st)+'</span>';
+}
+/* ---- the Dashboard's Your demos card: one compact row per demo_list job ---- */
+function dashJobRow(j){
+  var st=String(j.status||"queued").toLowerCase(),h=j.hook||{};
+  var place=[j.city,j.state].filter(Boolean).join(", ");
+  var out='<div class="dm-job" data-job="'+esc(j.id)+'"><div class="dm-top"><div class="dm-name">'+esc(j.business||"")+
+    (place?' <span class="dm-city">\u00b7 '+esc(place)+'</span>':'')+'</div>'+statusPill(st)+'</div>';
+  if(st==="ready"&&j.url)out+='<a class="dm-url" href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.url)+'</a>';
+  // hook.design is the kit slug the worker built on; a flagship build carries none, so the
+  // partner's own pick (job.template) is the next best statement of what was built.
+  var design=h.design?designName(h.design):(j.template?designName(j.template):"");
+  if(st==="ready"&&design)out+='<div class="dm-line">Design: <b>'+esc(design)+'</b>'+
+    ((h.designs&&h.designs>1)?' \u00b7 two versions built \u2014 show them both':'')+'</div>';
+  if(st==="failed"||st==="expired")out+='<div class="dm-err">'+esc(j.error||"The build failed \u2014 request it again or tell Station.")+'</div>';
+  if(st==="queued"||st==="building")out+=buildingLine(j);
+  var why=[];
+  if(h.design_why)why.push('<div><b>Why this design:</b> '+esc(h.design_why)+'</div>');
+  if(h.gap)why.push('<div><b>The gap:</b> '+esc(h.gap)+'</div>');
+  if(h.leak_monthly)why.push('<div>Costing them about <b>'+money(h.leak_monthly)+' a month</b>.</div>');
+  if(h.product||h.sku)why.push('<div><b>What to pitch:</b> '+esc(h.product||h.sku)+(h.price?' \u2014 '+esc(h.price):'')+
+    (h.trial_days?' (free trial: '+esc(h.trial_days)+' days)':'')+'</div>');
+  if(h.covers)why.push('<div>'+esc(h.covers)+'</div>');
+  var pts=pointsHtml(h);
+  if(pts)why.push('<div style="margin-top:6px"><b>What to say</b>'+pts+'</div>');
+  if(why.length)out+='<details class="dm-why"><summary>Why &amp; what to say</summary><div class="in">'+why.join("")+'</div></details>';
+  if(st==="ready"){
+    out+='<div class="actions">'+
+      (j.foundry_id?'<a class="btn lite sm" href="'+esc(editorHref(j))+'" target="_blank" rel="noopener">Edit photos &amp; text</a>':'')+
+      (j.url?'<button class="btn lite sm" type="button" data-dcopy="'+esc(j.url)+'">Copy link</button>':'')+'</div>';
+  }
+  return out+'</div>';
+}
+function drawDashJobs(){
+  var box=$("dashJobs");if(!box)return;
+  // a poll must not fold a "Why & what to say" the partner has open
+  var open={};
+  box.querySelectorAll(".dm-job[data-job]").forEach(function(el){
+    var d=el.querySelector("details");if(d&&d.open)open[el.getAttribute("data-job")]=1;});
+  if(!JOBS.length){
+    box.innerHTML='<div class="dm-empty">Request a demo and Station builds that business a real working site in about three minutes \u2014 it will appear here with its link and what to say on the call.</div>';
+    return;
+  }
+  box.innerHTML=JOBS.map(dashJobRow).join("");
+  box.querySelectorAll(".dm-job[data-job]").forEach(function(el){
+    if(open[el.getAttribute("data-job")]){var d=el.querySelector("details");if(d)d.open=true;}});
+  box.querySelectorAll("[data-dcopy]").forEach(function(b){
+    b.onclick=function(){copyTo(b,b.getAttribute("data-dcopy"),"Copied");};});
 }
 function drawJobs(){
     // A poll must not wipe an editor or sender box the partner is typing in.
@@ -2757,24 +3011,40 @@ $("claimForm").addEventListener("submit",function(e){
     }).catch(function(){busy(f,false,"Set my password");say(m,"Network error — try again.");});
 });
 
-// 2026-08-22 audit fix PP-05: the picker regroups on the typed trade and shows a preview link.
+// 2026-08-22 audit fix PP-05 / 2026-09-02: the picker regroups on the typed trade; a click on a
+// design card or chip picks it (a second click on the picked one hands the choice back to
+// Station); the Request button reveals the form inside the Dashboard's Your demos card.
 (function(){
-  var f=$("demoForm"),ni=f&&f.querySelector("[name=niche]"),sel=$("demoTemplate");
+  var f=$("demoForm"),ni=f&&f.querySelector("[name=niche]");
   if(ni)ni.addEventListener("input",paintTemplateSelect);
-  if(sel)sel.addEventListener("change",function(){var pv=$("tplPreview");if(pv)pv.innerHTML=previewHtml(sel.value);});
+  var pk=$("tplPick");
+  if(pk)pk.addEventListener("click",function(e){
+    var t=e.target.closest?e.target.closest("[data-file]"):null;
+    if(t&&pk.contains(t)){e.preventDefault();pickTemplate(t.getAttribute("data-file"),true);}
+  });
+  var rb=$("demoReqBtn");
+  if(rb)rb.addEventListener("click",function(){
+    openDemoRequest();
+    var box=$("demoReqBox");
+    if(box&&!box.classList.contains("hide")&&f&&f.business)f.business.focus();
+  });
 })();
 $("demoForm").addEventListener("submit",function(e){
   e.preventDefault();var f=e.target,m=$("demoMsg");clear(m);busy(f,true);
-  post({action:"demo_request",token:token,business:f.business.value.trim(),
+  var payload={action:"demo_request",token:token,business:f.business.value.trim(),
         city:f.city.value.trim(),state:f.state.value.trim(),
-        niche:f.niche.value.trim(),website:f.website.value.trim(),
-        template:((f.template&&f.template.value)||"")})
+        niche:f.niche.value.trim(),website:f.website.value.trim()};
+  // nothing picked -> no template key at all, and Foundry chooses the design
+  var tpl=String((f.template&&f.template.value)||"").trim();
+  if(tpl)payload.template=tpl;
+  post(payload)
     .then(function(d){
       busy(f,false,"Build me a demo");
       if(!d.ok){say(m,d.error||"Could not queue that.");return;}
-      f.reset();say(m,"Queued. It usually takes a few minutes — this page updates itself.","ok");
+      f.reset();TPL_USER_PICK=false;paintTemplateSelect();
+      say(m,"Queued. It usually takes about three minutes \u2014 it shows up below and this page updates itself.","ok");
       loadJobs();
-    }).catch(function(){busy(f,false,"Build me a demo");say(m,"Network error — try again.");});
+    }).catch(function(){busy(f,false,"Build me a demo");say(m,"Network error \u2014 try again.");});
 });
 
 /* ---- sheet controls: filter boxes, CSV, and the add-lead row ---------- */
