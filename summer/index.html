@@ -886,6 +886,111 @@
   </div>
 </section>
 
+<!-- ═══════════ STOP 07b · PROMPTING, IN PRACTICE ═══════════ -->
+<section class="stop" data-stop="STOP 07" data-name="Prompting, in practice" style="border-top:0;padding-top:64px">
+  <div class="wrap">
+    <div class="eyebrow rv"><span class="dot"></span>Stop 07 · Prompting — how a session actually goes</div>
+    <h2 class="rv">A prompt is not a magic sentence.<br>It's a session you stay inside.</h2>
+    <p class="lede rv">Almost everything written about "prompt engineering" is tricks — role-play
+      openers, secret phrasings, templates you paste. <b>None of it moved a single thing we shipped
+      this summer.</b> What actually worked is unglamorous: give it the real state of the system,
+      give it a constraint instead of an answer, let the session run long, make it prove what it
+      claims, and interrupt it the second it goes wrong. That last one matters most, because it went
+      wrong constantly — including on this page.</p>
+
+    <div class="flow rv">
+      <div><span class="n">01</span><h3>Land</h3><p>Before it writes a line, it reads the current
+        state of the system it's about to touch — a written head file per system, kept current.
+        An AI working from a guess about your setup produces confident, useless work.</p></div>
+      <div><span class="n">02</span><h3>Brief</h3><p>Hand it the constraint, the standard and the
+        order of operations — not the solution. "Make this fit in 15MB and stay legible on a phone"
+        beats "use 640 pixels" every time, because the second one is you doing its job badly.</p></div>
+      <div><span class="n">03</span><h3>Run long</h3><p>One session that accumulates context beats
+        twenty fresh ones. What it already tried and failed at is worth more than any opening
+        phrasing. Context is the asset; a clean slate is a cost.</p></div>
+      <div><span class="n">04</span><h3>Verify</h3><p>Make it open the thing it built, in the real
+        browser, and measure it. "Done" is not evidence. A screenshot with numbers on it is.</p></div>
+      <div><span class="n">05</span><h3>Correct</h3><p>Say the work is wrong the moment you feel it,
+        in plain words, without softening it. A blunt sentence at minute one saves an hour at
+        minute sixty.</p></div>
+    </div>
+
+    <div style="margin-top:30px">
+      <div class="finding rv"><div class="fn">P-01</div><div>
+        <h3>Check the constraint before you optimise against it.</h3>
+        <p>Every film in this deck was once crushed to 640 pixels wide and encoded until it looked
+        like a bad stream — because a limit had been assumed and never tested. It took two rounds of
+        <b>"why is the quality so bad"</b> to go and measure the actual ceiling, which turned out to be
+        <b>nearly seven times higher</b>. The machine had optimised hard, and correctly, against a number
+        nobody had checked. No prompt prevents that. Checking does.</p></div></div>
+      <div class="finding rv"><div class="fn">P-02</div><div>
+        <h3>Never accept a claim it hasn't verified.</h3>
+        <p>The ranch audit on this page shipped with two false findings: a donation path that doesn't
+        exist on the live site, and a follower count lifted from a search snippet instead of the
+        account. One question — <b>"is that correct?"</b> — sent it back to the live web and both
+        collapsed. The corrected version is a stronger finding than the original was. Ask that question
+        every single time; it costs one line and it is the difference between research and fiction.</p></div></div>
+      <div class="finding rv"><div class="fn">P-03</div><div>
+        <h3>Name what's wrong. Don't specify the fix.</h3>
+        <p>Mid-build, the note on this deck's audit section was that it had become self-indulgent —
+        it read like everything we had, dumped on the floor. That's not a specification, and it didn't
+        need to be. It named the failure exactly. The fix that came back — <b>move the whole audit to
+        its own linked page and leave one line behind</b> — is better than the instruction anyone would
+        have written. Describe the problem precisely; let it solve.</p></div></div>
+      <div class="finding rv"><div class="fn">P-04</div><div>
+        <h3>Assume it is confidently wrong until it isn't.</h3>
+        <p>A film in this deck sat silently frozen through an entire scroll and the copy beside it read
+        perfectly. A set of step numbers rendered <b>white on white</b> and every automated check passed.
+        Both shipped. Both were caught by a human looking at the actual screen. The failure mode of a
+        good model is not gibberish — it's plausible, well-formatted, and wrong.</p></div></div>
+      <div class="finding rv"><div class="fn">P-05</div><div>
+        <h3>Make it grade its own homework, in the real thing.</h3>
+        <p>Every claim on this page was opened in a robot browser, scrolled, screenshotted and measured
+        before it published — the same rig that grades the factory's websites. It's the cheapest habit
+        in the whole operation and it catches what review never does. <b>The AI's report that it is
+        finished is not evidence.</b> The measurement is.</p></div></div>
+    </div>
+
+    <div class="callout rv">
+      <svg class="mk" viewBox="0 0 100 100" aria-hidden="true"><use href="#stmark"/></svg>
+      <p><b>What it actually sounds like out loud.</b> Not a paragraph of instructions typed once.
+      It sounds like briefing a fast, tireless, occasionally overconfident junior: <i>here's the
+      system, here's what good looks like, go.</i> Then — <i>no, that's wrong, here's why. That number
+      — did you check it or infer it? Show me the screenshot. Now do the other eleven.</i> Most of
+      what you say in a good session is correction, and the sessions that go badly are the ones where
+      you were too polite, or too impressed, to give it early.</p>
+    </div>
+
+    <div class="grid2 rv">
+      <div class="card audit">
+        <span class="tag">Made no difference</span>
+        <ul>
+          <li>Role-play openers — <b>"act as a senior engineer"</b></li>
+          <li>Politeness, flattery, threats, urgency</li>
+          <li>Pasted prompt templates and "secret" phrasings</li>
+          <li>Longer prompts. Length is not specificity</li>
+          <li>Picking one favourite model and using it for everything</li>
+          <li>Starting fresh whenever a session got messy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag" style="color:var(--good)">Made all of it</span>
+        <ul>
+          <li>A written state file it reads <b>before</b> it touches anything</li>
+          <li>Constraints with real numbers, and a standard for "good"</li>
+          <li>One job per model — routing beats loyalty</li>
+          <li>A mandatory verification step it cannot skip</li>
+          <li>Correcting in the first minute, bluntly</li>
+          <li>A durable record of what has already failed</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="pull rv">The prompt was never the skill.
+      Staying in the loop is — and being willing to say the thing is wrong.</p>
+  </div>
+</section>
+
 <!-- ═══════════ STOP 08 · GROWTH SYSTEMS ═══════════ -->
 <section class="stop" data-stop="STOP 08" data-name="Growth systems">
   <div class="wrap">
