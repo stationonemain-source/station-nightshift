@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex">
 <title>The Butterfly Ranch Audit</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="A full cold audit and registry-level deep dive on Butterfly Rescue Ranch, Norman OK — every claim checked against a primary source on August 26, 2026.">
+<meta name="description" content="A full cold audit, registry-level deep dive and donor-conversion teardown of Butterfly Rescue Ranch, Norman OK — every claim checked against a primary source, August 26 and September 2, 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -29,7 +29,7 @@
   .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
   h1,h2,h3{text-wrap:balance;letter-spacing:-.025em}
   p{max-width:68ch}
-  .mono{font-family:var(--fm)}
+  .mono{font-family:var(--fm);overflow-wrap:anywhere;word-break:break-word}
 
   header.top{padding:clamp(54px,9vh,96px) 0 0}
   .back{font-family:var(--fm);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -120,10 +120,13 @@
     <p class="kicker">Station Automations Group · Field audit</p>
     <h1>The Butterfly Ranch audit</h1>
     <p class="sub">A working example of what we do before we build anything: forty minutes walking the
-      customer's path, then an hour in the registries. <b>Every claim below is checked against a primary
-      source</b> — and where something couldn't be verified, it says so.</p>
+      customer's path, then an hour in the registries, then a second pass a week later on the one
+      question that pays the bills — what happens when somebody tries to give them money.
+      <b>Every claim below is checked against a primary source</b>, dated, and where something
+      couldn't be verified, it says so.</p>
     <div class="meta">
       <span class="chip b">Verified August 26, 2026</span>
+      <span class="chip b">Donor layer re-verified September 2, 2026</span>
       <span class="chip">Butterfly Rescue Ranch · Norman, OK</span>
       <span class="chip">Unsolicited — no engagement</span>
     </div>
@@ -258,6 +261,209 @@
 
 <section>
   <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Part three · Why the money doesn't arrive</div>
+    <h2>The donor engine</h2>
+    <p class="lede">The first two parts asked whether a stranger can find them and what the registries know.
+      This one asks the only question that pays the feed bill: <b>a person decides to give — what happens
+      next?</b> Re-verified from the live site on September 2, 2026, a week after the audit above. Nothing
+      had changed, and the whole site is still <b>three pages long</b>.</p>
+
+    <p style="margin-top:26px;font-size:15.5px;color:var(--muted)">Walked as the class walks it — attention,
+      interest, desire, action — plus the stage the framework leaves out, which for a charity is the one
+      that compounds:</p>
+    <div class="tbl">
+    <table>
+      <tr><th>Stage</th><th>What a donor needs here</th><th>What exists today</th></tr>
+      <tr><td><b>Attention</b></td><td>To be findable the moment someone decides to care about horses</td>
+        <td>Google tells searchers they are <b>permanently closed</b> (F-01). No pixel and no analytics, so
+        an audience can never be rebuilt or reached twice (G-07).</td></tr>
+      <tr><td><b>Interest</b></td><td>One sentence saying who this is and why it exists</td>
+        <td>An <b>87-word homepage</b> and <b>no mission statement anywhere on the site</b> (G-04).</td></tr>
+      <tr><td><b>Desire</b></td><td>Proof it works — a number, a face, an outcome</td>
+        <td>Zero impact figures (G-05). Not one rescued horse is named, pictured with its history, or
+        followed to adoption (G-06).</td></tr>
+      <tr class="me"><td><b>Action</b></td><td>A place to give, in under a minute, on a phone</td>
+        <td><b>56 words instructing you to telephone a person</b> — on a number that isn't even tappable
+        (G-01). Nowhere does it say the gift is tax-deductible (G-02).</td></tr>
+      <tr><td><b>After the gift</b></td><td>A receipt, a thank you, and a reason to give again</td>
+        <td>Nothing fires, because there is no list to fire it from — <b>zero forms and zero email fields
+        across all three pages</b> (G-07).</td></tr>
+    </table>
+    </div>
+    <p style="margin-top:16px;font-size:15.5px;color:var(--muted)">Every stage fails, and every failure is
+      free to fix. That is the finding: this is not an organization that needs money to become fundable.
+      It is a fundable organization with no plumbing attached.</p>
+
+    <div class="find hot">
+      <div class="h"><span class="n">G-01</span><h3>Donations have no address</h3></div>
+      <p>The Donate page is fifty-six words long, and the operative sentence is <b>"please contact Braxton
+      Brackin for more information."</b> There is no form, no giving platform, no suggested amount, no
+      monthly option, no receipt. The only route to giving money is to telephone the founder — and the
+      number appears as plain text, so on a phone it can't be tapped, only copied by hand. A donor arriving
+      at the exact moment of intent is asked to place a cold call and wait for someone to pick up.</p>
+      <p style="margin-top:12px">The fix is an afternoon: one hosted giving page with three suggested
+      amounts anchored to real costs, a monthly option, and automatic receipting. <b>Suggested amounts are
+      not decoration</b> — a blank field asks the donor to decide what the work is worth, and most resolve
+      that by leaving.</p>
+      <div class="ev"><b>Evidence ·</b> butterflyrescueranch.org/donate rendered and read Sept 2, 2026 — 56
+      words, zero form elements, zero email inputs, zero tel: links sitewide. The string "paypal" in the page
+      source is Wix platform boilerplate (<span class="mono">specs.stores.HideBillingFormForPayPalAndManualNotBrazil</span>),
+      not a payment path — the same false lead this audit corrected once already.</div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">G-02</span><h3>A registered charity that never says "tax-deductible"</h3></div>
+      <p>They are a 501(c)(3) public charity, ruled January 2024, EIN 92-2460729. Across all three pages of
+      the website the phrase <b>"tax-deductible" appears zero times</b>. So does "501(c)(3)". So does the
+      EIN. So does the word "nonprofit."</p>
+      <p style="margin-top:12px">This is the single most persuasive sentence a US charity is allowed to
+      write, and it is the thing a donor checks before a gift large enough to matter. Right now a stranger
+      reading this site has no way to tell it apart from a private riding barn asking for money — which is
+      exactly what it looks like. <b>Two lines in the footer and one on the Donate page close it</b>, at no
+      cost, today.</p>
+      <div class="ev"><b>Evidence ·</b> Full text of /, /about and /donate read Sept 2, 2026 — no match for
+      "tax-deduct", "501(c)(3)", "nonprofit", or any nine-digit EIN pattern. Exemption confirmed against the
+      IRS Business Master File via the ProPublica Nonprofit Explorer API, same day.</div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">G-03</span><h3>Nobody can answer "how much of my money reaches a horse?"</h3></div>
+      <p>It is the first question a serious donor asks and the first document a grantmaker requests. The
+      ranch cannot answer it — <b>there are still zero annual returns on record</b>, re-checked today. No
+      990, no published budget, no split between program and overhead, no cost per horse per month.</p>
+      <p style="margin-top:12px">The widely-cited bar is the BBB Wise Giving Alliance standard: <b>at least
+      65% of total expenses spent on program activities</b>. A three-person operation where the founder
+      teaches, the barn manager runs the barn, and the horses eat most of the budget is very probably well
+      above that line. <b>That is the point — they are likely excellent and have no way to prove it</b>, so
+      the number gets assumed instead of read. A one-page budget and a filed return turn a private guess
+      into a public asset.</p>
+      <p style="margin-top:12px">There is a deadline attached, too. Three consecutive missed filing years
+      revoke the exemption automatically, and revocation would take G-02 down with it — the tax
+      deductibility they aren't currently using would stop being true before they ever start.</p>
+      <div class="ev"><b>Evidence ·</b> IRS Business Master File via ProPublica Nonprofit Explorer API, read
+      Sept 2, 2026 — exemption ruled Jan 2024, subsection 3, <b>filings on record: 0</b>. A 990-N e-Postcard
+      can lag public mirrors, so this is a flag to confirm with the founder, not a finding against her.
+      Program-expense threshold: BBB Wise Giving Alliance Standard 8.</div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">G-04</span><h3>There is no mission statement</h3></div>
+      <p>Not a weak one. Not a buried one. The word <b>"mission" does not appear anywhere on the website</b>.
+      The closest thing that exists is a sixty-word paragraph on the homepage describing the program
+      mechanically — horses come from dangerous situations, they are rehabilitated, students are assigned
+      one, students may adopt.</p>
+      <p style="margin-top:12px">That paragraph contains a genuinely rare idea and states it like a
+      procedure. This is the exact pair to hold in mind alongside F-05: <b>the mission is the strongest
+      asset they own, and it has never been written down as a sentence.</b> A mission statement isn't
+      corporate furniture for a charity; it's the sentence a supporter
+      repeats to somebody else, and every dollar this organization will ever raise travels through
+      someone's paraphrase of it. Right now there is nothing to paraphrase.</p>
+      <div class="ev"><b>Evidence ·</b> Case-insensitive search for "mission" across the rendered text of
+      all three pages, Sept 2, 2026 — zero occurrences. Homepage body text totals 87 words including
+      navigation and the footer address.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">G-05</span><h3>No numbers, so no scale</h3></div>
+      <p>How many horses have been rescued? How many are here now? How many students have come through?
+      How many adoptions? What does a month of feed cost? <b>The site answers none of it.</b> The only
+      figures anywhere on it are biographical — twenty-seven years riding, rode since she was eight, six
+      years on a drill team.</p>
+      <p style="margin-top:12px">"We rescue horses from kill pens" without a number is a sentiment. The same
+      sentence with two numbers in it is an emergency, a budget and a donation ladder at once — <i>this many
+      taken in since 2022, this much a month to keep one alive.</i> Those figures already exist. They are in
+      her feed receipts and in her head, and they have simply never been written down anywhere a donor can
+      reach them.</p>
+      <div class="ev"><b>Evidence ·</b> Full rendered text of all three pages, Sept 2, 2026 — no count of
+      horses, students, adoptions or dollars appears anywhere on the site.</div>
+    </div>
+
+    <div class="find">
+      <div class="h"><span class="n">G-06</span><h3>Not one horse has a name</h3></div>
+      <p>The organization owns the best story in its category and tells none of it. A horse comes out of a
+      kill pen, is rehabilitated over months, is handed to a teenager who cares for it all summer, and may
+      leave with that teenager as its owner. <b>Rescue, rehabilitation, apprenticeship, adoption</b> — a
+      four-act structure that arrives free with the business model, and almost nobody in this market can
+      copy it.</p>
+      <p style="margin-top:12px">On the site it is three sentences of abstraction. No horse is named. No
+      before-and-after exists. No student is followed. Nobody is quoted. Donors don't give to categories;
+      they give to a specific animal with a specific face and a specific bill. One named horse, photographed
+      the week it arrived and again ninety days later, would outperform every other change in this
+      document — and it costs a phone camera and ten minutes.</p>
+      <div class="ev"><b>Evidence ·</b> Rendered text and imagery of all three pages, Sept 2, 2026 — no
+      individual animal is named or profiled anywhere on the site.</div>
+    </div>
+
+    <div class="find hot">
+      <div class="h"><span class="n">G-07</span><h3>Nobody who visits can ever be reached again</h3></div>
+      <p>Across the whole site there are <b>zero forms, zero email fields, zero newsletter signups</b>, and
+      <b>no tracking of any kind</b> — no Meta pixel, no Google Analytics, no tag manager, no TikTok pixel.
+      Nothing loads that could measure or remember a visitor.</p>
+      <p style="margin-top:12px">The consequences stack. They cannot tell whether ten people or ten thousand
+      visited last month. They cannot show anything to the person who read the Donate page and hesitated —
+      the cheapest audience in marketing, and they don't have it. They cannot email the parent whose kid came
+      to camp last summer. <b>Every visitor is anonymous and single-use</b>, so every dollar spent driving
+      traffic is spent again from zero next time.</p>
+      <p style="margin-top:12px">It also means the sequence below cannot be built yet. An email flow needs a
+      list; a list needs a field on a page. <b>One email input is the prerequisite for everything that
+      follows.</b> One note on the way in: the day a pixel goes on the site is the day it needs a plain
+      visitor notice — trivial at install, awkward to retrofit.</p>
+      <div class="ev"><b>Evidence ·</b> All three pages loaded to network-idle Sept 2, 2026 with request
+      logging for facebook.net, googletagmanager, google-analytics, gtag, doubleclick, tiktok, clarity and
+      hotjar — <b>zero matches on every page</b>. DOM query for form, input[type=email] and tel: links —
+      zero across the site. No consent or cookie notice present.</div>
+    </div>
+
+    <div class="callout" style="margin-top:34px">
+      <p><b>Where the leverage is.</b> Six of these seven cost nothing but an afternoon — a giving page, a
+      footer line, a mission sentence, a named horse, an email field, a filed return. The seventh, the
+      numbers, costs one evening with her own receipts. <b>Not one of them needs a redesign, a budget, or an
+      agency.</b> The distance between this organization and a fundable one is almost entirely typing.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>The build · what fires when the money lands</div>
+    <h2>The gift is the start<br>of the relationship</h2>
+    <p class="lede">Almost every charity treats a donation as the finish line. It's the cheapest moment they
+      will ever have — someone has just proved, with money, that they care. What happens in the next sixty
+      seconds decides whether there's a second gift. <b>This is the sequence we'd wire, and it runs
+      itself.</b></p>
+    <ol class="plan">
+      <li><b>The instant the payment clears — the receipt.</b> Automatic, inside seconds, carrying the legal
+      name, the EIN, the ruling date and the line <i>"no goods or services were provided in exchange for
+      this contribution."</i> Not a courtesy: the IRS requires a contemporaneous written acknowledgment for
+      any single gift of $250 or more before the donor can deduct it, and a receipt that arrives by hand
+      three weeks later is a receipt that never arrives.</li>
+      <li><b>Same day — the thank you, which is not the receipt.</b> A separate message in Braxton's voice,
+      using the donor's name and naming what the money touched. The receipt is an artifact; this is the
+      relationship. Sending one and calling it both is the most common mistake in the sector.</li>
+      <li><b>Day three — where it went.</b> One horse. Photographed. Named. The condition it arrived in.
+      This is the message that turns a one-time giver into someone who tells another person, and it is the
+      direct output of fixing G-06.</li>
+      <li><b>Day thirty — the outcome.</b> The same horse, a month on. Nothing sells the next gift like
+      evidence of the last one, and nobody else in that donor's inbox is doing it.</li>
+      <li><b>Day sixty — the ask, converted.</b> One invitation to move from a single gift to a monthly
+      sponsorship at feed-bill price points. Someone who has watched an outcome converts at a rate a cold
+      donor never will, and <b>recurring gifts are the difference between a rescue that plans and a rescue
+      that hopes</b>.</li>
+      <li><b>Forever — the list.</b> The donor is on it, tagged by what they gave to and how much. Next
+      spring's appeal, the camp announcement and the year-end letter now have somewhere to land, and the
+      whole sequence runs again without anyone touching it.</li>
+    </ol>
+    <div class="callout">
+      <p><b>All of that is one automation and one email field.</b> The trigger is a payment event; the rest
+      is six messages written once. It's the same machine we run for paying clients, pointed at a donation
+      instead of an invoice — and for an organization whose entire donor experience currently ends at "call
+      the founder," it's the difference between a gift and a supporter.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>What we'd do about it</div>
     <h2>Ninety days, in order</h2>
     <p class="lede">Sequenced deliberately — each step is a prerequisite for the next, and nearly all of
@@ -265,14 +471,20 @@
     <ol class="plan">
       <li><b>Week one — stop the bleeding.</b> Claim the Google listing, mark it open with real hours,
       merge the duplicate. Put the charity status and tax ID in the site footer and on the Donate page.
-      Make the phone number tappable. Confirm the annual IRS filing is current.</li>
-      <li><b>Weeks two to four — open the giving lane.</b> Point the existing Donate button at one hosted
-      giving page that issues receipts automatically. Switch the Facebook page to its nonprofit category
-      to unlock a native donate button. Add one email field. Claim the transparency profile that grant
-      portals check.</li>
-      <li><b>Month two — go to market.</b> Publish the camp page at market-anchored tiers with sponsored
-      seats funded by donors. Launch "sponsor a horse" monthly giving at feed-bill price points. Put a QR
-      review card in every parent's hand at camp pickup. Send the press pitch.</li>
+      Make the phone number tappable. Confirm the annual IRS filing is current — and if it isn't, file it
+      before anything else on this list, because everything below depends on the exemption surviving.</li>
+      <li><b>Week two — write the four things that don't exist.</b> A mission sentence. Three impact
+      numbers taken from her own records. One named horse with a photograph from the week it arrived. A
+      one-page budget showing what share of a dollar reaches an animal. None of this is design work — it's
+      an evening at a kitchen table, and every step after it is weaker without it.</li>
+      <li><b>Weeks three and four — open the giving lane.</b> Point the Donate page at one hosted giving
+      page with three suggested amounts, a monthly option and automatic receipting. Switch the Facebook page
+      to its nonprofit category to unlock a native donate button. Add one email field. Claim the transparency
+      profile grant portals check. Install analytics and a pixel the same day, with a plain visitor notice.</li>
+      <li><b>Month two — wire the sequence, then go to market.</b> Turn on the six-message donation flow
+      above. Publish the camp page at market-anchored tiers with sponsored seats funded by donors. Launch
+      "sponsor a horse" at feed-bill price points. Put a QR review card in every parent's hand at camp
+      pickup. Send the press pitch.</li>
       <li><b>Month three — compound.</b> Submit the local grant letter of inquiry. Partner with a
       university service organization for volunteer days. Give the equine-assisted lane its own page,
       aimed at schools and counselors.</li>
@@ -292,15 +504,22 @@
   <div class="wrap">
     <div class="eyebrow"><span class="dot"></span>How this was made</div>
     <h2>Method &amp; honest limits</h2>
-    <p class="lede">The surface audit took about forty minutes; the deep dive about an hour on top of it.
-      No paid tools were used — the whole thing is knowing which primary source answers which question.</p>
+    <p class="lede">The surface audit took about forty minutes; the deep dive about an hour on top of it;
+      the donor-engine pass another forty minutes a week later. No paid tools were used at any point —
+      the whole thing is knowing which primary source answers which question.</p>
     <ul class="srcs">
       <li><b>Sources ·</b> IRS Business Master File · the organization's own website, read page by page ·
       Google Maps listings · both social profiles read directly, logged out · competitors' published
-      pricing pages · the funders' own grant criteria pages.</li>
+      pricing pages · the funders' own grant criteria pages · and for part three, every page of the site
+      rendered in a real browser with network logging, searched for giving mechanics, charity language,
+      impact figures and tracking scripts.</li>
       <li><b>Not claimed ·</b> Search-ranking position — an automated check was blocked partway, so no
       ranking claim appears anywhere in this audit. Whether the annual IRS filing is current is a question
-      for the founder, not an assertion. The ranch's own camp pricing is unpublished, so it isn't stated.</li>
+      for the founder, not an assertion. The ranch's own camp pricing is unpublished, so it isn't stated.
+      Public mirrors of IRS filings can lag a 990-N e-Postcard by months, so "zero filings on record" is
+      reported as what the record shows, not as proof she failed to file. No impact number is invented
+      anywhere in part three — where a figure would make the argument, the shape of the sentence is shown
+      and the number is left for her to supply.</li>
       <li><b>Corrected in public ·</b> An earlier draft claimed donations ran through PayPal. Re-checking
       showed those strings were the site-builder's own feature flags. The corrected finding — that no
       payment path exists at all — is worse for the organization and better as an audit.</li>
@@ -312,7 +531,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Station Automations Group · Field audit · August 2026</span>
+    <span>Station Automations Group · Field audit · August–September 2026</span>
     <span><a href="../">← Back to The Summer Line</a></span>
   </div>
 </footer>
