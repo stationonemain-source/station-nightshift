@@ -84,6 +84,24 @@
     try { return localStorage.getItem(LS_KEY); } catch (e) { return null; }
   }
 
+  /* A DURABLE per-browser id, where sid() below is per-VISIT. Without it every
+     number on the analytics board counted visits and was read as people: the
+     retargeting pool showed 35 when it was a handful of browsers -- mostly ours --
+     coming back, which is exactly the shape of a vanity metric. Anonymous: a random
+     string, never a name or an email, and it only ever leaves the browser inside an
+     event that full consent already allowed. Cleared with site data, same as the
+     consent choice itself. */
+  function vid() {
+    try {
+      var v = localStorage.getItem("rangeVid");
+      if (!v) {
+        v = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+        localStorage.setItem("rangeVid", v);
+      }
+      return v;
+    } catch (e) { return ""; }
+  }
+
   function sid() {
     try {
       var s = sessionStorage.getItem("rangeSid");
@@ -405,7 +423,7 @@
     }
     var a = attrCore();
     var id = eid();
-    post({ ev: ev, label: label || "", sid: sid(), path: location.pathname,
+    post({ ev: ev, label: label || "", sid: sid(), vid: vid(), path: location.pathname,
            ref: new URLSearchParams(location.search).get("ref") || "",
            utm_source: a.utm_source, utm_campaign: a.utm_campaign,
            fbclid_seen: a.fbclid_seen, device: a.device, event_id: id });
@@ -489,6 +507,9 @@
       // Deliberately WITHOUT the §4 attribution fields: this one record is sent
       // for a Deny visitor too, and recording which ad brought someone in is
       // exactly what they just declined.
+      /* vid deliberately absent: this one record is sent for a Deny visitor too, and
+         a durable id is the thing they just declined. An accepted visitor's browser
+         id arrives on their next event, which only fires under full consent. */
       post({ ev: "consent", label: val === "all" ? "accepted" : "essentials",
              sid: sid(), path: location.pathname,
              ref: new URLSearchParams(location.search).get("ref") || "" });
