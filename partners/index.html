@@ -1389,7 +1389,20 @@ function calBook(slot,btn){
     var bf=(d.booked_for||{});
     say(msg,"Booked — "+(bf.who==="self"?"your call with Station":("call with "+(bf.label||label)))
       +" on "+calDayLabel(slot.slice(0,10))+" at "+calTime(slot)+".","ok");
+    /* 2026-09-03: the join link rides back on the appointment. Surface it here so the
+       partner can pass it on without digging it out of the confirmation email. */
+    var join=String(((d.appointment||{}).address)||"");
+    if(/^https?:\/\//.test(join)){
+      var ja=document.createElement("a");
+      ja.href=join;ja.target="_blank";ja.rel="noopener";ja.textContent="Join link: "+join;
+      ja.style.cssText="display:block;margin-top:6px;word-break:break-all";
+      msg.appendChild(ja);
+    }
     $("calSlots").querySelectorAll("[data-slot]").forEach(function(b){b.disabled=true;});
+    /* 2026-09-03: the month grid under this form is drawn from cal_mine and only ever
+       reloaded on a Calendar-tab click, so a partner who booked saw their own calendar
+       stay empty. Redraw it now the booking exists. */
+    calGridLoad();
   }).catch(function(){
     btn.disabled=false;btn.textContent=calTime(slot);
     say(msg,"Network problem booking that time.","err");
