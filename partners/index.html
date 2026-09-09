@@ -255,6 +255,8 @@ tr.drawer>td{padding:0;background:var(--bg);border-bottom:1px solid var(--line)}
 @media(max-width:900px){.addrow .grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.addrow .grid{grid-template-columns:1fr}}
 .addrow .field{margin-bottom:0}
+.addrow .fh{font-family:var(--fm);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:14px}
 /* Product picker — a client is a stack, so every product is a toggle rather than
    one entry in a dropdown. Same visual family as the sheet's filter chips. */
 .pick{margin-top:18px}
@@ -744,11 +746,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 
         <div class="addrow hide" id="addLeadBox">
           <form id="addLeadForm" novalidate>
+            <div class="fh" id="addLeadTitle">Add a lead</div>
             <div class="grid">
               <div class="field"><label>Business</label><input name="name" required placeholder="Katy Pool Co"></div>
               <div class="field"><label>City</label><input name="city" placeholder="Katy"></div>
               <div class="field"><label>Trade</label><input name="niche" placeholder="pools"></div>
               <div class="field"><label>Phone</label><input name="phone" placeholder="(281) 555-0142"></div>
+              <div class="field"><label>Email</label><input name="email" type="email" autocomplete="off" placeholder="dana@katypoolco.com"></div>
               <div class="field"><label>Website</label><input name="website" placeholder="katypoolco.com"></div>
               <div class="field"><label>The gap</label><input name="gap" placeholder="No one answers after 5pm"></div>
               <div class="field"><label>Pitch</label><input name="sku" placeholder="Frontdesk"></div>
@@ -759,6 +763,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
               <button class="btn dark sm" type="submit"><span class="t">Add to sheet</span></button>
               <button class="btn lite sm" type="button" id="addLeadCancel">Cancel</button>
             </div>
+            <p class="note" style="margin:10px 0 0" id="addLeadNote">A phone or an email — one of the two is enough. Everything else you can fill in later: click Edit on any row to change it.</p>
             <div class="msg" id="addLeadMsg"></div>
           </form>
         </div>
@@ -1977,7 +1982,7 @@ var leadCfg={
   key:function(r){return r.id;},
   subject:function(r){return "lead:"+r.id;},
   label:function(r){return r.name||"Lead";},
-  searchExtra:function(r){return [r.city,r.website,r.price_line].join(" ");},
+  searchExtra:function(r){return [r.city,r.email,r.website,r.price_line].join(" ");},
   empty:"No leads on the sheet yet. Add the next business you plan to call.",
   filters:[
     {k:"open",label:"Open",fn:function(r){return ["won","not_interested"].indexOf(r.outcome||"")<0;}},
@@ -1989,8 +1994,13 @@ var leadCfg={
     {k:"name",h:"Business",cls:"b",html:function(r){
       return esc(r.name||"—")+(r.city?'<div class="sub">'+esc(r.city)+'</div>':"");}},
     {k:"niche",h:"Trade",cls:"dim",get:function(r){return r.niche||"";}},
-    {k:"phone",h:"Phone",html:function(r){
-      return r.phone?'<a class="cell" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>':'<span class="sub">—</span>';}},
+    {k:"phone",h:"Contact",get:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" ");},
+      html:function(r){
+        var h="";
+        if(r.phone)h+='<a class="cell" href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a>';
+        if(r.email)h+='<div class="sub"><a class="cell" href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a></div>';
+        return h||'<span class="sub">—</span>';},
+      csv:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" / ");}},
     {k:"gap",h:"The gap",cls:"dim",get:function(r){return r.gap||"";},html:function(r){
       return r.gap?esc(r.gap):'<span class="sub">—</span>';}},
     {k:"leak",h:"Leak / mo",cls:"num",get:function(r){return Number(r.leak)||0;},
@@ -2014,6 +2024,10 @@ var leadCfg={
       var n=((LEAD_NOTES["lead:"+r.id])||[]).length;
       return '<button class="nbtn" data-notes="'+esc(r.id)+'"'+(n?" data-has":"")+'>'+
              (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}},
+    // 2026-09-09: a row was write-once — only Status and Follow up could ever be
+    // changed after it was added. Edit opens the same form the row was typed in.
+    {k:"_edit",h:"",noSort:true,noExport:true,html:function(r){
+      return '<button class="nbtn" data-ledit="'+esc(r.id)+'" title="Edit this lead">Edit</button>';}},
     // 2026-08-22 audit fix F9: one click carries a sheet row into the Demo Builder.
     {k:"_demo",h:"",noSort:true,noExport:true,html:function(r){
       return '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business">Build a demo</button>';}},
@@ -2044,6 +2058,13 @@ var leadCfg={
           if(r){if(inp.value){r.next_at=inp.value;}else{delete r.next_at;}}
           renderSheet(cfg);
         }).catch(function(){});
+      };
+    });
+    tbl.querySelectorAll("[data-ledit]").forEach(function(btn){
+      btn.onclick=function(){
+        var id=btn.getAttribute("data-ledit");
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        if(r)openLeadForm(r);
       };
     });
     tbl.querySelectorAll("[data-demo]").forEach(function(btn){
@@ -3077,14 +3098,56 @@ $("ibxConfirm").addEventListener("click",confirmBooking);
 document.querySelectorAll('.tab[data-tab="clients"]').forEach(function(t){
   t.addEventListener("click",function(){loadClients();});});
 
+/* One form serves both jobs. EDIT_LEAD holds the id being edited, or null when
+   the form is adding — every open and close goes through these two functions so
+   the two modes can never be left half-set (a stale id here would save the edit
+   onto the wrong row). */
+var EDIT_LEAD=null;
+var ADD_LEAD_NOTE=$("addLeadNote").textContent;
+function closeLeadForm(){
+  EDIT_LEAD=null;
+  var f=$("addLeadForm");
+  f.reset();
+  $("addLeadTitle").textContent="Add a lead";
+  $("addLeadForm").querySelector("button[type=submit] .t").textContent="Add to sheet";
+  $("addLeadNote").textContent=ADD_LEAD_NOTE;
+  $("addLeadLookup").style.display="";
+  $("addLeadBox").classList.add("hide");
+  $("addLeadBtn").textContent="Add lead";
+  clear($("addLeadMsg"));
+}
+function openLeadForm(r){
+  var f=$("addLeadForm");
+  f.reset();clear($("addLeadMsg"));
+  EDIT_LEAD=r?r.id:null;
+  if(r){
+    ["name","city","niche","phone","email","website","gap","sku"].forEach(function(k){
+      if(f[k])f[k].value=r[k]||"";});
+    f.leak.value=r.leak?String(r.leak):"";
+    $("addLeadTitle").textContent="Edit — "+(r.name||"lead");
+    f.querySelector("button[type=submit] .t").textContent="Save changes";
+    $("addLeadNote").textContent="Change anything here — it saves onto the same row, and the notes on it stay put. Keep a phone or an email on it; either one on its own is fine.";
+    /* "Look it up" overwrites blanks from Google. On an existing row that is a
+       different, riskier action than it is on an empty form, so it is not offered
+       here — the partner has already been in front of this business. */
+    $("addLeadLookup").style.display="none";
+  }else{
+    $("addLeadTitle").textContent="Add a lead";
+    f.querySelector("button[type=submit] .t").textContent="Add to sheet";
+    $("addLeadNote").textContent=ADD_LEAD_NOTE;
+    $("addLeadLookup").style.display="";
+  }
+  $("pullLeadBox").classList.add("hide");$("pullLeadBtn").textContent="Pull leads";
+  $("addLeadBox").classList.remove("hide");
+  $("addLeadBtn").textContent="Close";
+  $("addLeadBox").scrollIntoView({behavior:"smooth",block:"nearest"});
+  f.name.focus();
+}
 $("addLeadBtn").addEventListener("click",function(){
   var box=$("addLeadBox"),showing=!box.classList.contains("hide");
-  box.classList.toggle("hide",showing);
-  this.textContent=showing?"Add lead":"Close";
-  if(!showing)box.querySelector("[name=name]").focus();
+  if(showing){closeLeadForm();}else{openLeadForm(null);}
 });
-$("addLeadCancel").addEventListener("click",function(){
-  $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";clear($("addLeadMsg"));});
+$("addLeadCancel").addEventListener("click",closeLeadForm);
 
 /* ---- add-client row: a Partner puts a closed client straight into their own
    book. The engine (client_add) re-checks everything server-side: partner
@@ -3283,7 +3346,7 @@ $("addLeadLookup").addEventListener("click",function(){
     if(!d||!d.ok){ say(m,(d&&d.error)||"could not find that business"); return; }
     var L=d.lead||{};
     /* never overwrite something already typed -- the partner was there, we were not */
-    ["name","city","niche","phone","website","gap","sku","leak"].forEach(function(k){
+    ["name","city","niche","phone","email","website","gap","sku","leak"].forEach(function(k){
       if(L[k] && f[k] && !String(f[k].value).trim()) f[k].value=L[k];
     });
     var b=d.business||{}, bits=[], k=d.kit||{};
@@ -3299,26 +3362,50 @@ $("addLeadLookup").addEventListener("click",function(){
 $("addLeadForm").addEventListener("submit",function(e){
   e.preventDefault();
   var f=e.target,m=$("addLeadMsg");clear(m);
+  var id=EDIT_LEAD,was=id?(LEADS.filter(function(x){return x.id===id;})[0]||null):null;
+  var lbl=id?"Save changes":"Add to sheet";
   if(!f.name.value.trim()){say(m,"A business name is the one thing we need.");return;}
+  var em=f.email.value.trim(),ph=f.phone.value.trim();
+  if(em&&!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say(m,"That email doesn't look right.");return;}
+  /* One contact detail, never both. A row that arrived with neither (a demo job
+     filed straight into the sheet) stays editable — this only stops the last one
+     being wiped off a row that had one. */
+  if(!em&&!ph&&(!was||was.phone||was.email)){
+    say(m,"Put in a phone or an email — either one on its own is fine.");return;}
   busy(f,true);
-  post({action:"lead_add",token:token,name:f.name.value.trim(),city:f.city.value.trim(),
-        niche:f.niche.value.trim(),phone:f.phone.value.trim(),website:f.website.value.trim(),
+  var body={action:(id?"lead_update":"lead_add"),token:token,
+        name:f.name.value.trim(),city:f.city.value.trim(),
+        niche:f.niche.value.trim(),phone:ph,email:em,website:f.website.value.trim(),
         gap:f.gap.value.trim(),sku:f.sku.value.trim(),
-        leak:String(f.leak.value).replace(/[^0-9]/g,"")})
+        leak:String(f.leak.value).replace(/[^0-9]/g,"")};
+  /* edit:true is what tells the engine this payload is the WHOLE row, so a field
+     sent blank clears it. Without it the engine keeps its older rule — a blank
+     never overwrites — which is right for the pipeline's Diagnose write-back and
+     wrong for a partner deliberately emptying a box. */
+  if(id){body.id=id;body.edit=true;}
+  post(body)
     .then(function(d){
-      busy(f,false,"Add to sheet");
-      if(!d.ok){say(m,d.error||"Could not add that row.");return;}
-      LEADS.push(d.lead);f.reset();
-      $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";
-      sst("leads").filter="all";renderSheet(leadCfg);
-    }).catch(function(){busy(f,false,"Add to sheet");say(m,"Network error — try again.");});
+      busy(f,false,lbl);
+      if(!d.ok){say(m,d.error||(id?"Could not save that row.":"Could not add that row."));return;}
+      if(id){
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        if(r){Object.keys(r).forEach(function(k){delete r[k];});
+              Object.keys(d.lead||{}).forEach(function(k){r[k]=d.lead[k];});}
+      }else{
+        LEADS.push(d.lead);
+        sst("leads").filter="all";
+      }
+      closeLeadForm();
+      renderSheet(leadCfg);
+      if(typeof renderPipe==="function"){try{renderPipe();}catch(err){}}
+    }).catch(function(){busy(f,false,lbl);say(m,"Network error — try again.");});
 });
 
 $("pullLeadBtn").addEventListener("click",function(){
   var box=$("pullLeadBox"),showing=!box.classList.contains("hide");
   box.classList.toggle("hide",showing);
   this.textContent=showing?"Pull leads":"Close";
-  $("addLeadBox").classList.add("hide");$("addLeadBtn").textContent="Add lead";
+  closeLeadForm();
   if(!showing)box.querySelector("[name=niche]").focus();
 });
 $("pullLeadCancel").addEventListener("click",function(){
