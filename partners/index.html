@@ -181,6 +181,12 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26
 .chip[data-on]{background:var(--ink);border-color:var(--ink);color:var(--card)}
 .chip .n{font-family:var(--fm);font-size:10px;opacity:.6;margin-left:6px}
 
+/* 2026-09-11: the row's own actions, rendered INSIDE the first column. The
+   sheet is ~1300px wide in a horizontal scroller, so anything in a far-right
+   column is unreachable on a phone without knowing to drag the table sideways.
+   Edit and Archive are the two a partner needs most, so they live here. */
+.rowact{display:flex;gap:6px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.rowact .nbtn{font-size:11px;padding:2px 8px}
 .sheet-scroll{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
   overflow:auto;max-height:min(70vh,760px)}
 table.sheet{width:100%;border-collapse:separate;border-spacing:0;font:13.5px/1.45 var(--fb)}
@@ -750,12 +756,14 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
             <div class="grid">
               <div class="field"><label>Business</label><input name="name" required placeholder="Katy Pool Co"></div>
               <div class="field"><label>City</label><input name="city" placeholder="Katy"></div>
+              <div class="field"><label>State</label><input name="state" maxlength="2" placeholder="TX"></div>
               <div class="field"><label>Trade</label><input name="niche" placeholder="pools"></div>
               <div class="field"><label>Phone</label><input name="phone" placeholder="(281) 555-0142"></div>
               <div class="field"><label>Email</label><input name="email" type="email" autocomplete="off" placeholder="dana@katypoolco.com"></div>
               <div class="field"><label>Website</label><input name="website" placeholder="katypoolco.com"></div>
               <div class="field"><label>The gap</label><input name="gap" placeholder="No one answers after 5pm"></div>
               <div class="field"><label>Pitch</label><input name="sku" placeholder="Frontdesk"></div>
+              <div class="field"><label>Price line</label><input name="price_line" placeholder="$97/mo"></div>
               <div class="field"><label>Est. leak / mo</label><input name="leak" inputmode="numeric" placeholder="2400"></div>
             </div>
             <div class="actions" style="margin-top:16px">
@@ -763,7 +771,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
               <button class="btn dark sm" type="submit"><span class="t">Add to sheet</span></button>
               <button class="btn lite sm" type="button" id="addLeadCancel">Cancel</button>
             </div>
-            <p class="note" style="margin:10px 0 0" id="addLeadNote">A phone or an email — one of the two is enough. Everything else you can fill in later: click Edit on any row to change it.</p>
+            <p class="note" style="margin:10px 0 0" id="addLeadNote">A phone or an email — one of the two is enough. Everything else you can fill in later: click Edit on any row, on this tab or on the Pipeline, and change anything on it. Nothing you add here is ever deleted — Archive puts a row aside and Restore brings it back.</p>
             <div class="msg" id="addLeadMsg"></div>
           </form>
         </div>
@@ -1816,10 +1824,12 @@ function sortVal(c,r){var v=c.sortv?c.sortv(r):cellVal(c,r);return v==null?"":v;
 
 function visibleRows(cfg){
   var st=sst(cfg.id),rows=(cfg.rows||[]).slice();
-  if(st.filter!=="all"){
-    var f=(cfg.filters||[]).filter(function(x){return x.k===st.filter;})[0];
-    if(f)rows=rows.filter(f.fn);
-  }
+  var f=st.filter!=="all"?((cfg.filters||[]).filter(function(x){return x.k===st.filter;})[0]||null):null;
+  /* baseFilter is the sheet's standing rule — for leads, "not archived". A filter
+     marked raw opts out of it, which is how the Archived chip can show the very
+     rows the standing rule hides. "All" means all LIVE rows, not all rows. */
+  if(cfg.baseFilter&&!(f&&f.raw))rows=rows.filter(cfg.baseFilter);
+  if(f)rows=rows.filter(f.fn);
   var q=st.q.trim().toLowerCase();
   if(q){
     rows=rows.filter(function(r){
@@ -1936,10 +1946,14 @@ function renderChips(cfg){
   var box=$(cfg.chips);
   if(!box||!cfg.filters)return;
   var st=sst(cfg.id),all=(cfg.rows||[]);
-  var h='<button class="chip" data-f="all"'+(st.filter==="all"?" data-on":"")+'>All<span class="n">'+all.length+'</span></button>';
+  /* Every count must be drawn from the same pool the chip actually shows, or the
+     numbers on the chips contradict the sheet under them. */
+  var base=cfg.baseFilter?all.filter(cfg.baseFilter):all;
+  var h='<button class="chip" data-f="all"'+(st.filter==="all"?" data-on":"")+'>All<span class="n">'+base.length+'</span></button>';
   cfg.filters.forEach(function(f){
+    var pool=f.raw?all:base;
     h+='<button class="chip" data-f="'+esc(f.k)+'"'+(st.filter===f.k?" data-on":"")+'>'+esc(f.label)+
-       '<span class="n">'+all.filter(f.fn).length+'</span></button>';
+       '<span class="n">'+pool.filter(f.fn).length+'</span></button>';
   });
   box.innerHTML=h;
   box.querySelectorAll(".chip").forEach(function(c){
@@ -1984,15 +1998,30 @@ var leadCfg={
   label:function(r){return r.name||"Lead";},
   searchExtra:function(r){return [r.city,r.email,r.website,r.price_line].join(" ");},
   empty:"No leads on the sheet yet. Add the next business you plan to call.",
+  /* 2026-09-11: nothing is ever deleted, so the sheet needs a standing rule that
+     keeps the archive out of the working view — and one chip that shows it. */
+  baseFilter:function(r){return !r.archived;},
   filters:[
     {k:"open",label:"Open",fn:function(r){return ["won","not_interested"].indexOf(r.outcome||"")<0;}},
     {k:"due",label:"Due",fn:function(r){return !!r.next_at&&r.next_at<=todayStr();}},
     {k:"interested",label:"Interested",fn:function(r){return ["interested","demo_sent"].indexOf(r.outcome||"")>=0;}},
-    {k:"won",label:"Won",fn:function(r){return r.outcome==="won";}}
+    {k:"won",label:"Won",fn:function(r){return r.outcome==="won";}},
+    {k:"archived",label:"Archived",raw:true,fn:function(r){return !!r.archived;}}
   ],
   cols:[
     {k:"name",h:"Business",cls:"b",html:function(r){
-      return esc(r.name||"—")+(r.city?'<div class="sub">'+esc(r.city)+'</div>':"");}},
+      /* Edit and Archive render HERE, in the first column, not in a column off the
+         right-hand edge of a 1300px table. At 375px the old Edit button sat at
+         x=1024 inside a 329px scroller — present, styled, and unreachable. */
+      var sub=[r.city,r.state].filter(Boolean).join(", ");
+      return esc(r.name||"—")+(sub?'<div class="sub">'+esc(sub)+'</div>':"")+
+        '<div class="rowact">'+
+        '<button class="nbtn" data-ledit="'+esc(r.id)+'" title="Change anything on this lead">Edit</button>'+
+        (r.archived
+          ?'<button class="nbtn" data-lrestore="'+esc(r.id)+'" title="Put this row back on your sheet">Restore</button>'+
+           '<span class="sub">archived</span>'
+          :'<button class="nbtn" data-ldel="'+esc(r.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>')+
+        '</div>';}},
     {k:"niche",h:"Trade",cls:"dim",get:function(r){return r.niche||"";}},
     {k:"phone",h:"Contact",get:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" ");},
       html:function(r){
@@ -2026,13 +2055,13 @@ var leadCfg={
              (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}},
     // 2026-09-09: a row was write-once — only Status and Follow up could ever be
     // changed after it was added. Edit opens the same form the row was typed in.
-    {k:"_edit",h:"",noSort:true,noExport:true,html:function(r){
-      return '<button class="nbtn" data-ledit="'+esc(r.id)+'" title="Edit this lead">Edit</button>';}},
+    // 2026-09-11: the dedicated Edit column is gone — it rendered past the right
+    // edge on a phone. Edit lives in the Business cell above.
     // 2026-08-22 audit fix F9: one click carries a sheet row into the Demo Builder.
     {k:"_demo",h:"",noSort:true,noExport:true,html:function(r){
       return '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business">Build a demo</button>';}},
-    {k:"_x",h:"",noSort:true,noExport:true,html:function(r){
-      return r.source==="manual"?'<button class="xbtn" data-ldel="'+esc(r.id)+'" title="Remove this row">&times;</button>':"";}}
+    // 2026-09-11: the × that deleted the row (and its notes) is gone. Archive and
+    // Restore are in the Business cell, where a phone can reach them.
   ],
   count:function(shown,total){
     $("leadCount").textContent=shown===total?(total+" row"+(total===1?"":"s")):(shown+" of "+total+" rows");
@@ -2074,16 +2103,33 @@ var leadCfg={
         if(r)prefillDemo({business:r.name,city:r.city,state:r.state,niche:r.niche,website:r.website});
       };
     });
+    /* 2026-09-11: a lead is never destroyed. lead_del keeps its name because every
+       older client calls it, but the engine (v4.35) archives — the row and its
+       notes stay on the account and Restore puts them back. The wording here has
+       to match what the engine actually does. */
     tbl.querySelectorAll("[data-ldel]").forEach(function(btn){
       btn.onclick=function(){
         var id=btn.getAttribute("data-ldel");
         var r=LEADS.filter(function(x){return x.id===id;})[0];
-        if(!confirm("Remove "+((r&&r.name)||"this row")+" from your sheet? Its notes go with it."))return;
+        if(!confirm("Move "+((r&&r.name)||"this row")+" to your archive? Nothing is deleted — its notes stay with it and you can restore it from the Archived filter."))return;
         post({action:"lead_del",token:token,id:id}).then(function(d){
           if(!d||!d.ok)return;
-          for(var i=LEADS.length-1;i>=0;i--){if(LEADS[i].id===id)LEADS.splice(i,1);}
-          delete LEAD_NOTES["lead:"+id];
+          if(r)r.archived=d.archived||new Date().toISOString();
           renderSheet(cfg);
+          if(typeof renderPipe==="function"){try{renderPipe();}catch(err){}}
+        }).catch(function(){});
+      };
+    });
+    tbl.querySelectorAll("[data-lrestore]").forEach(function(btn){
+      btn.onclick=function(){
+        var id=btn.getAttribute("data-lrestore");
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        post({action:"lead_restore",token:token,id:id}).then(function(d){
+          if(!d||!d.ok){alert((d&&d.error)||"Could not restore that row.");return;}
+          if(r&&d.lead){Object.keys(r).forEach(function(k){delete r[k];});
+                        Object.keys(d.lead).forEach(function(k){r[k]=d.lead[k];});}
+          renderSheet(cfg);
+          if(typeof renderPipe==="function"){try{renderPipe();}catch(err){}}
         }).catch(function(){});
       };
     });
@@ -2658,13 +2704,15 @@ function pipeCard(l){
  if(nts.length&&nts[0]&&nts[0].text)
   h+='<details class="pwhy"><summary>Why &amp; what to say</summary><div>'+esc(nts[0].text)+'</div></details>';
  h+='<div class="pacts">';
+ /* 2026-09-11: Edit on EVERY card, at every stage. The Pipeline is the tab a
+    partner actually works from and it had no way to correct a lead at all — the
+    only row action it offered was the one that destroyed it. */
+ h+='<button class="btn lite sm" data-pedit="'+esc(l.id)+'" title="Change anything on this lead">Edit</button>';
  if(st==="find")h+='<button class="btn dark sm" data-pdiag="'+esc(l.id)+'">Diagnose</button>';
  if(st==="diag"){
   h+='<button class="btn dark sm" data-pbuild="'+esc(l.id)+'">Build the site</button>';
   h+='<button class="btn lite sm" data-pdiag="'+esc(l.id)+'">Re-diagnose</button>';}
  if((st==="find"||st==="diag")&&l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
- if((st==="find"||st==="diag")&&l.source==="manual")
-  h+='<button class="btn lite sm" data-pdel="'+esc(l.id)+'" title="Remove this row from your sheet">Remove</button>';
  if(st==="built"&&j){
   if(j.status==="building")h+='<span class="pwait">Forging\u2026 check back in a minute</span>';
   if(j.url)h+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
@@ -2678,16 +2726,22 @@ function pipeCard(l){
    if(o!==l.outcome)h+='<button class="btn lite sm" data-pout="'+o+'" data-plead="'+esc(l.id)+'">'+esc(outLabel(o))+'</button>';});
   h+='<label class="pcb">Ring back <input type="date" data-pnext="'+esc(l.id)+'" value="'+esc(l.next_at||"")+'"></label>';}
  if(st==="done")h+='<span class="pchip '+(l.outcome==="won"?"pwon":"plost")+'">'+esc(outLabel(l.outcome))+'</span>';
+ /* Archive is offered at every stage now, and on pulled rows too — it is no
+    longer destructive, so there is nothing left to protect them from. */
+ h+='<button class="btn lite sm" data-pdel="'+esc(l.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>';
  h+='</div></div>';
  return h;}
 function renderPipe(){
  var box=$("pipeCols");if(!box)return;
  var by={find:[],diag:[],built:[],work:[],done:[]};
- (LEADS||[]).forEach(function(l){by[pipeStage(l)].push(l);});
+ /* Archived rows are still on the account and still in LEADS — the funnel is the
+    working view, so they stay out of it until they are restored. */
+ var live=(LEADS||[]).filter(function(l){return !l.archived;});
+ live.forEach(function(l){by[pipeStage(l)].push(l);});
  /* demos with no lead row (built pre-v4.24, or still forging) belong in Built too --
     a job the partner cannot see in the funnel is the "does not correlate" disease. */
  var claimed={};
- (LEADS||[]).forEach(function(l){claimed[pipeNorm(l.name)]=1;});
+ live.forEach(function(l){claimed[pipeNorm(l.name)]=1;});
  (JOBS||[]).forEach(function(j){
   if(j.status!=="ready"&&j.status!=="building")return;
   if(claimed[pipeNorm(j.business)])return;
@@ -2707,8 +2761,22 @@ function pipeRefresh(){
  post({action:"demo_list",token:token}).then(function(d){
   if(d&&d.ok){JOBS=d.jobs||[];renderPipe();}}).catch(function(){});}
 document.addEventListener("click",function(e){
- var t=e.target.closest?e.target.closest("[data-pdiag],[data-pbuild],[data-pout]"):null;
+ /* 2026-09-11: this selector IS the reachability list for every pipeline button.
+    It matched three attributes while the handlers below it covered six, so
+    Remove, "Send it" and "Add to sheet" were dead in every browser — a click
+    landed, closest() returned null, and nothing happened with no console error.
+    Add the attribute here in the same edit as the handler, always. */
+ var t=e.target.closest?e.target.closest("[data-pdiag],[data-pbuild],[data-pout],[data-psend],[data-pjadd],[data-pdel],[data-pedit]"):null;
  if(!t)return;
+ if(t.hasAttribute("data-pedit")){
+  var el=(LEADS||[]).filter(function(x){return x.id===t.getAttribute("data-pedit");})[0];
+  if(!el)return;
+  /* The form lives in the Leads tab, so go there and open it on this row —
+     rather than a second copy of the form that could drift from the first. */
+  var lt=document.querySelector('#appView .tab[data-tab="leads"]');
+  if(lt)lt.click();
+  if(typeof openLeadForm==="function")openLeadForm(el);
+  return;}
  if(t.hasAttribute("data-pdiag")){
   var l=(LEADS||[]).filter(function(x){return x.id===t.getAttribute("data-pdiag");})[0];
   if(!l)return;
@@ -2774,12 +2842,12 @@ document.addEventListener("click",function(e){
  if(t.hasAttribute("data-pdel")){
   var did=t.getAttribute("data-pdel");
   var dl=(LEADS||[]).filter(function(x){return x.id===did;})[0];
-  if(!confirm("Remove "+((dl&&dl.name)||"this row")+" from your sheet? Its notes go with it."))return;
+  if(!confirm("Move "+((dl&&dl.name)||"this row")+" to your archive? Nothing is deleted — its notes stay with it, and the Leads tab's Archived filter restores it."))return;
   post({action:"lead_del",token:token,id:did}).then(function(d){
    if(!d||!d.ok)return;
-   for(var i=LEADS.length-1;i>=0;i--){if(LEADS[i].id===did)LEADS.splice(i,1);}
-   delete LEAD_NOTES["lead:"+did];
-   renderPipe();});
+   if(dl)dl.archived=d.archived||new Date().toISOString();
+   renderPipe();
+   if(typeof renderSheet==="function"){try{renderSheet(leadCfg);}catch(err){}}});
   return;}
  if(t.hasAttribute("data-pout")){
   var id=t.getAttribute("data-plead"),o=t.getAttribute("data-pout");
@@ -3121,12 +3189,12 @@ function openLeadForm(r){
   f.reset();clear($("addLeadMsg"));
   EDIT_LEAD=r?r.id:null;
   if(r){
-    ["name","city","niche","phone","email","website","gap","sku"].forEach(function(k){
+    ["name","city","state","niche","phone","email","website","gap","sku","price_line"].forEach(function(k){
       if(f[k])f[k].value=r[k]||"";});
     f.leak.value=r.leak?String(r.leak):"";
     $("addLeadTitle").textContent="Edit — "+(r.name||"lead");
     f.querySelector("button[type=submit] .t").textContent="Save changes";
-    $("addLeadNote").textContent="Change anything here — it saves onto the same row, and the notes on it stay put. Keep a phone or an email on it; either one on its own is fine.";
+    $("addLeadNote").textContent="Change anything here — every field on the row is yours to edit, it saves onto the same row, and the notes on it stay put. Keep a phone or an email on it; either one on its own is fine.";
     /* "Look it up" overwrites blanks from Google. On an existing row that is a
        different, riskier action than it is on an empty form, so it is not offered
        here — the partner has already been in front of this business. */
@@ -3375,8 +3443,10 @@ $("addLeadForm").addEventListener("submit",function(e){
   busy(f,true);
   var body={action:(id?"lead_update":"lead_add"),token:token,
         name:f.name.value.trim(),city:f.city.value.trim(),
+        state:f.state.value.trim().toUpperCase(),
         niche:f.niche.value.trim(),phone:ph,email:em,website:f.website.value.trim(),
         gap:f.gap.value.trim(),sku:f.sku.value.trim(),
+        price_line:f.price_line.value.trim(),
         leak:String(f.leak.value).replace(/[^0-9]/g,"")};
   /* edit:true is what tells the engine this payload is the WHOLE row, so a field
      sent blank clears it. Without it the engine keeps its older rule — a blank
