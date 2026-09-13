@@ -585,7 +585,7 @@
       if (/email|campaign|newsletter|blast/.test(s)) return "That's <b>Dispatch</b> — mass email campaigns with hundreds of real templates included:<br>" + plink("dispatch") + "<a href='/portfolio/emails/'>See the template gallery →</a>";
       if (/pay|card|invoice|estimate|charge customer|pos/.test(s)) return "That's <b>Tap</b> — estimate → invoice → tap their card on your phone → paid in the driveway:<br>" + plink("tap");
       if (/start|begin|first|recommend|which one|what should/.test(s)) return "Honest answer: start where it hurts most. Missing calls → <b>Lineback</b>. Nobody finds you → <b>Map</b>. Few reviews → <b>Repute</b>. Or answer one question and the shelf reorders itself:<br><a href='/#help'>Build my line →</a><a href='/audit/'>Or get the free audit →</a>";
-      if (/audit|free|check/.test(s)) return "The free audit runs eleven checks on your listing, reviews, site and response speed — no card, no call, emailed to you:<br><a href='/audit/'>Get the free audit →</a>";
+      if (/audit|free|check/.test(s)) return "The free audit runs five scored sections on your listing, reviews, site, marketing tags and local ranking — no card, no call, emailed to you:<br><a href='/audit/'>Get the free audit →</a>";
       if (/hi|hello|hey|yo\b/.test(s)) return "Hey! Ask me anything — what a product costs, what fixes missed calls, how fast things go live. Or tell me what's hurting and I'll point you at the fix.";
       return "Good question — here's the fastest path to a real answer:<br><a href='/audit/'>Get the free audit →</a><a href='/book/'>Book the 15-min call →</a><a href='mailto:main@station.solutions'>Email us →</a><br>Or try asking about a product by name, pricing, trials, or what fixes missed calls / no-shows / reviews.";
     }
@@ -635,8 +635,8 @@
             '<input name="phone" type="tel" placeholder="Phone (optional)" style="grid-column:1/-1"></div>' +
             '<input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">' +
             '<input type="hidden" name="_t" value=""><input type="hidden" name="variant" value="newsletter">' +
-            '<label class="consent"><input type="checkbox" name="consent_email" value="yes" required><span>Email me the monthly note. Unsubscribe anytime.</span></label>' +
-            '<label class="consent"><input type="checkbox" name="consent_sms" value="yes"><span>Text me Station tips &amp; offers too. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a> · <a href="/legal/privacy.html" target="_blank">Privacy</a>.</span></label>' +
+            '<label class="consent"><input type="checkbox" name="email_consent" value="yes" required><span>Email me the monthly note. Unsubscribe anytime.</span></label>' +
+            '<label class="consent"><input type="checkbox" name="sms_consent" value="yes"><span>Text me Station tips &amp; offers too. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a> · <a href="/legal/privacy.html" target="_blank">Privacy</a>.</span></label>' +
             '<button class="btn dark" type="submit" style="width:100%">Join the list</button>' +
             '<p class="af-done" hidden><b>You\'re on the list.</b> Nothing else to do.</p></form>';
           function close() { scr.remove(); pop.remove(); localStorage.setItem("station_news", "dismissed"); }
@@ -1125,7 +1125,7 @@
       return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
     }).concat([
       { t: "Bundles — Core / Pro / Custom", s: "Ride the whole line for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
-      { t: "Free audit", s: "Eleven checks on your front office — free", u: "/audit/", kw: "audit free check listing reviews report" },
+      { t: "Free audit", s: "Five scored sections on your front office — free", u: "/audit/", kw: "audit free check listing reviews report" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },
       { t: "Website portfolio", s: "Real premium templates, clickable", u: "/portfolio/", kw: "portfolio website templates examples work roofing pool auto golf" },
       { t: "Email template gallery", s: "Real campaign templates included with Dispatch", u: "/portfolio/emails/", kw: "email templates campaigns newsletter examples dispatch" },

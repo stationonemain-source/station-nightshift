@@ -107,7 +107,7 @@
       try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd, keepalive: true }).catch(function () {}); } catch (err) {}
       lsSet("station_lead_done", "1");
       form.querySelectorAll("input,button").forEach(function (el) { el.disabled = true; });
-      msg.textContent = "On its way — audits usually land within the hour.";
+      msg.textContent = "On its way. A person reads every audit before it goes out, so it will not be instant — we will email it to you.";
       msg.className = "sa-msg ok";
       track("audit_popup_submitted", path);
       setTimeout(function () { box.classList.remove("on"); setTimeout(function () { box.remove(); }, 260); }, 3200);
