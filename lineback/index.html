@@ -57,7 +57,45 @@
     <section class="flow-demo rv" id="demo"><p class="k">Try it right now</p><div class="demo-live"><span class="dl-pulse"></span><b>Watch it catch your own call.</b>
       <p>Call our line and hang up after two rings. Your phone gets the text-back — the exact experience your missed callers would have.</p>
       <a class="btn dark" href="tel:+18444936381">Call (844) 493-6381 — it answers</a>
-      <p class="demo-fine">By calling you agree to receive that one demonstration text; reply STOP to opt out. <a href="/legal/sms-terms.html">SMS terms</a>. If the text doesn't arrive, carriers may still be verifying our toll-free line — the call side works regardless.</p></div></section>
+      <p class="demo-fine">By calling you agree to receive that one demonstration text; reply STOP to opt out. <a href="/legal/sms-terms.html">SMS terms</a>.</p>
+      <form id="lbdemo" class="lb-form" novalidate>
+        <p class="lb-or">Or have the text-back sent to you now:</p>
+        <div class="lb-row"><input type="tel" name="phone" id="lb_phone" autocomplete="tel" placeholder="Your mobile number" aria-label="Your mobile number"><button class="btn dark" type="submit" id="lb_go">Text me the demo</button></div>
+        <input type="email" name="email" id="lb_email" autocomplete="email" placeholder="Email (optional — we'll send a copy)" aria-label="Email" class="lb-email">
+        <label class="lb-consent"><input type="checkbox" name="sms_consent" value="yes" id="lb_consent"><span>Text me the Lineback demonstration and occasional Station tips &amp; offers at this number. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html">SMS terms</a> · <a href="/legal/privacy.html">Privacy</a>.</span></label>
+        <input class="lb-hp" type="text" name="leak" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="demo-fine" id="lb_msg" role="status"></p>
+      </form>
+      <style>
+        .lb-form{margin-top:16px;text-align:left;max-width:520px}
+        .lb-or{font-size:13.5px;color:var(--muted,#5F5F64);margin:0 0 8px}
+        .lb-row{display:flex;gap:8px;flex-wrap:wrap}
+        .lb-row input,.lb-email{flex:1;min-width:200px;background:#fff;border:1px solid rgba(22,24,29,.14);border-radius:12px;padding:12px 14px;font:15px/1.4 inherit;color:inherit}
+        .lb-email{width:100%;margin-top:8px}
+        .lb-consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--muted,#5F5F64);margin:10px 0 0}
+        .lb-consent input{margin-top:3px;flex:none}
+        .lb-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+      </style>
+      <script>
+      (function(){
+        var f=document.getElementById("lbdemo"); if(!f) return;
+        var msg=document.getElementById("lb_msg"), btn=document.getElementById("lb_go");
+        f.addEventListener("submit",function(e){
+          e.preventDefault();
+          var phone=(document.getElementById("lb_phone").value||"").replace(/[^\d+]/g,"");
+          var email=(document.getElementById("lb_email").value||"").trim();
+          if(phone.replace(/\D/g,"").length<10){ msg.textContent="Enter the mobile number you'd like the demo sent to."; return; }
+          if(!document.getElementById("lb_consent").checked){ msg.textContent="Tick the box so we're allowed to text you — that's the whole demo."; return; }
+          btn.disabled=true; btn.textContent="Sending…"; msg.textContent="";
+          fetch("https://n8n.srv1748596.hstgr.cloud/webhook/lineback-demo",{method:"POST",headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({form:"lineback-demo",phone:phone,email:email,sms_consent:"yes",consent_text:document.querySelector(".lb-consent span").textContent.trim(),page:location.href,sent_at:new Date().toISOString(),leak:f.leak.value||""})})
+          .then(function(r){ msg.textContent=r.ok?"On its way — the text lands in under a minute. That's exactly what your missed callers would get.":"We couldn't send that just now. Call the line above instead, or email main@station.solutions."; })
+          .catch(function(){ msg.textContent="We couldn't send that just now. Call the line above instead, or email main@station.solutions."; })
+          .then(function(){ btn.disabled=false; btn.textContent="Text me the demo"; });
+        });
+      })();
+      </script>
+    </div></section>
     <div class="rv"><p class="k">Ninety seconds, two endings</p><h2 class="serif">The same moment, with and without it.</h2>
     <div class="sdrop" data-sdrop>
       <div class="sd-h" role="button" tabindex="0" aria-expanded="false">
