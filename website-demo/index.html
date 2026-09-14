@@ -1,0 +1,274 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>See your new website — Station</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Tell us a little about your business and we'll build you a demo website to look at. Free, no strings.">
+<meta name="theme-color" content="#F5F4F1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico">
+<style>
+:root{
+  --bg:#F5F4F1;--card:#FFFFFF;--bg-2:#FAF9F6;--bg-3:#F1EFE9;
+  --line:#E7E4DE;--line-2:#DDD9D0;
+  --ink:#1D1D1F;--muted:#5F5F64;--faint:#6E6E73;
+  --accent:#8A5A00;--gold:#EFC26A;--good:#167A44;--good-bg:#EDF6F0;
+  --fd:'Inter','Segoe UI',system-ui,sans-serif;
+  --fm:'JetBrains Mono',Consolas,ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--fd);-webkit-font-smoothing:antialiased}
+.wrap{max-width:730px;margin:0 auto;padding:0 22px}
+h1,h2{margin:0;letter-spacing:-.022em;text-wrap:balance;font-weight:700}
+p{margin:0 0 1em}
+a{color:var(--ink)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:12px;z-index:99;background:var(--ink);color:#fff;padding:9px 14px;border-radius:10px}
+.top{border-bottom:1px solid var(--line);background:rgba(245,244,241,.9);backdrop-filter:blur(14px);position:sticky;top:0;z-index:20}
+.top-in{max-width:730px;margin:0 auto;padding:0 22px;height:56px;display:flex;align-items:center;gap:10px}
+.home{display:flex;align-items:center;gap:9px;font:700 12px var(--fd);letter-spacing:.13em;text-decoration:none;color:var(--ink)}
+.top .tag{margin-left:auto;font:600 10.5px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.hero{padding:52px 0 8px}
+.k{font:600 11px var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin:0 0 14px}
+.hero h1{font-size:clamp(1.9rem,4.4vw,2.6rem);line-height:1.12}
+.lede{color:var(--muted);font-size:17px;margin:16px 0 0;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.pill{font:600 12px var(--fd);color:var(--muted);background:var(--bg-3);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.sec{margin:44px 0 0}
+.sec-h{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
+.sec-n{font:600 11px var(--fm);letter-spacing:.12em;color:var(--accent)}
+.sec-h h2{font-size:19px;letter-spacing:-.012em}
+.sec-note{color:var(--faint);font-size:14px;margin:-6px 0 16px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin:0 0 12px}
+.q>label,.q .qh{display:block;font-weight:600;font-size:16px;margin:0 0 4px}
+.q .hint{display:block;color:var(--faint);font-size:13.5px;margin:0 0 12px;line-height:1.5}
+.q:focus-within{border-color:var(--line-2)}
+input[type=text],input[type=email],input[type=tel],input[type=url],textarea{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font:400 15.5px/1.55 var(--fd);color:var(--ink);resize:vertical}
+textarea{min-height:88px}
+input:focus,textarea:focus{outline:none;border-color:var(--ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair label{display:block;font-weight:600;font-size:14px;margin:0 0 6px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer}
+.chip input{margin:0}
+.chip:has(input:checked){background:var(--ink);color:#fff;border-color:var(--ink)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted);line-height:1.5;margin:0 0 10px}
+.consent input{margin-top:4px;flex:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 22px;font:600 16px var(--fd);cursor:pointer}
+.btn:disabled{opacity:.6;cursor:default}
+.send{margin:28px 0 0;display:flex;flex-wrap:wrap;gap:14px;align-items:center;color:var(--faint);font-size:14px}
+.warn{display:none;background:#FDF4E7;border:1px solid #EBD6AE;border-radius:14px;padding:16px 18px;margin:16px 0 0;font-size:14.5px;color:#6B4A08}
+.warn.on{display:block}
+.done{display:none;background:var(--good-bg);border:1px solid #CFE6D6;border-radius:18px;padding:24px;margin:30px 0 0}
+.done.on{display:block}
+.done h2{color:var(--good);font-size:20px;margin:0 0 8px}
+footer{margin:56px 0 40px;color:var(--faint);font-size:13px}
+footer .wrap{padding-top:22px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:16px}
+footer a{color:var(--faint)}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to the form</a>
+
+<header class="top"><div class="top-in">
+  <a class="home" href="https://station.solutions/"><span>STATION</span></a>
+  <span class="tag">Free demo website</span>
+</div></header>
+
+<main id="main"><div class="wrap">
+
+  <section class="hero">
+    <p class="k">Two minutes, then we build</p>
+    <h1 id="hd">See what a new website for your business would look like.</h1>
+    <p class="lede" id="lede">Tell us a little about the business and we&rsquo;ll build a demo you can open on your phone &mdash; a real site, with your name on it, not a template with blanks. Free, nothing to sign. If you like it, it&rsquo;s yours to keep; if not, we take it down.</p>
+    <div class="meta">
+      <span class="pill">About 2 minutes</span>
+      <span class="pill">Free &middot; no strings</span>
+      <span class="pill">We text or email you the link</span>
+    </div>
+  </section>
+
+  <form id="demo" novalidate>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">01</span><h2>Where to send it</h2></div>
+      <div class="q">
+        <div class="pair">
+          <div><label for="f_name">Your name</label><input type="text" id="f_name" name="name" autocomplete="name" placeholder="First and last"></div>
+          <div><label for="f_business">Business name</label><input type="text" id="f_business" name="business" autocomplete="organization" placeholder="Exactly as you'd want it on the site"></div>
+        </div>
+      </div>
+      <div class="q">
+        <div class="pair">
+          <div><label for="f_email">Email</label><input type="email" id="f_email" name="email" autocomplete="email" placeholder="you@yourbusiness.com"></div>
+          <div><label for="f_phone">Mobile</label><input type="tel" id="f_phone" name="phone" autocomplete="tel" placeholder="So we can text you the link"></div>
+        </div>
+        <span class="hint" style="margin-top:10px">We need at least one. The link comes to whichever you give us.</span>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">02</span><h2>The business</h2></div>
+      <p class="sec-note">This is what the site gets built from. Short answers are fine.</p>
+      <div class="q">
+        <label for="f_site">Do you have a website today?</label>
+        <span class="hint">Paste it if so &mdash; we&rsquo;ll pull what&rsquo;s worth keeping. Leave it blank if not.</span>
+        <input type="text" id="f_site" name="site" placeholder="yourbusiness.com">
+      </div>
+      <div class="q">
+        <div class="pair">
+          <div><label for="f_niche">What do you do?</label><input type="text" id="f_niche" name="niche" placeholder="Plumber, taqueria, dental office, gym…"></div>
+          <div><label for="f_city">City and state</label><input type="text" id="f_city" name="city" placeholder="Katy, TX"></div>
+        </div>
+      </div>
+      <div class="q">
+        <label for="f_services">Your top three services</label>
+        <span class="hint">The things people actually call you for.</span>
+        <textarea id="f_services" name="services" placeholder="Drain cleaning, water heaters, emergency repairs"></textarea>
+      </div>
+      <div class="q">
+        <label for="f_hours">Hours and service area</label>
+        <textarea id="f_hours" name="hours" placeholder="Mon–Sat 7–7 · Katy, Cypress, west Houston"></textarea>
+      </div>
+      <div class="q">
+        <label for="f_different">What should a first-time visitor know about you?</label>
+        <span class="hint">Why you over the next name on the list. One or two sentences.</span>
+        <textarea id="f_different" name="different" placeholder="Family-run since 2009, we answer the phone, no upsells…"></textarea>
+      </div>
+      <div class="q">
+        <label for="f_brand">Colours, logo, photos</label>
+        <span class="hint">A link to your Instagram, Facebook, Google listing or a Drive folder is perfect. Or just tell us the colours.</span>
+        <textarea id="f_brand" name="brand" placeholder="instagram.com/yourbusiness · navy and white · logo attached on Google"></textarea>
+      </div>
+      <div class="q">
+        <div class="qh">What matters most on the site?</div>
+        <span class="hint">Pick any.</span>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="wants" value="Book appointments online"><span>Online booking</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Click to call on mobile"><span>Click to call</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Show reviews"><span>Reviews</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Photo gallery of work"><span>Photo gallery</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Menu or price list"><span>Menu / prices</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Spanish version"><span>En espa&ntilde;ol</span></label>
+          <label class="chip"><input type="checkbox" name="wants" value="Contact form to my email"><span>Contact form</span></label>
+        </div>
+      </div>
+      <div class="q">
+        <label for="f_notes">Anything else?</label>
+        <textarea id="f_notes" name="notes" placeholder="Optional"></textarea>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-h"><span class="sec-n">03</span><h2>How we get it to you</h2></div>
+      <div class="q">
+        <label class="consent"><input type="checkbox" name="sms_consent" value="yes" id="f_sms"><span>Yes, text me the demo link and a couple of follow-ups about it at the mobile number above. Message and data rates may apply. Reply STOP to opt out at any time. Consent is not a condition of purchase.</span></label>
+        <label class="consent"><input type="checkbox" name="email_consent" value="yes" id="f_em" checked><span>Email me the demo link and follow-ups about it. Unsubscribe with one click in any email.</span></label>
+      </div>
+    </section>
+
+    <input class="hp" type="text" name="leak" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input class="hp" type="text" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <div id="warn" class="warn" role="alert"></div>
+    <div class="send">
+      <button class="btn" type="submit" id="go">Build my demo</button>
+      <span>Usually ready within the hour.</span>
+    </div>
+  </form>
+
+  <div class="done" id="done">
+    <h2>We&rsquo;re on it.</h2>
+    <p id="donemsg">Your demo is being built now. The link is on its way to the email or mobile you gave us &mdash; usually within the hour, always the same day. When you open it you&rsquo;ll see a way to keep it and a way to book ten minutes with us to change anything.</p>
+    <p style="margin:0"><a href="https://station.solutions/">Back to Station</a></p>
+  </div>
+
+</div></main>
+
+<footer><div class="wrap">
+  <span>Station &middot; <a href="https://station.solutions/">station.solutions</a></span>
+  <a href="mailto:main@station.solutions">main@station.solutions</a>
+  <a href="tel:+18444936381">(844) 493-6381</a>
+  <span>Station Automations Group LLC &middot; 1856 Branard St, Houston, TX 77098</span>
+</div></footer>
+
+<script>
+(function(){
+  var ENDPOINT = "https://n8n.srv1748596.hstgr.cloud/webhook/demo-request";
+  var form = document.getElementById("demo");
+  var t0 = Date.now();
+  var qs; try { qs = new URLSearchParams(location.search); } catch (e) { qs = null; }
+  function param(k){ try { return (qs && qs.get(k)) || ""; } catch (e) { return ""; } }
+  /* prefill from the cold email link: ?for=Business&site=&city=&niche=&email= — nothing here is trusted server-side */
+  var forWhom = param("for") || param("biz");
+  if (forWhom) {
+    var b = document.getElementById("f_business"); if (!b.value) b.value = forWhom;
+    document.getElementById("hd").textContent = "See what a new website for " + forWhom + " would look like.";
+    document.title = "Your demo website — " + forWhom + " · Station";
+  }
+  ["site","city","niche","email","name"].forEach(function(k){
+    var v = param(k), el = document.getElementById("f_" + k);
+    if (v && el && !el.value) el.value = v;
+  });
+  var KEY = "station_demo_draft";
+  function fields(){ return form.querySelectorAll("input[name], textarea[name]"); }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+    fields().forEach(function(el){
+      if (el.name === "leak" || el.name === "company_url") return;
+      var v = saved[el.name + (el.type === "checkbox" ? ":" + el.value : "")];
+      if (v === undefined) return;
+      if (el.type === "checkbox") el.checked = !!v; else if (!el.value) el.value = v;
+    });
+  } catch (e) {}
+  function save(){
+    try {
+      var o = {};
+      fields().forEach(function(el){
+        if (el.name === "leak" || el.name === "company_url") return;
+        if (el.type === "checkbox") o[el.name + ":" + el.value] = el.checked; else o[el.name] = el.value;
+      });
+      localStorage.setItem(KEY, JSON.stringify(o));
+    } catch (e) {}
+  }
+  form.addEventListener("input", save); form.addEventListener("change", save);
+  var warn = document.getElementById("warn");
+  function complain(msg, el){ warn.textContent = msg; warn.classList.add("on"); if (el) el.focus(); }
+  function val(id){ return (document.getElementById(id).value || "").trim(); }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    warn.classList.remove("on");
+    var biz = val("f_business"), email = val("f_email"), phone = val("f_phone");
+    if (!biz) { complain("What's the business called? That's the one thing we can't build without.", document.getElementById("f_business")); return; }
+    if (!email && !phone) { complain("We need an email or a mobile number, or we've got nowhere to send the demo.", document.getElementById("f_email")); return; }
+    if (!val("f_niche") && !val("f_site")) { complain("Tell us what you do, or give us your current website — either one is enough.", document.getElementById("f_niche")); return; }
+    var sms = document.getElementById("f_sms").checked;
+    if (sms && !phone) { complain("You ticked the text-message box but there's no mobile number above.", document.getElementById("f_phone")); return; }
+    var wants = []; form.querySelectorAll("input[name=wants]:checked").forEach(function(c){ wants.push(c.value); });
+    var body = {
+      form: "website-demo",
+      name: val("f_name"), business: biz, email: email, phone: phone,
+      site: val("f_site"), niche: val("f_niche"), city: val("f_city"),
+      services: val("f_services"), hours: val("f_hours"), different: val("f_different"),
+      brand: val("f_brand"), wants: wants, notes: val("f_notes"),
+      sms_consent: sms ? "yes" : "", email_consent: document.getElementById("f_em").checked ? "yes" : "",
+      consent_text_sms: sms ? document.querySelector("label[for=f_sms], #f_sms").parentElement.textContent.trim() : "",
+      page: location.href, ref: param("ref") || "", sent_at: new Date().toISOString(), _t: Date.now() - t0,
+      leak: (form.leak.value || ""), company_url: (form.company_url.value || "")
+    };
+    var btn = document.getElementById("go"); btn.disabled = true; btn.textContent = "Sending…";
+    function landed(sure){
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      form.style.display = "none";
+      var d = document.getElementById("done");
+      if (!sure) document.getElementById("donemsg").textContent = "We couldn't confirm it reached us — your connection may have dropped it. Email main@station.solutions with your business name and we'll build it from there.";
+      d.classList.add("on"); d.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function(r){ landed(r.ok); }).catch(function(){ landed(false); });
+  });
+})();
+</script>
+</body></html>
