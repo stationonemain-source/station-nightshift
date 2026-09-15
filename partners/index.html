@@ -436,10 +436,28 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 /* Circle's restart list (2026-08-25): Dashboard, Foundry, Book of business, Calendar,
    Products & scripts, How you get paid -- "that's it". These are HIDDEN, not deleted;
    remove a selector to bring its tab straight back. !important because the Partner
-   track-gating JS writes inline display on some of them. */
+   track-gating JS writes inline display on some of them.
+   2026-09-15: "clients" left this list because the tab itself is GONE -- the workspace it
+   held (thread, reply, book a call) now opens from a row in Book of business. A selector
+   naming a tab that no longer exists reads like the tab is merely hidden, and sends the
+   next session hunting for it. */
 #appView .tab[data-tab="pipeline"],#appView .tab[data-tab="leads"],
-#appView .tab[data-tab="clients"],#appView .tab[data-tab="demos"],
+#appView .tab[data-tab="demos"],
 #appView .tab[data-tab="training"]{display:none !important}
+/* The client workspace, under the book sheet. It lives OUTSIDE the table on purpose:
+   renderSheet() rewrites the table's innerHTML on every sort, filter and note, which
+   would wipe a loaded thread and a half-typed reply. */
+.ws-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ws-top .btn{margin-left:auto}
+.bk-un{display:inline-block;min-width:17px;padding:1px 6px;border-radius:999px;
+  background:var(--pay);color:var(--card);font:700 10px var(--fm);text-align:center;
+  vertical-align:middle;margin-left:7px}
+.bk-name{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;
+  text-align:left;text-decoration:underline;text-decoration-color:var(--line);
+  text-underline-offset:3px}
+.bk-name:hover{text-decoration-color:var(--pay)}
+.bk-last{font-size:11.5px;color:var(--faint);margin-top:3px;max-width:34ch;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* the board fills the panel */
 /* The board is built for a full viewport; the portal column is ~920px. Break the
    panel out to the viewport edge (same trick as the sheets' .breakout) and give the
@@ -609,7 +627,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
         <button class="tab" data-tab="foundry" id="tabFoundry">Foundry</button>
       <button class="tab" data-tab="pipeline" id="tabPipe">Pipeline</button>
         <button class="tab" data-tab="leads" id="tabLeads">Leads</button>
-      <button class="tab" data-tab="clients" id="tabClients">Clients</button>
         <button class="tab" data-tab="book">Book of business</button>
       <button class="tab" data-tab="demos">Demo sites</button>
       <button class="tab" data-tab="calendar">Calendar</button>
@@ -789,45 +806,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     </div>
 
     <!-- ---------------- CLIENTS (partner workspace) ----------------------- -->
-    <div class="panel" data-panel="clients">
-      <div class="card" style="margin-bottom:14px">
-        <h2 class="tight">Your clients</h2>
-        <p class="note" style="margin-bottom:0">Everything for the clients in your book, in one
-          place — the live message thread from Station's CRM, replies by text or email, and a
-          call booked straight into your calendar. You only ever see the clients tagged to you.</p>
-      </div>
-      <div class="inbox">
-        <div class="ibx-list" id="ibxList"></div>
-        <div class="ibx-pane">
-          <div class="ibx-head" id="ibxHead" style="display:none">
-            <div><div class="who" id="ibxWho">—</div><div class="meta" id="ibxMeta">—</div></div>
-            <button class="btn lite sm" id="ibxBook" style="margin-left:auto">Book a call</button>
-          </div>
-          <div class="ibx-msgs" id="ibxMsgs"></div>
-          <div id="ibxBookBox" style="display:none;border-top:1px solid var(--line);padding:14px 16px">
-            <div class="field" style="margin-bottom:8px">
-              <label>Calendar</label>
-              <select class="cell-sel" id="ibxCal" style="max-width:100%;width:100%;border-color:var(--line);padding:9px 11px"></select>
-            </div>
-            <div id="ibxSlots" class="note" style="font-size:13px">Pick a calendar to see open times.</div>
-            <div style="display:flex;gap:8px;margin-top:12px">
-              <button class="btn dark sm" id="ibxConfirm" disabled>Confirm booking</button>
-              <button class="btn lite sm" id="ibxCancelBook">Cancel</button>
-            </div>
-            <div id="ibxBookMsg" class="hint" style="font-size:13px;margin-top:9px"></div>
-          </div>
-          <div class="ibx-comp" id="ibxComp" style="display:none">
-            <textarea id="ibxText" placeholder="Write a reply…"></textarea>
-            <select class="cell-sel" id="ibxChan" style="border-color:var(--line);padding:9px 11px">
-              <option value="SMS">Text</option><option value="Email">Email</option>
-            </select>
-            <button class="btn dark sm" id="ibxSend">Send</button>
-          </div>
-        </div>
-      </div>
-      <p class="hint" id="ibxNote" style="margin-top:10px"></p>
-    </div>
-
     <!-- ---------------- BOOK OF BUSINESS --------------------------------- -->
     <div class="panel" data-panel="foundry">
         <iframe id="foundryFrame" title="Foundry" src="about:blank"></iframe>
@@ -883,6 +861,45 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
         </div>
         <div class="sheet-scroll"><table class="sheet" id="bookSheet"></table></div>
         <div class="sheet-foot"><span id="bookCount">—</span><span id="bookBasis"></span></div>
+
+        <!-- THE CLIENT WORKSPACE. Folded into the book 2026-09-15: the sheet above is the
+             list, so a row's Open button fills this pane. Every id here is the one the
+             inbox already used, so sendIbx / openBooking / loadSlots / confirmBooking are
+             untouched by the move. -->
+        <div class="hide" id="clientWs" style="margin-top:18px">
+          <div class="ws-top">
+            <div class="mono" id="wsTitle">Working a client</div>
+            <button class="btn lite sm" type="button" id="wsClose">Close</button>
+          </div>
+<div class="ibx-pane">
+          <div class="ibx-head" id="ibxHead" style="display:none">
+            <div><div class="who" id="ibxWho">—</div><div class="meta" id="ibxMeta">—</div></div>
+            <button class="btn lite sm" id="ibxBook" style="margin-left:auto">Book a call</button>
+          </div>
+          <div class="ibx-msgs" id="ibxMsgs"></div>
+          <div id="ibxBookBox" style="display:none;border-top:1px solid var(--line);padding:14px 16px">
+            <div class="field" style="margin-bottom:8px">
+              <label>Calendar</label>
+              <select class="cell-sel" id="ibxCal" style="max-width:100%;width:100%;border-color:var(--line);padding:9px 11px"></select>
+            </div>
+            <div id="ibxSlots" class="note" style="font-size:13px">Pick a calendar to see open times.</div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn dark sm" id="ibxConfirm" disabled>Confirm booking</button>
+              <button class="btn lite sm" id="ibxCancelBook">Cancel</button>
+            </div>
+            <div id="ibxBookMsg" class="hint" style="font-size:13px;margin-top:9px"></div>
+          </div>
+          <div class="ibx-comp" id="ibxComp" style="display:none">
+            <textarea id="ibxText" placeholder="Write a reply…"></textarea>
+            <select class="cell-sel" id="ibxChan" style="border-color:var(--line);padding:9px 11px">
+              <option value="SMS">Text</option><option value="Email">Email</option>
+            </select>
+            <button class="btn dark sm" id="ibxSend">Send</button>
+          </div>
+        </div>
+          <p class="hint" id="ibxNote" style="margin-top:10px"></p>
+        </div>
+
       </div>
     </div>
 
@@ -1231,9 +1248,15 @@ function openEditor(id){
     };
   });
 }
-function openSender(id){
+/* 2026-09-15: the Demo sites tab is hidden, so "bx-<id>" (the box inside its job card
+   there) was the only place this could draw -- which made the sender, and with it the
+   suppression list, the caps and the legally required footer, unreachable. The caller now
+   names the box, and the field ids are keyed on THAT box rather than on the job, so the
+   same job's sender can exist in two panels without two elements sharing an id. */
+function openSender(id,boxId){
   var j=JOBS.filter(function(x){return x.id===id;})[0];if(!j)return;
-  var box=$("bx-"+id);if(!box)return;
+  var k=boxId||("bx-"+id);
+  var box=$(k);if(!box)return;
   if(box.getAttribute("data-mode")==="send"){box.innerHTML="";box.removeAttribute("data-mode");return;}
   box.setAttribute("data-mode","send");
   var subj="A new website for "+(j.business||"your business");
@@ -1243,11 +1266,11 @@ function openSender(id){
   box.innerHTML='<div class="card" style="margin-top:10px">'
     +'<div class="mono">Send this site</div>'
     +'<label class="lbl" style="margin-top:10px">Their email</label>'
-    +'<input class="inp" id="sd-to-'+esc(id)+'" type="email" placeholder="owner@business.com">'
+    +'<input class="inp" id="sd-to-'+esc(k)+'" type="email" placeholder="owner@business.com">'
     +'<label class="lbl" style="margin-top:10px">Subject</label>'
-    +'<input class="inp" id="sd-su-'+esc(id)+'" maxlength="180" value="'+esc(subj)+'">'
+    +'<input class="inp" id="sd-su-'+esc(k)+'" maxlength="180" value="'+esc(subj)+'">'
     +'<label class="lbl" style="margin-top:10px">Message</label>'
-    +'<textarea class="inp" id="sd-ms-'+esc(id)+'" rows="7" maxlength="4000">'+esc(msg)+'</textarea>'
+    +'<textarea class="inp" id="sd-ms-'+esc(k)+'" rows="7" maxlength="4000">'+esc(msg)+'</textarea>'
     // 2026-08-22 audit fix F8: the real footer comes from the engine when the worker has pushed
     // it (FOOTER); until then this is labelled as a sample so a config change cannot silently
     // diverge what is shown from what is sent.
@@ -1265,25 +1288,25 @@ function openSender(id){
     +'so their reply goes to Station — we forward it to your Discord channel (or email you) and '
     +'the follow-up call is yours.</p>'
     +'<div class="row" style="gap:8px;margin-top:12px">'
-    +'<button class="btn sm" type="button" id="sd-go-'+esc(id)+'">Send it</button>'
-    +'<button class="btn lite sm" type="button" id="sd-x-'+esc(id)+'">Cancel</button></div>'
-    +'<p class="msg" id="sd-m-'+esc(id)+'"></p></div>';
-  $("sd-x-"+id).onclick=function(){boxClose(id);box.removeAttribute("data-mode");};
-  $("sd-go-"+id).onclick=function(){
-    var m=$("sd-m-"+id);clear(m);
-    var to=String($("sd-to-"+id).value||"").trim();
+    +'<button class="btn sm" type="button" id="sd-go-'+esc(k)+'">Send it</button>'
+    +'<button class="btn lite sm" type="button" id="sd-x-'+esc(k)+'">Cancel</button></div>'
+    +'<p class="msg" id="sd-m-'+esc(k)+'"></p></div>';
+  $("sd-x-"+k).onclick=function(){box.innerHTML="";box.removeAttribute("data-mode");};
+  $("sd-go-"+k).onclick=function(){
+    var m=$("sd-m-"+k);clear(m);
+    var to=String($("sd-to-"+k).value||"").trim();
     if(!to||to.indexOf("@")<0){say(m,"Put in their email address.","err");return;}
     if(!window.confirm("Send this to "+to+"?"))return;
-    var btn=$("sd-go-"+id);btn.disabled=true;btn.textContent="Sending…";
+    var btn=$("sd-go-"+k);btn.disabled=true;btn.textContent="Sending…";
     post({action:"site_send",token:token,job:id,to:to,
-          subject:$("sd-su-"+id).value,message:$("sd-ms-"+id).value}).then(function(d){
+          subject:$("sd-su-"+k).value,message:$("sd-ms-"+k).value}).then(function(d){
       btn.disabled=false;btn.textContent="Send it";
       if(!d||!d.ok){say(m,(d&&d.error)||"Could not send that.","err");return;}
       // 2026-08-22 audit fix F7: the send's status is rendered under this card (loadJobs reads
       // site_sends), so a failed send is visible here and not only in Discord.
       say(m,"Queued — it goes out within a few minutes. Its status shows under this site's card (and in Discord if you have alerts on).","ok");
       SENDS.unshift({id:(d.send&&d.send.id)||"",job:id,to:to,business:j.business||"",status:"queued",created:new Date().toISOString()});
-      setTimeout(function(){boxClose(id);box.removeAttribute("data-mode");loadJobs();},1800);
+      setTimeout(function(){box.innerHTML="";box.removeAttribute("data-mode");loadJobs();},1800);
     }).catch(function(){btn.disabled=false;btn.textContent="Send it";
       say(m,"Network error — try again.","err");});
   };
@@ -1902,6 +1925,9 @@ function renderSheet(cfg){
       renderSheet(cfg);
     };
   });
+  tbl.querySelectorAll("[data-work]").forEach(function(btn){
+    btn.onclick=function(e){ e.stopPropagation(); openClient(btn.getAttribute("data-work")); };
+  });
   tbl.querySelectorAll("[data-notes]").forEach(function(btn){
     btn.onclick=function(e){
       e.stopPropagation();
@@ -2220,7 +2246,19 @@ var bookCfg={
   ],
   cols:[
     {k:"name",h:"Client",cls:"b",html:function(r){
-      return esc(r.name||r.email||"—")+(r.company&&r.company!==r.name?'<div class="sub">'+esc(r.company)+'</div>':"");}},
+      /* last / unread arrive from conv_list via mergeThreadsIntoBook and may never arrive
+         at all (CRM unreachable, or a brand-new client). Everything extra is conditional,
+         so the cell reads exactly as it did before when there is nothing to add. */
+      /* The name is the way in. The Work column is nine columns to the right, which on a
+         phone is off the side of the sheet's own scroller -- reachable only by someone who
+         thinks to swipe a table sideways. Clicking who you want to work is the obvious
+         gesture, and it is the only one that costs nothing at 375px. */
+      var nm=esc(r.name||r.email||"—");
+      var h=r.id?('<button class="bk-name" data-work="'+esc(r.id)+'">'+nm+'</button>'):nm;
+      if(r.unread)h+='<span class="bk-un">'+esc(String(r.unread))+'</span>';
+      if(r.company&&r.company!==r.name)h+='<div class="sub">'+esc(r.company)+'</div>';
+      if(r.last)h+='<div class="bk-last" title="'+esc(r.last)+'">'+esc(r.last)+'</div>';
+      return h;}},
     {k:"email",h:"Email",html:function(r){
       return r.email?'<a class="cell" href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a>':'<span class="sub">—</span>';}},
     {k:"phone",h:"Phone",html:function(r){
@@ -2244,10 +2282,14 @@ var bookCfg={
       html:function(r){return r.since?esc(r.since):'<span class="sub">—</span>';}},
     {k:"qualified",h:"Standing",get:function(r){return r.qualified?"Established":"Inside 60d";},
       html:function(r){return r.qualified?'<span class="pill active">Established</span>':'<span class="pill pending">Inside 60d</span>';}},
-    {k:"notes",h:"Notes",noSort:true,noExport:true,html:function(r){
+    {k:"notes",h:"Work",noSort:true,noExport:true,html:function(r){
       var n=((BOOK_NOTES["client:"+(r.email||r.id)])||[]).length;
-      return '<button class="nbtn" data-notes="'+esc(r.email||r.id)+'"'+(n?" data-has":"")+'>'+
-             (n?n+" note"+(n>1?"s":""):"Add")+'</button>';}}
+      /* Open needs the CRM contact id. A row without one (it should not happen -- the book
+         is re-derived from tags on every read) gets no button rather than a dead one. */
+      return '<div class="rowact">'+
+             (r.id?'<button class="nbtn" data-work="'+esc(r.id)+'" title="Open their messages, reply, and book a call">Open</button>':'')+
+             '<button class="nbtn" data-notes="'+esc(r.email||r.id)+'"'+(n?" data-has":"")+'>'+
+             (n?n+" note"+(n>1?"s":""):"Note")+'</button></div>';}}
   ],
   count:function(shown,total){
     $("bookCount").textContent=shown===total?(total+" client"+(total===1?"":"s")):(shown+" of "+total+" clients");
@@ -2349,8 +2391,21 @@ function drawMessages(d){
   }).join("");
   box.scrollTop=box.scrollHeight;
 }
+/* A client can be opened from the book before conv_list has answered -- and a client
+   with no conversation at all never appears in conv_list's threads. The book row already
+   carries everything the header needs, so fall back to it rather than refusing to open:
+   otherwise the newest client in the book is the one you cannot work. */
+function threadFor(cid){
+  cid=String(cid);
+  var t=(THREADS||[]).filter(function(x){return String(x.contactId)===cid;})[0];
+  if(t)return t;
+  var b=(BOOK||[]).filter(function(x){return String(x.id)===cid;})[0];
+  if(!b)return null;
+  return {contactId:cid,name:b.name||b.email||"Client",email:b.email,phone:b.phone,
+          tier:b.bundle||b.tier,last:"",last_at:null,unread:0};
+}
 function openThread(cid){
-  var t=THREADS.filter(function(x){return x.contactId===cid;})[0]; if(!t)return;
+  var t=threadFor(cid); if(!t)return;
   curClient=t; drawThreadList();
   $("ibxHead").style.display="flex"; $("ibxComp").style.display="flex";
   $("ibxBookBox").style.display="none";
@@ -2428,15 +2483,47 @@ function confirmBooking(){
     $("ibxBookMsg").textContent="Could not book that time."; });
 }
 var clientsLoaded=false;
+/* conv_list is no longer a tab of its own -- it runs behind the book to put the last
+   message and the unread count on each row. #ibxList went with the Clients tab, so every
+   reference to it is guarded: an unguarded $() on a removed element throws and takes the
+   whole IIFE -- and every listener registered after it -- down with it. */
 function loadClients(force){
   if(!token)return; if(clientsLoaded&&!force)return; clientsLoaded=true;
-  $("ibxList").innerHTML='<div class="empty" style="border:0;background:none">Loading…</div>';
+  var lst=$("ibxList");
+  if(lst)lst.innerHTML='<div class="empty" style="border:0;background:none">Loading…</div>';
   post({action:"conv_list",token:token}).then(function(d){
     if(!d.ok){ clientsLoaded=false;
-      $("ibxList").innerHTML='<div class="empty" style="border:0;background:none">'+esc(d.error||"Could not load your clients.")+'</div>';
+      if(lst)lst.innerHTML='<div class="empty" style="border:0;background:none">'+esc(d.error||"Could not load your clients.")+'</div>';
       return; }
-    THREADS=d.threads||[]; drawThreadList();
+    THREADS=d.threads||[]; drawThreadList(); mergeThreadsIntoBook();
   }).catch(function(){ clientsLoaded=false; });
+}
+/* book_list is the authority on WHO is a client; conv_list only adds what was last said.
+   Merging that way round means a client with no conversation never falls off the sheet. */
+function mergeThreadsIntoBook(){
+  if(!BOOK.length||!THREADS.length)return;
+  var by={}; THREADS.forEach(function(t){by[String(t.contactId)]=t;});
+  var touched=false;
+  BOOK.forEach(function(r){
+    var t=by[String(r.id)]; if(!t)return;
+    r.last=t.last||""; r.last_at=t.last_at||null; r.unread=Number(t.unread||0); touched=true;
+  });
+  if(touched&&bookActiveCfg===bookCfg)renderSheet(bookCfg);
+}
+/* Open a client from their row in the book. */
+function openClient(cid){
+  var ws=$("clientWs"); if(!ws)return;
+  var t=threadFor(cid);
+  ws.classList.remove("hide");
+  var ttl=$("wsTitle"); if(ttl)ttl.textContent=t?("Working "+(t.name||"a client")):"Working a client";
+  clear($("ibxNote"));
+  openThread(String(cid));
+  try{ws.scrollIntoView({behavior:"smooth",block:"nearest"});}catch(e){}
+}
+function closeClient(){
+  var ws=$("clientWs"); if(ws)ws.classList.add("hide");
+  var bb=$("ibxBookBox"); if(bb)bb.style.display="none";
+  curClient=null;
 }
 var bookLoaded=false;var bookLoaded=false;
 function loadBook(force){
@@ -2467,6 +2554,10 @@ function loadBook(force){
         }
         var acb2=$("addClientBtn"); if(acb2)acb2.classList.remove("hide");
         bookActiveCfg=bookCfg; renderSheet(bookCfg);
+        /* The sheet is complete from book_list alone; conv_list then fills in last-message
+           and unread and re-renders. Deliberately after the first paint, so a slow or
+           unreachable CRM delays nothing the partner is waiting on. */
+        loadClients(true);
   }).catch(function(){bookLoaded=false;$("bookCount").textContent="Could not load your book — try again in a moment.";});
 }
 // 2026-08-22 audit fix PP-08: the engine's basis key in plain English, never the raw string.
@@ -2489,10 +2580,13 @@ function loadMe(){
     // Two tracks only (Scout / Partner) — reads the engine's real track field
     // (v4.5, set by Station via the admin panel's Scout/Partner toggle).
     var track=(d.track==="partner")?"Partner":"Scout";
-      // The client workspace is a Partner surface: a Scout never manages an account, so the
-      // tab is removed outright rather than shown empty. The engine refuses these actions for
-      // a Scout regardless — this is only the cosmetic half.
-      var ct=$("tabClients"); if(ct){ ct.style.display=(track==="Partner")?"":"none"; }
+      // The client workspace is a Partner surface: a Scout never manages an account. Since
+      // 2026-09-15 it has no tab of its own — it opens from a row in Book of business, and a
+      // Scout's Book tab renders the bounty ledger (bountyCfg), which has no Open button. So
+      // there is nothing to hide here; the card is only closed in case a track change left it
+      // open behind a partner who has just been demoted. The engine refuses conv_* and cal_*
+      // off the Partner track regardless — that is the half that actually protects anything.
+      if(track!=="Partner"){ try{closeClient();}catch(e){} }
       // Demo Builder is a Partner-only tool — hide the tab for Scouts (the engine
       // also refuses demo_request off the Partner track; this is the cosmetic half).
       var dt=document.querySelector('#appView .tab[data-tab="demos"]');
@@ -3028,12 +3122,16 @@ function dashJobRow(j){
   if(st==="ready"){
     out+='<div class="actions">'+
       (j.foundry_id?'<a class="btn lite sm" href="'+esc(editorHref(j))+'" target="_blank" rel="noopener">Edit photos &amp; text</a>':'')+
-      (j.url?'<button class="btn lite sm" type="button" data-dcopy="'+esc(j.url)+'">Copy link</button>':'')+'</div>';
+      (j.url?'<button class="btn lite sm" type="button" data-dcopy="'+esc(j.url)+'">Copy link</button>':'')+
+      (j.url?'<button class="btn sm" type="button" data-dsend="'+esc(j.id)+'">Send it to them</button>':'')+
+      '</div><div id="bxd-'+esc(j.id)+'"></div>';
   }
   return out+'</div>';
 }
 function drawDashJobs(){
   var box=$("dashJobs");if(!box)return;
+  // A poll must not wipe a sender the partner is typing in (drawJobs has the same guard).
+  if(box.querySelector("[data-mode]"))return;
   // a poll must not fold a "Why & what to say" the partner has open
   var open={};
   box.querySelectorAll(".dm-job[data-job]").forEach(function(el){
@@ -3047,6 +3145,8 @@ function drawDashJobs(){
     if(open[el.getAttribute("data-job")]){var d=el.querySelector("details");if(d)d.open=true;}});
   box.querySelectorAll("[data-dcopy]").forEach(function(b){
     b.onclick=function(){copyTo(b,b.getAttribute("data-dcopy"),"Copied");};});
+  box.querySelectorAll("[data-dsend]").forEach(function(b){
+    b.onclick=function(){var jid=b.getAttribute("data-dsend");openSender(jid,"bxd-"+jid);};});
 }
 function drawJobs(){
     // A poll must not wipe an editor or sender box the partner is typing in.
@@ -3163,8 +3263,7 @@ $("ibxBook").addEventListener("click",openBooking);
 $("ibxCancelBook").addEventListener("click",function(){$("ibxBookBox").style.display="none";});
 $("ibxCal").addEventListener("change",loadSlots);
 $("ibxConfirm").addEventListener("click",confirmBooking);
-document.querySelectorAll('.tab[data-tab="clients"]').forEach(function(t){
-  t.addEventListener("click",function(){loadClients();});});
+(function(){var x=$("wsClose"); if(x)x.addEventListener("click",closeClient);})();
 
 /* One form serves both jobs. EDIT_LEAD holds the id being edited, or null when
    the form is adding — every open and close goes through these two functions so
