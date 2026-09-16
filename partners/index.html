@@ -2023,6 +2023,28 @@ function dueClass(d){
   return d<t?"due":(d===t?"today":"");
 }
 var LEADS=[],LEAD_NOTES={};
+/* The two asks on a lead. 2026-09-16: they lived in a tenth, headerless column past
+   Notes, which on a normal screen sits off the right edge of the sheet's own
+   scroller -- Circle could not find Request website at all. They render inside the
+   Business cell now, under Edit / Archive, for the same reason those moved on 09-11. */
+function leadAsksHtml(r){
+      /* Two different asks, deliberately side by side and deliberately worded apart.
+         Build a demo queues Foundry and a working site exists in about three minutes
+         with nobody involved -- it is what you open a cold call with. Request website
+         builds NOTHING: it puts the business in front of Station on the Circle Agency
+         dashboard, and is what you click once they are buying. Naming them the same
+         thing is how a partner promises a client a site that no one is making. */
+      var req=r.site_req||null, st=req?String(req.status||""):"";
+      var ask=(st==="open")
+        ? '<span class="pill pending" title="Asked '+esc(String(req.at||"").slice(0,10))+' \u2014 Station has it on their Needs You list">Website requested</span>'
+        : (st==="done"
+          ? '<span class="pill active" title="Station marked this built">Website built</span>'
+          : (st==="declined"
+            ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
+            : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
+      return '<div class="rowact">'+
+        '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business \u2014 Foundry builds it automatically in about three minutes">Build a demo</button>'+
+        ask+'</div>';}
 var leadCfg={
   id:"leads",mount:"leadSheet",chips:"leadChips",csvName:"station-leads",
   rows:LEADS,notes:LEAD_NOTES,
@@ -2054,7 +2076,7 @@ var leadCfg={
           ?'<button class="nbtn" data-lrestore="'+esc(r.id)+'" title="Put this row back on your sheet">Restore</button>'+
            '<span class="sub">archived</span>'
           :'<button class="nbtn" data-ldel="'+esc(r.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>')+
-        '</div>';}},
+        '</div>'+(r.archived?'':leadAsksHtml(r));}},
     {k:"niche",h:"Trade",cls:"dim",get:function(r){return r.niche||"";}},
     {k:"phone",h:"Contact",get:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" ");},
       html:function(r){
@@ -2091,24 +2113,6 @@ var leadCfg={
     // 2026-09-11: the dedicated Edit column is gone — it rendered past the right
     // edge on a phone. Edit lives in the Business cell above.
     // 2026-08-22 audit fix F9: one click carries a sheet row into the Demo Builder.
-    {k:"_demo",h:"",noSort:true,noExport:true,html:function(r){
-      /* Two different asks, deliberately side by side and deliberately worded apart.
-         Build a demo queues Foundry and a working site exists in about three minutes
-         with nobody involved -- it is what you open a cold call with. Request website
-         builds NOTHING: it puts the business in front of Station on the Circle Agency
-         dashboard, and is what you click once they are buying. Naming them the same
-         thing is how a partner promises a client a site that no one is making. */
-      var req=r.site_req||null, st=req?String(req.status||""):"";
-      var ask=(st==="open")
-        ? '<span class="pill pending" title="Asked '+esc(String(req.at||"").slice(0,10))+' \u2014 Station has it on their Needs You list">Website requested</span>'
-        : (st==="done"
-          ? '<span class="pill active" title="Station marked this built">Website built</span>'
-          : (st==="declined"
-            ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
-            : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
-      return '<div class="rowact">'+
-        '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business \u2014 Foundry builds it automatically in about three minutes">Build a demo</button>'+
-        ask+'</div>';}},
     // 2026-09-11: the × that deleted the row (and its notes) is gone. Archive and
     // Restore are in the Business cell, where a phone can reach them.
   ],
