@@ -443,6 +443,9 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
    next session hunting for it. */
 #appView .tab[data-tab="pipeline"],
 #appView .tab[data-tab="demos"],
+/* 2026-09-16, Circle: Foundry is hidden while website building is reworked. Its iframe
+   only loads on a tab click, so a hidden tab also means /pfoundry is never requested. */
+#appView .tab[data-tab="foundry"],
 #appView .tab[data-tab="training"]{display:none !important}
 /* 2026-09-16: "leads" left the list. A partner could not add a lead at all -- the
    Add-a-lead form, Pull leads, Diagnose and the whole sheet were behind this rule,
@@ -2043,7 +2046,9 @@ function leadAsksHtml(r){
             ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
             : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
       return '<div class="rowact">'+
-        '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business \u2014 Foundry builds it automatically in about three minutes">Build a demo</button>'+
+        /* 2026-09-16, Circle: Build a demo is off the lead row while website building is
+           reworked -- Request website is the one ask for now. To bring it back, restore:
+           '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business \u2014 Foundry builds it automatically in about three minutes">Build a demo</button>' */
         ask+'</div>';}
 var leadCfg={
   id:"leads",mount:"leadSheet",chips:"leadChips",csvName:"station-leads",
