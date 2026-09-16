@@ -441,9 +441,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
    held (thread, reply, book a call) now opens from a row in Book of business. A selector
    naming a tab that no longer exists reads like the tab is merely hidden, and sends the
    next session hunting for it. */
-#appView .tab[data-tab="pipeline"],#appView .tab[data-tab="leads"],
+#appView .tab[data-tab="pipeline"],
 #appView .tab[data-tab="demos"],
 #appView .tab[data-tab="training"]{display:none !important}
+/* 2026-09-16: "leads" left the list. A partner could not add a lead at all -- the
+   Add-a-lead form, Pull leads, Diagnose and the whole sheet were behind this rule,
+   and Request website has to hang off a lead row. The only intake they could reach
+   was Foundry's own board, which writes to Station's SHARED book, not their sheet. */
 /* The client workspace, under the book sheet. It lives OUTSIDE the table on purpose:
    renderSheet() rewrites the table's innerHTML on every sort, filter and note, which
    would wipe a loaded thread and a half-typed reply. */
@@ -2088,7 +2092,23 @@ var leadCfg={
     // edge on a phone. Edit lives in the Business cell above.
     // 2026-08-22 audit fix F9: one click carries a sheet row into the Demo Builder.
     {k:"_demo",h:"",noSort:true,noExport:true,html:function(r){
-      return '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business">Build a demo</button>';}},
+      /* Two different asks, deliberately side by side and deliberately worded apart.
+         Build a demo queues Foundry and a working site exists in about three minutes
+         with nobody involved -- it is what you open a cold call with. Request website
+         builds NOTHING: it puts the business in front of Station on the Circle Agency
+         dashboard, and is what you click once they are buying. Naming them the same
+         thing is how a partner promises a client a site that no one is making. */
+      var req=r.site_req||null, st=req?String(req.status||""):"";
+      var ask=(st==="open")
+        ? '<span class="pill pending" title="Asked '+esc(String(req.at||"").slice(0,10))+' \u2014 Station has it on their Needs You list">Website requested</span>'
+        : (st==="done"
+          ? '<span class="pill active" title="Station marked this built">Website built</span>'
+          : (st==="declined"
+            ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
+            : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
+      return '<div class="rowact">'+
+        '<button class="nbtn" data-demo="'+esc(r.id)+'" title="Build a demo site for this business \u2014 Foundry builds it automatically in about three minutes">Build a demo</button>'+
+        ask+'</div>';}},
     // 2026-09-11: the × that deleted the row (and its notes) is gone. Archive and
     // Restore are in the Business cell, where a phone can reach them.
   ],
@@ -2130,6 +2150,34 @@ var leadCfg={
         var id=btn.getAttribute("data-demo");
         var r=LEADS.filter(function(x){return x.id===id;})[0];
         if(r)prefillDemo({business:r.name,city:r.city,state:r.state,niche:r.niche,website:r.website});
+      };
+    });
+    /* Request website (engine v4.36). Confirm first: this one puts a real job in
+       front of a person, and an accidental click costs Station a reply rather than
+       a wasted 3-minute build the way a stray demo does. */
+    tbl.querySelectorAll("[data-sreq]").forEach(function(btn){
+      btn.onclick=function(){
+        var id=btn.getAttribute("data-sreq");
+        var r=LEADS.filter(function(x){return x.id===id;})[0];
+        if(!r)return;
+        var note=window.prompt("Ask Station to build "+(r.name||"this business")+" a website.\n\n"+
+          "Anything Station should know before they start? (pages they want, a deadline, "+
+          "what they said on the call) \u2014 optional.","");
+        if(note===null)return;
+        btn.disabled=true;var old=btn.textContent;btn.textContent="Sending\u2026";
+        post({action:"site_request",token:token,id:id,note:note}).then(function(d){
+          btn.disabled=false;btn.textContent=old;
+          if(!d||!d.ok){window.alert((d&&d.error)||"Could not send that request.");return;}
+          /* Write the engine's own answer onto the row rather than re-reading the
+             sheet: leads_list is a whole round trip, and the engine has just told
+             us exactly what it stored. `already` carries the EXISTING request, so
+             a double-click shows the real date instead of today's. */
+          r.site_req=d.site_req||{status:"open",at:new Date().toISOString()};
+          renderSheet(leadCfg);
+          if(d.already)window.alert(d.note||"Station already has this one.");
+        }).catch(function(){
+          btn.disabled=false;btn.textContent=old;
+          window.alert("Network error — try again.");});
       };
     });
     /* 2026-09-11: a lead is never destroyed. lead_del keeps its name because every
