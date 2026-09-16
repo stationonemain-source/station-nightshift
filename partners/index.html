@@ -2041,7 +2041,7 @@ function leadAsksHtml(r){
       var ask=(st==="open")
         ? '<span class="pill pending" title="Asked '+esc(String(req.at||"").slice(0,10))+' \u2014 Station has it on their Needs You list">Website requested</span>'
         : (st==="done"
-          ? '<span class="pill active" title="Station marked this built">Website built</span>'
+          ? (req.url?('<a class="pill active" href="'+esc(req.url)+'" target="_blank" rel="noopener" title="Station built this \u2014 open the website">Website ready &#8599;</a>'+'<button class="nbtn" data-scopy="'+esc(req.url)+'" title="Copy the link to send the business">Copy link</button>'):'<span class="pill active" title="Station marked this built">Website built</span>')
           : (st==="declined"
             ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
             : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
@@ -2164,6 +2164,11 @@ var leadCfg={
     /* Request website (engine v4.36). Confirm first: this one puts a real job in
        front of a person, and an accidental click costs Station a reply rather than
        a wasted 3-minute build the way a stray demo does. */
+    /* Engine v4.37: a built request carries the site's URL. Copy is the partner's next
+       move -- they are the one who sends it to the business. */
+    tbl.querySelectorAll("[data-scopy]").forEach(function(btn){
+      btn.onclick=function(e){e.stopPropagation();copyTo(btn,btn.getAttribute("data-scopy"),"Copied");};
+    });
     tbl.querySelectorAll("[data-sreq]").forEach(function(btn){
       btn.onclick=function(){
         var id=btn.getAttribute("data-sreq");
