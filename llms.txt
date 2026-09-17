@@ -16,7 +16,7 @@
 - [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
 - [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
 - [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with email unmetered below 100,000 sends or fully managed $397/mo
-- [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo, 5 new prospects a week with a full marketing audit on each
+- [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo for 5 new prospects a week with a full marketing audit on each, or $497/mo Pro for 20 a week across six trade targets
 - [Revive](https://station.solutions/revive/): Customer reactivation campaign for dormant lists up to 5,000 contacts — $497 per quarter
 
 ## Bundles
