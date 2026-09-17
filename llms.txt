@@ -4,28 +4,28 @@
 
 ## Products
 
-- [Storefront](https://station.solutions/storefront/): Conversion-first website — $500 one-time build + $49/mo care, live in 48 hours
+- [Storefront](https://station.solutions/storefront/): Conversion-first website — $500 one-time build + $49/mo care, live in 48 hours; a Custom build is priced by evaluation
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
-- [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo
-- [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $97/mo (free inside Frontdesk)
-- [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, number included
+- [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo, 1,000 texts
+- [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 1,000 reminders (free inside Frontdesk)
+- [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, 1,500 texts, number included
 - [Frontdesk](https://station.solutions/frontdesk/): AI phone receptionist that answers 24/7, books jobs, and transfers to a human when needed — from $397/mo
-- [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo
+- [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo, 2,500 texts and 15,000 emails
 - [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo
-- [Echo](https://station.solutions/map/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $147/mo + $297 setup
+- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo + $297 setup
 - [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
 - [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
-- [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo or fully managed $347/mo
-- [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $197/mo, unlimited audits
-- [Revive](https://station.solutions/revive/): Customer reactivation campaign for dormant lists up to 5,000 contacts — $297 per quarter
+- [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with email unmetered below 100,000 sends or fully managed $397/mo
+- [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo, unlimited audits
+- [Revive](https://station.solutions/revive/): Customer reactivation campaign for dormant lists up to 5,000 contacts — $497 per quarter
 
 ## Bundles
 
 No setup fees on bundles; each costs less than its products bought separately.
 
 - [Core — $750/mo](https://station.solutions/#bundles): Greet, Slate, Lineback, Pursuit, Repute, Dispatch
-- [Pro — $1,500/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
-- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, custom-built website included, triple usage allowances, named strategist
+- [Pro — $1,395/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
+- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, the $500 Storefront website included, triple usage allowances, named strategist
 
 ## Start here
 
