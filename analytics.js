@@ -413,7 +413,13 @@
   var EVENTS = { pageview: 1, consent: 1, film_complete: 1, cta_click: 1, audit_submit: 1,
                  demo_use: 1, popup: 1,
                  form_start: 1, form_abandon: 1, consent_sms: 1, calc_use: 1,
-                 scroll_depth: 1, ad_visit: 1, audit_view: 1, unsubscribe: 1 };
+                 scroll_depth: 1, ad_visit: 1, audit_view: 1, unsubscribe: 1,
+                 /* 2026-09-16: newsletter list signups. The AUTHORITATIVE copy is fired
+                    server-side by the n8n newsletter workflow (a list signup is a lead
+                    action, so it must count even for an "Essentials only" visitor). Listed
+                    here so the name is legal in all five places and so a page that wants a
+                    consent-gated browser copy can fire one. */
+                 newsletter_signup: 1 };
 
   function track(ev, label) {
     if (consent() !== "all") return "";
