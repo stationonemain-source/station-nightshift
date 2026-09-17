@@ -2041,7 +2041,7 @@ function leadAsksHtml(r){
       var ask=(st==="open")
         ? '<span class="pill pending" title="Asked '+esc(String(req.at||"").slice(0,10))+' \u2014 Station has it on their Needs You list">Website requested</span>'
         : (st==="done"
-          ? (req.url?('<a class="pill active" href="'+esc(req.url)+'" target="_blank" rel="noopener" title="Station built this \u2014 open the website">Website ready &#8599;</a>'+'<button class="nbtn" data-scopy="'+esc(req.url)+'" title="Copy the link to send the business">Copy link</button>'):'<span class="pill active" title="Station marked this built">Website built</span>')
+          ? (function(){var us=(req.urls&&req.urls.length)?req.urls:(req.url?[req.url]:[]);return us.length?us.map(function(u,ix){return '<a class="pill active" href="'+esc(u)+'" target="_blank" rel="noopener" title="Station built this \u2014 open the website">'+(us.length>1?('Website '+(ix+1)+' &#8599;'):'Website ready &#8599;')+'</a><button class="nbtn" data-scopy="'+esc(u)+'" title="Copy the link to send the business">Copy link</button>';}).join(""):'<span class="pill active" title="Station marked this built">Website built</span>';})()
           : (st==="declined"
             ? ('<span class="sub" title="Station declined this request">Station passed'+(req.reason?(': '+esc(String(req.reason))):'')+'</span>'+'<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station again \u2014 add what has changed">Ask again</button>')
             : '<button class="nbtn" data-sreq="'+esc(r.id)+'" title="Ask Station to build this business a real website. Nothing is built automatically \u2014 a person picks it up.">Request website</button>'));
