@@ -11,8 +11,8 @@
 - [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, 1,500 texts, number included
 - [Frontdesk](https://station.solutions/frontdesk/): AI phone receptionist that answers 24/7, books jobs, and transfers to a human when needed — from $397/mo
 - [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo, 2,500 texts and 15,000 emails
-- [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo
-- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo + $297 setup
+- [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo, or $397 per location with 1,500 review requests each
+- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo + $297 setup, or $197 per location for multi-location businesses
 - [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
 - [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
 - [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with email unmetered below 100,000 sends or fully managed $397/mo
