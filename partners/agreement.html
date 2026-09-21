@@ -43,6 +43,13 @@
   .checks { list-style: none; padding-left: 0; } .checks li { margin: 3px 0; }
   .pagebreak { break-before: page; page-break-before: always; }
   .foot { margin-top: 18px; font-size: 7.8pt; color: #8b909c; text-align: center; font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif; }
+  @media screen and (max-width: 700px) {
+    .wrap { padding: 0 16px; }
+    .fill, .fill.s { min-width: 0; width: 100%; display: block; }
+    header.cover { flex-wrap: wrap; } header.cover .meta { text-align: left; }
+    table.sched td.k { width: 36%; }
+    .sigrow { flex-direction: column; gap: 6px; }
+  }
 </style></head>
 <body><div class="wrap">
 
