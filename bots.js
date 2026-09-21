@@ -136,7 +136,7 @@
       name: "Station Front Desk", greet: "Station front desk - go ahead, ask like a real customer would.",
       chips: ["Book an appointment", "How much does this cost?", "Are you open now?", "What can you handle?"],
       owner: "the team", slots: ["tomorrow 9:00 AM", "tomorrow 2:00 PM"], when: "", ask: "name",
-      price: "Every plan's flat-rate, no per-lead fees - Core starts at $750/mo, Pro at $1,500/mo. Every plan starts with a free 15-minute audit.",
+      price: "Every plan's flat-rate, no per-lead fees - Core starts at $750/mo, Pro at $1,395/mo. Every plan starts with a free 15-minute audit.",
       urgent: /(emergency|urgent|asap|right now|help|stuck)/,
       urgentReply: ["Got it, flagging that as urgent.", "I can get someone on it - {s1} or {s2}?"],
       can: "book you a time, answer pricing, or route you to a real person"
@@ -272,7 +272,7 @@
         "Premiere is quoted on a quick call."
       ]],
       [/(price|cost|how much|rate|tier|plan|month)/, [
-        "Three plans, no contracts: Core $750/mo + $1,000 setup — the phones handled. Pro $1,500/mo + $2,000 setup — the full front office. Custom from $2,500/mo + $3,000 setup — multi-location, custom builds, POS. Start with a $350 Launch site and the Core setup fee is waived when you step up.",
+        "Three bundles, month to month, no setup fees: Core $750/mo — Greet, Slate, Lineback, Pursuit, Repute and Dispatch. Pro $1,395/mo — Core plus Frontdesk, Echo and Marquee, the full front office. Custom from $2,500/mo — every product at every tier, with the $500 Storefront website included. Or start with a single product from $47/mo.",
         "Every one starts with a free 15-minute audit."
       ]],
       [/(what (is|does)|do you (do|actually)|about station|services|front office|handle)/, [
