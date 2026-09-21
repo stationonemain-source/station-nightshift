@@ -17,7 +17,7 @@
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
   <div class="nav-center">
-    <div class="mwrap"><a href="/frontdesk/" class="mtop">Frontdesk</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Explore the phone</span><a class="mbig" href="/frontdesk/">Frontdesk</a><a class="mbig" href="/lineback/">Lineback</a><a class="mbig" href="/dial/">Dial</a><a class="mbig" href="/pursuit/">Pursuit</a></div><div class="mcol"><span class="mhead">Try it live</span><a class="msmall" href="/frontdesk/#demo">Call the demo — (844) 493-6381</a><a class="msmall" href="/lineback/#demo">Watch a missed call get caught</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/#bundles">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <div class="mwrap"><a href="/frontdesk/" class="mtop">Frontdesk</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Explore the phone</span><a class="mbig" href="/frontdesk/">Frontdesk</a><a class="mbig" href="/lineback/">Lineback</a><a class="mbig" href="/dial/">Dial</a><a class="mbig" href="/pursuit/">Pursuit</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/#bundles">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
     <div class="mwrap"><a href="/storefront/" class="mtop">Storefront</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Explore presence</span><a class="mbig" href="/storefront/">Storefront</a><a class="mbig" href="/echo/">Echo</a><a class="mbig" href="/repute/">Repute</a><a class="mbig" href="/marquee/">Marquee</a></div><div class="mcol"><span class="mhead">See the work</span><a class="msmall" href="/portfolio/">Our website portfolio →</a><a class="msmall" href="/greet/">Greet — the chat on this page</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/audit/">Free audit — see what's broken</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
     <a class="mtop" href="/#bundles">Bundles</a>
     <a class="mtop" href="/audit/">Free audit</a>
@@ -54,48 +54,6 @@
     <div class="rv"><h2 class="serif" style="font-size:clamp(1.9rem,3.6vw,2.6rem)">The call you missed just texted them back.</h2>
     <p style="color:var(--muted);font-size:1.06rem;max-width:56ch">Any call you can&#x27;t take gets an instant text back — in your name, asking what they need. The reply lands in your inbox. Business number included.</p></div>
     <figure class="bleed-art"><img src="/media/v5/lineback-wide.jpg" alt="" fetchpriority="high"></figure>
-    <section class="flow-demo rv" id="demo"><p class="k">Try it right now</p><div class="demo-live"><span class="dl-pulse"></span><b>Watch it catch your own call.</b>
-      <p>Call our line and hang up after two rings. Your phone gets the text-back — the exact experience your missed callers would have.</p>
-      <a class="btn dark" href="tel:+18444936381">Call (844) 493-6381 — it answers</a>
-      <p class="demo-fine">By calling you agree to receive that one demonstration text; reply STOP to opt out. <a href="/legal/sms-terms.html">SMS terms</a>.</p>
-      <form id="lbdemo" class="lb-form" novalidate>
-        <p class="lb-or">Or have the text-back sent to you now:</p>
-        <div class="lb-row"><input type="tel" name="phone" id="lb_phone" autocomplete="tel" placeholder="Your mobile number" aria-label="Your mobile number"><button class="btn dark" type="submit" id="lb_go">Text me the demo</button></div>
-        <input type="email" name="email" id="lb_email" autocomplete="email" placeholder="Email (optional — we'll send a copy)" aria-label="Email" class="lb-email">
-        <label class="lb-consent"><input type="checkbox" name="sms_consent" value="yes" id="lb_consent"><span>Text me the Lineback demonstration and occasional Station tips &amp; offers at this number. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html">SMS terms</a> · <a href="/legal/privacy.html">Privacy</a>.</span></label>
-        <input class="lb-hp" type="text" name="leak" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <p class="demo-fine" id="lb_msg" role="status"></p>
-      </form>
-      <style>
-        .lb-form{margin-top:16px;text-align:left;max-width:520px}
-        .lb-or{font-size:13.5px;color:var(--muted,#5F5F64);margin:0 0 8px}
-        .lb-row{display:flex;gap:8px;flex-wrap:wrap}
-        .lb-row input,.lb-email{flex:1;min-width:200px;background:#fff;border:1px solid rgba(22,24,29,.14);border-radius:12px;padding:12px 14px;font:15px/1.4 inherit;color:inherit}
-        .lb-email{width:100%;margin-top:8px}
-        .lb-consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--muted,#5F5F64);margin:10px 0 0}
-        .lb-consent input{margin-top:3px;flex:none}
-        .lb-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
-      </style>
-      <script>
-      (function(){
-        var f=document.getElementById("lbdemo"); if(!f) return;
-        var msg=document.getElementById("lb_msg"), btn=document.getElementById("lb_go");
-        f.addEventListener("submit",function(e){
-          e.preventDefault();
-          var phone=(document.getElementById("lb_phone").value||"").replace(/[^\d+]/g,"");
-          var email=(document.getElementById("lb_email").value||"").trim();
-          if(phone.replace(/\D/g,"").length<10){ msg.textContent="Enter the mobile number you'd like the demo sent to."; return; }
-          if(!document.getElementById("lb_consent").checked){ msg.textContent="Tick the box so we're allowed to text you — that's the whole demo."; return; }
-          btn.disabled=true; btn.textContent="Sending…"; msg.textContent="";
-          fetch("https://n8n.srv1748596.hstgr.cloud/webhook/lineback-demo",{method:"POST",headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({form:"lineback-demo",phone:phone,email:email,sms_consent:"yes",consent_text:document.querySelector(".lb-consent span").textContent.trim(),page:location.href,sent_at:new Date().toISOString(),leak:f.leak.value||""})})
-          .then(function(r){ msg.textContent=r.ok?"On its way — the text lands in under a minute. That's exactly what your missed callers would get.":"We couldn't send that just now. Call the line above instead, or email main@station.solutions."; })
-          .catch(function(){ msg.textContent="We couldn't send that just now. Call the line above instead, or email main@station.solutions."; })
-          .then(function(){ btn.disabled=false; btn.textContent="Text me the demo"; });
-        });
-      })();
-      </script>
-    </div></section>
     <div class="rv"><p class="k">Ninety seconds, two endings</p><h2 class="serif">The same moment, with and without it.</h2>
     <div class="sdrop" data-sdrop>
       <div class="sd-h" role="button" tabindex="0" aria-expanded="false">
