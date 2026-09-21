@@ -1692,9 +1692,7 @@ function renderCourse(){
       html+='<div class="lock-note">Finish the lesson above to unlock this one.</div>';
     }else{
       html+='<div class="body"><div class="body-in">';
-      // partner-1 / partner-2 narrations predate the current program terms; their video is withheld until re-recorded (the text lesson below is current)
-      if(l.id!=="partner-1"&&l.id!=="partner-2")html+='<video class="lvid" controls preload="metadata" data-vid="'+l.id+'" src="media/lessons/'+l.id+'.mp4"></video>';
-      else if(state!=="done")html+='<button class="btn dark" type="button" data-readdone="'+l.id+'" style="margin:10px 0 8px">I have read this lesson &mdash; continue</button>';
+      html+='<video class="lvid" controls preload="metadata" data-vid="'+l.id+'" src="media/lessons/'+l.id+'.mp4"></video>';
       html+='<div class="summary">'+l.summary+'</div>';
       if(l.extra)html+=l.extra;
       if(l.more&&l.more.length)html+='<div class="more"><div class="lbl">More detail</div><ul>'+
@@ -1735,16 +1733,6 @@ function renderCourse(){
       renderCourse();
       if(courseOpenId===id){var el=list.querySelector('[data-id="'+id+'"]');
         if(el)setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"});},50);}
-    });
-  });
-  list.querySelectorAll("button[data-readdone]").forEach(function(b){
-    b.addEventListener("click",function(){
-      var id=b.dataset.readdone,d=courseDone();
-      if(d.has(id))return;
-      d.add(id);courseSave(d);
-      var idx=COURSE.findIndex(function(x){return x.id===id;}),nxt=COURSE[idx+1];
-      courseOpenId=nxt?nxt.id:id;
-      renderCourse();
     });
   });
   list.querySelectorAll("video[data-vid]").forEach(function(v){
@@ -3302,7 +3290,7 @@ function paintPicker(){
     var m=Number(p.mrr)||0,s=Number(p.setup)||0,price;
     if(m&&s){price=pkMoney(s)+" + "+pkMoney(m)+"/mo";}
     else if(m){price=(p.from_tier?"from ":"")+pkMoney(m)+"/mo";}
-    else if(s){price=pkMoney(s)+" once";}
+    else if(s){price=pkMoney(s)+(p.sku==="revive"?" / quarter":" once");}
     else{price="free";}
     return pkChip("sku",p.sku,p.name,price,(PRODUCT_BY_SKU[p.sku]||{}).plans);
   }).join("");
