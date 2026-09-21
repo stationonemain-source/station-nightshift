@@ -44,6 +44,8 @@ h2,h1{color:#111}
 <tr><td><b>rangeConsent</b></td><td>localStorage · strictly necessary</td><td>Remembers the choice you made on the cookie banner so we don't ask again.</td><td>Until you clear it</td></tr>
 <tr><td><b>rangePromo</b></td><td>sessionStorage · strictly necessary</td><td>Remembers that you already saw the one-time offer popup this visit, so it doesn't repeat.</td><td>This browser tab session</td></tr>
 <tr><td><b>rangeSid</b></td><td>sessionStorage · analytics (consent only)</td><td>A random visit identifier (no name, no account, no fingerprint) so we can count a visit once instead of every scroll.</td><td>This browser tab session</td></tr>
+<tr><td><b>station_ref</b>, <b>station_ref_ts</b></td><td>localStorage · referral tracking</td><td>Only set if you arrive through a Station partner&rsquo;s link (a web address ending in <code>?ref=</code> and a code). Remembers which partner referred you so that partner can be credited if you become a client. It is set whichever banner choice you make, because it does not exist unless you followed a partner&rsquo;s link.</td><td>30 days</td></tr>
+<tr><td><b>station_ref</b>, <b>station_ref_pinged</b></td><td>sessionStorage · referral tracking</td><td>The same partner code for this tab, plus a flag so your visit is counted once, not on every reload.</td><td>This browser tab session</td></tr>
 <tr><td><b>_fbp</b> (and related)</td><td>cookie · advertising (consent only)</td><td>Set by the Meta (Facebook) Pixel when you accept ads. Lets Meta recognise your browser so we can retarget you with Station ads on Facebook &amp; Instagram. Set by Meta, not read by us directly.</td><td>Up to 90 days</td></tr>
 </table>
 
@@ -54,6 +56,7 @@ h2,h1{color:#111}
 <li><b>Advertising (Meta Pixel).</b> The site loads the Meta (Facebook) Pixel, which sets the <b>_fbp</b> cookie and sends Meta a signal that your browser visited — plus standard events like viewing the page, requesting an audit, or clicking a call-to-action. Meta uses this to build a <b>retargeting audience</b> so we can show you Station ads on Facebook and Instagram. We do not send Meta your name, email, or phone number from this page.</li>
 </ul>
 <p>If you choose <b>Essentials only</b>, none of that runs — no analytics events and no Meta Pixel. The only thing recorded is a tally of the banner choice itself so we can measure consent rates.</p>
+<p><b>Partner referral tracking</b> is separate from the choice above. When you arrive through a partner&rsquo;s link, the site remembers that partner&rsquo;s code (see the table) and sends Station one small message containing only the code and the page you landed on. It carries no name, email, or phone number. To remove the stored code, clear this site&rsquo;s data in your browser.</p>
 
 <h2>4. Third parties</h2>
 <ul>
