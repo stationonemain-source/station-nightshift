@@ -124,10 +124,6 @@ ol.steps li{counter-increment:s;padding:9px 0 9px 40px;position:relative;color:v
 ol.steps li b{color:var(--ink)}
 ol.steps li::before{content:counter(s);position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:999px;
   background:var(--ink);color:var(--card);font:600 12px var(--fm);display:flex;align-items:center;justify-content:center}
-.bounty-tbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}
-.bounty-tbl th{text-align:left;font-family:var(--fm);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:6px 8px;border-bottom:1px solid var(--line)}
-.bounty-tbl td{padding:6px 8px;border-bottom:1px solid var(--line)}
-.bounty-tbl td.r{text-align:right;font-weight:700;font-family:var(--fd)}
 
 .course-progress .row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
 .course-progress .bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
@@ -560,15 +556,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <p class="sub">Refer local businesses that miss calls and lose jobs. You get a real login, a live dashboard, and demo sites built for the businesses you're about to call.</p>
     </div>
 
-    <div class="ladder">
-      <div class="rung"><div class="r">$25&ndash;$2,000</div><div class="n">Scout</div><div class="g">Open to anyone. Flat bounty per product you refer — no call required.</div></div>
+    <div class="ladder" style="grid-template-columns:1fr">
       <div class="rung"><div class="r">40%</div><div class="n">Partner</div><div class="g">By invitation. Flat recurring, forever, on clients you close and manage.</div></div>
     </div>
-    <p class="note" style="margin-bottom:30px">Scout is self-serve — sign up below and get your link. Partner is invite-only — we'll reach out if it's a fit.</p>
+    <p class="note" style="margin-bottom:30px">Partner access is by invitation from Station. If you've been invited, sign in, or use Activate invite to set your password.</p>
 
     <div class="tabs">
       <button class="tab" data-tab="login" data-on>Sign in</button>
-      <button class="tab" data-tab="apply">Become a Scout</button>
       <button class="tab" data-tab="claim">Activate invite</button>
     </div>
 
@@ -580,28 +574,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           <button class="btn dark full" type="submit"><span class="t">Sign in</span></button>
         </form>
         <div class="msg err" id="loginMsg"></div>
-      </div>
-    </div>
-
-    <div class="panel" data-panel="apply">
-      <div class="card">
-        <form id="applyForm" novalidate>
-          <div class="row">
-            <div class="field"><label>Your name</label><input name="name" autocomplete="name" required></div>
-            <div class="field"><label>Email</label><input name="email" type="email" autocomplete="email" required></div>
-          </div>
-          <div class="row">
-            <div class="field"><label>Mobile (for payouts)</label><input name="phone" type="tel" inputmode="tel"></div>
-            <div class="field"><label>Country</label><input name="country" placeholder="US" autocomplete="country-name"></div>
-          </div>
-          <div class="field"><label>Choose a password</label><input name="password" type="password" autocomplete="new-password" required>
-            <div class="hint">At least 10 characters. This is your portal login.</div></div>
-          <div class="field"><label>Who do you know? (optional)</label><textarea name="audience" rows="2" placeholder="e.g. I do bookkeeping for 30 local shops, or I run a 12k-follower barber IG"></textarea></div>
-          <button class="btn dark full" type="submit"><span class="t">Apply to become a Scout</span></button>
-          <p class="hint" style="text-align:center;margin-top:14px">Free to join · Reviewed same day · We'll email you the moment you're approved</p>
-          <p class="hint" style="text-align:center;margin-top:6px">By applying you agree to the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Station Affiliate Program Agreement</a>.</p>
-        </form>
-        <div class="msg" id="applyMsg"></div>
       </div>
     </div>
 
@@ -700,7 +672,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
         <h2 class="tight">Alerts in your Discord</h2>
         <p class="note">Get your client alerts in your own Discord: new messages, add-ons and
           change requests, the setup steps to action when a client buys a product, plus demos
-          finishing, leads landing and bounties clearing. You still reply to clients here in
+          finishing and leads landing. You still reply to clients here in
           the portal.</p>
         <p class="note" id="alertState">&mdash;</p>
 
@@ -927,13 +899,12 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     <div class="panel" data-panel="paid">
       <div class="card">
         <h2>How the money works</h2>
-        <p class="note" style="margin-bottom:14px"><b>Scout</b> and <b>Partner</b> pay differently — see the Training tab for the full breakdown. Short version:</p>
+        <p class="note" style="margin-bottom:14px">How Partner pay works — see the Training tab for the full breakdown. Short version:</p>
         <ol class="steps">
-          <li><b>Scout — flat bounty, one time.</b> Share your link. Once someone you referred is a live, paying client (trial period over if they had one), you're paid a flat bounty for that product — $25 to $2,000 depending which one. No recurring %, but no cap on how many you stack.</li>
-          <li><b>Partner — 40% recurring, forever.</b> You close and manage your own clients (or ones distributed to you). You earn 40% of what they actually pay Station, every month they stay — calculated on cleared invoices, never list price. No bounty on top, no tier to climb.</li>
+          <li><b>Partner — 40% recurring, forever.</b> You close and manage your own clients (or ones distributed to you). You earn 40% of what they actually pay Station, every month they stay — calculated on cleared invoices, never list price. No bonus on top, no tier to climb.</li>
           <li><b>You get paid every two weeks.</b> We need your tax form on file first (W-9 US / W-8BEN outside the US).</li>
         </ol>
-        <p class="note" style="margin-top:16px">Annual prepayments credit to you across 12 months either way.</p>
+        <p class="note" style="margin-top:16px">Annual prepayments credit to you across 12 months.</p>
       </div>
       <div class="card">
         <h2 class="tight">Questions</h2>
@@ -943,8 +914,8 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 
     <div class="panel" data-panel="training">
       <div class="card">
-        <h2 class="tight">The Partner &amp; Scout course</h2>
-        <p class="note">12 short lessons, ~25 minutes total. Watch each video to unlock the next one — your progress is saved on this device.</p>
+        <h2 class="tight">The Partner course</h2>
+        <p class="note">7 short lessons, ~19 minutes total. Watch each video to unlock the next one — your progress is saved on this device.</p>
       </div>
 
       <div class="card course-progress" id="courseProgWrap">
@@ -1014,7 +985,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     <div class="panel" data-panel="products">
       <div class="card">
         <h2 class="tight">Every product, and what to say</h2>
-        <p class="note">What each product does, what you earn, the selling points, a call script and
+        <p class="note">What each product does, what it costs, the selling points, a call script and
           an email you can send. Prices here are the live ones &mdash; quote these, not anything
           you have written down.</p>
         <input class="inp" id="prodSearch" type="search" placeholder="Search products, e.g. missed calls, reviews, payments">
@@ -1494,14 +1465,13 @@ function renderProducts(){
   });
   if(!items.length){$("prodList").innerHTML='<div class="card"><p class="note">Nothing matches that.</p></div>';return;}
   $("prodList").innerHTML=items.map(function(p,i){
-    var earn=(p.bounty>0)?("You earn $"+p.bounty):"No bounty — it is included free";
     return '<div class="card" style="margin-bottom:12px">'
       +'<div class="row" style="justify-content:space-between;align-items:flex-start;gap:10px">'
       +'<div><h2 class="tight" style="margin:0">'+esc(p.name)+'</h2>'
       +'<p class="note" style="margin:2px 0 0">'+esc(p.plain)+'</p></div>'
       +'<div class="prod-price">'
       +'<div class="mono">'+esc(p.price)+'</div>'
-      +'<div class="mono" style="color:var(--amber)">'+esc(earn)+'</div></div></div>'
+      +'</div></div>'
       +'<p class="note" style="margin:12px 0 4px"><b>Why they buy it</b></p>'
       +'<ul class="note" style="margin:0;padding-left:18px">'
       +(p.selling_points||[]).map(function(x){return "<li>"+esc(x)+"</li>";}).join("")+'</ul>'
@@ -1669,36 +1639,14 @@ function showAuth(){
   bookLoaded=false;
 }
 
-var LADDER=[{n:"Scout",r:20,g:0},{n:"Partner",r:30,g:3},{n:"Lead Partner",r:40,g:10}];
 
 var COURSE=[
- {id:"module-0",div:"GETTING STARTED",title:"Which track are you?",dur:"",
-  summary:"Station has two ways to earn, and they work completely differently. <b>Scout</b> is open to anyone — no call, no approval. Sign up, get your link, share it, and earn a one-time bounty every time someone you referred goes live as a paying client. <b>Partner</b> is by invitation — you've talked to us, we've approved you, and you're closing and managing your own clients for a flat 40% recurring. If you're not sure which you are, it's almost always Scout — Partner is something we offer, not something you apply for.",
-  more:["Most affiliates are Scouts. Partner is something Station offers after a real conversation — don't wait for an invite to start as a Scout today.","You can hold both roles over time: start as a Scout, and if you start closing real clients yourself, that's usually when a Partner conversation happens."]},
-
- {id:"scout-1",div:"SCOUT TRACK &middot; SELF-SERVE",title:"Your link and how bounties work",dur:"2.5 min",
-  summary:"Your link is <code>station.solutions/?ref=YOURCODE</code>, tracked for 30 days from click. You earn a one-time bounty the moment someone you referred becomes a paying client. If that client starts on a free trial, your bounty doesn't release until the trial ends and they're actually billed.",
-  extra:'<table class="bounty-tbl" data-bounty-tbl><tr><th>Product</th><th style="text-align:right">Bounty</th></tr><tr><td colspan="2" style="color:var(--faint)">Loading current rates\u2026</td></tr></table><div class="more"><div class="lbl">More detail</div><ul data-bounty-notes></ul></div>',
-  more:[]},
-
- {id:"scout-2",title:"Sharing your link",dur:"1.5 min",
-  summary:"You don't need to cold-call anyone. Most Scouts share their link through content — a video, a post, a bio link, a DM. The link does the tracking; you just need eyes on it. You're not expected to explain all 17 products or answer technical questions.",
-  more:["You are not expected to be a salesperson. Your only real job is getting the link in front of the right business owner.","The best-performing Scouts share their own real story — why they trust Station — rather than a generic pitch."]},
-
- {id:"scout-3",title:"What happens after you refer someone",dur:"1 min",
-  summary:"Once someone you referred is genuinely interested, they get handed off to a Partner who closes them, onboards them, and manages the account going forward. That's not a demotion of your referral — it's the model. You still get your full bounty the moment they go live and paying; you just won't be the one managing them afterward.",
-  more:["The Partner who receives your lead may reach out to you directly with questions about the business you referred — that's normal, help if you can.","You keep earning bounties on every future referral even after this one is handed off — there's no limit."]},
-
- {id:"scout-4",title:"Getting your bounty",dur:"1.5 min",
-  summary:"Once someone you referred is a live, paying client — trial over if they had one — your bounty is queued for the next payout run (every two weeks). You'll need a tax form on file (W-9 US / W-8BEN outside the US) before your first payout clears. No cap on how many bounties you can stack.",
-  more:["Bounties are tracked automatically from your link — you don't need to submit anything to get credited.","Payout runs are every two weeks; if you don't yet have a tax form on file, your bounty still accrues, it just won't release until the form is in."]},
-
- {id:"partner-1",div:"PARTNER TRACK &middot; REFERENCE (INVITE-ONLY)",title:"How the money works",dur:"1.5 min",
-  summary:"One number: 40%, recurring, on every client in your book, for as long as they stay. Calculated on cleared invoices, never list price. Annual prepays spread across 12 months. If a client starts on a trial, your commission starts once it ends and their first invoice clears. No bounty on top, no tier to climb toward.",
+ {id:"partner-1",div:"PARTNER TRAINING &middot; INVITE-ONLY",title:"How the money works",dur:"1.5 min",
+  summary:"One number: 40%, recurring, on every client in your book, for as long as they stay. Calculated on cleared invoices, never list price. Annual prepays spread across 12 months. If a client starts on a trial, your commission starts once it ends and their first invoice clears. No bonus on top, no tier to climb toward.",
   more:["Example: a client paying $750/mo Core nets you $300/mo, every month, for as long as they stay a client — no renewal negotiation needed.","Commission is based on invoices that actually cleared — refunds, failed charges, and disputes don't count."]},
 
  {id:"partner-2",title:"Your book of business",dur:"2 min",
-  summary:"When a client becomes yours — whether you closed them yourself or a Scout's warm lead was distributed to you — they're yours going forward. You own the full relationship: every upsell conversation, every general question, every support request that isn't a technical break/fix. Think of it like an insurance agent's book of business — tracked as permanently assigned to you. Leaving the program requires written notice; your book is then redistributed.",
+  summary:"When a client becomes yours — whether you closed them yourself or a warm lead Station distributed to you — they're yours going forward. You own the full relationship: every upsell conversation, every general question, every support request that isn't a technical break/fix. Think of it like an insurance agent's book of business — tracked as permanently assigned to you. Leaving the program requires written notice; your book is then redistributed.",
   more:["Practically, this means: if a client emails asking to add a product, that's your conversation to have, not Station's support inbox.","Written notice for leaving the program protects your book from just evaporating if you go quiet without warning anyone."]},
 
  {id:"partner-3",title:"What to lead with, by business type",dur:"3 min",
@@ -1707,7 +1655,7 @@ var COURSE=[
 
  {id:"partner-4",title:"Your two power tools: the Call Sheet and the Demo Builder",dur:"3 min",
   summary:"Two Partner-only tools do the heavy lifting. The <b>Call Sheet</b> pulls a fresh list of real local businesses by trade and city — each with the specific gap costing them money and an estimated dollar leak — straight into your Leads sheet. The <b>Demo Builder</b> then builds a real working example for a business before you call, so you open with something true instead of a pitch.",
-  more:["Call Sheet: pick a trade and a city, pull your leads, then work the sheet — status, follow-up dates and notes on every row. It's rate-limited so the leads stay fresh, not a dump you never touch. Both tools are Partner-only; Scouts earn by sharing their link.","The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
+  more:["Call Sheet: pick a trade and a city, pull your leads, then work the sheet — status, follow-up dates and notes on every row. It's rate-limited so the leads stay fresh, not a dump you never touch. Both tools are Partner-only.","The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
 
  {id:"partner-5",title:"The call script pattern",dur:"3 min",
   summary:"Confirm who you're talking to, fast. State the specific gap you found, with a number if you have one. Offer to text the demo link live, on the call. You're not closing the sale — Station's free audit does that. Your only job is to get them to look at the demo.",
@@ -1756,7 +1704,7 @@ function renderCourse(){
   });
   list.innerHTML=html;
 
-  var n=done.size,total=COURSE.length;
+  var total=COURSE.length,n=COURSE.filter(function(l){return done.has(l.id);}).length;
   var pct=Math.round(n/total*100);
   $("cProgLabel").textContent=n+" of "+total+" complete";
   $("cProgPct").textContent=pct+"%";
@@ -1768,8 +1716,7 @@ function renderCourse(){
       box.style.display="";
       box.innerHTML='<span class="tickmark">&#10003;</span>'+
         '<div><div class="t">Training complete</div>'+
-        '<div class="s">You have finished all '+total+' lessons. Your link and your bounties '+
-        'work exactly the same either way \u2014 but you now know the pitch cold.</div></div>';
+        '<div class="s">You have finished all '+total+' lessons — you now know the pitch cold.</div></div>';
     } else {
       box.style.display="none";
     }
@@ -1801,32 +1748,6 @@ function renderCourse(){
     });
   });
 }
-/* The bounty table and its rules come from the engine (action:"bounty_table"), which reads
-   the same constants it pays from -- so what a partner is shown and what they are actually
-   credited can never drift apart. Wrapping renderCourse covers every later re-render too. */
-var BOUNTY_ROWS=null,BOUNTY_NOTES=null;
-function bEsc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){
-  return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
-function fillBounty(){
-  var tbl=document.querySelector("[data-bounty-tbl]");
-  if(!tbl||!BOUNTY_ROWS)return;
-  tbl.innerHTML='<tr><th>Product</th><th style="text-align:right">Bounty</th></tr>'+
-    BOUNTY_ROWS.map(function(r){
-      return '<tr><td>'+bEsc(r.product)+'</td><td class="r">$'+Number(r.bounty).toLocaleString()+'</td></tr>';
-    }).join("");
-  var ul=document.querySelector("[data-bounty-notes]");
-  if(ul&&BOUNTY_NOTES){ul.innerHTML=BOUNTY_NOTES.map(function(x){return "<li>"+bEsc(x)+"</li>";}).join("");}
-}
-function paintBounty(){
-  if(!document.querySelector("[data-bounty-tbl]"))return;
-  if(BOUNTY_ROWS){fillBounty();return;}
-  post({action:"bounty_table"}).then(function(d){
-    if(!d||!d.ok||!d.rows)return;
-    BOUNTY_ROWS=d.rows;BOUNTY_NOTES=d.notes||[];fillBounty();
-  }).catch(function(){});
-}
-var _renderCourse0=renderCourse;
-renderCourse=function(){var r=_renderCourse0.apply(this,arguments);paintBounty();return r;};
 renderCourse();
 
 /* ================= SHEET ENGINE =================
@@ -2361,64 +2282,7 @@ var bookCfg={
   }
 };
 
-/* A Scout has no book of clients -- Station hands their warm leads to a Partner to close.
-   What a Scout owns is the bounty ledger, so that is what this tab shows them: which referral
-   paid, what it paid for, and whether the money is held, ready or already out. Same sheet
-   engine, same CSV export, different rows. */
-var BOUNTIES=[];
-var bookActiveCfg=null;   // bookCfg for a Partner, bountyCfg for a Scout
-var bountyCfg={
-  id:"book",mount:"bookSheet",chips:"bookChips",csvName:"station-bounties",
-  rows:BOUNTIES,notes:{},
-  key:function(r){return r.id;},
-  subject:function(r){return "bounty:"+r.id;},
-  label:function(r){return r.client||r.id;},
-  searchExtra:function(r){return (r.products||[]).join(" ");},
-  empty:"No bounties yet. One lands here the moment someone you referred is actually billed \u2014 a free trial earns nothing until it converts.",
-  filters:[
-    {k:"ready",label:"Ready to pay",fn:function(r){return r.status==="ready";}},
-    {k:"held",label:"Still held",fn:function(r){return r.status==="held";}},
-    {k:"paid",label:"Paid out",fn:function(r){return r.status==="paid";}},
-    {k:"reversed",label:"Reversed",fn:function(r){return r.status==="reversed";}}
-  ],
-  cols:[
-    {k:"client",h:"Referral",cls:"b",html:function(r){
-      return r.client?esc(r.client):'<span class="sub">\u2014</span>';}},
-    {k:"products",h:"What they bought",html:function(r){
-      return esc((r.products||[]).join(", "))||'<span class="sub">\u2014</span>';}},
-    {k:"amount",h:"Bounty",cls:"num",html:function(r){return money(r.amount);}},
-    {k:"paid_at",h:"Earned",html:function(r){
-      return '<span class="sub">'+esc(String(r.paid_at||"").slice(0,10))+'</span>';}},
-    {k:"status",h:"Standing",html:function(r){
-      var m={ready:["ready","Ready to pay"],held:["pending","Held"],
-              paid:["active","Paid out"],reversed:["failed","Reversed"]}[r.status]||["pending",r.status];
-      return '<span class="pill '+m[0]+'">'+esc(m[1])+'</span>';}},
-    {k:"hold_until",h:"Available",html:function(r){
-      if(r.status==="paid"||r.status==="reversed")return '<span class="sub">\u2014</span>';
-      if(r.status==="ready")return '<span class="sub">now</span>';
-      return '<span class="sub">'+esc(String(r.hold_until||"").slice(0,10))+'</span>';}}
-  ],
-  count:function(shown,total){
-    $("bookCount").textContent=shown===total?(total+" bount"+(total===1?"y":"ies"))
-                                            :(shown+" of "+total+" bounties");}
-};
-function statLabel(id,text){
-  var el=$(id); if(!el)return;
-  var k=el.parentNode&&el.parentNode.querySelector(".k"); if(k)k.textContent=text;
-}
-function renderScoutBounties(d){
-  BOUNTIES.length=0;(d.bounties||[]).forEach(function(b){BOUNTIES.push(b);});
-  statLabel("bkClients","Bounties earned"); $("bkClients").textContent=money(d.bounties_earned||0);
-  statLabel("bkMrr","Ready to pay");        $("bkMrr").textContent=money(d.bounties_releasable||0);
-  statLabel("bkComm","Still held");         $("bkComm").textContent=money(d.bounties_held||0);
-  statLabel("bkRate","Bounties");           $("bkRate").textContent=String(BOUNTIES.length);
-  $("bookBasis").textContent="basis: one-time bounty per product, paid after the 30-day window";
-  $("bookIntro").innerHTML="You're on the <b>Scout</b> track, so you don't manage a book \u2014 "+
-    "once a lead you referred turns warm, Station hands it to a Partner to close and run. "+
-    "What you own is below: every bounty you've earned, what it was for, and when it's payable. "+
-    "A referral on a free trial earns nothing until their first payment actually clears.";
-  bookActiveCfg=bountyCfg; renderSheet(bountyCfg);
-}
+var bookActiveCfg=null;   // the sheet config the Book tab is showing (bookCfg)
 /* ---------------- CLIENTS: the partner workspace ----------------
    Every call here is scoped server-side to the partner's own book — the engine re-derives it
    from the CRM on each request, so nothing here is trusted to be honest about whose client
@@ -2609,14 +2473,7 @@ function loadBook(force){
     $("bkRate").textContent=(d.rate_pct!=null?d.rate_pct+"%":"—");
     BOOK_RATE=Number(d.rate_pct)||0;
     $("bookBasis").textContent="Basis: "+basisText(d.basis);
-    if(d.track!=="partner"){
-          // Scout: the bounty ledger replaces the client book entirely — and a
-          // Scout never adds clients (the engine refuses client_add for them;
-          // this is the cosmetic half).
-          var acb=$("addClientBtn"); if(acb)acb.classList.add("hide");
-          var acx=$("addClientBox"); if(acx)acx.classList.add("hide");
-          renderScoutBounties(me||{}); return;
-        }
+    if(d.track!=="partner"){var acb=$("addClientBtn");if(acb)acb.classList.add("hide");var acx=$("addClientBox");if(acx)acx.classList.add("hide");$("bookIntro").textContent="This account does not have a client book.";bookActiveCfg=bookCfg;renderSheet(bookCfg);return;}
         var acb2=$("addClientBtn"); if(acb2)acb2.classList.remove("hide");
         bookActiveCfg=bookCfg; renderSheet(bookCfg);
         /* The sheet is complete from book_list alone; conv_list then fills in last-message
@@ -2642,38 +2499,29 @@ function loadMe(){
     $("stComm").textContent=money(d.commission_monthly);
     $("copyLink").onclick=function(){copyTo($("copyLink"),d.link,"Copied");};
 
-    // Two tracks only (Scout / Partner) — reads the engine's real track field
-    // (v4.5, set by Station via the admin panel's Scout/Partner toggle).
-    var track=(d.track==="partner")?"Partner":"Scout";
-      // The client workspace is a Partner surface: a Scout never manages an account. Since
-      // 2026-09-15 it has no tab of its own — it opens from a row in Book of business, and a
-      // Scout's Book tab renders the bounty ledger (bountyCfg), which has no Open button. So
-      // there is nothing to hide here; the card is only closed in case a track change left it
-      // open behind a partner who has just been demoted. The engine refuses conv_* and cal_*
-      // off the Partner track regardless — that is the half that actually protects anything.
+    // Only the Partner programme is open. Any other account type gets the neutral, no-client view.
+    var track=(d.track==="partner")?"Partner":"Other";
+      // The client workspace is a Partner surface; the engine refuses conv_* and cal_* off the Partner track, this only closes the card.
       if(track!=="Partner"){ try{closeClient();}catch(e){} }
-      // Demo Builder is a Partner-only tool — hide the tab for Scouts (the engine
-      // also refuses demo_request off the Partner track; this is the cosmetic half).
+      // Demo Builder is a Partner-only tool (the engine also refuses demo_request off the Partner track).
       var dt=document.querySelector('#appView .tab[data-tab="demos"]');
       if(dt){ dt.style.display=(track==="Partner")?"":"none"; }
       // 2026-09-02 audit: the Dashboard's Your demos card is the same Partner-only tool
       var dc=$("demosCard"); if(dc){ dc.style.display=(track==="Partner")?"":"none"; }
-      // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update /
-      // lead_del) is a Partner tool too — the engine now refuses it for Scouts, so the tab
-      // is hidden for them exactly like Clients and Demos.
+      // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update / lead_del) is a Partner tool too; the engine refuses it otherwise.
       var pt=$("tabPipe");
       if(pt){ pt.style.display=(track==="Partner")?"":"none"; }
       var lt=$("tabLeads");
       if(lt){ lt.style.display=(track==="Partner")?"":"none"; }
-    if(track==="Scout"){
-      $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Scout</div>'+
-        '<div class="n">Flat bounty per product</div><div class="g">Paid once each referral goes live and paying. See Training for the full bounty table.</div></div>';
+    if(track!=="Partner"){
+      $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">—</div>'+
+        '<div class="n">Not on the Partner programme</div><div class="g">Commission and client tools are Partner-only. Questions: main@station.solutions.</div></div>';
     }else{
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">Partner</div>'+
         '<div class="n">40% recurring</div><div class="g">On every client in your book, for as long as they stay.</div></div>';
     }
     $("nextBox").innerHTML="";
-    $("basisNote").textContent="You're on the "+track+" track"+(d.rate_pct!=null?" — current rate "+d.rate_pct+"%.":".")+" Full detail in “How you get paid.”";
+    $("basisNote").textContent=(track==="Partner")?("You're on the Partner track"+(d.rate_pct!=null?" — current rate "+d.rate_pct+"%.":".")+" Full detail in “How you get paid.”"):"This account isn't on the Partner programme, so there is no payout rate.";
 
     var tf=d.taxform||{};
     if(tf.received){
@@ -3245,25 +3093,6 @@ $("loginForm").addEventListener("submit",function(e){
       if(!d.ok){say(m,d.error||"Could not sign in.");return;}
       saveToken(d.token);f.reset();showApp();
     }).catch(function(){busy(f,false,"Sign in");say(m,"Network error — try again.");});
-});
-
-$("applyForm").addEventListener("submit",function(e){
-  e.preventDefault();var f=e.target,m=$("applyMsg");clear(m);
-  if((f.password.value||"").length<10){say(m,"Password must be at least 10 characters.");return;}
-  busy(f,true);
-  post({action:"apply",name:f.name.value.trim(),email:f.email.value.trim(),
-        phone:f.phone.value.trim(),country:f.country.value.trim(),
-        audience:f.audience.value.trim(),password:f.password.value})
-    .then(function(d){
-      busy(f,false,"Apply to become a Scout");
-      if(!d.ok){say(m,d.error||"Something went wrong.");return;}
-      if(d.note==="already registered"){
-        say(m,"You've already applied with that email. Use Sign in, or 'Activate invite' if you never set a password.");
-        return;
-      }
-      f.reset();
-      say(m,"You're in — code "+d.code+". We review same day and you'll get an email the moment you're approved. You can sign in then.","ok");
-    }).catch(function(){busy(f,false,"Apply to become a Scout");say(m,"Network error — try again.");});
 });
 
 $("claimForm").addEventListener("submit",function(e){

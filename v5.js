@@ -11,7 +11,7 @@
   try {
     var q = new URLSearchParams(location.search);
     var fresh = (q.get("ref") || "").toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 24);
-    // 30 days, to match what the Scout is told their link is worth. sessionStorage died
+    // 30 days, to match the attribution window a partner is told their link is worth. sessionStorage died
     // with the tab, so a visitor who came back later counted for nobody.
     var TTL = 30 * 86400000;
     if (fresh) {
@@ -378,7 +378,7 @@
               action: "attribute", pub: AFF_PUB, code: REF, kind: "audit-submit",
               label: "v5-" + (form.getAttribute("data-variant") || "form")
             })], { type: "application/json" }));
-            // and register the actual lead, so the Scout's Leads count moves too
+            // and register the actual lead, so the affiliate's Leads count moves too
             var _em = (fd.get("email") || "").toString().trim();
             if (_em) {
               navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
