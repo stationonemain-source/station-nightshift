@@ -1,8 +1,8 @@
 {
   "_about": "Station product playbook — the ONE source for what partners sell, what to say, and what has to be set up by hand after a purchase. Read by the Partner portal Products tab (same origin) and by n8n alert workflows over HTTPS. DRAFT 2026-08-11 — pending Circle's review before partners are pointed at it.",
-  "_pricing_note": "Prices verified 2026-08-11 against BOTH station.solutions and active Stripe prices. Tap is $47 (the $147 price is archived in Stripe); Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py — its manifest was built 2026-08-01 and still carries two archived prices.",
+  "_pricing_note": "Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); Storefront is two tiers (Premium $500 + $49/mo Care; Custom has no published price and is priced by evaluation) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
   "_trial": "Free trial is 7 days standard, 14 available on request, 30 maximum. Clients provision in full during a trial; partner commission starts once real billing starts.",
-  "updated": "2026-09-01",
+  "updated": "2026-09-21",
   "products": [
     {
       "sku": "storefront",
@@ -38,15 +38,16 @@
       "sku": "storefront_custom",
       "name": "Storefront — Custom",
       "plain": "A bespoke website, designed from scratch",
-      "price": "$1,250 one-time build + $49/mo Care",
+      "price": "Priced by evaluation (no published price) + $49/mo Care",
       "mrr": 49,
-      "setup": 1250,
+      "setup": 0,
       "selling_points": [
         "Designed from nothing to their brand — no template underneath it.",
         "Scroll animation and custom art direction, the kind of site that makes a small firm look established.",
         "Same Care plan, so the running cost is identical to the Premium build."
       ],
       "setup_actions": [
+        "Do not quote a number: Custom has no published price and is priced by evaluation after a call. The 'Get it priced' button on the Storefront page books that call, or book it for them. Nothing is charged until they have talked to us.",
         "Book a proper brand call: colours, tone, who they want to look better than.",
         "Get logo files (vector if it exists) and any brand guide.",
         "Agree the page list in writing before design starts — scope creep is what makes custom builds lose money.",
@@ -55,57 +56,27 @@
       "call_script": {
         "opener": "You clearly care how the business comes across — was the current site a compromise, or is it what you actually wanted?",
         "discovery": "If budget were not the issue, what would you want someone to feel in the first three seconds on your site?",
-        "pitch": "Then the template route is not for you. Custom is $1,250, built from scratch to your brand, and Care stays $49 a month like everything else.",
-        "objection": "\"That is more than double.\" — It is. The Premium build is a very good template. Custom is a designer starting from your brand with a blank page. If you want to look like the most established firm in your market, that is the difference.",
+        "pitch": "Then the template route is not for you. Custom is built from scratch to your brand and is priced by evaluation: I do not quote a number until we have talked, and nothing is charged before that. Care stays $49 a month like everything else.",
+        "objection": "\"What does it cost?\" — It depends on the scope, so it is priced by evaluation after a short call, and nothing is charged until we have talked. The Premium build is a very good template at $500. Custom is a designer starting from your brand with a blank page. If you want to look like the most established firm in your market, that is the difference.",
         "close": "I can put two directions in front of you before you commit a penny. Want me to?"
       },
       "email_script": {
         "subject": "a proper site for {business}",
-        "body": "Hi {first_name},\n\nQuick thought about {business} online.\n\nYou are clearly the more established option in your market, but the website is not saying that yet. Templates can only take you so far — at some point the site has to be designed around your brand rather than fitted into someone else's layout.\n\nThat is our custom build: $1,250, designed from scratch, then the same $49/month for hosting and edits.\n\nHappy to mock up a direction so you can see it rather than imagine it. Want me to?"
-      }
-    },
-    {
-      "sku": "storefront_enterprise",
-      "name": "Storefront — Enterprise",
-      "plain": "A multi-location or large-scale website build",
-      "price": "$10,000 one-time build + $49/mo Care",
-      "mrr": 49,
-      "setup": 10000,
-      "selling_points": [
-        "Built for multiple locations, large service catalogues or booking that has to integrate with existing systems.",
-        "Location pages that actually rank locally instead of one page trying to cover every branch.",
-        "Direct line to the build team through the project, not a ticket queue."
-      ],
-      "setup_actions": [
-        "Scope call with whoever owns the budget AND whoever owns the current site — these are rarely the same person.",
-        "List every location with its own address, phone and hours; confirm which are real premises versus service areas.",
-        "Identify systems that must integrate (booking, inventory, CRM) and get technical contact details early.",
-        "Agree written milestones and payment stages before any work starts."
-      ],
-      "call_script": {
-        "opener": "How many locations are you running, and does the current site do a decent job for each of them?",
-        "discovery": "When someone searches for you in one specific area, what comes up — a page for that branch, or your homepage?",
-        "pitch": "That is costing you the local searches. Enterprise is $10,000: a proper page per location built to rank in that area, plus whatever it needs to talk to your existing booking system.",
-        "objection": "\"We would need to involve IT.\" — Good, bring them to the scope call. Most of the risk in a build this size is discovering an integration late, so I would rather meet them on day one.",
-        "close": "Let me get a scope call with you and whoever runs the current site, and I will come back with a milestone plan and a fixed number."
-      },
-      "email_script": {
-        "subject": "{business} — the location pages are costing you searches",
-        "body": "Hi {first_name},\n\nI looked at how {business} shows up across your locations.\n\nSearches for individual areas are landing on the homepage rather than a page built for that branch, which means you are competing for local searches with a page that is not about that area. With multiple locations that adds up quickly.\n\nWe build at that scale: a proper page per location designed to rank locally, plus integration with whatever booking or CRM you already run. $10,000 build, $49/month after.\n\nWorth a scope call with you and whoever looks after the current site?"
+        "body": "Hi {first_name},\n\nQuick thought about {business} online.\n\nYou are clearly the more established option in your market, but the website is not saying that yet. Templates can only take you so far — at some point the site has to be designed around your brand rather than fitted into someone else's layout.\n\nThat is our custom build: designed from scratch and priced by evaluation after a short call, then the same $49/month for hosting and edits.\n\nHappy to mock up a direction so you can see it rather than imagine it. Want me to?"
       }
     },
     {
       "sku": "greet",
       "name": "Greet",
       "plain": "AI chat on their website that answers and captures every visitor",
-      "price": "$79/mo (100 chats) · $149 busy · $249 high volume",
+      "price": "$79/mo (250 chats) · $149 busy (750 chats) · $249 high volume (1,750 chats)",
       "mrr": 79,
       "setup": 0,
       "from_tier": true,
       "plans": [
         {
           "key": "base",
-          "label": "100 chats",
+          "label": "250 chats",
           "mrr": 79
         },
         {
@@ -147,20 +118,20 @@
       "sku": "slate",
       "name": "Slate",
       "plain": "Customers book themselves, and reminders make sure they turn up",
-      "price": "$97/mo (300 reminders) · $147 busy",
-      "mrr": 97,
+      "price": "$59/mo (1,000 reminders) · $97 busy (2,500 reminders)",
+      "mrr": 59,
       "setup": 0,
       "from_tier": true,
       "plans": [
         {
           "key": "base",
-          "label": "300 reminders",
-          "mrr": 97
+          "label": "1,000 reminders",
+          "mrr": 59
         },
         {
           "key": "busy",
           "label": "busy",
-          "mrr": 147
+          "mrr": 97
         }
       ],
       "selling_points": [
@@ -178,27 +149,27 @@
       "call_script": {
         "opener": "How does someone book you at the moment — do they ring, or is there a bit of back-and-forth?",
         "discovery": "And how often does someone just not turn up?",
-        "pitch": "Slate lets them pick from your real availability, then reminds them so they show. $97 a month.",
+        "pitch": "Slate lets them pick from your real availability, then reminds them so they show. $59 a month.",
         "objection": "\"I like to speak to them first.\" — Then we only open slots for a short intro call and you qualify there. You are not giving up control, you are giving up the six texts it takes to agree a time.",
         "close": "Give me your services and hours and I will have it live today. Book yourself in and see how it feels."
       },
       "email_script": {
         "subject": "the six texts it takes to book you",
-        "body": "Hi {first_name},\n\nSmall thing that quietly costs {business} money.\n\nEvery booking that takes a few texts to arrange is time you are not billing for — and every no-show is a slot you can never sell again.\n\nSlate lets customers pick from your real availability, then texts and emails them a reminder so they actually turn up. $97/month.\n\nSend me your services and hours and I will have it running today. Want to?"
+        "body": "Hi {first_name},\n\nSmall thing that quietly costs {business} money.\n\nEvery booking that takes a few texts to arrange is time you are not billing for — and every no-show is a slot you can never sell again.\n\nSlate lets customers pick from your real availability, then texts and emails them a reminder so they actually turn up. $59/month.\n\nSend me your services and hours and I will have it running today. Want to?"
       }
     },
     {
       "sku": "lineback",
       "name": "Lineback",
       "plain": "Every missed call gets a text back within seconds",
-      "price": "$197/mo (500 texts) · $297 busy",
+      "price": "$197/mo (1,500 texts) · $297 busy (5,000 texts)",
       "mrr": 197,
       "setup": 0,
       "from_tier": true,
       "plans": [
         {
           "key": "base",
-          "label": "500 texts",
+          "label": "1,500 texts",
           "mrr": 197
         },
         {
@@ -234,14 +205,14 @@
       "sku": "frontdesk",
       "name": "Frontdesk",
       "plain": "An AI receptionist that answers every call 24/7 and books the job",
-      "price": "$397/mo (500 min) · $597 busy · $897 high volume",
+      "price": "$397/mo (750 min) · $597 busy (1,200 min) · $897 high volume (2,500 min)",
       "mrr": 397,
       "setup": 0,
       "from_tier": true,
       "plans": [
         {
           "key": "base",
-          "label": "500 min",
+          "label": "750 min",
           "mrr": 397
         },
         {
@@ -284,9 +255,22 @@
       "sku": "pursuit",
       "name": "Pursuit",
       "plain": "Every lead followed up by text and email until they reply or book",
-      "price": "$247/mo (1,000 texts)",
+      "price": "$247/mo (2,500 texts + 15,000 emails) · $347 busy (6,000 texts + 40,000 emails)",
       "mrr": 247,
       "setup": 0,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "2,500 texts + 15,000 emails",
+          "mrr": 247
+        },
+        {
+          "key": "busy",
+          "label": "busy",
+          "mrr": 347
+        }
+      ],
       "selling_points": [
         "Most businesses follow up once and quietly give up; the booking usually comes on the third or fourth touch.",
         "It runs whether or not the client remembers, which is the entire point.",
@@ -314,9 +298,22 @@
       "sku": "repute",
       "name": "Repute",
       "plain": "Asks every happy customer for a review, and replies to the ones that come in",
-      "price": "$197/mo",
+      "price": "$197/mo · $397/mo per location for multi-location (two or more, 1,500 review requests each)",
       "mrr": 197,
       "setup": 0,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "standard",
+          "mrr": 197
+        },
+        {
+          "key": "multi",
+          "label": "multi-location, per location (2+)",
+          "mrr": 397
+        }
+      ],
       "selling_points": [
         "Reviews are the first thing a stranger checks, and the business with more of them wins the call.",
         "The ask goes out every time, instead of only when the client remembers to be brave.",
@@ -345,9 +342,22 @@
       "sku": "map",
       "name": "Echo",
       "plain": "Their Google listing managed properly so they show up in the local map results",
-      "price": "$297 setup + $147/mo",
-      "mrr": 147,
+      "price": "$297 setup + $247/mo · multi-location $197/mo per location + $297 setup each (two or more)",
+      "mrr": 247,
       "setup": 297,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "standard",
+          "mrr": 247
+        },
+        {
+          "key": "multi",
+          "label": "multi-location, per location (2+)",
+          "mrr": 197
+        }
+      ],
       "selling_points": [
         "The map pack is where local buying decisions actually happen, above the website results.",
         "Most listings are half-finished — wrong categories, no photos, no posts — and that is why they rank below competitors.",
@@ -363,26 +373,40 @@
       "call_script": {
         "opener": "Search your own trade plus your town on your phone — where do you come up in the map results?",
         "discovery": "Do you know who is above you, and can you think of a reason they should be?",
-        "pitch": "Usually it is not that they are better, it is that their listing is complete and yours is half-filled. Map fixes that and keeps it active. $297 to set up, $147 a month.",
+        "pitch": "Usually it is not that they are better, it is that their listing is complete and yours is half-filled. Echo fixes that and keeps it active. $297 to set up, $247 a month.",
         "objection": "\"I already have a Google listing.\" — Most people do. Having one and having one that ranks are very different things. Let me show you what is missing from yours.",
         "close": "Let me audit the listing for free and show you exactly what is costing you the position. If it turns out yours is perfect, I will say so."
       },
       "email_script": {
         "subject": "where {business} shows up on the map",
-        "body": "Hi {first_name},\n\nTry this on your phone: search your trade and your town, and see where {business} lands in the map results.\n\nIf you are below firms you know you are better than, it is usually not the work — it is that their listing is complete and yours is not. Categories, photos, hours, activity. Google reads all of it.\n\nMap sorts that out and keeps the listing active. $297 to set up, $147/month.\n\nHappy to audit yours for nothing and tell you what is missing. Want me to?"
+        "body": "Hi {first_name},\n\nTry this on your phone: search your trade and your town, and see where {business} lands in the map results.\n\nIf you are below firms you know you are better than, it is usually not the work — it is that their listing is complete and yours is not. Categories, photos, hours, activity. Google reads all of it.\n\nEcho sorts that out and keeps the listing active. $297 to set up, $247/month.\n\nHappy to audit yours for nothing and tell you what is missing. Want me to?"
       }
     },
     {
       "sku": "dispatch",
       "name": "Dispatch",
-      "plain": "Email marketing to their customer list, self-serve",
-      "price": "$94/mo",
+      "plain": "Email marketing to their customer list, self-serve or fully managed",
+      "price": "$94/mo self-serve · $397 managed (we write and send four campaigns a month)",
       "mrr": 94,
       "setup": 0,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "self-serve",
+          "mrr": 94
+        },
+        {
+          "key": "managed",
+          "label": "managed, 4 campaigns a month",
+          "mrr": 397
+        }
+      ],
       "selling_points": [
         "Their past customers are the cheapest work they will ever get — they already trust them.",
         "One email to the list beats a month of chasing strangers.",
-        "Self-serve, so they send when they want without waiting on anyone."
+        "Self-serve, so they send when they want without waiting on anyone.",
+        "On Managed ($397/mo) we plan, write and send four campaigns a month for them; they approve before anything sends and never have to type a word."
       ],
       "setup_actions": [
         "Verify their sending domain, or emails land in spam and the whole thing looks broken.",
@@ -406,13 +430,13 @@
     {
       "sku": "revive",
       "name": "Revive",
-      "plain": "A one-off campaign to bring back customers who have gone quiet",
-      "price": "$497 one-time",
+      "plain": "A six-touch win-back campaign to bring back customers who have gone quiet",
+      "price": "$497 per quarter (up to 5,000 contacts, cancel any time)",
       "mrr": 0,
       "setup": 497,
       "selling_points": [
         "Fastest money in the whole catalogue — these people already bought once.",
-        "One-off cost, no ongoing commitment, so it is an easy first yes.",
+        "$497 a quarter with no lock-in, cancel any time, so it is an easy first yes.",
         "Usually pays for itself before the sequence has finished sending."
       ],
       "setup_actions": [
@@ -425,50 +449,64 @@
       "call_script": {
         "opener": "How many customers have you not heard from in over a year?",
         "discovery": "Any reason they left, or did it just drift?",
-        "pitch": "Then they are the easiest work available. Revive is a one-off campaign that goes back to them with a reason to return. $497, once.",
+        "pitch": "Then they are the easiest work available. Revive scrubs the list and runs a six-touch win-back campaign to them with a reason to return. $497 a quarter, up to 5,000 contacts, cancel any time.",
         "objection": "\"They have probably gone elsewhere.\" — Some have. Most just drifted and have not thought about you. That is a reminder problem, not a loyalty problem.",
         "close": "Send me the list and I will tell you how many are worth going back to before you commit."
       },
       "email_script": {
         "subject": "the customers who drifted",
-        "body": "Hi {first_name},\n\nHow many of {business}'s customers have you not heard from in a year or more?\n\nMost of them did not leave unhappy — they just drifted and have not thought about you since. That is a reminder problem, and it is the easiest money in the business.\n\nRevive is a one-off campaign back to that list with a real reason to return. $497, once, no ongoing cost.\n\nSend me the list and I will tell you how many are worth chasing before you spend anything. Deal?"
+        "body": "Hi {first_name},\n\nHow many of {business}'s customers have you not heard from in a year or more?\n\nMost of them did not leave unhappy — they just drifted and have not thought about you since. That is a reminder problem, and it is the easiest money in the business.\n\nRevive scrubs that list and runs a six-touch win-back campaign with a real reason to return. $497 a quarter, up to 5,000 contacts, cancel any time.\n\nSend me the list and I will tell you how many are worth chasing before you spend anything. Deal?"
       }
     },
     {
       "sku": "radar",
       "name": "Radar",
-      "plain": "Watches their competitors and their local search position",
-      "price": "$197/mo",
-      "mrr": 197,
+      "plain": "Finds the businesses they want as customers, audits each one, and reaches out for them",
+      "price": "$297/mo (5 new prospects a week) · $497 pro (20 new prospects a week)",
+      "mrr": 297,
       "setup": 0,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "5 prospects a week",
+          "mrr": 297
+        },
+        {
+          "key": "pro",
+          "label": "pro, 20 prospects a week",
+          "mrr": 497
+        }
+      ],
       "selling_points": [
-        "They find out when a competitor changes prices or starts advertising, instead of noticing months later.",
-        "Tracks whether they are going up or down in local search, in plain numbers.",
-        "Turns a vague sense that things are quiet into something they can act on."
+        "The audit does the talking: they open with something specific and true about the prospect's own listing or website, not a cold pitch.",
+        "Five new audited prospects every week (twenty on Pro), so the pipeline keeps filling whether or not they remember to prospect.",
+        "Outreach goes out from their Station account, so every reply lands in the same inbox as everything else.",
+        "Best for trades chasing commercial accounts and B2B services. If that is not the client, do not sell it."
       ],
       "setup_actions": [
-        "Agree the competitor list with them — the firms they actually lose work to, not the biggest names.",
-        "Set the keywords and the geographic area to track.",
-        "Set the reporting cadence and who receives it.",
-        "Send the first report yourself and walk them through reading it, or it becomes an email they ignore."
+        "Agree who they want as customers: the trade or type of business (property managers, general contractors, restaurants, offices), the area and the size. Standard covers three trade targets, Pro covers six.",
+        "Confirm the area and targets with the client before the first weekly sweep runs.",
+        "Review the outreach wording with the client so it sounds like them. Email carries who they are and an opt-out, and texting only goes to people who have consented.",
+        "Send the first audit report yourself and walk them through it, or it becomes a PDF nobody opens."
       ],
       "call_script": {
-        "opener": "Who do you actually lose work to around here?",
-        "discovery": "Do you know what they charge, or whether they are advertising right now?",
-        "pitch": "Radar watches them and your own search position, and tells you when something changes. $197 a month.",
-        "objection": "\"I do not really care what they do.\" — Fair. But when work goes quiet, would you rather guess why or know whether someone started advertising against you?",
-        "close": "Give me three names and I will show you the first report before you decide."
+        "opener": "Who are the customers you would love to have but have no way of getting in front of?",
+        "discovery": "How do you find new business or commercial accounts at the moment, and when did you last go looking?",
+        "pitch": "Radar searches any area for the kind of business you want as a customer, audits each one's marketing, and reaches out under your name. Five new audited prospects a week. $297 a month.",
+        "objection": "\"I am no salesman.\" — You do not need to be. The audit does the talking: you are pointing out something specific about their listing or website, not pitching. Helpful beats slick.",
+        "close": "Tell me the trade and the area and I will show you a sample audit report before you decide."
       },
       "email_script": {
-        "subject": "what your competitors changed this month",
-        "body": "Hi {first_name},\n\nWho does {business} actually lose work to locally?\n\nMost owners can name them but could not tell you what they charge now or whether they are advertising this month. So when things go quiet, it is guesswork.\n\nRadar watches them and tracks your own local search position, and flags what changed. $197/month.\n\nGive me three names and I will send you the first report before you decide anything. Want to?"
+        "subject": "the customers you have not met yet",
+        "body": "Hi {first_name},\n\nHow does {business} find new commercial or business customers at the moment?\n\nFor most trades the honest answer is word of mouth and hope. The firms that win the bigger accounts are the ones that turn up prepared.\n\nRadar searches an area for exactly the kind of business you want, audits each one — their listing, reviews and website — and reaches out under your name, five new prospects a week. The audit does the talking, so you are pointing out something specific rather than pitching. $297/month.\n\nWant me to send you a sample audit report so you can see what it looks like?"
       }
     },
     {
       "sku": "dial",
       "name": "Dial",
       "plain": "A proper business number with texting",
-      "price": "$47/mo",
+      "price": "$47/mo (1,000 texts)",
       "mrr": 47,
       "setup": 0,
       "selling_points": [
@@ -499,7 +537,7 @@
       "sku": "tap",
       "name": "Tap",
       "plain": "Taking payments, in person and online",
-      "price": "$47/mo",
+      "price": "$47/mo + card rates",
       "mrr": 47,
       "setup": 0,
       "selling_points": [
@@ -528,14 +566,28 @@
     {
       "sku": "marquee",
       "name": "Marquee",
-      "plain": "Social content posted for them, self-serve",
-      "price": "$197/mo",
+      "plain": "Social posts, ads and a brand board, self-serve or managed for them",
+      "price": "$197/mo self-serve · $597 managed (12 posts a month and ads run for you, ad spend extra)",
       "mrr": 197,
       "setup": 0,
+      "from_tier": true,
+      "plans": [
+        {
+          "key": "base",
+          "label": "self-serve",
+          "mrr": 197
+        },
+        {
+          "key": "managed",
+          "label": "managed, 12 posts a month + ads",
+          "mrr": 597
+        }
+      ],
       "selling_points": [
         "Their profiles stop looking abandoned, which is what a stranger checks after the reviews.",
         "Posting keeps happening in a busy week, which is exactly when it normally stops.",
-        "Self-serve, so they can still post their own jobs whenever they want."
+        "Self-serve, so they can still post their own jobs whenever they want.",
+        "On Managed ($597/mo) we make twelve posts a month, build and run the ads and send monthly numbers. Ad spend is theirs, on their own card with a cap they set; managed ads above $2,000/mo of spend add 10% of spend."
       ],
       "setup_actions": [
         "Connect their social accounts — they must authorise this themselves; never ask for their passwords.",
@@ -591,22 +643,25 @@
       "name": "Core",
       "mrr": 750,
       "setup": 0,
-      "plain": "The starter bundle"
+      "plain": "The starter bundle: Greet, Slate, Lineback, Pursuit, Repute and Dispatch. Worth $873/mo bought one by one, so it saves $123"
     },
     {
       "key": "pro",
       "name": "Pro",
-      "mrr": 1500,
+      "mrr": 1395,
       "setup": 0,
-      "plain": "The full stack for a busy operator"
+      "plain": "The full stack for a busy operator: Core plus Frontdesk, Echo and Marquee. Worth $1,714/mo bought one by one, so it saves $319/mo, and the $297 Echo setup fee is waived"
     },
     {
       "key": "custom",
       "name": "Custom",
       "mrr": 2500,
       "setup": 0,
-      "plain": "Built to what the client actually needs"
+      "plain": "Built to what the client actually needs: every product at every tier, the $500 Storefront website included, triple usage allowances, a named strategist and a priority build queue"
     }
   ],
-  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has volume tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee."
+  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee. Tiers that are not volume steps use these keys: `pro` (Radar), `multi` (Echo, Repute: the plan mrr is PER LOCATION, quantity two or more, and the portal prices one location), `managed` (Dispatch, Marquee). Revive is $497 PER QUARTER and has no honest monthly figure, so mrr is 0 (no monthly equivalent invented) and `setup` carries the $497 quarterly charge so the picker does not show it as free; it is NOT a one-time setup fee. storefront_custom has no published price (priced by evaluation), so its `setup` is 0 and only the $49/mo Care is mirrored.",
+  "_retired_skus": {
+    "storefront_enterprise": "Storefront Enterprise ($10,000 build + $49/mo Care) was retired in the 2026-09-16 pricing rewire: archived in Stripe and refused by checkout. Removed from `products` on 2026-09-21 so it no longer shows in the Products tab or the add-client picker. Do not re-add without a live page selling it."
+  }
 }
