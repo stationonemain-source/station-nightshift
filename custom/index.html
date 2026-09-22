@@ -1,0 +1,350 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your custom website — Station</title>
+<meta name="description" content="Tell us about your business, one question at a time, and we'll build a demo of your custom website. Free, no strings.">
+<meta name="theme-color" content="#F5F4F1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico">
+<style>
+:root{--bg:#F5F4F1;--card:#FFFFFF;--bg-2:#FAF9F6;--bg-3:#F1EFE9;--line:#E7E4DE;--line-2:#DDD9D0;--ink:#1D1D1F;--muted:#5F5F64;--faint:#6E6E73;
+--accent:#8A5A00;--gold:#EFC26A;--good:#167A44;--red:#C03B2B;--fd:'Inter','Segoe UI',system-ui,sans-serif;--fm:'JetBrains Mono',Consolas,ui-monospace,monospace}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--fd);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+a{color:var(--ink)}
+.top{position:sticky;top:0;z-index:10;background:rgba(245,244,241,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:760px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center;gap:12px}
+.home{display:flex;align-items:center;gap:9px;font:700 12px var(--fd);letter-spacing:.13em;text-decoration:none;color:var(--ink)}
+.home svg{width:19px;height:19px}
+.count{margin-left:auto;font:600 11px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.bar{height:4px;background:var(--bg-3)} .bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .35s ease}
+main{flex:1;display:flex;align-items:center}
+.stage{width:100%;max-width:760px;margin:0 auto;padding:44px 22px 40px}
+.slide{animation:in .32s ease both} @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide{animation:none}.bar i{transition:none}}
+.k{font:600 11px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(1.9rem,4.4vw,2.7rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 12px;font-weight:700;text-wrap:balance}
+h2{font-size:clamp(1.45rem,3.4vw,2.05rem);line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;font-weight:700;text-wrap:balance}
+.help{color:var(--muted);margin:0 0 22px;max-width:60ch}
+input[type=text],input[type=email],input[type=tel],input[type=url],textarea{width:100%;font:500 19px/1.4 var(--fd);color:var(--ink);background:var(--card);border:1.5px solid var(--line-2);border-radius:14px;padding:15px 16px;outline:none}
+textarea{min-height:140px;resize:vertical;font-size:17px}
+input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,29,31,.07)}
+.sub{margin-top:14px} .sub label{display:block;font-size:14px;color:var(--muted);margin:0 0 6px}
+.sub input{font-size:16px;padding:12px 14px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;font:500 16px var(--fd);color:var(--ink);background:var(--card);border:1.5px solid var(--line-2);border-radius:14px;padding:14px 16px;cursor:pointer}
+.opt:hover{border-color:var(--faint)} .opt[aria-pressed=true]{border-color:var(--ink);background:#fff;box-shadow:0 0 0 3px rgba(29,29,31,.08)}
+.opt .box{flex:none;width:22px;height:22px;border-radius:7px;border:1.5px solid var(--line-2);display:grid;place-items:center;font-size:13px;color:#fff}
+.opt[aria-pressed=true] .box{background:var(--ink);border-color:var(--ink)}
+.opt.radio .box{border-radius:50%}
+.opt small{display:block;color:var(--muted);font-size:13.5px;font-weight:400}
+.looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.look{padding:0;overflow:hidden;flex-direction:column;align-items:stretch}
+.look .sw{height:92px;display:flex;align-items:flex-end;padding:12px 14px;font-weight:700;font-size:20px}
+.look .cap{padding:12px 14px}
+.colors{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+.colors label{display:flex;align-items:center;gap:8px;font-size:15px;color:var(--muted)}
+.colors input[type=color]{width:52px;height:40px;border:1.5px solid var(--line-2);border-radius:10px;background:#fff;padding:3px;cursor:pointer}
+.drop{border:1.5px dashed var(--line-2);border-radius:16px;background:var(--bg-2);padding:22px;text-align:center;color:var(--muted)}
+.drop.over{border-color:var(--ink);background:#fff}
+.drop button{margin-top:8px}
+.thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.thumb{width:92px;height:92px;border-radius:12px;border:1px solid var(--line);background:#fff center/cover no-repeat;position:relative;display:grid;place-items:center;font:600 11px var(--fm);color:var(--faint);overflow:hidden}
+.thumb .x{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;cursor:pointer;font-size:14px;line-height:24px}
+.thumb.busy::after{content:"uploading…";position:absolute;inset:0;background:rgba(255,255,255,.85);display:grid;place-items:center;font:600 11px var(--fm)}
+.nav{display:flex;align-items:center;gap:12px;margin-top:28px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 16px var(--fd);background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;text-decoration:none}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2)}
+.link{background:none;border:0;font:500 15px var(--fd);color:var(--muted);cursor:pointer;text-decoration:underline;padding:8px 4px}
+.hint{font:500 12px var(--fm);color:var(--faint);letter-spacing:.04em}
+.err{color:var(--red);font-size:14.5px;margin:10px 0 0;min-height:1.2em}
+.review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 18px;max-height:46vh;overflow:auto}
+.review dl{margin:0} .review div{display:grid;grid-template-columns:190px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.review div:first-child{border-top:0} .review dt{color:var(--muted);font-size:14px} .review dd{margin:0;font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.review button{background:none;border:0;color:var(--accent);font:600 13px var(--fd);cursor:pointer;padding:0;margin-left:6px}
+.consent{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:14.5px;color:var(--muted)}
+.consent input{margin-top:4px;width:18px;height:18px}
+.done{text-align:center} .done .tick{width:64px;height:64px;border-radius:50%;background:var(--good);color:#fff;display:grid;place-items:center;margin:0 auto 20px;font-size:30px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+@media (max-width:560px){.stage{padding:30px 18px}.review div{grid-template-columns:1fr;gap:2px}.nav .hint{display:none}}
+</style></head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a>
+  <span class="count" id="count" aria-live="polite"></span>
+</div><div class="bar" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" id="barWrap"><i id="bar"></i></div></header>
+<main><div class="stage" id="stage"></div></main>
+<div class="hp" aria-hidden="true"><input id="hp" tabindex="-1" autocomplete="off"></div>
+
+<script>
+(function () {
+  "use strict";
+  var HOOK = "https://n8n.srv1748596.hstgr.cloud/webhook/custom-website";
+  var UPLOAD = "https://n8n.srv1748596.hstgr.cloud/webhook/custom-website-upload";
+  var KEY = "station_custom_draft_v1";
+  var MAXF = 8 * 1024 * 1024, MAXN = 10;
+  var started = Date.now();
+
+  var LOOKS = [
+    { v: "bold",    t: "Bold",    s: "Big type, strong colour, confident", bg: "#111", fg: "#EFC26A" },
+    { v: "warm",    t: "Warm",    s: "Friendly, soft tones, welcoming", bg: "#E9D8C4", fg: "#5A3A1E" },
+    { v: "clean",   t: "Clean",   s: "Minimal, lots of white space", bg: "#F4F6F8", fg: "#1D1D1F" },
+    { v: "classic", t: "Classic", s: "Timeless, serif type, trusted", bg: "#1F2A44", fg: "#F3EBDD" },
+    { v: "luxury",  t: "Luxury",  s: "Dark, elegant, premium feel", bg: "#0E0E0E", fg: "#C9A96E" },
+    { v: "playful", t: "Playful", s: "Bright, fun, full of energy", bg: "#FFDE59", fg: "#E4405F" }
+  ];
+
+  // One question per screen. `req` = must answer. `sub` = a small optional field on the same screen.
+  var Q = [
+    { id: "intro", type: "intro" },
+    { id: "name", type: "text", q: "First, what's your name?", req: true, ph: "Jordan Rivera", ac: "name" },
+    { id: "email", type: "email", q: "What's the best email to send your demo to?", help: "This is where your demo will land.", req: true, ph: "you@business.com", ac: "email",
+      sub: { id: "phone", label: "Phone (optional)", type: "tel", ph: "(555) 123-4567", ac: "tel" } },
+    { id: "business", type: "text", q: "What's your business called?", req: true, ph: "Rivera Plumbing", ac: "organization" },
+    { id: "trade", type: "text", q: "What kind of business is it?", help: "In a few words, like \"residential plumber\" or \"Korean restaurant\".", req: true, ph: "Residential plumber" },
+    { id: "area", type: "text", q: "Where are you based, and what area do you serve?", req: true, ph: "Houston, TX · all of Harris County" },
+    { id: "site", type: "url", q: "Do you have a website right now?", help: "Paste the address, or skip if you don't have one yet.", ph: "riverplumbing.com",
+      sub: { id: "gbp", label: "Your Google Business listing link (optional)", type: "url", ph: "https://maps.app.goo.gl/…" } },
+    { id: "services", type: "textarea", q: "What are your main services or products?", help: "List the ones you most want customers to find. One per line is perfect.", req: true, ph: "Water heater repair\nDrain cleaning\nLeak detection" },
+    { id: "customers", type: "textarea", q: "Who are your ideal customers?", help: "Homeowners, busy families, local businesses, first-time buyers… whoever you most want calling.", ph: "Homeowners in older houses who want it fixed right the first time" },
+    { id: "different", type: "textarea", q: "What makes you different from your competitors?", help: "Years in business, guarantees, family-owned, same-day service — whatever customers love about you.", req: true, ph: "Family-owned for 22 years, same-day service, upfront pricing" },
+    { id: "goal", type: "choice", q: "What's the #1 thing the website should get people to do?", req: true,
+      o: ["Call us", "Book an appointment", "Request a quote", "Buy online", "Visit us in person", "See our work"] },
+    { id: "features", type: "multi", q: "Which features do you want?", help: "Pick as many as you like.",
+      o: ["Online booking", "Contact form", "Photo gallery", "Customer reviews", "Menu or price list", "Online payments", "Website chat", "Spanish version", "FAQ", "Blog", "Careers / hiring", "Service area map"] },
+    { id: "pages", type: "multi", q: "Which pages do you need?", help: "Not sure? Pick what feels right and we'll suggest the rest.",
+      o: ["Home", "About us", "Services", "Portfolio / gallery", "Reviews", "Pricing / menu", "FAQ", "Contact", "Booking", "Blog", "Careers"] },
+    { id: "look", type: "looks", q: "Pick the look that feels most like you.", req: true },
+    { id: "colors", type: "colors", q: "Do you have brand colours?", o: ["Yes, I'll pick them", "Use the colours from my logo", "Choose for me"] },
+    { id: "logo", type: "upload", q: "Upload your logo.", help: "PNG, JPG, SVG or PDF, up to 8 MB. Or paste a link below.", link: "Or a link to your logo (Google Drive, Dropbox…)", none: "I don't have a logo yet", max: 3 },
+    { id: "photos", type: "upload", q: "Add photos of your work, team or space.", help: "Real photos make the demo feel like you. Up to 10, 8 MB each.", link: "Or a link to a folder or your Instagram",
+      extra: ["Use the photos on my Google listing", "I'll need stock photos"], max: 10 },
+    { id: "inspo", type: "textarea", q: "Show us 1–3 websites you like, and what you like about them.", help: "They don't have to be in your industry.", ph: "apple.com — clean and simple\nsomeplumber.com — love the big photos" },
+    { id: "keep", type: "textarea", q: "Anything from your current site to keep, like text or testimonials?", help: "Paste it here, or skip.", ph: "Our about-us story, and these three reviews…" },
+    { id: "avoid", type: "textarea", q: "Anything you definitely don't want?", ph: "No stock photos of people in suits. No pop-ups." },
+    { id: "domain", type: "choice", q: "Do you already own a domain name?", o: ["Yes", "No", "Not sure"],
+      sub: { id: "domain_name", label: "Which one? (optional)", type: "text", ph: "riverplumbing.com" } },
+    { id: "timeline", type: "choice", q: "When would you like the website live?", req: true, o: ["As soon as possible", "Within 2–4 weeks", "Within 1–2 months", "I'm flexible"] },
+    { id: "budget", type: "choice", q: "What budget do you have in mind?", help: "Custom websites are priced to what you need. This just helps us scope your demo.", req: true,
+      o: ["Under $1,000", "$1,000 – $2,500", "$2,500 – $5,000", "$5,000+", "Not sure yet"] },
+    { id: "heard", type: "choice", q: "How did you hear about us?", o: ["Google search", "Social media", "A friend or referral", "Our email", "Other"] },
+    { id: "notes", type: "textarea", q: "Anything else we should know?", ph: "Anything at all." },
+    { id: "review", type: "review" }
+  ];
+  var LAST = Q.length - 1;  // review screen
+
+  var A = {}, i = 0, uploads = { logo: [], photos: [] };
+  try { var d = JSON.parse(localStorage.getItem(KEY) || "null"); if (d && d.A) { A = d.A; uploads = d.U || uploads; i = Math.min(d.i || 0, LAST); } } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ A: A, U: uploads, i: i })); } catch (e) {} }
+
+  var stage = document.getElementById("stage"), bar = document.getElementById("bar"), count = document.getElementById("count"), barWrap = document.getElementById("barWrap");
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function answered(q) {
+    var v = A[q.id];
+    if (q.type === "upload") return (uploads[q.id] || []).some(function (u) { return u.url; }) || !!(A[q.id + "_link"] || "").trim() || !!A[q.id + "_none"] || (A[q.id + "_extra"] || []).length > 0;
+    if (Array.isArray(v)) return v.length > 0;
+    return !!String(v || "").trim();
+  }
+  function progress() {
+    var n = LAST - 1, cur = Math.max(0, Math.min(i - 1, n));   // questions are 1..LAST-1
+    var pct = i === 0 ? 0 : (i >= LAST ? 100 : Math.round(cur / n * 100));
+    bar.style.width = pct + "%"; barWrap.setAttribute("aria-valuenow", pct);
+    count.textContent = (i === 0) ? "" : (i >= LAST ? "Review" : ("Question " + i + " of " + n));
+  }
+  function field(t, id, ph, ac, val) {
+    return '<input type="' + t + '" id="f_' + id + '" name="' + id + '" value="' + esc(val || "") + '" placeholder="' + esc(ph || "") + '"' + (ac ? ' autocomplete="' + ac + '"' : "") + ">";
+  }
+
+  function render() {
+    var q = Q[i], h = "";
+    progress();
+    if (q.type === "intro") {
+      h = '<p class="k">Custom website</p><h1>Tell us about your business, and we\'ll build you a demo.</h1>' +
+          '<p class="help">About ' + (LAST - 1) + ' short questions, one at a time. It takes around 5 minutes, and you can skip anything that doesn\'t apply. Your demo will be in your inbox within 2–3 business days.</p>' +
+          '<div class="nav"><button class="btn" id="next">Let\'s start →</button><span class="hint">press Enter ↵</span></div>';
+    } else if (q.type === "review") {
+      h = '<p class="k">Last step</p><h2>Here\'s what you told us.</h2><p class="help">Check it over, then send it. You can tap Edit to change anything.</p><div class="review"><dl>' + summary() + '</dl></div>' +
+          '<label class="consent"><input type="checkbox" id="consent"><span>Email me my demo and anything I need about it. I can unsubscribe anytime. <a href="/legal/privacy.html" target="_blank">Privacy</a></span></label>' +
+          '<p class="err" id="err" role="alert"></p>' +
+          '<div class="nav"><button class="btn ghost" id="back">← Back</button><button class="btn" id="send">Send it to Station</button></div>';
+    } else {
+      h = '<p class="k">' + i + " / " + (LAST - 1) + (q.req ? "" : " · optional") + "</p><h2 id=\"qh\">" + esc(q.q) + "</h2>" + (q.help ? '<p class="help">' + esc(q.help) + "</p>" : "");
+      if (q.type === "text" || q.type === "email" || q.type === "url") h += field(q.type === "url" ? "text" : q.type, q.id, q.ph, q.ac, A[q.id]);
+      if (q.type === "textarea") h += '<textarea id="f_' + q.id + '" name="' + q.id + '" placeholder="' + esc(q.ph || "") + '">' + esc(A[q.id] || "") + "</textarea>";
+      if (q.type === "choice" || q.type === "multi" || q.type === "colors") {
+        var multi = q.type === "multi", cur = A[q.id] || (multi ? [] : "");
+        h += '<div class="opts" role="' + (multi ? "group" : "radiogroup") + '" aria-labelledby="qh">' + q.o.map(function (o) {
+          var on = multi ? cur.indexOf(o) >= 0 : cur === o;
+          return '<button type="button" class="opt' + (multi ? "" : " radio") + '" data-o="' + esc(o) + '" aria-pressed="' + on + '"><span class="box">' + (on ? "✓" : "") + "</span>" + esc(o) + "</button>";
+        }).join("") + "</div>";
+        if (q.type === "colors") {
+          var show = A.colors === "Yes, I'll pick them";
+          h += '<div class="colors" id="pickers"' + (show ? "" : " hidden") + ">" + ["Main colour", "Second colour", "Accent"].map(function (l, k) {
+            var key = "color" + (k + 1), v = A[key] || ["#1D1D1F", "#EFC26A", "#167A44"][k];
+            return '<label>' + l + ' <input type="color" data-c="' + key + '" value="' + esc(v) + '"></label>';
+          }).join("") + "</div>";
+        }
+      }
+      if (q.type === "looks") {
+        h += '<div class="looks" role="radiogroup" aria-labelledby="qh">' + LOOKS.map(function (l) {
+          var on = A.look === l.v;
+          return '<button type="button" class="opt look" data-look="' + l.v + '" aria-pressed="' + on + '"><span class="sw" style="background:' + l.bg + ";color:" + l.fg + (l.v === "classic" ? ";font-family:Georgia,serif" : "") + '">' + l.t + '</span><span class="cap"><b>' + l.t + "</b><small>" + l.s + "</small></span></button>";
+        }).join("") + "</div>";
+      }
+      if (q.type === "upload") {
+        h += '<div class="drop" id="drop"><div>Drag files here</div><button type="button" class="btn ghost" id="pick">Choose files</button><input type="file" id="file" accept="image/*,.svg,.pdf,application/pdf" ' + (q.max > 1 ? "multiple" : "") + ' hidden></div>' +
+             '<div class="thumbs" id="thumbs"></div>' +
+             '<div class="sub"><label for="f_' + q.id + '_link">' + esc(q.link) + "</label>" + field("text", q.id + "_link", "https://", "", A[q.id + "_link"]) + "</div>";
+        if (q.none) h += '<div class="opts" style="margin-top:12px"><button type="button" class="opt" data-none="' + q.id + '" aria-pressed="' + !!A[q.id + "_none"] + '"><span class="box">' + (A[q.id + "_none"] ? "✓" : "") + "</span>" + esc(q.none) + "</button></div>";
+        if (q.extra) { var ex = A[q.id + "_extra"] || []; h += '<div class="opts" style="margin-top:12px">' + q.extra.map(function (o) { var on = ex.indexOf(o) >= 0; return '<button type="button" class="opt" data-extra="' + esc(o) + '" aria-pressed="' + on + '"><span class="box">' + (on ? "✓" : "") + "</span>" + esc(o) + "</button>"; }).join("") + "</div>"; }
+      }
+      if (q.sub) {
+        var sq = q.sub;
+        h += '<div class="sub"><label for="f_' + sq.id + '">' + esc(sq.label) + "</label>" + field(sq.type === "url" ? "text" : sq.type, sq.id, sq.ph, sq.ac, A[sq.id]) + "</div>";
+      }
+      h += '<p class="err" id="err" role="alert"></p><div class="nav">' + (i > 1 ? '<button class="btn ghost" id="back">← Back</button>' : "") +
+           '<button class="btn" id="next">' + (i === LAST - 1 ? "Review →" : "OK →") + "</button>" +
+           (q.req ? "" : '<button class="link" id="skip">Skip</button>') +
+           '<span class="hint">' + (q.type === "textarea" ? "Ctrl/⌘ + Enter ↵" : "press Enter ↵") + "</span></div>";
+    }
+    stage.innerHTML = '<div class="slide">' + h + "</div>";
+    wire(q);
+    var f = stage.querySelector("input:not([type=checkbox]):not([type=file]):not([type=color]),textarea");
+    if (f) { f.focus(); if (f.setSelectionRange && f.value) try { f.setSelectionRange(f.value.length, f.value.length); } catch (e) {} }
+    else { var b = document.getElementById("next") || document.getElementById("send"); if (b) b.focus({ preventScroll: true }); }
+    if (q.type === "upload") drawThumbs(q.id);
+    window.scrollTo(0, 0);
+  }
+
+  function collect(q) {
+    stage.querySelectorAll("input[name],textarea[name]").forEach(function (el) { A[el.name] = el.value; });
+    stage.querySelectorAll("input[data-c]").forEach(function (el) { A[el.getAttribute("data-c")] = el.value; });
+    save();
+  }
+  function validate(q) {
+    var err = document.getElementById("err"); if (err) err.textContent = "";
+    if (q.req && !answered(q)) { if (err) err.textContent = "Please answer this one to continue."; return false; }
+    if (q.id === "email") { var e = String(A.email || "").trim(); if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(e)) { err.textContent = "That email doesn't look right. Check it and try again."; return false; } }
+    if ((uploads[q.id] || []).some(function (u) { return u.busy; })) { if (err) err.textContent = "Hang on, a file is still uploading."; return false; }
+    return true;
+  }
+  function go(to) { i = Math.max(0, Math.min(LAST, to)); save(); render(); }
+  function next() { var q = Q[i]; collect(q); if (q.type !== "intro" && !validate(q)) return; go(i + 1); }
+
+  function wire(q) {
+    var n = document.getElementById("next"), b = document.getElementById("back"), s = document.getElementById("skip"), send = document.getElementById("send");
+    if (n) n.onclick = next;
+    if (b) b.onclick = function () { collect(q); go(i - 1); };
+    if (s) s.onclick = function () { collect(q); go(i + 1); };
+    if (send) send.onclick = submit;
+    stage.querySelectorAll(".opt[data-o]").forEach(function (el) {
+      el.onclick = function () {
+        var o = el.getAttribute("data-o");
+        if (q.type === "multi") { var arr = A[q.id] || []; var k = arr.indexOf(o); if (k >= 0) arr.splice(k, 1); else arr.push(o); A[q.id] = arr; }
+        else A[q.id] = o;
+        collect(q); save(); render();
+        if (q.type === "choice" && !q.sub) setTimeout(next, 180);   // single choice advances on its own
+      };
+    });
+    stage.querySelectorAll(".opt[data-look]").forEach(function (el) { el.onclick = function () { A.look = el.getAttribute("data-look"); save(); render(); setTimeout(next, 200); }; });
+    stage.querySelectorAll(".opt[data-none]").forEach(function (el) { el.onclick = function () { var k = el.getAttribute("data-none") + "_none"; collect(q); A[k] = !A[k]; save(); render(); }; });
+    stage.querySelectorAll(".opt[data-extra]").forEach(function (el) { el.onclick = function () { collect(q); var k = q.id + "_extra", arr = A[k] || [], o = el.getAttribute("data-extra"), j = arr.indexOf(o); if (j >= 0) arr.splice(j, 1); else arr.push(o); A[k] = arr; save(); render(); }; });
+    stage.querySelectorAll("button[data-edit]").forEach(function (el) { el.onclick = function () { go(Number(el.getAttribute("data-edit"))); }; });
+    if (q.type === "upload") wireUpload(q);
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" || e.isComposing) return;
+    var t = e.target, q = Q[i];
+    if (t && t.tagName === "TEXTAREA" && !(e.metaKey || e.ctrlKey)) return;
+    if (t && t.tagName === "BUTTON") return;          // a focused button already clicks itself on Enter
+    if (q.type === "review") return;
+    e.preventDefault(); next();
+  });
+
+  // ---- uploads: each file goes straight to Station's media library -------------------------
+  function drawThumbs(id) {
+    var box = document.getElementById("thumbs"); if (!box) return;
+    box.innerHTML = (uploads[id] || []).map(function (u, k) {
+      var img = u.url && /\.(png|jpe?g|gif|webp|svg)(\?|$)/i.test(u.url);
+      return '<div class="thumb' + (u.busy ? " busy" : "") + '" style="' + (img ? "background-image:url('" + esc(u.url) + "')" : "") + '" title="' + esc(u.name) + '">' + (img ? "" : esc((u.name.split(".").pop() || "FILE").toUpperCase())) +
+             (u.busy ? "" : '<button type="button" class="x" data-rm="' + k + '" aria-label="Remove ' + esc(u.name) + '">×</button>') + "</div>";
+    }).join("");
+    box.querySelectorAll("[data-rm]").forEach(function (b) { b.onclick = function () { uploads[id].splice(Number(b.getAttribute("data-rm")), 1); save(); drawThumbs(id); }; });
+  }
+  function wireUpload(q) {
+    var drop = document.getElementById("drop"), file = document.getElementById("file"), pick = document.getElementById("pick");
+    pick.onclick = function () { file.click(); };
+    file.onchange = function () { take(q, file.files); file.value = ""; };
+    ["dragenter", "dragover"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("over"); }); });
+    ["dragleave", "drop"].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("over"); }); });
+    drop.addEventListener("drop", function (e) { take(q, e.dataTransfer.files); });
+  }
+  function take(q, files) {
+    var err = document.getElementById("err"); err.textContent = "";
+    var list = uploads[q.id] = uploads[q.id] || [];
+    Array.prototype.slice.call(files || []).forEach(function (f) {
+      if (list.length >= (q.max || MAXN)) { err.textContent = "That's the most files for this question."; return; }
+      if (f.size > MAXF) { err.textContent = f.name + " is over 8 MB. Try a smaller file or paste a link instead."; return; }
+      if (!/^image\//.test(f.type) && !/pdf/.test(f.type) && !/\.svg$/i.test(f.name)) { err.textContent = f.name + " isn't an image or PDF."; return; }
+      var u = { name: f.name, busy: true, url: "" }; list.push(u); drawThumbs(q.id);
+      var rd = new FileReader();
+      rd.onload = function () {
+        var data = String(rd.result).split(",")[1] || "";
+        fetch(UPLOAD, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ field: q.id, name: f.name, type: f.type || "application/octet-stream", data: data, hp: document.getElementById("hp").value }) })
+          .then(function (r) { return r.json(); })
+          .then(function (j) { if (!j || !j.url) throw new Error((j && j.error) || "upload failed"); u.url = j.url; u.busy = false; save(); drawThumbs(q.id); })
+          .catch(function () { list.splice(list.indexOf(u), 1); drawThumbs(q.id); var e2 = document.getElementById("err"); if (e2) e2.textContent = "We couldn't upload " + f.name + ". Try again, or paste a link below."; });
+      };
+      rd.readAsDataURL(f);
+    });
+  }
+
+  // ---- review + submit --------------------------------------------------------------------
+  function val(q) {
+    if (q.type === "looks") { var l = LOOKS.filter(function (x) { return x.v === A.look; })[0]; return l ? l.t : ""; }
+    if (q.type === "upload") {
+      var parts = (uploads[q.id] || []).filter(function (u) { return u.url; }).map(function (u) { return u.name; });
+      if (A[q.id + "_link"]) parts.push(A[q.id + "_link"]); if (A[q.id + "_none"]) parts.push(q.none); (A[q.id + "_extra"] || []).forEach(function (x) { parts.push(x); });
+      return parts.join("\n");
+    }
+    if (q.type === "colors") return (A.colors || "") + (A.colors === "Yes, I'll pick them" ? "\n" + [A.color1, A.color2, A.color3].filter(Boolean).join("  ") : "");
+    var v = A[q.id]; v = Array.isArray(v) ? v.join(", ") : (v || "");
+    if (q.sub && A[q.sub.id]) v += (v ? "\n" : "") + A[q.sub.id];
+    return v;
+  }
+  function summary() {
+    return Q.map(function (q, k) {
+      if (q.type === "intro" || q.type === "review") return "";
+      var v = val(q); if (!v) return "";
+      return "<div><dt>" + esc(q.q) + '<button type="button" data-edit="' + k + '">Edit</button></dt><dd>' + esc(v) + "</dd></div>";
+    }).join("");
+  }
+  function submit() {
+    var err = document.getElementById("err"), btn = document.getElementById("send");
+    if (!document.getElementById("consent").checked) { err.textContent = "Tick the box so we can email you your demo."; return; }
+    btn.disabled = true; btn.textContent = "Sending…";
+    var payload = { answers: A, files: { logo: (uploads.logo || []).filter(function (u) { return u.url; }).map(function (u) { return { name: u.name, url: u.url }; }),
+                                        photos: (uploads.photos || []).filter(function (u) { return u.url; }).map(function (u) { return { name: u.name, url: u.url }; }) },
+                    questions: Q.filter(function (q) { return q.q; }).map(function (q) { return { id: q.id, q: q.q, a: val(q) }; }),
+                    hp: document.getElementById("hp").value, elapsed_ms: Date.now() - started, consent_email: true,
+                    page: location.pathname, ref: new URLSearchParams(location.search).get("ref") || "" };
+    fetch(HOOK, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json().catch(function () { return {}; }); })
+      .then(function (j) {
+        if (j && j.ok === false) throw new Error(j.error || "rejected");
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        try { if (window.stationTrack) window.stationTrack("custom_website_submit"); } catch (e) {}
+        bar.style.width = "100%"; count.textContent = "Done";
+        stage.innerHTML = '<div class="slide done"><div class="tick" aria-hidden="true">✓</div><p class="k">Got it</p><h1>Thanks' + (A.name ? ", " + esc(String(A.name).split(" ")[0]) : "") + '.</h1>' +
+          '<p class="help" style="margin:0 auto 22px">We\'re building your demo for ' + esc(A.business || "your business") + ' by hand. <b>Your demo will be in your inbox within 2–3 business days</b>, sent to ' + esc(A.email) + '.</p>' +
+          '<p class="help" style="margin:0 auto">Questions before then? Reply to the confirmation email, or <a href="/call">book a time with us</a>.</p></div>';
+      })
+      .catch(function () { btn.disabled = false; btn.textContent = "Send it to Station"; err.textContent = "Something went wrong sending that. Please try again, or email main@station.solutions."; });
+  }
+
+  render();
+})();
+</script>
+<script src="/analytics.js" defer></script>
+</body></html>
