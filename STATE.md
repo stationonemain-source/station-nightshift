@@ -57,3 +57,13 @@ the push.
 Memory rows `station-*-site`, `partner-workspace-in-portal` (the portal),
 `affiliate-portal-sheets-v46` (the sheet engine). Engine-side state lives with
 the n8n Affiliate Engine (patches + backups in `~/.station/`).
+
+## 2026-09-22 — free audit + newsletter (Station work plan B1)
+
+- **No newsletter.** The v5.js pop-up and the /thanks/ list sign-up are gone; n8n
+  `Station - Newsletter Subscribe` (ZBqiln8PJzB9hr0C) is deactivated, not deleted.
+- **Free audit sends automatically** (n8n intake `REVIEW_MODE = false`). Form: phone optional,
+  no SMS consent (email-only since 09-21). Copy says "twelve checks · in your inbox in about a
+  minute" — true: two live tests landed in the Gmail Inbox in 62s / 69s.
+- **The hosted page** at `/a/<slug>/` is rendered by Foundry `pipeline/audit_page.py`
+  (returned as `html_report_page` by `/api/audit_one`), not the old n8n template.
