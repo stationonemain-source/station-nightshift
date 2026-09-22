@@ -610,60 +610,8 @@
     document.querySelectorAll("[data-open-chat]").forEach(function (b) { b.addEventListener("click", toggle); });
   });
 
-  /* ---------- newsletter popup ---------- */
-  ready(function () {
-    try {
-      /* The second consent bar used to be built here. It wrote localStorage
-         'station_cookies' and nothing ever read it, so its Accept/Deny were wired
-         to nothing — while telling visitors nothing follows them around, on a page
-         that also loads the Meta Pixel. The real, gated banner is analytics.js. */
-      if (!localStorage.getItem("station_news") && !localStorage.getItem("station_lead_done")) {
-        setTimeout(function () {
-          if (localStorage.getItem("station_news")) return;
-          var scr = document.createElement("div"); scr.className = "pop-scrim open";
-          var pop = document.createElement("div"); pop.className = "pop open";
-          pop.innerHTML = '<button class="x" aria-label="Close">×</button>' +
-            '<div class="pop-mark" aria-hidden="true"><svg viewBox="0 0 100 100" fill="currentColor"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#fff"/></svg></div>' +
-            '<p class="pop-k">The Station newsletter</p>' +
-            '<h3 style="font-family:var(--fd);font-weight:700">One useful note a month.</h3>' +
-            '<p>What\'s actually working for businesses like yours, and what we ship next. No noise.</p>' +
-            /* `data-audit` deliberately dropped: the global form[data-audit] binder posts to the
-               free-audit intake, and this form must not go there — see the endpoint note below.
-               It only ever bound forms present at DOM ready anyway, and this one is built later. */
-            '<form data-variant="newsletter" class="audit-form" style="border:0;padding:0;margin-top:14px">' +
-            '<div class="af-grid"><input name="email" type="email" placeholder="Email" required style="grid-column:1/-1">' +
-            '<input name="phone" type="tel" placeholder="Phone (optional)" style="grid-column:1/-1"></div>' +
-            '<input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">' +
-            '<input type="hidden" name="_t" value=""><input type="hidden" name="variant" value="newsletter">' +
-            '<label class="consent"><input type="checkbox" name="email_consent" value="yes" required><span>Email me the monthly note. Unsubscribe anytime.</span></label>' +
-            '<label class="consent"><input type="checkbox" name="sms_consent" value="yes"><span>Text me Station tips &amp; offers too. Msg &amp; data rates may apply. Message frequency varies. Reply HELP for help, STOP to opt out. Consent is not a condition of purchase. <a href="/legal/sms-terms.html" target="_blank">SMS terms</a> · <a href="/legal/privacy.html" target="_blank">Privacy</a>.</span></label>' +
-            '<button class="btn dark" type="submit" style="width:100%">Join the list</button>' +
-            '<p class="af-done" hidden><b>You\'re on the list.</b> Nothing else to do.</p></form>';
-          function close() { scr.remove(); pop.remove(); localStorage.setItem("station_news", "dismissed"); }
-          pop.querySelector(".x").addEventListener("click", close);
-          scr.addEventListener("click", close);
-          pop.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault();
-            var form = e.target; if (!form.reportValidity()) return;
-            var fd = new FormData(form); fd.set("_t", "9999");
-            /* NOT the free-audit intake. Its spam gate scores a missing name and business as
-               two strikes, so an email-only signup was classified spam and dropped with no
-               reply — every signup this popup ever took went nowhere. And anything that did
-               pass had a website derived from the email domain and a paid audit report
-               generated and emailed to it. /webhook/newsletter is the list endpoint: honeypot
-               + email validity only, CRM upsert, SMS suppressed unless consent_sms is real. */
-            fd.set("source", "newsletter");
-            try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/newsletter", { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
-            form.querySelectorAll("input,button").forEach(function (el) { el.disabled = true; });
-            form.querySelector(".af-done").hidden = false;
-            localStorage.setItem("station_news", "joined");
-            setTimeout(close, 2600);
-          });
-          document.body.appendChild(scr); document.body.appendChild(pop);
-        }, 22000);
-      }
-    } catch (e) {}
-  });
+  /* 2026-09-22: the newsletter pop-up was removed. Circle decided Station has no newsletter
+     (2 subscribers, nothing ever sent). n8n 'Station - Newsletter Subscribe' is deactivated. */
 
   /* ---------- version pill — internal review tool, hidden from customers ----------
      This is a build-comparison switcher, not a product feature: shipping V5/V2/V3/V4

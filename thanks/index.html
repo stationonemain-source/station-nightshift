@@ -141,28 +141,7 @@
   <div class="ty-adds" id="tyAdds"></div>
 </div></section>
 
-<section class="sec alt"><div class="wrap"><div class="ty-list">
-  <p class="k">One more thing</p>
-  <h2 class="serif" style="font-size:clamp(1.5rem,3.2vw,2.1rem);margin:0 0 10px">Don't lose the thread.</h2>
-  <p style="color:var(--muted);font-size:15px;max-width:46ch;margin:0 auto">One useful note a month — what's actually
-    working for businesses like yours, and what we ship next. No noise, unsubscribe in a click.</p>
-
-  <form id="tyForm" novalidate>
-    <div class="row">
-      <input type="email" id="tyEmail" name="email" placeholder="you@yourbusiness.com" autocomplete="email" required aria-label="Email address">
-      <button class="btn dark" type="submit" id="tyBtn">Keep me posted</button>
-    </div>
-    <input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    <label class="consent"><input type="checkbox" id="tyConsent" checked><span>Email me the monthly note. Unsubscribe anytime.</span></label>
-    <p class="err" id="tyErr" role="alert"></p>
-  </form>
-
-  <div class="ty-done" id="tyListDone" hidden>
-    <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
-    <h3>You're on the list.</h3>
-    <p id="tyListDoneMsg">Nothing else to do.</p>
-  </div>
-</div></div></section>
+<!-- 2026-09-22: newsletter sign-up removed (Station has no newsletter). -->
 
 <section class="sec ty-out"><div class="wrap">
   <a class="btn lite" href="/">Back to the site</a>
@@ -279,35 +258,7 @@
     });
   }
 
-  /* ---- the list ---- */
-  el("tyForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var err = el("tyErr"); err.classList.remove("show");
-    var email = el("tyEmail").value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) {
-      err.textContent = "Please enter a valid email address."; err.classList.add("show"); return;
-    }
-    if (!el("tyConsent").checked) {
-      err.textContent = "Tick the box so we know it's OK to email you."; err.classList.add("show"); return;
-    }
-    var btn = el("tyBtn"); btn.disabled = true; btn.textContent = "Adding you…";
 
-    /* Deliberately NOT the /free-audit intake the other forms post to: its spam gate scores a
-       missing name and business as two strikes, so an email-only signup is silently dropped —
-       and anything that does get through has a free audit generated and emailed to it, which
-       is the wrong thing to send someone who just bought. This is its own endpoint. */
-    var fd = new FormData();
-    fd.set("email", email);
-    fd.set("source", "post-purchase");
-    fd.set("leak", document.querySelector('#tyForm input[name=leak]').value || "");
-    if (bought.length) fd.set("bought", bought.join(","));
-    try { fetch("https://n8n.srv1748596.hstgr.cloud/webhook/newsletter", { method: "POST", mode: "no-cors", body: fd }); } catch (err2) {}
-
-    el("tyForm").hidden = true;
-    el("tyListDoneMsg").textContent = "We'll write to " + email + ". Nothing else to do.";
-    el("tyListDone").hidden = false;
-    try { localStorage.setItem("station_news", "joined"); } catch (err3) {}
-  });
 })();
 </script>
 <script src="/attribution.js" defer></script><script src="/analytics.js" defer></script><script src="/v5.js" defer></script><script src="/cart-recovery.js" defer></script><script src="/quiz.js" defer></script></body></html>
