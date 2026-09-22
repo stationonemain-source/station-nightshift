@@ -1073,7 +1073,7 @@
       return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
     }).concat([
       { t: "Bundles — Core / Pro / Custom", s: "Ride the whole line for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
-      { t: "Free audit", s: "Five scored sections on your front office — free", u: "/audit/", kw: "audit free check listing reviews report" },
+      { t: "Free audit", s: "Twelve checks on how customers find and reach you — free", u: "/audit/", kw: "audit free check listing reviews report" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },
       { t: "Website portfolio", s: "Real premium templates, clickable", u: "/portfolio/", kw: "portfolio website templates examples work roofing pool auto golf" },
       { t: "Email template gallery", s: "Real campaign templates included with Dispatch", u: "/portfolio/emails/", kw: "email templates campaigns newsletter examples dispatch" },
