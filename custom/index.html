@@ -38,7 +38,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
 .opt[aria-pressed=true] .box{background:var(--ink);border-color:var(--ink)}
 .opt.radio .box{border-radius:50%}
 .opt small{display:block;color:var(--muted);font-size:13.5px;font-weight:400}
-.looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.looks{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
 .look{padding:0;overflow:hidden;flex-direction:column;align-items:stretch}
 .look .sw{height:92px;display:flex;align-items:flex-end;padding:12px 14px;font-weight:700;font-size:20px}
 .look .cap{padding:12px 14px}
@@ -67,7 +67,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
 .consent input{margin-top:4px;width:18px;height:18px}
 .done{text-align:center} .done .tick{width:64px;height:64px;border-radius:50%;background:var(--good);color:#fff;display:grid;place-items:center;margin:0 auto 20px;font-size:30px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-@media (max-width:560px){.stage{padding:30px 18px}.review div{grid-template-columns:1fr;gap:2px}.nav .hint{display:none}}
+@media (max-width:560px){.looks{grid-template-columns:1fr 1fr;gap:10px}.look .sw{height:64px;font-size:17px;padding:10px 12px}.look .cap{padding:9px 12px}.stage{padding:30px 18px}.review div{grid-template-columns:1fr;gap:2px}.nav .hint{display:none}}
 </style></head>
 <body>
 <header class="top"><div class="top-in">
@@ -189,7 +189,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
       if (q.type === "looks") {
         h += '<div class="looks" role="radiogroup" aria-labelledby="qh">' + LOOKS.map(function (l) {
           var on = A.look === l.v;
-          return '<button type="button" class="opt look" data-look="' + l.v + '" aria-pressed="' + on + '"><span class="sw" style="background:' + l.bg + ";color:" + l.fg + (l.v === "classic" ? ";font-family:Georgia,serif" : "") + '">' + l.t + '</span><span class="cap"><b>' + l.t + "</b><small>" + l.s + "</small></span></button>";
+          return '<button type="button" class="opt look" data-look="' + l.v + '" aria-pressed="' + on + '"><span class="sw" style="background:' + l.bg + ";color:" + l.fg + (l.v === "classic" ? ";font-family:Georgia,serif" : "") + '">' + l.t + '</span><span class="cap"><small>' + l.s + "</small></span></button>";
         }).join("") + "</div>";
       }
       if (q.type === "upload") {
