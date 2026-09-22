@@ -67,3 +67,19 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   minute" — true: two live tests landed in the Gmail Inbox in 62s / 69s.
 - **The hosted page** at `/a/<slug>/` is rendered by Foundry `pipeline/audit_page.py`
   (returned as `html_report_page` by `/api/audit_one`), not the old n8n template.
+
+## 2026-09-22 — custom website form (Station work plan B3, Station half)
+
+- **`/custom/`** — question-by-question form (one question per screen, progress bar, Enter to
+  continue, draft kept in the visitor's browser, review screen). 24 questions; budget and
+  timeline required. Logo/photo uploads go to the **Station sub-account Media library** via
+  n8n `Station - Custom Website Request` (lonlAoK8kd2TWOyl, `/webhook/custom-website-upload`);
+  the submission hits `/webhook/custom-website`: GHL contact (looked up first, never upserted),
+  tags `custom-website-request website-lead src-custom-form`, full brief as a contact note,
+  Discord #station-alerts, Circle Needs You (via the range-alert relay), confirmation email
+  "your demo will be in your inbox within 2–3 business days". Demos are built BY HAND.
+- **Retired:** `/website-demo/` and `/website-brief/` redirect to `/custom/` (the
+  `/website-demo/view/` pages stay — demo links already sent point there). n8n
+  `Station - Demo Request` (pvOXTfun0H62aoBu) deactivated. Storefront "Custom" button → `/custom/`.
+- Trap: n8n Code nodes run in a task runner — a Buffer body sent with `this.helpers.httpRequest`
+  reaches the API mangled (GHL 400). Upload binaries with the native HTTP Request node.
