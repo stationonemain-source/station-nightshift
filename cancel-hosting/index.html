@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cancel hosting — Station</title><meta name="robots" content="noindex,nofollow"><meta name="description" content="Cancel your Station website hosting and care."><meta name="theme-color" content="#F5F4F1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="icon" href="/favicon.ico"><style>
+:root{--bg:#F5F4F1;--card:#fff;--bg-3:#F1EFE9;--line:#E7E4DE;--line-2:#DDD9D0;--ink:#1D1D1F;--muted:#5F5F64;--faint:#6E6E73;--accent:#8A5A00;--good:#167A44;--fd:'Inter','Segoe UI',system-ui,sans-serif;--fm:'JetBrains Mono',Consolas,monospace}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--fd);-webkit-font-smoothing:antialiased}
+.top{border-bottom:1px solid var(--line);background:rgba(245,244,241,.92)} .top-in{max-width:760px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center}
+.home{display:flex;align-items:center;gap:9px;font:700 12px var(--fd);letter-spacing:.13em;text-decoration:none;color:var(--ink)} .home svg{width:19px;height:19px}
+.wrap{max-width:760px;margin:0 auto;padding:48px 22px 60px}
+.k{font:600 11px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 12px}
+.lede{color:var(--muted);margin:0 0 28px;max-width:58ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card.main{border:2px solid var(--ink)}
+.card .n{font-size:2.1rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.card .u{color:var(--muted);font-size:15px;margin:4px 0 16px}
+.card .p{font-size:1.25rem;font-weight:700} .card .per{color:var(--faint);font-size:13.5px;margin:2px 0 18px}
+.btn{display:inline-flex;justify-content:center;width:100%;font:600 16px var(--fd);background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 18px;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2)}
+.note{background:var(--bg-3);border-radius:14px;padding:16px 18px;color:var(--muted);font-size:15px;margin-top:24px}
+.note b{color:var(--ink)} .fine{color:var(--faint);font-size:13px;margin-top:22px}
+</style><style>
+.field{margin:0 0 16px} .field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
+input[type=text],input[type=email],textarea,select{width:100%;font:500 16px/1.4 var(--fd);color:var(--ink);background:var(--card);border:1.5px solid var(--line-2);border-radius:12px;padding:13px 14px;outline:none}
+textarea{min-height:130px;resize:vertical} input:focus,textarea:focus,select:focus{border-color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px} @media (max-width:560px){.row2{grid-template-columns:1fr}}
+.err{color:#C03B2B;font-size:14.5px;min-height:1.2em;margin:8px 0 0} .hp{position:absolute;left:-9999px}
+.warn{background:#FFF6E5;border:1px solid #F0D9A8;border-left:4px solid #B7791F;border-radius:14px;padding:18px 20px;margin:0 0 20px}
+.warn li{margin:6px 0} .check{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin:14px 0} .check input{margin-top:4px;width:18px;height:18px}
+.btn.red{background:#C03B2B}
+</style></head><body><header class="top"><div class="top-in"><a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a></div></header><main class="wrap" id="app"></main><script>(function(){
+var HOOK="https://n8n.srv1748596.hstgr.cloud/webhook/hosting-cancel",app=document.getElementById("app"),t=new URLSearchParams(location.search).get("t");
+function post(o){return fetch(HOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(o)}).then(function(r){return r.json();});}
+function ask(msg){
+  app.innerHTML='<p class="k">Hosting &amp; care</p><h1>Cancel your website hosting</h1>'+(msg?'<div class="warn">'+msg+'</div>':'')+
+  '<p class="lede">Enter the email on your Station account. We&rsquo;ll send a link to review what happens and confirm. Nothing changes until you do.</p>'+
+  '<form id="f" novalidate><div class="field"><label for="email">Email</label><input type="email" id="email" autocomplete="email" required></div>'+
+  '<input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit" id="go" style="width:auto;padding:14px 22px">Email me the link</button><p class="err" id="err" role="alert"></p></form>'+
+  '<p class="fine">Changed your mind, or need help moving your site? <a href="/call">Book a time</a> or email <a href="mailto:main@station.solutions">main@station.solutions</a>.</p>';
+  document.getElementById("f").addEventListener("submit",function(ev){ev.preventDefault();var em=document.getElementById("email").value.trim(),e=document.getElementById("err"),b=document.getElementById("go");
+    if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)){e.textContent="Please enter a valid email address.";return;}
+    b.disabled=true;b.textContent="Sending…";
+    post({step:"request",email:em,hp:document.getElementById("hp").value}).then(function(){
+      app.innerHTML='<p class="k">Check your inbox</p><h1>If that email has hosting with us, the link is on its way.</h1><p class="lede">It works once and expires in 24 hours. If it doesn&rsquo;t arrive in a few minutes, check your spam folder or email main@station.solutions.</p>';
+    }).catch(function(){b.disabled=false;b.textContent="Email me the link";e.textContent="Something went wrong. Please try again.";});});
+}
+function review(masked){
+  app.innerHTML='<p class="k">Hosting &amp; care · '+masked+'</p><h1>Before you cancel, here&rsquo;s exactly what happens.</h1>'+
+  '<div class="warn"><ul>'+
+  '<li><b>Your website stays live until the end of the period you&rsquo;ve already paid for.</b> Nothing more is charged.</li>'+
+  '<li><b>Within 72 hours after that, your website comes down.</b></li>'+
+  '<li><b>Your domain is transferred to you.</b> We email you its transfer code so you can move it to your own domain company, and from then on you pay its yearly renewal. If it was registered or moved in the last 60 days, domain rules make us wait until those 60 days are up.</li>'+
+  '<li><b>You get your website&rsquo;s files</b> and the settings to point your domain at a new host, including email if your email runs on that domain.</li>'+
+  '<li>Care stops: no more edits, fixes or updates from us unless you ask for paid help later at <a href="/site-help/">station.solutions/site-help</a>.</li>'+
+  '</ul></div>'+
+  '<label class="check"><input type="checkbox" id="ok"><span>I understand my website will come down within 72 hours after my paid period ends, and that my domain will be transferred to me to run and pay for.</span></label>'+
+  '<button class="btn red" id="go" style="width:auto;padding:14px 22px">Cancel my hosting</button> <a class="btn ghost" href="/call" style="width:auto;padding:13px 20px;margin-left:8px">Talk to us first</a><p class="err" id="err" role="alert"></p>';
+  document.getElementById("go").addEventListener("click",function(){var e=document.getElementById("err"),b=document.getElementById("go");
+    if(!document.getElementById("ok").checked){e.textContent="Please tick the box to confirm you understand.";return;}
+    b.disabled=true;b.textContent="Cancelling…";
+    post({step:"confirm",t:t,accept:true}).then(function(j){if(!j||!j.ok)throw new Error((j&&j.error)||"x");
+      app.innerHTML='<p class="k">Done</p><h1>Your hosting is cancelled.</h1><p class="lede">You&rsquo;ll get an email shortly with the exact dates and how the domain handover works. Changed your mind? Reply to that email before your paid period ends and we&rsquo;ll keep everything running.</p>';
+    }).catch(function(err){b.disabled=false;b.textContent="Cancel my hosting";e.textContent=(err&&err.message&&err.message!=="x")?err.message:"Something went wrong. Please try again, or email main@station.solutions.";});});
+}
+if(!t){ask("");return;}
+app.innerHTML='<p class="lede">Checking your link…</p>';
+post({step:"check",t:t}).then(function(j){if(j&&j.ok)review(j.email);else ask((j&&j.error)||"This link has expired or was already used.");}).catch(function(){ask("We couldn&rsquo;t check that link. Please ask for a new one.");});
+})();</script><script src="/analytics.js" defer></script></body></html>
