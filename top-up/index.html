@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Top up your plan — Station</title><meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#F5F4F1">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico">
+<style>
+:root{--bg:#F5F4F1;--card:#fff;--bg-3:#F1EFE9;--line:#E7E4DE;--line-2:#DDD9D0;--ink:#1D1D1F;--muted:#5F5F64;--faint:#6E6E73;--accent:#8A5A00;--good:#167A44;--fd:'Inter','Segoe UI',system-ui,sans-serif;--fm:'JetBrains Mono',Consolas,monospace}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 var(--fd);-webkit-font-smoothing:antialiased}
+.top{border-bottom:1px solid var(--line);background:rgba(245,244,241,.92)} .top-in{max-width:760px;margin:0 auto;padding:0 22px;height:58px;display:flex;align-items:center}
+.home{display:flex;align-items:center;gap:9px;font:700 12px var(--fd);letter-spacing:.13em;text-decoration:none;color:var(--ink)} .home svg{width:19px;height:19px}
+.wrap{max-width:760px;margin:0 auto;padding:48px 22px 60px}
+.k{font:600 11px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 12px}
+.lede{color:var(--muted);margin:0 0 28px;max-width:58ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card.main{border:2px solid var(--ink)}
+.card .n{font-size:2.1rem;font-weight:800;letter-spacing:-.03em;line-height:1}
+.card .u{color:var(--muted);font-size:15px;margin:4px 0 16px}
+.card .p{font-size:1.25rem;font-weight:700} .card .per{color:var(--faint);font-size:13.5px;margin:2px 0 18px}
+.btn{display:inline-flex;justify-content:center;width:100%;font:600 16px var(--fd);background:var(--ink);color:#fff;border:0;border-radius:12px;padding:14px 18px;text-decoration:none;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2)}
+.note{background:var(--bg-3);border-radius:14px;padding:16px 18px;color:var(--muted);font-size:15px;margin-top:24px}
+.note b{color:var(--ink)} .fine{color:var(--faint);font-size:13px;margin-top:22px}
+</style></head><body>
+<header class="top"><div class="top-in"><a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a></div></header>
+<main class="wrap" id="app"></main>
+<script>
+(function(){
+  "use strict";
+  // 2026-09-23 (D1): top-up packs are 1.5x the client's own plan rate per unit, bought ahead of
+  // time for THIS month; usage over the plan without one is billed at 2x. Links carry the account
+  // id (client_reference_id) so Station's usage meter credits the right account.
+  var PACKS = {"greet_standard": {"url": "https://buy.stripe.com/5kQ28k2KweIV305ds42Fa1K", "units": 100, "unit": "chats", "amount": 47}, "greet_busy": {"url": "https://buy.stripe.com/5kQbIU4SE9oB8kp73G2Fa1L", "units": 100, "unit": "chats", "amount": 30}, "greet_high": {"url": "https://buy.stripe.com/cNifZabh2gR3bwB2Nq2Fa1M", "units": 100, "unit": "chats", "amount": 21}, "lineback_standard": {"url": "https://buy.stripe.com/cNidR2acYdER7glgEg2Fa1N", "units": 500, "unit": "texts", "amount": 98}, "lineback_busy": {"url": "https://buy.stripe.com/00w3co3OA0S54493Ru2Fa1O", "units": 500, "unit": "texts", "amount": 45}, "frontdesk_standard": {"url": "https://buy.stripe.com/aFafZagBm58l0RX2Nq2Fa1P", "units": 100, "unit": "minutes", "amount": 79}, "frontdesk_busy": {"url": "https://buy.stripe.com/eVq14g2Kw44hfMRgEg2Fa1Q", "units": 100, "unit": "minutes", "amount": 75}, "frontdesk_high": {"url": "https://buy.stripe.com/dRm3co1Gs8kxdEJco02Fa1R", "units": 100, "unit": "minutes", "amount": 54}, "dial_standard": {"url": "https://buy.stripe.com/6oUeV698U7gtcAFfAc2Fa1S", "units": 500, "unit": "texts", "amount": 35}, "pursuit_standard": {"url": "https://buy.stripe.com/28EbIU1Gs7gtasxco02Fa1T", "units": 1000, "unit": "texts", "amount": 148}, "pursuit_busy": {"url": "https://buy.stripe.com/cNi3codpaeIV6ch73G2Fa1U", "units": 1000, "unit": "texts", "amount": 87}};
+  var PLAN = {"greet_standard": ["Greet", "Standard", 79, 250], "greet_busy": ["Greet", "Busy", 149, 750], "greet_high": ["Greet", "High volume", 249, 1750], "lineback_standard": ["Lineback", "Standard", 197, 1500], "lineback_busy": ["Lineback", "Busy", 297, 5000], "frontdesk_standard": ["Frontdesk", "Standard", 397, 750], "frontdesk_busy": ["Frontdesk", "Busy", 597, 1200], "frontdesk_high": ["Frontdesk", "High volume", 897, 2500], "dial_standard": ["Dial", "Standard", 47, 1000], "pursuit_standard": ["Pursuit", "Standard", 247, 2500], "pursuit_busy": ["Pursuit", "Busy", 347, 6000]};
+  var q = new URLSearchParams(location.search), t = q.get("t") || "", a = (q.get("a") || "").replace(/[^A-Za-z0-9_-]/g, ""), e = q.get("e") || "";
+  var app = document.getElementById("app");
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function money(x){ return "$" + Number(x).toLocaleString(undefined,{minimumFractionDigits:x<1?2:0,maximumFractionDigits:2}); }
+  if (!PACKS[t] || !a) {
+    app.innerHTML = '<p class="k">Top-ups</p><h1>Open this from your Station account.</h1><p class="lede">Top-up packs are tied to your account, so they are bought from the link in your usage email or the usage bar on your product page inside Station. That way the extra lands on the right plan.</p><p class="lede">Can\'t find it? Email <a href="mailto:main@station.solutions">main@station.solutions</a> and we\'ll send it over.</p>';
+    return;
+  }
+  var p = PACKS[t], pl = PLAN[t], plan = pl[0] + " " + pl[1], unitOne = {texts:"text",chats:"chat",minutes:"minute",emails:"email"}[p.unit];
+  var perPlan = pl[2] / pl[3], perPack = p.amount / p.units, over = 2 * perPlan;
+  var link = p.url + "?client_reference_id=" + encodeURIComponent(a) + (e ? "&prefilled_email=" + encodeURIComponent(e) : "");
+  var next = {greet_standard:"greet_busy",greet_busy:"greet_high",lineback_standard:"lineback_busy",frontdesk_standard:"frontdesk_busy",frontdesk_busy:"frontdesk_high",pursuit_standard:"pursuit_busy"}[t];
+  var h = '<p class="k">' + esc(plan) + ' plan</p><h1>Add ' + p.units.toLocaleString() + ' ' + p.unit + ' to this month.</h1>' +
+    '<p class="lede">A top-up adds to this month\'s ' + esc(pl[0]) + ' allowance straight away. It\'s cheaper than paying for usage over your plan, which is billed at ' + money(over) + ' per ' + unitOne + '.</p>' +
+    '<div class="grid"><div class="card main"><div class="n">+' + p.units.toLocaleString() + '</div><div class="u">' + p.unit + ', this month</div>' +
+    '<div class="p">' + money(p.amount) + '</div><div class="per">' + money(perPack) + ' per ' + unitOne + ' · vs ' + money(over) + ' if you go over</div>' +
+    '<a class="btn" href="' + esc(link) + '">Buy this top-up</a></div>';
+  if (next && PLAN[next]) {
+    var n = PLAN[next];
+    h += '<div class="card"><div class="n">' + n[3].toLocaleString() + '</div><div class="u">' + p.unit + ' every month on ' + esc(n[1]) + '</div>' +
+      '<div class="p">$' + n[2] + '/mo</div><div class="per">' + money(n[2] / n[3]) + ' per ' + unitOne + ' · the better deal if this keeps happening</div>' +
+      '<a class="btn ghost" href="/' + pl[0].toLowerCase() + '/#tiers">See ' + esc(n[1]) + '</a></div>';
+  }
+  h += '</div><div class="note"><b>Buy as many as you need.</b> Each pack covers the current month only and does not roll over. Your plan resets on the 1st.</div>' +
+    '<p class="fine">Questions? Reply to your usage email or <a href="/call">book a time with us</a>. By purchasing you agree to the <a href="/legal/tos.html">Terms of Service</a>.</p>';
+  app.innerHTML = h;
+})();
+</script>
+</body></html>
