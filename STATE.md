@@ -83,3 +83,17 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   `Station - Demo Request` (pvOXTfun0H62aoBu) deactivated. Storefront "Custom" button → `/custom/`.
 - Trap: n8n Code nodes run in a task runner — a Buffer body sent with `this.helpers.httpRequest`
   reaches the API mangled (GHL 400). Upload binaries with the native HTTP Request node.
+
+## 2026-09-23 — Storefront Premium retired
+
+- Station sells the **Custom website only**: /storefront/ is its page ("priced to your project",
+  free demo in 2–3 business days via /custom/, no $49/mo line, no 48-hour promise).
+- `storefront` SKU removed from STATION_CATALOG on 22 pages (drawer, cart, checkout); carts saved
+  before the retirement drop it on load (v5.js `cartGet` / checkout `get`). Partners:
+  `storefront` moved to `_retired_skus`. llms.txt, chat bot, Marquee, Portfolio reworded.
+- Stripe: payment link `plink_1TzVcq…` deactivated, product `prod_UzUbojMA3GfZL2` ($500 build)
+  archived. The $49 Care Plan product (`prod_UzUbgUnO1xtagW`) is still ACTIVE (no subscribers,
+  nothing sells it) — decide with D2 (Hosting & Care $10).
+- Premium will be replaced by a referral to Circle's design-your-own-website business (pending).
+- Trap hit: the checkout block in v5.js has its own scope — `CATALOG`/`prod` are NOT visible there;
+  use its local `cat`. A ReferenceError there blanks checkout silently for every visitor.
