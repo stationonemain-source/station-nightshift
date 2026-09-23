@@ -70,7 +70,9 @@
   function prod(k){ return CATALOG.find(function(p){ return p.k === k; }); }
 
   /* ---------- CART ---------- */
-  function cartGet(){ try { return JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch(e){ return []; } }
+  /* 2026-09-23: a cart saved before a product was retired (Storefront Premium) must not keep counting it. */
+  function cartGet(){ var c; try { c = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch(e){ return []; }
+    return (Array.isArray(c) && CATALOG.length) ? c.filter(function(k){ return !!prod(k); }) : (Array.isArray(c) ? c : []); }
   function cartSet(c){ try { localStorage.setItem("station_cart", JSON.stringify(c)); } catch(e){} renderCartBadge(); renderCartBody(); }
   function cartAdd(k){ var c = cartGet(); if (c.indexOf(k) === -1) c.push(k); cartSet(c); openCart(); }
   function cartRemove(k){ cartSet(cartGet().filter(function(x){ return x !== k; })); }
@@ -680,7 +682,7 @@
     var ups = document.getElementById("coUps"), rows = document.getElementById("coRows"),
         tot = document.getElementById("coTot"), tr = document.getElementById("coTrial"),
         pay = document.getElementById("coPay");
-    function get() { try { return JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) { return []; } }
+    function get() { var c; try { c = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) { return []; } return (Array.isArray(c) && CATALOG.length) ? c.filter(function (k) { return !!prod(k); }) : (Array.isArray(c) ? c : []); }
     function set(c) {
       try { localStorage.setItem("station_cart", JSON.stringify(c)); } catch (e) {}
       document.querySelectorAll(".cartbtn .n").forEach(function (b) { b.textContent = c.length; b.classList.toggle("on", c.length > 0); });
