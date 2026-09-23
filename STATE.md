@@ -109,3 +109,5 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   `/webhook/hosting-cancel` (request → emailed single-use link → check → confirm with the ticked warning).
   `/site-help/` posts to `/webhook/site-help`. Both linked from the Storefront FAQ.
 - Runbook for the manual takedown and domain transfer: brain `kb/client_hosting_runbook.md`.
+- 2026-09-23 later: hosting is **billed once a year** (Storefront + /custom/ copy). Takedown and domain handover after
+  a cancel are automatic in Circle (`hosting_care.py`). This site only hosts the pages that start it.
