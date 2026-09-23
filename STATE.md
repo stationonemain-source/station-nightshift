@@ -97,3 +97,15 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 - Premium will be replaced by a referral to Circle's design-your-own-website business (pending).
 - Trap hit: the checkout block in v5.js has its own scope — `CATALOG`/`prod` are NOT visible there;
   use its local `cat`. A ReferenceError there blanks checkout silently for every visitor.
+
+## 2026-09-23 — usage billing + hosting & care (Station work plan D1, D2)
+
+- **Usage (D1):** every product page, `/checkout/` and ToS §4 state the rule: warning at 80%, the first
+  time over is free (once per product), after that overage at 2× the plan's per-unit rate. `/top-up/`
+  sells packs at 1.5× through Stripe payment links carrying `client_reference_id`=location. The meter
+  lives in Circle (`station-world/usage_meter.py`), not on this site.
+- **Hosting (D2):** no fixed care price anywhere. Hosting = the domain's cost; care is quoted.
+  `/custom/` asks domain / who buys it / who hosts. `/cancel-hosting/` (noindex) posts to n8n
+  `/webhook/hosting-cancel` (request → emailed single-use link → check → confirm with the ticked warning).
+  `/site-help/` posts to `/webhook/site-help`. Both linked from the Storefront FAQ.
+- Runbook for the manual takedown and domain transfer: brain `kb/client_hosting_runbook.md`.
