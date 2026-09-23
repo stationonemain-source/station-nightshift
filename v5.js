@@ -682,7 +682,7 @@
     var ups = document.getElementById("coUps"), rows = document.getElementById("coRows"),
         tot = document.getElementById("coTot"), tr = document.getElementById("coTrial"),
         pay = document.getElementById("coPay");
-    function get() { var c; try { c = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) { return []; } return (Array.isArray(c) && CATALOG.length) ? c.filter(function (k) { return !!prod(k); }) : (Array.isArray(c) ? c : []); }
+    function get() { var c; try { c = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch (e) { return []; } return (Array.isArray(c) && cat.length) ? c.filter(function (k) { return cat.some(function (x) { return x.k === k; }); }) : (Array.isArray(c) ? c : []); }
     function set(c) {
       try { localStorage.setItem("station_cart", JSON.stringify(c)); } catch (e) {}
       document.querySelectorAll(".cartbtn .n").forEach(function (b) { b.textContent = c.length; b.classList.toggle("on", c.length > 0); });
