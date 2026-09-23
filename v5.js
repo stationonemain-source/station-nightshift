@@ -237,6 +237,12 @@
       });
       var r = C.compute(vals);
       lossEl.textContent = f$(r.loss) + "/mo";
+      /* 2026-09-23: a quoted product (Custom website) has no price to weigh the loss against. */
+      if (C.quote) {
+        verEl.className = "verdict yes";
+        verEl.innerHTML = "<b>That's about " + f$(r.loss) + " a month walking past you.</b> Your site is priced once we've seen what you need, and the demo is free — <a href='/custom/?ref=calc'>start here</a>.";
+        return;
+      }
       if (r.loss >= C.price * (C.clearAt || 2)) { verEl.className = "verdict yes";
         verEl.innerHTML = "<b>The math clears easily.</b> You're losing " + f$(r.loss) + " a month; this costs " + f$(C.price) + ". Keeping the problem is the expensive option.";
       } else if (r.loss >= C.price) { verEl.className = "verdict yes";

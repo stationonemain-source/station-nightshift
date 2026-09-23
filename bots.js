@@ -272,7 +272,7 @@
         "Premiere is quoted on a quick call."
       ]],
       [/(price|cost|how much|rate|tier|plan|month)/, [
-        "Three bundles, month to month, no setup fees: Core $750/mo — Greet, Slate, Lineback, Pursuit, Repute and Dispatch. Pro $1,395/mo — Core plus Frontdesk, Echo and Marquee, the full front office. Custom from $2,500/mo — every product at every tier, with the $500 Storefront website included. Or start with a single product from $47/mo.",
+        "Three bundles, month to month, no setup fees: Core $750/mo — Greet, Slate, Lineback, Pursuit, Repute and Dispatch. Pro $1,395/mo — Core plus Frontdesk, Echo and Marquee, the full front office. Custom from $2,500/mo — every product at every tier, with your custom website included. Or start with a single product from $47/mo.",
         "Every one starts with a free 15-minute audit."
       ]],
       [/(what (is|does)|do you (do|actually)|about station|services|front office|handle)/, [

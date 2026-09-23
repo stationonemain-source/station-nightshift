@@ -1,53 +1,23 @@
 {
   "_about": "Station product playbook — the ONE source for what partners sell, what to say, and what has to be set up by hand after a purchase. Read by the Partner portal Products tab (same origin) and by n8n alert workflows over HTTPS. DRAFT 2026-08-11 — pending Circle's review before partners are pointed at it.",
-  "_pricing_note": "Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); Storefront is two tiers (Premium $500 + $49/mo Care; Custom has no published price and is priced by evaluation) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
+  "_pricing_note": "Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); the website is Custom only (priced to the project after a free demo; Premium was retired 2026-09-23) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
   "_trial": "Free trial is 7 days standard, 14 available on request, 30 maximum. Clients provision in full during a trial; partner commission starts once real billing starts.",
-  "updated": "2026-09-21",
+  "updated": "2026-09-23",
   "products": [
     {
-      "sku": "storefront",
-      "name": "Storefront — Premium",
-      "plain": "A real website built to book the job",
-      "price": "$500 one-time build + $49/mo Care",
-      "mrr": 49,
-      "setup": 500,
-      "selling_points": [
-        "It is built to get the phone ringing, not to win a design award — every page pushes toward a call or a booking.",
-        "Live on their own domain in about a week, not the three months an agency quotes.",
-        "Care covers hosting, SSL, the domain and content edits, so they never get a surprise bill or a dead site."
-      ],
-      "setup_actions": [
-        "Get the domain: either their existing registrar login, or buy one and bill it on.",
-        "Collect real photos and their service list — generated placeholder copy must not go live.",
-        "Confirm where form leads should land: the client's own inbox, or their GHL sub-account if they are on a bundle.",
-        "Walk them through the finished site and get an explicit yes before pointing the domain."
-      ],
-      "call_script": {
-        "opener": "I had a look at your site before calling — is it bringing you any work at the moment, or is it mostly sitting there?",
-        "discovery": "When someone lands on it and wants to book you, what do they actually have to do? Ring you? Fill something in?",
-        "pitch": "That is the bit I would change. We build the site around one job: getting them to contact you. $500 to build it, live on your domain in about a week, then $49 a month and we host it, secure it and make your edits.",
-        "objection": "\"I already have a website.\" — You do, and it looks fine. I am not talking about looks. How many enquiries came through it last month? If the answer is none, it is a brochure, not a salesperson.",
-        "close": "Let me build you the first version so you can see it with your own business on it. If you hate it, you have lost nothing. Fair?"
-      },
-      "email_script": {
-        "subject": "your website — one thing I would change",
-        "body": "Hi {first_name},\n\nI had a look at {business} online before getting in touch.\n\nThe site loads fine, but there is nothing on it pushing a visitor to actually contact you — no obvious way to book, no reason to call today. That is usually the difference between a site that costs money and one that makes it.\n\nWe build sites around that single job. $500 to build, live on your own domain in about a week, then $49/month for hosting, security and any edits you want.\n\nWorth ten minutes to show you what yours would look like?"
-      }
-    },
-    {
       "sku": "storefront_custom",
-      "name": "Storefront — Custom",
+      "name": "Custom website",
       "plain": "A bespoke website, designed from scratch",
-      "price": "Priced by evaluation (no published price) + $49/mo Care",
-      "mrr": 49,
+      "price": "Priced to the project, after a free demo (no published price)",
+      "mrr": 0,
       "setup": 0,
       "selling_points": [
         "Designed from nothing to their brand — no template underneath it.",
         "Scroll animation and custom art direction, the kind of site that makes a small firm look established.",
-        "Same Care plan, so the running cost is identical to the Premium build."
+        "They see a free demo of their own site within 2–3 business days before paying anything."
       ],
       "setup_actions": [
-        "Do not quote a number: Custom has no published price and is priced by evaluation after a call. The 'Get it priced' button on the Storefront page books that call, or book it for them. Nothing is charged until they have talked to us.",
+        "Do not quote a number: the Custom website has no published price. Send them to station.solutions/custom/ (about 5 minutes of questions); we build a free demo by hand and email it within 2–3 business days. Nothing is charged until they say yes.",
         "Book a proper brand call: colours, tone, who they want to look better than.",
         "Get logo files (vector if it exists) and any brand guide.",
         "Agree the page list in writing before design starts — scope creep is what makes custom builds lose money.",
@@ -57,12 +27,12 @@
         "opener": "You clearly care how the business comes across — was the current site a compromise, or is it what you actually wanted?",
         "discovery": "If budget were not the issue, what would you want someone to feel in the first three seconds on your site?",
         "pitch": "Then the template route is not for you. Custom is built from scratch to your brand and is priced by evaluation: I do not quote a number until we have talked, and nothing is charged before that. Care stays $49 a month like everything else.",
-        "objection": "\"What does it cost?\" — It depends on the scope, so it is priced by evaluation after a short call, and nothing is charged until we have talked. The Premium build is a very good template at $500. Custom is a designer starting from your brand with a blank page. If you want to look like the most established firm in your market, that is the difference.",
+        "objection": "\"What does it cost?\" — It depends on the scope, so it is priced to the project, and they see a free demo of their own site before anything is charged. Custom is a designer starting from your brand with a blank page. If you want to look like the most established firm in your market, that is the difference.",
         "close": "I can put two directions in front of you before you commit a penny. Want me to?"
       },
       "email_script": {
         "subject": "a proper site for {business}",
-        "body": "Hi {first_name},\n\nQuick thought about {business} online.\n\nYou are clearly the more established option in your market, but the website is not saying that yet. Templates can only take you so far — at some point the site has to be designed around your brand rather than fitted into someone else's layout.\n\nThat is our custom build: designed from scratch and priced by evaluation after a short call, then the same $49/month for hosting and edits.\n\nHappy to mock up a direction so you can see it rather than imagine it. Want me to?"
+        "body": "Hi {first_name},\n\nQuick thought about {business} online.\n\nYou are clearly the more established option in your market, but the website is not saying that yet. Templates can only take you so far — at some point the site has to be designed around your brand rather than fitted into someone else's layout.\n\nThat is our custom build: designed from scratch and priced by evaluation after a short call, with hosting and care quoted alongside it.\n\nHappy to mock up a direction so you can see it rather than imagine it. Want me to?"
       }
     },
     {
@@ -657,11 +627,12 @@
       "name": "Custom",
       "mrr": 2500,
       "setup": 0,
-      "plain": "Built to what the client actually needs: every product at every tier, the $500 Storefront website included, triple usage allowances, a named strategist and a priority build queue"
+      "plain": "Built to what the client actually needs: every product at every tier, the custom website included, triple usage allowances, a named strategist and a priority build queue"
     }
   ],
-  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee. Tiers that are not volume steps use these keys: `pro` (Radar), `multi` (Echo, Repute: the plan mrr is PER LOCATION, quantity two or more, and the portal prices one location), `managed` (Dispatch, Marquee). Revive is $497 PER QUARTER and has no honest monthly figure, so mrr is 0 (no monthly equivalent invented) and `setup` carries the $497 quarterly charge so the picker does not show it as free; it is NOT a one-time setup fee. storefront_custom has no published price (priced by evaluation), so its `setup` is 0 and only the $49/mo Care is mirrored.",
+  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee. Tiers that are not volume steps use these keys: `pro` (Radar), `multi` (Echo, Repute: the plan mrr is PER LOCATION, quantity two or more, and the portal prices one location), `managed` (Dispatch, Marquee). Revive is $497 PER QUARTER and has no honest monthly figure, so mrr is 0 (no monthly equivalent invented) and `setup` carries the $497 quarterly charge so the picker does not show it as free; it is NOT a one-time setup fee. storefront_custom has no published price (priced to the project after a free demo), so its `setup` and `mrr` are 0 until hosting/care pricing is set.",
   "_retired_skus": {
-    "storefront_enterprise": "Storefront Enterprise ($10,000 build + $49/mo Care) was retired in the 2026-09-16 pricing rewire: archived in Stripe and refused by checkout. Removed from `products` on 2026-09-21 so it no longer shows in the Products tab or the add-client picker. Do not re-add without a live page selling it."
+    "storefront_enterprise": "Storefront Enterprise ($10,000 build + $49/mo Care) was retired in the 2026-09-16 pricing rewire: archived in Stripe and refused by checkout. Removed from `products` on 2026-09-21 so it no longer shows in the Products tab or the add-client picker. Do not re-add without a live page selling it.",
+    "storefront": "Storefront Premium ($500 build + $49/mo Care) was retired 2026-09-23 by Circle: Station sells only the Custom website (priced to the project, free demo first). It will be replaced by a referral to Circle's separate design-your-own-website business. Removed from `products` and archived in Stripe the same day. Do not re-add."
   }
 }

@@ -4,7 +4,7 @@
 
 ## Products
 
-- [Storefront](https://station.solutions/storefront/): Conversion-first website — $500 one-time build + $49/mo care, live in 48 hours; a Custom build is priced by evaluation
+- [Storefront](https://station.solutions/storefront/): Custom website designed around the business — priced to the project, free demo in 2–3 business days (start at https://station.solutions/custom/)
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
 - [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo, 1,000 texts
 - [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 1,000 reminders (free inside Frontdesk)
@@ -25,7 +25,7 @@ No setup fees on bundles; each costs less than its products bought separately.
 
 - [Core — $750/mo](https://station.solutions/#bundles): Greet, Slate, Lineback, Pursuit, Repute, Dispatch
 - [Pro — $1,395/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
-- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, the $500 Storefront website included, triple usage allowances, named strategist
+- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, a custom website included, triple usage allowances, named strategist
 
 ## Start here
 
