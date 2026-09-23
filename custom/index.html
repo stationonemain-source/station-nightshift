@@ -125,6 +125,12 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
     { id: "avoid", type: "textarea", q: "Anything you definitely don't want?", ph: "No stock photos of people in suits. No pop-ups." },
     { id: "domain", type: "choice", q: "Do you already own a domain name?", o: ["Yes", "No", "Not sure"],
       sub: { id: "domain_name", label: "Which one? (optional)", type: "text", ph: "riverplumbing.com" } },
+    { id: "domain_buyer", type: "choice", q: "Who should buy your domain?", req: true, showIf: function (A) { return A.domain !== "Yes"; },
+      help: "Either way it's registered in your business's name. We never pick an unusually expensive domain without asking.",
+      o: ["Station — buy it for me, I pay what it costs", "Me — I'll buy it myself", "Not sure yet"] },
+    { id: "hosting", type: "choice", q: "Who should host and look after the website?", req: true,
+      help: "Hosting costs exactly what your domain costs. Care is priced for your business, and we'll quote it with your demo.",
+      o: ["Station — host it and look after it for me", "Me — hand the site over and I'll run it", "Not sure yet — tell me more"] },
     { id: "timeline", type: "choice", q: "When would you like the website live?", req: true, o: ["As soon as possible", "Within 2–4 weeks", "Within 1–2 months", "I'm flexible"] },
     { id: "budget", type: "choice", q: "What budget do you have in mind?", help: "Custom websites are priced to what you need. This just helps us scope your demo.", req: true,
       o: ["Under $1,000", "$1,000 – $2,500", "$2,500 – $5,000", "$5,000+", "Not sure yet"] },
@@ -229,7 +235,12 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
     if ((uploads[q.id] || []).some(function (u) { return u.busy; })) { if (err) err.textContent = "Hang on, a file is still uploading."; return false; }
     return true;
   }
-  function go(to) { i = Math.max(0, Math.min(LAST, to)); save(); render(); }
+  function shown(k) { var q = Q[k]; return !q || !q.showIf || q.showIf(A); }
+  function go(to) {
+    var dir = to < i ? -1 : 1; to = Math.max(0, Math.min(LAST, to));
+    while (to > 0 && to < LAST && !shown(to)) to += dir;          /* skip a screen that does not apply */
+    i = Math.max(0, Math.min(LAST, to)); save(); render();
+  }
   function next() { var q = Q[i]; collect(q); if (q.type !== "intro" && !validate(q)) return; go(i + 1); }
 
   function wire(q) {
@@ -315,7 +326,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
   }
   function summary() {
     return Q.map(function (q, k) {
-      if (q.type === "intro" || q.type === "review") return "";
+      if (q.type === "intro" || q.type === "review" || !shown(k)) return "";
       var v = val(q); if (!v) return "";
       return "<div><dt>" + esc(q.q) + '<button type="button" data-edit="' + k + '">Edit</button></dt><dd>' + esc(v) + "</dd></div>";
     }).join("");
@@ -326,7 +337,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
     btn.disabled = true; btn.textContent = "Sending…";
     var payload = { answers: A, files: { logo: (uploads.logo || []).filter(function (u) { return u.url; }).map(function (u) { return { name: u.name, url: u.url }; }),
                                         photos: (uploads.photos || []).filter(function (u) { return u.url; }).map(function (u) { return { name: u.name, url: u.url }; }) },
-                    questions: Q.filter(function (q) { return q.q; }).map(function (q) { return { id: q.id, q: q.q, a: val(q) }; }),
+                    questions: Q.filter(function (q, k) { return q.q && shown(k); }).map(function (q) { return { id: q.id, q: q.q, a: val(q) }; }),
                     hp: document.getElementById("hp").value, elapsed_ms: Date.now() - started, consent_email: true,
                     page: location.pathname, ref: new URLSearchParams(location.search).get("ref") || "" };
     fetch(HOOK, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
