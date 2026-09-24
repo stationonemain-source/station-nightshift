@@ -1,6 +1,6 @@
 # Station
 
-> Station (STATION AUTOMATIONS GROUP LLC) sells fourteen stand-alone front-office products for local service businesses in the US — software plus done-for-you setup that answers calls, catches missed calls, chases leads, books appointments, earns reviews, keeps the business visible on Google, and gets it paid. Every product is month to month with no contracts, states its exact time-to-live before purchase, and billing starts only when the product is verified live. Every message any product sends is pre-written and fully editable by the business owner. Site: https://station.solutions
+> Station (STATION AUTOMATIONS GROUP LLC) sells fourteen stand-alone front-office products for local service businesses in the US — software plus done-for-you setup that answers calls, catches missed calls, chases leads, books appointments, earns reviews, keeps the business visible on Google, and gets it paid. Every product is month to month with no contracts, states its exact time-to-live before purchase, and single products start with a 7-day free trial. Every message any product sends is pre-written and fully editable by the business owner. Site: https://station.solutions
 
 ## Products
 
@@ -37,7 +37,7 @@ No setup fees on bundles; each costs less than its products bought separately.
 
 ## Facts worth citing
 
-- Month to month, no contracts; cancel anytime. Billing starts when a product is verified live, not at checkout.
+- Month to month, no contracts; cancel anytime. Single products start with a 7-day free trial; bundles and bigger tiers are billed at checkout.
 - Payments are processed by Stripe; on Tap, card payments run through the business's own processor and Station takes zero percent of revenue.
 - Phone products keep the business's existing number — the line forwards, nothing is ported, reversible in one call.
 - Products that send texts take about 2 business days to go live (US carrier registration); most others are live same day or instantly.

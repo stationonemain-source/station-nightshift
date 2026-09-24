@@ -99,8 +99,7 @@
       box.innerHTML = '<button class="sx-x" aria-label="Close">×</button>' +
         '<p class="sx-k">BEFORE YOU GO</p>' +
         "<h3>You don't have to decide today. Trial it for $0.</h3>" +
-        "<p>Every Station subscription starts with a <b>7-day free trial</b> — $0 today, month-to-month after, cancel in one click. " +
-        "Billing doesn't even start until " + p.n + " is verified live on your business.</p>" +
+        "<p>" + p.n + " on its Standard plan starts with a <b>7-day free trial</b> — $0 today, month-to-month after, cancel in one click.</p>" +
         '<div class="sx-cta"><button class="sx-buy" data-add="' + pageKey + '">Start the free trial — $0 today</button>' +
         '<button class="sx-see" data-sx="stay">Keep reading</button></div>';
     }

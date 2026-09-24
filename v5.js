@@ -132,7 +132,7 @@
       '<div class="c-foot"><div class="c-rows"></div>' +
       '<div class="c-nudge"><b>This stack is bundle territory.</b> A line pass covers it for less — <a href="/#bundles" style="color:inherit;font-weight:700">see the bundles</a>.</div>' +
       '<a class="btn dark c-go" href="/checkout/">Continue to checkout →</a>' +
-      '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time — billing starts when your products are verified live.</p></div>';
+      '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time. Single products start with a 7-day free trial.</p></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
     drawer.querySelector(".c-x").addEventListener("click", closeCart);
     drawer.addEventListener("click", function(e){
@@ -595,7 +595,7 @@
       if (hit) return "<b>" + hit.n + "</b> — " + hit.sub + ". " + hit.pricelab + ", live " + hit.ttl + ", cancel anytime. Try it on the page before you buy:<br>" + plink(hit.k);
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
-      if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month, cancels in one click, and billing doesn't even start until the product is verified live on your account.";
+      if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";
       if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. Hosting costs what your domain costs, billed once a year.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
       if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites from <b>$500</b>. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
