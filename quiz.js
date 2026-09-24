@@ -177,7 +177,7 @@
       '<p class="sq-price">' + p.pricelab + (day ? " · " + day : "") + " · month-to-month, 7-day free trial</p>" +
       '<p style="font-size:14px;color:#555;line-height:1.6;margin:0">Because ' + (r.why || "of what you told us") +
       ", this is the single product that fixes the most of it. Start here; add nothing else until it pays for itself.</p></div>" +
-      '<div class="sq-cta"><button class="sq-buy" data-add="' + r.k + '">Add to cart — price held 24h</button>' +
+      '<div class="sq-cta"><button class="sq-buy" data-add="' + r.k + '">Add to cart</button>' +
       '<a class="sq-see" href="/' + r.k.replace("_", "-") + '/">See how it works</a></div>' +
       '<div class="sq-mail"><p>Want this prescription in writing? We\'ll email it — nothing else.</p>' +
       '<form class="row" novalidate><input type="email" placeholder="you@business.com" autocomplete="email">' +

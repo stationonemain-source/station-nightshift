@@ -283,7 +283,7 @@
         var m = p.mo;
         if (p.k === "slate" && on.frontdesk) m = 0;
         mo += m; once += (p.once || 0);
-        names.push({ n: p.n, m: m, o: p.once || 0, inc: (p.k === "slate" && on.frontdesk) });
+        names.push({ k: p.k, n: p.n, m: m, o: p.once || 0, inc: (p.k === "slate" && on.frontdesk) });
       });
       document.getElementById("rTotal").innerHTML = f$(mo) + '<small>/month</small>';
       document.getElementById("rDay").textContent = "$" + (mo / 30.4).toFixed(2);
@@ -292,11 +292,27 @@
       var rows = document.getElementById("rRows");
       rows.innerHTML = count ? names.map(function (x) {
         return '<div class="r-row"><span>' + x.n + (x.inc ? ' <span class="inc">included</span>' : "") + '</span><b>' +
-          (x.inc ? "$0" : (x.m ? f$(x.m) : f$(x.o) + " once")) + "</b></div>";
+          (x.inc ? "$0" : (x.k === "revive" ? "$497/qtr" : (x.m ? f$(x.m) : f$(x.o) + " once"))) + "</b></div>";
       }).join("") : '<div class="r-row"><span style="color:var(--faint)">Nothing yet — tick a product.</span></div>';
       var v = document.getElementById("rVerdict"), hit = false, t;
       if (!count) t = "Pick the one that fixes what hurt this week.";
-      else if (mo >= 800) { hit = true; t = "<b>Bundle territory:</b> a line pass covers this for less. <a href='#bundles' style='color:inherit;font-weight:700'>See the bundles ↓</a>"; }
+      else if ((function(){
+        /* 2026-09-24: only suggest a bundle that CONTAINS everything ticked and really costs less
+           (the old rule said "a line pass covers this for less" for any total over $800 -- e.g.
+           Frontdesk + Lineback + Pursuit = $841, which no bundle under $1,395 contains). */
+        var CORE = ["greet","slate","lineback","pursuit","repute","dispatch"];
+        var BUN = [{ n: "Core", mo: 750, keys: CORE },
+                   { n: "Pro", mo: 1395, keys: CORE.concat(["frontdesk","map","marquee"]) },
+                   { n: "Custom", mo: 2500, keys: CATALOG.map(function (p) { return p.k; }) }];
+        var picked = CATALOG.filter(function (p) { return on[p.k]; }).map(function (p) { return p.k; });
+        var fit = null;
+        BUN.forEach(function (b) { if (!fit && picked.every(function (k) { return b.keys.indexOf(k) !== -1; })) fit = b; });
+        if (!fit || fit.mo >= mo + once / 12) return false;
+        var extra = fit.keys.filter(function (k) { return picked.indexOf(k) === -1; }).length;
+        t = "<b>" + fit.n + " covers all of this for " + f$(fit.mo) + "/mo</b> — " + f$(mo - fit.mo) + "/mo less" +
+            (once && on.map && fit.n !== "Core" ? ", setup waived" : "") + (extra ? ", plus " + extra + " more product" + (extra > 1 ? "s" : "") : "") +
+            ". <a href='#bundles' style='color:inherit;font-weight:700'>See " + fit.n + " ↓</a>";
+        return true; })()) { hit = true; }
       else t = f$(mo) + "/mo is " + (mo / TICKET).toFixed(1) + " average jobs. Everything after that is yours.";
       v.className = "r-verdict" + (hit ? " hit" : ""); v.innerHTML = t;
       /* The shelf priced a line up and then offered no way to buy it - the visitor had
