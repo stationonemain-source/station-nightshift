@@ -277,11 +277,6 @@
           "key": "base",
           "label": "standard",
           "mrr": 197
-        },
-        {
-          "key": "multi",
-          "label": "multi-location, per location (2+)",
-          "mrr": 397
         }
       ],
       "selling_points": [
@@ -321,11 +316,6 @@
           "key": "base",
           "label": "standard",
           "mrr": 247
-        },
-        {
-          "key": "multi",
-          "label": "multi-location, per location (2+)",
-          "mrr": 197
         }
       ],
       "selling_points": [
