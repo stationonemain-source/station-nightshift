@@ -627,7 +627,7 @@
       "name": "Custom",
       "mrr": 2500,
       "setup": 0,
-      "plain": "Built to what the client actually needs: every product at every tier, the custom website included, triple usage allowances, a named strategist and a priority build queue"
+      "plain": "Every product on one plan, with triple usage allowances. A custom website is quoted separately."
     }
   ],
   "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee. Tiers that are not volume steps use these keys: `pro` (Radar), `multi` (Echo, Repute: the plan mrr is PER LOCATION, quantity two or more, and the portal prices one location), `managed` (Dispatch, Marquee). Revive is $497 PER QUARTER and has no honest monthly figure, so mrr is 0 (no monthly equivalent invented) and `setup` carries the $497 quarterly charge so the picker does not show it as free; it is NOT a one-time setup fee. storefront_custom has no published price (priced to the project after a free demo), so its `setup` and `mrr` are 0 until hosting/care pricing is set.",

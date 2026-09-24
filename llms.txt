@@ -25,7 +25,7 @@ No setup fees on bundles; each costs less than its products bought separately.
 
 - [Core — $750/mo](https://station.solutions/#bundles): Greet, Slate, Lineback, Pursuit, Repute, Dispatch
 - [Pro — $1,395/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
-- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, a custom website included, triple usage allowances, named strategist
+- [Custom — $2,500/mo](https://station.solutions/#bundles): every product, triple usage allowances; a custom website is quoted separately
 
 ## Start here
 
