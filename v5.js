@@ -303,7 +303,7 @@
         var CORE = ["greet","slate","lineback","pursuit","repute","dispatch"];
         var BUN = [{ n: "Core", mo: 750, keys: CORE },
                    { n: "Pro", mo: 1395, keys: CORE.concat(["frontdesk","map","marquee"]) },
-                   { n: "Custom", mo: 2500, keys: CATALOG.map(function (p) { return p.k; }) }];
+                   { n: "Custom", mo: 2800, keys: CATALOG.map(function (p) { return p.k; }) }];
         var picked = CATALOG.filter(function (p) { return on[p.k]; }).map(function (p) { return p.k; });
         var fit = null;
         BUN.forEach(function (b) { if (!fit && picked.every(function (k) { return b.keys.indexOf(k) !== -1; })) fit = b; });
@@ -596,7 +596,7 @@
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month, cancels in one click, and billing doesn't even start until the product is verified live on your account.";
-      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,500/mo</b> (every product, with triple usage allowances; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. Hosting costs what your domain costs, billed once a year.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
       if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites from <b>$500</b>. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
