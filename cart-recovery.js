@@ -136,7 +136,7 @@
           cur.id = r.cart_id;
           lsSet(HOLD_KEY, JSON.stringify(cur));
         }
-        msg.textContent = "Saved. Your cart is held for " + HOLD_HOURS + " hours.";
+        msg.textContent = "Saved. We've emailed you a link to finish from any device.";
         msg.className = "cs-msg ok";
         form.classList.add("done");
         track("cart_email_captured", cart().join(","));
