@@ -885,6 +885,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           <div class="ibx-head" id="ibxHead" style="display:none">
             <div><div class="who" id="ibxWho">—</div><div class="meta" id="ibxMeta">—</div></div>
             <button class="btn lite sm" id="ibxBook" style="margin-left:auto">Book a call</button>
+            <button class="btn lite sm" id="ibxCare" type="button">Care rate</button>
           </div>
           <div class="ibx-msgs" id="ibxMsgs"></div>
           <div id="ibxBookBox" style="display:none;border-top:1px solid var(--line);padding:14px 16px">
@@ -898,6 +899,22 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
               <button class="btn lite sm" id="ibxCancelBook">Cancel</button>
             </div>
             <div id="ibxBookMsg" class="hint" style="font-size:13px;margin-top:9px"></div>
+          </div>
+          <!-- 2026-09-24: website Care Plan discount. Partners may take up to 50% off the $50 Care Plan
+               (floor $25) themselves; the engine's care_rate action applies it in Stripe (lower only, own
+               clients only, care product only) or records it if care hasn't started yet. -->
+          <div id="ibxCareBox" style="display:none;border-top:1px solid var(--line);padding:14px 16px">
+            <div class="field" style="margin-bottom:8px">
+              <label>Website care rate, per month</label>
+              <input id="ibxCareRate" type="text" inputmode="decimal" placeholder="e.g. 35" style="max-width:160px">
+            </div>
+            <p class="hint" style="font-size:13px;margin:0 0 10px">Care is $50 a month. You can take up to 50% off,
+              so anything from $25 to $50. It starts with their next bill. Lower than $25 needs Station: email main@station.solutions.</p>
+            <div style="display:flex;gap:8px">
+              <button class="btn dark sm" id="ibxCareSet" type="button">Set care rate</button>
+              <button class="btn lite sm" id="ibxCareCancel" type="button">Cancel</button>
+            </div>
+            <div id="ibxCareMsg" class="hint" style="font-size:13px;margin-top:9px"></div>
           </div>
           <div class="ibx-comp" id="ibxComp" style="display:none">
             <textarea id="ibxText" placeholder="Write a reply…"></textarea>
@@ -2396,6 +2413,7 @@ function openThread(cid){
   curClient=t; drawThreadList();
   $("ibxHead").style.display="flex"; $("ibxComp").style.display="flex";
   $("ibxBookBox").style.display="none";
+  if($("ibxCareBox")){$("ibxCareBox").style.display="none";$("ibxCareMsg").textContent="";}
   $("ibxWho").textContent=t.name;
   $("ibxMeta").textContent=[t.email,t.phone,(TIER[t.tier]||t.tier||"")].filter(Boolean).join(" · ");
   $("ibxMsgs").innerHTML='<div class="ibx-empty">Loading…</div>';
@@ -3212,6 +3230,24 @@ $("ibxSend").addEventListener("click",sendIbx);
 $("ibxText").addEventListener("keydown",function(e){
   if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();sendIbx();}});
 $("ibxBook").addEventListener("click",openBooking);
+/* Care rate (engine v4.42 care_rate): the partner applies an agreed Care Plan discount themselves. */
+$("ibxCare").addEventListener("click",function(){
+  var box=$("ibxCareBox"); if(!curClient)return;
+  $("ibxBookBox").style.display="none";
+  box.style.display=(box.style.display==="none")?"block":"none";
+  $("ibxCareMsg").textContent=""; $("ibxCareRate").value="";
+});
+$("ibxCareCancel").addEventListener("click",function(){ $("ibxCareBox").style.display="none"; });
+$("ibxCareSet").addEventListener("click",function(){
+  if(!curClient)return;
+  var n=Number(String($("ibxCareRate").value||"").replace(/[$,\s]/g,"")), msg=$("ibxCareMsg");
+  if(!isFinite(n)||n<25||n>50){ msg.textContent="Enter an amount from $25 to $50. For less than $25, email main@station.solutions."; return; }
+  if(!confirm("Set "+(curClient.name||"this client")+"'s website care to $"+n.toFixed(2)+" a month?\n\nIf they're already paying for care, this changes their bill from their next invoice.")){ return; }
+  var btn=$("ibxCareSet"); btn.disabled=true; msg.textContent="Updating…";
+  post({action:"care_rate",token:token,contactId:curClient.contactId,rate:n}).then(function(d){
+    btn.disabled=false; msg.textContent=(d&&(d.ok?d.message:d.error))||"Couldn't update. Try again.";
+  }).catch(function(){ btn.disabled=false; msg.textContent="Network error. Try again."; });
+});
 $("ibxCancelBook").addEventListener("click",function(){$("ibxBookBox").style.display="none";});
 $("ibxCal").addEventListener("change",loadSlots);
 $("ibxConfirm").addEventListener("click",confirmBooking);
