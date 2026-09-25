@@ -204,7 +204,7 @@ A website designed around the business, not a template. It has booking and lead 
 
 It's **priced to the project**, with no published price, so never quote a number. The owner answers about 5 minutes of questions at station.solutions/custom/. Station builds a free demo by hand and emails it within 2 to 3 business days. Nothing is charged until they've seen it and said yes.
 
-Hosting costs exactly what their domain costs, billed once a year. Care is priced for each business. Station quotes both with the demo, or hands the site over if they want to run it themselves.
+After it's built, the client either takes the site over and runs it themselves, or goes on Station's **Care Plan at $50 a month**: Station hosts the site, keeps their domain renewed and looks after it, and makes one small change a month (bigger changes are quoted). If the client pushes back on the $50, don't lower it yourself. Tell them you'll check with Station and email main@station.solutions, because Station can bring it down.
 
 ### Greet (website chat)
 
@@ -546,7 +546,8 @@ These come from your Partner Agreement and Station's policies.
 
 - Quote only prices published on station.solutions, checked before you quote.
 - No discounts, credits, custom prices, rebates or side incentives (including sharing your commission) without Station's written consent.
-- Never quote a price for a custom website, website care, multi-location Repute or Echo, or anything not in the catalogue.
+- Never quote a price for a custom website build, multi-location Repute or Echo, or anything not in the catalogue.
+- Website care is $50 a month. Never lower it yourself: if a client pushes back, ask Station, which can bring it down.
 - The mobile app is free. Never quote a price for it.
 
 ### Promises
@@ -592,7 +593,7 @@ Station can suspend or remove a partner, and forfeit unpaid commission for cause
 - A client wants to cancel, downgrade or pause.
 - A client complains, is upset, or mentions a lawyer, a legal problem or a regulator.
 - Someone asks for a discount, a custom price, a longer trial or an annual plan.
-- Someone wants a website quote, website care, or multi-location Repute or Echo.
+- Someone wants a website quote, pushes back on the $50 Care Plan, or wants multi-location Repute or Echo.
 - Someone asks for something not in the catalogue, or about contract terms beyond what's on the site.
 - A business has no EIN, or has a carrier registration problem.
 - Someone asks about keeping or moving a phone number and you're not sure.
@@ -676,7 +677,11 @@ Yes. Single products start with a 7-day free trial on their Standard plan, and b
 
 ### Q: What does a custom website cost?
 
-It's priced to the project. The owner starts at station.solutions/custom/, gets a free demo in 2 to 3 business days, and pays nothing until they say yes. Hosting costs what the domain costs, billed yearly, and Station quotes care for each business.
+The build is priced to the project. The owner starts at station.solutions/custom/, gets a free demo in 2 to 3 business days, and pays nothing until they say yes. After that, the Care Plan is $50 a month (hosting, domain renewal, upkeep and one small change a month), or they can take the site over and run it themselves.
+
+### Q: What does website care cost, and do I earn on it?
+
+The Care Plan is $50 a month: Station hosts the site, keeps the domain renewed, looks after it and makes one small change a month. It's a recurring fee, so you earn your 40% on what the client actually pays for it. If a client pushes back on the $50, don't lower it yourself. Email main@station.solutions, because Station can bring it down.
 
 ### Q: What's in each bundle?
 
