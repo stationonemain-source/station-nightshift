@@ -534,6 +534,33 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 .tpl-item:hover{color:var(--ink);border-color:var(--line-2)}
 .tpl-item[data-on]{background:var(--pay);border-color:var(--pay);color:#0D1117}
 .tpl-state{font-size:13px;color:var(--faint);margin-top:9px}
+/* ---- Support tab (2026-09-24): Ask Station + the Partner Guide ---- */
+.ask-log{display:flex;flex-direction:column;gap:12px;margin:16px 0 12px;max-height:560px;overflow-y:auto}
+.ask-log:empty{display:none}
+.ask-q{align-self:flex-end;background:var(--ink);color:var(--card);border-radius:14px 14px 4px 14px;padding:10px 14px;max-width:85%;white-space:pre-wrap;font-size:.95rem}
+.ask-a{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:13px 16px;max-width:94%;font-size:.95rem}
+.ask-a.wait{color:var(--muted)}
+.ask-a p,.g-body p{margin:0 0 9px}
+.ask-a ul,.ask-a ol,.g-body ul,.g-body ol{margin:0 0 10px;padding-left:20px}
+.ask-a li,.g-body li{margin:0 0 4px}
+.g-quote{border-left:3px solid var(--pay);background:color-mix(in srgb,var(--pay) 7%,transparent);padding:10px 13px;border-radius:0 10px 10px 0;margin:8px 0 4px;white-space:pre-wrap}
+.cpy{font:600 11px var(--fm);letter-spacing:.06em;text-transform:uppercase;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;color:var(--muted);margin:2px 0 10px}
+.cpy:hover{color:var(--ink);border-color:var(--ink)}
+.ask-row{display:flex;gap:8px;align-items:flex-end}
+.ask-row textarea{flex:1;min-height:54px;max-height:200px;resize:vertical;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:16px/1.5 var(--fb);padding:12px 14px}
+.ask-row textarea:focus{outline:none;border-color:var(--ink)}
+#askChips{margin-top:14px}
+.g-sec{border-top:1px solid var(--line)}
+.g-sec:first-child{border-top:0}
+.g-sec>summary{cursor:pointer;list-style:none;font:600 16px var(--fd);padding:15px 0;display:flex;justify-content:space-between;gap:12px}
+.g-sec>summary::-webkit-details-marker{display:none}
+.g-sec>summary::after{content:"+";color:var(--muted);font-family:var(--fm)}
+.g-sec[open]>summary::after{content:"\2212"}
+.g-body{padding:0 0 14px}
+.g-body h3{font:600 15px var(--fd);margin:18px 0 6px}
+.g-body code{font-family:var(--fm);font-size:.88em}
+#guideBody mark{background:color-mix(in srgb,var(--pay) 28%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+@media (max-width:600px){.ask-row{flex-direction:column;align-items:stretch}.ask-q,.ask-a{max-width:100%}}
 </style>
 </head>
 <body>
@@ -611,6 +638,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <button class="tab" data-tab="calendar">Calendar</button>
       <button class="tab" data-tab="products">Products &amp; scripts</button>
       <button class="tab" data-tab="paid">How you get paid</button>
+      <button class="tab" data-tab="support">Support</button>
       <button class="tab" data-tab="training">Training</button>
     </div>
 
@@ -899,7 +927,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     <div class="panel" data-panel="paid">
       <div class="card">
         <h2>How the money works</h2>
-        <p class="note" style="margin-bottom:14px">How Partner pay works — see the Training tab for the full breakdown. Short version:</p>
+        <p class="note" style="margin-bottom:14px">How Partner pay works — see the Support tab for the full breakdown. Short version:</p>
         <ol class="steps">
           <li><b>Partner — 40% recurring, forever.</b> You close and manage your own clients (or ones distributed to you). You earn 40% of what they actually pay Station, every month they stay — calculated on cleared invoices, never list price. No bonus on top, no tier to climb.</li>
           <li><b>You get paid every two weeks.</b> We need your tax form on file first (W-9 US / W-8BEN outside the US).</li>
@@ -909,6 +937,36 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <div class="card">
         <h2 class="tight">Questions</h2>
         <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--pay);font-weight:600">main@station.solutions</a>. Full terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Partner Agreement</a>.</p>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="support">
+      <div class="card">
+        <h2 class="tight">Ask Station</h2>
+        <p class="note">Ask anything about Station, what we sell, or how to answer a client or a lead. Answers come
+          from the Partner Guide below. The Station team reads these questions so we can keep the guide sharp.</p>
+        <div class="chips" id="askChips">
+          <button class="chip" type="button" data-ask="A lead asked how much it costs. What should I reply?">"How much is it?"</button>
+          <button class="chip" type="button" data-ask="A business owner says they already have a website. What do I say?">"I already have a website"</button>
+          <button class="chip" type="button" data-ask="A lead asked me to just send them more info. What should I send?">"Send me more info"</button>
+          <button class="chip" type="button" data-ask="A lead asked if this is a scam. How do I answer?">"Is this legit?"</button>
+          <button class="chip" type="button" data-ask="What happens after my client pays, and what do I need to do?">After they buy</button>
+          <button class="chip" type="button" data-ask="When and how do I get paid, and what do I need to have on file?">Getting paid</button>
+        </div>
+        <div class="ask-log" id="askLog" aria-live="polite"></div>
+        <div class="ask-row">
+          <textarea id="askQ" rows="2" maxlength="1500" placeholder="e.g. A client says they need to think about it. What should I text back?"></textarea>
+          <button class="btn" id="askBtn" type="button">Ask</button>
+        </div>
+        <p class="msg" id="askMsg"></p>
+      </div>
+      <div class="card">
+        <h2 class="tight">Partner guide</h2>
+        <p class="note">Everything about selling Station, answering clients and getting paid. Search it, or open a section.
+          Ready-to-send replies have a Copy button.</p>
+        <input class="inp" id="guideSearch" type="search" placeholder="Search the guide, e.g. cancel, trial, refund, website">
+        <p class="note" id="guideCount" style="margin-top:8px"></p>
+        <div id="guideBody"><p class="note">Loading the guide&hellip;</p></div>
       </div>
     </div>
 
@@ -3514,7 +3572,117 @@ $("appView").querySelectorAll(".tab").forEach(function(t){
     if(t.dataset.tab==="calendar")calLoad();
     if(t.dataset.tab==="demos")loadTemplates();
     if(t.dataset.tab==="leads")loadLeads();
+    if(t.dataset.tab==="support")loadGuide();
   });
+});
+
+/* ================= SUPPORT: the Partner Guide + Ask Station (2026-09-24) =================
+   One source of truth: /partners/guide.md. This tab renders it, and the engine's `ask` action
+   hands the same file to Claude, so the page and the assistant cannot disagree. To change an
+   answer, edit guide.md. The guide's internal "Open questions for Circle" section is never shown. */
+var GUIDE=null, ASK_HIST=[], ASK_BUSY=false;
+function mdInline(s){
+  return esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>")
+    .replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+function mdBlocks(lines){
+  var out=[],i=0,l,buf;
+  while(i<lines.length){
+    l=lines[i];
+    if(!l.trim()){i++;continue;}
+    if(/^### /.test(l)){out.push("<h3>"+mdInline(l.slice(4))+"</h3>");i++;continue;}
+    if(/^>/.test(l)){buf=[];while(i<lines.length&&/^>/.test(lines[i])){buf.push(lines[i].replace(/^> ?/,""));i++;}
+      var t=buf.join("\n").trim();
+      out.push('<div class="g-quote">'+mdInline(t)+'</div><button class="cpy" type="button" data-copy="'+esc(t)+'">Copy</button>');continue;}
+    if(/^[-*] /.test(l)){buf=[];while(i<lines.length&&/^[-*] /.test(lines[i])){buf.push("<li>"+mdInline(lines[i].slice(2))+"</li>");i++;}
+      out.push("<ul>"+buf.join("")+"</ul>");continue;}
+    if(/^\d+\. /.test(l)){buf=[];while(i<lines.length&&/^\d+\. /.test(lines[i])){buf.push("<li>"+mdInline(lines[i].replace(/^\d+\. /,""))+"</li>");i++;}
+      out.push("<ol>"+buf.join("")+"</ol>");continue;}
+    buf=[];while(i<lines.length&&lines[i].trim()&&!/^(### |>|[-*] |\d+\. |## )/.test(lines[i])){buf.push(lines[i]);i++;}
+    if(buf.length){out.push("<p>"+mdInline(buf.join(" "))+"</p>");}else{i++;}
+  }
+  return out.join("");
+}
+function parseGuide(md){
+  md=String(md||"").replace(/\r/g,"");
+  var cut=md.search(/\n## Open questions for Circle/);if(cut>=0){md=md.slice(0,cut);}
+  var secs=[],cur=null;
+  md.split("\n").forEach(function(l){
+    if(/^# /.test(l)){return;}
+    if(/^## /.test(l)){cur={title:l.slice(3).trim(),lines:[]};secs.push(cur);return;}
+    if(cur){cur.lines.push(l);}
+  });
+  // each section splits again at ### so a search can show just the matching question
+  secs.forEach(function(s){
+    var parts=[],p={head:"",lines:[]};
+    s.lines.forEach(function(l){if(/^### /.test(l)){parts.push(p);p={head:l,lines:[l]};}else{p.lines.push(l);}});
+    parts.push(p);
+    s.parts=parts.filter(function(x){return x.lines.join("").trim();}).map(function(x){return {lines:x.lines,text:x.lines.join(" ").toLowerCase()};});
+    s.text=(s.title+" "+s.lines.join(" ")).toLowerCase();
+  });
+  return secs;
+}
+function markHits(root,words){
+  if(!words.length){return;}
+  var re=new RegExp("("+words.map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")","gi");
+  var walk=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),nodes=[],n;
+  while((n=walk.nextNode())){if(n.parentNode&&n.parentNode.nodeName!=="MARK"&&re.test(n.nodeValue)){nodes.push(n);}re.lastIndex=0;}
+  nodes.forEach(function(t){var s=document.createElement("span");s.innerHTML=esc(t.nodeValue).replace(re,"<mark>$1</mark>");t.parentNode.replaceChild(s,t);});
+}
+function renderGuide(){
+  var host=$("guideBody");if(!host||!GUIDE){return;}
+  var q=String(($("guideSearch")||{}).value||"").trim().toLowerCase();
+  var words=q.split(/\s+/).filter(function(w){return w.length>1;});
+  var hit=function(t){return words.every(function(w){return t.indexOf(w)>=0;});};
+  var html=[],shown=0;
+  GUIDE.forEach(function(s,i){
+    var body;
+    if(!words.length){body=mdBlocks(s.lines);}
+    else{var ps=s.parts.filter(function(p){return hit(p.text)||hit(s.title.toLowerCase()+" "+p.text);});
+      if(!ps.length){return;}
+      body=mdBlocks([].concat.apply([],ps.map(function(p){return p.lines.concat([""]);})));shown+=ps.length;}
+    html.push('<details class="g-sec" id="g'+i+'"'+(words.length?" open":"")+'><summary>'+esc(s.title)+'</summary><div class="g-body">'+body+'</div></details>');
+  });
+  host.innerHTML=html.join("")||'<p class="note">Nothing in the guide matches that. Try another word, or ask Station above.</p>';
+  var c=$("guideCount");if(c){c.textContent=words.length?(shown+" match"+(shown===1?"":"es")):"";}
+  markHits(host,words);
+}
+function loadGuide(){
+  if(GUIDE){return;}
+  fetch("/partners/guide.md",{cache:"no-cache"}).then(function(r){if(!r.ok){throw new Error(r.status);}return r.text();})
+    .then(function(md){GUIDE=parseGuide(md);renderGuide();})
+    .catch(function(){var h=$("guideBody");if(h){h.innerHTML='<p class="note">The guide didn\'t load. Refresh the page, or email main@station.solutions.</p>';}});
+}
+function askAdd(role,text,cls){
+  var log=$("askLog"),d=document.createElement("div");
+  d.className=(role==="user"?"ask-q":"ask-a")+(cls?" "+cls:"");
+  if(role==="user"){d.textContent=text;}
+  else if(cls==="wait"){d.textContent=text;}
+  else{d.innerHTML=mdBlocks(String(text).replace(/\r/g,"").split("\n"))+'<button class="cpy" type="button" data-copy="'+esc(text)+'">Copy answer</button>';}
+  log.appendChild(d);log.scrollTop=log.scrollHeight;
+  return d;
+}
+function askSend(q){
+  q=String(q||"").trim();
+  if(!q||ASK_BUSY){return;}
+  ASK_BUSY=true;$("askBtn").disabled=true;$("askMsg").className="msg";
+  askAdd("user",q);$("askQ").value="";
+  var wait=askAdd("assistant","Looking that up…","wait");
+  post({action:"ask",token:token,q:q,history:ASK_HIST.slice(-6)}).then(function(d){
+    wait.remove();
+    if(d&&d.ok){askAdd("assistant",d.answer);ASK_HIST.push({role:"user",content:q},{role:"assistant",content:d.answer});}
+    else{say($("askMsg"),(d&&d.error)||"Ask Station didn't answer. Try again.","err");}
+  }).catch(function(){wait.remove();say($("askMsg"),"Network error. Try again.","err");})
+  .then(function(){ASK_BUSY=false;$("askBtn").disabled=false;});
+}
+$("askBtn").addEventListener("click",function(){askSend($("askQ").value);});
+$("askQ").addEventListener("keydown",function(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();askSend($("askQ").value);}});
+$("guideSearch").addEventListener("input",renderGuide);
+$("appView").addEventListener("click",function(e){
+  var c=e.target.closest?e.target.closest("[data-copy]"):null;
+  if(c&&c.closest("[data-panel=support]")){copyTo(c,c.getAttribute("data-copy"));return;}
+  var a=e.target.closest?e.target.closest("[data-ask]"):null;
+  if(a){askSend(a.getAttribute("data-ask"));}
 });
 
 $("logout").addEventListener("click",function(){
