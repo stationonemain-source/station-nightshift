@@ -79,7 +79,7 @@ The site remembers your code in that visitor's browser for 30 days and carries i
 
 - **Free trials:** nothing is earned during a free trial. Commission starts when the trial has ended and the client's first real payment has cleared.
 - **Prepaid clients** (for example, an annual plan): your commission is paid in equal monthly installments across the prepaid months, not as a lump sum.
-- **Payouts** are made by hand **every two weeks**. Each run covers commission on client payments that cleared since the last run.
+- **Payouts** are made by hand **every two weeks**. Each run covers commission on client payments that cleared since the last run, and goes to your Stripe account.
 - The **minimum payout is $50**. Smaller balances roll forward and never expire.
 - Station may hold commission on a payment for **up to 30 days after it clears**, which is the refund and chargeback window.
 
@@ -87,13 +87,13 @@ The site remembers your code in that visitor's browser for 30 days and carries i
 
 **Nothing is paid until your tax form is on file.** U.S. persons need IRS Form W-9, and non-U.S. individuals need Form W-8BEN. Commission can build up before that, but no payout is made.
 
-Upload it in the **Before we can pay you** card on your Dashboard as a PDF, JPG or PNG under 5MB. The card links to the official IRS form, which you can fill in and sign in your browser. Don't email it, because it carries your Social Security number.
+Upload it in the **Tax form** part of **How you get paid** (under **Get set up**) as a PDF, JPG or PNG under 5MB. Until it's on file, your Dashboard shows a reminder line that takes you there. The card links to the official IRS form, which you can fill in and sign in your browser. Don't email it, because it carries your Social Security number.
 
 Station issues a Form 1099 where the law requires. Your income and self-employment taxes are your own responsibility.
 
 ### How the money reaches you
 
-Station pays partners through Stripe. When your payouts are set up, Station sends you a one-time link to create a Stripe Express account, where you enter your bank details directly with Stripe. Station never asks for or stores your account numbers. Stripe's own identity check doesn't replace your W-9. Keep your payout details correct; Station isn't responsible for money sent to details you provided.
+Station pays partners through Stripe. In **How you get paid**, press **Set up payouts with Stripe**. It opens your own Stripe Express setup, where you type your bank details on Stripe's site. Station never sees or stores them. Once it's started, the button reads **Open my Stripe setup link**: the link stays yours, so use it any time to finish or check your setup. The card shows what Stripe still needs (for example a bank account or Stripe's terms). Stripe's own identity check doesn't replace your W-9. Keep your payout details correct; Station isn't responsible for money sent to details you provided.
 
 ### Refunds, chargebacks and cancellations
 
@@ -127,25 +127,52 @@ Once you're signed in, you'll see seven tabs: **Dashboard, Leads, Book of busine
 
 ### Dashboard
 
+- **Today** is three tiles at the top, and each one opens the place it's about.
+- The **leads to call** tile counts your Not called yet plus To call leads and opens Leads. On a phone it opens straight into Calling mode.
+- The **money** tile shows what's on hold and when it's due to be released, what's ready, or "No commission yet". It opens How you get paid.
+- The **new messages** tile counts replies from the Station team you haven't opened yet. It opens Message Station.
+- If your tax form isn't on file yet, a line under the tiles says **Upload your tax form to get paid** and takes you to How you get paid.
+- **Message Station** is your thread with the Station team (see below).
 - **Your referral link** has a **Copy link** button.
 - **Your numbers** shows Clicks, Referral leads (people who came through your link and filled in a form), Clients, and Commission per month.
 - **Your current payout rate** shows the Partner track at 40% recurring.
 - **Alerts in your Discord** is optional: alerts for add-ons and change requests, purchases, the setup steps when a client buys, and new leads. Join the private Station channel (then enter your lowercase Discord handle), or paste a webhook link from your own server; the portal sends a test message when you save. You still reply to clients in the portal.
-- **Tax form card** is where you upload your W-9 or W-8BEN.
+
+### Message Station
+
+Message Station is on your Dashboard. It goes to the Station team, which is people, not Ask Station.
+
+- Type your message and press **Send**. It arrives in Station's inbox straight away.
+- Station's replies show in the same thread. When Station replies by email, you get it in your email as well.
+- You can send up to 20 messages a day. If something can't wait, email main@station.solutions.
+- Use it for anything about your account, your leads, your pay, or a client. Don't send tax forms or bank details here.
 
 ### Leads
 
-This is your working sheet of every business you're talking to. No other partner can see it.
+This is your working sheet of every business you're talking to: the leads Station sends you, the ones you pull, and the ones you add. No other partner can see it.
 
+- **The three bubbles** at the top count your sheet, and pressing one filters the sheet to it (press it again to see every row).
+- **Leads** is every open lead: not archived, and not Won, Not interested, Bad lead or Do not call.
+- **Not called yet** is the open leads you haven't called and haven't given a status.
+- **To call** is the leads to call again today: a Call back whose day has come, or a No answer or Voicemail from an earlier day. A lead you tried today comes back tomorrow.
+- **Leads from Station** carry a **◆ From Station** badge with the days left on the lead. Station sends leads from the area and trades it has set for you, and the line under the bubbles shows them (for example "Station sends leads from Tulsa, OK · roofing, plumbing").
+- **Ask Station for more leads:** Station sends a set number of leads at a time. When you've called every lead Station sent you, press **Ask Station for more leads** and Station gets the request. Until then the button reads **Call your N remaining leads first**. After you ask, it shows **Asked** with the date. Leads you add or pull yourself never hold this up.
+- **Call** (on each open row with a phone number) opens the call panel. On a phone it fills the screen as **Calling mode**. **Start calling** walks every Not called yet lead first, then every To call lead, and **Next lead** moves on.
+- The call panel shows the business, city, trade and rating, **What to say** (the gap, the pitch and price, and your last tries), and how many days are left on the lead.
+- **Calling hours:** the panel shows the business's local time and **OK to call now**, or when you can call. Calls are only for 9 am to 8 pm, Monday to Saturday, in the business's own time zone, and outside those hours the call button is switched off. If a lead has no state, the panel can't tell its time zone and asks you to check their local time before calling.
+- **What happened?** Press **No answer**, **Voicemail**, **Bad lead** (wrong number, closed, or not a fit) or **Talked to them**. After Talked to them, pick **Interested**, **Call back** (with the day), **Not interested**, **Do not call** or **Won — they're buying**.
+- The one-line **note** in the call panel is saved with the call, and Station sees it.
+- **Won** on a lead Station sent tells Station straight away. Station checks it and accepts it; it joins your book as a client when they pay. For a business you found yourself, add them with **Add client** in Book of business and email Station.
+- **Bad lead** is how you hand a lead back: wrong number, closed, or not a fit. There's no separate give-back button, and leads Station sent you can't be archived by hand. Mark them Bad lead or call them, and Station takes its leads back itself.
 - **Add lead:** the business, contact details, the gap (what's costing them work) and the product you're pitching. A phone or an email is enough to start, and **Look it up** can fill in details.
 - **Pull leads:** enter a trade, a city and a number. Station drops real local businesses into your sheet, each with a likely gap and an estimated dollar figure. You can pull up to 15 a day, and they arrive within minutes.
-- **Status:** New, Called, No answer, Interested, Demo sent, Won or Not interested.
+- **Status:** New, Called, No answer, Voicemail, Interested, Call back, Demo sent, Won, Not interested, Bad lead or Do not call. Choosing **Call back** asks for the day. If a status can't be saved, the sheet puts the old one back and says why.
 - **Follow up:** set a date on each row. The **Due** filter shows who to contact today.
 - **Notes:** a running journal on each row.
-- **Filters:** Open, Due, Interested, Won and Archived, plus a search box.
-- **Edit** changes anything on a lead. **Archive** sets a row aside, and **Restore** brings it back. Nothing is ever deleted.
+- **Filters:** All, Open, Due, Interested (includes Call back), Won, Closed (Not interested, Bad lead, Do not call) and Archived, plus a search box. The **Calls** column shows how many times you've called, the day of the last try and how it went (for example "2 · Tue · no answer").
+- **Edit** changes anything on a lead. **Archive** sets a row aside, and **Restore** brings it back. Nothing is ever deleted. Leads from Station have no Archive button, and one that Station took back or that ran out of days can't be restored.
 - **Request website** asks Station to build that business a website. A person picks it up; nothing is automatic. The row then shows **Website requested**. It changes to **Website ready** with a **Copy link** button once the site is built. If Station declines, it shows **Station passed** with a reason, and you can **Ask again**.
-- Rows you add stay until you archive them. Leads Station gives you (including pulled leads) move to your archive after 14 days, and you can restore them.
+- How long rows stay: **pulled leads** 14 days. **Leads Station sends** 30 days from your last call, or 14 days once closed (60 days once Won). **Rows you add** stay a year. After that a row moves to your archive.
 - There's an **Export CSV** button. Your agreement says not to copy lead or client details out of Station's systems into a personal spreadsheet, list or CRM, so don't use exports without asking Station.
 
 The estimated dollar figures are conversation starters, not facts. Never tell an owner they're losing a specific amount.
@@ -178,7 +205,21 @@ Each product card shows its price, a plain description, **Why they buy it**, a s
 
 ### How you get paid
 
-A summary of partner pay, the email for questions, and a link to the Partner Agreement.
+Four parts, read live from Stripe:
+
+1. **Get set up.** Your Stripe payout account (**Set up payouts with Stripe**, then **Open my Stripe setup link**, a link that stays yours), your **Tax form** upload, and your Partner Agreement. You type your bank details on Stripe's site; Station never sees or stores them.
+2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout**, **Paid to date**, and **Next payout**. Station pays every two weeks once $50 is ready.
+3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus every payout Station has sent you.
+4. **How your pay works.** The short version of sections 7 to 9 of your agreement, a worked example, and any special terms Station agreed with you. Questions go to **Message Station**.
+
+What the statuses in the payout log mean:
+
+- **Waiting for the client's payment to settle:** the card payment hasn't reached Station's account yet.
+- **On hold until** a date: a new client's first payment is held for 30 days after it clears, which is the refund and chargeback window. Renewals aren't held.
+- **Waiting on you: Stripe setup** or **Waiting on you: tax form:** it's earned, and it's paid once you finish that step.
+- **Ready for your next payout.**
+- **Sent to your Stripe account** with the date.
+- **Reversed:** the client's payment was refunded or disputed.
 
 ### Support
 
@@ -566,7 +607,7 @@ Whenever you recommend Station publicly (a post, review, comment or video), say 
 - **No spam:** no unsolicited bulk email, texts or calls.
 - **Email** must follow CAN-SPAM: an honest subject and sender, and an easy opt-out. Write one-to-one, and never send a mass email.
 - **Texts** go only to people who've agreed to hear from you, one person at a time. Never mass-text. Honor STOP, and any request to stop, immediately.
-- **Calls** must follow the TCPA and state telemarketing rules: dial by hand (no autodialers or recordings), and respect do-not-call requests, do-not-call lists and calling hours. Your plain-English summary says no calls or texts to people who haven't agreed to them, so if you're unsure whether a call is allowed, ask Station first.
+- **Calls** must follow the TCPA and state telemarketing rules: dial by hand (no autodialers or recordings), and respect do-not-call requests, do-not-call lists and calling hours. Call only between **9 am and 8 pm, Monday to Saturday, in the business's own time zone**. The portal's call panel shows their local time and switches the call button off outside those hours. When someone asks not to be called again, mark them **Do not call**. Your plain-English summary says no calls or texts to people who haven't agreed to them, so if you're unsure whether a call is allowed, ask Station first.
 - **Client texting** through Station's products starts only after carrier registration (A2P 10DLC) is approved. It goes only to the client's own customers who gave that business their number. A past purchase alone isn't consent to text, which is why Revive is email-first.
 - Station doesn't currently have its own texting number.
 
@@ -641,11 +682,11 @@ Commission starts only after any free trial ends and the first payment clears, a
 
 ### Q: Do I need a W-9?
 
-Yes, if you're a U.S. person. Non-U.S. individuals need a W-8BEN. Nothing is paid until it's on file. Upload it on your Dashboard, and don't email it.
+Yes, if you're a U.S. person. Non-U.S. individuals need a W-8BEN. Nothing is paid until it's on file. Upload it in How you get paid, under Get set up, and don't email it.
 
 ### Q: How do I receive the money?
 
-Through Stripe. Station sends a one-time link to set up a Stripe Express account, where you enter your bank details.
+Through Stripe. In How you get paid, press **Set up payouts with Stripe** to open your own Stripe Express setup, where you type your bank details on Stripe's site. The link stays yours: **Open my Stripe setup link** takes you back any time.
 
 ### Q: What if a client gets a refund?
 
@@ -709,7 +750,7 @@ Only people who've agreed to hear from you, one at a time. Stop if they ask, and
 
 ### Q: Can I call the businesses from Pull leads?
 
-Dial by hand, follow do-not-call and calling-hour rules, and stop if they ask. Don't text or email them unless they agree. If you're unsure, ask Station first.
+Dial by hand, call only 9 am to 8 pm, Monday to Saturday, in their time zone, follow do-not-call rules, and stop if they ask. Don't text or email them unless they agree. If you're unsure, ask Station first.
 
 ### Q: Can I email a demo to a business?
 
@@ -742,6 +783,22 @@ No. Never ask for or use a client's logins, passwords, bank details or ID.
 ### Q: What's Station's phone number?
 
 There isn't one. The only contact is main@station.solutions.
+
+### Q: What's the difference between Bad lead, Not interested and Do not call?
+
+**Bad lead** means the lead itself is wrong: a wrong number, a closed business, or not a fit. **Not interested** means you reached them and they said no. **Do not call** means they asked not to be called again. All three close the lead. On a lead Station sent you, Station won't send that business to anyone again: never after Do not call or Bad lead, and not for 180 days after Not interested.
+
+### Q: Why is the Call button grey?
+
+It's outside calling hours where the business is: before 9 am, after 8 pm, or on a Sunday in their time zone. The panel tells you when you can call.
+
+### Q: How do I get more leads from Station?
+
+Call every lead Station sent you, then press **Ask Station for more leads** on the Leads tab. Station decides how many it sends at a time and from which area.
+
+### Q: How do I talk to a person at Station?
+
+Use **Message Station** on your Dashboard. Ask Station on the Support tab answers from this guide; Message Station goes to the team.
 
 ### Q: Is there a quota?
 

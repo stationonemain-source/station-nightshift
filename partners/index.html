@@ -561,6 +561,112 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
 .g-body code{font-family:var(--fm);font-size:.88em}
 #guideBody mark{background:color-mix(in srgb,var(--pay) 28%,transparent);color:inherit;border-radius:3px;padding:0 1px}
 @media (max-width:600px){.ask-row{flex-direction:column;align-items:stretch}.ask-q,.ask-a{max-width:100%}}
+/* ================= 2026-09-26 (C3/E1): Today strip, Message Station, Station leads, calling, payouts =================
+   New rules keep to the 7-size type scale (11/12.5/14/16/20/26/30 px) and radii 6/10/999/50%. */
+.dot.s-voicemail{background:transparent;box-shadow:inset 0 0 0 2px var(--muted)}
+.dot.s-callback{background:var(--amber)}
+.dot.s-bad_lead{background:transparent;box-shadow:inset 0 0 0 2px var(--red)}
+.dot.s-dnc{background:var(--red);box-shadow:0 0 0 2px rgba(255,107,90,.28)}
+.today-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+@media(max-width:700px){.today-strip{grid-template-columns:1fr;gap:8px}}
+.tt{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;cursor:pointer;color:var(--ink);font:inherit}
+.tt:hover{border-color:var(--pay)}
+.tt[data-hot]{border-color:color-mix(in srgb,var(--pay) 55%,var(--line))}
+.tt .v{font:700 20px/1.25 var(--fd);letter-spacing:-.01em}
+.tt .k{font:400 12.5px/1.45 var(--fb);letter-spacing:0;text-transform:none;color:var(--muted);margin:4px 0 0}
+.tt .go{font:600 11px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--pay-d);margin-top:10px}
+@media(max-width:700px){.tt{padding:13px 15px}.tt .go{margin-top:6px}}
+.linkish{background:none;border:0;padding:0;font:inherit;color:var(--pay-d);cursor:pointer;text-decoration:underline;
+  text-underline-offset:3px;text-align:left}
+.linkish:hover{color:var(--ink)}
+.taxline{font-size:14px;margin:0 0 14px;padding:11px 14px;border:1px solid rgba(212,167,44,.35);border-radius:10px;
+  background:rgba(212,167,44,.07)}
+.msth{background:var(--bg);border:1px solid var(--line);border-radius:10px;max-height:380px;overflow-y:auto;
+  padding:14px;display:flex;flex-direction:column;gap:9px;margin:14px 0 12px}
+.mm{max-width:82%;padding:9px 13px;border-radius:10px;font-size:14px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.mm.st{align-self:flex-start;background:var(--card);border:1px solid var(--line-2)}
+.mm.me{align-self:flex-end;background:color-mix(in srgb,var(--pay) 22%,var(--card));border:1px solid color-mix(in srgb,var(--pay) 40%,transparent)}
+.mm .mt{display:block;font:11px var(--fm);color:var(--faint);margin-top:5px;white-space:normal}
+.mm-new{align-self:center;font:600 11px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--pay-d);
+  padding:2px 10px;border:1px solid color-mix(in srgb,var(--pay) 45%,transparent);border-radius:999px}
+@media(max-width:600px){.mm{max-width:94%}}
+.bubbles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
+.bub{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+  cursor:pointer;color:var(--ink);font:inherit}
+.bub:hover{border-color:var(--line-2)}
+.bub[data-on]{border-color:var(--pay);box-shadow:inset 0 0 0 1px var(--pay);background:color-mix(in srgb,var(--pay) 8%,var(--card))}
+.bub .n{display:block;font:700 26px/1.1 var(--fd);letter-spacing:-.02em}
+.bub .l{display:block;font-size:12.5px;color:var(--muted);margin-top:4px}
+@media(max-width:520px){.bubbles{gap:6px}.bub{padding:10px 11px}.bub .n{font-size:20px}.bub .l{font-size:11px}}
+.ccbar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;font-size:14px;color:var(--muted);margin-bottom:14px}
+.ccbar b{color:var(--ink)}
+.ccbar .grow{flex:1 1 240px}
+.fromst{display:block;margin-top:4px;font:600 11px var(--fm);letter-spacing:.03em;color:var(--accent-dk);white-space:nowrap}
+.nbtn.call{border-color:color-mix(in srgb,var(--good) 55%,transparent);color:var(--good)}
+.nbtn.call:hover{border-color:var(--good);color:var(--ink)}
+.calls-c{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.cbrow{display:flex;gap:6px;align-items:center;margin-top:6px}
+body.cp-open{overflow:hidden}
+.cp-back{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:120}
+.cp{position:fixed;top:0;right:0;bottom:0;width:min(460px,100vw);background:var(--bg-2);border-left:1px solid var(--line-2);
+  z-index:121;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 20px 28px;box-shadow:-10px 0 40px rgba(0,0,0,.45)}
+@media(max-width:700px){.cp{width:100vw;border-left:0;padding:12px 16px 24px}}
+.cp-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.cp-top .xbtn{font-size:20px;padding:6px 10px}
+.cp h3{font:700 20px/1.25 var(--fd);margin:0}
+.cp .meta{font-size:14px;color:var(--muted);margin-top:4px}
+.cp-hours{margin:14px 0 10px;padding:10px 12px;border-radius:10px;font-size:14px;line-height:1.45;background:var(--bg);border:1px solid var(--line)}
+.cp-hours.ok{border-color:rgba(47,191,113,.45)}
+.cp-hours.ok b{color:var(--good)}
+.cp-hours.no{border-color:rgba(255,107,90,.45)}
+.cp-hours.no b{color:var(--red)}
+.cp-hours.unk{border-color:rgba(212,167,44,.45)}
+.cp-dial{display:flex;align-items:center;justify-content:center;width:100%;padding:15px 16px;border-radius:999px;
+  background:var(--good);color:#0D1117;font:700 20px var(--fd);text-decoration:none;border:0}
+.cp-dial[aria-disabled="true"]{background:var(--bg-3);color:var(--faint);border:1px solid var(--line);cursor:not-allowed}
+.cp-sec{margin-top:18px}
+.cp-sec .h{font:600 11px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+.cp-say{font-size:14px;line-height:1.5;margin-bottom:6px}
+.cp-say b{color:var(--ink)}
+.cp-tries{font-size:12.5px;color:var(--muted);margin-top:8px}
+.cp-tries ul{margin:4px 0 0;padding-left:18px}
+.cp-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cp-btn{background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:12px 10px;color:var(--ink);
+  font:600 14px var(--fd);cursor:pointer;text-align:center;line-height:1.3}
+.cp-btn small{display:block;font:400 11px var(--fb);color:var(--muted);margin-top:3px}
+.cp-btn:hover{border-color:var(--pay)}
+.cp-btn[data-on]{border-color:var(--pay);background:color-mix(in srgb,var(--pay) 14%,var(--card))}
+.cp-btn.wide{grid-column:1/-1}
+.cp-btn:disabled{opacity:.5;cursor:default}
+.cp-date{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.cp-date .inp{width:auto;flex:1 1 160px;margin:0}
+.cp .inp{font-size:16px}
+.cp-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}
+.plog{width:100%;border-collapse:collapse;font-size:14px}
+.plog th{font:600 11px var(--fm);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);text-align:left;
+  padding:8px 10px;border-bottom:1px solid var(--line)}
+.plog td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.plog .num{text-align:right;font-family:var(--fm);white-space:nowrap}
+.plog .sub{color:var(--faint);font-size:12.5px;margin-top:2px}
+.pst{font-size:12.5px;font-weight:600}
+.pst.paid,.pst.ready{color:var(--good)}
+.pst.reversed{color:var(--red)}
+.pst.wait{color:var(--pay-d)}
+.pst.you{color:var(--amber)}
+@media(max-width:600px){.plog thead{display:none}.plog tr{display:block;padding:9px 0;border-bottom:1px solid var(--line)}
+  .plog td{display:block;border:0;padding:2px 0}.plog .num{text-align:left}}
+.payrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 12px}
+#paySetup #taxCard{border-top:1px solid var(--line);margin-top:18px;padding-top:18px}
+#paySetup #taxCard h2{font-size:16px}
+.pay-h{font:600 11px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin:18px 0 8px}
+.xfer{font-size:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+.xfer .sub{color:var(--faint);font-size:12.5px}
+#payTiles .stat{min-width:0;padding:16px}
+#payTiles .stat .v{font-size:26px;overflow-wrap:anywhere}
+@media(max-width:520px){#payTiles{gap:8px}#payTiles .stat{padding:12px}#payTiles .stat .v{font-size:20px}}
+.getform .hint{font-size:12.5px;color:var(--faint);line-height:1.5}
+#ccMoreBox .btn:disabled{opacity:.6;cursor:default}
 </style>
 </head>
 <body>
@@ -643,6 +749,24 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     </div>
 
     <div class="panel" data-panel="dash" data-on>
+      <!-- 2026-09-26 (C3): the front door. Three tiles, each a link: what to call, what you've earned,
+           what Station said. Hidden for accounts off the Partner track (loadMe). -->
+      <div class="today-strip" id="todayStrip">
+        <button class="tt" type="button" id="ttLeads" data-go="leads"><div class="v" id="ttLeadsV">&mdash;</div><div class="k" id="ttLeadsK">Leads to call</div><div class="go">Open Leads &rarr;</div></button>
+        <button class="tt" type="button" id="ttMoney" data-go="paid"><div class="v" id="ttMoneyV">&mdash;</div><div class="k" id="ttMoneyK">Loading&hellip;</div><div class="go">How you get paid &rarr;</div></button>
+        <button class="tt" type="button" id="ttMsgs" data-go="msgs"><div class="v" id="ttMsgsV">&mdash;</div><div class="k">From the Station team</div><div class="go">Message Station &rarr;</div></button>
+      </div>
+      <p class="taxline hide" id="taxLine"><button class="linkish" type="button" data-go="paid">Upload your tax form to get paid &rarr; How you get paid</button></p>
+      <div class="card" id="msgCard">
+        <h2 class="tight">Message Station</h2>
+        <p class="note">Messages go to the Station team. Replies show here &mdash; and in your email when Station replies by email.</p>
+        <div class="msth" id="msgThread" aria-live="polite"><div class="nempty">Loading your messages&hellip;</div></div>
+        <div class="ask-row">
+          <textarea id="msgText" rows="2" maxlength="2000" placeholder="Write to the Station team&hellip;"></textarea>
+          <button class="btn dark" id="msgSend" type="button"><span class="t">Send</span></button>
+        </div>
+        <p class="msg" id="msgMsg"></p>
+      </div>
       <div class="linkbox">
         <div class="mono">Your referral link</div>
         <div class="link" id="myLink">—</div>
@@ -706,7 +830,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           <p class="msg" id="alertMsg"></p>
         </form>
       </div>
-      <div class="card" id="taxCard"></div>
     </div>
 
     <!-- ---------------- LEADS: the worklist, as a spreadsheet ------------- -->
@@ -719,7 +842,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <div class="breakout">
         <div class="card" style="margin-bottom:14px">
           <h2 class="tight">Your leads</h2>
-          <p class="note" style="margin-bottom:0">Every business you're working, in one sheet. Click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
+          <p class="note" style="margin-bottom:0">Every business you're working, in one sheet: the leads Station sends you, the ones you pull, and the ones you add. Press <b>Call</b> on a row to work it, click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
         </div>
 
         <div class="addrow hide" id="pullLeadBox">
@@ -766,6 +889,21 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           </form>
         </div>
 
+        <!-- 2026-09-26 (C3): the three bubbles are filters, counted in the browser from the sheet itself. -->
+        <div id="ccBox">
+          <div class="bubbles" id="ccBubbles">
+            <button class="bub" type="button" data-bub="cc_leads"><span class="n" id="bubLeads">&mdash;</span><span class="l">Leads</span></button>
+            <button class="bub" type="button" data-bub="cc_new"><span class="n" id="bubNew">&mdash;</span><span class="l">Not called yet</span></button>
+            <button class="bub" type="button" data-bub="cc_tocall"><span class="n" id="bubToCall">&mdash;</span><span class="l">To call</span></button>
+          </div>
+          <div class="ccbar">
+            <div class="grow" id="ccArea"></div>
+            <button class="btn dark sm hide" type="button" id="ccStart" data-ccstart>Start calling</button>
+            <span id="ccMoreBox"></span>
+          </div>
+          <p class="msg" id="ccMoreMsg"></p>
+        </div>
+
         <div class="sheet-head">
           <div class="grow"><input class="srch" id="leadQ" placeholder="Filter — business, city, trade, phone, gap…"></div>
           <div class="chips" id="leadChips"></div>
@@ -773,6 +911,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
           <button class="btn lite sm" id="addLeadBtn">Add lead</button>
           <button class="btn lite sm" id="leadCsv">Export CSV</button>
         </div>
+        <p class="msg" id="leadMsg"></p>
         <div class="sheet-scroll"><table class="sheet" id="leadSheet"></table></div>
         <div class="sheet-foot"><span id="leadCount">—</span><span id="leadCap"></span></div>
       </div>
@@ -907,19 +1046,50 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <div id="jobList"></div>
     </div>
 
+    <!-- 2026-09-26 (E1): four blocks. Numbers come from the engine's money_lines / payout_status;
+         the wording in block 4 follows partners/agreement.html v5, sections 2.3, 5.4 and 7 to 9. -->
     <div class="panel" data-panel="paid">
-      <div class="card">
-        <h2>How the money works</h2>
-        <p class="note" style="margin-bottom:14px">How Partner pay works — see the Support tab for the full breakdown. Short version:</p>
-        <ol class="steps">
-          <li><b>Partner — 40% recurring, forever.</b> You close and manage your own clients (or ones distributed to you). You earn 40% of what they actually pay Station, every month they stay — calculated on cleared invoices, never list price. No bonus on top, no tier to climb.</li>
-          <li><b>You get paid every two weeks.</b> We need your tax form on file first (W-9 US / W-8BEN outside the US).</li>
-        </ol>
-        <p class="note" style="margin-top:16px">Annual prepayments credit to you across 12 months.</p>
+      <div class="card" id="paySetup">
+        <h2 class="tight">Get set up</h2>
+        <div class="pay-h">Payout account</div>
+        <div class="payrow" id="payAcct"><span class="note">Checking your payout account&hellip;</span></div>
+        <div id="payLinkBox"></div>
+        <p class="note" style="margin:8px 0 0">You type your bank details on Stripe's site. Station never sees or stores them.</p>
+        <p class="msg" id="payMsg"></p>
+        <div id="taxCard"></div>
+        <p class="note" style="margin:18px 0 0">Your terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Partner Agreement</a>.</p>
       </div>
       <div class="card">
-        <h2 class="tight">Questions</h2>
-        <p class="note">Email <a href="mailto:main@station.solutions?subject=Partner%20question" style="color:var(--pay);font-weight:600">main@station.solutions</a>. Full terms are in the <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Partner Agreement</a>.</p>
+        <h2 class="tight">Your money</h2>
+        <div class="stats" id="payTiles" style="margin:14px 0 10px">
+          <div class="stat"><div class="v" id="payHold">&mdash;</div><div class="k">On hold</div><div class="note" id="payHoldK" style="font-size:12.5px;margin-top:6px"></div></div>
+          <div class="stat"><div class="v" id="payReady">&mdash;</div><div class="k">Ready for your next payout</div><div class="note" id="payReadyK" style="font-size:12.5px;margin-top:6px"></div></div>
+          <div class="stat"><div class="v" id="payPaid">&mdash;</div><div class="k">Paid to date</div><div class="note" id="payPaidK" style="font-size:12.5px;margin-top:6px"></div></div>
+          <div class="stat"><div class="v" id="payNextV">&mdash;</div><div class="k">Next payout</div><div class="note" id="payNextK" style="font-size:12.5px;margin-top:6px"></div></div>
+        </div>
+        <p class="note" id="payNext" style="margin:0"></p>
+      </div>
+      <div class="card">
+        <h2 class="tight">Payout log</h2>
+        <div id="payLog" style="margin-top:12px"><p class="note">Loading&hellip;</p></div>
+        <div id="payXfers"></div>
+      </div>
+      <div class="card">
+        <h2 class="tight">How your pay works</h2>
+        <ol class="steps" style="margin-top:12px">
+          <li><b>40% of recurring fees, for as long as they stay.</b> You earn 40% of the recurring subscription fees each client in your book actually pays Station and that have cleared, after refunds, chargebacks, credits and discounts. Never on a list price, a quote or a projection.</li>
+          <li><b>Not on one-time fees.</b> Setup, onboarding, website builds and other single purchases earn nothing. Neither do taxes, or amounts Station charges only to cover a third-party cost.</li>
+          <li><b>Trials pay nothing until the first real payment.</b> Commission starts when a free trial has ended and the client's first payment has cleared.</li>
+          <li><b>Prepaid plans are spread monthly.</b> A plan paid for several months at once is earned in equal monthly installments, not as a lump sum.</li>
+          <li><b>Discounts lower your commission.</b> You earn on what the client actually pays, so a Care Plan taken from $50 to $35 a month earns you 40% of $35.</li>
+          <li><b>Station may hold a payment for up to 30 days after it clears.</b> That's the refund and chargeback window.</li>
+          <li><b>Paid every two weeks, $50 minimum.</b> Payouts are made by hand every two weeks. A balance under $50 rolls forward and doesn't expire.</li>
+          <li><b>Refunds reverse.</b> If a client's payment is refunded, charged back or reversed, the commission on it comes off your balance or your next payout.</li>
+          <li><b>Tax form first.</b> Nothing is paid until your W-9 (or W-8BEN outside the US) is on file. Commission can build up before then.</li>
+        </ol>
+        <p class="note" id="payExample" style="margin-top:12px"></p>
+        <div id="paySpecial"></div>
+        <p class="note" style="margin-top:12px">The full terms are sections 7 to 9 of your <a href="/partners/agreement.html" target="_blank" rel="noopener" style="color:var(--pay);font-weight:600">Partner Agreement</a>, and it wins if anything here differs. Think a line is wrong? <button class="linkish" type="button" data-go="msgs">Message Station</button> within 60 days of the statement.</p>
       </div>
     </div>
 
@@ -1034,6 +1204,13 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       <p class="msg" id="prodMsg"></p>
       <div id="prodList"></div>
     </div>
+  </div>
+
+  <!-- 2026-09-26 (C3): the call panel. A right-hand drawer on a desk, full screen on a phone (Calling mode).
+       Rendered by renderCall(); one delegated click listener on #cpWrap. -->
+  <div class="hide" id="cpWrap">
+    <div class="cp-back" data-cclose></div>
+    <aside class="cp" id="cp" role="dialog" aria-modal="true" aria-labelledby="cpName"></aside>
   </div>
 
   <div class="p-foot">Station Automations Group · Houston TX · <a href="mailto:main@station.solutions" style="color:var(--muted)">main@station.solutions</a></div>
@@ -1678,6 +1855,8 @@ function showAuth(){
   $("logout").classList.add("hide");$("whoami").textContent="";
   if(pollTimer){clearTimeout(pollTimer);pollTimer=null;}
   bookLoaded=false;
+  try{closeCall();}catch(e){}
+  CC=null;MSGS=null;MONEY=null;MONEY_ERR="";PAYST=null;PAYST_ERR="";DASH_LOADED=false;
 }
 
 
@@ -1938,6 +2117,7 @@ function renderSheet(cfg){
 
   renderChips(cfg);
   if(cfg.count)cfg.count(rows.length,(cfg.rows||[]).length);
+  if(cfg.after)cfg.after(cfg);
 }
 
 function renderChips(cfg){
@@ -1949,6 +2129,7 @@ function renderChips(cfg){
   var base=cfg.baseFilter?all.filter(cfg.baseFilter):all;
   var h='<button class="chip" data-f="all"'+(st.filter==="all"?" data-on":"")+'>All<span class="n">'+base.length+'</span></button>';
   cfg.filters.forEach(function(f){
+    if(f.bubble)return;   // the Leads tab's three bubbles are drawn by renderCC, not in the chip bar
     var pool=f.raw?all:base;
     h+='<button class="chip" data-f="'+esc(f.k)+'"'+(st.filter===f.k?" data-on":"")+'>'+esc(f.label)+
        '<span class="n">'+pool.filter(f.fn).length+'</span></button>';
@@ -1975,9 +2156,9 @@ function exportCsv(cfg){
 }
 
 /* ---------------- LEADS ---------------- */
-var OUTCOMES=[["","New"],["called","Called"],["no_answer","No answer"],
-  ["interested","Interested"],["demo_sent","Demo sent"],["won","Won"],
-  ["not_interested","Not interested"]];
+var OUTCOMES=[["","New"],["called","Called"],["no_answer","No answer"],["voicemail","Voicemail"],
+  ["interested","Interested"],["callback","Call back"],["demo_sent","Demo sent"],["won","Won"],
+  ["not_interested","Not interested"],["bad_lead","Bad lead"],["dnc","Do not call"]];
 function outLabel(o){
   var hit=OUTCOMES.filter(function(x){return x[0]===(o||"");})[0];
   return hit?hit[1]:o;
@@ -1988,6 +2169,72 @@ function dueClass(d){
   return d<t?"due":(d===t?"today":"");
 }
 var LEADS=[],LEAD_NOTES={};
+/* 2026-09-26 (C3): leads Station sends. The bubbles and the calling queue are counted HERE, from LEADS,
+   with the browser's own date (amendment A3); the engine's own counts use the Chicago date, so the two
+   are never shown side by side. These mirror the engine's ccLive / ccOpen / ccNotCalled / ccToCall. */
+var CC=null;   // leads_list.cc: {batch,states,cities,trades,last_deal_at,more_at,counts:{station_total,...}}
+var CC_CLOSED=["bad_lead","not_interested","dnc","won"];
+function isStationRow(r){return !!r&&r.source==="station";}
+function hasPhone(r){return String((r&&r.phone)||"").replace(/\D/g,"").length>=7;}
+function ccLiveRow(r){
+  if(!r||r.archived)return false;
+  if(r.until===undefined||r.until===null||r.until==="")return !isStationRow(r);
+  return Number(r.until)>Date.now();
+}
+function ccOpenRow(r){return ccLiveRow(r)&&CC_CLOSED.indexOf(r.outcome||"")<0;}
+function ccTries(r){return Array.isArray(r&&r.attempts)?r.attempts:[];}
+function ccNotCalledRow(r){return ccOpenRow(r)&&!ccTries(r).length&&!(r.outcome||"");}
+function localDay(iso){var t=Date.parse(iso||"");if(!(t>0))return "";var d=new Date(t);return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate());}
+function ccToCallRow(r){
+  if(!ccOpenRow(r))return false;
+  var at=ccTries(r),o=r.outcome||"";
+  if(!at.length&&!o)return false;
+  var today=todayStr();
+  if(r.next_at&&String(r.next_at)<=today)return true;
+  var last=at.length?at[at.length-1]:null;
+  var res=last?String(last.result||""):o,w=last?last.at:r.outcome_at,ld=localDay(w);
+  return (res==="no_answer"||res==="voicemail")&&!!ld&&ld<today;
+}
+function ccCounts(){
+  var c={leads:0,not_called:0,to_call:0,station_total:0,station_not_called:0};
+  LEADS.forEach(function(r){
+    if(isStationRow(r))c.station_total++;
+    if(!ccOpenRow(r))return;
+    c.leads++;
+    if(ccNotCalledRow(r)){c.not_called++;if(isStationRow(r))c.station_not_called++;}
+    else if(ccToCallRow(r)){c.to_call++;}
+  });
+  return c;
+}
+function leadById(id){return LEADS.filter(function(x){return x.id===id;})[0]||null;}
+/* LEADS rows are mutated in place, never replaced (leadCfg.rows holds the array). */
+function replaceLead(l){
+  if(!l||!l.id)return;
+  var r=leadById(l.id);
+  if(!r){LEADS.push(l);return;}
+  Object.keys(r).forEach(function(k){delete r[k];});
+  Object.keys(l).forEach(function(k){r[k]=l[k];});
+}
+function daysLeft(r){var u=Number(r&&r.until);if(!(u>0))return null;return Math.max(0,Math.ceil((u-Date.now())/86400000));}
+var RESULT_WORD={no_answer:"no answer",voicemail:"voicemail",bad_lead:"bad lead",talked:"talked"};
+var DOW3=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],MON3=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function dayWord(iso){
+  var t=Date.parse(iso||"");if(!(t>0))return "";
+  var td=todayStr();if(localDay(iso)===td)return "today";
+  var d=new Date(t);
+  if(Date.parse(td+"T00:00:00")-t<6*86400000)return DOW3[d.getDay()];
+  return d.getDate()+" "+MON3[d.getMonth()];
+}
+function callsText(r){
+  var at=ccTries(r);if(!at.length)return "";
+  var last=at[at.length-1];
+  return at.length+" \u00b7 "+dayWord(last.at)+" \u00b7 "+(RESULT_WORD[last.result]||String(last.result||""));
+}
+function stationBadge(r){
+  var d=daysLeft(r);
+  return "\u25C6 From Station"+((ccLiveRow(r)&&d!=null)?(" \u00b7 "+d+" day"+(d===1?"":"s")+" left"):"");
+}
+function leadErr(text){var m=$("leadMsg");if(!m)return;if(text){say(m,text,"err");}else{clear(m);}}
 /* The two asks on a lead. 2026-09-16: they lived in a tenth, headerless column past
    Notes, which on a normal screen sits off the right edge of the sheet's own
    scroller -- Circle could not find Request website at all. They render inside the
@@ -2024,10 +2271,15 @@ var leadCfg={
      keeps the archive out of the working view — and one chip that shows it. */
   baseFilter:function(r){return !r.archived;},
   filters:[
-    {k:"open",label:"Open",fn:function(r){return ["won","not_interested"].indexOf(r.outcome||"")<0;}},
+    /* the three bubbles above the sheet (renderCC draws them; renderChips skips bubble:true) */
+    {k:"cc_leads",bubble:true,fn:ccOpenRow},
+    {k:"cc_new",bubble:true,fn:ccNotCalledRow},
+    {k:"cc_tocall",bubble:true,fn:ccToCallRow},
+    {k:"open",label:"Open",fn:function(r){return CC_CLOSED.indexOf(r.outcome||"")<0;}},
     {k:"due",label:"Due",fn:function(r){return !!r.next_at&&r.next_at<=todayStr();}},
-    {k:"interested",label:"Interested",fn:function(r){return ["interested","demo_sent"].indexOf(r.outcome||"")>=0;}},
+    {k:"interested",label:"Interested",fn:function(r){return ["interested","callback","demo_sent"].indexOf(r.outcome||"")>=0;}},
     {k:"won",label:"Won",fn:function(r){return r.outcome==="won";}},
+    {k:"closed",label:"Closed",fn:function(r){return ["not_interested","bad_lead","dnc"].indexOf(r.outcome||"")>=0;}},
     {k:"archived",label:"Archived",raw:true,fn:function(r){return !!r.archived;}}
   ],
   cols:[
@@ -2036,13 +2288,23 @@ var leadCfg={
          right-hand edge of a 1300px table. At 375px the old Edit button sat at
          x=1024 inside a 329px scroller — present, styled, and unreachable. */
       var sub=[r.city,r.state].filter(Boolean).join(", ");
+      /* 2026-09-26 (C3): a lead Station sent is never archived by hand (amendment A8) -- the partner
+         marks it Bad lead or calls it, and Station takes its leads back itself. Restore is offered
+         only where the engine allows it (A7): a Station lead the partner archived themselves. */
+      var stn=isStationRow(r),live=ccLiveRow(r);
+      var canRestore=!stn||r.archive_reason==="archived by the partner";
+      var archWord=stn&&r.archive_reason==="returned to Station"?"returned to Station":
+                   (stn&&r.archive_reason==="claim expired"?"expired":"archived");
       return esc(r.name||"—")+(sub?'<div class="sub">'+esc(sub)+'</div>':"")+
+        (stn?'<span class="fromst">'+esc(stationBadge(r))+'</span>':"")+
         '<div class="rowact">'+
+        ((ccOpenRow(r)&&hasPhone(r))?'<button class="nbtn call" data-lcall="'+esc(r.id)+'" title="Open the call panel for this lead">Call</button>':"")+
         '<button class="nbtn" data-ledit="'+esc(r.id)+'" title="Change anything on this lead">Edit</button>'+
         (r.archived
-          ?'<button class="nbtn" data-lrestore="'+esc(r.id)+'" title="Put this row back on your sheet">Restore</button>'+
-           '<span class="sub">archived</span>'
-          :'<button class="nbtn" data-ldel="'+esc(r.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>')+
+          ?(canRestore?'<button class="nbtn" data-lrestore="'+esc(r.id)+'" title="Put this row back on your sheet">Restore</button>':"")+
+           '<span class="sub">'+esc(archWord)+'</span>'
+          :(stn?(live?"":'<span class="sub">expired</span>')
+               :'<button class="nbtn" data-ldel="'+esc(r.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>'))+
         '</div>'+(r.archived?'':leadAsksHtml(r));}},
     {k:"niche",h:"Trade",cls:"dim",get:function(r){return r.niche||"";}},
     {k:"phone",h:"Contact",get:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" ");},
@@ -2052,6 +2314,9 @@ var leadCfg={
         if(r.email)h+='<div class="sub"><a class="cell" href="mailto:'+esc(r.email)+'">'+esc(r.email)+'</a></div>';
         return h||'<span class="sub">—</span>';},
       csv:function(r){return [r.phone||"",r.email||""].filter(Boolean).join(" / ");}},
+    {k:"calls",h:"Calls",get:function(r){return ccTries(r).length;},
+      html:function(r){var t=callsText(r);return t?'<span class="calls-c">'+esc(t)+'</span>':'<span class="sub">—</span>';},
+      csv:function(r){return callsText(r);}},
     {k:"gap",h:"The gap",cls:"dim",get:function(r){return r.gap||"";},html:function(r){
       return r.gap?esc(r.gap):'<span class="sub">—</span>';}},
     {k:"leak",h:"Leak / mo",cls:"num",get:function(r){return Number(r.leak)||0;},
@@ -2083,31 +2348,51 @@ var leadCfg={
     // 2026-09-11: the × that deleted the row (and its notes) is gone. Archive and
     // Restore are in the Business cell, where a phone can reach them.
   ],
+  after:function(){renderCC();},
   count:function(shown,total){
     $("leadCount").textContent=shown===total?(total+" row"+(total===1?"":"s")):(shown+" of "+total+" rows");
   },
   wire:function(tbl,cfg){
+    /* 2026-09-26 (amendment A6): a refused status goes back to what was saved and says why; Call back
+       asks for its day inline (no prompt) and sends next_at with the outcome in one request. */
     tbl.querySelectorAll("[data-out]").forEach(function(sel){
       sel.onchange=function(){
         var id=sel.getAttribute("data-out");
-        post({action:"lead_update",token:token,id:id,outcome:sel.value}).then(function(d){
-          if(!d||!d.ok)return;
-          var r=LEADS.filter(function(x){return x.id===id;})[0];
-          if(r){r.outcome=sel.value;r.outcome_at=d.lead&&d.lead.outcome_at;}
-          renderSheet(cfg);
-        }).catch(function(){});
+        var r=leadById(id),old=(r&&r.outcome)||"";
+        if(!r)return;
+        var td=sel.parentNode,prev=td&&td.querySelector(".cbrow");if(prev)prev.remove();
+        if(sel.value==="callback"){
+          var box=document.createElement("div");box.className="cbrow";
+          box.innerHTML='<input type="date" class="cell-date" min="'+todayStr()+'" aria-label="Call back on">'+
+            '<button class="nbtn" type="button">Save</button><button class="nbtn" type="button">Cancel</button>';
+          td.appendChild(box);
+          var di=box.querySelector("input"),bs=box.querySelectorAll("button");
+          di.focus();
+          bs[0].onclick=function(){
+            if(!di.value){leadErr("Pick the day to call them back.");di.focus();return;}
+            saveOutcome(sel,r,{outcome:"callback",next_at:di.value},old);
+          };
+          bs[1].onclick=function(){sel.value=old;box.remove();leadErr("");};
+          return;
+        }
+        saveOutcome(sel,r,{outcome:sel.value},old);
       };
     });
     tbl.querySelectorAll("[data-next]").forEach(function(inp){
       inp.onchange=function(){
         var id=inp.getAttribute("data-next");
+        var r=leadById(id),old=(r&&r.next_at)||"";
         post({action:"lead_update",token:token,id:id,next_at:inp.value}).then(function(d){
-          if(!d||!d.ok)return;
-          var r=LEADS.filter(function(x){return x.id===id;})[0];
-          if(r){if(inp.value){r.next_at=inp.value;}else{delete r.next_at;}}
+          if(!d||!d.ok){inp.value=old;leadErr((d&&d.error)||"That date didn't save.");return;}
+          leadErr("");
+          if(d.lead){replaceLead(d.lead);}
+          else if(r){if(inp.value){r.next_at=inp.value;}else{delete r.next_at;}}
           renderSheet(cfg);
-        }).catch(function(){});
+        }).catch(function(){inp.value=old;leadErr("Network error — that date didn't save.");});
       };
+    });
+    tbl.querySelectorAll("[data-lcall]").forEach(function(btn){
+      btn.onclick=function(e){e.stopPropagation();openCall(btn.getAttribute("data-lcall"));};
     });
     tbl.querySelectorAll("[data-ledit]").forEach(function(btn){
       btn.onclick=function(){
@@ -2227,8 +2512,11 @@ function loadLeads(){
     Object.keys(LEAD_NOTES).forEach(function(k){delete LEAD_NOTES[k];});
     var nx=d.notes||{};
     Object.keys(nx).forEach(function(k){if(k.indexOf("lead:")===0)LEAD_NOTES[k]=nx[k];});
+    CC=d.cc||null;
     var cap=(d.per_day&&d.pulled_today!=null)?("pulled today "+d.pulled_today+" of "+d.per_day+" · "):"";
-    $("leadCap").textContent=cap+"rows you add stay until you remove them · leads Station assigns you expire after "+(d.claim_days||14)+" days";
+    var lc=$("leadCap");
+    if(lc)lc.textContent=cap+"pulled leads stay "+(d.claim_days||14)+" days · leads Station sends stay "+
+      ((d.cc&&d.cc.station_days)||30)+" days from your last call, 14 once closed (60 once won) · rows you add stay a year";
     var pb=$("pullLeadBtn");
     if(pb){
       var capped=!!(d.per_day&&Number(d.pulled_today||0)>=Number(d.per_day));
@@ -2239,6 +2527,528 @@ function loadLeads(){
     return renderPullStatus(d);
   }).catch(function(){return false;});
 }
+
+/* ================= 2026-09-26 (C3/E1): STATION LEADS, CALLING, MESSAGE STATION, HOW YOU GET PAID =================
+   Listeners here are delegated, one per surface, and each selector names every data-* it handles:
+     #ccBox   [data-bub],[data-ccstart],[data-ccmore]
+     #cpWrap  [data-cclose],[data-cres],[data-cout],[data-cbsave],[data-cnext]
+     #appView [data-go]            (Today tiles, the tax line, "Message Station" links)
+     paid     [data-payset]
+   Every element lookup at load is guarded: one unguarded $() here would stop the portal booting. */
+
+/* ---- the sheet's Status select (called from leadCfg.wire) ---- */
+function saveOutcome(sel,r,extra,old){
+  var body={action:"lead_update",token:token,id:r.id};
+  Object.keys(extra).forEach(function(k){body[k]=extra[k];});
+  sel.disabled=true;
+  post(body).then(function(d){
+    sel.disabled=false;
+    if(!d||!d.ok){sel.value=old;var b=sel.parentNode&&sel.parentNode.querySelector(".cbrow");if(b)b.remove();
+      leadErr((d&&d.error)||"That status didn't save.");return;}
+    leadErr("");
+    if(d.lead){replaceLead(d.lead);}else{r.outcome=extra.outcome;if(extra.next_at)r.next_at=extra.next_at;}
+    renderSheet(leadCfg);
+  }).catch(function(){sel.disabled=false;sel.value=old;leadErr("Network error — that status didn't save.");});
+}
+
+/* ---- bubbles, area line, Ask Station for more ---- */
+function ccQueue(){
+  // Calling mode walks Not called yet first, then To call. Only rows with a phone.
+  var a=[],b=[];
+  LEADS.forEach(function(r){
+    if(!hasPhone(r))return;
+    if(ccNotCalledRow(r))a.push(r.id);else if(ccToCallRow(r))b.push(r.id);
+  });
+  return a.concat(b);
+}
+function fmtDay(iso){
+  var t=Date.parse(iso||"");if(!(t>0))return "";
+  try{return new Date(t).toLocaleDateString("en-US",{timeZone:"America/Chicago",month:"short",day:"numeric",year:"numeric"});}
+  catch(e){return String(iso).slice(0,10);}
+}
+function renderCC(){
+  var c=ccCounts(),st=sst("leads");
+  var put=function(id,v){var el=$(id);if(el)el.textContent=v;};
+  put("bubLeads",c.leads);put("bubNew",c.not_called);put("bubToCall",c.to_call);
+  var box=$("ccBox");
+  if(box){box.querySelectorAll("[data-bub]").forEach(function(b){b.toggleAttribute("data-on",st.filter===b.getAttribute("data-bub"));});}
+  var cc=CC||{},states=cc.states||[],cities=cc.cities||[],trades=cc.trades||[];
+  var total=Math.max(c.station_total,Number(cc.counts&&cc.counts.station_total)||0);
+  var area=$("ccArea");
+  if(area){
+    area.innerHTML=states.length
+      ?'Station sends leads from <b>'+esc(cities.length?cities.join(" · "):states.join(", "))+'</b> · '+
+        esc(trades.length?trades.join(", "):"any trade")
+      :"";
+  }
+  var more=$("ccMoreBox");
+  if(more){
+    var waiting=!!(cc.more_at&&String(cc.more_at)>String(cc.last_deal_at||"")),n=c.station_not_called;
+    if(!total){more.innerHTML='<span class="note">Station hasn\'t sent you leads yet.</span>';}
+    else if(waiting){more.innerHTML='<span class="pill pending">Asked '+esc(fmtDay(cc.more_at))+'</span> <span class="note">Station will send your next leads.</span>';}
+    else if(n>0){more.innerHTML='<button class="btn lite sm" type="button" disabled title="You can ask for more once every lead Station sent you has been called">Call your '+
+      n+' remaining lead'+(n===1?"":"s")+' first</button>';}
+    else{more.innerHTML='<button class="btn dark sm" type="button" data-ccmore>Ask Station for more leads</button>';}
+  }
+  var q=ccQueue(),sb=$("ccStart");
+  if(sb){sb.classList.toggle("hide",!q.length);sb.textContent="Start calling ("+q.length+")";}
+  paintLeadTile(c);
+}
+function paintLeadTile(c){
+  var v=$("ttLeadsV"),k=$("ttLeadsK"),t=$("ttLeads");if(!v||!k||!t)return;
+  c=c||ccCounts();var n=c.not_called+c.to_call;
+  v.textContent=n+" lead"+(n===1?"":"s")+" to call";
+  k.textContent=c.not_called+" not called yet · "+c.to_call+" to call";
+  t.toggleAttribute("data-hot",n>0);
+}
+function askForMore(btn){
+  var m=$("ccMoreMsg");
+  btn.disabled=true;var old=btn.textContent;btn.textContent="Asking…";
+  post({action:"cc_more",token:token}).then(function(d){
+    if(!d||!d.ok){btn.disabled=false;btn.textContent=old;if(m)say(m,(d&&d.error)||"That didn't reach Station. Try again.","err");return;}
+    CC=CC||{};CC.more_at=d.more_at;
+    if(m)say(m,d.already?"You've already asked. Station has it.":"Asked. Station will send your next leads.","ok");
+    renderCC();
+  }).catch(function(){btn.disabled=false;btn.textContent=old;if(m)say(m,"Network error — try again.","err");});
+}
+(function(){
+  var box=$("ccBox");if(!box)return;
+  box.addEventListener("click",function(e){
+    var t=e.target.closest?e.target.closest("[data-bub],[data-ccstart],[data-ccmore]"):null;if(!t)return;
+    if(t.hasAttribute("data-bub")){
+      var st=sst("leads"),k=t.getAttribute("data-bub");
+      st.filter=(st.filter===k)?"all":k;st.open=null;renderSheet(leadCfg);return;}
+    if(t.hasAttribute("data-ccstart")){openCall(null);return;}
+    if(t.hasAttribute("data-ccmore")){askForMore(t);}
+  });
+})();
+
+/* ---- calling hours: 9 am to 8 pm, Monday to Saturday, in the business's own time zone ----
+   A state that spans two zones must be inside the window in BOTH before the call button opens. */
+var STATE_TZ=(function(){
+  var E="America/New_York",C="America/Chicago",M="America/Denver",P="America/Los_Angeles";
+  return {AL:[C],AK:["America/Anchorage"],AZ:["America/Phoenix"],AR:[C],CA:[P],CO:[M],CT:[E],DC:[E],DE:[E],
+    FL:[E,C],GA:[E],HI:["Pacific/Honolulu"],IA:[C],ID:["America/Boise",P],IL:[C],IN:["America/Indiana/Indianapolis",C],
+    KS:[C,M],KY:[E,C],LA:[C],MA:[E],MD:[E],ME:[E],MI:["America/Detroit","America/Menominee"],MN:[C],MO:[C],MS:[C],MT:[M],
+    NC:[E],ND:[C,M],NE:[C,M],NH:[E],NJ:[E],NM:[M],NV:[P],NY:[E],OH:[E],OK:[C],OR:[P,"America/Boise"],PA:[E],RI:[E],
+    SC:[E],SD:[C,M],TN:[C,E],TX:[C,M],UT:[M],VA:[E],VT:[E],WA:[P],WI:[C],WV:[E],WY:[M],PR:["America/Puerto_Rico"]};
+})();
+function zoneClock(tz,now){
+  var p={};
+  new Intl.DateTimeFormat("en-US",{timeZone:tz,weekday:"short",hour:"numeric",minute:"2-digit",hourCycle:"h23"})
+    .formatToParts(now).forEach(function(x){p[x.type]=x.value;});
+  return {h:(Number(p.hour)||0)%24,m:Number(p.minute)||0,dow:p.weekday};
+}
+function clock12(c){var h=c.h%12;if(!h)h=12;return h+":"+pad2(c.m)+" "+(c.h<12?"am":"pm");}
+function inCallHours(c){return c.dow!=="Sun"&&c.h>=9&&c.h<20;}
+function callHours(r){
+  var st=String((r&&r.state)||"").trim().toUpperCase(),zones=STATE_TZ[st];
+  var unknown={known:false,ok:true,text:st
+    ?("Can't tell the time zone for “"+st+"” — check their local time before calling (9 am–8 pm, Mon–Sat).")
+    :"No state on this lead — check their local time before calling (9 am–8 pm, Mon–Sat)."};
+  if(!zones)return unknown;
+  var now=new Date(),place=String(r.city||"").split(",")[0].trim()||st,clocks,bad=-1;
+  try{clocks=zones.map(function(z){return zoneClock(z,now);});}catch(e){return unknown;}
+  clocks.forEach(function(c,i){if(bad<0&&!inCallHours(c))bad=i;});
+  if(bad<0)return {known:true,ok:true,text:"It's "+clock12(clocks[0])+" in "+place+"."};
+  var c=clocks[bad],when;
+  if(c.dow!=="Sun"&&c.h<9){when="after 9 am";}
+  else if(c.dow==="Sat"||c.dow==="Sun"){when="Monday after 9 am";}
+  else{when="tomorrow after 9 am";}
+  return {known:true,ok:false,text:"It's "+(c.dow==="Sun"?"Sunday, ":"")+clock12(c)+" in "+(bad===0?place:("part of "+st))+". Call "+when+"."};
+}
+function telHref(p){var d=String(p||"").replace(/\D/g,"");if(d.length===10)d="1"+d;return d.length===11?"tel:+"+d:"tel:"+d;}
+
+/* ---- the call panel (a drawer on a desk, Calling mode on a phone) ---- */
+var CP={id:null,queue:[],seen:{},timer:null,busy:false};
+var CALL_LABEL={no_answer:"No answer",voicemail:"Voicemail",bad_lead:"Bad lead",interested:"Interested",callback:"Call back",
+  not_interested:"Not interested",dnc:"Do not call",won:"Won"};
+function isPhone(){try{return window.matchMedia("(max-width:700px)").matches;}catch(e){return false;}}
+function openCall(id){
+  var w=$("cpWrap");if(!w)return;
+  CP.queue=ccQueue();CP.id=id||CP.queue[0]||null;CP.busy=false;CP.seen={};
+  w.classList.remove("hide");document.body.classList.add("cp-open");
+  renderCall();
+  if(CP.timer)clearInterval(CP.timer);
+  CP.timer=setInterval(paintHours,30000);
+  var x=w.querySelector(".cp-top .xbtn");if(x)x.focus();
+}
+function closeCall(){
+  var w=$("cpWrap");if(w)w.classList.add("hide");
+  document.body.classList.remove("cp-open");
+  if(CP.timer){clearInterval(CP.timer);CP.timer=null;}
+  CP.id=null;
+}
+function cpPos(r){
+  var i=r?CP.queue.indexOf(r.id):-1;
+  return i>=0?("Calling · "+(i+1)+" of "+CP.queue.length):"Call";
+}
+function renderCall(){
+  var el=$("cp");if(!el)return;
+  var r=CP.id?leadById(CP.id):null;
+  var top='<div class="cp-top"><span class="mono">'+esc(cpPos(r))+'</span>'+
+    '<button class="xbtn" type="button" data-cclose aria-label="Close the call panel">&times;</button></div>';
+  if(!r){
+    var c=ccCounts();
+    el.innerHTML=top+'<h3 id="cpName">'+(CP.queue.length?"That's everyone on your list for now.":"Nobody to call right now.")+'</h3>'+
+      '<p class="note" style="margin-top:10px">'+c.not_called+' not called yet · '+c.to_call+' to call. A lead you tried today '+
+      'comes back to To call tomorrow; a Call back comes back on its day.</p>'+
+      '<div class="cp-foot"><span></span><button class="btn lite sm" type="button" data-cclose>Close</button></div>';
+    return;
+  }
+  var where=[[r.city,r.state].filter(Boolean).join(", "),r.niche].filter(Boolean).join(" · ");
+  var rating=(r.rating!=null&&r.rating!=="")?("★ "+r.rating+(r.reviews?(" · "+r.reviews+" reviews"):"")):"";
+  var at=ccTries(r);
+  var tries=at.slice(-3).reverse().map(function(a){
+    return '<li>'+esc(dayWord(a.at))+' · '+esc(RESULT_WORD[a.result]||a.result||"")+(a.note?' — '+esc(a.note):'')+'</li>';}).join("");
+  var lines=[];
+  if(r.gap)lines.push('<div class="cp-say">'+esc(r.gap)+'</div>');
+  var pitch=[r.sku,r.price_line].filter(Boolean).join(" · ");
+  if(pitch)lines.push('<div class="cp-say"><b>Pitch:</b> '+esc(pitch)+'</div>');
+  var stn=isStationRow(r),d=daysLeft(r);
+  el.innerHTML=top+
+    '<h3 id="cpName">'+esc(r.name||"Lead")+'</h3>'+
+    (where?'<div class="meta">'+esc(where)+'</div>':'')+
+    (rating?'<div class="meta">'+esc(rating)+'</div>':'')+
+    (stn?'<span class="fromst">'+esc(stationBadge(r))+'</span>':'')+
+    '<div class="cp-hours" id="cpHours"></div><div id="cpDial"></div>'+
+    '<div class="cp-sec"><div class="h">What to say</div>'+
+      (lines.join("")||'<div class="cp-say note">No gap or pitch on this lead yet. Ask what costs them the most work.</div>')+
+      (r.outcome?'<div class="cp-tries">Status now: '+esc(outLabel(r.outcome))+(r.next_at?' · call back '+esc(r.next_at):'')+'</div>':'')+
+      (tries?'<div class="cp-tries">Last tries<ul>'+tries+'</ul></div>':'<div class="cp-tries">Not called yet.</div>')+
+    '</div>'+
+    '<div class="cp-sec"><div class="h">What happened?</div><div class="cp-btns" id="cpRes">'+
+      '<button class="cp-btn" type="button" data-cres="no_answer">No answer</button>'+
+      '<button class="cp-btn" type="button" data-cres="voicemail">Voicemail</button>'+
+      '<button class="cp-btn" type="button" data-cres="bad_lead">Bad lead<small>wrong number / closed / not a fit</small></button>'+
+      '<button class="cp-btn" type="button" data-cres="talked">Talked to them</button>'+
+    '</div>'+
+    '<div class="hide" id="cpTalk"><div class="h" style="margin-top:14px">How did it go?</div><div class="cp-btns">'+
+      '<button class="cp-btn" type="button" data-cout="interested">Interested</button>'+
+      '<button class="cp-btn" type="button" data-cout="callback">Call back&hellip;</button>'+
+      '<button class="cp-btn" type="button" data-cout="not_interested">Not interested</button>'+
+      '<button class="cp-btn" type="button" data-cout="dnc">Do not call</button>'+
+      '<button class="cp-btn wide" type="button" data-cout="won">Won &mdash; they\'re buying</button>'+
+    '</div>'+
+    '<div class="cp-date hide" id="cpCb"><label class="lbl" for="cpCbDate" style="margin:0">Call back on</label>'+
+      '<input class="inp" type="date" id="cpCbDate" min="'+todayStr()+'">'+
+      '<button class="btn dark sm" type="button" data-cbsave>Save</button></div></div></div>'+
+    '<div class="cp-sec"><label class="lbl" for="cpNote">Note &middot; Station sees this</label>'+
+      '<input class="inp" id="cpNote" maxlength="200" autocomplete="off" placeholder="e.g. owner is Dana, back Thursday"></div>'+
+    '<p class="msg" id="cpMsg"></p>'+
+    '<div class="cp-foot"><span class="note">'+((stn&&d!=null&&ccLiveRow(r))?(d+" day"+(d===1?"":"s")+" left on this lead"):"")+'</span>'+
+      '<button class="btn lite sm" type="button" data-cnext>Next lead &rarr;</button></div>';
+  paintHours();
+}
+function paintHours(){
+  var r=CP.id?leadById(CP.id):null,hb=$("cpHours"),db=$("cpDial");if(!r||!hb||!db)return;
+  var k=callHours(r),ph=esc(r.phone||"");
+  hb.className="cp-hours "+(k.known?(k.ok?"ok":"no"):"unk");
+  hb.innerHTML=k.known?(k.ok?esc(k.text)+' <b>OK to call now</b>':'<b>'+esc(k.text)+'</b>'):esc(k.text);
+  db.innerHTML=k.ok
+    ?'<a class="cp-dial" href="'+esc(telHref(r.phone))+'">Call '+ph+'</a>'
+    :'<span class="cp-dial" aria-disabled="true" title="Outside calling hours">Call '+ph+'</span>';
+}
+function pressOnly(btn){
+  var grid=btn.parentNode;if(!grid)return;
+  grid.querySelectorAll(".cp-btn").forEach(function(b){b.removeAttribute("data-on");});
+  btn.setAttribute("data-on","");
+}
+function setCpBusy(on){var el=$("cp");if(el)el.querySelectorAll("[data-cres],[data-cout],[data-cbsave]").forEach(function(b){b.disabled=on;});}
+function logCall(p,label){
+  var r=CP.id?leadById(CP.id):null;if(!r||CP.busy)return;
+  var ni=$("cpNote"),note=ni?ni.value.trim():"";
+  var body={action:"cc_call",token:token,id:r.id};
+  Object.keys(p).forEach(function(k){body[k]=p[k];});
+  if(note)body.note=note;
+  CP.busy=true;setCpBusy(true);
+  post(body).then(function(d){
+    CP.busy=false;setCpBusy(false);
+    if(!d||!d.ok){var m=$("cpMsg");if(m)say(m,(d&&d.error)||"That didn't save. Try again.","err");return;}
+    var stn=isStationRow(r);
+    replaceLead(d.lead);renderSheet(leadCfg);renderCall();
+    var extra="";
+    if(p.outcome==="won")extra=stn?" Station has been told. It joins your book once Station accepts it and they pay."
+      :" Add them with Add client in Book of business so Station can accept them.";
+    var m2=$("cpMsg");if(m2)say(m2,"Saved: "+label+"."+extra,"ok");
+  }).catch(function(){CP.busy=false;setCpBusy(false);var m=$("cpMsg");if(m)say(m,"Network error — nothing was saved. Try again.","err");});
+}
+function nextCall(){
+  // Walk the queue once: every lead is offered at most once per calling session, starting after the
+  // current one and wrapping to the ones before it (a session opened from a row mid-list).
+  var q=CP.queue,i=q.indexOf(CP.id),n=q.length,k,id,r;
+  if(CP.id)CP.seen[CP.id]=1;
+  CP.id=null;
+  for(k=1;k<=n;k++){
+    id=q[((i<0?-1:i)+k+n)%n];r=leadById(id);
+    if(!CP.seen[id]&&r&&hasPhone(r)&&(ccNotCalledRow(r)||ccToCallRow(r))){CP.id=id;break;}
+  }
+  renderCall();
+  var el=$("cp");if(el)el.scrollTop=0;
+}
+(function(){
+  var w=$("cpWrap");if(!w)return;
+  w.addEventListener("click",function(e){
+    var t=e.target.closest?e.target.closest("[data-cclose],[data-cres],[data-cout],[data-cbsave],[data-cnext]"):null;if(!t)return;
+    if(t.hasAttribute("data-cclose")){closeCall();return;}
+    if(t.hasAttribute("data-cnext")){nextCall();return;}
+    if(CP.busy)return;
+    var m=$("cpMsg");
+    if(t.hasAttribute("data-cres")){
+      var res=t.getAttribute("data-cres");
+      if(res==="talked"){pressOnly(t);var tk=$("cpTalk");if(tk)tk.classList.remove("hide");if(m)clear(m);return;}
+      logCall({result:res},CALL_LABEL[res]);return;
+    }
+    if(t.hasAttribute("data-cout")){
+      var o=t.getAttribute("data-cout");
+      if(o==="callback"){pressOnly(t);var cb=$("cpCb");if(cb)cb.classList.remove("hide");var di=$("cpCbDate");if(di)di.focus();return;}
+      logCall({result:"talked",outcome:o},CALL_LABEL[o]);return;
+    }
+    if(t.hasAttribute("data-cbsave")){
+      var dv=(($("cpCbDate")||{}).value)||"";
+      if(!dv){if(m)say(m,"Pick the day to call them back.","err");return;}
+      logCall({result:"talked",outcome:"callback",next_at:dv},"Call back on "+dv);
+    }
+  });
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!w.classList.contains("hide"))closeCall();});
+})();
+
+/* ---- Message Station (the Dashboard) ----
+   The "seen" marker is a per-browser view preference (which Station messages this browser has shown);
+   the messages themselves live in Station's CRM and come from msg_thread every time. */
+var MSGS=null,MSG_BUSY=false,DASH_LOADED=false;
+var CHAN_WORD={chat:"portal",email:"email",sms:"text"};
+function msgSeenKey(){return "station_msg_seen_"+((me&&me.code)||"");}
+function msgSeen(){try{return localStorage.getItem(msgSeenKey())||"";}catch(e){return "";}}
+function msgTime(m){var t=Date.parse((m&&m.at)||"");return t>0?t:0;}
+function msgIsNew(m,seen){return m.direction==="out"&&msgTime(m)>(Date.parse(seen||"")||0);}
+function markMsgsSeen(){
+  var last=0;(MSGS||[]).forEach(function(m){if(m.direction==="out"&&msgTime(m)>last)last=msgTime(m);});
+  if(last){try{localStorage.setItem(msgSeenKey(),new Date(last).toISOString());}catch(e){}}
+  paintMsgTile();
+}
+function paintMsgTile(){
+  var v=$("ttMsgsV"),t=$("ttMsgs");if(!v||!t)return;
+  if(!MSGS){v.textContent="Messages";t.removeAttribute("data-hot");return;}
+  var seen=msgSeen(),n=MSGS.filter(function(m){return msgIsNew(m,seen);}).length;
+  v.textContent=n?(n+" new message"+(n===1?"":"s")+" from Station"):"No new messages";
+  t.toggleAttribute("data-hot",n>0);
+}
+function drawMsgs(){
+  var box=$("msgThread");if(!box||!MSGS)return;
+  if(!MSGS.length){box.innerHTML='<div class="nempty">No messages yet. Write to the Station team below.</div>';return;}
+  var seen=msgSeen(),h="",marked=false;
+  MSGS.forEach(function(m){
+    if(!marked&&msgIsNew(m,seen)){h+='<div class="mm-new">New from Station</div>';marked=true;}
+    var mine=m.direction==="in";
+    h+='<div class="mm '+(mine?"me":"st")+'">'+esc(m.body||"")+
+       '<span class="mt">'+(mine?"You":"Station")+' · '+esc(CHAN_WORD[m.channel]||m.channel||"")+' · '+esc(when(m.at))+'</span></div>';
+  });
+  box.innerHTML=h;box.scrollTop=box.scrollHeight;
+}
+function loadMsgs(){
+  var box=$("msgThread");if(!box||!token)return;
+  post({action:"msg_thread",token:token}).then(function(d){
+    if(!d||!d.ok){MSGS=null;box.innerHTML='<div class="nempty">'+esc((d&&d.error)||"Couldn't load your messages just now.")+'</div>';paintMsgTile();return;}
+    MSGS=(d.messages||[]).slice();drawMsgs();paintMsgTile();
+  }).catch(function(){MSGS=null;box.innerHTML='<div class="nempty">Couldn\'t load your messages just now. Refresh to try again.</div>';paintMsgTile();});
+}
+function sendMsg(){
+  var ta=$("msgText"),btn=$("msgSend"),m=$("msgMsg");if(!ta||!btn||!m)return;
+  var text=ta.value.trim();
+  if(!text){say(m,"Type a message first.","err");return;}
+  if(MSG_BUSY)return;
+  MSG_BUSY=true;btn.disabled=true;var t=btn.querySelector(".t"),old=t?t.innerHTML:"";if(t)t.innerHTML='<span class="spin"></span>';
+  post({action:"msg_send",token:token,text:text}).then(function(d){
+    MSG_BUSY=false;btn.disabled=false;if(t)t.innerHTML=old;
+    if(!d||!d.ok){say(m,(d&&d.error)||"Your message didn't reach Station. Try again, or email main@station.solutions.","err");return;}
+    ta.value="";
+    MSGS=(MSGS||[]).concat([d.message||{direction:"in",channel:"chat",body:text,at:new Date().toISOString()}]);
+    markMsgsSeen();drawMsgs();
+    say(m,"Sent to the Station team.","ok");
+  }).catch(function(){MSG_BUSY=false;btn.disabled=false;if(t)t.innerHTML=old;
+    say(m,"Network error — your message wasn't sent. Try again.","err");});
+}
+(function(){
+  var b=$("msgSend");if(b)b.addEventListener("click",sendMsg);
+  var ta=$("msgText");if(ta)ta.addEventListener("focus",function(){if(MSGS){markMsgsSeen();}});
+})();
+function dashFor(partner){
+  var ts=$("todayStrip"),mc=$("msgCard");
+  if(ts)ts.classList.toggle("hide",!partner);
+  if(mc)mc.classList.toggle("hide",!partner);
+  if(!partner||DASH_LOADED)return;
+  DASH_LOADED=true;
+  loadMsgs();loadMoney(false);
+}
+function goTab(k){var t=document.querySelector('#appView .tab[data-tab="'+k+'"]');if(t)t.click();}
+(function(){
+  var av=$("appView");if(!av)return;
+  av.addEventListener("click",function(e){
+    var g=e.target.closest?e.target.closest("[data-go]"):null;if(!g)return;
+    var k=g.getAttribute("data-go");
+    if(k==="msgs"){
+      goTab("dash");
+      var c=$("msgCard");if(c&&c.scrollIntoView)c.scrollIntoView({behavior:"smooth",block:"start"});
+      if(MSGS){drawMsgs();markMsgsSeen();}
+      var ta=$("msgText");if(ta)setTimeout(function(){try{ta.focus({preventScroll:true});}catch(err){ta.focus();}},350);
+      return;
+    }
+    if(k==="leads"){goTab("leads");if(isPhone()&&ccQueue().length)openCall(null);return;}
+    goTab(k);
+  });
+})();
+
+/* ---- How you get paid ----
+   Everything here is read from the engine: money_lines (commission lines, straight from Stripe) and
+   payout_status (the Stripe payout account and transfers). Nothing is worked out in the browser. */
+var MONEY=null,MONEY_ERR="",MONEY_AT=0,PAYST=null,PAYST_ERR="";
+function cents(n){n=Number(n)||0;return (n<0?"−":"")+"$"+(Math.abs(n)/100).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function blockWords(bl){return (bl||[]).map(function(b){return b==="tax"?"your tax form":(b==="stripe"?"your Stripe setup":String(b));}).join(" and ");}
+function loadMoney(force){
+  if(!token)return Promise.resolve(null);
+  if(MONEY&&!force&&Date.now()-MONEY_AT<60000){paintMoney();return Promise.resolve(MONEY);}
+  return post({action:"money_lines",token:token}).then(function(d){
+    if(d&&d.ok){MONEY=d;MONEY_ERR="";MONEY_AT=Date.now();}
+    else{MONEY=null;MONEY_ERR=(d&&d.error)||"Couldn't read your commission just now. Try again in a minute.";}
+    paintMoney();return MONEY;
+  }).catch(function(){MONEY=null;MONEY_ERR="Couldn't reach Station just now. Refresh to try again.";paintMoney();return null;});
+}
+function loadPayst(){
+  if(!token)return;
+  post({action:"payout_status",token:token}).then(function(d){
+    if(d&&d.ok){PAYST=d;PAYST_ERR="";}else{PAYST=null;PAYST_ERR=(d&&d.error)||"Couldn't reach Stripe just now. Try again in a minute.";}
+    paintPayAcct();paintXfers();
+  }).catch(function(){PAYST=null;PAYST_ERR="Couldn't reach Station just now. Refresh to try again.";paintPayAcct();paintXfers();});
+}
+function loadPaid(){loadMoney(false);loadPayst();paintHow();}
+function paintMoney(){paintMoneyTile();paintPayTiles();paintPayLog();paintSpecial();}
+function paintMoneyTile(){
+  var v=$("ttMoneyV"),k=$("ttMoneyK");if(!v||!k)return;
+  if(!MONEY){v.textContent="—";k.textContent=MONEY_ERR||"Loading…";return;}
+  var t=MONEY.totals||{},bl=t.blockers||[],rd=Number(t.ready_cents)||0,hd=Number(t.on_hold_cents)||0;
+  if(rd>0&&!bl.length){v.textContent=cents(rd)+" ready";k.textContent="for your next payout"+(hd?(" · "+cents(hd)+" on hold"):"");}
+  else if(rd>0){v.textContent=cents(rd)+" waiting on you";k.textContent="Needs "+blockWords(bl)+" before it can be paid";}
+  else if(hd>0){
+    v.textContent=cents(hd)+" on hold";
+    k.textContent=t.next_release
+      ?((bl.length?"held until ":"ready ")+fmtDay(t.next_release)+(bl.length?(" · then needs "+blockWords(bl)):""))
+      :"waiting for the client's payment to settle";
+  }
+  else{v.textContent="No commission yet";k.textContent="It starts when a client in your book pays a recurring fee";}
+}
+function paintPayTiles(){
+  var put=function(id,v){var el=$(id);if(el)el.textContent=v;};
+  var nx=$("payNext");
+  if(!MONEY){["payHold","payReady","payPaid","payNextV"].forEach(function(id){put(id,"—");});
+    ["payHoldK","payReadyK","payPaidK","payNextK"].forEach(function(id){put(id,"");});
+    if(nx)nx.textContent=MONEY_ERR||"Loading…";return;}
+  var t=MONEY.totals||{},bl=t.blockers||[],min=Number(MONEY.min_cents)||5000;
+  var hd=Number(t.on_hold_cents)||0,wt=Number(t.waiting_cents)||0,rd=Number(t.ready_cents)||0,pd=Number(t.paid_cents)||0,rv=Number(t.reversed_cents)||0;
+  put("payHold",cents(hd));
+  put("payHoldK",hd?((t.next_release?("Earliest release "+fmtDay(t.next_release)):"")+(wt?((t.next_release?" · ":"")+cents(wt)+" still settling"):"")):"Nothing on hold");
+  put("payReady",cents(rd));
+  put("payReadyK",bl.length?("Waiting on you: "+blockWords(bl).replace(/your /g,"")):(rd>=min?"Over the "+cents(min).replace(".00","")+" minimum":"Below the "+cents(min)+" minimum"));
+  put("payPaid",cents(pd));
+  put("payPaidK",rv?(cents(rv)+" reversed"):"");
+  if(bl.length){put("payNextV","Waiting on you");put("payNextK","Needs "+blockWords(bl));}
+  else if(rd>=min){put("payNextV","Next run");put("payNextK","Payouts go out every two weeks");}
+  else{put("payNextV",cents(min-rd)+" to go");put("payNextK","to the "+cents(min).replace(".00","")+" minimum");}
+  if(nx)nx.textContent="Station pays every two weeks once "+cents(min).replace(".00","")+" is ready. You're at "+cents(rd)+"."+
+    (bl.length?(" Before anything can be paid, Station needs "+blockWords(bl)+"."):"");
+}
+function payStatusClass(s){
+  return s==="paid"||s==="ready"?s:(s==="reversed"?"reversed":((s==="blocked_tax"||s==="blocked_stripe")?"you":"wait"));
+}
+function paintPayLog(){
+  var box=$("payLog");if(!box)return;
+  if(!MONEY){box.innerHTML='<p class="note">'+esc(MONEY_ERR||"Loading…")+'</p>';return;}
+  var ls=MONEY.lines||[];
+  if(!ls.length){box.innerHTML='<p class="note">No commission lines yet. A line appears here when a client in your book pays a recurring fee.</p>';return;}
+  var h='<table class="plog"><thead><tr><th>Paid</th><th>Client</th><th class="num">Your commission</th><th>Status</th></tr></thead><tbody>';
+  ls.forEach(function(l){
+    var dt=(l.installment&&l.installment.earned_from)||l.paid_at||"";
+    var what=[l.client,l.product].filter(Boolean).join(" · ");
+    var sub=[];
+    if(l.installment)sub.push("installment "+(Number(l.installment.k)+1)+" of "+l.installment.of);
+    if(l.special)sub.push("special term");
+    if(l.basis_cents!=null&&l.rate!=null)sub.push(Math.round(Number(l.rate)*100)+"% of "+cents(l.basis_cents));
+    var rv=Number(l.reversed_cents)||0;
+    h+='<tr><td>'+esc(fmtDay(dt)||"—")+'</td>'+
+       '<td>'+esc(what||"—")+(sub.length?'<div class="sub">'+esc(sub.join(" · "))+'</div>':'')+'</td>'+
+       '<td class="num">'+cents(l.amount_cents)+(rv?'<div class="sub">'+cents(-rv)+' reversed</div>':'')+'</td>'+
+       '<td><span class="pst '+payStatusClass(l.status)+'">'+esc(l.status_text||l.status||"")+'</span></td></tr>';
+  });
+  box.innerHTML=h+'</tbody></table>';
+}
+function paintXfers(){
+  var box=$("payXfers");if(!box)return;
+  if(!PAYST){box.innerHTML=PAYST_ERR?'<div class="pay-h">Payouts sent</div><p class="note">'+esc(PAYST_ERR)+'</p>':"";return;}
+  var xs=PAYST.transfers||[];
+  box.innerHTML='<div class="pay-h">Payouts sent</div>'+(xs.length?xs.map(function(x){
+    var n=Number(x.covers_count)||0;
+    return '<div class="xfer"><b>'+cents(x.amount_cents)+'</b> · '+esc(fmtDay(x.created))+
+      '<div class="sub">'+(n?(n+" commission line"+(n===1?"":"s")):"not tied to a commission line")+(x.reversed?" · reversed":"")+'</div></div>';
+  }).join(""):'<p class="note">No payouts sent yet.</p>');
+}
+function paintSpecial(){
+  var box=$("paySpecial");if(!box)return;
+  var sp=((MONEY&&MONEY.lines)||[]).filter(function(l){return l.special;});
+  box.innerHTML=sp.length?('<div class="pay-h">Your special terms</div>'+sp.map(function(l){
+    return '<div class="xfer">'+esc(l.product||"Special term")+' · <b>'+cents(l.amount_cents)+'</b><div class="sub">'+esc(l.status_text||"")+'</div></div>';
+  }).join("")):"";
+}
+function paintPayAcct(){
+  var box=$("payAcct");if(!box)return;
+  if(!PAYST){box.innerHTML='<span class="note">'+esc(PAYST_ERR||"Checking your payout account…")+'</span>';return;}
+  var a=PAYST.account||{},st=a.state||"none",needs=a.needs||[];
+  var pill={none:'<span class="pill pending">Not set up</span>',setup:'<span class="pill pending">Started</span>',
+    review:'<span class="pill pending">Stripe is reviewing</span>',ready:'<span class="pill active">Ready</span>'}[st]||"";
+  var txt={none:"Set up a Stripe payout account so Station can send you money.",
+    setup:"Stripe still needs: "+(needs.length?needs.join(", "):"a few details")+".",
+    review:"Stripe has your details and is checking them.",
+    ready:"Station can send your payouts."}[st]||"";
+  var btn=st==="none"
+    ?'<button class="btn dark sm" type="button" data-payset><span class="t">Set up payouts with Stripe</span></button>'
+    :'<button class="btn '+(st==="ready"?"lite":"dark")+' sm" type="button" data-payset><span class="t">Open my Stripe setup link</span></button>';
+  box.innerHTML=pill+' <span class="note">'+esc(txt)+'</span> '+btn;
+}
+function openSetup(btn){
+  var w=null;try{w=window.open("","_blank");}catch(e){w=null;}
+  var t=btn.querySelector(".t"),old=t?t.innerHTML:"",m=$("payMsg");
+  btn.disabled=true;if(t)t.innerHTML='<span class="spin"></span>';
+  post({action:"payout_link",token:token}).then(function(d){
+    btn.disabled=false;if(t)t.innerHTML=old;
+    if(!d||!d.ok||!d.url){if(w){try{w.close();}catch(e){}}if(m)say(m,(d&&d.error)||"Couldn't make your setup link just now. Try again in a minute.","err");return;}
+    var opened=false;
+    if(w){try{w.opener=null;w.location.href=d.url;opened=true;}catch(e){opened=false;}}
+    var lb=$("payLinkBox");
+    if(lb)lb.innerHTML='<a class="btn lite sm" href="'+esc(d.url)+'" target="_blank" rel="noopener">Open my Stripe setup link &#8599;</a> '+
+      '<span class="note">This link stays yours. It always opens your own Stripe setup.</span>';
+    if(m){if(opened){say(m,"Your Stripe setup opened in a new tab.","ok");}else{say(m,"Your link is ready. Use the button above.","ok");}}
+    if(d.created||!PAYST||(PAYST.account&&PAYST.account.state!==d.state))loadPayst();
+  }).catch(function(){btn.disabled=false;if(t)t.innerHTML=old;if(w){try{w.close();}catch(e){}}
+    if(m)say(m,"Network error — try again.","err");});
+}
+function paintHow(){
+  var ex=$("payExample");if(!ex||ex.getAttribute("data-done"))return;
+  ex.setAttribute("data-done","1");
+  fetch("products.json",{cache:"no-cache"}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    var ps=(d&&d.products)||[];
+    var p=ps.filter(function(x){return x.sku==="frontdesk"&&Number(x.mrr)>0;})[0]||ps.filter(function(x){return Number(x.mrr)>0;})[0];
+    if(!p)return;
+    var m=Number(p.mrr),c=(Math.round(m*40)/100).toFixed(2);
+    ex.textContent="An example of the arithmetic only, not a forecast or a promise: a client paying $"+m+
+      " a month for "+p.name+" earns you $"+c+" for each month that clears.";
+  }).catch(function(){});
+}
+(function(){
+  var pp=document.querySelector('#appView .panel[data-panel="paid"]');if(!pp)return;
+  pp.addEventListener("click",function(e){
+    var b=e.target.closest?e.target.closest("[data-payset]"):null;if(!b||b.disabled)return;
+    openSetup(b);
+  });
+})();
 
 /* ---------------- BOOK OF BUSINESS ---------------- */
 var TIER={core:"Core",pro:"Pro",custom:"Custom",products:"Products"};
@@ -2553,6 +3363,8 @@ function loadMe(){
       if(pt){ pt.style.display=(track==="Partner")?"":"none"; }
       var lt=$("tabLeads");
       if(lt){ lt.style.display=(track==="Partner")?"":"none"; }
+      // 2026-09-26 (C3): the Today strip and Message Station are Partner tools (the engine gates msg_*, money_lines).
+      try{dashFor(track==="Partner");}catch(e){}
     if(track!=="Partner"){
       $("ladderBox").innerHTML='<div class="rung" data-now><div class="r">—</div>'+
         '<div class="n">Not on the Partner programme</div><div class="g">Commission and client tools are Partner-only. Questions: main@station.solutions.</div></div>';
@@ -2564,13 +3376,15 @@ function loadMe(){
     $("basisNote").textContent=(track==="Partner")?("You're on the Partner track"+(d.rate_pct!=null?" — current rate "+d.rate_pct+"%.":".")+" Full detail in “How you get paid.”"):"This account isn't on the Partner programme, so there is no payout rate.";
 
     var tf=d.taxform||{};
+    var tl=$("taxLine");
+    if(tl)tl.classList.toggle("hide",!(track==="Partner"&&!tf.received&&!tf.pending_review));
     if(tf.received){
-      $("taxCard").innerHTML='<h2 class="tight">Payouts</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>You\'re clear to be paid. Payouts run every two weeks, $50 minimum.</p>';
+      $("taxCard").innerHTML='<h2 class="tight">Tax form</h2><p class="note"><span class="pill active">Tax form on file</span><br><br>Station has your tax form. Payouts run every two weeks once $50 is ready.</p>';
     }else if(tf.pending_review){
       $("taxCard").innerHTML='<h2 class="tight">Tax form submitted</h2>'+
         '<p class="note"><span class="pill pending">Under review</span><br><br>Your '+esc(tf.type||"document")+' is in — Station will mark you cleared once it\'s checked. No need to resend.</p>';
     }else{
-      $("taxCard").innerHTML='<h2 class="tight">Before we can pay you</h2>'+
+      $("taxCard").innerHTML='<h2 class="tight">Tax form: before we can pay you</h2>'+
         '<p class="note" style="margin-bottom:16px"><span class="pill pending">'+esc(tf.required||"Tax form")+' needed</span><br><br>We can\'t release a payout without it.</p>'+
         '<div class="getform">'+'<div class="gf-lbl">Step 1 &middot; get the form</div>'+'<a class="btn lite full" id="tfGet" target="_blank" rel="noopener" href="https://www.irs.gov/pub/irs-pdf/fw9.pdf">Open the W-9 to fill in</a>'+'<div class="hint" style="margin-top:8px">Opens the official IRS form. It is fillable and signable right in your browser &mdash; fill it in, sign it, save it, then upload it below. Nothing to print.</div></div>'+'<div class="field" style="margin-top:16px"><label>Step 2 &middot; which document</label><select id="tfType">'+'<option value="W-9 (US)">W-9 &mdash; US person</option>'+'<option value="W-8BEN (non-US)">W-8BEN &mdash; outside the US</option>'+'</select></div>'+
         '<div class="field"><label>Step 3 &middot; your file</label><input type="file" id="tfFile" accept=".pdf,.jpg,.jpeg,.png">'+
@@ -3538,6 +4352,7 @@ $("appView").querySelectorAll(".tab").forEach(function(t){
     if(t.dataset.tab==="demos")loadTemplates();
     if(t.dataset.tab==="leads")loadLeads();
     if(t.dataset.tab==="support")loadGuide();
+    if(t.dataset.tab==="paid")loadPaid();
   });
 });
 
