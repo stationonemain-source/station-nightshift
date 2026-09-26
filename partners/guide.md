@@ -127,11 +127,10 @@ Once you're signed in, you'll see seven tabs: **Dashboard, Leads, Book of busine
 
 ### Dashboard
 
-- **Your demos** lists demo sites built for businesses you're about to call, and has a **Request a demo** button. Station is reworking how websites are built, so check with Station before promising anyone a demo from this button. For a real website request, use **Request website** on the lead's row in Leads, or send the owner to station.solutions/custom/.
 - **Your referral link** has a **Copy link** button.
 - **Your numbers** shows Clicks, Referral leads (people who came through your link and filled in a form), Clients, and Commission per month.
 - **Your current payout rate** shows the Partner track at 40% recurring.
-- **Alerts in your Discord** is optional: alerts for client messages, add-ons and change requests, purchases, demos and new leads. Join the private Station channel (then enter your lowercase Discord handle), or paste a webhook link from your own server; the portal sends a test message when you save. You still reply to clients in the portal.
+- **Alerts in your Discord** is optional: alerts for add-ons and change requests, purchases, the setup steps when a client buys, and new leads. Join the private Station channel (then enter your lowercase Discord handle), or paste a webhook link from your own server; the portal sends a test message when you save. You still reply to clients in the portal.
 - **Tax form card** is where you upload your W-9 or W-8BEN.
 
 ### Leads

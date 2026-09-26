@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Partner portal — Station</title>
-<meta name="description" content="Refer local businesses to Station and earn recurring commission. Partners get a login, a live dashboard, and demo sites to open cold calls with.">
+<meta name="description" content="Refer local businesses to Station and earn recurring commission. Partners get a login and a live dashboard.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -580,7 +580,7 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     <div class="p-head">
       <p class="mono" style="margin:0 0 14px">Partner programme</p>
       <h1>Sell Station.<br>Get paid every month.</h1>
-      <p class="sub">Refer local businesses that miss calls and lose jobs. You get a real login, a live dashboard, and demo sites built for the businesses you're about to call.</p>
+      <p class="sub">Refer local businesses that miss calls and lose jobs. You get a real login and a live dashboard.</p>
     </div>
 
     <div class="ladder" style="grid-template-columns:1fr">
@@ -643,40 +643,6 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
     </div>
 
     <div class="panel" data-panel="dash" data-on>
-      <!-- 2026-09-02 audit: the demo journey starts and ends here. The request form moved in
-           from the (hidden) Demo sites tab; the list under it is the compact view of demo_list.
-           Order on this tab: your demos, link + stats, payout rate, Discord alerts, tax form. -->
-      <div class="card" id="demosCard">
-        <div class="dm-head">
-          <div>
-            <h2 class="tight">Your demos</h2>
-            <p class="note">Real working sites, built for the businesses you are about to call. Each one lands here with its link, the design it was built on, and what to say.</p>
-          </div>
-          <button class="btn dark sm" type="button" id="demoReqBtn">Request a demo</button>
-        </div>
-        <div id="demoReqBox" class="hide">
-          <p class="note" style="margin:0 0 16px">Give us a business you're about to call. Station builds them a real working site plus the specific gap costing them money &mdash; so you open with something true and concrete instead of a pitch. You make the call; we build the ammo.</p>
-          <form id="demoForm" novalidate>
-            <div class="row">
-              <div class="field"><label>Business name</label><input name="business" required placeholder="Katy Pool Co"></div>
-              <div class="field"><label>City</label><input name="city" required placeholder="Katy"></div>
-            </div>
-            <div class="row">
-              <div class="field"><label>State</label><input name="state" placeholder="TX"></div>
-              <div class="field"><label>Trade (optional)</label><input name="niche" placeholder="pools"></div>
-            </div>
-            <div class="field"><label>Their website (optional)</label><input name="website" placeholder="katypoolco.com">
-              <div class="hint">If you have it, we can find more. If they have none, that's often the pitch.</div></div>
-            <div class="field"><label>Design (optional)</label>
-              <input type="hidden" name="template" id="demoTemplate" value="">
-              <div id="tplPick"><div class="hint">Loading designs&hellip;</div></div>
-              <div class="hint" style="margin-top:8px">Type their trade above and we pick the design made for it. Leave nothing picked and Station chooses. You can change the design after it is built.</div></div>
-            <button class="btn dark full" type="submit"><span class="t">Build me a demo</span></button>
-          </form>
-          <div class="msg" id="demoMsg"></div>
-        </div>
-        <div id="dashJobs"></div>
-      </div>
       <div class="linkbox">
         <div class="mono">Your referral link</div>
         <div class="link" id="myLink">—</div>
@@ -698,9 +664,9 @@ nav.nav{background:rgba(11,13,16,.86);border-bottom:1px solid var(--line)}
       </div>
       <div class="card" id="alertCard">
         <h2 class="tight">Alerts in your Discord</h2>
-        <p class="note">Get your client alerts in your own Discord: new messages, add-ons and
-          change requests, the setup steps to action when a client buys a product, plus demos
-          finishing and leads landing. You still reply to clients here in
+        <p class="note">Get your client alerts in your own Discord: add-ons and
+          change requests, the setup steps to action when a client buys a product, plus
+          leads landing. You still reply to clients here in
           the portal.</p>
         <p class="note" id="alertState">&mdash;</p>
 
@@ -2582,8 +2548,6 @@ function loadMe(){
       // Demo Builder is a Partner-only tool (the engine also refuses demo_request off the Partner track).
       var dt=document.querySelector('#appView .tab[data-tab="demos"]');
       if(dt){ dt.style.display=(track==="Partner")?"":"none"; }
-      // 2026-09-02 audit: the Dashboard's Your demos card is the same Partner-only tool
-      var dc=$("demosCard"); if(dc){ dc.style.display=(track==="Partner")?"":"none"; }
       // 2026-08-22 audit fix AE-5: the Call Sheet (leads_pull / lead_add / lead_update / lead_del) is a Partner tool too; the engine refuses it otherwise.
       var pt=$("tabPipe");
       if(pt){ pt.style.display=(track==="Partner")?"":"none"; }
@@ -3183,41 +3147,6 @@ $("claimForm").addEventListener("submit",function(e){
     }).catch(function(){busy(f,false,"Set my password");say(m,"Network error — try again.");});
 });
 
-// 2026-08-22 audit fix PP-05 / 2026-09-02: the picker regroups on the typed trade; a click on a
-// design card or chip picks it (a second click on the picked one hands the choice back to
-// Station); the Request button reveals the form inside the Dashboard's Your demos card.
-(function(){
-  var f=$("demoForm"),ni=f&&f.querySelector("[name=niche]");
-  if(ni)ni.addEventListener("input",paintTemplateSelect);
-  var pk=$("tplPick");
-  if(pk)pk.addEventListener("click",function(e){
-    var t=e.target.closest?e.target.closest("[data-file]"):null;
-    if(t&&pk.contains(t)){e.preventDefault();pickTemplate(t.getAttribute("data-file"),true);}
-  });
-  var rb=$("demoReqBtn");
-  if(rb)rb.addEventListener("click",function(){
-    openDemoRequest();
-    var box=$("demoReqBox");
-    if(box&&!box.classList.contains("hide")&&f&&f.business)f.business.focus();
-  });
-})();
-$("demoForm").addEventListener("submit",function(e){
-  e.preventDefault();var f=e.target,m=$("demoMsg");clear(m);busy(f,true);
-  var payload={action:"demo_request",token:token,business:f.business.value.trim(),
-        city:f.city.value.trim(),state:f.state.value.trim(),
-        niche:f.niche.value.trim(),website:f.website.value.trim()};
-  // nothing picked -> no template key at all, and Foundry chooses the design
-  var tpl=String((f.template&&f.template.value)||"").trim();
-  if(tpl)payload.template=tpl;
-  post(payload)
-    .then(function(d){
-      busy(f,false,"Build me a demo");
-      if(!d.ok){say(m,d.error||"Could not queue that.");return;}
-      f.reset();TPL_USER_PICK=false;paintTemplateSelect();
-      say(m,"Queued. It usually takes about three minutes \u2014 it shows up below and this page updates itself.","ok");
-      loadJobs();
-    }).catch(function(){busy(f,false,"Build me a demo");say(m,"Network error \u2014 try again.");});
-});
 
 /* ---- sheet controls: filter boxes, CSV, and the add-lead row ---------- */
 $("leadQ").addEventListener("input",function(){
