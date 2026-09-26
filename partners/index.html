@@ -1063,7 +1063,7 @@ body.cp-open{overflow:hidden}
         <h2 class="tight">Your money</h2>
         <div class="stats" id="payTiles" style="margin:14px 0 10px">
           <div class="stat"><div class="v" id="payHold">&mdash;</div><div class="k">On hold</div><div class="note" id="payHoldK" style="font-size:12.5px;margin-top:6px"></div></div>
-          <div class="stat"><div class="v" id="payReady">&mdash;</div><div class="k">Ready for your next payout</div><div class="note" id="payReadyK" style="font-size:12.5px;margin-top:6px"></div></div>
+          <div class="stat"><div class="v" id="payReady">&mdash;</div><div class="k" id="payReadyL">Ready for your next payout</div><div class="note" id="payReadyK" style="font-size:12.5px;margin-top:6px"></div></div>
           <div class="stat"><div class="v" id="payPaid">&mdash;</div><div class="k">Paid to date</div><div class="note" id="payPaidK" style="font-size:12.5px;margin-top:6px"></div></div>
           <div class="stat"><div class="v" id="payNextV">&mdash;</div><div class="k">Next payout</div><div class="note" id="payNextK" style="font-size:12.5px;margin-top:6px"></div></div>
         </div>
@@ -1077,7 +1077,7 @@ body.cp-open{overflow:hidden}
       <div class="card">
         <h2 class="tight">How your pay works</h2>
         <ol class="steps" style="margin-top:12px">
-          <li><b>40% of recurring fees, for as long as they stay.</b> You earn 40% of the recurring subscription fees each client in your book actually pays Station and that have cleared, after refunds, chargebacks, credits and discounts. Never on a list price, a quote or a projection.</li>
+          <li><b>40% of recurring fees, while the client is in your book and your agreement is in effect.</b> You earn 40% of the recurring subscription fees each client in your book actually pays Station and that have cleared, after refunds, chargebacks, credits and discounts. Never on a list price, a quote or a projection.</li>
           <li><b>Not on one-time fees.</b> Setup, onboarding, website builds and other single purchases earn nothing. Neither do taxes, or amounts Station charges only to cover a third-party cost.</li>
           <li><b>Trials pay nothing until the first real payment.</b> Commission starts when a free trial has ended and the client's first payment has cleared.</li>
           <li><b>Prepaid plans are spread monthly.</b> A plan paid for several months at once is earned in equal monthly installments, not as a lump sum.</li>
@@ -1857,6 +1857,10 @@ function showAuth(){
   bookLoaded=false;
   try{closeCall();}catch(e){}
   CC=null;MSGS=null;MONEY=null;MONEY_ERR="";PAYST=null;PAYST_ERR="";DASH_LOADED=false;
+  // The Stripe setup link and message boxes belong to the partner who just left.
+  ["payLinkBox","msgThread"].forEach(function(id){var el=$(id);if(el)el.innerHTML="";});
+  ["payMsg","msgMsg"].forEach(function(id){var el=$(id);if(el)clear(el);});
+  var mt=$("msgText");if(mt)mt.value="";
 }
 
 
@@ -2767,6 +2771,7 @@ function logCall(p,label){
     if(!d||!d.ok){var m=$("cpMsg");if(m)say(m,(d&&d.error)||"That didn't save. Try again.","err");return;}
     var stn=isStationRow(r);
     replaceLead(d.lead);renderSheet(leadCfg);renderCall();
+    try{renderPipe();}catch(e){}   // the panel also opens from the Pipeline tab
     var extra="";
     if(p.outcome==="won")extra=stn?" Station has been told. It joins your book once Station accepts it and they pay."
       :" Add them with Add client in Book of business so Station can accept them.";
@@ -2926,8 +2931,12 @@ function paintMoney(){paintMoneyTile();paintPayTiles();paintPayLog();paintSpecia
 function paintMoneyTile(){
   var v=$("ttMoneyV"),k=$("ttMoneyK");if(!v||!k)return;
   if(!MONEY){v.textContent="—";k.textContent=MONEY_ERR||"Loading…";return;}
-  var t=MONEY.totals||{},bl=t.blockers||[],rd=Number(t.ready_cents)||0,hd=Number(t.on_hold_cents)||0;
-  if(rd>0&&!bl.length){v.textContent=cents(rd)+" ready";k.textContent="for your next payout"+(hd?(" · "+cents(hd)+" on hold"):"");}
+  var t=MONEY.totals||{},bl=t.blockers||[],rd=Number(t.ready_cents)||0,hd=Number(t.on_hold_cents)||0,
+      pd=Number(t.paid_cents)||0,min=Number(MONEY.min_cents)||5000;
+  // Under the minimum the balance rolls forward (agreement 8.2), so it is not "for your next payout".
+  if(rd>0&&!bl.length){v.textContent=cents(rd)+" ready";
+    k.textContent=(rd>=min?"for your next payout":(cents(min-rd)+" to go to the "+cents(min).replace(".00","")+" minimum"))+
+      (hd?(" · "+cents(hd)+" on hold"):"");}
   else if(rd>0){v.textContent=cents(rd)+" waiting on you";k.textContent="Needs "+blockWords(bl)+" before it can be paid";}
   else if(hd>0){
     v.textContent=cents(hd)+" on hold";
@@ -2935,11 +2944,13 @@ function paintMoneyTile(){
       ?((bl.length?"held until ":"ready ")+fmtDay(t.next_release)+(bl.length?(" · then needs "+blockWords(bl)):""))
       :"waiting for the client's payment to settle";
   }
+  else if(pd>0){v.textContent=cents(pd)+" paid to date";k.textContent="Nothing waiting right now";}
   else{v.textContent="No commission yet";k.textContent="It starts when a client in your book pays a recurring fee";}
 }
 function paintPayTiles(){
   var put=function(id,v){var el=$(id);if(el)el.textContent=v;};
   var nx=$("payNext");
+  put("payReadyL","Ready for your next payout");
   if(!MONEY){["payHold","payReady","payPaid","payNextV"].forEach(function(id){put(id,"—");});
     ["payHoldK","payReadyK","payPaidK","payNextK"].forEach(function(id){put(id,"");});
     if(nx)nx.textContent=MONEY_ERR||"Loading…";return;}
@@ -2948,7 +2959,8 @@ function paintPayTiles(){
   put("payHold",cents(hd));
   put("payHoldK",hd?((t.next_release?("Earliest release "+fmtDay(t.next_release)):"")+(wt?((t.next_release?" · ":"")+cents(wt)+" still settling"):"")):"Nothing on hold");
   put("payReady",cents(rd));
-  put("payReadyK",bl.length?("Waiting on you: "+blockWords(bl).replace(/your /g,"")):(rd>=min?"Over the "+cents(min).replace(".00","")+" minimum":"Below the "+cents(min)+" minimum"));
+  if(bl.length&&rd>0)put("payReadyL","Waiting on you");
+  put("payReadyK",bl.length?(rd>0?("Cleared, but needs "+blockWords(bl)+" before it can be paid"):("Waiting on you: "+blockWords(bl).replace(/your /g,""))):(rd>=min?"Over the "+cents(min).replace(".00","")+" minimum":"Below the "+cents(min)+" minimum"));
   put("payPaid",cents(pd));
   put("payPaidK",rv?(cents(rv)+" reversed"):"");
   if(bl.length){put("payNextV","Waiting on you");put("payNextK","Needs "+blockWords(bl));}
@@ -3530,7 +3542,7 @@ function pipeJob(l){var n=pipeNorm(l.name),hit=null;
   else if(j.status==="building"&&!hit){hit=j;}});
  return hit;}
 function pipeStage(l){
- if(l.outcome==="won"||l.outcome==="not_interested")return "done";
+ if(CC_CLOSED.indexOf(l.outcome||"")>=0)return "done";   // won, not interested, bad lead, do not call
  if(l.outcome)return "work";
  if(pipeJob(l))return "built";
  if(l.gap||l.sku||(l.leak|0)>0)return "diag";
@@ -3554,6 +3566,12 @@ function pipeJobCard(j){
   out+='<button class="btn dark sm" data-pjadd="'+esc(j.id)+'" title="File this business on your sheet so outcomes and ring-backs work on it">Add to sheet</button>';}
  out+='</div></div>';
  return out;}
+/* 2026-09-26 (C3): a Station lead is called through the call panel, which checks calling hours in the
+   business's time zone; other rows keep the plain dial link. No Call on a closed or expired Station lead. */
+function pipeCallBtn(l){
+ if(!isStationRow(l))return '<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+ if(!(ccOpenRow(l)&&hasPhone(l)))return "";
+ return '<button class="btn lite sm" data-pcall="'+esc(l.id)+'" title="Open the call panel for this lead">Call</button>';}
 function pipeCard(l){
  var st=pipeStage(l),j=pipeJob(l),h="";
  h+='<div class="pcard">';
@@ -3573,12 +3591,12 @@ function pipeCard(l){
  if(st==="diag"){
   h+='<button class="btn dark sm" data-pbuild="'+esc(l.id)+'">Build the site</button>';
   h+='<button class="btn lite sm" data-pdiag="'+esc(l.id)+'">Re-diagnose</button>';}
- if((st==="find"||st==="diag")&&l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+ if((st==="find"||st==="diag")&&l.phone)h+=pipeCallBtn(l);
  if(st==="built"&&j){
   if(j.status==="building")h+='<span class="pwait">Forging\u2026 check back in a minute</span>';
   if(j.url)h+='<a class="btn lite sm" href="'+esc(j.url)+'" target="_blank" rel="noopener">Open</a>';
   if(j.foundry_id)h+='<a class="btn lite sm" target="_blank" rel="noopener" href="'+esc(editorHref(j))+'">Edit photos &amp; text</a>';
-  if(l.phone)h+='<a class="btn lite sm" href="tel:'+esc(l.phone)+'">Call</a>';
+  if(l.phone)h+=pipeCallBtn(l);
   h+='<button class="btn dark sm" data-psend="'+esc(j.id)+'">Send it</button>';
   h+='<button class="btn lite sm" data-pout="demo_sent" data-plead="'+esc(l.id)+'">Mark sent</button>';}
  if(st==="work"){
@@ -3589,7 +3607,9 @@ function pipeCard(l){
  if(st==="done")h+='<span class="pchip '+(l.outcome==="won"?"pwon":"plost")+'">'+esc(outLabel(l.outcome))+'</span>';
  /* Archive is offered at every stage now, and on pulled rows too — it is no
     longer destructive, so there is nothing left to protect them from. */
- h+='<button class="btn lite sm" data-pdel="'+esc(l.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>';
+ /* 2026-09-26 (C3): except a live lead Station sent -- the engine refuses that (A8); mark it Bad lead instead. */
+ if(!(isStationRow(l)&&ccLiveRow(l)))
+  h+='<button class="btn lite sm" data-pdel="'+esc(l.id)+'" title="Move this row to your archive — nothing is deleted">Archive</button>';
  h+='</div></div>';
  return h;}
 function renderPipe(){
@@ -3627,8 +3647,9 @@ document.addEventListener("click",function(e){
     Remove, "Send it" and "Add to sheet" were dead in every browser — a click
     landed, closest() returned null, and nothing happened with no console error.
     Add the attribute here in the same edit as the handler, always. */
- var t=e.target.closest?e.target.closest("[data-pdiag],[data-pbuild],[data-pout],[data-psend],[data-pjadd],[data-pdel],[data-pedit]"):null;
+ var t=e.target.closest?e.target.closest("[data-pdiag],[data-pbuild],[data-pout],[data-psend],[data-pjadd],[data-pdel],[data-pedit],[data-pcall]"):null;
  if(!t)return;
+ if(t.hasAttribute("data-pcall")){openCall(t.getAttribute("data-pcall"));return;}
  if(t.hasAttribute("data-pedit")){
   var el=(LEADS||[]).filter(function(x){return x.id===t.getAttribute("data-pedit");})[0];
   if(!el)return;
@@ -3705,7 +3726,7 @@ document.addEventListener("click",function(e){
   var dl=(LEADS||[]).filter(function(x){return x.id===did;})[0];
   if(!confirm("Move "+((dl&&dl.name)||"this row")+" to your archive? Nothing is deleted — its notes stay with it, and the Leads tab's Archived filter restores it."))return;
   post({action:"lead_del",token:token,id:did}).then(function(d){
-   if(!d||!d.ok)return;
+   if(!d||!d.ok){pipeSay((d&&d.error)||"That row couldn't be archived just now.");return;}
    if(dl)dl.archived=d.archived||new Date().toISOString();
    renderPipe();
    if(typeof renderSheet==="function"){try{renderSheet(leadCfg);}catch(err){}}});

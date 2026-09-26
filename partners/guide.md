@@ -129,7 +129,7 @@ Once you're signed in, you'll see seven tabs: **Dashboard, Leads, Book of busine
 
 - **Today** is three tiles at the top, and each one opens the place it's about.
 - The **leads to call** tile counts your Not called yet plus To call leads and opens Leads. On a phone it opens straight into Calling mode.
-- The **money** tile shows what's on hold and when it's due to be released, what's ready, or "No commission yet". It opens How you get paid.
+- The **money** tile shows what's on hold and when it's due to be released, what's ready (and how far it is from the $50 minimum), what's waiting on you, what you've been paid to date when nothing is waiting, or "No commission yet". It opens How you get paid.
 - The **new messages** tile counts replies from the Station team you haven't opened yet. It opens Message Station.
 - If your tax form isn't on file yet, a line under the tiles says **Upload your tax form to get paid** and takes you to How you get paid.
 - **Message Station** is your thread with the Station team (see below).
@@ -205,11 +205,11 @@ Each product card shows its price, a plain description, **Why they buy it**, a s
 
 ### How you get paid
 
-Four parts, read live from Stripe:
+Four parts. Your money, the payout log and your payout account are read live from Stripe:
 
 1. **Get set up.** Your Stripe payout account (**Set up payouts with Stripe**, then **Open my Stripe setup link**, a link that stays yours), your **Tax form** upload, and your Partner Agreement. You type your bank details on Stripe's site; Station never sees or stores them.
-2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout**, **Paid to date**, and **Next payout**. Station pays every two weeks once $50 is ready.
-3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus every payout Station has sent you.
+2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout** (it reads **Waiting on you** when cleared money is waiting on your tax form or Stripe setup), **Paid to date**, and **Next payout**. Station pays every two weeks once $50 is ready.
+3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus your last 10 payouts from Station.
 4. **How your pay works.** The short version of sections 7 to 9 of your agreement, a worked example, and any special terms Station agreed with you. Questions go to **Message Station**.
 
 What the statuses in the payout log mean:
@@ -786,7 +786,7 @@ There isn't one. The only contact is main@station.solutions.
 
 ### Q: What's the difference between Bad lead, Not interested and Do not call?
 
-**Bad lead** means the lead itself is wrong: a wrong number, a closed business, or not a fit. **Not interested** means you reached them and they said no. **Do not call** means they asked not to be called again. All three close the lead. On a lead Station sent you, Station won't send that business to anyone again: never after Do not call or Bad lead, and not for 180 days after Not interested.
+**Bad lead** means the lead itself is wrong: a wrong number, a closed business, or not a fit. **Not interested** means you reached them and they said no. **Do not call** means they asked not to be called again. All three close the lead. On a lead Station sent you, Station's own sends skip that business afterwards: after Do not call or Bad lead, and for 180 days after Not interested. **Pull leads doesn't check this**, so a business that asked not to be called can still turn up in a pull. Check your notes before you call, and if they asked not to be called, don't call them.
 
 ### Q: Why is the Call button grey?
 
