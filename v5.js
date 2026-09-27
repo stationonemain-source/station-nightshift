@@ -597,8 +597,8 @@
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";
       if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
-      if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. Hosting costs what your domain costs, billed once a year.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
-      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites from <b>$500</b>. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
+      if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. After it's built, the Care Plan is $50 a month, or hosting alone costs what your domain costs, billed once a year.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
+      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with a $50/mo Care Plan after. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
       if (/answer|reception|24|after hours|phone rings|ai voice|voice ai/.test(s)) return "That's <b>Frontdesk</b> — an AI receptionist that answers 24/7, books appointments and never puts anyone on hold. See how it works:<br>" + plink("frontdesk");
       if (/review|stars|reputation/.test(s)) return "That's <b>Repute</b> — asks every happy customer for the review, catches the unhappy ones before they post, and drafts your replies. Try the live demo:<br>" + plink("repute");
@@ -761,7 +761,7 @@
       c.forEach(function (k) {
         var p = P2(k);
         if (p && (p.price_ids || p.price_id)) {
-          /* storefront = $500 build + $49/mo care; map = $147/mo + $297 setup.
+          /* a product can carry two prices (map = $147/mo + $297 setup).
              Sending one id made storefront fail Stripe validation outright and made
              map quietly skip its setup fee. */
           (p.price_ids || [p.price_id]).forEach(function (id) { prices.push(id); });

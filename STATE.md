@@ -111,3 +111,8 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 - Runbook for the manual takedown and domain transfer: brain `kb/client_hosting_runbook.md`.
 - 2026-09-23 later: hosting is **billed once a year** (Storefront + /custom/ copy). Takedown and domain handover after
   a cancel are automatic in Circle (`hosting_care.py`). This site only hosts the pages that start it.
+- **2026-09-27 (batch 2): SUPERSEDED by Circle's 09-24 rule — Care Plan = $50/mo** (hosting, domain renewal,
+  upkeep, one small change a month; bigger changes quoted). Hosting alone = the domain's cost, billed once a year.
+  `/storefront/`, `/custom/` (hosting question help), `/website-demo/view/` (was the retired "$500 + $49/mo care"),
+  `llms.txt` and the v5.js concierge now say that, matching `partners/guide.md` and `partners/products.json`.
+  Station may lower care on pushback and partners may take it to $25 — both partner-side only, never on public pages.
