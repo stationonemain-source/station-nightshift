@@ -757,7 +757,7 @@ body.cp-open{overflow:hidden}
       <p class="taxline hide" id="taxLine"><button class="linkish" type="button" data-go="paid">Upload your tax form to get paid &rarr; How you get paid</button></p>
       <div class="card" id="msgCard">
         <h2 class="tight">Message Station</h2>
-        <p class="note">Messages go to the Station team. Replies show here &mdash; and in your email when Station replies by email.</p>
+        <p class="note">Messages go to the Station team as an email from you. Station replies by email, and the reply shows here too.</p>
         <div class="msth" id="msgThread" aria-live="polite"><div class="nempty">Loading your messages&hellip;</div></div>
         <div class="ask-row">
           <textarea id="msgText" rows="2" maxlength="2000" placeholder="Write to the Station team&hellip;"></textarea>
@@ -2812,7 +2812,7 @@ function sendMsg(){
     MSG_BUSY=false;btn.disabled=false;if(t)t.innerHTML=old;
     if(!d||!d.ok){say(m,(d&&d.error)||"Your message didn't reach Station. Try again, or email main@station.solutions.","err");return;}
     ta.value="";
-    MSGS=(MSGS||[]).concat([d.message||{direction:"in",channel:"chat",body:text,at:new Date().toISOString()}]);
+    MSGS=(MSGS||[]).concat([d.message||{direction:"in",channel:"email",body:text,at:new Date().toISOString()}]);
     markMsgsSeen();drawMsgs();
     say(m,"Sent to the Station team.","ok");
   }).catch(function(){MSG_BUSY=false;btn.disabled=false;if(t)t.innerHTML=old;

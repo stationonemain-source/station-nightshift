@@ -142,8 +142,8 @@ Once you're signed in, you'll see seven tabs: **Dashboard, Leads, Book of busine
 
 Message Station is on your Dashboard. It goes to the Station team, which is people, not Ask Station.
 
-- Type your message and press **Send**. It arrives in Station's inbox straight away.
-- Station's replies show in the same thread. When Station replies by email, you get it in your email as well.
+- Type your message and press **Send**. It arrives in Station's inbox straight away, as an email from you.
+- Station replies by email. The reply lands in your email and shows in the same thread here.
 - You can send up to 20 messages a day. If something can't wait, email main@station.solutions.
 - Use it for anything about your account, your leads, your pay, or a client. Don't send tax forms or bank details here.
 
