@@ -372,8 +372,6 @@ html{--blue:var(--pay,#2563EB);--blue-d:var(--pay-d,#1D4ED8);--card:#FFFFFF;--pa
 .prod-price{text-align:right}
 .prod-price .mono{white-space:normal;overflow-wrap:anywhere}
 @media(max-width:600px){.prod-price{text-align:left}}
-#pullLeadForm .grid{grid-template-columns:1fr 1fr 120px}
-@media(max-width:600px){#pullLeadForm .grid{grid-template-columns:1fr}}
 
 /* 2026-08-22 audit fix LP-02 / F7 / PP-02: status lines for a lead pull, a site send, and a
    demo whose site is no longer live (the worker now marks those failed/expired). */
@@ -842,26 +840,9 @@ body.cp-open{overflow:hidden}
       <div class="breakout">
         <div class="card" style="margin-bottom:14px">
           <h2 class="tight">Your leads</h2>
-          <p class="note" style="margin-bottom:0">Every business you're working, in one sheet: the leads Station sends you, the ones you pull, and the ones you add. Press <b>Call</b> on a row to work it, click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
+          <p class="note" style="margin-bottom:0">Every business you're working, in one sheet: the leads Station sends you and the ones you add yourself. Press <b>Call</b> on a row to work it, click a column to sort, type to filter, set a status and a follow-up date inline, and keep notes against each row. Nothing here is visible to other partners.</p>
         </div>
 
-        <div class="addrow hide" id="pullLeadBox">
-          <form id="pullLeadForm" novalidate>
-            <div class="grid">
-              <div class="field"><label>Trade</label><input name="niche" required placeholder="plumbing, hvac, roofing…"></div>
-              <div class="field"><label>City</label><input name="location" required placeholder="Katy, TX"></div>
-              <div class="field"><label>How many</label><input name="count" inputmode="numeric" value="15"></div>
-            </div>
-            <div class="actions" style="margin-top:16px">
-              <button class="btn dark sm" type="submit"><span class="t">Pull leads</span></button>
-              <button class="btn lite sm" type="button" id="pullLeadCancel">Cancel</button>
-            </div>
-            <p class="note" style="margin-top:10px">Station finds real local businesses in that trade and city — each with the specific gap that's costing them money and a dollar figure — ranked by leak and dropped straight into your sheet. Up to 15 a day; they land within a few minutes.</p>
-            <div class="msg" id="pullLeadMsg"></div>
-          </form>
-        </div>
-        <!-- 2026-08-22 audit fix LP-02: the latest pull's status (queued / pulling / done N / 0 new / failed + reason) -->
-        <div class="pull-status hide" id="pullStatus"></div>
 
         <div class="addrow hide" id="addLeadBox">
           <form id="addLeadForm" novalidate>
@@ -907,7 +888,6 @@ body.cp-open{overflow:hidden}
         <div class="sheet-head">
           <div class="grow"><input class="srch" id="leadQ" placeholder="Filter — business, city, trade, phone, gap…"></div>
           <div class="chips" id="leadChips"></div>
-          <button class="btn dark sm" id="pullLeadBtn">Pull leads</button>
           <button class="btn lite sm" id="addLeadBtn">Add lead</button>
           <button class="btn lite sm" id="leadCsv">Export CSV</button>
         </div>
@@ -1878,8 +1858,8 @@ var COURSE=[
   more:["Don't lead with all 14 products — leading with the ONE most obviously broken thing gets a faster yes than a full catalog dump.","If two gaps are equally obvious, lead with the higher-value one first, and mention the second as a fast follow."]},
 
  {id:"partner-4",title:"Your two power tools: the Call Sheet and the Demo Builder",dur:"3 min",
-  summary:"Two Partner-only tools do the heavy lifting. The <b>Call Sheet</b> pulls a fresh list of real local businesses by trade and city — each with the specific gap costing them money and an estimated dollar leak — straight into your Leads sheet. The <b>Demo Builder</b> then builds a real working example for a business before you call, so you open with something true instead of a pitch.",
-  more:["Call Sheet: pick a trade and a city, pull your leads, then work the sheet — status, follow-up dates and notes on every row. It's rate-limited so the leads stay fresh, not a dump you never touch. Both tools are Partner-only.","The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
+  summary:"Two Partner-only tools do the heavy lifting. The <b>Call Sheet</b> holds the leads Station sends you — real local businesses, each with the specific gap costing them money and an estimated dollar leak — plus any business you add yourself. The <b>Demo Builder</b> then builds a real working example for a business before you call, so you open with something true instead of a pitch.",
+  more:["Call Sheet: Station sends you a set number of leads at a time. Work them — status, follow-up dates and notes on every row — then ask Station for more. Add any business you find yourself with Add lead. Both tools are Partner-only.","The demo tool takes real inputs — a business you're actually about to call, not a hypothetical — so build it right before the call, not days ahead.","If Station can't find enough public data, you'll still get a partial demo — that gap itself (“we couldn't find X”) is sometimes the strongest opening line."]},
 
  {id:"partner-5",title:"The call script pattern",dur:"3 min",
   summary:"Confirm who you're talking to, fast. State the specific gap you found, with a number if you have one. Offer to text the demo link live, on the call. You're not closing the sale — Station's free audit does that. Your only job is to get them to look at the demo.",
@@ -2478,36 +2458,6 @@ var leadCfg={
   }
 };
 
-/* 2026-08-22 audit fix LP-02 / PP-06: loadLeads resolves true while a pull is still open so the
-   poller knows when to stop; the latest pull's status and "pulled today X of Y" are rendered. */
-function renderPullStatus(d){
-  var el=$("pullStatus");if(!el)return false;
-  var j=(d.jobs||[])[0];
-  if(!j){el.classList.add("hide");el.innerHTML="";return false;}
-  var st=String(j.status||"").toLowerCase(), open=(st==="queued"||st==="running");
-  var where=esc(j.niche||"")+" in "+esc(j.location||"");
-  var h;
-  if(open){
-    h='<span class="pill queued">'+(st==="running"?"Pulling":"Queued")+'</span> '+where
-      +' — up to '+esc(j.want||"")+' leads land in this sheet within a few minutes. <span class="sub">This page checks for them itself.</span>';
-  }else if(st==="failed"){
-    h='<span class="pill failed">Failed</span> '+where+' — '+esc(j.error||"the pull could not run")
-      +'. Try again in a few minutes, or a nearby city.';
-  }else{
-    var n=Number(j.delivered||0);
-    if(n>0){
-      h='<span class="pill ready">Done</span> '+where+' — '+n+' new lead'+(n===1?"":"s")+' added'
-        +((j.want&&n<j.want)?' (you asked for '+esc(j.want)+')':'')+'.';
-    }else{
-      h='<span class="pill failed">0 new</span> '+where+' — every match in this area is already on a sheet, '
-        +'or today\'s search budget is used. Try a nearby city or a different trade.';
-    }
-  }
-  var at=j.updated||j.created;
-  if(at)h+=' <span class="sub">'+esc(when(at))+'</span>';
-  el.innerHTML=h;el.classList.remove("hide");
-  return open;
-}
 function loadLeads(){
   if(!token)return Promise.resolve(false);
   return post({action:"leads_list",token:token}).then(function(d){
@@ -2517,18 +2467,12 @@ function loadLeads(){
     var nx=d.notes||{};
     Object.keys(nx).forEach(function(k){if(k.indexOf("lead:")===0)LEAD_NOTES[k]=nx[k];});
     CC=d.cc||null;
-    var cap=(d.per_day&&d.pulled_today!=null)?("pulled today "+d.pulled_today+" of "+d.per_day+" · "):"";
+
     var lc=$("leadCap");
-    if(lc)lc.textContent=cap+"pulled leads stay "+(d.claim_days||14)+" days · leads Station sends stay "+
+    if(lc)lc.textContent="leads Station sends stay "+
       ((d.cc&&d.cc.station_days)||30)+" days from your last call, 14 once closed (60 once won) · rows you add stay a year";
-    var pb=$("pullLeadBtn");
-    if(pb){
-      var capped=!!(d.per_day&&Number(d.pulled_today||0)>=Number(d.per_day));
-      pb.disabled=capped;
-      pb.title=capped?("You've pulled your "+d.per_day+" leads for today — resets tomorrow."):"";
-    }
     renderSheet(leadCfg);
-    return renderPullStatus(d);
+    return true;
   }).catch(function(){return false;});
 }
 
@@ -4056,7 +4000,7 @@ function openLeadForm(r){
     $("addLeadNote").textContent=ADD_LEAD_NOTE;
     $("addLeadLookup").style.display="";
   }
-  $("pullLeadBox").classList.add("hide");$("pullLeadBtn").textContent="Pull leads";
+  
   $("addLeadBox").classList.remove("hide");
   $("addLeadBtn").textContent="Close";
   $("addLeadBox").scrollIntoView({behavior:"smooth",block:"nearest"});
@@ -4322,47 +4266,6 @@ $("addLeadForm").addEventListener("submit",function(e){
     }).catch(function(){busy(f,false,lbl);say(m,"Network error — try again.");});
 });
 
-$("pullLeadBtn").addEventListener("click",function(){
-  var box=$("pullLeadBox"),showing=!box.classList.contains("hide");
-  box.classList.toggle("hide",showing);
-  this.textContent=showing?"Pull leads":"Close";
-  closeLeadForm();
-  if(!showing)box.querySelector("[name=niche]").focus();
-});
-$("pullLeadCancel").addEventListener("click",function(){
-  $("pullLeadBox").classList.add("hide");$("pullLeadBtn").textContent="Pull leads";clear($("pullLeadMsg"));});
-var pullPollTimer=null;
-// 2026-08-22 audit fix LP-02: poll every 20 s only while the latest pull is still queued/running
-// (loadLeads resolves true in that case); stop as soon as it is done or failed, or after 12 polls.
-function pollLeads(n){
-  clearTimeout(pullPollTimer);
-  loadLeads().then(function(open){
-    if(open&&n<12){pullPollTimer=setTimeout(function(){pollLeads(n+1);},20000);}
-  });
-}
-$("pullLeadForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  var f=e.target,m=$("pullLeadMsg");clear(m);
-  var niche=f.niche.value.trim(),location=f.location.value.trim();
-  var count=parseInt(String(f.count.value).replace(/[^0-9]/g,""),10)||15;
-  if(!niche||!location){say(m,"Trade and city are both needed.","err");return;}
-  busy(f,true);
-  post({action:"leads_pull",token:token,niche:niche,location:location,count:count}).then(function(d){
-    busy(f,false,"Pull leads");
-    if(!d.ok){say(m,d.error||"Could not start that pull.","err");return;}
-    // 2026-08-22 audit fix PP-06: the engine trims the count to what is left today — say so.
-    var want=Number((d.job&&d.job.want)||count), left=(d.remaining_today!=null)?Number(d.remaining_today):null;
-    var txt="Pulling up to "+want+" "+niche+" lead"+(want===1?"":"s")+" in "+location+" — they land here within a few minutes. Keep working; the sheet refreshes them for you.";
-    if(want<count){
-      txt="You asked for "+count+"; "+(left!=null?(left+" left today"):("only "+want+" left today"))
-        +" — pulling up to "+want+" "+niche+" lead"+(want===1?"":"s")+" in "+location+". They land here within a few minutes.";
-    }
-    say(m,txt,"ok");
-    f.niche.value="";f.location.value="";
-    sst("leads").filter="all";
-    pollLeads(0);
-  }).catch(function(){busy(f,false,"Pull leads");say(m,"Network error — try again.","err");});
-});
 
 // The book costs a CRM round trip, so it loads the first time you open the tab.
 $("appView").querySelectorAll(".tab").forEach(function(t){

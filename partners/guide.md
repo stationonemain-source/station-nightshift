@@ -149,14 +149,16 @@ Message Station is on your Dashboard. It goes to the Station team, which is peop
 
 ### Leads
 
-This is your working sheet of every business you're talking to: the leads Station sends you, the ones you pull, and the ones you add. No other partner can see it.
+This is your working sheet of every business you're talking to: the leads Station sends you and the ones you add yourself. No other partner can see it.
+
+**Where leads come from:** only two places. Station finds businesses and sends them to you, a set number at a time, from the area Station has set for you. And you can add any business you come across yourself with **Add lead**. Partners don't search for or pull leads; that's Station's job.
 
 - **The three bubbles** at the top count your sheet, and pressing one filters the sheet to it (press it again to see every row).
 - **Leads** is every open lead: not archived, and not Won, Not interested, Bad lead or Do not call.
 - **Not called yet** is the open leads you haven't called and haven't given a status.
 - **To call** is the leads to call again today: a Call back whose day has come, or a No answer or Voicemail from an earlier day. A lead you tried today comes back tomorrow.
 - **Leads from Station** carry a **◆ From Station** badge with the days left on the lead. Station sends leads from the area and trades it has set for you, and the line under the bubbles shows them (for example "Station sends leads from Tulsa, OK · roofing, plumbing").
-- **Ask Station for more leads:** Station sends a set number of leads at a time. When you've called every lead Station sent you, press **Ask Station for more leads** and Station gets the request. Until then the button reads **Call your N remaining leads first**. After you ask, it shows **Asked** with the date. Leads you add or pull yourself never hold this up.
+- **Ask Station for more leads:** Station sends a set number of leads at a time. When you've called every lead Station sent you, press **Ask Station for more leads** and Station gets the request. Until then the button reads **Call your N remaining leads first**. After you ask, it shows **Asked** with the date. Leads you add yourself never hold this up.
 - **Call** (on each open row with a phone number) opens the call panel. On a phone it fills the screen as **Calling mode**. **Start calling** walks every Not called yet lead first, then every To call lead, and **Next lead** moves on.
 - The call panel shows the business, city, trade and rating, **What to say** (the gap, the pitch and price, and your last tries), and how many days are left on the lead.
 - **Calling hours:** the panel shows the business's local time and **OK to call now**, or when you can call. Calls are only for 9 am to 8 pm, Monday to Saturday, in the business's own time zone, and outside those hours the call button is switched off. If a lead has no state, the panel can't tell its time zone and asks you to check their local time before calling.
@@ -165,14 +167,13 @@ This is your working sheet of every business you're talking to: the leads Statio
 - **Won** on a lead Station sent tells Station straight away. Station checks it and accepts it; it joins your book as a client when they pay. For a business you found yourself, add them with **Add client** in Book of business and email Station.
 - **Bad lead** is how you hand a lead back: wrong number, closed, or not a fit. There's no separate give-back button, and leads Station sent you can't be archived by hand. Mark them Bad lead or call them, and Station takes its leads back itself.
 - **Add lead:** the business, contact details, the gap (what's costing them work) and the product you're pitching. A phone or an email is enough to start, and **Look it up** can fill in details.
-- **Pull leads:** enter a trade, a city and a number. Station drops real local businesses into your sheet, each with a likely gap and an estimated dollar figure. You can pull up to 15 a day, and they arrive within minutes.
 - **Status:** New, Called, No answer, Voicemail, Interested, Call back, Demo sent, Won, Not interested, Bad lead or Do not call. Choosing **Call back** asks for the day. If a status can't be saved, the sheet puts the old one back and says why.
 - **Follow up:** set a date on each row. The **Due** filter shows who to contact today.
 - **Notes:** a running journal on each row.
 - **Filters:** All, Open, Due, Interested (includes Call back), Won, Closed (Not interested, Bad lead, Do not call) and Archived, plus a search box. The **Calls** column shows how many times you've called, the day of the last try and how it went (for example "2 · Tue · no answer").
 - **Edit** changes anything on a lead. **Archive** sets a row aside, and **Restore** brings it back. Nothing is ever deleted. Leads from Station have no Archive button, and one that Station took back or that ran out of days can't be restored.
 - **Request website** asks Station to build that business a website. A person picks it up; nothing is automatic. The row then shows **Website requested**. It changes to **Website ready** with a **Copy link** button once the site is built. If Station declines, it shows **Station passed** with a reason, and you can **Ask again**.
-- How long rows stay: **pulled leads** 14 days. **Leads Station sends** 30 days from your last call, or 14 days once closed (60 days once Won). **Rows you add** stay a year. After that a row moves to your archive.
+- How long rows stay: **Leads Station sends** 30 days from your last call, or 14 days once closed (60 days once Won). **Rows you add** stay a year. After that a row moves to your archive.
 - There's an **Export CSV** button. Your agreement says not to copy lead or client details out of Station's systems into a personal spreadsheet, list or CRM, so don't use exports without asking Station.
 
 The estimated dollar figures are conversation starters, not facts. Never tell an owner they're losing a specific amount.
@@ -748,7 +749,7 @@ Yes. The product pages say their line forwards to Station and isn't ported. For 
 
 Only people who've agreed to hear from you, one at a time. Stop if they ask, and never mass-text.
 
-### Q: Can I call the businesses from Pull leads?
+### Q: Can I call the businesses Station sends me?
 
 Dial by hand, call only 9 am to 8 pm, Monday to Saturday, in their time zone, follow do-not-call rules, and stop if they ask. Don't text or email them unless they agree. If you're unsure, ask Station first.
 
@@ -786,7 +787,7 @@ There isn't one. The only contact is main@station.solutions.
 
 ### Q: What's the difference between Bad lead, Not interested and Do not call?
 
-**Bad lead** means the lead itself is wrong: a wrong number, a closed business, or not a fit. **Not interested** means you reached them and they said no. **Do not call** means they asked not to be called again. All three close the lead. On a lead Station sent you, Station's own sends skip that business afterwards: after Do not call or Bad lead, and for 180 days after Not interested. **Pull leads doesn't check this**, so a business that asked not to be called can still turn up in a pull. Check your notes before you call, and if they asked not to be called, don't call them.
+**Bad lead** means the lead itself is wrong: a wrong number, a closed business, or not a fit. **Not interested** means you reached them and they said no. **Do not call** means they asked not to be called again. All three close the lead. On a lead Station sent you, Station's own sends skip that business afterwards: after Do not call or Bad lead, and for 180 days after Not interested. If a business asks not to be called, mark it **Do not call** and never call it again, even if you come across it again yourself.
 
 ### Q: Why is the Call button grey?
 
