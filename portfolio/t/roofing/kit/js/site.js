@@ -3,6 +3,8 @@
 (function () {
   'use strict';
   const C = window.GABLE_CONTENT;
+  /* No endpoint (or '#') = demo mode: the form sends nothing, so it must say so. */
+  const DEMO = !C.contact.endpoint || C.contact.endpoint === '#';
   const tier = document.body.dataset.tier || 'premium';
   const root = tier === 'simple' ? '../' : '';
 
@@ -176,8 +178,9 @@
               C.contact.concerns.map((g) => '<option>' + g + '</option>').join('') + '</select></div>' +
             '<div class="field"><label for="f-note">Anything else</label><textarea id="f-note" name="note" rows="3"></textarea></div>' +
             '<input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+            (DEMO ? '<p class="form-note form-demo">This is a demo built by Station. This form does not send anything.</p>' : '') +
             '<button class="btn btn-primary" type="submit">Book the free inspection</button>' +
-            '<p class="form-ok" role="status">Thank you — we will call within one business day.</p>' +
+            '<p class="form-ok" role="status">' + (DEMO ? 'This is a demo built by Station, so nothing was sent and nobody will be in touch. Want a site like this? Ask Station at station.solutions/custom/.' : 'Thank you — we will call within one business day.') + '</p>' +
             '<p class="form-note">No pressure, no storm-chaser games. ' + C.brand.license + '.</p>' +
           '</form>' +
         '</div>' +
@@ -275,7 +278,7 @@
       if (!form.reportValidity()) return;
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      if (C.contact.endpoint && C.contact.endpoint !== '#') {
+      if (!DEMO) {
         const data = Object.fromEntries(new FormData(form).entries());
         fetch(C.contact.endpoint, {
           method: 'POST',

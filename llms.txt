@@ -4,7 +4,8 @@
 
 ## Products
 
-- [Storefront](https://station.solutions/storefront/): Custom website designed around the business — priced to the project, free demo in 2–3 business days (start at https://station.solutions/custom/)
+- [Custom website](https://station.solutions/custom/): A bespoke website designed from scratch around the business — priced to the project, with a free demo of the business's own site in 2–3 business days before anything is charged (how it works: https://station.solutions/storefront/)
+- [Care plan](https://station.solutions/storefront/): Hosting, domain renewal and upkeep for a site Station built, with one small change a month (bigger changes quoted) — $50/mo, optional; the owner can take the site and run it themselves instead
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
 - [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo, 1,000 texts
 - [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 1,000 reminders (free inside Frontdesk)
@@ -31,7 +32,7 @@ No setup fees on bundles; each costs less than its products bought separately.
 
 - [Free front-office audit](https://station.solutions/audit/): five scored sections on a business's listing, reviews, site, marketing tags and local ranking — free, no card, emailed report
 - [Book a call](https://station.solutions/book/): 15 minutes with a human, no pitch deck
-- [Website portfolio](https://station.solutions/portfolio/): examples of Storefront builds
+- [Website portfolio](https://station.solutions/portfolio/): websites Station has designed and built, including concept demos made for real local businesses
 - [Partner program](https://station.solutions/partners/): referral partners and affiliates
 - [Contact](https://station.solutions/contact/): main@station.solutions
 

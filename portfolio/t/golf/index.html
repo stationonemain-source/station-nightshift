@@ -304,12 +304,11 @@ stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <form class="fa-form" id="faForm" autocomplete="off">
 <input id="faIn" placeholder="Ask a question…" aria-label="Your message">
 <button type="submit">Send</button></form>
-<p class="fa-note">Answers come from this business's own information.</p>
+<p class="fa-note">This is a demo built by Station. Answers come from this business's own public information, and nothing you type here is sent.</p>
 </section>
 <script>
-window.__FA_ENDPOINT='https://n8n.srv1748596.hstgr.cloud/webhook/foundry-leads';
 (function(){
-  var KB=[[/(price|cost|how much|quote|estimate|budget|финанс|financ|payment|afford)/i,['Every project is priced off the design, so the number follows what you actually want built rather than a package.','Quickest path is a free walkthrough — leave your name and number and Cementville Grill at the Qua will get you a real figure.']],[/(how long|timeline|when can|how fast|schedule|lead time|weeks)/i,['Timeline depends on scope and permitting — we\'ll give you a real date at the walkthrough, not a guess.','Want me to grab your number so we can get you on the calendar?']],[/(hour|open|close|today|weekend|saturday|sunday)/i,['Our hours: Monday: 6:30 AM – 7:30 PM; Tuesday: 6:30 AM – 7:30 PM; Wednesday: 6:30 AM – 7:30 PM; Thursday: 6:30 AM – 7:30 PM; Friday: 6:30 AM – 7:30 PM; Saturday: 6:30 AM – 7:30 PM; Sunday: 6:30 AM – 7:30 PM.','You can leave a message here any time and we\'ll pick it up.']],[/(call|phone|number|talk to|speak|human|someone)/i,['You can reach us at (210) 824-4500.','Or drop your number here and we\'ll call you back.']],[/(where|located|address|come to|directions|service area|area)/i,['We\'re at 444 E Basse Rd, San Antonio, TX 78209, USA.','We cover San Antonio, TX and the surrounding area.']],[/(review|reference|testimonial|happy|reputation|trust|good)/i,['Here\'s a recent one — "I’m constantly surprised this joint isn’t crowded. Great lunch menu with sandwiches, tacos, larger plates and specials. I had the Brisket tacos, they were a different…" — kyle grothues.','There are more on our Google listing.']],[/(warrant|guarantee|insur|licens|certif)/i,['Good question, and one for the team directly rather than me — call (210) 824-4500 and they\'ll give you the specifics in writing.']],[/(book|appoint|schedule|consult|come out|visit|walk)/i,['Happy to set that up. What\'s the best name and number to reach you?']]], CHIPS=['What do you do?','How much does it cost?','How soon can you start?','Can someone call me?'], LEAD=/([0-9][0-9\-\(\) \.]{6,})/;
+  var KB=[[/(price|cost|how much|quote|estimate|budget|финанс|financ|payment|afford)/i,['Every project is priced off the design, so the number follows what you actually want built rather than a package.','Quickest path is a free walkthrough — call Cementville Grill at the Qua directly for a real figure.']],[/(how long|timeline|when can|how fast|schedule|lead time|weeks)/i,['Timeline depends on scope and permitting — we\'ll give you a real date at the walkthrough, not a guess.','(This is a demo, so it can\'t book anything.)']],[/(hour|open|close|today|weekend|saturday|sunday)/i,['Our hours: Monday: 6:30 AM – 7:30 PM; Tuesday: 6:30 AM – 7:30 PM; Wednesday: 6:30 AM – 7:30 PM; Thursday: 6:30 AM – 7:30 PM; Friday: 6:30 AM – 7:30 PM; Saturday: 6:30 AM – 7:30 PM; Sunday: 6:30 AM – 7:30 PM.','(This is a demo, so messages here aren\'t sent.)']],[/(call|phone|number|talk to|speak|human|someone)/i,['You can reach us at (210) 824-4500.','(This is a demo, so it can\'t take a callback request.)']],[/(where|located|address|come to|directions|service area|area)/i,['We\'re at 444 E Basse Rd, San Antonio, TX 78209, USA.','We cover San Antonio, TX and the surrounding area.']],[/(review|reference|testimonial|happy|reputation|trust|good)/i,['Here\'s a recent one — "I’m constantly surprised this joint isn’t crowded. Great lunch menu with sandwiches, tacos, larger plates and specials. I had the Brisket tacos, they were a different…" — kyle grothues.','There are more on our Google listing.']],[/(warrant|guarantee|insur|licens|certif)/i,['Good question, and one for the team directly rather than me — call (210) 824-4500 and they\'ll give you the specifics in writing.']],[/(book|appoint|schedule|consult|come out|visit|walk)/i,['This is a demo, so it can\'t book anything. Call the business directly to set that up.']]], CHIPS=['What do you do?','How much does it cost?','How soon can you start?','Can someone call me?'], LEAD=/([0-9][0-9\-\(\) \.]{6,})/;
   var body=document.getElementById('faBody'),chips=document.getElementById('faChips');
   var btn=document.getElementById('faBtn'),panel=document.getElementById('faPanel');
   var form=document.getElementById('faForm'),input=document.getElementById('faIn');
@@ -330,17 +329,14 @@ window.__FA_ENDPOINT='https://n8n.srv1748596.hstgr.cloud/webhook/foundry-leads';
   function reply(raw){
     var m=String(raw||'').toLowerCase();
     if(LEAD.test(String(raw||''))&&!gotLead){gotLead=true;
-      try{var q=window.__FA_ENDPOINT||'';if(q){fetch(q,{method:'POST',
-        headers:{'Content-Type':'text/plain'},body:JSON.stringify({source:'site-assistant',
-        message:String(raw).slice(0,400),page:location.href})}).catch(function(){});}}catch(e){}
-      return ['Got it — someone from Cementville Grill at the Qua will call you shortly.','Anything else I can answer while you wait?'];}
+      return ['This is a demo, so your number was not sent anywhere and nobody will call.','Want a site like this for your own business? Ask Station at station.solutions/custom/.'];}
     for(var i=0;i<KB.length;i++){if(KB[i][0].test(m))return KB[i][1];}
     return ['That one\'s better answered by the team — call or text (210) 824-4500 and they\'ll sort you out.'];}
   function send(text){if(busy)return;text=String(text||'').trim();if(!text)return;
     line('you',text);chips.innerHTML='';say(reply(text),renderChips);}
   form.addEventListener('submit',function(e){e.preventDefault();send(input.value);input.value='';});
   function open(){panel.classList.add('on');btn.setAttribute('aria-expanded','true');
-    if(!greeted){greeted=true;say(['Hi — I\'m the Cementville Grill at the Qua desk. Ask me anything, or leave your number and we\'ll call you.'],renderChips);}
+    if(!greeted){greeted=true;say(['Hi — I\'m the Cementville Grill at the Qua desk. This is a demo built by Station: ask me anything, but messages typed here aren\'t sent to anyone.'],renderChips);}
     setTimeout(function(){input.focus();},80);}
   function close(){panel.classList.remove('on');btn.setAttribute('aria-expanded','false');}
   btn.addEventListener('click',function(){panel.classList.contains('on')?close():open();});

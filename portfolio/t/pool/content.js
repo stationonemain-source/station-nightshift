@@ -178,7 +178,7 @@ window.GLASS_CONTENT = {
     title: 'Start with a conversation.',
     body: 'Tell us about the backyard. We will come look, listen, and bring a sketch to the second meeting.',
     /* Template slot: point at the client CRM / GHL webhook. '#' keeps the form in demo mode. */
-    endpoint: 'https://n8n.srv1748596.hstgr.cloud/webhook/foundry-leads',
+    endpoint: '#',
     projectTypes: ['New pool', 'Pool + outdoor living', 'Renovation']
   }
 };

@@ -159,7 +159,7 @@ window.GABLE_CONTENT = {
     body: 'Forty points, photographs, a plain-English report — and zero pressure. If your roof ' +
       'has years left, we will tell you that too.',
     /* Template slot: point at the client CRM / GHL webhook. '#' keeps the form in demo mode. */
-    endpoint: 'https://n8n.srv1748596.hstgr.cloud/webhook/foundry-leads',
+    endpoint: '#',
     concerns: ['Storm or hail damage', 'Roof age / replacement', 'Active leak', 'New build or addition']
   }
 };
