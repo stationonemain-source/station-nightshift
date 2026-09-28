@@ -187,7 +187,7 @@ This tab lists every client assigned to you. No other partner can see them.
 - **Filters:** Core, Pro, Custom, À la carte and Inside 60d.
 - **Add client** is for a client you closed yourself. Enter their details, pick their bundle if they have one, and tick every product they pay for. To record an upsell, add the same client again with the new product ticked. Email Station too.
 - **Working a client:** click the client's name, or **Open** in the Work column. A panel opens with their live message history with Station, a reply box and **Book a call**. Use **Email** for replies. Station doesn't currently have its own texting number, so check with Station before relying on the Text option.
-- **Care rate** applies a website care discount you agreed with the client: $25 to $50 a month, lower only. It changes their bill from the next invoice, or is saved for when their care starts.
+- **Hosting & care** is quoted by Station for each client, never set by you. If a client wants Station to host and look after their site, press **Message Station** (the link just above the reply box) and say what they need.
 - **Note** keeps your record of the relationship.
 
 ### Calendar
@@ -249,7 +249,7 @@ A website designed around the business, not a template. It has booking and lead 
 
 It's **priced to the project**, with no published price, so never quote a number. The owner answers about 5 minutes of questions at station.solutions/custom/. Station builds a free demo by hand and emails it within 2 to 3 business days. Nothing is charged until they've seen it and said yes.
 
-After it's built, the client either takes the site over and runs it themselves, or goes on Station's **Care Plan at $50 a month**: Station hosts the site, keeps their domain renewed and looks after it, and makes one small change a month (bigger changes are quoted). If the client pushes back on the $50, you can take **up to 50% off** yourself, so no lower than **$25 a month**. Offer only as much as you need to, then set it yourself: open the client in Book of business and press **Care rate**. If they already pay for care, their bill changes from the next invoice. If care hasn't started yet, the rate is saved and Station starts their care at it. Anything below $25 needs Station's OK first.
+After it's built, the client either takes the site over and runs it themselves, or Station hosts it and looks after it for them. **Hosting & care** is one monthly subscription with **no list price**: Station quotes it for each client, and the quote covers what their domain costs plus the amount of care that fits that business. Never quote, estimate or discount it. Tell Station what the client needs with **Message Station** and Station sends them the quote. It's recurring, so you earn your 40% on whatever the client actually pays for it.
 
 ### Greet (website chat)
 
@@ -429,7 +429,7 @@ Each reply says when to use it and what not to say. Replace anything in square b
 
 > I can't change prices. Station sets them, and they're the same for everyone. What I can do is make sure you're on the right thing. If [product] is more than you need, [smaller option] may do the job. Single products start with a 7-day free trial and there's no contract, so you can try it. If you want several products, a bundle usually costs less than buying them separately.
 
-**Don't say:** "I'll give you part of my commission," "I'll get you a special price," or offer a longer trial. The one exception is website care: you may take up to 50% off the $50 Care Plan (see What we sell).
+**Don't say:** "I'll give you part of my commission," "I'll get you a special price," or offer a longer trial. That goes for website hosting & care too: Station quotes it for each client, so pass the question to Station instead of offering a number.
 
 ### "What's the contract?" / "Can I cancel?"
 
@@ -592,7 +592,7 @@ These come from your Partner Agreement and Station's policies.
 - Quote only prices published on station.solutions, checked before you quote.
 - No discounts, credits, custom prices, rebates or side incentives (including sharing your commission) without Station's written consent.
 - Never quote a price for a custom website build, multi-location Repute or Echo, or anything not in the catalogue.
-- Website care is $50 a month. It's the one price you may discount yourself: up to 50% off, so never below $25 a month. Apply it with **Care rate** in the client's workspace. You can lower a client's care, never raise it. Anything lower than $25 needs Station's OK.
+- Website hosting & care has no list price. Station quotes it for each client (what their domain costs plus the care that fits that business). Never quote, estimate or discount it: tell Station what the client needs and Station quotes.
 - The mobile app is free. Never quote a price for it.
 
 ### Promises
@@ -638,7 +638,7 @@ Station can suspend or remove a partner, and forfeit unpaid commission for cause
 - A client wants to cancel, downgrade or pause.
 - A client complains, is upset, or mentions a lawyer, a legal problem or a regulator.
 - Someone asks for a discount, a custom price, a longer trial or an annual plan.
-- Someone wants a website quote, wants care below $25 a month, or wants multi-location Repute or Echo.
+- Someone wants a website quote, a hosting & care quote, or multi-location Repute or Echo.
 - Someone asks for something not in the catalogue, or about contract terms beyond what's on the site.
 - A business has no EIN, or has a carrier registration problem.
 - Someone asks about keeping or moving a phone number and you're not sure.
@@ -722,11 +722,11 @@ Yes. Single products start with a 7-day free trial on their Standard plan, and b
 
 ### Q: What does a custom website cost?
 
-The build is priced to the project. The owner starts at station.solutions/custom/, gets a free demo in 2 to 3 business days, and pays nothing until they say yes. After that, the Care Plan is $50 a month (hosting, domain renewal, upkeep and one small change a month), or they can take the site over and run it themselves.
+The build is priced to the project. The owner starts at station.solutions/custom/, gets a free demo in 2 to 3 business days, and pays nothing until they say yes. After that, they either take the site over and run it themselves, or Station hosts it and looks after it for a monthly hosting & care fee that Station quotes for their business. Never quote a number for either.
 
-### Q: What does website care cost, and do I earn on it?
+### Q: What does website hosting & care cost, and do I earn on it?
 
-The Care Plan is $50 a month: Station hosts the site, keeps the domain renewed, looks after it and makes one small change a month. It's a recurring fee, so you earn your 40% on what the client actually pays for it, which means a discount lowers your commission too. If a client pushes back on the $50, you can take up to 50% off yourself (never below $25 a month). Apply it yourself with **Care rate** in the client's workspace (Book of business, then open the client). Anything below $25 needs Station's OK.
+There's no set price. Hosting & care is one monthly subscription that Station quotes for each client: Station hosts the site, keeps the domain renewed and looks after it, and the quote covers what their domain costs plus the amount of care that fits that business. You don't set, quote or discount it. Tell Station what the client needs with **Message Station** and Station quotes them. It's a recurring fee, so you earn your 40% on whatever the client actually pays for it, every month it clears.
 
 ### Q: What's in each bundle?
 

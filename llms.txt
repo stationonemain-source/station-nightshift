@@ -5,7 +5,7 @@
 ## Products
 
 - [Custom website](https://station.solutions/custom/): A bespoke website designed from scratch around the business — priced to the project, with a free demo of the business's own site in 2–3 business days before anything is charged (how it works: https://station.solutions/storefront/)
-- [Hosting and care](https://station.solutions/storefront/): Optional, for a site Station built — the Care Plan is $50/mo (hosting, domain renewal, upkeep and one small change a month; bigger changes quoted), or hosting alone at exactly what the domain costs, billed once a year; or the owner takes the site and runs it themselves
+- [Hosting and care](https://station.solutions/storefront/): Optional, for a site Station built — hosting and care is one monthly subscription priced for the business (what the domain costs plus the care the site needs), quoted with the demo, with no list price; or the owner takes the site and runs it themselves
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
 - [Dial](https://station.solutions/dial/): Business phone number with two-way texting — $47/mo, 1,000 texts
 - [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 1,000 reminders (free inside Frontdesk)

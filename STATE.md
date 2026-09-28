@@ -87,13 +87,13 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 ## 2026-09-23 — Storefront Premium retired
 
 - Station sells the **Custom website only**: /storefront/ is its page ("priced to your project",
-  free demo in 2–3 business days via /custom/, no $49/mo line, no 48-hour promise).
+  free demo in 2–3 business days via /custom/, no monthly care line, no 48-hour promise).
 - `storefront` SKU removed from STATION_CATALOG on 22 pages (drawer, cart, checkout); carts saved
   before the retirement drop it on load (v5.js `cartGet` / checkout `get`). Partners:
   `storefront` moved to `_retired_skus`. llms.txt, chat bot, Marquee, Portfolio reworded.
 - Stripe: payment link `plink_1TzVcq…` deactivated, product `prod_UzUbojMA3GfZL2` ($500 build)
-  archived. The $49 Care Plan product (`prod_UzUbgUnO1xtagW`) is still ACTIVE (no subscribers,
-  nothing sells it) — decide with D2 (Hosting & Care $10).
+  archived. The old retired-Premium care product (`prod_UzUbgUnO1xtagW`) is still ACTIVE (no subscribers,
+  nothing sells it) — decide with D2 (Hosting & Care).
 - Premium will be replaced by a referral to Circle's design-your-own-website business (pending).
 - Trap hit: the checkout block in v5.js has its own scope — `CATALOG`/`prod` are NOT visible there;
   use its local `cat`. A ReferenceError there blanks checkout silently for every visitor.
@@ -111,11 +111,9 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 - Runbook for the manual takedown and domain transfer: brain `kb/client_hosting_runbook.md`.
 - 2026-09-23 later: hosting is **billed once a year** (Storefront + /custom/ copy). Takedown and domain handover after
   a cancel are automatic in Circle (`hosting_care.py`). This site only hosts the pages that start it.
-- **2026-09-27 (batch 2): SUPERSEDED by Circle's 09-24 rule — Care Plan = $50/mo** (hosting, domain renewal,
-  upkeep, one small change a month; bigger changes quoted). Hosting alone = the domain's cost, billed once a year.
-  `/storefront/`, `/custom/` (hosting question help), `/website-demo/view/` (was the retired "$500 + $49/mo care"),
-  `llms.txt` and the v5.js concierge now say that, matching `partners/guide.md` and `partners/products.json`.
-  Station may lower care on pushback and partners may take it to $25 — both partner-side only, never on public pages.
+- 2026-09-27 (batch 2): Circle's 09-24 rule (a fixed monthly Care Plan price, with a partner discount floor) was
+  put on `/storefront/`, `/custom/`, `/website-demo/view/`, `llms.txt`, the v5.js concierge and the partner guide.
+  **Reversed 2026-09-28** — see below. Its numbers are deliberately not repeated here: this file is public.
 
 ## 2026-09-28 — partner payouts follow the money to the bank (engine v4.48)
 
@@ -131,3 +129,21 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   has marked the payout as paid", and a failed payout going back to "Sent" is explained.
 - ⚠️ Order: apply the engine patch first, then push this. Pushed alone, the portal is unchanged (no `bank_text` yet)
   but the guide would describe statuses nobody can see.
+
+## 2026-09-28 — hosting & care is quoted per client (Circle; reverses the 09-24 fixed price)
+
+- **The rule:** website hosting & care is ONE monthly subscription that Station quotes for each client. The quote
+  covers what the client's domain costs plus the care that fits that business. There is **no list price**, so no
+  public or partner-facing page states a care number. Partners never set, quote or discount it: they tell Station
+  (Message Station) and Station quotes. The partner earns 40% of whatever the client actually pays for it.
+- Public copy (quoted-with-your-demo wording): `/storefront/`, `/custom/` (hosting question help), `/website-demo/view/`
+  (price box now "Priced to your project"), `/portfolio/` ("Hosting & care, quoted"), `llms.txt`, the v5.js concierge,
+  and the unreferenced `bots.js`. The separate "hosting alone, billed once a year" option is gone from every page.
+- Partner portal: the **Care rate** button, its box and its JS (`ibxCare*`) are removed; the client workspace shows one
+  line, "Hosting & care is quoted by Station for each client. Message Station with what they need." (the existing
+  `data-go="msgs"` link). "Discounts lower your commission" no longer uses a care example with numbers.
+  `partners/guide.md` (the ONE source Ask Station answers from) and `partners/products.json` say the same.
+- ⚠️ Order: apply the engine patch (v4.49, `station-world/ops/n8n/patches/apply_care_quoted.py`: `care_rate` refuses)
+  and push this together. Pushed alone, nothing breaks (no page calls `care_rate` any more), but the engine would
+  still accept the action from an old cached portal.
+- ⚠️ This file is served publicly at station.solutions/STATE.md (no `.nojekyll`/exclude), so keep prices out of it.

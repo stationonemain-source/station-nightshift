@@ -268,7 +268,7 @@
     var KB = [
       // specific intents first — "how much is a website" must beat generic pricing
       [/(website|web ?site|premiere|launch site)/, [
-        "Two ways: a Launch site — $350 build + $150/mo hosting and care, live in days — or Premiere, a fully custom cinematic build. The page you're on right now is a Premiere.",
+        "Every website is custom and priced to the project, with a free demo first. After it's built, hosting and care is one monthly subscription quoted for your business.",
         "Premiere is quoted on a quick call."
       ]],
       [/(price|cost|how much|rate|tier|plan|month)/, [
