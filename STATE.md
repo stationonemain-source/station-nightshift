@@ -124,5 +124,10 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   `station-world/ops/n8n/patches/apply_payout_bank_patch.py`): the payout log already prints each line's
   `status_text`; `paintXfers` now appends each transfer's `bank_text` under "Payouts sent" (absent when Stripe can't
   show it, so nothing is claimed that wasn't read). `partners/guide.md` lists the two new statuses.
+- Review fixes (same day): lines older than 60 days (or past the newest 10 transfers) read **Paid to your Stripe
+  account · <date>** instead of sliding back from "In your bank" to "Sent"; the guide says so. `paintPayLog` adds
+  "Couldn't check your bank payouts with Stripe just now…" when `money_lines.bank_read` is `failed`/`partial` and a
+  paid line's `bank_stage` is `unknown` (the engine's "not observable" state). "In your bank" is described as "Stripe
+  has marked the payout as paid", and a failed payout going back to "Sent" is explained.
 - ⚠️ Order: apply the engine patch first, then push this. Pushed alone, the portal is unchanged (no `bank_text` yet)
   but the guide would describe statuses nobody can see.

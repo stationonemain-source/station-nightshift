@@ -2935,7 +2935,10 @@ function paintPayLog(){
        '<td class="num">'+cents(l.amount_cents)+(rv?'<div class="sub">'+cents(-rv)+' reversed</div>':'')+'</td>'+
        '<td><span class="pst '+payStatusClass(l.status)+'">'+esc(l.status_text||l.status||"")+'</span></td></tr>';
   });
-  box.innerHTML=h+'</tbody></table>';
+  // 2026-09-28 (engine v4.48): when Stripe couldn't show every bank payout, say so, so "Sent" is never read as the
+  // last word on a line whose bank step simply wasn't checked (bank_stage "unknown" on a failed / partial read)
+  var unk=(MONEY.bank_read==="failed"||MONEY.bank_read==="partial")&&ls.some(function(l){return l.status==="paid"&&l.bank_stage==="unknown";});
+  box.innerHTML=h+'</tbody></table>'+(unk?'<p class="note" style="margin:8px 0 0">Couldn\'t check your bank payouts with Stripe just now, so some paid lines show only the day Station sent them. Refresh in a minute to check again.</p>':'');
 }
 function paintXfers(){
   var box=$("payXfers");if(!box)return;
