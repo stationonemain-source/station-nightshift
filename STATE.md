@@ -116,3 +116,13 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   `/storefront/`, `/custom/` (hosting question help), `/website-demo/view/` (was the retired "$500 + $49/mo care"),
   `llms.txt` and the v5.js concierge now say that, matching `partners/guide.md` and `partners/products.json`.
   Station may lower care on pushback and partners may take it to $25 — both partner-side only, never on public pages.
+
+## 2026-09-28 — partner payouts follow the money to the bank (engine v4.48)
+
+- **How you get paid** now shows two more stages after "Sent to your Stripe account": **On its way to your bank ·
+  expected <date>** and **In your bank · <date>**. The wording comes from the Affiliate Engine (v4.48,
+  `station-world/ops/n8n/patches/apply_payout_bank_patch.py`): the payout log already prints each line's
+  `status_text`; `paintXfers` now appends each transfer's `bank_text` under "Payouts sent" (absent when Stripe can't
+  show it, so nothing is claimed that wasn't read). `partners/guide.md` lists the two new statuses.
+- ⚠️ Order: apply the engine patch first, then push this. Pushed alone, the portal is unchanged (no `bank_text` yet)
+  but the guide would describe statuses nobody can see.

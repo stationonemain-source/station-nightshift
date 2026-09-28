@@ -210,7 +210,7 @@ Four parts. Your money, the payout log and your payout account are read live fro
 
 1. **Get set up.** Your Stripe payout account (**Set up payouts with Stripe**, then **Open my Stripe setup link**, a link that stays yours), your **Tax form** upload, and your Partner Agreement. You type your bank details on Stripe's site; Station never sees or stores them.
 2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout** (it reads **Waiting on you** when cleared money is waiting on your tax form or Stripe setup), **Paid to date**, and **Next payout**. Station pays every two weeks once $50 is ready.
-3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus your last 10 payouts from Station.
+3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus your last 10 payouts from Station and, once Stripe shows it, whether each is on its way to your bank or in it.
 4. **How your pay works.** The short version of sections 7 to 9 of your agreement, a worked example, and any special terms Station agreed with you. Questions go to **Message Station**.
 
 What the statuses in the payout log mean:
@@ -219,7 +219,9 @@ What the statuses in the payout log mean:
 - **On hold until** a date: a new client's first payment is held for 30 days after it clears, which is the refund and chargeback window. Renewals aren't held.
 - **Waiting on you: Stripe setup** or **Waiting on you: tax form:** it's earned, and it's paid once you finish that step.
 - **Ready for your next payout.**
-- **Sent to your Stripe account** with the date.
+- **Sent to your Stripe account** with the date: Station has paid it to your Stripe account. Stripe then pays your Stripe balance to your bank on your account's payout schedule.
+- **On its way to your bank** with the date Stripe expects it to arrive: Stripe has started paying it out to your bank.
+- **In your bank** with the date: Stripe says the payout has reached your bank. Some banks show it a day later.
 - **Reversed:** the client's payment was refunded or disputed.
 
 ### Support

@@ -2944,7 +2944,9 @@ function paintXfers(){
   box.innerHTML='<div class="pay-h">Payouts sent</div>'+(xs.length?xs.map(function(x){
     var n=Number(x.covers_count)||0;
     return '<div class="xfer"><b>'+cents(x.amount_cents)+'</b> · '+esc(fmtDay(x.created))+
-      '<div class="sub">'+(n?(n+" commission line"+(n===1?"":"s")):"not tied to a commission line")+(x.reversed?" · reversed":"")+'</div></div>';
+      '<div class="sub">'+(n?(n+" commission line"+(n===1?"":"s")):"not tied to a commission line")+(x.reversed?" · reversed":"")+
+      // 2026-09-28 (engine v4.48): where Stripe says this payout's money is now; absent when Stripe can't show it
+      (x.bank_text&&!x.reversed?(" · "+esc(x.bank_text)):"")+'</div></div>';
   }).join(""):'<p class="note">No payouts sent yet.</p>');
 }
 function paintSpecial(){
