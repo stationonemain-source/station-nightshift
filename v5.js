@@ -589,6 +589,15 @@
     }
     var CAT2 = window.STATION_CATALOG || [];
     function plink(k) { var p = CAT2.find(function (x) { return x.k === k; }); return p ? '<a href="/' + k + '/">' + p.n + ' — ' + p.pricelab + ' →</a>' : ''; }
+    /* "Is my site hacked?" -> the free website check. Only hack-shaped words: a plain "check my
+       website speed" or "site pricing" question still gets the audit or the website answer, and a
+       chimney sweep asking about Frontdesk is not sent to the check. (_tests/sweep_site_test.py runs
+       this function on real questions.) */
+    function siteCheckQ(s) {
+      if (/\bhack|malware|hidden links?|spam links?|\bcloak|free website check/.test(s)) return true;
+      if (/\bvirus|\binfect/.test(s) && /site|page|google|wordpress/.test(s)) return true;
+      return /\bsweep\b/.test(s) && !/chimney|street|parking/.test(s);
+    } /* end siteCheckQ */
     function answer(q) {
       var s = q.toLowerCase();
       /* direct product hit first */
@@ -596,7 +605,7 @@
       if (hit) return "<b>" + hit.n + "</b> — " + hit.sub + ". " + hit.pricelab + ", live " + hit.ttl + ", cancel anytime. Try it on the page before you buy:<br>" + plink(hit.k);
       /* 2026-09-28: the free website check (/sweep/) -- before the "website" rule, which would
          otherwise answer "is my site hacked?" with the custom-website pitch */
-      if (/hack|malware|virus|hidden link|spam link|sweep|(web)?site check|check (my|our|the|a) (web)?site|infect|cloak/.test(s)) return "The <b>free website check</b> reads your public pages the way visitors and Google see them, and tells you plainly whether someone planted hidden links. The result shows on screen, usually in under a minute, and comes by email:<br><a href='/sweep/'>Run the free website check →</a>";
+      if (siteCheckQ(s)) return "The <b>free website check</b> reads your public pages the way visitors and Google see them, and tells you plainly whether someone planted hidden links. The result shows on screen, usually in under a minute, and comes by email:<br><a href='/sweep/'>Run the free website check →</a>";
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";
@@ -1202,14 +1211,16 @@
     var links = document.querySelectorAll("a[data-sweep-code-link]");
     if (!checks.length && !codes.length && !links.length) return;
 
-    var qs = null;
+    var qs = null, pre = window.__sweepPrefill || {};
     try { qs = new URLSearchParams(location.search); } catch (e) {}
     if (qs) {
-      var url = String(qs.get("url") || "").trim().slice(0, 500);
+      /* /sweep/'s <head> script already took ?url= and ?code= out of the address (so the Meta Pixel
+         and the analytics never see them) and left them in window.__sweepPrefill. */
+      var url = String(pre.url || qs.get("url") || "").trim().slice(0, 500);
       if (url) checks.forEach(function (f) {
         var i = f.querySelector('input[name="website"]'); if (i && !i.value) i.value = url;
       });
-      var code = String(qs.get("code") || "").trim().slice(0, 200);
+      var code = String(pre.code || qs.get("code") || "").trim().slice(0, 200);
       if (code) codes.forEach(function (f) {
         var i = f.querySelector('input[name="c"]'); if (i && !i.value) i.value = code;
       });
@@ -1228,11 +1239,22 @@
       setTimeout(function () { b.disabled = false; }, 8000);
     }
 
+    function autofilled(i) {
+      var m = false;
+      [":autofill", ":-webkit-autofill"].forEach(function (sel) { try { if (i.matches(sel)) m = true; } catch (e) {} });
+      return m;
+    }
+
     checks.forEach(function (form) {
       form.addEventListener("submit", function () {
         ["website", "email"].forEach(function (n) {
           var i = form.querySelector('input[name="' + n + '"]'); if (i) i.value = String(i.value || "").trim();
         });
+        /* The honeypot (company_fax, off-screen) must be empty or the service quietly drops the check.
+           If the browser's own autofill put something there, a person is filling the form: clear it.
+           A bot that types into it (or posts without this page) is untouched. */
+        var hp = form.querySelector('input[name="company_fax"]');
+        if (hp && hp.value && autofilled(hp)) hp.value = "";
         var src = form.querySelector('input[name="src"]');
         track("sweep_submit", src ? src.value : "");
         hold(form);
