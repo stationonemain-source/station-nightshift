@@ -153,7 +153,8 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 - **What customers see:** "Free website check" (never "Bug Sweeper", which is Circle's name for the funnel, and
   never the retired names). Two things are for sale only after a find: the **Full report** and the **Cleanup**.
 - **`/sweep/`** (`sweep/index.html`): the check form and the code box, three anonymised real finds (counts read from
-  the stored scans; where the links point is never shown), how the check works and what it can't see, the two
+  the stored scans; where the links point is never shown; each one a case the evidence gate KEEPS as "hidden links
+  found" — re-check against the gate before swapping a card), how the check works and what it can't see, the two
   prices, how the cleanup works (developer / own backup / backup restore / liability summary → the full cleanup
   authorization on the service), FAQ with matching FAQPage JSON-LD. Indexable, in `sitemap.xml` and `llms.txt`.
 - **Homepage:** both hero buttons unchanged; the quiet line under them scrolls to `<section id="sweep-band">`, which
@@ -161,7 +162,12 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
 - **The forms are plain HTML.** Check: `POST https://audit.station.solutions/sweep/check` with `website`, `email`,
   `company_fax` (honeypot, off-screen, `tabindex=-1`) and `src` (`sweep_page` | `home_band`). Code:
   `GET https://audit.station.solutions/sweep/code?c=…`. No fetch, no CORS; they work with JavaScript off. The
-  microcopy under each check form is exactly "We'll email your result to this address. No marketing unless you ask."
+  microcopy under each check form is exactly "We'll email your result to this address. No marketing unless you ask.",
+  with "Terms for the check · How we use your email" under it on both forms. The honeypot keeps the contract name
+  `company_fax` but its label/id match no autofill ("Leave this empty"), it carries the password-manager ignore
+  attributes, and v5.js clears it only when the browser itself autofilled it.
+- **`?url=` / `?code=` prefill** on `/sweep/`: an inline `<head>` script copies them to `window.__sweepPrefill` and
+  strips them from the address before attribution.js / analytics.js / the Meta Pixel run (a code opens a result page).
 - **Entry points:** Storefront mega-menu Help column ("Website check — hacked or not?") on all 22 inline navs +
   `/sweep/`, the footer "Start here" column, the mobile drawer and the search index in `v5.js`, and the v5.js
   concierge ("is my site hacked?" → `/sweep/`). Cache keys: `v5.css?v=20260928`, `v5.js?v=20260928`.
@@ -173,12 +179,19 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   on `/` it also waits while someone is typing into the check band.
 - **`/unsubscribe/` is scanner-safe:** opening the link only asks "Stop all email from Station to this address?";
   the two POSTs (cold engine + n8n station-unsub) go on the button press. Independent of the rest; safe to ship alone.
-- **`/legal/privacy.html#website-check`:** what the check keeps and why, plus a retention line (up to 12 months).
-  `<!-- draft pending attorney review -->`. ⚠️ Nothing deletes the service's request records at 12 months yet
-  (the check service's `/data/requests/*.json` and `requests.jsonl`): add that job, or change the line, before publishing.
+  Known limit: with JavaScript off the page can't act (its noscript note offers the reply-"unsubscribe" route); a
+  no-JS form needs the engine (station-world `cold_public.py`) to accept a form POST and answer with HTML.
+- **`/legal/privacy.html#website-check`:** what the check keeps and why, plus a retention line that names NO period:
+  kept while useful for the result / a report / a cleanup, deleted on request to main@station.solutions (by hand today:
+  the service's files + the contact), the contact record stays until they ask. Both carry
+  `<!-- draft pending attorney review -->`. Nothing purges check records on a timer yet; if a purge job ships, add its
+  period to the line and to `_tests` in the same change, never before.
 - **Tests:** `python3 _tests/sweep_site_test.py` (static) and, with `~/.claude/scripts/test-browser.sh start
   bs-sweepsite 9996`, `node _tests/sweep_browser.test.mjs` (starts its own static server; answers every outside
-  request itself). `_tests/` starts with `_`, so the Pages build never publishes it.
+  request itself). `_tests/` and `_notes/` start with `_`, so the Pages build never publishes them; build notes for
+  the lead session are in `_notes/CONTRACT-NOTES-sweepsite.md` (a test fails if one appears outside a `_` folder).
 - ⚠️ **Order:** the check service (its `/sweep` routes, its legal pages and the ~15 s watcher behind "usually under a
-  minute") must be live at `audit.station.solutions/sweep` BEFORE this branch reaches `main`, and only on Circle's
-  go (it is public content). Run link-preflight on `https://station.solutions/sweep/` after publishing.
+  minute") must be live at `audit.station.solutions/sweep`, AND the Bug Sweeper mail switch
+  (`$STATION/funnels/bugsweeper/MAIL_ENABLED`) must be on — until it is, every result mail is held, so "Result by
+  email" would be false — BEFORE this branch reaches `main`, and only on Circle's go (it is public content). Run
+  link-preflight on `https://station.solutions/sweep/` after publishing.
