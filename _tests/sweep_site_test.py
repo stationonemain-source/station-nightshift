@@ -125,6 +125,28 @@ BANNED_CUSTOMER = [r"\bparasites?\b", r"\bprocedure\b", r"\bmedicine\b", r"\bpre
                    r"\(\d{3}\)\s*\d{3}-\d{4}", r"\b\d{3}[-.]\d{3}[-.]\d{4}\b", r"bug sweeper"]
 
 
+# Autofill and password managers match fields by name, id and label. The honeypot's name is fixed by
+# the contract (company_fax), so its id and label must give them nothing else to match.
+AUTOFILL_WORDS = re.compile(r"company|organi[sz]ation|business|fax|phone|tel|name|email|mail|address|street|"
+                            r"city|zip|postal|country|url|website|user|login|pass", re.I)
+HP_IGNORE = ("data-1p-ignore", 'data-lpignore="true"', "data-bwignore", 'data-form-type="other"')
+
+
+def honeypot_ok(test, src, prefix):
+    m = re.search(r'<div class="sw-hp" aria-hidden="true"><label for="(%s[^"]*)">([^<]*)</label>(<input [^>]*>)</div>' % prefix, src)
+    test.assertIsNotNone(m, "honeypot markup")
+    hid, label, inp = m.groups()
+    test.assertIn('id="%s"' % hid, inp)
+    test.assertIn('name="company_fax"', inp)
+    test.assertIn('tabindex="-1"', inp)
+    test.assertIn('autocomplete="off"', inp)
+    test.assertEqual(label, "Leave this empty")
+    test.assertIsNone(AUTOFILL_WORDS.search(hid), hid)
+    test.assertIsNone(AUTOFILL_WORDS.search(label), label)
+    for a in HP_IGNORE:
+        test.assertIn(a, inp)
+
+
 def spam_hits(text):
     t = text.lower()
     hits = [w for w in STRONG if w in t]
@@ -167,8 +189,8 @@ class SweepPage(unittest.TestCase):
         self.assertNotIn("required", hp)
         self.assertEqual(names["src"].get("type"), "hidden")
         self.assertEqual(names["src"].get("value"), "sweep_page")
-        # the honeypot sits in an off-screen, aria-hidden wrapper
-        self.assertRegex(self.src, r'<div class="sw-hp" aria-hidden="true"><label for="sw-fax">[^<]*</label><input id="sw-fax" name="company_fax"')
+        # the honeypot sits in an off-screen, aria-hidden wrapper, and nothing autofill matches
+        honeypot_ok(self, self.src, "sw-")
         self.assertIn(MICROCOPY, self.p.visible)
 
     def test_code_form_contract(self):
@@ -179,6 +201,42 @@ class SweepPage(unittest.TestCase):
         self.assertEqual(f["attrs"].get("data-label"), "sweep_page")
         self.assertEqual([i.get("name") for i in f["inputs"]], ["c"])
         self.assertEqual(f["inputs"][0].get("placeholder"), "8-character code")
+
+    def test_prefill_leaves_the_address_first(self):
+        # ?url= / ?code= are lifted out of the address by an inline <head> script that runs before
+        # attribution.js, analytics.js (and so the Meta Pixel) or any other script file.
+        i = self.src.index("window.__sweepPrefill=o")
+        self.assertLess(i, self.src.index("</head>"))
+        first_src = re.search(r"<script[^>]*\bsrc=", self.src).start()
+        self.assertLess(i, first_src)
+        blk = self.src[self.src.rfind("<script>", 0, i):self.src.index("</script>", i)]
+        self.assertIn('["url","code"]', blk)
+        self.assertIn("history.replaceState(", blk)
+        self.assertIn("q.delete(k)", blk)
+        js = read("v5.js")
+        self.assertIn("pre = window.__sweepPrefill || {}", js)
+        self.assertIn('String(pre.url || qs.get("url") || "")', js)
+        self.assertIn('String(pre.code || qs.get("code") || "")', js)
+
+    def test_cases_are_evidence_gate_keeps(self):
+        # Each showcase card must be a case the N3 evidence gate KEEPS as "hidden links found" (the
+        # `keep` rows of the lead session's evidence dry run): med spa, plumber, dental practice.
+        # The agency card was removed on 2026-09-29: its specimen was a visible link (gate check b).
+        # Swap a card only after re-checking the new case against the gate.
+        tags = re.findall(r'<span class="sw-tag">([^<]*)</span>', self.src)
+        self.assertEqual(tags, ["Med spa · Texas", "Plumbing company · Texas", "Dental practice · Texas"])
+        self.assertNotIn("agency", self.p.visible.lower())
+        self.assertIn("1, shown only to Google", self.p.visible)
+
+    def test_promises_match_what_backs_them(self):
+        v = self.p.visible
+        # the verdict queue has no clock (WS1 result page: "usually within one business day")
+        self.assertIn("emails you the answer, usually within one business day", v)
+        self.assertNotIn("answer within one business day", v)
+        # cleanup-authorization §7: the same kind of injected links, new problems excluded
+        self.assertIn("if the same kind of hidden links come back in that time, we clean them again at no charge", v)
+        self.assertIn("That doesn't cover a new problem", v)
+        self.assertNotIn("if the links come back in that time we clean it again", v)
 
     def test_view_event_and_scripts(self):
         self.assertIn('<body data-range-view="sweep_view:sweep_page">', self.src)
@@ -270,6 +328,11 @@ class Homepage(unittest.TestCase):
         self.assertEqual(names["company_fax"].get("tabindex"), "-1")
         self.assertNotIn("data-audit", f["attrs"])  # never wired as the audit form
         band = between(self.src, '<section id="sweep-band"', "</section>")
+        honeypot_ok(self, band, "swb-")
+        # it asks for an email, so the terms and the privacy note sit right under it (as on /sweep/)
+        self.assertIn('<p class="sw-micro">%s</p>\n    <p class="sw-fine"><a href="%s/legal/sweep-terms.html">Terms for the check</a>'
+                      ' · <a href="/legal/privacy.html#website-check">How we use your email</a></p>'
+                      % (MICROCOPY, SERVICE), band)
         bp = Forms(); bp.feed(band)
         bv = re.sub(r"\s+", " ", " ".join(bp.text))
         self.assertIn("Free website check · Result by email", bv)  # CSS uppercases it
@@ -309,6 +372,29 @@ class SiteWide(unittest.TestCase):
         i_check = js.index("Run the free website check →</a>")
         i_site = js.index("if (/website|web site|site/.test(s))")
         self.assertLess(i_check, i_site)
+        # a browser-autofilled honeypot is cleared before the post; anything else is left alone
+        blk = js[js.index("FREE WEBSITE CHECK (2026-09-28)"):]
+        self.assertIn('if (hp && hp.value && autofilled(hp)) hp.value = "";', blk)
+        self.assertIn('[":autofill", ":-webkit-autofill"]', blk)
+
+    def test_concierge_only_answers_hack_questions_with_the_check(self):
+        js = read("v5.js")
+        fn = js[js.index("function siteCheckQ(s) {"):js.index("} /* end siteCheckQ */") + 1]
+        yes = ["is my site hacked?", "i think my website got hacked", "we have malware on our wordpress",
+               "someone put hidden links on my site", "spam links on my website", "google shows cloaked pages",
+               "is there a virus on my site?", "our site is infected", "what is the sweep?",
+               "how does the free website check work?"]
+        no = ["can you check my website speed?", "check the site pricing", "how much is a website?",
+              "i run a chimney sweep business, what should i start with?", "street sweep company here",
+              "do you do seo checks?", "what does frontdesk cost?", "our dental office has infection control rules",
+              "we run a pizza shack"]
+        prog = fn + "\nconst yes=%s, no=%s;\nconst bad=[...yes.filter(q=>!siteCheckQ(q)).map(q=>'missed: '+q), " \
+                    "...no.filter(q=>siteCheckQ(q)).map(q=>'wrongly matched: '+q)];\n" \
+                    "if(bad.length){console.log(bad.join('\\n'));process.exit(1);}" % (json.dumps(yes), json.dumps(no))
+        r = subprocess.run(["node", "-e", prog], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        # and it still runs ahead of the website answer
+        self.assertLess(js.index("if (siteCheckQ(s)) return"), js.index("if (/website|web site|site/.test(s))"))
 
     def test_sitemap_and_llms(self):
         self.assertIn("<loc>https://station.solutions/sweep/</loc>", read("sitemap.xml"))
@@ -372,9 +458,48 @@ class Privacy(unittest.TestCase):
         para = between(s, '<div class="card" id="website-check">', "</div>")
         for w in ("website address", "email address", "IP address", "limit abuse", "no marketing unless you ask"):
             self.assertIn(w, para)
-        self.assertIn("<b>Free website checks:</b>", s)
-        self.assertIn("<b>12 months</b>", s)
+        self.assertIn('<a href="#retention">Retention</a>', para)
+        self.assertIn('<h2 id="retention">', s)
         self.assertEqual(spam_hits(re.sub(r"<[^>]+>", " ", para)), [])
+
+    def test_retention_line_promises_nothing_that_does_not_run(self):
+        # Nothing deletes the check service's request/code/scan/evidence files on a timer yet, so the
+        # policy may not name a period. When a purge job ships, change this test and the line together.
+        s = read("legal/privacy.html")
+        li = between(s, "<li><b>Free website checks:</b>", "</li>")
+        before = s[:s.index("<li><b>Free website checks:</b>")]
+        self.assertTrue(before.rstrip().endswith("-->"))
+        self.assertIn("<!-- draft pending attorney review.", before[before.rfind("<!--"):])
+        text = re.sub(r"<[^>]+>", "", li).lower()
+        self.assertIsNone(re.search(r"\b\d+\s*(day|week|month|year)s?\b|\bthen deleted\b|\bautomatically\b", text), text)
+        for w in ("kept while they are useful", "we will delete them", "contact records", "until you ask us to remove it"):
+            self.assertIn(w, text)
+
+
+class RepoHygiene(unittest.TestCase):
+    """GitHub Pages publishes everything outside _-prefixed folders (a root .md is served as-is:
+    station.solutions/STATE.md answers 200). Build notes must never land there."""
+
+    def test_contract_notes_never_published(self):
+        bad = []
+        for dp, dn, fn in os.walk(ROOT):
+            dn[:] = [d for d in dn if d != ".git"]
+            rel = os.path.relpath(dp, ROOT)
+            parts = [] if rel == "." else rel.split(os.sep)
+            for f in fn:
+                if re.match(r"(?i)contract-notes", f) and not any(x.startswith("_") for x in parts):
+                    bad.append(os.path.join(rel, f))
+        self.assertEqual(bad, [])
+        self.assertTrue(os.path.exists(os.path.join(ROOT, "_notes", "CONTRACT-NOTES-sweepsite.md")))
+        self.assertFalse(os.path.exists(os.path.join(ROOT, ".nojekyll")), "without Jekyll, _notes/ and _tests/ would publish")
+        self.assertFalse(os.path.exists(os.path.join(ROOT, "_config.yml")), "a Jekyll config could include _ folders")
+
+    def test_state_deploy_order_names_the_mail_switch(self):
+        st = read("STATE.md")
+        sec = st[st.index("## 2026-09-28 — free website check"):]
+        order = [l for l in sec.split("\n- ") if l.startswith("⚠️ **Order:**")]
+        self.assertEqual(len(order), 1)
+        self.assertIn("MAIL_ENABLED", order[0])
 
 
 class InlineScripts(unittest.TestCase):

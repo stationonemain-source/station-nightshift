@@ -116,6 +116,20 @@ async function sweepPage(width, height, mobile, tag) {
   await scrollThrough(p);
   await shot(p, `web-station-sweep-${tag}.png`, true);
 
+  // the two buttons at the foot of the page land each form BELOW the fixed nav, heading visible
+  for (const id of ["check", "code"]) {
+    await p.eval("scrollTo(0, document.documentElement.scrollHeight)"); await sleep(300);
+    await p.eval(`document.querySelector('.sw-again a[href="#${id}"]').click()`);
+    let last = null;
+    const settled = await until(async () => {
+      const t = await p.eval(`Math.round(document.getElementById('${id}').getBoundingClientRect().top)`);
+      const same = last !== null && t === last; last = t; return same ? { t } : null;
+    }, 6000, 200);
+    const nav = await p.eval(`Math.round(document.querySelector('.nav').getBoundingClientRect().bottom)`);
+    const h2 = await p.eval(`Math.round(document.querySelector('#${id} h2').getBoundingClientRect().top)`);
+    check(settled && settled.t >= nav && h2 >= nav, `"#${id}" link lands below the fixed nav @${tag}`, { top: settled && settled.t, h2, nav });
+  }
+
   if (!mobile) {
     // nav mega-menu (hover-driven): the entry is in the Storefront Help column
     const help = await p.eval(`[...document.querySelectorAll('.mwrap')][1].querySelector('.mcol:last-child').innerText`);
@@ -145,10 +159,18 @@ async function sweepPage(width, height, mobile, tag) {
   check(ev && ev.label === "sweep_page", "sweep_submit label sweep_page", ev);
 
   // prefill, and prefill is text only
-  const q = "?url=" + encodeURIComponent('"><img src=x onerror=window.__pwned=1>') + "&code=7k3m-x9qd";
+  // Record the address at the moment the Meta Pixel snippet defines window.fbq (its PageView reads it).
+  await p.send("Page.addScriptToEvaluateOnNewDocument", { source:
+    "(function(){var v;try{Object.defineProperty(window,'fbq',{configurable:true,get:function(){return v}," +
+    "set:function(x){window.__hrefAtPixel=String(location.href);v=x;}});}catch(e){}})();" });
+  const q = "?url=" + encodeURIComponent('"><img src=x onerror=window.__pwned=1>') + "&code=7k3m-x9qd&utm_source=sweeptest";
+  const navStart = p.requests.length;
   await goto(p, B + "/sweep/" + q);
   const pre = await p.eval(`[document.getElementById('sw-website').value, document.getElementById('sw-c').value, !!window.__pwned, document.querySelectorAll('img[src="x"]').length]`);
   check(pre[0] === '"><img src=x onerror=window.__pwned=1>' && pre[1] === "7k3m-x9qd" && pre[2] === false && pre[3] === 0, "?url= and ?code= prefill as plain text", pre);
+  const addr = await p.eval(`[location.search, location.pathname, window.__hrefAtPixel || null]`);
+  check(addr[0] === "?utm_source=sweeptest" && addr[1] === "/sweep/", "?url= and ?code= leave the address; utm_* stays", addr);
+  check(addr[2] && !/7k3m|pwned|[?&](url|code)=/i.test(addr[2]), "the Meta Pixel sees the address without them", addr[2]);
 
   // code box → GET /sweep/code?c=…
   before = p.requests.length;
@@ -157,6 +179,15 @@ async function sweepPage(width, height, mobile, tag) {
   check(get && get.method === "GET" && get.url === SERVICE + "/code?c=7k3m-x9qd", "code form GETs " + SERVICE + "/code?c=", get && get.url);
   const ce = await until(() => events(p).find((e) => e.ev === "sweep_code_open"), 4000);
   check(ce && ce.label === "sweep_page", "sweep_code_open label sweep_page", ce);
+  // nothing but the page itself and the code form's own GET ever carried the two values
+  const leaks = p.requests.slice(navStart).filter((r) => !r.url.startsWith(B + "/sweep/?") && !r.url.startsWith(SERVICE + "/code?"))
+    .filter((r) => {
+      // our own origin (the page's stylesheet and scripts) may see the Referer; nobody else may
+      const ref = r.url.startsWith(B + "/") ? "" : ((r.headers && (r.headers.Referer || r.headers.referer)) || "");
+      let u = r.url; try { u = decodeURIComponent(u); } catch (e) {}
+      return /7k3m|pwned/i.test(u + " " + (r.postData || "") + " " + ref);
+    });
+  check(leaks.length === 0, "no other request (analytics, Meta, fonts) carries the code or the typed site", leaks.map((r) => r.url));
   check(!p.errors.length, "no script errors on /sweep/", p.errors);
   await p.close();
 }
@@ -187,6 +218,20 @@ async function consentGate() {
   check(!!post, "form still posts without analytics consent");
   await sleep(800);
   check(!events(p).some((e) => /^sweep_/.test(e.ev || "")), "no sweep_* analytics without consent", events(p).map((e) => e.ev));
+  await p.close();
+}
+
+async function honeypotBot() {
+  console.log("a honeypot filled by a script (not the browser's autofill) is posted as-is");
+  const p = await newPage();
+  await goto(p, B + "/sweep/");
+  const hp = await p.eval(`(()=>{const i=document.querySelector('#check input[name=company_fax]');const l=document.querySelector('label[for="'+i.id+'"]');return [i.id,l.textContent,i.hasAttribute('data-1p-ignore'),i.getAttribute('data-lpignore')]})()`);
+  check(hp[0] === "sw-hp1" && hp[1] === "Leave this empty" && hp[2] && hp[3] === "true", "honeypot label/id match no autofill; password managers told to skip it", hp);
+  await p.eval(`(()=>{const f=document.getElementById('check');f.website.value='fixture-dental-houston.com';f.email.value='owner@fixture-dental-houston.com';f.company_fax.value='555 0100';})()`);
+  await p.eval(`document.querySelector('#check button[type=submit]').click()`);
+  const post = await until(() => p.requests.find((r) => r.url === SERVICE + "/check"), 8000);
+  const f = post ? form(post.postData) : {};
+  check(post && f.company_fax === "555 0100", "bot-filled honeypot reaches the service unchanged", f);
   await p.close();
 }
 
@@ -271,6 +316,7 @@ async function main() {
     await sweepPage(390, 844, true, "390");
     await bandCodeLink();
     await consentGate();
+    await honeypotBot();
     await noJs();
     await unsubscribe();
   } finally {
