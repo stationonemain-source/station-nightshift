@@ -79,14 +79,14 @@ async function homepage(width, height, mobile, tag) {
   check(kicker === "FREE WEBSITE CHECK · RESULT BY EMAIL", "band kicker", kicker);
   const hp = await p.eval(`(()=>{const i=document.querySelector('#sweep-band input[name=company_fax]');const r=i.getBoundingClientRect();return {right:r.right,tab:i.tabIndex,ac:i.autocomplete}})()`);
   check(hp.right < 0 && hp.tab === -1 && hp.ac === "off", "honeypot is off-screen and out of the tab order", hp);
-  await shot(p, `web-home-hero-${tag}.png`, false);
+  await shot(p, `web-station-home-hero-${tag}.png`, false);
 
   // the quiet line scrolls to the band
   await p.eval(`document.querySelector('.hf-quiet a').click()`);
   const top = await until(async () => { const t = await p.eval(`document.getElementById('sweep-band').getBoundingClientRect().top`); return t >= 0 && t < 160 ? t : null; }, 5000);
   check(top !== null, "quiet line scrolls to the band", top);
   await sleep(700);
-  await shot(p, `web-home-band-${tag}.png`, false);
+  await shot(p, `web-station-home-band-${tag}.png`, false);
 
   // the band's form posts the contract fields to the service; the event carries src
   await p.eval(`(()=>{const f=document.querySelector('#sweep-band form');f.website.value='  fixture-dental-houston.com ';f.email.value='owner@fixture-dental-houston.com';})()`);
@@ -114,7 +114,7 @@ async function sweepPage(width, height, mobile, tag) {
   const h1 = await p.eval(`document.querySelector('h1').textContent`);
   check(h1 === "Has your website been hacked without you knowing?", "headline", h1);
   await scrollThrough(p);
-  await shot(p, `web-sweep-${tag}.png`, true);
+  await shot(p, `web-station-sweep-${tag}.png`, true);
 
   if (!mobile) {
     // nav mega-menu (hover-driven): the entry is in the Storefront Help column
@@ -229,7 +229,7 @@ async function unsubscribe() {
   check(sentTo(p).length === 0, "page load sends no POST", sentTo(p).map((r) => r.url));
   const ask = await p.eval(`[document.querySelector('h1').textContent, !!document.getElementById('unsub-go')]`);
   check(ask[0] === "Stop all email from Station to this address?" && ask[1], "page asks first, with one button", ask);
-  await shot(p, "web-unsubscribe-confirm-390.png", false);
+  await shot(p, "web-station-unsubscribe-confirm-390.png", false);
   // 2. a person presses the button (twice): exactly one POST to each, same body as before
   await p.eval(`(()=>{const b=document.getElementById('unsub-go');b.click();b.click();})()`);
   const done = await until(() => p.eval(`document.querySelector('h1').textContent === "You won’t get any more email from us."`), 5000);
@@ -237,7 +237,7 @@ async function unsubscribe() {
   check(posts.length === 2 && posts.some((r) => r.url === ENGINE) && posts.some((r) => r.url === N8N_UNSUB), "one click → one POST to the engine and one to n8n", posts.map((r) => r.url));
   check(posts.every((r) => r.postData === "u=" + encodeURIComponent(TOKEN)), "POST body is the cleaned token", posts.map((r) => r.postData));
   check(!!done, "engine confirmed → 'Unsubscribed'");
-  await shot(p, "web-unsubscribe-done-390.png", false);
+  await shot(p, "web-station-unsubscribe-done-390.png", false);
   await p.close();
 
   // 3. engine cannot confirm → the same "Request sent" outcome as before
