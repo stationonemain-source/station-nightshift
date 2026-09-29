@@ -195,3 +195,11 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   (`$STATION/funnels/bugsweeper/MAIL_ENABLED`) must be on — until it is, every result mail is held, so "Result by
   email" would be false — BEFORE this branch reaches `main`, and only on Circle's go (it is public content). Run
   link-preflight on `https://station.solutions/sweep/` after publishing.
+  **Gap fixes 2026-09-29 (the full ordered list is station-parasite STATE.md "Deploy"):** also publish only when the
+  check really takes checks: `/docker/parasite/data/CHECKS_OPEN` exists AND the evidence browser is ready with its
+  sandbox on (the service now closes the check by itself otherwise, and this page's forms would land on "paused for a
+  moment"); and only after a founder has checked Station's GHL workflows (a workflow on Contact Created or on an
+  unfiltered tag would mail marketing to every checker, and both forms here promise "No marketing unless you ask").
+  Circle's mail switch refuses until both are true. If only the $79 report is on sale at first (the cleanup links wait
+  for the connector test and the 30-day watch), a report buyer is told "we'll quote this one" for the cleanup while
+  this page lists $349 / $749: Circle's call whether such a quote holds to the listed price (_notes §10).

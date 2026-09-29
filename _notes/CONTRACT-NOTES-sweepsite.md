@@ -123,3 +123,17 @@ checks that no request other than the code form's own GET carries either value.
 - Seen outside this build, not changed: `audit-popup.js` fires `audit_popup_shown` / `audit_popup_submitted`, which no
   whitelist lists, so they are dropped. Its thank-you text also describes a manual review step that the free audit
   no longer has. Both are worth a separate look.
+
+## 10. Gap fixes 2026-09-29 (no page change; the publish order)
+
+- The service now closes the website check by itself while its evidence browser is not ready with the sandbox on
+  (station-parasite `engine/checks_gate.py`); this page's two forms then land on the service's "paused for a moment"
+  page (503). Publish only once `CHECKS_OPEN` exists and the check really takes checks.
+- Both forms promise "No marketing unless you ask". Every check makes a contact in Station's GHL location; a published
+  workflow on Contact Created, or on an unfiltered tag, would break that promise. A founder checks and records it in
+  Circle before the service's token exists; Circle's mail switch refuses until then. Publish after that.
+- The Stripe script can now sell the $79 report alone (`--activate --only report`) while the cleanup links wait for the
+  Lane A connector test and the 30-day watch. The pricing block here still lists the cleanup tiers ($349 / $749,
+  large quoted), and a report buyer then reads "we'll quote this one" on the report. No copy was changed: whether a
+  quote in that window holds to the listed price is Circle's decision, listed for the lead session.
+
