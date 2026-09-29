@@ -594,6 +594,9 @@
       /* direct product hit first */
       var hit = CAT2.find(function (p) { return s.indexOf(p.n.toLowerCase()) > -1; });
       if (hit) return "<b>" + hit.n + "</b> — " + hit.sub + ". " + hit.pricelab + ", live " + hit.ttl + ", cancel anytime. Try it on the page before you buy:<br>" + plink(hit.k);
+      /* 2026-09-28: the free website check (/sweep/) -- before the "website" rule, which would
+         otherwise answer "is my site hacked?" with the custom-website pitch */
+      if (/hack|malware|virus|hidden link|spam link|sweep|(web)?site check|check (my|our|the|a) (web)?site|infect|cloak/.test(s)) return "The <b>free website check</b> reads your public pages the way visitors and Google see them, and tells you plainly whether someone planted hidden links. The result shows on screen, usually in under a minute, and comes by email:<br><a href='/sweep/'>Run the free website check →</a>";
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";

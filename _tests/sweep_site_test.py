@@ -305,6 +305,10 @@ class SiteWide(unittest.TestCase):
         js = read("v5.js")
         self.assertIn("'<a href=\"/sweep/\">Website check</a>'", js)
         self.assertRegex(js, r'\{ t: "Free website check", s: "[^"]+", u: "/sweep/", kw: "[^"]*hacked[^"]*" \}')
+        # the concierge answers "is my site hacked?" with the check, ahead of its website pitch
+        i_check = js.index("Run the free website check →</a>")
+        i_site = js.index("if (/website|web site|site/.test(s))")
+        self.assertLess(i_check, i_site)
 
     def test_sitemap_and_llms(self):
         self.assertIn("<loc>https://station.solutions/sweep/</loc>", read("sitemap.xml"))
