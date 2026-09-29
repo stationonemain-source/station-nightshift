@@ -22,6 +22,10 @@
 
   var path = location.pathname.replace(/\/+$/, "/");
   if (path === "") path = "/";
+  // Never on the free website check (Circle, 2026-09-28): /sweep/ is its own funnel, and a
+  // free-audit offer sliding over its form would compete with it. Belt and braces: the page
+  // does not load this file, and this line keeps it off even if a later edit adds it.
+  if (/^\/sweep(\/|$)/.test(path)) return;
   if (PAGES.indexOf(path) < 0) return;
 
   function ls(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -58,6 +62,9 @@
     if (document.querySelector(".sq") || document.querySelector(".sx")) return;
     var drawer = document.querySelector(".cart");
     if (drawer && drawer.classList.contains("open")) return;
+    // not while someone is typing into the homepage's website-check band (tried again later)
+    var ae = document.activeElement;
+    if (ae && ae.closest && ae.closest("form[data-sweep]")) return;
     shown = true;
     lsSet(CAP_KEY, JSON.stringify(weekShows().concat([Date.now()])));
 

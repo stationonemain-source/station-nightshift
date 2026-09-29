@@ -187,6 +187,7 @@
     var sheet = document.createElement("div"); sheet.className = "msheet";
     sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Frontdesk</a>' +
       '<a href="/storefront/">Storefront</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
+      '<a href="/sweep/">Website check</a>' +
       '<a href="/book/">Book a call</a><a href="/#help">Build your line</a>';
     document.body.appendChild(sheet);
     h.addEventListener("click", function(e){ e.stopPropagation(); sheet.classList.toggle("open"); });
@@ -1098,6 +1099,7 @@
     }).concat([
       { t: "Bundles — Core / Pro / Custom", s: "Ride the whole line for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
       { t: "Free audit", s: "Twelve checks on how customers find and reach you — free", u: "/audit/", kw: "audit free check listing reviews report" },
+      { t: "Free website check", s: "Has your website been hacked without you knowing? Result by email", u: "/sweep/", kw: "website check sweep hacked hack hidden links spam links cloaking google cleanup clean report code sweeper" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },
       { t: "Website portfolio", s: "Real premium templates, clickable", u: "/portfolio/", kw: "portfolio website templates examples work roofing pool auto golf" },
       { t: "Email template gallery", s: "Real campaign templates included with Dispatch", u: "/portfolio/emails/", kw: "email templates campaigns newsletter examples dispatch" },
@@ -1171,5 +1173,83 @@
       });
     }, { threshold: 0.45 });
     cards.forEach(function (c) { io.observe(c); });
+  });
+})();
+
+/* ===================== FREE WEBSITE CHECK (2026-09-28) =====================
+   The homepage band (#sweep-band) and /sweep/ carry plain HTML forms that post straight to
+   the check service at audit.station.solutions/sweep (no fetch, no CORS, so they work with
+   JavaScript off). This block only adds conveniences on top of them:
+     - on /sweep/, ?url=<site> pre-fills the website box and ?code=<c> the code box;
+     - the analytics events sweep_submit (label = the form's src) and sweep_code_open (label
+       sweep_page, or home_band when the visitor came from the band's "Got a code" link --
+       remembered for this tab only, so the link itself stays a plain /sweep/#code);
+     - a double-submit guard, lifted again after a few seconds and when the page comes back
+       from the back/forward cache.
+   It never calls preventDefault: the browser always submits the form itself. The internal
+   name of this funnel is Bug Sweeper; nothing here is shown to a visitor under that name. */
+(function () {
+  "use strict";
+  function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
+  function track(ev, label) { try { if (window.__rangeTrack) window.__rangeTrack(ev, label); } catch (e) {} }
+  var FROM_KEY = "station_sweep_code_from";
+  ready(function () {
+    var checks = document.querySelectorAll('form[data-sweep="check"]');
+    var codes = document.querySelectorAll('form[data-sweep="code"]');
+    var links = document.querySelectorAll("a[data-sweep-code-link]");
+    if (!checks.length && !codes.length && !links.length) return;
+
+    var qs = null;
+    try { qs = new URLSearchParams(location.search); } catch (e) {}
+    if (qs) {
+      var url = String(qs.get("url") || "").trim().slice(0, 500);
+      if (url) checks.forEach(function (f) {
+        var i = f.querySelector('input[name="website"]'); if (i && !i.value) i.value = url;
+      });
+      var code = String(qs.get("code") || "").trim().slice(0, 200);
+      if (code) codes.forEach(function (f) {
+        var i = f.querySelector('input[name="c"]'); if (i && !i.value) i.value = code;
+      });
+    }
+
+    links.forEach(function (a) {
+      a.addEventListener("click", function () {
+        try { sessionStorage.setItem(FROM_KEY, a.getAttribute("data-sweep-code-link") || "home_band"); } catch (e) {}
+      });
+    });
+
+    function hold(form) {
+      var b = form.querySelector('button[type="submit"]');
+      if (!b) return;
+      setTimeout(function () { b.disabled = true; }, 0);
+      setTimeout(function () { b.disabled = false; }, 8000);
+    }
+
+    checks.forEach(function (form) {
+      form.addEventListener("submit", function () {
+        ["website", "email"].forEach(function (n) {
+          var i = form.querySelector('input[name="' + n + '"]'); if (i) i.value = String(i.value || "").trim();
+        });
+        var src = form.querySelector('input[name="src"]');
+        track("sweep_submit", src ? src.value : "");
+        hold(form);
+      });
+    });
+
+    codes.forEach(function (form) {
+      form.addEventListener("submit", function () {
+        var label = form.getAttribute("data-label") || "sweep_page";
+        try {
+          var from = sessionStorage.getItem(FROM_KEY);
+          if (from) { label = from; sessionStorage.removeItem(FROM_KEY); }
+        } catch (e) {}
+        track("sweep_code_open", label);
+        hold(form);
+      });
+    });
+
+    window.addEventListener("pageshow", function () {
+      document.querySelectorAll('form[data-sweep] button[type="submit"]').forEach(function (b) { b.disabled = false; });
+    });
   });
 })();

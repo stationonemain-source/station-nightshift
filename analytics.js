@@ -17,6 +17,8 @@
                   audit_view and unsubscribe are the same schema but are fired
                   from elsewhere (the hosted audit report page and the unsub
                   endpoint) through window.__rangeTrack(ev, label).
+                  sweep_view · sweep_submit · sweep_code_open: the free website
+                  check (/sweep/ and the homepage band), see EVENTS below.
 
      every event  utm_source · utm_campaign · fbclid_seen · device · event_id.
                   event_id is the dedup key: a server-side CAPI copy of the same
@@ -419,7 +421,17 @@
                     action, so it must count even for an "Essentials only" visitor). Listed
                     here so the name is legal in all five places and so a page that wants a
                     consent-gated browser copy can fire one. */
-                 newsletter_signup: 1 };
+                 newsletter_signup: 1,
+                 /* 2026-09-28: the free website check (internally "Bug Sweeper"). sweep_view on
+                    /sweep/ (label sweep_page, fired from boot() below through the page's
+                    data-range-view attribute, so a visitor who accepts late still counts);
+                    sweep_submit on either check form (label = the form's src: sweep_page or
+                    home_band); sweep_code_open on the /sweep/ code form (label sweep_page, or
+                    home_band when they came from the band's code link). The last two are fired
+                    by v5.js through window.__rangeTrack. Five-place rule: the n8n relay's ALLOW
+                    array and server.py's _RANGE_EVENTS must list these three names too, or they
+                    are dropped downstream without an error. */
+                 sweep_view: 1, sweep_submit: 1, sweep_code_open: 1 };
 
   function track(ev, label) {
     if (consent() !== "all") return "";
@@ -618,6 +630,14 @@
     loadMetaPixel();     // ad retargeting (only if a Pixel ID is set)
     rememberTouch();     // no-op when attribution.js is on the page
     track("pageview");
+
+    // A page can name one view event of its own, "<event>:<label>", on <body data-range-view>
+    // (/sweep/ says "sweep_view:sweep_page"). Fired here rather than by the page so it also
+    // counts when consent is given after load; the name still has to be in EVENTS.
+    try {
+      var pv = document.body && document.body.getAttribute("data-range-view");
+      if (pv) { var cut = pv.indexOf(":"); track(cut < 0 ? pv : pv.slice(0, cut), cut < 0 ? "" : pv.slice(cut + 1)); }
+    } catch (e) {}
 
     // Paid arrival. Fires on the FIRST pageview of an ad click, not just a later
     // one, because the landing query string was read into memory at load —
