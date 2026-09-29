@@ -21,8 +21,9 @@ h1{font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.12;letter-spacing:-.025em;
 .state{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin:0 0 18px}
 .state.ok{border-left:4px solid var(--good)} .state.warn{border-left:4px solid #B7791F}
 .btn{width:auto;padding:14px 22px}
+.btn[disabled]{opacity:.6;cursor:progress}
 </style></head><body><header class="top"><div class="top-in"><a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a></div></header>
-<main class="wrap" id="app"><p class="k">Email preferences</p><h1>Unsubscribing you&hellip;</h1><p class="lede">One moment.</p>
+<main class="wrap" id="app"><p class="k">Email preferences</p><h1>One moment&hellip;</h1>
 <noscript><div class="state warn"><p>This page needs JavaScript to record the unsubscribe. You can also just reply &ldquo;unsubscribe&rdquo; to the email and we&rsquo;ll stop.</p></div></noscript></main>
 <script>(function(){
 /* One click, no login (batch 4.4, 2026-09-27). The link carries a signed token (v1.<contact>.<signature>) and
@@ -30,22 +31,33 @@ h1{font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.12;letter-spacing:-.025em;
      1. audit.station.solutions/unsubscribe -- the cold engine's public host: its suppression list, and it
         confirms it recorded the request (the only answer this page can read);
      2. n8n "Station - Unsubscribe" -- sets GHL email DND + unsubscribed + do-not-contact on the contact.
-   Neither returns anything about the person. The page claims "done" only when the engine confirmed it. */
+   Neither returns anything about the person. The page claims "done" only when the engine confirmed it.
+   2026-09-28 (Circle, N4): scanner-safe. Mail security scanners open every link in an email, and some run
+   the page's JavaScript, so opening this page must never act on its own. The page now only ASKS; the two
+   POSTs are sent when a person presses the button, and a second press is ignored. */
 var ENGINE="https://audit.station.solutions/unsubscribe", N8N="https://n8n.srv1748596.hstgr.cloud/webhook/station-unsub";
 var app=document.getElementById("app"), u=new URLSearchParams(location.search).get("u")||"";
 /* 2026-09-28: a mail app can glue the punctuation after a link onto it ("...Q4U9U8," from "link: URL, or reply").
    The code itself never ends in punctuation, so drop any trailing .,;:!?)]'" before reading it. */
 u=u.trim().replace(/[.,;:!?)\]'"]+$/,"");
-function show(k,h,p,cls){app.innerHTML='<p class="k">'+k+'</p><h1>'+h+'</h1><div class="state '+cls+'"><p style="margin:0">'+p+'</p></div>'+
-  '<p class="fine">Station Automations Group LLC &middot; 1856 Branard St, Houston, TX 77098 &middot; <a href="mailto:main@station.solutions">main@station.solutions</a></p>';}
+var FOOT='<p class="fine">Station Automations Group LLC &middot; 1856 Branard St, Houston, TX 77098 &middot; <a href="mailto:main@station.solutions">main@station.solutions</a></p>';
+function show(k,h,p,cls){app.innerHTML='<p class="k">'+k+'</p><h1>'+h+'</h1><div class="state '+cls+'"><p style="margin:0">'+p+'</p></div>'+FOOT;}
 if(!/^v1\.[A-Za-z0-9]{2,40}\.[A-Za-z0-9_-]{20,64}$/.test(u)){
   show("Email preferences","This link is incomplete.","We couldn&rsquo;t read the unsubscribe code in this link. Reply &ldquo;unsubscribe&rdquo; to the email you got from us and we&rsquo;ll stop all email to you.","warn");return;}
-var form="u="+encodeURIComponent(u);
-var n8n=fetch(N8N,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form}).then(function(){return true;},function(){return false;});
-var eng=fetch(ENGINE,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form}).then(function(r){return r.json();}).then(function(j){return !!(j&&j.recorded);},function(){return null;});
-Promise.all([eng,n8n]).then(function(r){
-  if(r[0]===true){show("Unsubscribed","You won&rsquo;t get any more email from us.","Done. Nothing more from Station goes to this address. If something already on its way arrives in the next few minutes, you can ignore it.","ok");}
-  else if(r[1]){show("Request sent","Your unsubscribe request was sent.","We couldn&rsquo;t confirm it from this page. If anything else arrives from us, reply &ldquo;unsubscribe&rdquo; to it and we&rsquo;ll stop at once.","warn");}
-  else{show("Email preferences","We couldn&rsquo;t reach our servers.","Please reply &ldquo;unsubscribe&rdquo; to the email you got from us and we&rsquo;ll stop all email to you.","warn");}
+app.innerHTML='<p class="k">Email preferences</p><h1>Stop all email from Station to this address?</h1>'+
+  '<p class="lede">Press the button and nothing more from Station goes to the address our email was sent to. Nothing changes until you press it.</p>'+
+  '<p><button class="btn" type="button" id="unsub-go">Yes, stop all email</button></p>'+
+  '<p class="fine">Opened this by mistake? Just close the page. You can also reply &ldquo;unsubscribe&rdquo; to any email from us.</p>'+FOOT;
+var go=document.getElementById("unsub-go"), sent=false;
+go.addEventListener("click",function(){
+  if(sent)return; sent=true; go.disabled=true; go.textContent="Stopping your email…";
+  var form="u="+encodeURIComponent(u);
+  var n8n=fetch(N8N,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form}).then(function(){return true;},function(){return false;});
+  var eng=fetch(ENGINE,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:form}).then(function(r){return r.json();}).then(function(j){return !!(j&&j.recorded);},function(){return null;});
+  Promise.all([eng,n8n]).then(function(r){
+    if(r[0]===true){show("Unsubscribed","You won&rsquo;t get any more email from us.","Done. Nothing more from Station goes to this address. If something already on its way arrives in the next few minutes, you can ignore it.","ok");}
+    else if(r[1]){show("Request sent","Your unsubscribe request was sent.","We couldn&rsquo;t confirm it from this page. If anything else arrives from us, reply &ldquo;unsubscribe&rdquo; to it and we&rsquo;ll stop at once.","warn");}
+    else{show("Email preferences","We couldn&rsquo;t reach our servers.","Please reply &ldquo;unsubscribe&rdquo; to the email you got from us and we&rsquo;ll stop all email to you.","warn");}
+  });
 });
 })();</script></body></html>
