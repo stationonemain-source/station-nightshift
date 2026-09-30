@@ -203,3 +203,21 @@ the n8n Affiliate Engine (patches + backups in `~/.station/`).
   Circle's mail switch refuses until both are true. If only the $79 report is on sale at first (the cleanup links wait
   for the connector test and the 30-day watch), a report buyer is told "we'll quote this one" for the cleanup while
   this page lists $349 / $749: Circle's call whether such a quote holds to the listed price (_notes §10).
+
+## 2026-09-30 — Apple HIG audit pass (branch `apple-design-audit-0930`, NOT merged)
+
+Audited `/` with the `apple-design` skill (web scope: principles + foundations). All CSS lives in one
+block at the END of `v5.css` ("Apple HIG audit"), plus a mapping applied to the whole stylesheet.
+
+- **Type floor 12px.** Whole `v5.css` moved 10.5/12/12.5/13.5 -> 12/13/13/15 (mock-ups `.iphone*`,
+  `.rev2`, `.edraft`, `.gr-*` left alone). Form labels are 13px sentence case, prices 20px.
+  `_tests/sweep_site_test.py` scale set updated to match.
+- **Targets 44px** on buttons, nav icons, chips, footer and legal links, form inputs 48px. Deliberately NOT
+  changed: "learn" on quiz tiles and consent-copy links (earlier pass, see comments in `v5.css`).
+- **Hero:** one amber primary (`.btn.amber-fill`), "Get a free audit" is a quiet `.hf-link`. The
+  hacked-site quiet line was kept on purpose (pinned by a test from the 09-28 Sweeper build).
+- **One name for the audit action:** "Get a free audit" on buttons, footer and mega menu.
+- **`[hidden]{display:none!important}`** — `.btn` is `inline-flex`, which beat the UA rule, so the cart
+  summary's "Continue with these" button showed at $0.
+- **Focus:** form inputs and search get a 2px solid outline, not an 8% halo.
+- Not done (decisions): 14 "Add to cart" buttons on the shelf, dark appearance, headline copy.

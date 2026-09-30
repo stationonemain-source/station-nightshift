@@ -301,8 +301,8 @@ class Homepage(unittest.TestCase):
     def test_hero_buttons_unchanged_and_quiet_line(self):
         ctas = between(self.src, '<div class="hf-ctas">', "</div>")
         self.assertEqual(ctas, '<div class="hf-ctas">\n'
-                               '          <a class="btn dark" href="/custom/">See your new website — free demo</a>\n'
-                               '          <a class="btn glass" href="/audit/">Get a free audit</a>\n'
+                               '          <a class="btn amber-fill" href="/custom/">See your new website — free demo</a>\n'
+                               '          <a class="hf-link" href="/audit/">Get a free audit</a>\n'
                                '        </div>')
         after = self.src[self.src.index(ctas) + len(ctas):]
         self.assertTrue(after.lstrip().startswith('<p class="hf-quiet">Worried your website has been hacked? <a href="#sweep-band">'))
@@ -347,7 +347,7 @@ class Homepage(unittest.TestCase):
 
 
 class SiteWide(unittest.TestCase):
-    HELP = ('<span class="mhead">Help</span><a class="msmall" href="/audit/">Free audit — see what\'s broken</a>'
+    HELP = ('<span class="mhead">Help</span><a class="msmall" href="/audit/">Get a free audit — see what\'s broken</a>'
             '<a class="msmall" href="/sweep/">Website check — hacked or not?</a><a class="msmall" href="/book/">Book a call</a>')
 
     def test_every_inline_nav_has_the_entry_once(self):
@@ -427,7 +427,7 @@ class SiteWide(unittest.TestCase):
         css = read("v5.css")
         blk = css[css.index("/* ===================== FREE WEBSITE CHECK (2026-09-28)"):]
         sizes = set(re.findall(r"font(?:-size)?:\s*(?:[0-9]{3}\s+)?(?:italic\s+)?([0-9.]+)px", blk))
-        self.assertTrue(sizes <= {"10.5", "12", "13.5", "15", "17", "19", "24", "31", "52"}, sizes)
+        self.assertTrue(sizes <= {"12", "13", "15", "17", "19", "20", "24", "31", "52"}, sizes)
         radii = set(re.findall(r"border-radius:([^;}]+)", blk))
         for r in radii:
             for part in r.split():
