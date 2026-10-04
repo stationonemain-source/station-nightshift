@@ -157,9 +157,9 @@
       }).join("") : '<div class="r-row"><span style="color:var(--dim)">Nothing aboard yet — tick a stop.</span></div>';
       var v = document.getElementById("rVerdict"), hit = false, t;
       if (!count) t = "Pick the stop that fixes what hurt this week. One is enough to start.";
-      else if (mo >= 2300) { hit = true; t = "<b>This is the whole network.</b> At this size you want the Custom line pass — talk to us and we'll price it as one."; }
-      else if (mo >= 1550) { hit = true; t = "<b>Worth a call:</b> the Pro line pass covers this for less as one flat plan."; }
-      else if (mo >= 800) { hit = true; t = "<b>Worth a call:</b> six stops together is the Core line pass — one plan, one number, less than this stack."; }
+      else if (mo >= 2300) { hit = true; t = "<b>This is the whole network.</b> At this size you want the Custom bundle — talk to us and we'll price it as one."; }
+      else if (mo >= 1550) { hit = true; t = "<b>Worth a call:</b> the Pro bundle covers this for less as one flat plan."; }
+      else if (mo >= 800) { hit = true; t = "<b>Worth a call:</b> six stops together is the Core bundle — one plan, one number, less than this stack."; }
       else t = f$(mo) + "/mo is " + (mo / TICKET).toFixed(1) + " average jobs. Everything after that is yours.";
       v.className = "r-verdict" + (hit ? " hit" : ""); v.innerHTML = t;
     }

@@ -355,7 +355,7 @@ class SiteWide(unittest.TestCase):
         self.assertGreaterEqual(len(pages), 23, pages)  # 22 existing + /sweep/
         for rel in pages:
             s = read(rel)
-            store = between(s, '<a href="/storefront/" class="mtop">Storefront</a>', "</div></div></div></div>")
+            store = between(s, '<a href="/storefront/" class="mtop">Websites &amp; Google</a>', "</div></div></div></div>")
             self.assertEqual(store.count(self.HELP), 1, rel)
             self.assertEqual(s.count('href="/sweep/">Website check — hacked or not?</a>'), 1, rel)
             if 'class="ftcol">Start here</p>' in s:

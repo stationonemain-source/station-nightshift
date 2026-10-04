@@ -1615,3 +1615,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .hf-link{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font:600 15px var(--fd);color:var(--ink);
  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .hf-link:hover{text-decoration-thickness:2px}
+
+/* 2026-10-04 bundle billing note */
+.bnote{margin:10px 0 0;font-size:13px;line-height:1.4;color:rgba(255,255,255,.66);text-align:center}
+.mbig .mbrand{font-size:13px;font-weight:500;opacity:.55;margin-left:6px;letter-spacing:0}

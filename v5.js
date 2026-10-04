@@ -115,7 +115,7 @@
       if (!tr) allTrial = false;
       return '<div class="c-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : "") +
         '<div class="ci-m"><div class="ci-n">' + p.n + '</div><div class="ci-s">' + p.sub + '</div>' +
-        '<div class="ci-p">' + p.pricelab + ' · live ' + p.ttl + (tr ? ' · <span class="ci-tr">7-day free trial</span>' : '') + '</div></div>' +
+        '<div class="ci-p">' + p.pricelab + ' · ' + p.ttl + (tr ? ' · <span class="ci-tr">7-day free trial</span>' : '') + '</div></div>' +
         '<button class="ci-x" data-rm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
     }).join("");
     var rows = drawer.querySelector(".c-rows");
@@ -130,7 +130,7 @@
     drawer.innerHTML = '<div class="c-h"><b>Your cart</b><button class="c-x" aria-label="Close">×</button></div>' +
       '<div class="c-body"></div>' +
       '<div class="c-foot"><div class="c-rows"></div>' +
-      '<div class="c-nudge"><b>This stack is bundle territory.</b> A line pass covers it for less — <a href="/#bundles" style="color:inherit;font-weight:700">see the bundles</a>.</div>' +
+      '<div class="c-nudge"><b>This stack is bundle territory.</b> A bundle covers it for less — <a href="/#bundles" style="color:inherit;font-weight:700">see the bundles</a>.</div>' +
       '<a class="btn dark c-go" href="/checkout/">Continue to checkout →</a>' +
       '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time. Single products start with a 7-day free trial.</p></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
@@ -154,7 +154,20 @@
       var bun = e.target.closest && e.target.closest("[data-bundle]");
       if (bun){
         e.preventDefault();
-        var was = bun.textContent;
+        /* 2026-10-04: one click used to open a live Stripe session with no summary and no
+           word that bundles bill today. First click now states the charge; second continues. */
+        if (!bun.getAttribute("data-armed")) {
+          var bp = bun.closest(".bcard") && bun.closest(".bcard").querySelector(".bp");
+          var amt = bp ? bp.textContent.replace(/\s+/g, "") : "the plan price";
+          bun.setAttribute("data-armed", "1");
+          bun.setAttribute("data-was", bun.textContent);
+          bun.textContent = "Continue: " + amt + " billed today";
+          var n = bun.nextElementSibling;
+          if (!n || !n.classList.contains("bnote")) { n = document.createElement("p"); n.className = "bnote"; bun.parentNode.insertBefore(n, bun.nextSibling); }
+          n.textContent = "No free trial on bundles. Month to month, cancel any time from your account.";
+          return;
+        }
+        var was = bun.getAttribute("data-was") || bun.textContent;
         bun.disabled = true; bun.textContent = "Building your secure checkout…";
         var bref = null; try { bref = sessionStorage.getItem("station_ref"); } catch (x) {}
         fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
@@ -185,10 +198,10 @@
   ready(function () {
     var h = document.querySelector(".hamb"); if (!h) return;
     var sheet = document.createElement("div"); sheet.className = "msheet";
-    sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Frontdesk</a>' +
-      '<a href="/storefront/">Storefront</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
+    sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Phone &amp; leads</a>' +
+      '<a href="/storefront/">Websites &amp; Google</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
       '<a href="/sweep/">Website check</a>' +
-      '<a href="/book/">Book a call</a><a href="/#help">Build your line</a>';
+      '<a href="mailto:main@station.solutions">Contact</a><a href="/#help">Find my fit</a>';
     document.body.appendChild(sheet);
     h.addEventListener("click", function(e){ e.stopPropagation(); sheet.classList.toggle("open"); });
     document.addEventListener("click", function(){ sheet.classList.remove("open"); });
@@ -609,7 +622,7 @@
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";
-      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three line passes: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three bundles: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. After it's built, hosting and care is one monthly subscription priced for your business, and we quote it with your demo.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
       if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
@@ -739,7 +752,7 @@
         var t = trialable(p); if (!t) allTrial = false;
         return '<div class="co-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
           '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span>' +
-          '<span class="co-meta">' + p.pricelab + ' · live ' + p.ttl + '</span>' +
+          '<span class="co-meta">' + p.pricelab + ' · ' + p.ttl + '</span>' +
           (t ? '<span class="co-tr">7-day free trial — $0 today</span>' : '') + '</div>' +
           '<button class="ci-x" data-corm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
       }).join("");
@@ -747,7 +760,7 @@
       var sug = [];
       c.forEach(function (k) { (PAIR[k] || []).forEach(function (s) { if (c.indexOf(s) === -1 && sug.indexOf(s) === -1) sug.push(s); }); });
       sug = sug.slice(0, 2);
-      ups.innerHTML = sug.length ? '<p class="k" style="margin:26px 0 10px">Added together 9 times out of 10</p>' + sug.map(function (k) {
+      ups.innerHTML = sug.length ? '<p class="k" style="margin:26px 0 10px">Pairs well with</p>' + sug.map(function (k) {
         var p = P2(k); if (!p) return "";
         return '<div class="co-up">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
           '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span><span class="co-meta">' + p.pricelab +
@@ -1109,7 +1122,7 @@
     var INDEX = cat.map(function (p) {
       return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
     }).concat([
-      { t: "Bundles — Core / Pro / Custom", s: "Ride the whole line for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
+      { t: "Bundles — Core / Pro / Custom", s: "Everything, for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
       { t: "Free audit", s: "Twelve checks on how customers find and reach you — free", u: "/audit/", kw: "audit free check listing reviews report" },
       { t: "Free website check", s: "Has your website been hacked without you knowing? Result by email", u: "/sweep/", kw: "website check sweep hacked hack hidden links spam links cloaking google cleanup clean report code sweeper" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },
