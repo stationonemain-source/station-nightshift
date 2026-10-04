@@ -174,7 +174,7 @@
     box.innerHTML = '<button class="sq-x" aria-label="Close">×</button>' +
       '<p class="sq-k">YOUR ONE-PRODUCT PRESCRIPTION</p>' +
       '<div class="sq-res"><b class="nm">' + p.n + "</b> — " + p.sub +
-      '<p class="sq-price">' + p.pricelab + (day ? " · " + day : "") + " · month-to-month, 7-day free trial</p>" +
+      '<p class="sq-price">' + p.pricelab + (day ? " · " + day : "") + " · month-to-month, 14-day free trial</p>" +
       '<p style="font-size:14px;color:#555;line-height:1.6;margin:0">Because ' + (r.why || "of what you told us") +
       ", this is the single product that fixes the most of it. Start here; add nothing else until it pays for itself.</p></div>" +
       '<div class="sq-cta"><button class="sq-buy" data-add="' + r.k + '">Add to cart</button>' +

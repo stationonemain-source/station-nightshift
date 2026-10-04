@@ -1,7 +1,7 @@
 /* STATION · exit intent — pricing/product pages and checkout ONLY.
  *
  * The offer is real on both surfaces:
- *   product page → the 7-day free trial that every subscription already has
+ *   product page → the 14-day free trial that every subscription already has
  *   checkout     → the 24h price hold that is already running + save-by-email
  * No invented discount, no "wait!", no countdown theater beyond the hold that
  * genuinely exists server-side.
@@ -99,7 +99,7 @@
       box.innerHTML = '<button class="sx-x" aria-label="Close">×</button>' +
         '<p class="sx-k">BEFORE YOU GO</p>' +
         "<h3>You don't have to decide today. Trial it for $0.</h3>" +
-        "<p>" + p.n + " on its Standard plan starts with a <b>7-day free trial</b> — $0 today, month-to-month after, cancel in one click.</p>" +
+        "<p>" + p.n + " starts with a <b>14-day free trial</b> — $0 today, month-to-month after, cancel in one click.</p>" +
         '<div class="sx-cta"><button class="sx-buy" data-add="' + pageKey + '">Start the free trial — $0 today</button>' +
         '<button class="sx-see" data-sx="stay">Keep reading</button></div>';
     }

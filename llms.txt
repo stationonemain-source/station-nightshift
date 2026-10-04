@@ -1,6 +1,6 @@
 # Station
 
-> Station (STATION AUTOMATIONS GROUP LLC) sells fourteen stand-alone front-office products for local service businesses in the US — software plus done-for-you setup that answers calls, catches missed calls, chases leads, books appointments, earns reviews, keeps the business visible on Google, and gets it paid. Every product is month to month with no contracts, states its exact time-to-live before purchase, and single products start with a 7-day free trial. Every message any product sends is pre-written and fully editable by the business owner. Site: https://station.solutions
+> Station (STATION AUTOMATIONS GROUP LLC) sells fourteen stand-alone front-office products for local service businesses in the US — software plus done-for-you setup that answers calls, catches missed calls, chases leads, books appointments, earns reviews, keeps the business visible on Google, and gets it paid. Every product is month to month with no contracts, states its exact time-to-live before purchase, and single products and collections start with a 14-day free trial. Every message any product sends is pre-written and fully editable by the business owner. Site: https://station.solutions
 
 ## Products
 
@@ -13,20 +13,23 @@
 - [Frontdesk](https://station.solutions/frontdesk/): AI phone receptionist that answers 24/7, books jobs, and transfers to a human when needed — from $397/mo
 - [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo, 2,500 texts and 15,000 emails
 - [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo (multi-location quoted on request)
-- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo + $297 setup (multi-location quoted on request)
+- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo, no setup fee; each extra location $197/mo
 - [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
 - [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
 - [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with email unmetered below 100,000 sends or fully managed $397/mo
 - [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo for 5 new prospects a week with a full marketing audit on each, or $497/mo Pro for 20 a week across six trade targets
-- [Revive](https://station.solutions/revive/): Customer reactivation campaign for dormant lists up to 5,000 contacts — $497 per quarter
+- [Revive](https://station.solutions/revive/): Win back old customers — $197/mo for lists up to 5,000 contacts: the full win-back wave in month one, then a fresh wave every quarter
 
-## Bundles
+## Collections and plans
 
-No setup fees on bundles; each costs less than its products bought separately.
+Every collection and plan includes a free Station-built website and has no setup fee. Collections start with a 14-day free trial; plans bill today with a 30-day money-back on the first month.
 
-- [Core — $750/mo](https://station.solutions/#bundles): Greet, Slate, Lineback, Pursuit, Repute, Dispatch
-- [Pro — $1,395/mo](https://station.solutions/#bundles): everything in Core plus Frontdesk, Echo and Marquee (Echo setup fee waived)
-- [Custom — $2,800/mo](https://station.solutions/#bundles): every product at its highest usage tier; a custom website is quoted separately
+- [Answer — $297/mo](https://station.solutions/#bundles): missed-call text-back, website chat, online booking and reminders, a business number with texting, card payments (add the AI receptionist for +$297/mo)
+- [Get Found — $497/mo](https://station.solutions/#bundles): Google profile managed, review requests and replies, social posting
+- [Follow Up — $427/mo](https://station.solutions/#bundles): lead follow-up, win-back campaigns, email campaigns
+- [Core — $1,297/mo](https://station.solutions/#bundles): every product at its Standard tier, including the AI receptionist
+- [Pro — $2,197/mo](https://station.solutions/#bundles): every product at its busy tier, with social posts and email campaigns run by Station
+- [Max — $2,797/mo](https://station.solutions/#bundles): every product at its top tier, done for you, with a custom-designed website
 
 ## Start here
 
@@ -39,7 +42,7 @@ No setup fees on bundles; each costs less than its products bought separately.
 
 ## Facts worth citing
 
-- Month to month, no contracts; cancel anytime. Single products start with a 7-day free trial; bundles and bigger tiers are billed at checkout.
+- Month to month, no contracts; cancel anytime. Single products and collections start with a 14-day free trial; the Core, Pro and Max plans bill today with a 30-day money-back on the first month.
 - Payments are processed by Stripe; on Tap, card payments run through the business's own processor and Station takes zero percent of revenue.
 - Phone products keep the business's existing number — the line forwards, nothing is ported, reversible in one call.
 - Products that send texts take about 2 business days to go live (US carrier registration); most others are live same day or instantly.

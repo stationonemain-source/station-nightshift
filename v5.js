@@ -115,13 +115,13 @@
       if (!tr) allTrial = false;
       return '<div class="c-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : "") +
         '<div class="ci-m"><div class="ci-n">' + p.n + '</div><div class="ci-s">' + p.sub + '</div>' +
-        '<div class="ci-p">' + p.pricelab + ' · ' + p.ttl + (tr ? ' · <span class="ci-tr">7-day free trial</span>' : '') + '</div></div>' +
+        '<div class="ci-p">' + p.pricelab + ' · ' + p.ttl + (tr ? ' · <span class="ci-tr">14-day free trial</span>' : '') + '</div></div>' +
         '<button class="ci-x" data-rm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
     }).join("");
     var rows = drawer.querySelector(".c-rows");
     rows.innerHTML = '<div class="c-row"><span>Per month</span><b>' + f$(mo) + '/mo</b></div>' +
       (once ? '<div class="c-row"><span>One-time (builds &amp; setups)</span><b>' + f$(once) + '</b></div>' : '') +
-      (allTrial && c.length ? '<div class="c-row tr"><span>Due today</span><b>$0 — 7-day free trial</b></div>' : '');
+      (allTrial && c.length ? '<div class="c-row tr"><span>Due today</span><b>$0 — 14-day free trial</b></div>' : '');
     drawer.querySelector(".c-nudge").classList.toggle("on", mo >= 800);
   }
   ready(function () {
@@ -130,9 +130,9 @@
     drawer.innerHTML = '<div class="c-h"><b>Your cart</b><button class="c-x" aria-label="Close">×</button></div>' +
       '<div class="c-body"></div>' +
       '<div class="c-foot"><div class="c-rows"></div>' +
-      '<div class="c-nudge"><b>This stack is bundle territory.</b> A bundle covers it for less — <a href="/#bundles" style="color:inherit;font-weight:700">see the bundles</a>.</div>' +
+      '<div class="c-nudge"><b>A collection may cover this for less.</b> And it comes with a free website. <a href="/#bundles" style="color:inherit;font-weight:700">See the collections</a>.</div>' +
       '<a class="btn dark c-go" href="/checkout/">Continue to checkout →</a>' +
-      '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time. Single products start with a 7-day free trial.</p></div>';
+      '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time. Single products and collections start with a 14-day free trial.</p></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
     drawer.querySelector(".c-x").addEventListener("click", closeCart);
     drawer.addEventListener("click", function(e){
@@ -157,14 +157,20 @@
         /* 2026-10-04: one click used to open a live Stripe session with no summary and no
            word that bundles bill today. First click now states the charge; second continues. */
         if (!bun.getAttribute("data-armed")) {
-          var bp = bun.closest(".bcard") && bun.closest(".bcard").querySelector(".bp");
-          var amt = bp ? bp.textContent.replace(/\s+/g, "") : "the plan price";
+          var card = bun.closest(".bcard"), bp = card && card.querySelector(".bp");
+          var yearly = !!document.querySelector('.bterm button.on[data-term="y"]');
+          var amt = bp ? (yearly ? bp.getAttribute("data-y") + "/yr" : bp.getAttribute("data-m") + "/mo") : "the plan price";
+          var adb = card && card.querySelector("input[data-addon]");
+          if (adb && adb.checked && !yearly && bp) amt = "$" + (Number(bp.getAttribute("data-m").replace(/[^0-9]/g, "")) + 297).toLocaleString("en-US") + "/mo";
+          var trial = bun.getAttribute("data-trial") === "1" && !yearly;
           bun.setAttribute("data-armed", "1");
           bun.setAttribute("data-was", bun.textContent);
-          bun.textContent = "Continue: " + amt + " billed today";
+          bun.textContent = trial ? "Continue: $0 today" : "Continue: " + amt + " billed today";
           var n = bun.nextElementSibling;
           if (!n || !n.classList.contains("bnote")) { n = document.createElement("p"); n.className = "bnote"; bun.parentNode.insertBefore(n, bun.nextSibling); }
-          n.textContent = "No free trial on bundles. Month to month, cancel any time from your account.";
+          n.textContent = trial ? "14 days free, then " + amt + ". Month to month, cancel any time from your account."
+                                : (bun.getAttribute("data-trial") === "1" ? "Yearly plans bill today. Cancel any time from your account."
+                                                                         : "No free trial on plans. 30-day money-back on your first month. Month to month.");
           return;
         }
         var was = bun.getAttribute("data-was") || bun.textContent;
@@ -172,8 +178,11 @@
         var bref = null; try { bref = sessionStorage.getItem("station_ref"); } catch (x) {}
         fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prices: [bun.getAttribute("data-bundle")],
-            has_recurring: true, has_onetime: false, trial: false, ref: bref || undefined })
+          body: JSON.stringify({ prices: [bun.getAttribute("data-bundle")].concat((function () {
+              var ad = bun.closest(".bcard") && bun.closest(".bcard").querySelector("input[data-addon]");
+              return (ad && ad.checked && !document.querySelector('.bterm button.on[data-term="y"]')) ? [ad.getAttribute("data-addon")] : [];
+            })()),
+            has_recurring: true, has_onetime: false, ref: bref || undefined })
         }).then(function (r) { return r.json(); }).then(function (d) {
           if (d && d.url) { location.href = d.url; }
           else { bun.disabled = false; bun.textContent = "Try again — " + was; }
@@ -192,6 +201,24 @@
       if (cb){ e.preventDefault(); renderCartBody(); openCart(); }
     });
     renderCartBadge(); renderCartBody();
+    /* 2026-10-04: Monthly / Yearly switch on the collections and plans (yearly = 10x monthly). */
+    document.querySelectorAll(".bterm button").forEach(function (t) {
+      t.addEventListener("click", function () {
+        var y = t.getAttribute("data-term") === "y";
+        document.querySelectorAll(".bterm button").forEach(function (o) { o.classList.toggle("on", o === t); });
+        document.querySelectorAll(".bcard .bp[data-m]").forEach(function (bp) {
+          bp.innerHTML = (y ? bp.getAttribute("data-y") : bp.getAttribute("data-m")) + "<small>" + (y ? "/yr" : "/mo") + "</small>";
+        });
+        document.querySelectorAll(".bbtn[data-m-id]").forEach(function (b) {
+          b.setAttribute("data-bundle", y ? b.getAttribute("data-y-id") : b.getAttribute("data-m-id"));
+          if (b.getAttribute("data-armed")) { b.removeAttribute("data-armed"); b.textContent = b.getAttribute("data-was"); }
+          var n = b.nextElementSibling;
+          if (n && n.classList.contains("bnote")) n.textContent = b.getAttribute("data-trial") === "1"
+            ? (y ? "Billed today for the year · cancel any time" : "$0 today · 14 days free · cancel any time")
+            : (y ? "Billed today for the year · 30-day money-back" : "Billed today · 30-day money-back on your first month");
+        });
+      });
+    });
   });
 
   /* ---------- mobile nav sheet ---------- */
@@ -306,7 +333,7 @@
       var rows = document.getElementById("rRows");
       rows.innerHTML = count ? names.map(function (x) {
         return '<div class="r-row"><span>' + x.n + (x.inc ? ' <span class="inc">included</span>' : "") + '</span><b>' +
-          (x.inc ? "$0" : (x.k === "revive" ? "$497/qtr" : (x.m ? f$(x.m) : f$(x.o) + " once"))) + "</b></div>";
+          (x.inc ? "$0" : (x.m ? f$(x.m) : f$(x.o) + " once")) + "</b></div>";
       }).join("") : '<div class="r-row"><span style="color:var(--faint)">Nothing yet — tick a product.</span></div>';
       var v = document.getElementById("rVerdict"), hit = false, t;
       if (!count) t = "Pick the one that fixes what hurt this week.";
@@ -314,17 +341,20 @@
         /* 2026-09-24: only suggest a bundle that CONTAINS everything ticked and really costs less
            (the old rule said "a line pass covers this for less" for any total over $800 -- e.g.
            Frontdesk + Lineback + Pursuit = $841, which no bundle under $1,395 contains). */
-        var CORE = ["greet","slate","lineback","pursuit","repute","dispatch"];
-        var BUN = [{ n: "Core", mo: 750, keys: CORE },
-                   { n: "Pro", mo: 1395, keys: CORE.concat(["frontdesk","map","marquee"]) },
-                   { n: "Custom", mo: 2800, keys: CATALOG.map(function (p) { return p.k; }) }];
+        /* 2026-10-04 Collections catalogue: three collections, then Core (every product but Radar). */
+        var ALL = ["greet","slate","lineback","frontdesk","pursuit","repute","map","marquee","dispatch","revive","tap","dial"];
+        var BUN = [{ n: "Answer", mo: 297, keys: ["greet","lineback","slate","dial","tap"] },
+                   { n: "Follow Up", mo: 427, keys: ["pursuit","dispatch","revive"] },
+                   { n: "Get Found", mo: 497, keys: ["map","repute","marquee"] },
+                   { n: "Answer + receptionist", mo: 594, keys: ["greet","lineback","slate","dial","tap","frontdesk"] },
+                   { n: "Core", mo: 1297, keys: ALL }];
         var picked = CATALOG.filter(function (p) { return on[p.k]; }).map(function (p) { return p.k; });
         var fit = null;
         BUN.forEach(function (b) { if (!fit && picked.every(function (k) { return b.keys.indexOf(k) !== -1; })) fit = b; });
         if (!fit || fit.mo >= mo + once / 12) return false;
         var extra = fit.keys.filter(function (k) { return picked.indexOf(k) === -1; }).length;
         t = "<b>" + fit.n + " covers all of this for " + f$(fit.mo) + "/mo</b> — " + f$(mo - fit.mo) + "/mo less" +
-            (once && on.map && fit.n !== "Core" ? ", setup waived" : "") + (extra ? ", plus " + extra + " more product" + (extra > 1 ? "s" : "") : "") +
+            (extra ? ", plus " + extra + " more product" + (extra > 1 ? "s" : "") : "") +
             ". <a href='#bundles' style='color:inherit;font-weight:700'>See " + fit.n + " ↓</a>";
         return true; })()) { hit = true; }
       else t = f$(mo) + "/mo is " + (mo / TICKET).toFixed(1) + " average jobs. Everything after that is yours.";
@@ -620,11 +650,11 @@
          otherwise answer "is my site hacked?" with the custom-website pitch */
       if (siteCheckQ(s)) return "The <b>free website check</b> reads your public pages the way visitors and Google see them, and tells you plainly whether someone planted hidden links. The result shows on screen, usually in under a minute, and comes by email:<br><a href='/sweep/'>Run the free website check →</a>";
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
-      if (/trial|free trial|try before/.test(s)) return "Every subscription product carries a <b>7-day free trial</b> at checkout — $0 today, cancel inside the week and you never pay. (Websites are built-to-order, so they're the one exception.)";
-      if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products start with a 7-day free trial.";
-      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three bundles: <b>Core $750/mo</b> (six products), <b>Pro $1,395/mo</b> (adds the AI receptionist, Echo and Marquee), <b>Custom $2,800/mo</b> (every product at its highest usage tier; a custom website is quoted separately).<br><a href='/#bundles'>See the bundles →</a>";
+      if (/trial|free trial|try before/.test(s)) return "Single products and the three collections carry a <b>14-day free trial</b> — $0 today, cancel inside the 14 days and you never pay. The Core, Pro and Max plans bill today with a 30-day money-back on the first month.";
+      if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products and collections start with a 14-day free trial.";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three collections, each with a free website: <b>Answer $297/mo</b> (text-back, chat, booking, a business number, payments), <b>Get Found $497/mo</b> (Google profile, reviews, social) and <b>Follow Up $427/mo</b> (lead follow-up, win-back, email). Want everything? <b>Core $1,297</b>, <b>Pro $2,197</b> or <b>Max $2,797</b> a month.<br><a href='/#bundles'>See the collections →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. After it's built, hosting and care is one monthly subscription priced for your business, and we quote it with your demo.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
-      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Stack four or more and a bundle usually wins.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the bundles →</a>";
+      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Two or three that fix the same job? A collection usually wins, and it comes with a free website.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the collections →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
       if (/answer|reception|24|after hours|phone rings|ai voice|voice ai/.test(s)) return "That's <b>Frontdesk</b> — an AI receptionist that answers 24/7, books appointments and never puts anyone on hold. See how it works:<br>" + plink("frontdesk");
       if (/review|stars|reputation/.test(s)) return "That's <b>Repute</b> — asks every happy customer for the review, catches the unhappy ones before they post, and drafts your replies. Try the live demo:<br>" + plink("repute");
@@ -753,7 +783,7 @@
         return '<div class="co-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
           '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span>' +
           '<span class="co-meta">' + p.pricelab + ' · ' + p.ttl + '</span>' +
-          (t ? '<span class="co-tr">7-day free trial — $0 today</span>' : '') + '</div>' +
+          (t ? '<span class="co-tr">14-day free trial — $0 today</span>' : '') + '</div>' +
           '<button class="ci-x" data-corm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
       }).join("");
       /* the last-second nudge: two highest-affinity products not yet in the cart */
@@ -771,7 +801,7 @@
         (once ? '<div class="c-row"><span>One-time (builds &amp; setups)</span><b>' + f$(once) + '</b></div>' : '');
       tr.hidden = !allTrial;
       tot.innerHTML = allTrial
-        ? '<span>Due today</span><b>$0</b><small>then ' + f$(mo) + '/mo after your 7-day trial — cancel anytime inside it</small>'
+        ? '<span>Due today</span><b>$0</b><small>then ' + f$(mo) + '/mo after your 14-day trial — cancel anytime inside it</small>'
         : '<span>Due today</span><b>' + f$(once + mo) + '</b><small>' + f$(mo) + '/mo after — month to month, cancel anytime</small>';
       pay.setAttribute("data-trial", allTrial ? "1" : "");
     }
@@ -1122,7 +1152,7 @@
     var INDEX = cat.map(function (p) {
       return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
     }).concat([
-      { t: "Bundles — Core / Pro / Custom", s: "Everything, for less", u: "/#bundles", kw: "bundle bundles core pro custom package deal line pass price" },
+      { t: "Collections — Answer / Get Found / Follow Up", s: "And Core, Pro and Max for everything", u: "/#bundles", kw: "bundle bundles collection collections answer get found follow up core pro max package deal price free website" },
       { t: "Free audit", s: "Twelve checks on how customers find and reach you — free", u: "/audit/", kw: "audit free check listing reviews report" },
       { t: "Free website check", s: "Has your website been hacked without you knowing? Result by email", u: "/sweep/", kw: "website check sweep hacked hack hidden links spam links cloaking google cleanup clean report code sweeper" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },

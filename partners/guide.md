@@ -10,7 +10,7 @@ Two things always win over this guide. Your signed **Station Partner Agreement**
 
 Station (Station Automations Group LLC, based in Houston, Texas) runs the front office for local service businesses. We sell fourteen products that answer calls, text back missed calls, chase leads, book appointments, earn reviews, keep a business visible on Google, and get the business paid. We also design custom websites.
 
-A client can buy one product or a bundle. Most products are month to month with no contract, and single products start with a 7-day free trial on their Standard plan. Station does all the building, setup, hosting, billing and technical support. The client gets their own Station account, where they see their messages and bookings and can edit the wording of every message their products send.
+A client can buy one product, a collection (Answer, Get Found or Follow Up) or a plan (Core, Pro or Max). Most products are month to month with no contract, and single products and collections start with a 14-day free trial. Station does all the building, setup, hosting, billing and technical support. The client gets their own Station account, where they see their messages and bookings and can edit the wording of every message their products send.
 
 ### Who we sell to
 
@@ -31,7 +31,7 @@ You don't build, fix, set up or host anything. You don't take payments, sign any
 
 ### A 30-second pitch
 
-> Most local businesses lose work in the gaps: the call they miss on a job, the lead they only follow up once, the review they never ask for. Station fills those gaps with simple tools we set up for you, like a missed-call text-back, a receptionist that answers around the clock, automatic follow-up, review requests and online booking. You pick the one thing that's hurting most. Most single products start with a 7-day free trial, and there's no contract. What part of your week costs you the most work?
+> Most local businesses lose work in the gaps: the call they miss on a job, the lead they only follow up once, the review they never ask for. Station fills those gaps with simple tools we set up for you, like a missed-call text-back, a receptionist that answers around the clock, automatic follow-up, review requests and online booking. You pick the one thing that's hurting most. Single products start with a 14-day free trial, and there's no contract. What part of your week costs you the most work?
 
 Lead with their problem, not the product list.
 
@@ -49,12 +49,12 @@ Your commission is calculated on **Commissionable Revenue**: the recurring subsc
 
 It does **not** include:
 
-- One-time fees: setup fees (for example, Echo's $297 setup), onboarding fees, website build fees, and other single purchases.
+- One-time fees: onboarding fees, website build fees, the one-time $500 fee to keep a built site, and other single purchases. The free Station-built website that comes with a collection or plan earns nothing either.
 - Taxes.
 - Amounts Station charges only to recover a third-party cost.
 - Anything not yet paid and cleared.
 
-An example of the arithmetic only (not a forecast or a promise): a client on Frontdesk Standard ($397 a month) earns you $158.80 for each month that clears. A website build fee earns nothing, because it's one-time.
+An example of the arithmetic only (not a forecast or a promise): a client on Frontdesk Standard ($397 a month) earns you $158.80 for each month that clears. A website build fee earns nothing, because it's one-time. Every product, including Revive and Echo, pays commission the same ordinary monthly way, and hosting & care (quoted) is recurring, so it earns 40%.
 
 ### What counts as your client
 
@@ -77,7 +77,7 @@ The site remembers your code in that visitor's browser for 30 days and carries i
 
 ### Trials, prepayments and timing
 
-- **Free trials:** nothing is earned during a free trial. Commission starts when the trial has ended and the client's first real payment has cleared.
+- **Free trials:** nothing is earned during a free trial. Commission starts when the trial has ended and the client's first real payment has cleared. Core, Pro and Max have no trial, so commission starts when their first payment clears.
 - **Prepaid clients** (for example, an annual plan): your commission is paid in equal monthly installments across the prepaid months, not as a lump sum.
 - **Payouts** are made by hand **every two weeks**. Each run covers commission on client payments that cleared since the last run, and goes to your Stripe account.
 - The **minimum payout is $50**. Smaller balances roll forward and never expire.
@@ -183,9 +183,9 @@ The estimated dollar figures are conversation starters, not facts. Never tell an
 This tab lists every client assigned to you. No other partner can see them.
 
 - **Totals:** Clients in book, Their spend per month, Your cut per month and Your rate.
-- **Columns:** Client, Email, Phone, On (their bundle or products), They pay per month, Your cut per month, Client since, Standing and Work. Standing shows **Inside 60d** for newer clients and **Established** after that.
-- **Filters:** Core, Pro, Custom, À la carte and Inside 60d.
-- **Add client** is for a client you closed yourself. Enter their details, pick their bundle if they have one, and tick every product they pay for. To record an upsell, add the same client again with the new product ticked. Email Station too.
+- **Columns:** Client, Email, Phone, On (their collection, plan or products), They pay per month, Your cut per month, Client since, Standing and Work. Standing shows **Inside 60d** for newer clients and **Established** after that.
+- **Filters:** Answer, Get Found, Follow Up, Core, Pro, Max, À la carte and Inside 60d.
+- **Add client** is for a client you closed yourself. Enter their details, pick their collection or plan if they have one (the picker offers Answer, Get Found, Follow Up, Core, Pro and Max), and tick every product they pay for. To record an upsell, add the same client again with the new product ticked. Email Station too.
 - **Working a client:** click the client's name, or **Open** in the Work column. A panel opens with their live message history with Station, a reply box and **Book a call**. Use **Email** for replies. Station doesn't currently have its own texting number, so check with Station before relying on the Text option.
 - **Hosting & care** is quoted by Station for each client, never set by you. If a client wants Station to host and look after their site, press **Message Station** (the link just above the reply box) and say what they need.
 - **Note** keeps your record of the relationship.
@@ -231,12 +231,12 @@ This guide, searchable, plus **Ask Station**: type any question (how to answer a
 
 ## What we sell
 
-Prices below are as published on station.solutions on September 24, 2026. Check the live product page before you quote.
+Prices below are Station's catalogue as changed on October 4, 2026. Check the live product page before you quote.
 
 ### How products are sold
 
 - **No contract:** month to month, cancel any time.
-- **Free trial:** single products start with a **7-day free trial on their Standard plan**. Bundles and bigger tiers (Busy, High Volume, Pro, Managed) are billed at checkout. The 7-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
+- **Free trial:** single products (every tier) and the three collections start with a **14-day free trial**. Core, Pro and Max have no trial: they're billed at checkout and carry a 30-day money-back guarantee on the first paid month. Websites never trial. The 14-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
 - **Usage allowances** (chats, texts, call minutes, emails) reset on the 1st of each month. The client is told at 80%. The first month they go over a product's allowance isn't charged. After that, extra usage is billed at twice their plan's per-unit rate on the next invoice, and each product page lists the rate. Top-ups bought ahead are cheaper. Service is never paused.
 - **Your Words:** every message a product sends is pre-written and editable by the owner in their Station account under Settings, then Your Words.
 - **Monthly report:** the site says every product comes with a free monthly report.
@@ -245,7 +245,7 @@ Prices below are as published on station.solutions on September 24, 2026. Check 
 
 ### Storefront (custom website)
 
-A website designed around the business, not a template. It has booking and lead forms wired to their Station inbox, and Station revises it until it's right. The domain and site stay the client's.
+A custom-designed (bespoke) website built around the business, not a template. This is separate from the free Station-built website that comes with every collection and plan (see The free website below). It has booking and lead forms wired to their Station inbox, and Station revises it until it's right. The domain and site stay the client's.
 
 It's **priced to the project**, with no published price, so never quote a number. The owner answers about 5 minutes of questions at station.solutions/custom/. Station builds a free demo by hand and emails it within 2 to 3 business days. Nothing is charged until they've seen it and said yes.
 
@@ -285,25 +285,25 @@ It costs **$247 a month** for 2,500 texts and 15,000 emails, or Busy at $347 (6,
 
 It asks every customer for a review after the job, catches every review on their Google profile, and drafts replies in their voice. Low-star replies can always be held for approval, and auto-reply can be turned off.
 
-It costs **$197 a month**, and multi-location is quoted on request. It's live the same day with Google Business Profile access and a "job done" signal.
+It costs **$197 a month**, and each extra location is $177 a month. It's live the same day with Google Business Profile access and a "job done" signal.
 
 ### Echo (Google and LinkedIn visibility)
 
 It claims and corrects their Google profile, posts weekly, keeps name, address and phone consistent, and watches for unwanted edits. It also writes LinkedIn posts and articles and sends a monthly map-rank report. The client approves every post.
 
-It costs **$247 a month plus a one-time $297 setup**, and multi-location is quoted on request. It's live in 2 to 3 days. An unverified Google profile can take 5 to 14 days on Google's clock. Fixes land in week one, and movement usually shows in the 60 to 90 day reports. Never promise a ranking.
+It costs **$247 a month** with no setup fee, and each extra location is $197 a month. It's live in 2 to 3 days. An unverified Google profile can take 5 to 14 days on Google's clock. Fixes land in week one, and movement usually shows in the 60 to 90 day reports. Never promise a ranking.
 
 ### Dispatch (email campaigns)
 
 Email campaigns to their own customer list, with editable templates, saved snippets, and open, click and booking stats. Unsubscribe handling is built in.
 
-It costs **$94 a month** self-serve, with email unmetered below 100,000 sends a month. Managed is **$397 a month**: Station writes four campaigns a month, and the owner approves before anything sends. It's live instantly once the list is in.
+It costs **$94 a month** self-serve, with up to 25,000 emails a month included. Managed is **$397 a month**: Station writes four campaigns a month, and the owner approves before anything sends. It's live instantly once the list is in.
 
 ### Revive (win-back campaign)
 
 Station scrubs their old customer list and runs a six-touch win-back campaign over about three weeks. It's email-first, and texting is used only where consent is documented.
 
-It costs **$497 a quarter** for up to 5,000 contacts, and they can cancel any time. It runs 1 to 2 days after the list arrives.
+It costs **$197 a month** for up to 5,000 contacts, and they can cancel any time. The first win-back wave goes out in month one, and a fresh wave goes out every quarter after that. It runs 1 to 2 days after the list arrives.
 
 ### Radar (finding business customers)
 
@@ -333,15 +333,29 @@ It costs **$197 a month** self-serve. Managed is **$597 a month plus ad spend**:
 
 The mobile app is free with every Station account and isn't sold separately, so never quote a price. It lets the owner run their account from their phone: the product pages mention texting from it (Dial) and taking payments (Tap). Station gives download details during onboarding. Don't describe it as an app with the client's name on their customers' phones unless Station confirms that.
 
-### Bundles
+### Collections and plans
 
-Bundles have no setup fee. The site shows each bundle's saving against buying the same products separately. Bundles are billed at checkout (the free trial is for single products) and start with a 15-minute kickoff call.
+Collections and plans have no setup fee. Each one includes a free Station-built website (see The free website below). Yearly billing on collections and plans is 10 times the monthly price, which is two months free. Radar is never included in a collection or plan: it's a business-to-business add-on.
 
-- **Core, $750 a month:** Greet, Slate, Lineback, Pursuit, Repute and Dispatch. They're worth $873 separately, so it saves $123.
-- **Pro, $1,395 a month:** Core plus Frontdesk, Echo and Marquee. They're worth $1,655 separately (Slate is free with Frontdesk), so it saves $260 a month, and the $297 Echo setup is waived.
-- **Custom, $2,800 a month:** all 13 products, each on its highest usage tier. They're worth $3,282 separately, so it saves $482 a month, and the $297 setup is waived. A custom website isn't included and is quoted separately.
+**Collections** (each starts with a 14-day free trial):
 
-Core and Pro use each product's Standard plan. If a client outgrows one product, they upgrade just that product for the difference. Station's Cancellation and Refund Policy also mentions annual prepay plans at 10 times the monthly rate. Ask Station before offering one.
+- **Answer, $297 a month:** missed-call text-back (Lineback), website chat (Greet), online booking and reminders (Slate), a business number with texting (Dial) and card payments (Tap). They're worth $382 a month separately. Add the AI receptionist (Frontdesk, 750 minutes) for $297 a month more. It's $397 on its own.
+- **Get Found, $497 a month:** Google profile managed (Echo), review requests and replies (Repute) and social posting self-serve (Marquee). They're worth $641 a month separately.
+- **Follow Up, $427 a month:** lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns self-serve (Dispatch). They're worth $538 a month separately.
+
+**Plans** (the whole shelf at three sizes; no trial, billed at checkout, with a 30-day money-back guarantee on the first paid month):
+
+- **Core, $1,297 a month:** every product at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $1,899 a month separately.
+- **Pro, $2,197 a month:** every product at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,072 a month separately.
+- **Max, $2,797 a month:** every product at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $3,472 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
+
+If a client outgrows one product, they upgrade just that product for the difference. An **extra location pack** (Google profile, reviews and a missed-call text-back line for one more location) is $397 a month. Ask Station before offering a yearly plan.
+
+### The free website
+
+Every collection and plan includes a Station-built website of up to 5 pages. Station builds it after the client's first paid month clears, never during a trial. The draft arrives within 5 business days, and the client gets two rounds of changes. Hosting and small text changes are included while they're subscribed.
+
+If they cancel, they keep their domain, words and photos. The site comes off Station hosting at the end of the paid period, unless they take a quoted hosting & care plan or pay a one-time $500 to keep the built site. The $500 earns no commission, and hosting & care earns your 40%. A custom (bespoke) website is still quoted separately at station.solutions/custom/.
 
 ## Responding to leads and clients
 
@@ -411,7 +425,7 @@ Each reply says when to use it and what not to say. Replace anything in square b
 
 **When:** someone is suspicious.
 
-> Fair question. I'm [your name], an independent partner with Station. Station is Station Automations Group LLC, based in Houston, Texas, and every product and price is published at station.solutions. I earn a commission if you sign up. There's no contract, and single products start with a 7-day free trial. You can email Station directly at main@station.solutions. If you'd rather I didn't contact you again, just say so.
+> Fair question. I'm [your name], an independent partner with Station. Station is Station Automations Group LLC, based in Houston, Texas, and every product and price is published at station.solutions. I earn a commission if you sign up. There's no contract, and single products start with a 14-day free trial. You can email Station directly at main@station.solutions. If you'd rather I didn't contact you again, just say so.
 
 **Don't say:** that you're a Station employee. Don't push. If they ask you to stop, stop and mark the lead Not interested.
 
@@ -427,7 +441,7 @@ Each reply says when to use it and what not to say. Replace anything in square b
 
 **When:** they ask for a discount.
 
-> I can't change prices. Station sets them, and they're the same for everyone. What I can do is make sure you're on the right thing. If [product] is more than you need, [smaller option] may do the job. Single products start with a 7-day free trial and there's no contract, so you can try it. If you want several products, a bundle usually costs less than buying them separately.
+> I can't change prices. Station sets them, and they're the same for everyone. What I can do is make sure you're on the right thing. If [product] is more than you need, [smaller option] may do the job. Single products start with a 14-day free trial and there's no contract, so you can try it. If you want several products, a collection or plan usually costs less than buying them separately.
 
 **Don't say:** "I'll give you part of my commission," "I'll get you a special price," or offer a longer trial. That goes for website hosting & care too: Station quotes it for each client, so pass the question to Station instead of offering a number.
 
@@ -437,7 +451,7 @@ Each reply says when to use it and what not to say. Replace anything in square b
 
 > There's no long-term contract. It's month to month, and you can cancel any time by emailing main@station.solutions from the account owner's email. Service stays on until the end of the period you've paid for, and months already delivered aren't refunded. You keep your data and get a full export when you leave. The full policy is on station.solutions under Cancellation.
 
-**Don't say:** "you can get your money back any time." Refunds are only for billing errors, or for a setup fee if no work has started.
+**Don't say:** "you can get your money back any time." Refunds are only for billing errors, or the 30-day money-back guarantee on the first paid month of Core, Pro and Max.
 
 ### "How long does setup take?"
 
@@ -511,7 +525,7 @@ If Station built their site and they now run it themselves, send them to station
 
 **When:** they ask how many jobs, calls or reviews they'll get.
 
-> I can't promise a number, because it depends on your business and your market. What I can show you is exactly what the product does. Each product page has a calculator for your own numbers, and single products start with a 7-day free trial so you can see it working.
+> I can't promise a number, because it depends on your business and your market. What I can show you is exactly what the product does. Each product page has a calculator for your own numbers, and single products start with a 14-day free trial so you can see it working.
 
 **Don't say:** "you'll get X more jobs," "it pays for itself," or "you'll rank first on Google."
 
@@ -538,7 +552,7 @@ Tell Station straight away. **Don't** pressure them or promise a refund or credi
 1. **Checkout:** the client pays on station.solutions, or through a link Station sends them. You never take payments.
 2. **Receipt:** Station emails a thank-you with the receipt attached for every paid invoice, and another receipt at each renewal.
 3. **Account:** the client gets their own Station account, with login details by email. Their products switch on with pre-written wording they can edit.
-4. **Onboarding call:** the client books one at station.solutions/onboarding/, and Station connects their phone and calendar. Bundles start with a 15-minute kickoff call. They should have their hours, services and prices, Google Business Profile link, social handles and a brand colour ready.
+4. **Onboarding call:** the client books one at station.solutions/onboarding/, and Station connects their phone and calendar. They should have their hours, services and prices, Google Business Profile link, social handles and a brand colour ready.
 5. **Carrier registration:** needed for anything that texts (Lineback, Dial, and the text parts of Slate, Pursuit and Repute). Station files it using the legal business name, EIN and address exactly as the IRS has them. It takes about 2 business days, and the carriers control the timing. If the business has no EIN, tell Station.
 6. **Product setup:** Station sets up each product.
 
@@ -567,7 +581,7 @@ Tell Station straight away. **Don't** pressure them or promise a refund or credi
 
 ### What you do after the sale
 
-1. Add the client with **Add client**, including their bundle and every product, and email Station so they can be accepted into your book.
+1. Add the client with **Add client**, including their collection or plan and every product, and email Station so they can be accepted into your book.
 2. Email Station what you learned: hours, services, concerns, the decision maker, and anything they expect you promised.
 3. Make sure they book their onboarding call and know what to have ready.
 4. Stay their first contact for questions and upsells, and reply within two business days.
@@ -591,7 +605,7 @@ These come from your Partner Agreement and Station's policies.
 
 - Quote only prices published on station.solutions, checked before you quote.
 - No discounts, credits, custom prices, rebates or side incentives (including sharing your commission) without Station's written consent.
-- Never quote a price for a custom website build, multi-location Repute or Echo, or anything not in the catalogue.
+- Never quote a price for a custom website build, or anything not in the catalogue.
 - Website hosting & care has no list price. Station quotes it for each client (what their domain costs plus the care that fits that business). Never quote, estimate or discount it: tell Station what the client needs and Station quotes.
 - The mobile app is free. Never quote a price for it.
 
@@ -638,7 +652,7 @@ Station can suspend or remove a partner, and forfeit unpaid commission for cause
 - A client wants to cancel, downgrade or pause.
 - A client complains, is upset, or mentions a lawyer, a legal problem or a regulator.
 - Someone asks for a discount, a custom price, a longer trial or an annual plan.
-- Someone wants a website quote, a hosting & care quote, or multi-location Repute or Echo.
+- Someone wants a website quote or a hosting & care quote.
 - Someone asks for something not in the catalogue, or about contract terms beyond what's on the site.
 - A business has no EIN, or has a carrier registration problem.
 - Someone asks about keeping or moving a phone number and you're not sure.
@@ -670,7 +684,7 @@ Tell the client you've passed it on, and log it in their notes in the portal.
 
 ### Q: Do I earn on setup fees or website builds?
 
-No. One-time fees aren't commissionable.
+No. One-time fees aren't commissionable, and that includes the free Station-built website and the one-time $500 to keep a built site. Hosting & care is recurring, so it earns 40%.
 
 ### Q: Are there bounties, bonuses or tiers?
 
@@ -718,7 +732,7 @@ No. Businesses you, your family or your company's owners control aren't eligible
 
 ### Q: Is there a free trial?
 
-Yes. Single products start with a 7-day free trial on their Standard plan, and bundles and bigger tiers are billed at checkout. Only Station can agree a longer trial.
+Yes. Single products (every tier) and the three collections start with a 14-day free trial. Core, Pro and Max have no trial: they're billed at checkout with a 30-day money-back guarantee on the first paid month. Websites never trial. Only Station can agree a longer trial.
 
 ### Q: What does a custom website cost?
 
@@ -728,13 +742,16 @@ The build is priced to the project. The owner starts at station.solutions/custom
 
 There's no set price. Hosting & care is one monthly subscription that Station quotes for each client: Station hosts the site, keeps the domain renewed and looks after it, and the quote covers what their domain costs plus the amount of care that fits that business. You don't set, quote or discount it. Tell Station what the client needs with **Message Station** and Station quotes them. It's a recurring fee, so you earn your 40% on whatever the client actually pays for it, every month it clears.
 
-### Q: What's in each bundle?
+### Q: What's in each collection and plan?
 
-- **Core ($750 a month):** Greet, Slate, Lineback, Pursuit, Repute and Dispatch.
-- **Pro ($1,395 a month):** Core plus Frontdesk, Echo and Marquee.
-- **Custom ($2,800 a month):** all 13 products at their highest usage tiers.
+- **Answer ($297 a month):** Lineback, Greet, Slate, Dial and Tap. Add Frontdesk (750 minutes) for $297 a month more.
+- **Get Found ($497 a month):** Echo, Repute and Marquee (self-serve).
+- **Follow Up ($427 a month):** Pursuit, Revive and Dispatch (self-serve).
+- **Core ($1,297 a month):** every product at its Standard tier, including Frontdesk at 750 minutes.
+- **Pro ($2,197 a month):** every product at its busy tier, with Station writing and running the social posts and email campaigns.
+- **Max ($2,797 a month):** every product at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
 
-No bundle has a setup fee or includes a custom website.
+Radar is never included. Collections and plans have no setup fee, and each includes a free Station-built website (Max gets a custom-designed one). Collections have a 14-day free trial. Core, Pro and Max have none, but carry a 30-day money-back guarantee on the first paid month. Yearly billing is 10 times monthly.
 
 ### Q: What if a client goes over their allowance?
 
