@@ -1626,3 +1626,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 .bundles .bcard ul{align-content:start}
 .baddon{display:flex;gap:10px;align-items:flex-start;margin:14px 0 4px;font-size:13px;line-height:1.4;color:rgba(255,255,255,.86);cursor:pointer}
 .baddon input{width:18px;height:18px;margin-top:1px;accent-color:#EFC26A;flex:none}
+.chat-fab{width:auto;min-width:56px;padding:0 20px 0 15px;border-radius:999px;display:flex;align-items:center;gap:8px;font:600 15px var(--fb)}
+.chat-fab .cf-l{color:var(--bg)}
+.hf-router{position:relative;z-index:6;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:760px;margin:22px auto 0}
+.hf-router a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.72);border:1px solid rgba(29,29,31,.12);text-decoration:none;color:var(--ink);text-align:left;min-height:44px;backdrop-filter:blur(6px)}
+.hf-router a b{font:600 15px var(--fd)}
+.hf-router a span{font-size:13px;color:var(--muted)}
+.hf-router a:hover{border-color:var(--ink)}
+.hf-router a:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media(max-width:700px){.hf-router{grid-template-columns:1fr}}
+.bcard:target{outline:2px solid #EFC26A;outline-offset:4px}
+@media(max-width:700px){.parallax__layer-title{z-index:5}}
