@@ -16,7 +16,7 @@ the push.
 | Path | What it is |
 |---|---|
 | `/` | The marketing site + funnel (payment paths, audit form, analytics beacon, CRO popups) |
-| `/partners/` | **The Partner portal** — a full app in one file (`partners/index.html`), talking to the n8n Affiliate Engine webhook. Tabs: Dashboard · Foundry · Book of business · Calendar · Products & scripts · How you get paid (rest hidden by CSS) |
+| `/partners/` | **Retired 2026-10-07.** Forwards to Partner World (partners.station.solutions, repo `partner-world`). `products.json`, `guide.md` and `agreement.html` in this folder are still served: the engine, Circle and the site read them. The old one-file portal app is in git history. |
 | `/partners/agreement.html` | The signed-policy authority for tracks/rates |
 | `/thanks/`, `/audit` | Funnel pages |
 | `/website-brief/` | **Prospect brief** — the questionnaire we send someone before drafting a site. Prefill per prospect with `?for=Business&site=example.com&name=&email=`. noindex, linked from nowhere. POSTs JSON to the n8n **`/webhook/client-brief`** workflow (`Station - Client Brief`, id `tdx6Iw4kbqCbJK6m`) → Discord #ops **and** an email to main@station.solutions (SMTP credential `Station briefs (gmail SMTP)`, sending as stationonemain@gmail.com because `secrets/smtp.json` has no app password for main@; Reply-To is set to whoever filled the form in). ⚠️ Do NOT point it at `/webhook/free-audit`: that workflow generates an audit report and emails the lead "Your Station audit for …", which is the wrong reply to a design brief. |
