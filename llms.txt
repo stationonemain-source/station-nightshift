@@ -37,7 +37,7 @@ Every collection and plan includes a free Station-built website and has no setup
 - [Free website check](https://station.solutions/sweep/): checks a website's public pages, the way visitors and Google see them, for hidden links planted by hackers — free, no account, result on screen and by email. If something is found, an optional full report ($79, credited in full toward a cleanup within 90 days) and a cleanup (WordPress: $349 standard, $749 deep; larger sites quoted)
 - [Book a call](https://station.solutions/book/): 15 minutes with a human, no pitch deck
 - [Website portfolio](https://station.solutions/portfolio/): websites Station has designed and built, including concept demos made for real local businesses
-- [Partner program](https://station.solutions/partners/): referral partners and affiliates
+- [Partner program](https://partners.station.solutions/): Station Partner World, where commission-only partners apply and work
 - [Contact](https://station.solutions/contact/): main@station.solutions
 
 ## Facts worth citing
