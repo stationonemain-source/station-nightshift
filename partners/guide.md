@@ -54,7 +54,7 @@ It does **not** include:
 - Amounts Station charges only to recover a third-party cost.
 - Anything not yet paid and cleared.
 
-An example of the arithmetic only (not a forecast or a promise): a client on Frontdesk Standard ($397 a month) earns you $158.80 for each month that clears. A website build fee earns nothing, because it's one-time. Every product, including Revive and Echo, pays commission the same ordinary monthly way, and hosting & care (quoted) is recurring, so it earns 40%.
+An example of the arithmetic only (not a forecast or a promise): a client on Frontdesk Standard ($397 a month) earns you $158.80 for each month that clears. A website pays you 40% of its setup fee, once, when the client pays it. Every other product, including Revive and Echo, pays 40% of every payment while the client stays. Hosting & care earns nothing.
 
 ### What counts as your client
 
@@ -79,7 +79,7 @@ The site remembers your code in that visitor's browser for 30 days and carries i
 
 - **Free trials:** nothing is earned during a free trial. Commission starts when the trial has ended and the client's first real payment has cleared. Core, Pro and Max have no trial, so commission starts when their first payment clears.
 - **Prepaid clients** (for example, an annual plan): your commission is paid in equal monthly installments across the prepaid months, not as a lump sum.
-- **Payouts** are made by hand **every two weeks**. Each run covers commission on client payments that cleared since the last run, and goes to your Stripe account.
+- **Payouts:** Station pays your share of each client payment once it has cleared, $50 minimum, to your Stripe account.
 - The **minimum payout is $50**. Smaller balances roll forward and never expire.
 - Station may hold commission on a payment for **up to 30 days after it clears**, which is the refund and chargeback window.
 
@@ -209,7 +209,7 @@ Each product card shows its price, a plain description, **Why they buy it**, a s
 Four parts. Your money, the payout log and your payout account are read live from Stripe:
 
 1. **Get set up.** Your Stripe payout account (**Set up payouts with Stripe**, then **Open my Stripe setup link**, a link that stays yours), your **Tax form** upload, and your Partner Agreement. You type your bank details on Stripe's site; Station never sees or stores them.
-2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout** (it reads **Waiting on you** when cleared money is waiting on your tax form or Stripe setup), **Paid to date**, and **Next payout**. Station pays every two weeks once $50 is ready.
+2. **Your money.** **On hold** (with the earliest release date), **Ready for your next payout** (it reads **Waiting on you** when cleared money is waiting on your tax form or Stripe setup), **Paid to date**, and **Next payout**. Station pays once the client's payment clears and at least $50 is ready.
 3. **Payout log.** Every commission line, with what the client paid, your 40%, and where it stands, plus your last 10 payouts from Station and, for payouts from the last 60 days, whether each is on its way to your bank or in it.
 4. **How your pay works.** The short version of sections 7 to 9 of your agreement, a worked example, and any special terms Station agreed with you. Questions go to **Message Station**.
 
@@ -249,7 +249,7 @@ A custom-designed (bespoke) website built around the business, not a template. T
 
 It's **priced to the project**, with no published price, so never quote a number. The owner answers about 5 minutes of questions at station.solutions/custom/. Station builds a free demo by hand and emails it within 2 to 3 business days. Nothing is charged until they've seen it and said yes.
 
-After it's built, the client either takes the site over and runs it themselves, or Station hosts it and looks after it for them. **Hosting & care** is one monthly subscription with **no list price**: Station quotes it for each client, and the quote covers what their domain costs plus the amount of care that fits that business. Never quote, estimate or discount it. Tell Station what the client needs with **Message Station** and Station sends them the quote. It's recurring, so you earn your 40% on whatever the client actually pays for it.
+After it's built, the client either takes the site over and runs it themselves, or Station hosts it and looks after it for them. **Hosting & care** is one monthly subscription with **no list price**: Station quotes it for each client, and the quote covers what their domain costs plus the amount of care that fits that business. Never quote, estimate or discount it. Tell Station what the client needs with **Message Station** and Station sends them the quote. Hosting & care earns no commission. You earn 40% of the website's setup fee, once, when the client pays it.
 
 ### Greet (website chat)
 
@@ -355,7 +355,7 @@ If a client outgrows one product, they upgrade just that product for the differe
 
 Every collection and plan includes a Station-built website of up to 5 pages. Station builds it after the client's first paid month clears, never during a trial. The draft arrives within 5 business days, and the client gets two rounds of changes. Hosting and small text changes are included while they're subscribed.
 
-If they cancel, they keep their domain, words and photos. The site comes off Station hosting at the end of the paid period, unless they take a quoted hosting & care plan or pay a one-time $500 to keep the built site. The $500 earns no commission, and hosting & care earns your 40%. A custom (bespoke) website is still quoted separately at station.solutions/custom/.
+If they cancel, they keep their domain, words and photos. The site comes off Station hosting at the end of the paid period, unless they take a quoted hosting & care plan or pay a one-time $500 to keep the built site. Neither the $500 nor hosting & care earns commission. A custom (bespoke) website is still quoted separately at station.solutions/custom/.
 
 ## Responding to leads and clients
 
@@ -391,7 +391,7 @@ The owner fills in station.solutions/custom/, and Station builds a free demo by 
 
 ### Follow-up cadence
 
-Station hasn't set a fixed schedule. As a guide, match Station's own follow-up product: a few polite touches over about two weeks, stopping the moment they reply, book or say no. Only use channels they've agreed to. Set a **Follow up** date on every open lead and log each touch in Notes.
+Your follow-up is a call back at the time they gave you. Whenever you reach someone who is interested, ask when to call back, and save that **day and time** on the lead (Partner World reminds you, lists it under **Due now**, and marks it **Overdue** after two hours). An **Interested** lead always needs a next step: a call-back time or a call booked on your own booking calendar. If they say not to call again, mark **Do not call** the same day; Station then never contacts them either. Only use channels they've agreed to, and log every call.
 
 ### Ready-to-paste replies
 
@@ -684,7 +684,7 @@ Tell the client you've passed it on, and log it in their notes in the portal.
 
 ### Q: Do I earn on setup fees or website builds?
 
-No. One-time fees aren't commissionable, and that includes the free Station-built website and the one-time $500 to keep a built site. Hosting & care is recurring, so it earns 40%.
+Yes, on a website: you earn 40% of its setup fee, once, when the client pays it. A website included free with a plan has no setup fee, so there is nothing to earn on the build. Other one-time fees, like the one-time $500 to keep a built site, earn nothing, and hosting & care earns nothing.
 
 ### Q: Are there bounties, bonuses or tiers?
 
@@ -692,7 +692,7 @@ No. The flat 40% recurring commission is the whole arrangement.
 
 ### Q: When do I get paid?
 
-Every two weeks, for payments that cleared since the last run, once your balance is at least $50 and your tax form is on file. Smaller balances roll forward and never expire.
+Once the client's payment clears, as long as your balance is at least $50 and your tax form is on file. Smaller balances roll forward and never expire.
 
 ### Q: Why hasn't commission for a new client appeared?
 
@@ -740,7 +740,7 @@ The build is priced to the project. The owner starts at station.solutions/custom
 
 ### Q: What does website hosting & care cost, and do I earn on it?
 
-There's no set price. Hosting & care is one monthly subscription that Station quotes for each client: Station hosts the site, keeps the domain renewed and looks after it, and the quote covers what their domain costs plus the amount of care that fits that business. You don't set, quote or discount it. Tell Station what the client needs with **Message Station** and Station quotes them. It's a recurring fee, so you earn your 40% on whatever the client actually pays for it, every month it clears.
+There's no set price. Hosting & care is one monthly subscription that Station quotes for each client: Station hosts the site, keeps the domain renewed and looks after it, and the quote covers what their domain costs plus the amount of care that fits that business. You don't set, quote or discount it. Tell Station what the client needs with **Message Station** and Station quotes them. Hosting & care earns no commission.
 
 ### Q: What's in each collection and plan?
 
