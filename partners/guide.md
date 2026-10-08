@@ -125,7 +125,7 @@ Partner World is at partners.station.solutions. The old partner portal at statio
 - There's no reset button. If you forget your password, email main@station.solutions. Once Station has reset it, use **First time here?** to set a new one.
 - When you sign in on a device for the first time, or after you've signed out, a 1-minute check asks six questions on the rules that matter most. A wrong pick just means you try again.
 
-Once you're signed in, you'll see six tabs: **Home, Products, Calls, Clients, Money** and **Help**. Partner Leads also see **Team**. At the top, **AA** makes the text bigger, and **Earned so far** opens Money.
+Once you're signed in, you'll see eight tabs: **Home, Products, Calls, Leads, Calendar, Clients, Money** and **Help**. Partner Leads also see **Team**. At the top, **AA** makes the text bigger, and **Earned so far** opens Money.
 
 ### Home
 
@@ -175,6 +175,16 @@ This is your list: the businesses Station sends you and the ones you add yoursel
 - **If your connection drops,** your results wait in that browser and send by themselves as soon as Station answers. A line at the top says how many haven't reached Station yet.
 
 Never tell an owner they're losing a specific amount.
+
+### Leads
+
+Your whole list in one place: every business Station sent you and every one you added. Search by name, trade, city or phone, or show only one kind: New, Call back, Interested, Booked, Won or Closed. Tap a business to see its phone, email, website and your last note, then **Call** it, **Book a call**, **Request a website** or **Add a note**. **Add a business you found** is at the top.
+
+- **Request a website** works for any business on your list, as long as Station has a phone number, an email or their current website for them. Station builds it, shows them a free demo and quotes it; you earn 40% of the setup fee once they pay. It shows **Website: asked ✓** once it's sent.
+
+### Calendar
+
+Every call you've booked, in your own time: calls with businesses, calls with Station, and Station support calls for your clients. **Coming up** is the next 14 days; earlier calls are folded underneath. **Book a call** lets you pick a business from your list and choose a time on your booking calendar, or book a call with Station. Until Station has set up your booking calendar, it says so and offers only the call with Station.
 
 ### Clients
 
