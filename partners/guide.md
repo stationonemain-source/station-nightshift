@@ -37,19 +37,20 @@ Lead with their problem, not the product list.
 
 ## How you earn
 
-This section follows your Partner Agreement (version 5) and its plain-English summary. Where they differ from this guide, the agreement controls.
+This section follows your Partner Agreement and its plain-English summary. Where they differ from this guide, the agreement controls.
 
 ### The rate
 
-You earn a flat **40%** of the recurring subscription fees each client in your book actually pays Station. It keeps coming every month they stay a paying client, for as long as the client stays in your book and your agreement stays in effect. There's no bounty, no setup bonus and no tiers.
+You earn a flat **40%** of what each client in your book pays Station: for a website, 40% of the setup fee, once; for everything else, 40% of every payment while they stay. Paid once the client's payment clears, for as long as the client stays in your book and your agreement stays in effect. Hosting & care earns nothing. There's no bounty and no tiers.
 
 ### What the 40% is calculated on
 
-Your commission is calculated on **Commissionable Revenue**: the recurring subscription fees a client has actually paid and that have cleared, after refunds, chargebacks, credits and discounts. It is never calculated on a list price, a quote or a projection, and card-processing fees aren't deducted.
+Your commission is calculated on **Commissionable Revenue**: the subscription fees a client has actually paid and that have cleared (hosting & care excepted), plus a website's one-time setup fee, after refunds, chargebacks, credits and discounts. It is never calculated on a list price, a quote or a projection, and card-processing fees aren't deducted.
 
 It does **not** include:
 
-- One-time fees: onboarding fees, website build fees, the one-time $500 fee to keep a built site, and other single purchases. The free Station-built website that comes with a collection or plan earns nothing either.
+- Hosting & care (the monthly subscription that keeps a website online).
+- Other one-time fees: onboarding fees, the one-time $500 fee to keep a built site, and other single purchases. The free Station-built website that comes with a collection or plan has no setup fee, so it earns nothing either.
 - Taxes.
 - Amounts Station charges only to recover a third-party cost.
 - Anything not yet paid and cleared.
@@ -681,7 +682,7 @@ Tell the client Station will handle it and that you've passed it on.
 
 ### Q: How much do I earn?
 
-40% of the recurring subscription fees each client in your book actually pays and that clear. You earn it every month they stay a paying client, while your agreement is in effect.
+40% of what each client in your book pays Station: for a website, 40% of the setup fee, once; for everything else, 40% of every payment while they stay. Paid once the client's payment clears, while your agreement is in effect. Hosting & care earns nothing.
 
 ### Q: Do I earn on setup fees or website builds?
 
