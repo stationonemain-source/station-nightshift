@@ -32,15 +32,15 @@
   try {
     if (REF && !sessionStorage.getItem("station_ref_pinged")) {
       sessionStorage.setItem("station_ref_pinged", "1");
-      var _p = JSON.stringify({ action: "attribute", pub: AFF_PUB, code: REF,
-                                kind: "visit", label: location.pathname.slice(0, 60) });
+      // form-encoded on purpose: Chrome drops a sendBeacon whose Blob type is application/json (not CORS-safelisted),
+      // so for a year no visit reached the engine. URLSearchParams is safelisted and the engine reads it the same.
+      var _p = new URLSearchParams({ action: "attribute", pub: AFF_PUB, code: REF,
+                                     kind: "visit", label: location.pathname.slice(0, 60) });
       if (navigator.sendBeacon) {
-        navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
-                             new Blob([_p], { type: "application/json" }));
+        navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates", _p);
       } else {
         fetch("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
-              { method: "POST", mode: "no-cors",
-                headers: { "Content-Type": "application/json" }, body: _p });
+              { method: "POST", mode: "no-cors", keepalive: true, body: _p });
       }
     }
   } catch (e) {}
@@ -442,18 +442,18 @@
         try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
         try {
           if (navigator.sendBeacon && REF) {
-            navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
+            // form-encoded (see the visit beacon above): a JSON Blob never leaves Chrome
+            navigator.sendBeacon(AFF_URL, new URLSearchParams({
               action: "attribute", pub: AFF_PUB, code: REF, kind: "audit-submit",
               label: "v5-" + (form.getAttribute("data-variant") || "form")
-            })], { type: "application/json" }));
+            }));
             // and register the actual lead, so the affiliate's Leads count moves too
             var _em = (fd.get("email") || "").toString().trim();
             if (_em) {
               navigator.sendBeacon("https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates",
-                new Blob([JSON.stringify({ action: "leadref", pub: AFF_PUB, code: REF, email: _em,
+                new URLSearchParams({ action: "leadref", pub: AFF_PUB, code: REF, email: _em,
                   name: (fd.get("name") || fd.get("business") || "").toString().trim(),
-                  phone: (fd.get("phone") || "").toString().trim() })],
-                  { type: "application/json" }));
+                  phone: (fd.get("phone") || "").toString().trim() }));
             }
           }
         } catch (err) {}

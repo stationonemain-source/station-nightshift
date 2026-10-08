@@ -555,9 +555,10 @@
     try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
     try {
       if (navigator.sendBeacon && savedRef) {
-        navigator.sendBeacon(AFF_URL, new Blob([JSON.stringify({
+        // form-encoded: Chrome drops a sendBeacon whose Blob type is application/json (v5.js has the same fix)
+        navigator.sendBeacon(AFF_URL, new URLSearchParams({
           action: "attribute", pub: AFF_PUB, code: savedRef, kind: "audit-submit", label: "the-range"
-        })], { type: "application/json" }));
+        }));
       }
     } catch (err) {}
     try { localStorage.setItem("station_audit_done", "1"); } catch (e2) {}
