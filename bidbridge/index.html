@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BidBridge — referral partners for Oklahoma contractors</title>
-<meta name="description" content="BidBridge connects Oklahoma contractors who have work they don't do with trusted crews who want it. Roofers, builders, siding, gutters, painters and electricians. A Station company.">
+<title>BidBridge — referral partners for home-service contractors</title>
+<meta name="description" content="BidBridge connects U.S. contractors who have work they don't do with trusted crews who want it. Roofers, builders, siding, gutters, painters and electricians. A Station company.">
 <link rel="canonical" href="https://station.solutions/bidbridge/">
 <meta name="theme-color" content="#F4F5F2">
 <meta property="og:image" content="https://station.solutions/bidbridge/logo.png">
@@ -50,7 +50,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:14px}
 <div class="w">
 <header class="top">
   <a class="brand" href="/bidbridge/" aria-label="BidBridge home"><img src="/bidbridge/logo.png" alt="BidBridge" width="150" height="109" style="display:block;height:auto"></a>
-  <span class="tag">Oklahoma City metro · a Station company</span>
+  <span class="tag">Starting in Oklahoma City · a Station company</span>
 </header>
 
 <section class="hero">
@@ -120,7 +120,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:14px}
       consent_text:document.getElementById("bbSms").checked?document.querySelector(".consent span").textContent.trim():"",
       page:location.href,at:new Date().toISOString()};
     fetch("https://n8n.srv1748596.hstgr.cloud/webhook/bidbridge-join",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
-      .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.ok)throw 0;m.textContent=body.sms_consent?"You're in. We'll text you from our Oklahoma number when there's a match.":"You're in. You didn't tick the texting box, so we'll reach you by email.";f.reset();})
+      .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.ok)throw 0;m.textContent=body.sms_consent?"You're in. We'll text you from (405) 814-0793 when there's a match.":"You're in. You didn't tick the texting box, so we'll reach you by email.";f.reset();})
       .catch(function(){m.textContent="That didn't go through. Please email main@station.solutions and we'll add you.";})
       .finally(function(){b.disabled=false;});
   });
