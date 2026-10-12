@@ -164,7 +164,21 @@
     } catch (e) {}
   }
 
-  function post(obj) { beacon(ENDPOINT, obj); }
+  // 2026-10-12 (Circle's Website audit): where the visit came from. The HOST of the page that sent the browser here
+  // (document.referrer's hostname only -- never its path or query), kept for the session so every event of the visit
+  // carries it. Our own pages are not a source; "" = typed, bookmarked or withheld by the browser.
+  var REF_HOST = (function () {
+    var k = "rangeRf", h = "";
+    try { h = new URL(document.referrer).hostname.toLowerCase(); } catch (e) { h = ""; }
+    if (h === location.hostname || /(^|\.)station\.solutions$/.test(h)) h = "";
+    try {
+      var prev = sessionStorage.getItem(k);
+      if (prev !== null) return prev;
+      sessionStorage.setItem(k, h);
+    } catch (e) {}
+    return h;
+  })();
+  function post(obj) { if (obj && obj.rf === undefined) obj.rf = REF_HOST; beacon(ENDPOINT, obj); }
 
   // The verbatim disclosure, read out of the rendered DOM (§2.1) — never a constant in this
   // file, because a hardcoded copy would drift from the paragraph actually on screen and the
