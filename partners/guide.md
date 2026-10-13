@@ -50,7 +50,7 @@ Your commission is calculated on **Commissionable Revenue**: the subscription fe
 It does **not** include:
 
 - Hosting & care (the monthly subscription that keeps a website online).
-- Other one-time fees: onboarding fees, the one-time $500 fee to keep a built site, and other single purchases. The free Station-built website that comes with a collection or plan has no setup fee, so it earns nothing either.
+- Other one-time fees: onboarding fees and other single purchases. (The one-time $1,250 a client pays to keep their plan's website after leaving is NOT one of these: it earns 40%, once.) The free Station-built website that comes with a collection or plan has no setup fee, so it earns nothing either.
 - Taxes.
 - Amounts Station charges only to recover a third-party cost.
 - Anything not yet paid and cleared.
@@ -376,7 +376,7 @@ If a client outgrows one product, they upgrade just that product for the differe
 
 Every collection and plan includes a Station-built website of up to 5 pages. Station builds it after the client's first paid month clears, never during a trial. The draft arrives within 5 business days, and the client gets two rounds of changes. Hosting and small text changes are included while they're subscribed.
 
-If they cancel, they keep their domain, words and photos. The site comes off Station hosting at the end of the paid period, unless they take a quoted hosting & care plan or pay a one-time $500 to keep the built site. Neither the $500 nor hosting & care earns commission. A custom (bespoke) website is still quoted separately at station.solutions/custom/.
+If they cancel, they keep their domain, words and photos. The site comes off Station hosting at the end of the paid period, unless they take a quoted hosting & care plan or pay a one-time $1,250 to keep the built site (Station moves its code and domain to them). You earn 40% of the $1,250 once; hosting & care earns nothing. A custom (bespoke) website is still quoted separately at station.solutions/custom/.
 
 ## Responding to leads and clients
 
@@ -706,7 +706,7 @@ Tell the client Station will handle it and that you've passed it on.
 
 ### Q: Do I earn on setup fees or website builds?
 
-Yes, on a website: you earn 40% of its setup fee, once, when the client pays it. A website included free with a plan has no setup fee, so there is nothing to earn on the build. Other one-time fees, like the one-time $500 to keep a built site, earn nothing, and hosting & care earns nothing.
+Yes, on a website: you earn 40% of its setup fee, once, when the client pays it. A website included free with a plan has no setup fee, so there is nothing to earn on the build. If a client leaves and pays the one-time $1,250 to keep that website, you earn 40% of it ($500), once. Other one-time fees earn nothing, and hosting & care earns nothing.
 
 ### Q: Are there bounties, bonuses or tiers?
 
