@@ -832,8 +832,15 @@
         addAttribution(lead);
         beacon(LEAD_ENDPOINT, lead);
       } catch (e) {}
-      track("audit_submit");
-      track("consent_sms", granted ? "granted" : "declined");
+      // 2026-10-15: these two used to fire in the SAME millisecond as the lead beacon above. The n8n
+      // relay keeps leads and events in one workflow static-data blob, and concurrent executions
+      // save it last-writer-wins -- so on Lannie Carter's submit an event save wiped the lead (her
+      // only surviving row was the intake's attribution-less backup). A short delay serialises them;
+      // the page doesn't navigate on submit, so nothing is lost by waiting.
+      setTimeout(function () {
+        track("audit_submit");
+        track("consent_sms", granted ? "granted" : "declined");
+      }, 1500);
       // MODIFIED, not duplicated: the same Lead call as before, now carrying the
       // shared eventID so the CAPI copy of this lead dedups against it.
       fbTrack("track", "Lead", { content_name: "audit request" }, { eventID: eventId });

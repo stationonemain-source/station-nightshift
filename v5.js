@@ -427,6 +427,68 @@
   /* ---------- forms (n8n contract) + ?biz= prefill ---------- */
   var AUDIT_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/free-audit";
   var AFF_URL = "https://n8n.srv1748596.hstgr.cloud/webhook/station-affiliates";
+
+  /* 2026-10-15: the v5 forms (/, /contact/, /audit/) posted ONLY the visible fields to the intake, so
+     every lead reached n8n with no source and no consent evidence -- film.js packed both, v5.js never
+     did. Lannie Carter came from a Ribbon venue page (utm_source=ribbonleads) and Circle filed her as
+     "direct". This mirrors film.js's packing: explicit yes/no consent, the evidence around the click,
+     and attribution.js's flat ft_/lt_ columns (the intake node reads columns, not JSON blobs). */
+  function packLead(form, fd, t0) {
+    function put(k, v) {
+      if (v === null || v === undefined) return;
+      v = String(v);
+      if (v && !String(fd.get(k) || "").trim()) fd.set(k, v);
+    }
+    function txt(id) {
+      try { var el = document.getElementById(id); return el ? String(el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 4000) : ""; }
+      catch (e) { return ""; }
+    }
+    try {
+      var sms = form.querySelector('input[name="sms_consent"]');
+      fd.set("sms_consent", (sms && !sms.disabled && sms.checked) ? "yes" : "no");
+      var em = form.querySelector('input[name="email_consent"]');
+      if (em) fd.set("email_consent", (!em.disabled && em.checked) ? "yes" : "no");
+      put("consent_ts", new Date().toISOString());
+      put("consent_url", String(location.href).slice(0, 1000));
+      put("consent_ua", String(navigator.userAgent || "").slice(0, 600));
+      put("consent_text_sms", txt("sms-consent-text"));
+      put("consent_text_email", txt("email-consent-text"));
+      put("form_rendered_at", new Date(t0).toISOString());
+      try { put("cookie_consent", localStorage.getItem("rangeConsent") || "unset"); } catch (e) { put("cookie_consent", "unset"); }
+      try {
+        var s = sessionStorage.getItem("rangeSid");     // the SAME session id analytics.js uses
+        if (!s) { s = Math.random().toString(36).slice(2, 10) + Date.now().toString(36); sessionStorage.setItem("rangeSid", s); }
+        put("sid", s);
+      } catch (e) {}
+      var ref = "";
+      try { ref = new URLSearchParams(location.search).get("ref") || ""; } catch (e) {}
+      put("ref", ref);
+      put("page_path", location.pathname);
+      var A = window.__stationAttr;
+      if (!A) return;
+      try { put("interaction_trail", JSON.stringify(A.trail()).slice(0, 4000)); } catch (e) {}
+      try { put("ft_attr", JSON.stringify(A.first()).slice(0, 2000)); } catch (e) {}
+      try { put("lt_attr", JSON.stringify(A.last()).slice(0, 2000)); } catch (e) {}
+      var flat = {};
+      try { flat = A.flat() || {}; } catch (e) {}
+      for (var k in flat) {
+        if (!Object.prototype.hasOwnProperty.call(flat, k)) continue;
+        if (k.indexOf("ft_") !== 0 && k.indexOf("lt_") !== 0) continue;
+        var v = flat[k];
+        if (v === null || v === undefined || v === "" || typeof v === "object" || typeof v === "function") continue;
+        put(k, String(v).slice(0, 300));
+      }
+      put("fbclid", flat.lt_fbclid || flat.ft_fbclid || "");
+      put("landing_path", flat.lt_landing_path || flat.ft_landing_path || location.pathname || "/");
+      put("referrer", flat.lt_referrer || flat.ft_referrer || "");
+      put("device", flat.lt_device || flat.ft_device || "");
+      try { put("fbp", A.fbp()); } catch (e) {}
+      try { put("fbc", A.fbc()); } catch (e) {}
+      try { put("event_id", A.eventId()); } catch (e) {}
+      try { put("time_to_lead_s", A.timeToLeadS()); } catch (e) {}
+    } catch (e) {}
+  }
+
   ready(function () {
     try {
       var biz = new URLSearchParams(location.search).get("biz");
@@ -439,6 +501,7 @@
         if (!form.reportValidity()) return;
         var fd = new FormData(form);
         fd.set("_t", String(Date.now() - t0));
+        packLead(form, fd, t0);
         try { fetch(AUDIT_URL, { method: "POST", mode: "no-cors", body: fd }); } catch (err) {}
         try {
           if (navigator.sendBeacon && REF) {
