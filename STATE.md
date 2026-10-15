@@ -46,6 +46,12 @@ the push.
   `circle-html-iife-crash-class`).
 - Office/Optimum DNS can hijack station.solutions locally — verify against
   185.199.109.x (GitHub Pages) before trusting a local fetch.
+- **The live audit forms are v5.js, not film.js** (2026-10-15, `cd896b7`). A form
+  handler that posts to the free-audit intake MUST pack attribution + consent
+  evidence (`packLead()` in v5.js); v5.js shipped without it and every lead
+  reached the CRM as "direct". And never fire a relay event in the same tick as
+  the lead beacon: the n8n relay saves leads and events in one blob,
+  last-writer-wins (analytics.js now delays audit_submit/consent_sms 1.5s).
 
 ## Probe
 
