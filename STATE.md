@@ -227,3 +227,40 @@ block at the END of `v5.css` ("Apple HIG audit"), plus a mapping applied to the 
   summary's "Continue with these" button showed at $0.
 - **Focus:** form inputs and search get a 2px solid outline, not an 8% halo.
 - Not done (decisions): 14 "Add to cart" buttons on the shelf, dark appearance, headline copy.
+
+## 2026-10-16 — why /audit/ and /custom/ were not in Google, and what changed (66a10ad)
+
+**Evidence (GSC URL Inspection via the SEO funnel's read-only token, 10-16):** `/audit/` "Discovered - currently not
+indexed", never crawled, only referrer known = /radar/. `/custom/` "URL is unknown to Google" at 11:05Z and "Discovered"
+by 14:00Z, never crawled. 18 of 29 sitemap URLs indexed; the other 9 (greet, revive, sweep, echo, lineback, repute,
+portfolio, portfolio/emails, site-help) are the same class. **Nothing blocked them:** robots.txt `Allow: /`, 200 for
+Googlebot, no meta robots or X-Robots-Tag, `/audit` and http/www → one 301 to the slash URL, both in the sitemap.
+So the cause is Google deferring the crawl of a young, low-authority domain, plus page signals that gave it little
+reason to hurry:
+- `/custom/` was a JS-only app: **1 word** in the HTML without JS, no canonical, no OG, no nav, no outbound links, and
+  linked from only 4 pages (/, /storefront/, /sweep/, /portfolio/).
+- `/audit/` had ~120 words of its own (the rest was nav and footer), no structured data, and a title nobody searches.
+- `sitemap.xml` had no `lastmod` on 27 of 29 URLs, so a re-read told Google nothing had changed.
+
+**Fixed in 66a10ad:** /custom/ intro is in the HTML (JS still replaces it) + a "How it works" block shown on the first
+screen only (hidden once a visitor starts) + canonical/OG + Service/BreadcrumbList JSON-LD + title "Free custom website
+demo for your business"; /audit/ gets the twelve checks (wording from Foundry `report_local._WHAT_IT_MEANS`), how it
+works and four questions as static text (345 → 840 words without JS) + Service/FAQPage/BreadcrumbList; /custom/ is in
+every page's footer ("Free website demo") and the Websites & Google menu; real `lastmod` on all 29 sitemap URLs
+(from git, only a real content change moves it — not nav/footer edits); canonicals on legal/* and /site-help/;
+`noindex, follow` on the portfolio concept demos about other real businesses (`/portfolio/t/*`; the two `kit/` pages
+whose canonical points to higgsfield.app keep that and no noindex); llms.txt audit line = twelve checks.
+
+**Submitted:** IndexNow (key file `/53189cdf75cd0fb7e6671f60242b00a0.txt`, all 29 URLs, 202) and Bing API SubmitFeed +
+SubmitUrlBatch (both 200). **Not possible from here:** Google sitemap resubmit or "Request indexing" — the GSC token is
+`webmasters.readonly` and the API has no request-indexing call. The one-click lever left is a founder's: GSC → URL
+Inspection → Request indexing on both URLs.
+
+**How to tell if it worked (check 10-23, then 10-30):** Circle › Funnels › SEO & GEO › Google (inspect.json on the VPS,
+`/docker/circle/data/.station/seo/seo/inspect.json`) — /audit/ and /custom/ should show a `last_crawl` date and then
+"Submitted and indexed". If both are still uncrawled on 10-30, the fault is not on the page: it is authority (links from
+other sites), and the next step is off-site, not more on-page work.
+
+**Rules for new pages here:** every indexable page needs its content in the HTML (not only JS), a self-canonical, a
+title a buyer would search, and a link from the shared footer or menu; when a page's content really changes, set its
+`lastmod` in sitemap.xml. Pages about other businesses (demos, spec sites) are `noindex, follow`.
