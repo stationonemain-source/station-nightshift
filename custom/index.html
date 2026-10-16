@@ -1,7 +1,13 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Your custom website — Station</title>
-<meta name="description" content="Tell us about your business, one question at a time, and we'll build a demo of your custom website. Free, no strings.">
+<title>Free custom website demo for your business — Station</title>
+<meta name="description" content="Answer about 26 short questions and we build a demo of your custom website by hand, in your inbox within 2–3 business days. Free, no strings.">
+<link rel="canonical" href="https://station.solutions/custom/">
+<meta property="og:title" content="Free custom website demo for your business — Station"><meta property="og:description" content="Answer about 26 short questions and we build a demo of your custom website by hand, in your inbox within 2–3 business days. Free, no strings.">
+<meta property="og:url" content="https://station.solutions/custom/"><meta property="og:image" content="https://station.solutions/media/og/hero-share.jpg"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "@id": "https://station.solutions/custom/#service", "name": "Custom website, free demo first", "serviceType": "Custom small business website design", "url": "https://station.solutions/custom/", "description": "Tell Station about your business in about 26 short questions and get a demo of your custom website, built by hand, in your inbox within 2–3 business days. The demo is free; the website is priced to what you need.", "provider": {"@type": "Organization", "@id": "https://station.solutions/#organization", "name": "Station", "url": "https://station.solutions/"}, "offers": {"@type": "Offer", "name": "Free website demo", "price": "0", "priceCurrency": "USD", "url": "https://station.solutions/custom/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Station", "item": "https://station.solutions/"}, {"@type": "ListItem", "position": 2, "name": "Websites", "item": "https://station.solutions/storefront/"}, {"@type": "ListItem", "position": 3, "name": "Free website demo", "item": "https://station.solutions/custom/"}]}</script>
 <meta name="theme-color" content="#F5F4F1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -68,13 +74,30 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
 .done{text-align:center} .done .tick{width:64px;height:64px;border-radius:50%;background:var(--good);color:#fff;display:grid;place-items:center;margin:0 auto 20px;font-size:30px}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 @media (max-width:560px){.looks{grid-template-columns:1fr 1fr;gap:10px}.look .sw{height:64px;font-size:17px;padding:10px 12px}.look .cap{padding:9px 12px}.stage{padding:30px 18px}.review div{grid-template-columns:1fr;gap:2px}.nav .hint{display:none}}
+main{min-height:calc(100vh - 63px);min-height:calc(100svh - 63px)}
+.info{border-top:1px solid var(--line);background:var(--bg-2)} .info[hidden]{display:none}
+.info-in{max-width:760px;margin:0 auto;padding:48px 22px 36px}
+.isteps{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 0;padding:0;list-style:none}
+.isteps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.isteps h3{font-size:16px;line-height:1.3;margin:0 0 6px} .isteps p{margin:0;color:var(--muted);font-size:15px}
+.ilinks{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;font-size:15px}
+.ifoot{margin:30px 0 0;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--faint);display:flex;flex-wrap:wrap;gap:6px 14px}
+.ifoot a{color:var(--faint)}
+@media (max-width:560px){.isteps{grid-template-columns:1fr}.info-in{padding:36px 18px 30px}}
 </style></head>
 <body>
 <header class="top"><div class="top-in">
   <a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a>
   <span class="count" id="count" aria-live="polite"></span>
 </div><div class="bar" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" id="barWrap"><i id="bar"></i></div></header>
-<main><div class="stage" id="stage"></div></main>
+<main><div class="stage" id="stage"><div class="slide"><p class="k">Custom website</p><h1>Tell us about your business, and we&rsquo;ll build you a demo.</h1><p class="help">About 26 short questions, one at a time. It takes around 5 minutes, and you can skip anything that doesn&rsquo;t apply. Your demo will be in your inbox within 2–3 business days.</p><div class="nav"><button class="btn" id="next">Let&rsquo;s start →</button><span class="hint">press Enter ↵</span></div><noscript><p class="help" style="margin-top:18px">This form needs JavaScript turned on. You can also email <a href="mailto:main@station.solutions">main@station.solutions</a> with your business name and website.</p></noscript></div></div></main>
+<section class="info" id="info" aria-labelledby="info-h"><div class="info-in">
+  <p class="k">How it works</p><h2 id="info-h">A free demo first. You see it before you pay anything.</h2>
+  <p class="help">Custom websites are priced to what you need. The demo costs nothing and there&rsquo;s no obligation: if you like it, we talk about building it.</p>
+  <ol class="isteps"><li><h3>Tell us about the business</h3><p>Answer the questions above, about 5 minutes: your services, photos, the area you cover and what makes you the right call.</p></li><li><h3>We build your demo</h3><p>By hand, with your words and photos. It lands in your inbox within 2–3 business days as a live link, not a mock-up.</p></li><li><h3>Your domain, your choice</h3><p>It&rsquo;s registered in your business&rsquo;s name. We can host and look after the site, or hand it over for you to run.</p></li><li><h3>You say yes, it goes live</h3><p>Once you approve it, we launch it on your domain.</p></li></ol>
+  <p class="ilinks"><a href="/portfolio/">See websites we&rsquo;ve built</a><a href="/storefront/">Websites by Station</a><a href="/audit/">Free front-office audit</a><a href="/sweep/">Website check: hacked or not?</a></p>
+  <p class="ifoot"><span>© 2026 Station Automations Group LLC</span><a href="/">Home</a><a href="/legal/privacy.html">Privacy</a><a href="/legal/tos.html">Terms</a><a href="mailto:main@station.solutions">main@station.solutions</a></p>
+</div></section>
 <div class="hp" aria-hidden="true"><input id="hp" tabindex="-1" autocomplete="off"></div>
 
 <script>
@@ -157,6 +180,7 @@ input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(29,
     var pct = i === 0 ? 0 : (i >= LAST ? 100 : Math.round(cur / n * 100));
     bar.style.width = pct + "%"; barWrap.setAttribute("aria-valuenow", pct);
     count.textContent = (i === 0) ? "" : (i >= LAST ? "Review" : ("Question " + i + " of " + n));
+    var info = document.getElementById("info"); if (info) info.hidden = i !== 0;   /* the explainer belongs to the first screen only */
   }
   function field(t, id, ph, ac, val) {
     return '<input type="' + t + '" id="f_' + id + '" name="' + id + '" value="' + esc(val || "") + '" placeholder="' + esc(ph || "") + '"' + (ac ? ' autocomplete="' + ac + '"' : "") + ">";

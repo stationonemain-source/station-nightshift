@@ -33,7 +33,7 @@ Every collection and plan includes a free Station-built website and has no setup
 
 ## Start here
 
-- [Free front-office audit](https://station.solutions/audit/): five scored sections on a business's listing, reviews, site, marketing tags and local ranking — free, no card, emailed report
+- [Free front-office audit](https://station.solutions/audit/): twelve checks on how customers find and reach a business — website, Google listing, reviews, booking, chat, after-hours, texting, email list, online payments, marketing and follow-up — free, no card, emailed in about a minute
 - [Free website check](https://station.solutions/sweep/): checks a website's public pages, the way visitors and Google see them, for hidden links planted by hackers — free, no account, result on screen and by email. If something is found, an optional full report ($79, credited in full toward a cleanup within 90 days) and a cleanup (WordPress: $349 standard, $749 deep; larger sites quoted)
 - [Book a call](https://station.solutions/book/): 15 minutes with a human, no pitch deck
 - [Website portfolio](https://station.solutions/portfolio/): websites Station has designed and built, including concept demos made for real local businesses
