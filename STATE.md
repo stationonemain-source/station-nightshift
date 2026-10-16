@@ -264,3 +264,17 @@ other sites), and the next step is off-site, not more on-page work.
 **Rules for new pages here:** every indexable page needs its content in the HTML (not only JS), a self-canonical, a
 title a buyer would search, and a link from the shared footer or menu; when a page's content really changes, set its
 `lastmod` in sitemap.xml. Pages about other businesses (demos, spec sites) are `noindex, follow`.
+
+## 2026-10-16 — phone hero started above the viewport (fixed c1da31e)
+
+- **Symptom:** at scroll 0 on 360–414 px phones the h1 began 12–63 px *above* the viewport
+  (and behind the 58 px nav even at 430), so the headline opened mid-sentence.
+- **Cause:** layout, not the parallax (its drift is 0 at scroll 0). The title block grew to
+  ~715 px on phones (router cards stack to one column) but was still centred on `top:38%` of
+  an 88vh scene.
+- **Fix:** at ≤760 px the block is in the flow (`.parallax__layers` relative, 92 px top pad,
+  scene `height:auto; min-height:max(560px,88vh)`). The JS writes
+  `translate(var(--tx,-50%),var(--ty,-50%)) translateY(drift)`; phones set `--tx/--ty:0`.
+  **If you edit the hero transform, keep the vars** or phones re-centre and the bug returns.
+- Verified on the deployed page (Playwright Chromium, isMobile, DPR 2): h1 top 125 px at
+  360/375/390/414/430; 768/1440/1920 screenshots pixel-identical to before.
