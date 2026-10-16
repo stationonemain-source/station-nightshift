@@ -931,7 +931,7 @@
       LAYERS.forEach(function (l) {
         var d = p * l.pct * H;
         l.el.style.transform = l.el.classList.contains("parallax__layer-title")
-          ? "translate(-50%,-50%) translateY(" + d + "px)"
+          ? "translate(var(--tx,-50%),var(--ty,-50%)) translateY(" + d + "px)"
           : "translateY(" + d + "px)";
       });
     }
