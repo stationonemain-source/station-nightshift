@@ -334,7 +334,37 @@ tab — re-audit with reveals settled. `/media/logos/facebook.svg` "broken" = vi
 Desktop "overflow" on product pages = `.bleed-art` clipped by `overflow-x:clip`. 14-day trial copy is the 10-04 rule
 (the 08-09 "7 days" memory is stale).
 
-**Open (decisions, not fixed):** golf demo copy invents history for a real course ("Sixty-two years under the oaks",
-"classic parkland" for The Quarry) and its header text is unreadable over the photo; `pro.jpg` looks generated;
-gtz-tint / earth-cafe / cedar-bend-demo (other repos) have no Station credit; footer still links BidBridge (benched 10-13);
-`/summer/` (noindex) still says "$10,000 flagship build"; Core "Worth $1,899" counts neither Slate nor Tap.
+**Resolved the same day (653ba39, the five Circle approved — next section):** the golf demo's real course and invented
+history, its header and generated photo; the three spec-site footer credits; the BidBridge footer link; the retired
+flagship-build figure on `/summer/`. **Still open (a pricing decision):** the Core card's "Worth … /mo separately" line
+counts ten products, not the twelve the card lists (it leaves out Slate and Tap); the per-product sum is in
+`partners/products.json`, and the line also lives in `partners/guide.md` and `products.json`. Left as is because not every
+per-product price is in the pricing memories the rule points at.
+
+## 2026-10-17 — audit follow-ups: golf demo, footers, /summer/ (653ba39)
+
+- **The golf demo is fictional now.** `/portfolio/t/golf/` was "Cementville Grill at The Quarry Golf Course", a real
+  San Antonio business: its address, phone, map embed, hours and three real people's Google reviews sat under invented
+  history. It is **Cedar Bend Golf Club** (the estate's fictional demo town, as in cedar-bend-demo): a 555 phone, a
+  made-up Fairway Drive address, an `.example` email, no map, no reviews (the section hides itself when `reviews` is
+  empty), no "since / years / parkland" copy anywhere, and the footer fine print says it is sample content. The `kit/`
+  subfolder (the BRAESIDE template) is untouched apart from the header fix. The `/portfolio/` card and rail are renamed;
+  the recorded scroll video and poster (`portfolio/media/quarry-golf.*`) still show the old name — re-record when convenient.
+- **Header over the hero:** the kit header is transparent and inherits ink, so over the photo it was unreadable at every
+  width. Fixed in the kit (shared by the demo and `kit/index.html`): `<header class="hdr on-dark">` from first paint,
+  `.hero` added to premium.js's ScrollTrigger dark list so it flips to ink once the hero scrolls out, a scrim band on
+  `.hero-plate::before`, and `body:has(.mobile-menu.open) .hdr.on-dark{color:var(--ink)}` so the burger stays visible on
+  the cream menu sheet. No new type sizes.
+- **`pro.jpg` (generated: garbled sign and crest text) is deleted** from the demo. `lesson.jpg` / `lesson-portrait.jpg`
+  are a real photo: U.S. Air Force, Benjamin Faske, public domain, Wikimedia Commons "Annual Junior Golf Clinic
+  120613-F-ST721-266.jpg". Unsplash and Pexels both answer scripts with bot checks; Commons (the path in Foundry's
+  `tools/fetch_kit_photos.py`) is the keyless source that works.
+- **Footer credit** "Designed & hosted by Station.Solutions" added to gtz-tint (`main` site/ and the `pages` branch),
+  earth-cafe (`src/earth.tpl.html` → build.py → `public/`) and cedar-bend-demo (the `build.py` layout, all seven pages),
+  each in its own repo, each styled like that footer's own fine print.
+- **BidBridge** link removed from the homepage footer (the only footer that carried it; the legal pages' SMS-program text
+  stays, as it describes a live program).
+- **`/summer/`:** the three mentions of the retired flagship-build figure are gone; Custom is quoted per project, so no
+  figure replaces it. The deck's "7-day trials" and "Fourteen products" lines are also stale (out of scope, noted).
+- Verified on the live pages after the Pages rebuild at 375 px and 1440 px with Playwright's own Chromium; link-preflight
+  PASS on all seven pages. Before/after screenshots are in the side-session notes folder, `site-fixes-1017/`.
