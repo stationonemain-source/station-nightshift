@@ -281,8 +281,9 @@ title a buyer would search, and a link from the shared footer or menu; when a pa
   #station-alerts row says "Needs you · email them the report"). **If you remove `form=ai_check`, the submit falls into the
   FREE AUDIT path and auto-emails an audit.**
 - **SEO:** content in the HTML, self-canonical, WebApplication + FAQPage + BreadcrumbList JSON-LD, sitemap lastmod 10-17,
-  linked from /audit/ (one line). NOT yet in the shared footer/menu (the 10-16 rule), because this change was scoped to
-  the page, the sitemap and the audit link while another session edited the site.
+  linked from /audit/ (one line) and, since 693a5c5 (10-17), from every shared footer: "Is ChatGPT ignoring you? →"
+  under the free-audit line in the brand column, same style, on the 24 pages that carry that footer. Not in the mega menu
+  or the mobile drawer yet (the 10-16 rule still applies there).
 
 ## 2026-10-16 — phone hero started above the viewport (fixed c1da31e)
 
