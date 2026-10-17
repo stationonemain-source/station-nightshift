@@ -295,7 +295,7 @@ submitted), meta/OG/canonical, accesslint on /, /audit/, /sweep/, /storefront/, 
 - **Calculator sliders** had no accessible name: v5.js gives each `<label for>` + `aria-labelledby` on the label text.
 - **"(optional)"** on the audit forms was 2.5:1 (opacity .6): now normal weight, full colour.
 - **Legal pages** ran text to the glass at 375 px: `@media screen` gutter, 15 px text on phones, wide tables scroll inside
-  themselves (cookies table pushed the page 18 px wide). Print layout unchanged. Descriptions + OG on accessibility,
+  themselves (cookies table pushed the page 18 px wide). Print layout unchanged. Links #8a5a00 (were 4.45:1 in the cream cards, 95e57d6). Descriptions + OG on accessibility,
   cookies, privacy, sms-terms; OG on tos, cancellation, /site-help/. cancellation.html: `lang`, one h1.
 - **Core/Pro/Max said "every product"** — Radar is in none of them (station-world `upsell_engine.py` CORE_SET; guide.md
   "Radar is never included"). Now "every product except Radar" on /, llms.txt, products.json, guide.md; heading
