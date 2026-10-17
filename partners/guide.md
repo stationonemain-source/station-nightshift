@@ -366,7 +366,7 @@ Collections and plans have no setup fee. Each one includes a free Station-built 
 
 **Plans** (the whole shelf at three sizes; no trial, billed at checkout, with a 30-day money-back guarantee on the first paid month):
 
-- **Core, $1,297 a month:** every product except Radar at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $1,899 a month separately.
+- **Core, $1,297 a month:** every product except Radar at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $2,005 a month separately.
 - **Pro, $2,197 a month:** every product except Radar at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,072 a month separately.
 - **Max, $2,797 a month:** every product except Radar at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $3,472 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
 
