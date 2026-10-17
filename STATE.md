@@ -278,3 +278,44 @@ title a buyer would search, and a link from the shared footer or menu; when a pa
   **If you edit the hero transform, keep the vars** or phones re-centre and the bug returns.
 - Verified on the deployed page (Playwright Chromium, isMobile, DPR 2): h1 top 125 px at
   360/375/390/414/430; 768/1440/1920 screenshots pixel-identical to before.
+
+## 2026-10-17 — phone-visitor audit (20c83bd)
+
+Audited every sitemap page plus the funnel/utility pages (48 paths) on the LIVE site at 375 px (isMobile, DPR 2)
+and 1440 px with Playwright's own Chromium; every internal + external link (all 200), every cross-page anchor,
+every form endpoint (all 11 n8n webhooks answer "not registered for GET" = registered for POST; nothing was
+submitted), meta/OG/canonical, accesslint on /, /audit/, /sweep/, /storefront/, /custom/, /checkout/.
+
+**Fixed:**
+- **Consent card unstyled on /custom/, /site-help/, /cancel-hosting/** — those pages don't load v5.css, so #ck was plain
+  text with UA buttons below the footer. They now load `/ck.css` (a copy of v5.css's #ck block with literal colours).
+  **Change one, change the other.**
+- **Storefront sticky bar** text wrapped to 4 lines on phones and showed above the nav: `.pp-bar .p` is one line with an
+  ellipsis at ≤760 px.
+- **Calculator sliders** had no accessible name: v5.js gives each `<label for>` + `aria-labelledby` on the label text.
+- **"(optional)"** on the audit forms was 2.5:1 (opacity .6): now normal weight, full colour.
+- **Legal pages** ran text to the glass at 375 px: `@media screen` gutter, 15 px text on phones, wide tables scroll inside
+  themselves (cookies table pushed the page 18 px wide). Print layout unchanged. Descriptions + OG on accessibility,
+  cookies, privacy, sms-terms; OG on tos, cancellation, /site-help/. cancellation.html: `lang`, one h1.
+- **Core/Pro/Max said "every product"** — Radar is in none of them (station-world `upsell_engine.py` CORE_SET; guide.md
+  "Radar is never included"). Now "every product except Radar" on /, llms.txt, products.json, guide.md; heading
+  "Twelve products, one plan, three sizes." (Partner World's data.js is generated from guide.md — it picks this up on its
+  next `build_data.py --fetch`.)
+- **Refund policy contradicted the offer:** the homepage, checkout, llms.txt and guide promise a 30-day money-back on the
+  first paid month of Core/Pro/Max; cancellation.html and ToS s5 said no delivered month is ever refunded. Both now name
+  the exception in the guide's own words (marked Updated 2026-10-17). ⚠ Legal text, not attorney-reviewed — Circle to eyeball.
+- **Portfolio demos:** roofing footer read "Denver, Texas · Since" (site.js hard-coded ", Texas"; now `brand.region`, as
+  pool already did); empty "Since" dropped on roofing/wedding; all five `/portfolio/t/*` carry "Designed & hosted by
+  Station.Solutions". **Golf demo photo FILE NAMES do not match the photos** (hero.jpg = fries, green.jpg = a burger,
+  practice.jpg = salmon + wine, cart.jpg = the dining room; only dinner.jpg and bunker.jpg show the course): hole 17's card
+  was a burger. Every reference and alt now matches what the picture shows. Never trust those file names.
+
+**Checked, not a bug:** accesslint's ~140 contrast hits at 2.3–2.6:1 are `.rv` reveals at opacity .6 in an unscrolled
+tab — re-audit with reveals settled. `/media/logos/facebook.svg` "broken" = viewBox-only SVG reports naturalWidth 0.
+Desktop "overflow" on product pages = `.bleed-art` clipped by `overflow-x:clip`. 14-day trial copy is the 10-04 rule
+(the 08-09 "7 days" memory is stale).
+
+**Open (decisions, not fixed):** golf demo copy invents history for a real course ("Sixty-two years under the oaks",
+"classic parkland" for The Quarry) and its header text is unreadable over the photo; `pro.jpg` looks generated;
+gtz-tint / earth-cafe / cedar-bend-demo (other repos) have no Station credit; footer still links BidBridge (benched 10-13);
+`/summer/` (noindex) still says "$10,000 flagship build"; Core "Worth $1,899" counts neither Slate nor Tap.
