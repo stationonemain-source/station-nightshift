@@ -135,3 +135,16 @@
   .svc-grid2{grid-template-columns:1fr}
   .hole-row{grid-template-columns:2.2rem 2.6rem 3rem minmax(0,1fr)}
 }
+
+/* ---------- header over the hero (2026-10-17 audit fix) ----------
+   The header is transparent and inherits dark ink, which was unreadable over the hero
+   photo. It now starts cream (class on-dark in the HTML, kept while over .hero by the
+   ScrollTrigger dark list in premium.js), and the hero plate gets a scrim band behind it.
+   No new type sizes. */
+.hero-plate::before{
+  content:'';position:absolute;inset:0 0 auto 0;height:9rem;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(20,38,26,.78) 0%,rgba(20,38,26,.42) 55%,rgba(20,38,26,0) 100%);
+}
+/* The mobile menu is a cream sheet: while it is open the header goes back to ink so the burger stays visible. */
+body:has(.mobile-menu.open) .hdr.on-dark{color:var(--ink)}
+body:has(.mobile-menu.open) .hdr.on-dark .logo-mark{color:var(--accent)}

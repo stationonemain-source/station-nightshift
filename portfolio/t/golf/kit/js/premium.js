@@ -145,7 +145,7 @@
   }
 
   /* ----- ambient AFTER the pin ----- */
-  K.ambient({ dark: ['#paperwork', '#book'] });
+  K.ambient({ dark: ['.hero', '#paperwork', '#book'] });
   K.anchors();
   K.finish({ waitFor: '#heroImg' });
 })();

@@ -1,16 +1,18 @@
-/* Cementville Grill at The Quarry Golf Course — shared content. Both tiers read this one file. */
+/* Cedar Bend Golf Club — shared content. Both tiers read this one file.
+   Cedar Bend is a fictional Texas town (the estate's demo town). Every name, number and hole
+   here is sample content and the footer says so; no real course is described. */
 window.SITE = {
  brand: {
-    mark: '<svg class="wm-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1.3" y="1.3" width="37.4" height="37.4" rx="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="20" y="21" text-anchor="middle" dominant-baseline="central" font-family="inherit" font-size="15.5" font-weight="800" letter-spacing=".3" fill="currentColor">CG</text></svg>',
+    mark: '<svg class="wm-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1.3" y="1.3" width="37.4" height="37.4" rx="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="20" y="21" text-anchor="middle" dominant-baseline="central" font-family="inherit" font-size="15.5" font-weight="800" letter-spacing=".3" fill="currentColor">CB</text></svg>',
     markOnly: false,
- name: 'CEMENTVILLE GRILL AT THE QUARRY GOLF COURSE',
- suffix: '',
- tagline: 'Public 18 holes — San Antonio, Texas',
- city: 'San Antonio, TX',
- address: '444 E Basse Rd, San Antonio, TX 78209, USA',
- phone: '(210) 824-4500',
- phoneHref: 'tel:+12108244500',
- email: 'hello@cementvillegrillatthequarrygolfcourse.com',
+ name: 'CEDAR BEND',
+ suffix: 'Golf Club',
+ tagline: 'Public 18 holes — Cedar Bend, Texas',
+ city: 'Cedar Bend, TX',
+ address: '1 Fairway Drive, Cedar Bend, TX 76000',
+ phone: '(512) 555-0148',
+ phoneHref: 'tel:+15125550148',
+ email: 'proshop@cedarbendgolf.example',
  license: '',
  socials: [
  { id: 'instagram', label: 'Instagram', url: '#' },
@@ -31,19 +33,19 @@ window.SITE = {
  src: 'assets/photos/dinner.jpg',
  alt: 'A pond in front of a green on the course under a clear sky',
  readout: 'PUBLIC WELCOME · WALKABLE 18',
- lines: ['Sixty-two years', 'under the oaks.'],
- sub: 'A classic parkland eighteen that asks you to shape shots, not bomb them. Greens rolling true, tee times seven days a week, and nobody checking your handicap at the door.',
+ lines: ['Public eighteen,', 'greens rolled true.'],
+ sub: 'Eighteen holes that ask you to shape shots, not bomb them. Greens rolling true, tee times seven days a week, and nobody checking your handicap at the door.',
  cue: 'play the stretch',
  },
 
- /* THE SCORECARD — the premium signature. The famous closing stretch, hole by hole. */
+ /* THE SCORECARD — the premium signature. The closing stretch, hole by hole. */
  card: {
  title: 'THE CLOSING STRETCH',
- intro: 'Every course has a stretch that decides the round. Ours is 15 through 18 — four holes that have been rearranging Saturday matches. Here is how they play.',
+ intro: 'Every course has a stretch that decides the round. Ours is 15 through 18 — four holes that settle Saturday matches. Here is how they play.',
  complete: 'THE STRETCH · CARDED',
  verdict: 'Par here and you have earned the clubhouse.',
  holes: [
- { n: 15, par: 4, yds: 415, name: 'THE OAKS', img: 'assets/photos/dinner.jpg', note: 'A drive threaded between two-hundred-year-old live oaks. Position beats distance — the approach opens up only from the left half.' },
+ { n: 15, par: 4, yds: 415, name: 'THE OAKS', img: 'assets/photos/dinner.jpg', note: 'A drive threaded between the live oaks. Position beats distance — the approach opens up only from the left half.' },
  { n: 16, par: 3, yds: 178, name: 'THE CARRY', img: 'assets/photos/dinner.jpg', note: 'All carry over water to a green that slopes away. The smart miss is long; everything short is wet and everyone knows it.' },
  { n: 17, par: 5, yds: 540, name: 'THE DECISION', img: 'assets/photos/dinner.jpg', note: 'Reachable in two if you flirt with the right-side bunkers. The scorecard says par five; your match probably says go.' },
  { n: 18, par: 4, yds: 432, name: 'THE WALK HOME', img: 'assets/photos/bunker.jpg', note: 'Uphill to a green that sits under the clubhouse terrace, where everyone on the rail has an opinion about your club choice.' },
@@ -54,7 +56,7 @@ window.SITE = {
  lines: ['Great golf is conditions,', 'not clubhouse chandeliers.'],
  support:
  'We put the budget where your ball actually rolls: greens cut daily and rolled true, bunkers with actual sand in them, fairways that reward a struck iron. The clubhouse is comfortable, the burger is honest, and the course is the point.',
- stats: [{ n: 'SAN ANTONIO', label: 'and the surrounding area' }],
+ stats: [{ n: 'CEDAR BEND', label: 'and the surrounding area' }],
  },
 
  services: [
@@ -77,7 +79,7 @@ window.SITE = {
  spec: 'GRASS TEES · JUNIOR PROGRAM',
  blurb: 'A real grass range and a teaching pro who watches you, not a screen.',
  price: '',
- img: 'assets/photos/pro.jpg',
+ img: 'assets/photos/lesson.jpg',
  },
  {
  title: 'Tournaments & Outings',
@@ -124,26 +126,25 @@ window.SITE = {
  ],
  leadName: '',
  leadRole: '',
- leadPhoto: 'assets/photos/pro.jpg',
- story: 'Cementville Grill at The Quarry Golf Course serves San Antonio and the surrounding area. Straight answers about what you need and what it will take, work we are happy to put our name on, and the same people every time. Call or send a message and you will hear back from someone who can actually help.',
- certs: ['SERVING SAN ANTONIO'],
+ /* lesson.jpg / lesson-portrait.jpg: a real photo (U.S. Air Force, Benjamin Faske, public domain, via
+    Wikimedia Commons "Annual Junior Golf Clinic 120613-F-ST721-266.jpg"); it replaced a generated portrait. */
+ leadPhoto: 'assets/photos/lesson-portrait.jpg',
+ story: 'Cedar Bend Golf Club is a public course run by the people you will meet in the pro shop. Straight answers about conditions and tee times, and the same faces every week. Call or send a message and you will hear back from someone who can actually help.',
+ certs: ['PUBLIC COURSE · CEDAR BEND, TX'],
  },
 
- reviews: [
-    { date: '', tag: 'GOOGLE REVIEW', note: 'I’m constantly surprised this joint isn’t crowded. Great lunch menu with sandwiches, tacos, larger plates and specials. I had the Brisket tacos, they were a different…', name: 'kyle grothues' },
-    { date: '', tag: 'GOOGLE REVIEW', note: 'Had a delicious burger here recently. Great view. Not sure what was going on with our server. Not very attentive at all. She took our order, served our food and never…', name: 'Ceabreeze' },
-    { date: '', tag: 'GOOGLE REVIEW', note: '**Amazing Food, Great View, and Friendly Service!** I had the brisket mac and cheese, and it was absolutely delicious—so flavorful and super filling! My wife ordered…', name: 'Brian Gehrke' }
-  ],
+ /* No reviews: a fictional course has none, and the section hides itself when this is empty. */
+ reviews: [],
 
  booking: {
  title: 'Book a tee time.',
  sub: 'Online up to ten days out for members, seven for everyone else. Singles welcome, walkers always, and twilight rates that start while there is still plenty of golf left.',
- badges: ['SERVING SAN ANTONIO'],
- hours: [{ d: 'MONDAY', h: '6:30 AM – 7:30 PM' }, { d: 'TUESDAY', h: '6:30 AM – 7:30 PM' }, { d: 'WEDNESDAY', h: '6:30 AM – 7:30 PM' }, { d: 'THURSDAY', h: '6:30 AM – 7:30 PM' }, { d: 'FRIDAY', h: '6:30 AM – 7:30 PM' }, { d: 'SATURDAY', h: '6:30 AM – 7:30 PM' }, { d: 'SUNDAY', h: '6:30 AM – 7:30 PM' }],
+ badges: ['PUBLIC WELCOME', 'WALKING ALWAYS ALLOWED'],
+ hours: [{ d: 'TEE TIMES', h: 'SUNRISE TO TWILIGHT, DAILY' }],
  },
 
  footer: {
- line: 'Cementville Grill at The Quarry Golf Course — public 18 under the oaks.',
- fine: '',
+ line: 'Cedar Bend Golf Club — a public eighteen in Cedar Bend, Texas.',
+ fine: 'Demonstration site. Cedar Bend is a fictional town; every name, number and hole here is sample content.',
  },
 };
