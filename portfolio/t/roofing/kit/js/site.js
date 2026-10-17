@@ -193,13 +193,17 @@
       '<div class="foot">' +
         wordmark('span') +
         '<div class="foot-meta"><span>' + C.brand.phone + ' · ' + C.brand.email + '</span>' +
-        '<span>' + C.brand.city + ', Texas · Since ' + C.brand.founded + '</span></div>' +
+        // ', Texas' was hard-coded here: Denver, CO rendered as "Denver, Texas" (2026-10-17 site audit).
+        // Same fix as pool: the state rides on C.brand.region, "Since" only when there is a year.
+        '<span>' + C.brand.city + (C.brand.region ? ', ' + C.brand.region : '') +
+          (C.brand.founded ? ' · Since ' + C.brand.founded : '') + '</span></div>' +
         '<div class="foot-social">' +
           '<a href="#" aria-label="Instagram">' + SOCIAL.instagram + '</a>' +
           '<a href="#" aria-label="Facebook">' + SOCIAL.facebook + '</a>' +
           '<a href="#" aria-label="YouTube">' + SOCIAL.youtube + '</a>' +
         '</div>' +
-        '<p class="foot-legal">&copy; 2026 ' + C.brand.legal + ' · ' + C.brand.license + '</p>' +
+        '<p class="foot-legal">&copy; 2026 ' + C.brand.legal + (C.brand.license ? ' · ' + C.brand.license : '') +
+          ' · <span class="credit">Designed &amp; hosted by <a href="https://station.solutions/" target="_blank" rel="noopener">Station.Solutions</a></span></p>' +
       '</div>';
   }
 

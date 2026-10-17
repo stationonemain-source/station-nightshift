@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of Service — Station</title>
 <link rel="canonical" href="https://station.solutions/legal/tos.html">
+<meta property="og:type" content="website"><meta property="og:title" content="Terms of Service — Station"><meta property="og:description" content="The Terms of Service for Station, the done-for-you front office for local businesses, run by Station Automations Group LLC."><meta property="og:url" content="https://station.solutions/legal/tos.html"><meta property="og:image" content="https://station.solutions/media/og/hero-share.jpg"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="The Terms of Service for Station, the done-for-you front office for local businesses, run by Station Automations Group LLC.">
 <style>
 @page { size: letter; margin: 0.7in; }
@@ -12,6 +13,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#fff;color:var(--text);font:12.5px/1.55 'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;padding:0}
 main{max-width:720px;margin:0 auto;padding:8px 0}
+/* on screens: a side gutter (text ran to the glass at 375px), phone-sized type, and wide tables
+   scroll inside themselves instead of the page (2026-10-17 site audit). Print is unchanged. */
+@media screen{main{padding:28px 20px 48px}}
+@media screen and (max-width:600px){p,li{font-size:15px}td,th{font-size:13px}table{display:block;overflow-x:auto}}
 h1{font-size:22px;letter-spacing:-.3px;margin-bottom:6px;color:#111}
 .sub{color:var(--text2);font-size:12px;margin-bottom:14px}
 .sub a{color:var(--text2)}
@@ -35,7 +40,7 @@ h2,h1{color:#111}
 <main>
 <h1>Terms of Service — Station</h1>
 <p class="sub"><a href="https://station.solutions">station.solutions</a> · <a href="tos.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="sms-terms.html">SMS Terms</a> · <a href="cancellation.html">Cancellation</a></p>
-<p class="sub">Effective October 13, 2026 · Station Automations Group LLC ("Station," "we," "us")</p>
+<p class="sub">Effective October 13, 2026 · Updated October 17, 2026 · Station Automations Group LLC ("Station," "we," "us")</p>
 
 <p>These Terms of Service (the "Terms") are an agreement between Station Automations Group LLC and the business that subscribes to Station AI (the "Client," "you"). By purchasing a plan, creating an account, or using the service, you agree to these Terms on behalf of your business.</p>
 
@@ -79,7 +84,7 @@ h2,h1{color:#111}
 <p>Our full <a href="cancellation.html">Cancellation &amp; Refund Policy</a> is incorporated into these Terms by reference. In short:</p>
 <ul>
 <li><b>Cancel anytime</b> — email main@station.solutions or use the Billing menu in your dashboard. Cancellation takes effect at the end of your current billing period; service stays fully live until then. No proration of partial months.</li>
-<li><b>No refunds on delivered service</b> — months delivered or in progress, and setup fees once onboarding or build work has begun. If you cancel before any work starts, the setup fee is refunded in full. Annual prepayments are non-refundable; service continues through the prepaid term.</li>
+<li><b>No refunds on delivered service</b>, except the 30-day money-back guarantee on the first paid month of a Core, Pro or Max plan — months delivered or in progress, and setup fees once onboarding or build work has begun. If you cancel before any work starts, the setup fee is refunded in full. Annual prepayments are non-refundable; service continues through the prepaid term.</li>
 <li><b>The website that comes with your plan.</b> A website Station builds as part of a plan or Collection stays live while you are subscribed. When the plan ends it comes down within 72 hours of the end of your paid period, unless you buy it out for a one-time $1,250: we then transfer the website's code to your own GitHub account and its domain to you. Either way, the domain is yours: if you don't buy the website, we send you the domain's transfer code when it comes down. A website you paid a setup fee for is already yours and is not part of this.</li>
 <li><b>You leave with your data</b> — full export (contacts, conversation history, review content) and phone number port-out within 14 days of your effective cancellation date. Account data is permanently deleted 60 days after closure.</li>
 </ul>

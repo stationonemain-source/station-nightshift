@@ -108,6 +108,9 @@ p{margin:0 0 1em}
 .pp-bar .in{max-width:var(--wrap);margin:0 auto;padding:0 22px;height:52px;display:flex;align-items:center;gap:16px}
 .pp-bar .n{font:700 15px var(--fd)}
 .pp-bar .p{color:var(--muted);font-size:15px;margin-left:auto}
+/* one line on phones: Storefront's long bar text wrapped to four lines, overflowed the fixed
+   58px bar and showed above the nav while the bar was hidden (2026-10-17 site audit) */
+@media(max-width:760px){.pp-bar .p{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .pp-hero{padding:150px 0 0;text-align:center}
 .pp-hero .stop{font:600 13px var(--fm);letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
 .pp-hero h1{font-size:var(--d-xl);font-weight:700;line-height:1.04;max-width:20ch;margin:14px auto 0}

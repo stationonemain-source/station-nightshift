@@ -11,6 +11,7 @@ window.GABLE_CONTENT = {
     sub: 'Replacement, repair and storm restoration — built to outlive the warranty.',
     kicker: 'Roofing · Denver, CO',
     city: 'Denver',
+    region: 'CO',
     phone: '(303) 296-0361',
     email: 'inquiries@elite-roofs.com',
     license: 'CO Licensed & Insured · GAF Master Elite',

@@ -27,8 +27,9 @@ window.SITE = {
  ],
 
  hero: {
- src: 'assets/photos/hero.jpg',
- alt: 'A dramatic par-3 green guarded by water and bunkers at dawn',
+ /* photo file names do not match their content (2026-10-17 audit): dinner.jpg is the course, hero.jpg is fries */
+ src: 'assets/photos/dinner.jpg',
+ alt: 'A pond in front of a green on the course under a clear sky',
  readout: 'PUBLIC WELCOME · WALKABLE 18',
  lines: ['Sixty-two years', 'under the oaks.'],
  sub: 'A classic parkland eighteen that asks you to shape shots, not bomb them. Greens rolling true, tee times seven days a week, and nobody checking your handicap at the door.',
@@ -42,10 +43,10 @@ window.SITE = {
  complete: 'THE STRETCH · CARDED',
  verdict: 'Par here and you have earned the clubhouse.',
  holes: [
- { n: 15, par: 4, yds: 415, name: 'THE OAKS', img: 'assets/photos/fairway.jpg', note: 'A drive threaded between two-hundred-year-old live oaks. Position beats distance — the approach opens up only from the left half.' },
- { n: 16, par: 3, yds: 178, name: 'THE CARRY', img: 'assets/photos/hero.jpg', note: 'All carry over water to a green that slopes away. The smart miss is long; everything short is wet and everyone knows it.' },
- { n: 17, par: 5, yds: 540, name: 'THE DECISION', img: 'assets/photos/green.jpg', note: 'Reachable in two if you flirt with the right-side bunkers. The scorecard says par five; your match probably says go.' },
- { n: 18, par: 4, yds: 432, name: 'THE WALK HOME', img: 'assets/photos/clubhouse.jpg', note: 'Uphill to a green that sits under the clubhouse terrace, where everyone on the rail has an opinion about your club choice.' },
+ { n: 15, par: 4, yds: 415, name: 'THE OAKS', img: 'assets/photos/dinner.jpg', note: 'A drive threaded between two-hundred-year-old live oaks. Position beats distance — the approach opens up only from the left half.' },
+ { n: 16, par: 3, yds: 178, name: 'THE CARRY', img: 'assets/photos/dinner.jpg', note: 'All carry over water to a green that slopes away. The smart miss is long; everything short is wet and everyone knows it.' },
+ { n: 17, par: 5, yds: 540, name: 'THE DECISION', img: 'assets/photos/dinner.jpg', note: 'Reachable in two if you flirt with the right-side bunkers. The scorecard says par five; your match probably says go.' },
+ { n: 18, par: 4, yds: 432, name: 'THE WALK HOME', img: 'assets/photos/bunker.jpg', note: 'Uphill to a green that sits under the clubhouse terrace, where everyone on the rail has an opinion about your club choice.' },
  ],
  },
 
@@ -62,21 +63,21 @@ window.SITE = {
  spec: 'PUBLIC · 7 DAYS · WALKING ALWAYS ALLOWED',
  blurb: 'Booked online, first light to twilight, singles welcome.',
  price: '',
- img: 'assets/photos/fairway.jpg',
+ img: 'assets/photos/dinner.jpg',
  },
  {
  title: 'Memberships',
  spec: 'UNLIMITED GOLF · 10-DAY BOOKING WINDOW · NO ASSESSMENTS',
  blurb: 'One flat rate, no initiation games, no minimums at the grill.',
  price: '',
- img: 'assets/photos/green.jpg',
+ img: 'assets/photos/bunker.jpg',
  },
  {
  title: 'The Range & Lessons',
  spec: 'GRASS TEES · JUNIOR PROGRAM',
  blurb: 'A real grass range and a teaching pro who watches you, not a screen.',
  price: '',
- img: 'assets/photos/practice.jpg',
+ img: 'assets/photos/pro.jpg',
  },
  {
  title: 'Tournaments & Outings',
@@ -90,7 +91,7 @@ window.SITE = {
  spec: 'OPEN TO THE PUBLIC · TERRACE OVER 18 · HONEST BURGER',
  blurb: 'The best seat in the neighborhood is the rail above the last green.',
  price: '',
- img: 'assets/photos/dinner.jpg',
+ img: 'assets/photos/green.jpg',
  },
  {
  title: 'Leagues',
@@ -104,8 +105,8 @@ window.SITE = {
  extra: {
  title: 'The conditions report we hold ourselves to.',
  sub: 'Posted in the pro shop every Monday, kept honest all week. If we would not putt on it, we tell you before you pay.',
- img: 'assets/photos/green.jpg',
- imgAlt: 'A perfectly mown putting green with dew lines at dawn',
+ img: 'assets/photos/dinner.jpg',
+ imgAlt: 'A pond in front of a green on the course under a clear sky',
  items: [
  { k: '01 · GREENS', v: 'Cut daily, rolled to a measured stimp posted in the shop. Aerification dates published a season ahead.' },
  { k: '02 · BUNKERS', v: 'Raked every morning and topped to a consistent four inches of sand. Fried eggs should be breakfast, not a lie.' },
@@ -117,9 +118,9 @@ window.SITE = {
  crew: {
  title: 'The Club',
  photos: [
- { src: 'assets/photos/practice.jpg', alt: 'The driving range at sunrise, balls arcing into mist' },
- { src: 'assets/photos/cart.jpg', alt: 'Two golf carts on a path beside the fairway at dawn' },
- { src: 'assets/photos/dinner.jpg', alt: 'The clubhouse dining room at dusk overlooking the course' },
+ { src: 'assets/photos/practice.jpg', alt: 'Salmon salad and a glass of red wine at the grill' },
+ { src: 'assets/photos/cart.jpg', alt: 'The grill dining room, with windows onto the course' },
+ { src: 'assets/photos/bunker.jpg', alt: 'The covered terrace, looking out over the course' },
  ],
  leadName: '',
  leadRole: '',

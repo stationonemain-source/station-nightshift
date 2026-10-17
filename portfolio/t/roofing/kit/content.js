@@ -9,6 +9,7 @@ window.GABLE_CONTENT = {
     sub: 'Replacement, repair and storm restoration — built to outlive the warranty.',
     kicker: 'Roofing · Austin, TX',
     city: 'Austin',
+    region: 'TX',
     phone: '(512) 555-0164',
     email: 'hello@gableroof.co',
     license: 'TX Licensed & Insured · GAF Master Elite',

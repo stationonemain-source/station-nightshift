@@ -196,13 +196,14 @@
       '<div class="foot">' +
         wordmark('span') +
         '<div class="foot-meta"><span>' + C.brand.phone + ' · ' + C.brand.email + '</span>' +
-        '<span>' + C.brand.address + ' · Since ' + C.brand.founded + '</span></div>' +
+        '<span>' + C.brand.address + (C.brand.founded ? ' · Since ' + C.brand.founded : '') + '</span></div>' +
         '<div class="foot-social">' +
           '<a href="#" aria-label="Instagram">' + SOCIAL.instagram + '</a>' +
           '<a href="#" aria-label="Pinterest">' + SOCIAL.pinterest + '</a>' +
           '<a href="#" aria-label="Facebook">' + SOCIAL.facebook + '</a>' +
         '</div>' +
-        '<p class="foot-legal">&copy; 2026 ' + C.brand.legal + ' · ' + C.brand.license + '</p>' +
+        '<p class="foot-legal">&copy; 2026 ' + C.brand.legal + (C.brand.license ? ' · ' + C.brand.license : '') +
+          ' · <span class="credit">Designed &amp; hosted by <a href="https://station.solutions/" target="_blank" rel="noopener">Station.Solutions</a></span></p>' +
       '</div>';
   }
 

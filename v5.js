@@ -267,8 +267,10 @@
     var sl = host.querySelector(".sliders");
     C.sliders.forEach(function (s) {
       var d = document.createElement("div"); d.className = "srow";
-      d.innerHTML = '<label>' + s.label + ' <output id="o_' + s.id + '"></output></label>' +
-        '<input type="range" id="s_' + s.id + '" min="' + s.min + '" max="' + s.max + '" step="' + (s.step || 1) + '" value="' + s.val + '">';
+      /* for= plus aria-labelledby on the words alone: the slider is named "Your average job",
+         not left unlabeled (accesslint form-label, 2026-10-17 site audit) */
+      d.innerHTML = '<label for="s_' + s.id + '"><span id="l_' + s.id + '">' + s.label + '</span> <output id="o_' + s.id + '"></output></label>' +
+        '<input type="range" id="s_' + s.id + '" aria-labelledby="l_' + s.id + '" min=""' + s.min + '" max="' + s.max + '" step="' + (s.step || 1) + '" value="' + s.val + '">';
       sl.appendChild(d);
     });
     var lossEl = document.getElementById("calcLoss"), verEl = document.getElementById("calcVerdict");

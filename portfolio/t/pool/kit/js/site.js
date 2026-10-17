@@ -200,7 +200,8 @@
           '<a href="#" aria-label="YouTube">' + SOCIAL.youtube + '</a>' +
         '</div>' +
         '<p class="foot-legal">&copy; 2026 ' + C.brand.legal +
-          (C.brand.license ? ' · ' + C.brand.license : '') + '</p>' +
+          (C.brand.license ? ' · ' + C.brand.license : '') +
+          ' · <span class="credit">Designed &amp; hosted by <a href="https://station.solutions/" target="_blank" rel="noopener">Station.Solutions</a></span></p>' +
       '</div>';
   }
 

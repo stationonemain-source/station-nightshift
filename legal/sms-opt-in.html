@@ -11,6 +11,10 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#fff;color:var(--text);font:12.5px/1.55 'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;padding:0}
 main{max-width:720px;margin:0 auto;padding:8px 0}
+/* on screens: a side gutter (text ran to the glass at 375px), phone-sized type, and wide tables
+   scroll inside themselves instead of the page (2026-10-17 site audit). Print is unchanged. */
+@media screen{main{padding:28px 20px 48px}}
+@media screen and (max-width:600px){p,li{font-size:15px}td,th{font-size:13px}table{display:block;overflow-x:auto}}
 h1{font-size:22px;letter-spacing:-.3px;margin-bottom:6px;color:#111}
 .sub{color:var(--text2);font-size:12px;margin-bottom:14px}
 .sub a{color:var(--text2)}

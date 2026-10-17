@@ -366,9 +366,9 @@ Collections and plans have no setup fee. Each one includes a free Station-built 
 
 **Plans** (the whole shelf at three sizes; no trial, billed at checkout, with a 30-day money-back guarantee on the first paid month):
 
-- **Core, $1,297 a month:** every product at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $1,899 a month separately.
-- **Pro, $2,197 a month:** every product at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,072 a month separately.
-- **Max, $2,797 a month:** every product at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $3,472 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
+- **Core, $1,297 a month:** every product except Radar at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $1,899 a month separately.
+- **Pro, $2,197 a month:** every product except Radar at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,072 a month separately.
+- **Max, $2,797 a month:** every product except Radar at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $3,472 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
 
 If a client outgrows one product, they upgrade just that product for the difference. An **extra location pack** (Google profile, reviews and a missed-call text-back line for one more location) is $397 a month. Check with Station before offering a yearly plan.
 
@@ -769,9 +769,9 @@ There's no set price. Hosting & care is one monthly subscription that Station qu
 - **Answer ($297 a month):** Lineback, Greet, Slate, Dial and Tap. Add Frontdesk (750 minutes) for $297 a month more.
 - **Get Found ($497 a month):** Echo, Repute and Marquee (self-serve).
 - **Follow Up ($427 a month):** Pursuit, Revive and Dispatch (self-serve).
-- **Core ($1,297 a month):** every product at its Standard tier, including Frontdesk at 750 minutes.
-- **Pro ($2,197 a month):** every product at its busy tier, with Station writing and running the social posts and email campaigns.
-- **Max ($2,797 a month):** every product at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
+- **Core ($1,297 a month):** every product except Radar at its Standard tier, including Frontdesk at 750 minutes.
+- **Pro ($2,197 a month):** every product except Radar at its busy tier, with Station writing and running the social posts and email campaigns.
+- **Max ($2,797 a month):** every product except Radar at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
 
 Radar is never included. Collections and plans have no setup fee, and each includes a free Station-built website (Max gets a custom-designed one). Collections have a 14-day free trial. Core, Pro and Max have none, but carry a 30-day money-back guarantee on the first paid month. Yearly billing is 10 times monthly.
 

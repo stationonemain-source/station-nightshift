@@ -27,9 +27,9 @@ Every collection and plan includes a free Station-built website and has no setup
 - [Answer — $297/mo](https://station.solutions/#bundles): missed-call text-back, website chat, online booking and reminders, a business number with texting, card payments (add the AI receptionist for +$297/mo)
 - [Get Found — $497/mo](https://station.solutions/#bundles): Google profile managed, review requests and replies, social posting
 - [Follow Up — $427/mo](https://station.solutions/#bundles): lead follow-up, win-back campaigns, email campaigns
-- [Core — $1,297/mo](https://station.solutions/#bundles): every product at its Standard tier, including the AI receptionist
-- [Pro — $2,197/mo](https://station.solutions/#bundles): every product at its busy tier, with social posts and email campaigns run by Station
-- [Max — $2,797/mo](https://station.solutions/#bundles): every product at its top tier, done for you, with a custom-designed website
+- [Core — $1,297/mo](https://station.solutions/#bundles): every product except Radar at its Standard tier, including the AI receptionist
+- [Pro — $2,197/mo](https://station.solutions/#bundles): every product except Radar at its busy tier, with social posts and email campaigns run by Station
+- [Max — $2,797/mo](https://station.solutions/#bundles): every product except Radar at its top tier, done for you, with a custom-designed website
 
 ## Start here
 
