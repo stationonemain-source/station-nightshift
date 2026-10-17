@@ -265,6 +265,25 @@ other sites), and the next step is off-site, not more on-page work.
 title a buyer would search, and a link from the shared footer or menu; when a page's content really changes, set its
 `lastmod` in sitemap.xml. Pages about other businesses (demos, spec sites) are `noindex, follow`.
 
+## 2026-10-17 — /ai-check/ "Is ChatGPT ignoring you?" (free AI visibility check, efe6195)
+
+- **What:** a visitor types a website and gets a score out of 100 plus fixes on screen, no email needed. The checks run on
+  the **foundry-aicheck** endpoint (`POST https://aicheck.srv1748596.hstgr.cloud/v1/check`, its own container beside
+  Foundry; head = Foundry STATE.md 10-17). Deterministic code, no LLM. CORS allows only `https://station.solutions` (and www),
+  so **the page can't be tested from localhost**: verify on the live page.
+- **Honesty:** the page says it can't see what ChatGPT actually says about you. "Couldn't check" is left out of the score.
+  llms.txt is reported but not scored. All API text is inserted with `textContent` (it carries strings from other people's
+  sites, e.g. their H1). Never switch it to innerHTML.
+- **Lead capture:** "Email me the full report" is a `form[data-audit]`, so v5.js posts it to the free-audit intake with
+  packLead attribution and analytics.js sends the lead beacon. Hidden `form=ai_check` + `minimal=1` route it to its own n8n
+  branch, which records the lead in Circle (variant `ai-check`) and sends **nothing** while `AI_CHECK_EMAIL_LIVE = false`.
+  The done text promises the report "within one business day" from a person, which is true while the switch is off (the
+  #station-alerts row says "Needs you · email them the report"). **If you remove `form=ai_check`, the submit falls into the
+  FREE AUDIT path and auto-emails an audit.**
+- **SEO:** content in the HTML, self-canonical, WebApplication + FAQPage + BreadcrumbList JSON-LD, sitemap lastmod 10-17,
+  linked from /audit/ (one line). NOT yet in the shared footer/menu (the 10-16 rule), because this change was scoped to
+  the page, the sitemap and the audit link while another session edited the site.
+
 ## 2026-10-16 — phone hero started above the viewport (fixed c1da31e)
 
 - **Symptom:** at scroll 0 on 360–414 px phones the h1 began 12–63 px *above* the viewport
