@@ -337,10 +337,10 @@ Desktop "overflow" on product pages = `.bleed-art` clipped by `overflow-x:clip`.
 
 **Resolved the same day (653ba39, the five Circle approved — next section):** the golf demo's real course and invented
 history, its header and generated photo; the three spec-site footer credits; the BidBridge footer link; the retired
-flagship-build figure on `/summer/`. **Still open (a pricing decision):** the Core card's "Worth … /mo separately" line
-counts ten products, not the twelve the card lists (it leaves out Slate and Tap); the per-product sum is in
-`partners/products.json`, and the line also lives in `partners/guide.md` and `products.json`. Left as is because not every
-per-product price is in the pricing memories the rule points at.
+flagship-build figure on `/summer/`. **The sixth, the Core card's "Worth … /mo separately" line, was a pricing decision:**
+it counted ten products, not the twelve the card lists (it left out Slate and Tap). Circle approved the same day and
+5d92767 sets it to the Standard sum of all twelve from `partners/products.json`, in `index.html`, `partners/guide.md` and
+`products.json` together (Partner World's data.js picks the guide line up on its next `build_data.py --fetch`).
 
 ## 2026-10-17 — audit follow-ups: golf demo, footers, /summer/ (653ba39)
 
