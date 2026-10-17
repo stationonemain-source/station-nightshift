@@ -82,7 +82,7 @@
     var f = r.fetch || {};
     var top = el("div", "aic-top");
     if (r.score != null) {
-      var g = grade(r.score);
+      var g = r.headline ? ["aic-band-low", r.headline] : grade(r.score);
       card.classList.add(g[0]);
       var sc = el("div", "aic-score", r.score); sc.appendChild(el("small", null, " / 100"));
       top.appendChild(sc);
