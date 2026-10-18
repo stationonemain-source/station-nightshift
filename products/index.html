@@ -64,19 +64,25 @@ h1 em,h2 em,h3 em{font-style:italic;color:var(--accent)}
 .phero{position:relative;min-height:min(92svh,860px);display:flex;flex-direction:column;justify-content:flex-start;color:#F4F2ED;overflow:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .phero .art{position:absolute;inset:0;z-index:0}
 .phero .art img{width:100%;height:100%;object-fit:cover;object-position:55% 72%;display:block}
-.phero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,13,16,.32) 0%,rgba(11,13,16,0) 48%);pointer-events:none}
-.phero .copy{position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto;padding-top:clamp(44px,9vh,110px);padding-bottom:40px}
-.phero h1{font-size:clamp(46px,7.6vw,100px);line-height:1;text-shadow:0 2px 30px rgba(11,13,16,.3)}
+.phero:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,13,16,.55) 0%,rgba(11,13,16,.38) 30%,rgba(11,13,16,0) 62%);pointer-events:none}
+.phero .copy{position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto;padding-top:clamp(40px,8vh,96px);padding-bottom:48px}
+.phero .copy:before{content:"";position:absolute;inset:-10% -20% -6%;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(11,13,16,.5) 0%,rgba(11,13,16,.25) 45%,rgba(11,13,16,0) 72%);pointer-events:none}
+.phero h1{font-size:clamp(46px,7.6vw,100px);line-height:1;text-shadow:0 2px 4px rgba(11,13,16,.45),0 4px 40px rgba(11,13,16,.4)}
 .phero h1 em{color:inherit}
-.phero p{margin:18px auto 0;max-width:44ch;font-size:17px;text-shadow:0 1px 14px rgba(11,13,16,.5)}
+.phero p{margin:18px auto 0;max-width:40ch;font-size:18px;line-height:1.5;text-shadow:0 1px 3px rgba(11,13,16,.7),0 2px 18px rgba(11,13,16,.5)}
 .phero .ctas{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:26px;flex-wrap:wrap}
 .phero .btn.fill{background:#F4F2ED;color:#16181D;border-color:#F4F2ED}
 .phero .btn.glass{color:#F4F2ED;border:1px solid rgba(244,242,237,.55);background:rgba(11,13,16,.32);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.phero .eyebrow{font:italic 400 clamp(17px,1.8vw,21px)/1.3 var(--display);margin-bottom:14px;text-shadow:0 1px 12px rgba(11,13,16,.5)}
+.phero .eyebrow{font:500 15px/1.4 var(--body);letter-spacing:.01em;margin-bottom:16px;opacity:.95}
 .phero .proofline,.phero .geoline{display:inline-block;margin-top:14px;font-size:14px;padding:8px 14px;border-radius:999px;background:rgba(11,13,16,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .phero .geoline{margin-top:8px}
 .phero .geoline a{text-decoration:underline;text-underline-offset:3px;font-weight:500;min-height:44px;display:inline-flex;align-items:center}
 .live{display:grid;grid-template-columns:7fr 5fr;gap:32px;padding-block:36px;align-items:stretch}
+.bizpick{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--mute)}
+.bizpick span{margin-right:6px}
+.bizpick button{font:500 14px var(--body);background:transparent;color:var(--fg);border:1px solid var(--rule);border-radius:999px;padding:0 14px;min-height:40px;cursor:pointer}
+.bizpick button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.bizpick button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .live .side{display:flex;flex-direction:column;gap:14px}
 .live .side .pains{flex:1}
 .start{border:1px solid var(--rule);background:var(--pane);padding:16px 18px;display:grid;gap:6px}
@@ -120,8 +126,8 @@ h1 em,h2 em,h3 em{font-style:italic;color:var(--accent)}
 .review.on{opacity:1}
 .stars{color:var(--bronze);letter-spacing:2px}
 .log{list-style:none}
-.log li{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed var(--rule);opacity:.35;transition:.3s;font-size:12.5px}
-.log li.on{opacity:1}.log li.hot{color:var(--accent);font-weight:500}
+.log li{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed var(--rule);color:var(--mute);transition:.3s;font-size:12.5px}
+.log li.on{color:var(--fg)}.log li.hot{color:var(--accent);font-weight:500}
 .log li .t{font-family:var(--mono);width:52px;flex:none;color:var(--mute)}
 .log li.hot .t{color:var(--accent)}
 /* THE BOOK */
@@ -231,7 +237,7 @@ h1 em,h2 em,h3 em{font-style:italic;color:var(--accent)}
 .portal .side div{padding:7px 14px;color:var(--mute)}
 .portal .side div.on{color:var(--fg);border-left:2px solid var(--accent)}
 .portal .main{padding:16px}
-.portal .main h4{font:500 16px var(--display);margin-bottom:12px}
+.portal .main .h4{font:400 18px var(--display);margin-bottom:12px}
 .calls{width:100%;border-collapse:collapse;font-size:12.5px;color:inherit}
 .calls td,.calls th{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:left}
 .calls th{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--mute)}
@@ -340,6 +346,8 @@ footer a:hover{color:var(--fg)}
 @media (max-width:900px){
  .nav ul{display:none}
  .live{grid-template-columns:1fr;gap:20px;padding-block:24px}
+ .bizpick{font-size:13px}
+ .bizpick button{padding:0 12px;min-height:36px}
  .phero{min-height:640px}
  .phero .art img{object-position:40% 100%}
  .hero{grid-template-columns:1fr;grid-template-rows:auto;gap:24px;padding-block:28px}
@@ -373,31 +381,33 @@ footer a:hover{color:var(--fg)}
 </style>
 </head><body><a class="skip" href="#main">Skip to content</a>
 <header class="nav"><div class="wrap">
- <a class="logo" href="/" aria-label="Station home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g></svg>STATION <span>/ Products</span></a>
+ <a class="logo" href="/" aria-label="STATION / Products home"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="currentColor" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g></svg>STATION <span>/ Products</span></a>
  <ul><li><a href="#book">The book</a></li><li><a href="#collections">Collections</a></li><li><a href="#app">The app</a></li><li><a href="#faq">Questions</a></li><li class="cta"><a href="#collections">Start free</a></li></ul>
 </div></header>
 <main id="main">
 <section class="phero">
  <picture class="art" aria-hidden="true"><source media="(max-width:820px)" srcset="/products/media/day-morning-m.webp"><img src="/products/media/day-morning.webp" alt="" width="2400" height="1357" fetchpriority="high" decoding="async"></picture>
- <div class="copy"><p class="eyebrow">For plumbers, HVAC, salons, dentists, and every shop that misses calls</p>
+ <div class="copy"><p class="eyebrow">For any business that answers a phone, books a job, or asks for a review</p>
  <h1>Your front office, <em>staffed.</em></h1>
- <p>We staff small-business front offices with fourteen products that answer the phone, book the job, collect the money and ask for the review. Live in days. The first fourteen are free.</p>
+ <p>Fourteen products that answer the phone, book the job, collect the money and ask for the review. One app. Live in days, free for the first fourteen.</p>
  <div class="ctas"><a class="btn fill" href="/audit/">See what your front office is leaking, free</a><a class="btn glass" href="#collections">Start free for 14 days</a></div>
- <br><p class="proofline">Twelve checks on your listing, reviews, site and local ranking &middot; in your inbox in about a minute &middot; no card, no call</p>
- <br><p class="geoline">Is ChatGPT ignoring you? <a href="/ai-check/">Run the free AI visibility check &rarr;</a></p></div>
+ <br><p class="proofline">Twelve checks &middot; in your inbox in about a minute &middot; no card, no call</p>
+ <br><p class="geoline">Is ChatGPT ignoring you? <a href="/ai-check/">Free AI visibility check &rarr;</a></p></div>
 </section>
 <div class="wrap">
 <section class="live" id="live">
+<div class="bizpick top" role="group" aria-label="Show the day for a different business"><span>This is one Tuesday. Show it for</span>
+ <button type="button" data-biz="plumbing" aria-pressed="true">a plumber</button><button type="button" data-biz="dental" aria-pressed="false">a dental office</button><button type="button" data-biz="salon" aria-pressed="false">a salon</button><button type="button" data-biz="law" aria-pressed="false">a law office</button><button type="button" data-biz="any" aria-pressed="false">any business</button></div>
  <div class="pane" id="pane" aria-label="One Tuesday at an example plumbing business, replayed">
-  <div class="top"><div><div class="clock" id="clock">7:42 AM</div><div style="font-size:12px">Tuesday · Hanley Plumbing, Norman OK · example business</div></div>
+  <div class="top"><div><div class="clock" id="clock">7:42 AM</div><div style="font-size:12px">Tuesday · <span data-k="biz">Hanley Plumbing</span>, Norman OK · example business</div></div>
    <div class="tally"><div>Answered<b id="t1">0</b></div><div>Booked<b id="t2">0</b></div><div>Reviews<b id="t3">0</b></div><div>Collected<b id="t4">$0</b></div></div></div>
   <div><div class="label"><span class="who">Lineback · missed-call text-back</span><span>4s</span></div>
-   <div class="bubble" id="b1">Sorry we missed you, this is Hanley Plumbing. What's going on?</div>
-   <div class="bubble me" id="b2">water heater leaking, can someone come today</div>
-   <div class="bubble" id="b3">Yes. Dale can be there between 1 and 3. Want that?</div>
+   <div class="bubble" id="b1">Sorry we missed you, this is <span data-k="biz">Hanley Plumbing</span>. What's going on?</div>
+   <div class="bubble me" id="b2"><span data-k="job">water heater leaking, can someone come today</span></div>
+   <div class="bubble" id="b3">Yes. <span data-k="name">Dale</span> can be there between 1 and 3. Want that?</div>
    <div class="bubble me" id="b4">yes please</div></div>
   <div><div class="label"><span class="who">Frontdesk · the phone</span><span>incoming</span></div>
-   <div class="bubble me" id="c1">Hi, do you do tankless installs?</div>
+   <div class="bubble me" id="c1"><span data-k="ask">Hi, do you do tankless installs?</span></div>
    <div class="bubble" id="c2">We do. Thursday at 2 is open, want me to hold it?</div>
    <div class="bubble me" id="c3">Thursday works.</div>
    <div class="bubble" id="c4">Booked. You'll get a text in a second.</div></div>
@@ -429,42 +439,42 @@ footer a:hover{color:var(--fg)}
  </div>
 </section>
 
-<div class="tab bookhead" id="book">The book · one Tuesday · scroll and the day passes</div>
+<div class="bookhead" id="book"><p class="tab">The book &middot; one Tuesday &middot; scroll and the day passes</p></div>
 <section class="book" aria-label="One Tuesday, scene by scene">
- <aside class="rail" aria-hidden="true">
+ <div class="rail" aria-hidden="true">
   <div class="rclock" id="rclock">7:42<small>AM · TUESDAY</small></div>
   <div class="rtally"><div>Answered <b id="r1">0</b></div><div>Booked <b id="r2">0</b></div><div>Collected <b id="r3">$0</b></div><div>Reviews <b id="r4">0</b></div></div>
- </aside>
+ </div>
  <div class="scenes">
   <article class="scene" data-view="v1" data-t="7:42" data-ap="AM" data-a="0" data-b="1" data-c="$0" data-d="0" data-h="7">
    <span class="when">7:42 AM · Before you open</span>
-   <h2 class="rv">Your phone rings. <em>You're under a sink.</em></h2>
+   <h2 class="rv">Your phone rings. <em><span data-k="hook">You're under a sink.</span></em></h2>
    <p class="rv d1">It goes to voicemail. The caller is already dialing the next plumber. Four seconds later, your number texts them back, in your words.</p>
-   <div class="frames rv d2"><div><span class="tab">7:42:04</span><span class="mini">Sorry we missed you, this is Hanley Plumbing. What's going on?</span></div><div><span class="tab">7:43</span><span class="mini me">water heater leaking, can someone come today</span></div><div><span class="tab">7:46</span><b>Booked.</b> $420 job you never touched.</div></div>
+   <div class="frames rv d2"><div><span class="tab">7:42:04</span><span class="mini">Sorry we missed you, this is <span data-k="biz">Hanley Plumbing</span>. What's going on?</span></div><div><span class="tab">7:43</span><span class="mini me"><span data-k="job">water heater leaking, can someone come today</span></span></div><div><span class="tab">7:46</span><b>Booked.</b> $420 job you never touched.</div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Phone tab: 7:42 missed call, texted back in 4s, booked 1 to 3 PM. Transcript saved.</div>
    <div class="buy"><span class="n">Lineback<small>Missed-call text-back · $197/mo · live in ~2 business days</small></span><a href="/lineback/">Start Lineback →</a></div>
   </article>
   <article class="scene" data-view="v2" data-t="8:15" data-ap="AM" data-a="1" data-b="2" data-c="$0" data-d="0" data-h="8">
    <span class="when">8:15 AM · The phone</span>
-   <h2 class="rv">Someone asks about tankless installs. <em>You're driving.</em></h2>
+   <h2 class="rv"><span data-k="ask2">Someone asks about tankless installs.</span> <em>You're driving.</em></h2>
    <p class="rv d1">Frontdesk picks up on the second ring. It knows your hours and your services, books into your calendar, and never quotes a price you haven't allowed.</p>
-   <div class="frames rv d2"><div><span class="tab">8:15:02</span><span class="mini me">Do you do tankless?</span></div><div><span class="tab">8:15:30</span><span class="mini">We do. Thursday at 2 is open, want me to hold it?</span></div><div><span class="tab">8:16</span><b>Booked Thu 2 PM.</b> Transcript in your app.</div></div>
+   <div class="frames rv d2"><div><span class="tab">8:15:02</span><span class="mini me"><span data-k="ask">Do you do tankless installs?</span></span></div><div><span class="tab">8:15:30</span><span class="mini">We do. Thursday at 2 is open, want me to hold it?</span></div><div><span class="tab">8:16</span><b>Booked Thu 2 PM.</b> Transcript in your app.</div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Call transcript, 8:15 AM. Caller asked about tankless. Held Thursday 2 PM. Confirmation text sent.</div>
    <div class="buy"><span class="n">Frontdesk<small>AI phone receptionist · $397/mo · live same day</small></span><a href="/frontdesk/">See Frontdesk →</a></div>
   </article>
   <article class="scene" data-view="v3" data-t="11:03" data-ap="AM" data-a="3" data-b="2" data-c="$0" data-d="0" data-h="11">
    <span class="when">11:03 AM · On the way</span>
-   <h2 class="rv">Dale is twenty minutes out. <em>The customer already knows.</em></h2>
+   <h2 class="rv"><span data-k="name">Dale</span> is twenty minutes out. <em>The customer already knows.</em></h2>
    <p class="rv d1">The reminder went last night. The on-my-way text goes now, from your business number. No-shows this week: zero.</p>
-   <div class="frames rv d2"><div><span class="tab">Last night</span><span class="mini">Reminder: Dale, tomorrow 1 to 3. Reply C to change.</span></div><div><span class="tab">11:03</span><span class="mini">Dale's on the way, about 20 min.</span></div><div><span class="tab">No-shows</span><b>0 this week.</b> Last month: 4.</div></div>
+   <div class="frames rv d2"><div><span class="tab">Last night</span><span class="mini">Reminder: <span data-k="name">Dale</span>, tomorrow 1 to 3. Reply C to change.</span></div><div><span class="tab">11:03</span><span class="mini"><span data-k="name">Dale</span>'s on the way, about 20 min.</span></div><div><span class="tab">No-shows</span><b>0 this week.</b> Last month: 4.</div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Booking &amp; Reminders: Tuesday, 6 booked by text. Reminder and on-my-way messages sent.</div>
    <div class="buy"><span class="n">Slate + Dial<small>Booking, reminders, a business number that texts · from $59/mo</small></span><a href="/slate/">See Slate →</a></div>
   </article>
   <article class="scene" data-view="v4" data-t="1:31" data-ap="PM" data-a="5" data-b="3" data-c="$420" data-d="0" data-h="13">
    <span class="when">1:30 PM · The job is done</span>
    <h2 class="rv">Paid before the van <em>leaves the drive.</em></h2>
-   <p class="rv d1">Dale taps the invoice on his phone. The customer taps the link. Station takes zero percent of it.</p>
-   <div class="frames rv d2"><div><span class="tab">1:30:40</span><span class="mini me">Pay $420 · link</span></div><div><span class="tab">1:31</span><b>Paid.</b></div><div><span class="tab">1:34</span><span class="mini">How did Dale do? One tap: ★★★★★</span></div></div>
+   <p class="rv d1"><span data-k="name">Dale</span> taps the invoice on his phone. The customer taps the link. Station takes zero percent of it.</p>
+   <div class="frames rv d2"><div><span class="tab">1:30:40</span><span class="mini me">Pay $420 · link</span></div><div><span class="tab">1:31</span><b>Paid.</b></div><div><span class="tab">1:34</span><span class="mini">How did <span data-k="name">Dale</span> do? One tap: ★★★★★</span></div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Invoice #1042, $420, paid 1:31 PM. Review request sent 1:34 PM.</div>
    <div class="buy"><span class="n">Tap<small>Payments &amp; POS · $47/mo + card rates · live in 1–2 days</small></span><a href="/tap/">See Tap →</a></div>
   </article>
@@ -480,7 +490,7 @@ footer a:hover{color:var(--fg)}
    <span class="when">6:00 PM · The customers you forgot</span>
    <h2 class="rv">312 people who haven't called in a year <em>get one email.</em></h2>
    <p class="rv d1">Revive writes to your old list in your words. Nine reply. Four book. From a spreadsheet you already had.</p>
-   <div class="frames rv d2"><div><span class="tab">Email 1 of 3</span><span class="mini">It's been a while. Furnace check before winter?</span></div><div><span class="tab">Replies</span><b>9</b></div><div><span class="tab">Booked</span><b>4 jobs.</b></div></div>
+   <div class="frames rv d2"><div><span class="tab">Email 1 of 3</span><span class="mini"><span data-k="winback">It's been a while. Furnace check before winter?</span></span></div><div><span class="tab">Replies</span><b>9</b></div><div><span class="tab">Booked</span><b>4 jobs.</b></div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Win-back campaign: 312 sent, 9 replies, 4 booked. Email 2 goes Thursday.</div>
    <div class="buy"><span class="n">Revive<small>Win back old customers · $197/mo · runs in 1–2 days</small></span><a href="/revive/">See Revive →</a></div>
   </article>
@@ -496,11 +506,11 @@ footer a:hover{color:var(--fg)}
    <div class="scr">
     <div class="sbar"><span id="ptime">7:42</span><span>●●● ⌁ ▮</span></div>
     <div class="app">
-     <div class="apphead">Hanley Plumbing <span id="ptab">PHONE</span></div>
+     <div class="apphead"><span data-k="biz">Hanley Plumbing</span> <span id="ptab">PHONE</span></div>
      <div class="view on" id="v1">
       <div class="row"><span>Missed call · (405) 310-…</span><span class="pill">texted 4s</span></div>
       <div class="thread" style="margin-top:10px"><div class="ts">7:42 AM</div>
-       <div class="bubble on">Sorry we missed you, this is Hanley Plumbing. What's going on?</div><div class="bubble me on">water heater leaking, can someone come today</div><div class="bubble on">Yes. Dale can be there between 1 and 3. Want that?</div><div class="bubble me on">yes please</div><div class="bubble on">Booked. Dale, 1 to 3 PM, 412 Elm. You'll get a reminder tonight.</div></div>
+       <div class="bubble on">Sorry we missed you, this is <span data-k="biz">Hanley Plumbing</span>. What's going on?</div><div class="bubble me on"><span data-k="job">water heater leaking, can someone come today</span></div><div class="bubble on">Yes. Dale can be there between 1 and 3. Want that?</div><div class="bubble me on">yes please</div><div class="bubble on">Booked. Dale, 1 to 3 PM, 412 Elm. You'll get a reminder tonight.</div></div>
       <div class="cap">LINEBACK · YOUR WORDS, EDITABLE</div></div>
      <div class="view" id="v2">
       <div class="row"><span>Answered · (405) 226-…</span><span class="pill">booked</span></div>
@@ -545,7 +555,7 @@ footer a:hover{color:var(--fg)}
  <picture class="art" aria-hidden="true"><source media="(max-width:820px)" srcset="/products/media/day-night-m.webp"><img src="/products/media/day-night.webp" alt="" loading="lazy" decoding="async" width="2400" height="1357"></picture>
  <div>
   <h2 class="rv">14 answered. 6 booked. <em>$1,840 you'd have missed.</em></h2>
-  <p class="rv d1">One Tuesday, one example plumber. The whole front office costs about $13 a day, and the first fourteen days are free.</p>
+  <p class="rv d1">One Tuesday, one example <span data-k="who">plumber</span>. The whole front office costs about $13 a day, and the first fourteen days are free.</p>
   <div class="ctas rv d2"><a class="btn fill" href="#collections">Start free for 14 days</a><button type="button" class="btn" data-quiz>Find the one product that fixes your worst week</button></div>
  </div>
  <div class="nums rv d1"><div><span class="tab">Answered</span><b>14</b></div><div><span class="tab">Booked</span><b>6</b></div><div><span class="tab">Collected</span><b>$1,840</b></div></div>
@@ -583,7 +593,7 @@ footer a:hover{color:var(--fg)}
   </ol>
   <div class="win rv d2"><div class="bar"><i></i><i></i><i></i> Your Station app · My Services</div>
    <div class="portal"><div class="side"><div>Quick Start</div><div class="on">My Services</div><div>Phone</div><div>Booking &amp; Reminders</div><div>Follow-ups</div><div>Reputation</div><div>Monthly Report</div><div>Help Center</div></div>
-    <div class="main"><h4>My Services</h4>
+    <div class="main"><h3 class="h4">My Services</h3>
      <table class="calls"><tr><th>Product</th><th>Status</th><th>Monthly</th></tr>
       <tr><td>Frontdesk · 750 min</td><td><span class="pill">live</span></td><td class="mono">$397</td></tr>
       <tr><td>Slate</td><td><span class="pill">live</span></td><td class="mono">included</td></tr>
@@ -600,53 +610,53 @@ footer a:hover{color:var(--fg)}
  <ul class="fq-list rv d1">
    <li class="fq" id="q-will-it-sound-like-a-robot-to-my-customers" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-0"><span class="fq-row"><span class="fq-q">Will it sound like a robot to my customers?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Will it sound like a robot to my customers?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-0" role="region"><div class="fq-in"><p>Frontdesk uses a natural voice, knows your hours and services, and says "let me get a human" the moment it is unsure. Every call is transcribed, so you hear exactly what it said. Lineback and Slate send texts in words you wrote.</p><button type="button" class="fq-copy" data-copy="q-will-it-sound-like-a-robot-to-my-customers">Copy link</button></div></div>
+    <h3><button type="button" id="b-0" class="fq-btn" aria-expanded="false" aria-controls="p-0"><span class="fq-row"><span class="fq-q">Will it sound like a robot to my customers?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Will it sound like a robot to my customers?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-0" role="region" aria-labelledby="b-0"><div class="fq-in"><p>Frontdesk uses a natural voice, knows your hours and services, and says "let me get a human" the moment it is unsure. Every call is transcribed, so you hear exactly what it said. Lineback and Slate send texts in words you wrote.</p><button type="button" class="fq-copy" data-copy="q-will-it-sound-like-a-robot-to-my-customers">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-i-already-have-a-phone-number-do-i-have-to-chang" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-1"><span class="fq-row"><span class="fq-q">I already have a phone number. Do I have to change it?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">I already have a phone number. Do I have to change it?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-1" role="region"><div class="fq-in"><p>No. Phone products come with a local number, and your existing number forwards to it. Customers keep calling the number on your truck.</p><button type="button" class="fq-copy" data-copy="q-i-already-have-a-phone-number-do-i-have-to-chang">Copy link</button></div></div>
+    <h3><button type="button" id="b-1" class="fq-btn" aria-expanded="false" aria-controls="p-1"><span class="fq-row"><span class="fq-q">I already have a phone number. Do I have to change it?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">I already have a phone number. Do I have to change it?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-1" role="region" aria-labelledby="b-1"><div class="fq-in"><p>No. Phone products come with a local number, and your existing number forwards to it. Customers keep calling the number on your truck.</p><button type="button" class="fq-copy" data-copy="q-i-already-have-a-phone-number-do-i-have-to-chang">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-how-fast-is-it-actually-live" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-2"><span class="fq-row"><span class="fq-q">How fast is it actually live?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">How fast is it actually live?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-2" role="region"><div class="fq-in"><p>Calls are answered the same day. Texting waits on carrier verification, usually one to three business days, and we tell you when it clears. Every product page states its own time to live before you pay.</p><button type="button" class="fq-copy" data-copy="q-how-fast-is-it-actually-live">Copy link</button></div></div>
+    <h3><button type="button" id="b-2" class="fq-btn" aria-expanded="false" aria-controls="p-2"><span class="fq-row"><span class="fq-q">How fast is it actually live?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">How fast is it actually live?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-2" role="region" aria-labelledby="b-2"><div class="fq-in"><p>Calls are answered the same day. Texting waits on carrier verification, usually one to three business days, and we tell you when it clears. Every product page states its own time to live before you pay.</p><button type="button" class="fq-copy" data-copy="q-how-fast-is-it-actually-live">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-what-does-it-cost-really-with-nothing-hidden" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-3"><span class="fq-row"><span class="fq-q">What does it cost, really, with nothing hidden?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What does it cost, really, with nothing hidden?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-3" role="region"><div class="fq-in"><p>The price on the page is the price. Month to month, no contract, no setup fee except where a page says so. Card payments on Tap go through your own processor, and Station takes zero percent.</p><button type="button" class="fq-copy" data-copy="q-what-does-it-cost-really-with-nothing-hidden">Copy link</button></div></div>
+    <h3><button type="button" id="b-3" class="fq-btn" aria-expanded="false" aria-controls="p-3"><span class="fq-row"><span class="fq-q">What does it cost, really, with nothing hidden?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What does it cost, really, with nothing hidden?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-3" role="region" aria-labelledby="b-3"><div class="fq-in"><p>The price on the page is the price. Month to month, no contract, no setup fee except where a page says so. Card payments on Tap go through your own processor, and Station takes zero percent.</p><button type="button" class="fq-copy" data-copy="q-what-does-it-cost-really-with-nothing-hidden">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-can-i-buy-one-product-without-a-bundle" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-4"><span class="fq-row"><span class="fq-q">Can I buy one product without a bundle?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Can I buy one product without a bundle?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-4" role="region"><div class="fq-in"><p>Yes. Every product stands alone with a 14-day free trial. Collections exist because stacking several usually costs more than the collection price.</p><button type="button" class="fq-copy" data-copy="q-can-i-buy-one-product-without-a-bundle">Copy link</button></div></div>
+    <h3><button type="button" id="b-4" class="fq-btn" aria-expanded="false" aria-controls="p-4"><span class="fq-row"><span class="fq-q">Can I buy one product without a bundle?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Can I buy one product without a bundle?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-4" role="region" aria-labelledby="b-4"><div class="fq-in"><p>Yes. Every product stands alone with a 14-day free trial. Collections exist because stacking several usually costs more than the collection price.</p><button type="button" class="fq-copy" data-copy="q-can-i-buy-one-product-without-a-bundle">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-what-if-it-books-a-job-i-can-t-do" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-5"><span class="fq-row"><span class="fq-q">What if it books a job I can’t do?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What if it books a job I can’t do?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-5" role="region"><div class="fq-in"><p>It only books into the hours and services you set, and it never quotes a price you have not allowed. You can change any of that in your app in a minute.</p><button type="button" class="fq-copy" data-copy="q-what-if-it-books-a-job-i-can-t-do">Copy link</button></div></div>
+    <h3><button type="button" id="b-5" class="fq-btn" aria-expanded="false" aria-controls="p-5"><span class="fq-row"><span class="fq-q">What if it books a job I can’t do?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What if it books a job I can’t do?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-5" role="region" aria-labelledby="b-5"><div class="fq-in"><p>It only books into the hours and services you set, and it never quotes a price you have not allowed. You can change any of that in your app in a minute.</p><button type="button" class="fq-copy" data-copy="q-what-if-it-books-a-job-i-can-t-do">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-is-this-another-thing-i-have-to-learn" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-6"><span class="fq-row"><span class="fq-q">Is this another thing I have to learn?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Is this another thing I have to learn?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-6" role="region"><div class="fq-in"><p>One app, with the tabs you bought and nothing else. Setup is three steps and about ten minutes of your answers. We switch it on and text you.</p><button type="button" class="fq-copy" data-copy="q-is-this-another-thing-i-have-to-learn">Copy link</button></div></div>
+    <h3><button type="button" id="b-6" class="fq-btn" aria-expanded="false" aria-controls="p-6"><span class="fq-row"><span class="fq-q">Is this another thing I have to learn?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Is this another thing I have to learn?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-6" role="region" aria-labelledby="b-6"><div class="fq-in"><p>One app, with the tabs you bought and nothing else. Setup is three steps and about ten minutes of your answers. We switch it on and text you.</p><button type="button" class="fq-copy" data-copy="q-is-this-another-thing-i-have-to-learn">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-what-happens-to-my-customers-data" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-7"><span class="fq-row"><span class="fq-q">What happens to my customers’ data?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What happens to my customers’ data?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-7" role="region"><div class="fq-in"><p>It is your account and your data. Transcripts, contacts and reviews stay yours. If you leave, your words and your number go with you.</p><button type="button" class="fq-copy" data-copy="q-what-happens-to-my-customers-data">Copy link</button></div></div>
+    <h3><button type="button" id="b-7" class="fq-btn" aria-expanded="false" aria-controls="p-7"><span class="fq-row"><span class="fq-q">What happens to my customers’ data?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">What happens to my customers’ data?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-7" role="region" aria-labelledby="b-7"><div class="fq-in"><p>It is your account and your data. Transcripts, contacts and reviews stay yours. If you leave, your words and your number go with you.</p><button type="button" class="fq-copy" data-copy="q-what-happens-to-my-customers-data">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-can-i-cancel-anytime" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-8"><span class="fq-row"><span class="fq-q">Can I cancel anytime?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Can I cancel anytime?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-8" role="region"><div class="fq-in"><p>Yes. No contract. Core, Pro and Max bill today with a 30-day money-back on the first month; single products and collections start free for 14 days.</p><button type="button" class="fq-copy" data-copy="q-can-i-cancel-anytime">Copy link</button></div></div>
+    <h3><button type="button" id="b-8" class="fq-btn" aria-expanded="false" aria-controls="p-8"><span class="fq-row"><span class="fq-q">Can I cancel anytime?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Can I cancel anytime?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-8" role="region" aria-labelledby="b-8"><div class="fq-in"><p>Yes. No contract. Core, Pro and Max bill today with a 30-day money-back on the first month; single products and collections start free for 14 days.</p><button type="button" class="fq-copy" data-copy="q-can-i-cancel-anytime">Copy link</button></div></div>
    </li>
    <li class="fq" id="q-who-do-i-talk-to-when-something-goes-wrong" data-state="closed">
     <span class="fq-fill" aria-hidden="true"></span>
-    <h3><button type="button" class="fq-btn" aria-expanded="false" aria-controls="p-9"><span class="fq-row"><span class="fq-q">Who do I talk to when something goes wrong?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Who do I talk to when something goes wrong?</span><span class="fq-plus">+</span></span></button></h3>
-    <div class="fq-panel" id="p-9" role="region"><div class="fq-in"><p>A person. Chat in the corner of this page, email, or fifteen minutes on the phone. The Help Center in your app answers the common ones at 2 AM.</p><button type="button" class="fq-copy" data-copy="q-who-do-i-talk-to-when-something-goes-wrong">Copy link</button></div></div>
+    <h3><button type="button" id="b-9" class="fq-btn" aria-expanded="false" aria-controls="p-9"><span class="fq-row"><span class="fq-q">Who do I talk to when something goes wrong?</span><span class="fq-plus" aria-hidden="true">+</span></span><span class="fq-row inv" aria-hidden="true"><span class="fq-q">Who do I talk to when something goes wrong?</span><span class="fq-plus">+</span></span></button></h3>
+    <div class="fq-panel" id="p-9" role="region" aria-labelledby="b-9"><div class="fq-in"><p>A person. Chat in the corner of this page, email, or fifteen minutes on the phone. The Help Center in your app answers the common ones at 2 AM.</p><button type="button" class="fq-copy" data-copy="q-who-do-i-talk-to-when-something-goes-wrong">Copy link</button></div></div>
    </li>
  </ul>
  <div class="fq-empty" role="status" hidden><p>Nothing here matches that.</p><button type="button" class="fq-copy fq-reset">Show every question</button></div>
@@ -662,7 +672,7 @@ footer a:hover{color:var(--fg)}
  </div>
 </section>
 <section class="ps">
- <p><b>P.S.</b> The plumber in the Tuesday above would have lost $1,840 that day with no one at the desk. Twelve months of that is more than a van. Answer costs $9.90 a day and the first fourteen are free, and if the honest answer for your shop is "none yet", the free audit will say so.</p>
+ <p><b>P.S.</b> The <span data-k="who">plumber</span> in the Tuesday above would have lost $1,840 that day with no one at the desk. Twelve months of that is more than a van. Answer costs $9.90 a day and the first fourteen are free, and if the honest answer for your shop is "none yet", the free audit will say so.</p>
  <div class="ctas"><a class="btn fill" href="/audit/">Get the free audit</a><a class="btn" href="#collections">Start free for 14 days</a></div>
 </section>
 </div>
@@ -671,7 +681,7 @@ footer a:hover{color:var(--fg)}
  <span>© 2026 Station Automations Group LLC · <a href="/">station.solutions</a></span>
  <nav aria-label="Legal"><a href="/legal/privacy.html">Privacy</a><a href="/legal/tos.html">Terms</a><a href="/legal/sms-terms.html">SMS terms</a><a href="/legal/cancellation.html">Cancellation</a><a href="/legal/cookies.html">Cookies</a><a href="/legal/accessibility.html">Accessibility</a><a href="/contact/">Contact</a><a href="/partners/">Partners</a></nav>
 </div></footer>
-<div class="receipt" id="receipt" aria-live="polite"><div class="wrap"><div>ANSWER COLLECTION · <b>$297/mo</b> · about <b>$9.90</b> a day</div><div>ONE $425 JOB A MONTH <b>COVERS IT</b></div><a class="btn" href="#collections">Start free</a></div></div>
+<aside class="receipt" id="receipt" aria-live="polite" aria-label="Your front office so far"><div class="wrap"><div>ANSWER COLLECTION · <b>$297/mo</b> · about <b>$9.90</b> a day</div><div>ONE $425 JOB A MONTH <b>COVERS IT</b></div><a class="btn" href="#collections">Start free</a></div></aside>
 
 <script src="/attribution.js"></script>
 <script src="/analytics.js"></script>
@@ -740,6 +750,13 @@ footer a:hover{color:var(--fg)}
   document.querySelector('.fq-reset').addEventListener('click',function(){input.value='';search()});
   input.addEventListener('keydown',function(e){if(e.key==='Escape'){input.value='';search()}});
  })();
+ var BIZ={"plumbing": {"biz": "Hanley Plumbing", "who": "plumber", "name": "Dale", "hook": "You’re under a sink.", "ask": "Do you do tankless installs?", "ask2": "Someone asks about tankless installs.", "job": "water heater leaking, can someone come today", "job2": "Water heater, emergency", "winback": "It’s been a while. Furnace check before winter?", "winback2": "Four book a furnace check before winter."}, "dental": {"biz": "Elm Street Dental", "who": "dentist", "name": "Dr. Ortiz", "hook": "You’re mid-filling.", "ask": "Do you take new patients?", "ask2": "Someone asks if you take new patients.", "job": "cracked a tooth, can I come in today", "job2": "Emergency visit, crown", "winback": "It’s been a while. Due for a cleaning?", "winback2": "Four book a cleaning."}, "salon": {"biz": "Main Street Salon", "who": "stylist", "name": "Jess", "hook": "Your hands are in foils.", "ask": "Do you have anything Saturday?", "ask2": "Someone asks about Saturday.", "job": "need a cut and color this week", "job2": "Cut and color", "winback": "It’s been a while. Ready for a trim?", "winback2": "Four book a trim."}, "law": {"biz": "Reed & Carter Law", "who": "attorney", "name": "Ms. Carter", "hook": "You’re in a deposition.", "ask": "Do you handle estate planning?", "ask2": "Someone asks about estate planning.", "job": "need a will updated, can we talk this week", "job2": "Consultation, estate plan", "winback": "It’s been a while. Is your plan still current?", "winback2": "Four book a review."}, "any": {"biz": "your business", "who": "owner", "name": "Sam", "hook": "You’re with a customer.", "ask": "Do you take walk-ins?", "ask2": "Someone asks a question you answer ten times a day.", "job": "need to come in today, do you have anything", "job2": "Same-day appointment", "winback": "It’s been a while. Want to come back in?", "winback2": "Four come back."}};
+ setTimeout(function(){var cb=document.getElementById('chBody');if(cb)cb.tabIndex=0},1500);
+ var pick=document.querySelectorAll('.bizpick button');
+ function setBiz(key){var v=BIZ[key];if(!v)return;document.querySelectorAll('[data-k]').forEach(function(el){var t=v[el.dataset.k];if(t==null)return;if(el.dataset.k==='ask'&&el.textContent.indexOf('Hi, ')===0)t='Hi, '+t.charAt(0).toLowerCase()+t.slice(1);el.textContent=t});
+  pick.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.biz===key))});try{localStorage.setItem('stn-biz',key)}catch(e){}}
+ pick.forEach(function(b){b.addEventListener('click',function(){setBiz(b.dataset.biz)})});
+ try{var sb=localStorage.getItem('stn-biz');if(sb&&BIZ[sb])setBiz(sb)}catch(e){}
  /* hero loop */
  function on(id){var e=$(id);if(e)e.classList.add('on')}function hot(id){var e=$(id);if(e)e.classList.add('on','hot')}function cool(id){var e=$(id);if(e)e.classList.remove('hot')}
  function bump(id,n){$(id).textContent=(+$(id).textContent)+n}function set(id,v){$(id).textContent=v}
