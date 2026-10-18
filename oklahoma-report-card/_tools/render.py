@@ -337,8 +337,7 @@ def index_page(results, ents, scanned_on):
         for k in ORDER:
             c = (r.get("checks") or {}).get(k)
             cc = cell_class(c)
-            summ = sentence(k, c) if r.get("outcome") == "scanned" else ""
-            cells.append(f'<td class="c {cc}" title="{esc(LABELS[k])}: {esc(summ)}"><span aria-hidden="true">{CELL_GLYPH[cc]}</span><span class="vh" hidden>{esc(LABELS[k])} {CELL_WORD[cc]}</span></td>')
+            cells.append(f'<td class="c {cc}" title="{esc(LABELS[k])}: {CELL_WORD[cc]}"><span aria-hidden="true">{CELL_GLYPH[cc]}</span><span hidden>{esc(LABELS[k])} {CELL_WORD[cc]}</span></td>')
         if r.get("outcome") == "no-site":
             name_cell = f'<td class="nm">{esc(r["name"])}<span class="pl">{esc(KIND_LABEL[r["kind"]])}{(" &middot; " + esc(place_of(r, ent))) if r["type"] == "district" and place_of(r, ent) else ""} &middot; no official website on record</span></td>'
             site = ""
