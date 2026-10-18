@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Methodology — Oklahoma Website Report Card</title>
+<meta name="robots" content="noindex,nofollow"><meta name="description" content="How the Oklahoma Public-Entity Website Report Card is measured.">
+<link rel="canonical" href="https://station.solutions/oklahoma-report-card/methodology/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/oklahoma-report-card/rc.css?v=1">
+<link rel="icon" href="/favicon.ico">
+</head><body><header class="top"><div class="top-in"><a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a><nav class="topnav" aria-label="Report card"><a href="/oklahoma-report-card/">Ranking</a><a href="/oklahoma-report-card/methodology/" aria-current="page">Methodology</a><a href="/oklahoma-report-card/data/">Data</a></nav></div></header>
+<main class="wrap narrow">
+<p class="k">Methodology</p><h1>How the report card works</h1>
+<p class="lede">Eight automated checks, run the same way on every site, on one day. Nothing here is a legal finding, a security audit or a compliance opinion. It is what a visitor on a phone would meet on the home page, measured with code and written down plainly.</p>
+
+<h2>Who is on the list</h2>
+<ul class="plain">
+<li><b>School districts</b> (539): every open Oklahoma local education agency in the federal <a href="https://nces.ed.gov/ccd/" rel="noopener">NCES Common Core of Data</a> LEA directory (2022-23 file) of type regular public district or independent charter district. Other agency types (state schools, programs run by other bodies) are not included.</li>
+<li><b>Counties</b> (77): the 77 counties, matched by FIPS code. Addresses come from the okcounties.org county registry (<span class="mono">countyData.json</span>, which also says whether a county is hosted on that portal) and from Wikidata.</li>
+<li><b>Cities and towns</b> (575): incorporated cities and towns in Oklahoma listed in Wikidata. Census-designated places are not included.</li>
+</ul>
+<h3>Finding the official website</h3>
+<p>Candidate addresses come from, in order: the website Quorum had already confirmed for the entity (its page was fetched and showed the entity’s name and town), the WEBSITE column of the NCES directory, Wikidata’s “official website” property, and for counties the county’s page on the shared <span class="mono">okcounties.org</span> portal. We never guess domain names.</p>
+<p>A candidate is accepted only if its home page loads, mentions the entity’s name (or, for a district, its town, or carries the name in its own address), and reads like a government or school site: at least two of the ordinary words such a site uses (council, clerk, agenda, minutes, utilities, sheriff, courthouse; school, student, superintendent, enroll, campus), including one of the strong ones, counted in the visible text and the menus. Sites on a <span class="mono">.gov</span>, <span class="mono">.k12.ok.us</span>, <span class="mono">.ok.us</span> or <span class="mono">okcounties.org</span> address skip the vocabulary test, because the address itself settles who owns it. Pages that redirect to a sign-in screen, parked or expired domains, bare shared hosts such as <span class="mono">sites.google.com</span>, social-media pages, chamber-of-commerce and tourism sites (separate bodies), placeholder pages (“IIS Windows Server”, “Under Construction”), bot-check screens, a vendor’s national home page, and pages whose content is in another language or reads like gambling or pharmacy spam (a sign the domain has lapsed or changed hands) are all refused. Each entity’s page says exactly which addresses were tried and why each was refused, because a lapsed domain is itself something the office that owns it will want to know. An entity with no accepted site is listed as “couldn’t be checked” and is not graded. It is never marked as failing.</p>
+
+<h2>The eight checks</h2>
+<p>All checks look at the <b>home page only</b>, loaded once in a plain Chromium browser at a phone width of 375 pixels, plus a few direct HTTP requests. Each check scores 0 to 1 and carries the weight shown. The checks ran on 17 October 2026 to 18 October 2026.</p>
+<div class="tw"><table class="checks"><thead><tr><th>Check</th><th>Weight</th><th>What is measured</th></tr></thead><tbody>
+<tr><td class="lab">HTTPS</td><td class="p">15</td><td>Does <span class="mono">https://</span> serve the home page with a valid certificate (2/3 of the points)? Does a plain <span class="mono">http://</span> address redirect to it (1/3)?</td></tr>
+<tr><td class="lab">Works on a phone</td><td class="p">15</td><td>Is there a <span class="mono">&lt;meta name="viewport"&gt;</span> tag with a width or an initial scale (half the points)? On a 375-pixel-wide screen, does the page stay within the screen with no sideways scrolling (half)?</td></tr>
+<tr><td class="lab">Accessibility</td><td class="p">20</td><td>The open-source <a href="https://github.com/AccessLint/accesslint" rel="noopener">accesslint core</a> engine (version 0.21.0, 94 WCAG 2.2 A/AA and best-practice rules) runs on the live page. The score starts at 1 and loses 0.15 for each distinct critical rule failing, 0.09 per serious rule, 0.04 per moderate, 0.015 per minor, plus 0.004 per individual critical or serious instance (capped at 0.25). Past a penalty of 0.5 the score decays smoothly towards zero instead of stopping dead, so badly scoring sites still rank among themselves.</td></tr>
+<tr><td class="lab">Kept up to date</td><td class="p">10</td><td>The newest full date (day, month and year) printed on the home page that is not in the future, or failing that a usable <span class="mono">Last-Modified</span> header. Within 30 days: 1. Within 90: 0.75. Within 180: 0.5. Within a year: 0.25. Older: 0. No date found: couldn’t check.</td></tr>
+<tr><td class="lab">Links that work</td><td class="p">10</td><td>Up to 20 distinct links from the home page to the site’s own domain are requested (HEAD, then GET if refused). A link answering 400 or above, or not answering at all, is broken. Score is the share that worked. Links that timed out are not counted either way.</td></tr>
+<tr><td class="lab">Contact details</td><td class="p">10</td><td>A phone number (1/3), a street address, PO box or Oklahoma ZIP code (1/3), and an email address or a contact form or contact link (1/3), anywhere on the home page.</td></tr>
+<tr><td class="lab">Speed</td><td class="p">10</td><td>Average of three: time to first byte, measured in a quiet second pass as the best of two requests a second apart (1 up to 0.5 s, 0.75 to 1 s, 0.5 to 2 s, 0.25 to 4 s), size of the home page HTML as transferred (1 up to 100 KB, 0.75 to 300 KB, 0.5 to 600 KB, 0.25 to 1 MB), and the number of requests the page makes while loading (1 up to 50, 0.75 to 100, 0.5 to 150, 0.25 to 250).</td></tr>
+<tr><td class="lab">Required notices</td><td class="p">10</td><td>Among the home page’s links: one to an accessibility statement (half the points) and one to public records, open records, agendas, minutes or meetings (half). A notice that lives elsewhere on the site but is not linked from the home page is not found by this check, and the page says so.</td></tr>
+</tbody></table></div>
+
+<h2>The grade</h2>
+<p>Score = points earned &divide; points available &times; 100, where “available” counts only the checks that actually ran. A 90 or more is an A, 80 a B, 70 a C, 60 a D, and below 60 an F. No single check weighs more than 20 of 100 points, so no site is graded F on the strength of one check. A site needs at least four of the eight checks to have run to receive a grade at all.</p>
+
+<h2>Honesty rules</h2>
+<ul class="plain">
+<li>A check that could not run says “couldn’t check” with the reason, and is excluded from the score. It is never scored as a failure.</li>
+<li>A site that did not answer to the entity’s name is not graded, rather than graded on somebody else’s page.</li>
+<li>Everything is deterministic: the same page, the same day, the same answer. No language model touches the grading or the wording of results.</li>
+<li>The scanner identified itself as <span class="mono">StationReportCard/1.0</span> with a link to this page, honoured each site’s <span class="mono">robots.txt</span> (including crawl delays), made at most one deliberate request per second to any host, and stopped at 20 links per site.</li>
+</ul>
+
+<h2>Limits worth knowing</h2>
+<ul class="plain">
+<li>One page, one day. A home page that happened to be slow or briefly broken that day scores accordingly; the date is on every page.</li>
+<li>Home page only. A district whose accessibility statement sits on an “About” page gets no credit for it here.</li>
+<li>Automated accessibility tools find only part of what a person using assistive technology would find. A clean run is not proof of accessibility; a run with issues is a list of things worth looking at.</li>
+<li>The phone test uses Chromium’s device emulation, not a physical phone.</li>
+<li>Sites behind aggressive bot protection may have refused the scanner; those show as couldn’t check.</li>
+<li>Registries lag. A district that changed its address recently may have been checked at an older one; the “What we tried” list on each page shows exactly which addresses were used.</li>
+<li>The checks ran over two days, 17 and 18 October 2026. Sites whose first pass was spoiled by a scanner fault (a browser that stopped answering) were re-run on the second day; every page shows its own date.</li>
+<li>Towns with no address in any registry we used are listed as “no website on record”. That is a statement about the registries, not about the town.</li>
+</ul>
+
+<h2>Corrections</h2>
+<p>If you run one of these sites and something here is wrong, <a href="/contact/">tell us</a>. We will re-run the checks and update the page. The raw results are published as JSON and CSV on the <a href="/oklahoma-report-card/data/">data page</a>.</p>
+<p class="small"><a href="/oklahoma-report-card/">Back to the ranking</a></p>
+</main>
+<footer>Oklahoma Public-Entity Website Report Card &middot; an independent, automated reading of public websites, offered for information. Corrections: <a href="/contact/">station.solutions/contact</a><br>
+Station Automations Group LLC &middot; 1856 Branard St, Houston, TX 77098 &middot; Designed &amp; hosted by <a href="https://station.solutions/">Station.Solutions</a></footer>
+</body></html>

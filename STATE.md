@@ -19,6 +19,7 @@ the push.
 | `/partners/` | **Retired 2026-10-07.** Forwards to Partner World (partners.station.solutions, repo `partner-world`). `products.json`, `guide.md` and `agreement.html` in this folder are still served: the engine, Circle and the site read them. The old one-file portal app is in git history. |
 | `/partners/agreement.html` | The signed-policy authority for tracks/rates |
 | `/thanks/`, `/audit` | Funnel pages |
+| `/oklahoma-report-card/` | **Oklahoma Public-Entity Website Report Card** (2026-10-17) — unlisted, noindex, not in the sitemap, linked from nowhere. Deterministic grades for every OK school district, county, city and town website; its own HEAD is `oklahoma-report-card/STATE.md`. |
 | `/website-brief/` | **Prospect brief** — the questionnaire we send someone before drafting a site. Prefill per prospect with `?for=Business&site=example.com&name=&email=`. noindex, linked from nowhere. POSTs JSON to the n8n **`/webhook/client-brief`** workflow (`Station - Client Brief`, id `tdx6Iw4kbqCbJK6m`) → Discord #ops **and** an email to main@station.solutions (SMTP credential `Station briefs (gmail SMTP)`, sending as stationonemain@gmail.com because `secrets/smtp.json` has no app password for main@; Reply-To is set to whoever filled the form in). ⚠️ Do NOT point it at `/webhook/free-audit`: that workflow generates an audit report and emails the lead "Your Station audit for …", which is the wrong reply to a design brief. |
 
 ## Position (2026-09-01)
@@ -369,3 +370,15 @@ it counted ten products, not the twelve the card lists (it left out Slate and Ta
   figure replaces it. The deck's "7-day trials" and "Fourteen products" lines are also stale (out of scope, noted).
 - Verified on the live pages after the Pages rebuild at 375 px and 1440 px with Playwright's own Chromium; link-preflight
   PASS on all seven pages. Before/after screenshots are in the side-session notes folder, `site-fixes-1017/`.
+
+## 2026-10-17 — Oklahoma Public-Entity Website Report Card (`/oklahoma-report-card/`, UNLISTED)
+
+The government lane had zero references, so every Oklahoma school district (NCES CCD, incl. charters),
+all 77 counties and the incorporated cities and towns (Wikidata) had their official website put through
+eight deterministic checks (HTTPS, phone layout, accesslint accessibility, freshness, broken links, contact
+details, speed, accessibility-statement + records/meetings links) with Playwright's own Chromium, robots.txt
+honoured, one request per second per host. A check that could not run is "couldn't check" and excluded —
+never a fail; a site that did not answer to the entity's name is not graded. No LLM in the grading. Pages:
+ranking, one per entity, methodology, data (CSV + JSON). `noindex`, not in `sitemap.xml`, linked from nowhere
+on the site — it goes public only when Circle decides. The feature's own HEAD, the re-run recipe and the
+"before it goes public" list are in `oklahoma-report-card/STATE.md`. Sends nothing, spends nothing.
