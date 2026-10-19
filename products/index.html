@@ -30,8 +30,8 @@
 /* THE BOOK · Station Products. An appointment-book page: hour rail left, scenes in their hour, one phone pinned right showing the client app. The ground goes from day paper to night ink as the Tuesday passes. Accent: bronze on light ground, copper on dark. No yellow anywhere. */
 :root{
  --paper:#F4F2ED;--ink:#16181D;--night:#0B0D10;--night-fg:#E8E6E1;
- --bronze:#8A5A00;--copper:#B5793A;--live:#2FBF71;
- --bg:#F4F2ED;--fg:#16181D;--mute:#6B665B;--rule:#D9D4C7;--accent:#8A5A00;--pane:#FBFAF6;--onaccent:#FFFFFF;
+ --live:#2FBF71;
+ --bg:#F4F2ED;--fg:#16181D;--mute:#6B665B;--rule:#D9D4C7;--accent:#16181D;--pane:#FBFAF6;--onaccent:#F4F2ED;
  --display:Archivo,ui-sans-serif,system-ui,sans-serif;--body:Geist,ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace;
  color-scheme:light;
 }
@@ -41,7 +41,7 @@ body{background:var(--bg);color:var(--fg);font:15px/1.5 var(--body);-webkit-font
 body.dark{color-scheme:dark}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 110;letter-spacing:-.03em;text-wrap:balance}
-h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdth" 92;letter-spacing:-.02em;color:var(--accent)}
+h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdth" 92;letter-spacing:-.02em;color:var(--fg);opacity:.86}
 .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:8px 12px}
 .skip:focus{left:8px;z-index:99}
 .mono{font-family:var(--mono)}
@@ -64,7 +64,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .nav ul a{display:inline-flex;align-items:center;min-height:44px}
 .nav ul li.cta a{color:var(--fg);font-weight:500;border:1px solid var(--fg);border-radius:999px;padding:0 14px;min-height:40px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;border-radius:999px;font:500 14px var(--body);border:1px solid var(--fg);min-height:44px;cursor:pointer;background:transparent;color:var(--fg)}
-.btn.fill{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.btn.fill{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .btn.fill:hover{filter:brightness(1.08)}
 /* PAINTING HERO */
 .phero{position:relative;min-height:min(92svh,860px);display:flex;flex-direction:column;justify-content:flex-start;color:#F4F2ED;overflow:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -132,7 +132,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .cal .s.new.on{transform:none}
 .review{margin-top:10px;border:1px solid #D9D4C7;background:#fff;color:#16181D;padding:9px 11px;opacity:0;transition:.5s;font-size:12.5px}
 .review.on{opacity:1}
-.stars{color:var(--bronze);letter-spacing:2px}
+.stars{color:var(--fg);letter-spacing:2px}
 .log{list-style:none}
 .log li{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed var(--rule);color:var(--mute);transition:.3s;font-size:12.5px}
 .log li.on{color:var(--fg)}.log li.hot{color:var(--accent);font-weight:500}
@@ -173,7 +173,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .phone .sbar{display:flex;justify-content:space-between;padding:12px 18px 6px;font-family:var(--mono);font-size:11px;color:#6B665B}
 .phone .app{padding:8px 14px 14px;display:grid;grid-template-rows:auto 1fr;gap:8px;min-height:0}
 .phone .apphead{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:13px}
-.phone .apphead span{font-family:var(--mono);font-weight:400;font-size:10px;color:#8A5A00;letter-spacing:.06em}
+.phone .apphead span{font:500 10px var(--body);color:#6B665B;letter-spacing:.04em}
 .phone .view{display:none;min-height:0;overflow:hidden}
 .phone .view.on{display:block}
 .phone .thread{display:grid;gap:6px}
@@ -181,16 +181,16 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .phone .ts{font-family:var(--mono);font-size:10px;color:#6B665B;text-align:center;margin-block:2px}
 .phone .row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #E6E1D5;font-size:12px}
 .phone .row b{font-weight:600}
-.phone .pill{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:999px;background:#8A5A00;color:#fff;white-space:nowrap}
+.phone .pill{font:500 10px var(--body);padding:2px 7px;border-radius:999px;background:#16181D;color:#fff;white-space:nowrap}
 .phone .pill.g{background:#2FBF71;color:#0B0D10}
 .phone .tr{font-size:12px;line-height:1.45;color:#2a2c33}
-.phone .tr b{color:#8A5A00;font-weight:600;font-family:var(--mono);font-size:10px;letter-spacing:.06em;display:block;margin-top:6px}
+.phone .tr b{color:#16181D;font-weight:600;font-family:var(--mono);font-size:10px;letter-spacing:.06em;display:block;margin-top:6px}
 .phone .cap{font-family:var(--mono);font-size:10px;color:#6B665B;margin-top:8px;letter-spacing:.06em}
 .phone .big{font:500 30px var(--display);letter-spacing:-.02em;margin-top:6px}
 .phone .big small{display:block;font:11px var(--mono);color:#6B665B;letter-spacing:.06em;margin-top:2px}
 .phone .wk{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:8px}
 .phone .wk i{display:block;height:18px;border:1px solid #D9D4C7;background:#fff;border-radius:2px}
-.phone .wk i.b{background:#D9D4C7}.phone .wk i.n{background:#8A5A00;border-color:#8A5A00}
+.phone .wk i.b{background:#D9D4C7}.phone .wk i.n{background:#16181D;border-color:#16181D}
 /* 9 PM */
 .final{position:relative;padding-block:12vh 10vh;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;min-height:min(90svh,820px);color:#E8E6E1;margin-inline:calc(50% - 50vw);padding-inline:max(calc(50vw - 50%),16px);overflow:hidden}
 .final .art{position:absolute;inset:0;z-index:0}
@@ -200,9 +200,9 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .final .nums,.final .nums div{border-color:rgba(232,230,225,.3)}
 .final .nums .tab,.final p{color:#c9c4b8}
 .final .btn{color:#E8E6E1;border-color:#E8E6E1}
-.final .btn.fill{color:#0B0D10}
+.final .btn.fill{background:#E8E6E1;color:#0B0D10;border-color:#E8E6E1}
 .final h2{font-size:clamp(34px,4.8vw,60px);line-height:1;text-shadow:0 2px 24px rgba(11,13,16,.5)}
-.final h2 em{color:#B5793A}
+.final h2 em{color:#E8E6E1}
 .final .nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .final .nums div{padding:14px 16px;border-right:1px solid var(--rule)}
 .final .nums div:last-child{border-right:0}
@@ -215,37 +215,42 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .sec h2{font-size:clamp(28px,3.6vw,42px);line-height:1.04}
 .sec .lede{color:var(--mute);margin-top:8px;max-width:58ch}
 .bundles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);margin-top:22px}
-.bundle{padding:22px 24px 22px 0;margin-right:24px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:8px}
-.bundle:last-child{border-right:0;margin-right:0}
-.bundle.best{box-shadow:inset 0 3px 0 var(--accent)}
-.bundle .tab{color:var(--accent)}
-.bundle h3{font-size:26px}
-.bundle .price{font:800 34px var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.03em}
+.bundle{display:grid;grid-template-rows:auto auto auto 1fr auto;row-gap:0;padding:22px 24px 24px 0;margin-right:24px;border-right:1px solid var(--rule);min-width:0}
+.bundle:last-child{border-right:0;margin-right:0;padding-right:0}
+.bundle .tab{font:500 13px var(--body);color:var(--mute);min-height:20px}
+.bundle.best .tab{color:var(--fg)}
+.bundle h3{font-size:26px;margin-top:8px}
+.bundle .price{font:800 34px var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.03em;margin-top:8px}
 .bundle .price small{font:13px var(--body);color:var(--mute)}
-.bundle ul{list-style:none;font-size:13.5px;color:var(--mute);display:grid;gap:5px;flex:1}
-.bundle ul li:before{content:"— ";color:var(--accent)}
-.bundle .worth{font-size:13px;color:var(--mute)}
+.bundle ul{list-style:none;margin-top:14px;align-self:start;color:var(--fg);font-size:14.5px}
+.bundle ul li{padding:7px 0;border-top:1px solid var(--rule);line-height:1.35}
+.bundle ul li:last-child{border-bottom:1px solid var(--rule)}
+.bundle ul li:before{content:none}
+.bundle .worth{font-size:13px;line-height:1.5;color:var(--mute);margin-top:14px;height:3em;align-self:end;overflow:hidden}
+.bundle .btn{justify-content:center;margin-top:12px}
+.bundle .btn.o{background:transparent;color:var(--fg);border:1px solid var(--fg)}
 .plans{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .plan-row{display:grid;grid-template-columns:repeat(3,1fr)}
-.plan-h{display:grid;grid-template-columns:auto 1fr 24px;align-items:center;gap:14px;padding:16px 20px 16px 0;min-height:60px;border:0;border-right:1px solid var(--rule);background:transparent;color:var(--fg);font:inherit;text-align:left;cursor:pointer;transition:background .2s}
-.plan-h:last-child{border-right:0}
-.plan-h:hover{background:var(--pane)}
-.plan-h[aria-expanded=true]{background:var(--pane);box-shadow:inset 0 -2px 0 var(--accent)}
-.plan-h:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.plan-h{display:grid;grid-template-columns:auto 1fr 24px;align-items:center;gap:14px;padding:16px 24px 16px 0;margin-right:24px;min-height:60px;border:0;border-right:1px solid var(--rule);background:transparent;color:var(--fg);font:inherit;text-align:left;cursor:pointer;transition:background .2s}
+.plan-h:last-child{border-right:0;margin-right:0;padding-right:0}
+.plan-h:hover .plan-n{text-decoration:underline;text-underline-offset:4px}
+.plan-h[aria-expanded=true]{box-shadow:inset 0 -2px 0 var(--fg)}
+.plan-h:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
 .plan-n{display:flex;align-items:baseline;gap:8px;font:800 22px/1 var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.02em;white-space:nowrap}
 .plan-n small{font:500 14px/1 var(--body);color:var(--mute);margin:0}
 .plan-s{font-size:13px;line-height:1.2;color:var(--mute);text-align:right}
-.plan-h i{font-style:normal;font:300 24px/1 var(--body);color:var(--accent);width:24px;height:24px;display:grid;place-items:center;transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.plan-h i{font-style:normal;font:300 24px/1 var(--body);color:var(--fg);width:24px;height:24px;display:grid;place-items:center;transition:transform .3s cubic-bezier(.22,1,.36,1)}
 .plan-h[aria-expanded=true] i{transform:rotate(135deg)}
 .plan-p{border-top:1px solid var(--rule)}
 .plan-in{padding:22px 0;display:grid;grid-template-columns:1.2fr 1fr;gap:18px 32px;align-items:start}
 .plan-d{font:500 19px/1.35 var(--body);grid-column:1/-1}
-.plan-in ul{list-style:none;display:grid;gap:7px;font-size:14.5px;color:var(--fg)}
-.plan-in ul li:before{content:"\2014  ";color:var(--accent)}
+.plan-in ul{list-style:none;display:grid;gap:0;font-size:14.5px;color:var(--fg)}
+.plan-in ul li{padding:7px 0;border-top:1px solid var(--rule)}
+.plan-in ul li:last-child{border-bottom:1px solid var(--rule)}
+.plan-in ul li:before{content:none}
 .plan-foot{display:grid;gap:12px;justify-items:start;font-size:13px;color:var(--mute)}
 .plan-foot .btn{min-width:160px}
-@media (max-width:900px){
- .phero .proofline,.phero .geoline{white-space:normal;text-align:center;line-height:1.3;padding:7px 12px}.plan-row{grid-template-columns:1fr}.plan-h{border-right:0;border-bottom:1px solid var(--rule)}.plan-row .plan-h:last-child{border-bottom:0}.plan-in{grid-template-columns:1fr}}
+@media (max-width:900px){.plan-row{grid-template-columns:1fr}.plan-h{border-right:0;margin-right:0;padding-right:0;border-bottom:1px solid var(--rule)}.plan-row .plan-h:last-child{border-bottom:0}.plan-in{grid-template-columns:1fr}}
 .setup{display:grid;grid-template-columns:1fr 1.3fr;gap:28px;margin-top:22px;align-items:start}
 .steps{list-style:none;counter-reset:s;display:grid}
 .steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:12px;padding-block:14px;border-top:1px solid var(--rule)}
@@ -316,11 +321,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer nav{display:flex;gap:14px;flex-wrap:wrap}
 footer a:hover{color:var(--fg)}
 /* receipt bar */
-.receipt{position:sticky;bottom:0;z-index:20;background:#16181D;color:#E8E6E1;padding-block:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.6,.2,1)}
+.receipt{position:fixed;left:0;right:0;bottom:0;z-index:20;background:#16181D;color:#E8E6E1;padding-block:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.6,.2,1)}
 .receipt.show{transform:none}
 .receipt .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}
 .receipt b{font-weight:600;color:#fff}
-.receipt .btn{border-color:var(--copper);background:var(--copper);color:#0B0D10;padding:8px 14px;min-height:40px}
+.receipt .btn{border-color:#E8E6E1;background:#E8E6E1;color:#0B0D10;padding:8px 14px;min-height:40px}
 /* chat launcher (from v5.css, same widget as the rest of the site) */
 .chat-fab{position:fixed;right:18px;bottom:18px;z-index:90;width:56px;height:56px;border-radius:50%;
  background:#16181D;color:var(--paper);border:0;cursor:pointer;display:grid;place-items:center;
@@ -343,7 +348,7 @@ footer a:hover{color:var(--fg)}
 .ch-m{max-width:90%;padding:9px 13px;border-radius:12px;font-size:15px;line-height:1.5}
 .ch-m.me{align-self:flex-end;background:#16181D;color:#fff;border-bottom-right-radius:8px}
 .ch-m.biz{align-self:flex-start;background:var(--paper);border:1px solid var(--rule);border-bottom-left-radius:8px;color:#16181D}
-.chat-panel .ch-m.biz a{display:block;margin:6px 0 0;padding:0;border:0;color:#8A5A00;font:600 15px var(--body)}
+.chat-panel .ch-m.biz a{display:block;margin:6px 0 0;padding:0;border:0;color:#16181D;font:600 15px var(--body)}
 .chat-panel .ch-m.biz a:hover{text-decoration:underline;border:0}
 .ch-chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 16px 8px}
 .ch-chips button{border:1px solid var(--rule);background:#fff;border-radius:999px;font:500 13px var(--body);
@@ -357,7 +362,7 @@ footer a:hover{color:var(--fg)}
 .chat-fab .cf-l{color:var(--paper)}
 .chat-fab{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
 .chat-panel{bottom:calc(136px + env(safe-area-inset-bottom,0px))}
-/* cart drawer + consent banner (from v5.css, so the shared scripts render styled here too) */
+/* cart drawer + consent banner, from v5.css */
 .cart-scrim.open{display:block}
 .cart{position:fixed;top:0;right:0;bottom:0;z-index:98;width:min(400px,100vw);background:#fff;
  border-left:1px solid var(--rule);transform:translateX(105%);transition:transform .3s cubic-bezier(.2,.7,.3,1);
@@ -369,7 +374,7 @@ footer a:hover{color:var(--fg)}
 .cart .c-body{flex:1;overflow:auto;padding:14px 22px}
 .cart .c-foot{border-top:1px solid var(--rule);padding:16px 22px 20px}
 .cart .c-note{font-size:13px;color:var(--mute);margin:8px 0 12px;line-height:1.5}
-.cart .c-nudge{background:var(--bg-3);color:#8A5A00;border-radius:12px;padding:11px 14px;font-size:15px;margin-bottom:12px;display:none}
+.cart .c-nudge{background:var(--bg-3);color:#16181D;border-radius:12px;padding:11px 14px;font-size:15px;margin-bottom:12px;display:none}
 .cart .c-nudge.on{display:block}
 .cart .c-empty{color:var(--mute);text-align:center;padding:44px 10px;font-size:15px}
 .consent{background:var(--paper);border-radius:12px;padding:10px 12px;margin:0 0 10px}
@@ -383,21 +388,9 @@ footer a:hover{color:var(--fg)}
  opacity:0;transform:scale(.5);transition:opacity .25s,transform .25s}
 .mq-pl.lit .ck{opacity:1;transform:none}
 .consent label,.consent{min-height:44px}
-/* "SMS terms", "Privacy", "Cookie notice" — inline links inside consent copy. 2.5.8
-   exempts inline links, but these sit in dense small print where a miss is costly, so
-   they get a taller box without disturbing the line: padding cancelled by margin. */
+
 .consent a,.ck-txt a{display:inline-block;padding:6px 3px;margin:-6px -3px}
-/* ===================== CONSENT BANNER =====================
-   analytics.js builds #ck and appends it to <body> with no styles of its own, and
-   nothing here ever styled it — so it shipped as a static div of UA buttons below the
-   footer.
-   Shaped to match .cookiebar (v5.css:536), the other consent card this site already
-   uses: a compact card in the bottom-left corner, not a full-width bar. A full-width
-   bar puts a legal notice on the same visual footing as the page's own content and
-   blocks the whole bottom row; the corner card says the same thing without taking the
-   floor.
-   analytics.js adds `up` two frames after append and removes it 400ms before the
-   element is destroyed, so the transition is timed to that. */
+
 #ck{position:fixed;left:14px;right:auto;bottom:14px;z-index:95;max-width:420px;
  display:flex;flex-direction:column;gap:12px;
  background:#fff;border:1px solid var(--rule);border-radius:18px;padding:16px 18px;
@@ -406,7 +399,7 @@ footer a:hover{color:var(--fg)}
 #ck.up{transform:none}
 #ck .ck-txt{color:var(--mute);font-size:13px;line-height:1.5}
 #ck .ck-txt b{color:#16181D;font-weight:600}
-#ck .ck-txt a{color:#8A5A00;font-weight:600}
+#ck .ck-txt a{color:#16181D;font-weight:600}
 #ck .ck-actions{display:flex;gap:10px}
 #ck .ck-accept,#ck .ck-min{flex:1;font:600 15px var(--display);border-radius:999px;cursor:pointer;
  padding:0 18px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
@@ -418,7 +411,7 @@ footer a:hover{color:var(--fg)}
 #ck .ck-min{background:#fff;color:#16181D;border:1px solid var(--rule);box-shadow:none}
 #ck .ck-min:hover{border-color:var(--mute)}
 #ck .ck-accept:focus-visible,#ck .ck-min:focus-visible{outline:2px solid #16181D;outline-offset:3px}
-/* compact consent on phones: swap the paragraph for one accurate line (2026-08-31 audit) */
+
   #ck .ck-long{display:none}
 #ck .ck-short{display:inline!important}
 .addcart,.pp-bar .btn,.cart .c-go,.co-add,.co-card .co-pay{min-height:44px}
@@ -452,7 +445,7 @@ footer a:hover{color:var(--fg)}
  .final .nums div{border-right:0;border-bottom:1px solid var(--rule)}
  .final .nums div:last-child{border-bottom:0}
  .bundles,.setup,.doors{grid-template-columns:1fr}
- .bundle,.door{border-right:0;border-bottom:1px solid var(--rule)}
+ .bundle,.door{border-right:0;margin-right:0;padding-right:0;border-bottom:1px solid var(--rule)}
  .bundle:last-child,.door:last-child{border-bottom:0}
  .receipt .wrap>div:nth-child(2){display:none}
  .receipt .wrap{flex-wrap:nowrap}
@@ -659,7 +652,7 @@ footer a:hover{color:var(--fg)}
    <ul><li>Lead follow-up by text and email</li><li>Win back old customers</li><li>Email campaigns</li><li>A free Station-built website</li></ul>
    <span class="worth">Worth $538/mo separately</span><a class="btn" href="/#bundles">Start free for 14 days</a></div>
  </div>
- <div class="plans rv d2"><div class="plan-row"><button type="button" class="plan-h" data-plan="core" aria-expanded="false" aria-controls="plan-core"><span class="plan-n">Core <small>$1,297/mo</small></span><span class="plan-s">Standard size</span><i aria-hidden="true">+</i></button><button type="button" class="plan-h" data-plan="pro" aria-expanded="false" aria-controls="plan-pro"><span class="plan-n">Pro <small>$2,197/mo</small></span><span class="plan-s">Busy size, we run social and email</span><i aria-hidden="true">+</i></button><button type="button" class="plan-h" data-plan="max" aria-expanded="false" aria-controls="plan-max"><span class="plan-n">Max <small>$2,797/mo</small></span><span class="plan-s">Top size, custom site</span><i aria-hidden="true">+</i></button></div><div class="plan-p" id="plan-core" role="region" aria-label="Core plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its Standard size, including the AI receptionist.</p><ul><li>All 12 products, one plan, one bill</li><li>AI receptionist, 750 minutes</li><li>A free Station-built website</li></ul><div class="plan-foot"><span>Worth $2,005/mo separately &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Core</a></div></div></div><div class="plan-p" id="plan-pro" role="region" aria-label="Pro plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its busy size, and we run your social and email.</p><ul><li>Everything in Core, at the busy tier</li><li>12 social posts a month, written and posted</li><li>4 email campaigns a month, written and sent</li><li>A free Station-built website</li></ul><div class="plan-foot"><span>Worth $3,072/mo separately &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Pro</a></div></div></div><div class="plan-p" id="plan-max" role="region" aria-label="Max plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its top size, done for you, with a custom-designed site.</p><ul><li>Everything in Pro, at the top tier</li><li>AI receptionist, 2,500 minutes</li><li>Priority support and a quarterly review call</li><li>A custom-designed website</li></ul><div class="plan-foot"><span>Worth $3,472/mo separately, before the website &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Max</a></div></div></div></div>
+ <div class="plans rv d2"><div class="plan-row"><button type="button" class="plan-h" data-plan="core" aria-expanded="false" aria-controls="plan-core"><span class="plan-n">Core <small>$1,297/mo</small></span><span class="plan-s">Standard size</span><i aria-hidden="true">+</i></button><button type="button" class="plan-h" data-plan="pro" aria-expanded="false" aria-controls="plan-pro"><span class="plan-n">Pro <small>$2,197/mo</small></span><span class="plan-s">Busy size, run for you</span><i aria-hidden="true">+</i></button><button type="button" class="plan-h" data-plan="max" aria-expanded="false" aria-controls="plan-max"><span class="plan-n">Max <small>$2,797/mo</small></span><span class="plan-s">Top size, custom site</span><i aria-hidden="true">+</i></button></div><div class="plan-p" id="plan-core" role="region" aria-label="Core plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its Standard size, including the AI receptionist.</p><ul><li>All 12 products, one plan, one bill</li><li>AI receptionist, 750 minutes</li><li>A free Station-built website</li></ul><div class="plan-foot"><span>Worth $2,005/mo separately &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Core</a></div></div></div><div class="plan-p" id="plan-pro" role="region" aria-label="Pro plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its busy size, and we run your social and email.</p><ul><li>Everything in Core, at the busy tier</li><li>12 social posts a month, written and posted</li><li>4 email campaigns a month, written and sent</li><li>A free Station-built website</li></ul><div class="plan-foot"><span>Worth $3,072/mo separately &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Pro</a></div></div></div><div class="plan-p" id="plan-max" role="region" aria-label="Max plan" hidden><div class="plan-in"><p class="plan-d">Every product except Radar, at its top size, done for you, with a custom-designed site.</p><ul><li>Everything in Pro, at the top tier</li><li>AI receptionist, 2,500 minutes</li><li>Priority support and a quarterly review call</li><li>A custom-designed website</li></ul><div class="plan-foot"><span>Worth $3,472/mo separately, before the website &middot; Billed today &middot; 30-day money-back on your first month</span><a class="btn fill" href="/#bundles">Get Max</a></div></div></div></div>
  <p class="tab" style="margin-top:12px">Every plan is month to month · 14-day free trial on products and collections · Core, Pro and Max bill today with a 30-day money-back on the first month</p>
 </section>
 
@@ -720,7 +713,7 @@ footer a:hover{color:var(--fg)}
 </div>
 </main>
 <!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
-<footer class="hwf" id="hwf" style="--hwf-bg:#0B0D10;--hwf-ink:#E8E6E1;--hwf-warm:#B5793A">
+<footer class="hwf" id="hwf" style="--hwf-bg:#0B0D10;--hwf-ink:#E8E6E1;--hwf-warm:#E8E6E1">
  <canvas aria-hidden="true"></canvas>
  <span class="hwf-sr">station</span>
  <div class="hwf-top">
@@ -734,18 +727,19 @@ footer a:hover{color:var(--fg)}
 <style>
 .hwf{position:relative;width:100%;height:560px;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
-.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1168px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
 .hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
 .hwf-brand span{opacity:.62;display:block;margin-top:4px}
+.hwf .hwf-col{display:block;margin:0;padding:0}
 .hwf-col h3{margin:0 0 4px;font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em;opacity:.62}
 .hwf-col ul{list-style:none;margin:0;padding:0}
 .hwf-col a,.hwf-up{color:inherit;text-decoration:none;opacity:.8;background:none;border:0;padding:0;font:inherit;cursor:pointer;background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:opacity .25s ease,background-size .35s cubic-bezier(.2,.7,.1,1);min-height:28px;display:inline-block}
 .hwf-col a:hover,.hwf-up:hover{opacity:1;background-size:100% 1px}
 .hwf-col a:focus-visible,.hwf-up:focus-visible{outline:1px solid currentColor;outline-offset:3px;opacity:1}
-.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1200px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
+.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1168px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
 .hwf-rule span{opacity:.62}
 .hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-@media (max-width:720px){.hwf{height:520px}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
+@media (max-width:720px){.hwf{height:auto;padding-bottom:44vw}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.hwf-col a,.hwf-up{transition:none}}
 </style>
 <script>
@@ -753,7 +747,7 @@ footer a:hover{color:var(--fg)}
  var root=document.getElementById('hwf');if(!root)return;var canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');if(!ctx)return;
  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  var WORD='station',GAP=6,RADIUS=80,CROP=0.2,GRAIN=0.5,FONT='800 100px Archivo, ui-sans-serif, system-ui, sans-serif';
- var BG='#0B0D10',INK=[232,230,225],WARM=[181,121,58],INKS='#E8E6E1';
+ var BG='#0B0D10',INK=[232,230,225],WARM=[255,255,255],INKS='#E8E6E1';
  var w=0,h=0,dpr=1,px=-1e5,py=-1e5,raf=0,visible=true,awake=true,ring={x:0,y:0,t:-1},dots=new Float32Array(0),count=0,grainTile=null;
  function hwfRadius(c,g){c=c<0?0:c>1?1:c;return Math.sqrt(c)*g*0.56}
  function layout(){
@@ -826,7 +820,7 @@ footer a:hover{color:var(--fg)}
   var pane=t<.5?mix('#FBFAF6','#332B22',t*2):mix('#332B22','#14171C',(t-.5)*2);
   root.style.setProperty('--bg',bg);root.style.setProperty('--pane',pane);
   var d=t>.3;if(d!==dark){dark=d;
-   root.style.setProperty('--accent',d?'#B5793A':'#8A5A00');root.style.setProperty('--onaccent',d?'#0B0D10':'#FFFFFF');
+   root.style.setProperty('--accent',d?'#E8E6E1':'#16181D');root.style.setProperty('--onaccent',d?'#0B0D10':'#F4F2ED');
    root.style.setProperty('--fg',d?'#E8E6E1':'#16181D');root.style.setProperty('--mute',d?'#9AA0AA':'#6B665B');root.style.setProperty('--rule',d?'#262B33':'#D9D4C7');
    document.body.classList.toggle('dark',d)}
  }
@@ -838,7 +832,8 @@ footer a:hover{color:var(--fg)}
  ground();
  /* receipt bar after the hero */
  var hero=document.querySelector('.live'),rc=$('receipt');
- function receipt(){if(!hero||!rc)return;rc.classList.toggle('show',window.scrollY>hero.offsetTop+hero.offsetHeight-80)}
+ var foot=document.getElementById('hwf');
+ function receipt(){if(!hero||!rc)return;var past=window.scrollY>hero.offsetTop+hero.offsetHeight-80;var atFoot=foot&&foot.getBoundingClientRect().top<window.innerHeight-20;rc.classList.toggle('show',past&&!atFoot)}
  receipt();
  /* reveals + the pinned phone + the hour rail */
  var rvs=document.querySelectorAll('.rv');
