@@ -771,3 +771,6 @@ html,body{overflow-x:clip}
 .pz-note{display:flex;align-items:center;justify-content:center;min-height:46px;margin-top:8px}
 .pz-card .pz-tag{padding-top:8px}
 .pz .incl{margin-top:28px}.pz .plans{margin-top:28px}
+/* heroes fill the whole screen at every size (Circle 10-19: "I keep seeing edges") */
+.phero{min-height:100vh;min-height:100svh}
+@media (max-width:900px){.phero{min-height:100vh;min-height:100svh}}
