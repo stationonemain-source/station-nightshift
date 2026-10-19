@@ -725,7 +725,7 @@ footer a:hover{color:var(--fg)}
  <div class="hwf-rule"><span>&copy; 2026 Station Automations Group LLC</span><button type="button" class="hwf-up">Back to top &uarr;</button></div>
 </footer>
 <style>
-.hwf{position:relative;width:100%;height:560px;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hwf{position:relative;width:100%;padding-bottom:24vw;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
 .hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1168px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
 .hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
@@ -739,7 +739,7 @@ footer a:hover{color:var(--fg)}
 .hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1168px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
 .hwf-rule span{opacity:.62}
 .hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-@media (max-width:720px){.hwf{height:auto;padding-bottom:44vw}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
+@media (max-width:720px){.hwf{height:auto}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.hwf-col a,.hwf-up{transition:none}}
 </style>
 <script>
@@ -751,12 +751,19 @@ footer a:hover{color:var(--fg)}
  var w=0,h=0,dpr=1,px=-1e5,py=-1e5,raf=0,visible=true,awake=true,ring={x:0,y:0,t:-1},dots=new Float32Array(0),count=0,grainTile=null;
  function hwfRadius(c,g){c=c<0?0:c>1?1:c;return Math.sqrt(c)*g*0.56}
  function layout(){
+  /* the whole word, flush with the content edges, in a band sized to it */
+  var top=root.querySelector('.hwf-top'),r0=root.getBoundingClientRect(),tr=top.getBoundingClientRect();
+  var cw=Math.max(1,tr.width),cx=tr.left-r0.left;
+  var probe=document.createElement('canvas').getContext('2d');probe.font=FONT;
+  var b0=probe.measureText(WORD),gw=(b0.actualBoundingBoxLeft||0)+(b0.actualBoundingBoxRight||b0.width);
+  var fit=cw/Math.max(1,gw)*100,face=FONT.replace('100px',fit.toFixed(2)+'px');probe.font=face;
+  var pb=probe.measureText(WORD),asc=pb.actualBoundingBoxAscent||fit*0.74,desc=pb.actualBoundingBoxDescent||0;
+  var GAPTOP=Math.round(Math.min(40,Math.max(20,cw*0.025))),GAPBOT=Math.round(Math.min(32,Math.max(14,cw*0.02)));
+  var pad=Math.round(asc+desc+GAPTOP+GAPBOT)+'px';if(root.style.paddingBottom!==pad)root.style.paddingBottom=pad;
   var rect=root.getBoundingClientRect();w=Math.max(1,Math.round(rect.width));h=Math.max(1,Math.round(rect.height));dpr=Math.min(window.devicePixelRatio||1,2);
   canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
   var mask=document.createElement('canvas');mask.width=w;mask.height=h;var m=mask.getContext('2d',{willReadFrequently:true});if(!m)return;
-  m.font=FONT;var fit=(w*1.02)/Math.max(1,m.measureText(WORD).width)*100;m.font=FONT.replace('100px',fit+'px');
-  var box=m.measureText(WORD),cap=box.actualBoundingBoxAscent||fit*0.72;
-  m.fillStyle='#000';m.textBaseline='alphabetic';m.fillText(WORD,(w-box.width)/2,h+cap*CROP);
+  m.font=face;m.fillStyle='#000';m.textBaseline='alphabetic';m.fillText(WORD,cx+(pb.actualBoundingBoxLeft||0),h-GAPBOT-desc);
   var img=m.getImageData(0,0,w,h).data,cols=Math.ceil(w/GAP),rows=Math.ceil(h/GAP),tmp=[];
   for(var gy=0;gy<rows;gy++)for(var gx=0;gx<cols;gx++){var sum=0;for(var sy=0;sy<3;sy++)for(var sx=0;sx<3;sx++){var x=Math.min(w-1,Math.floor(gx*GAP+((sx+0.5)*GAP)/3)),y=Math.min(h-1,Math.floor(gy*GAP+((sy+0.5)*GAP)/3));sum+=img[(y*w+x)*4+3]}
    var cov=sum/(9*255);if(cov<0.06)continue;var hx=gx*GAP+GAP/2,hy=gy*GAP+GAP/2;tmp.push(hx,hy,0,0,hx,hy,hwfRadius(cov,GAP))}
