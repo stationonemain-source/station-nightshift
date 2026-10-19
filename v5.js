@@ -74,7 +74,62 @@
   function cartGet(){ var c; try { c = JSON.parse(localStorage.getItem("station_cart") || "[]"); } catch(e){ return []; }
     return (Array.isArray(c) && CATALOG.length) ? c.filter(function(k){ return !!prod(k); }) : (Array.isArray(c) ? c : []); }
   function cartSet(c){ try { localStorage.setItem("station_cart", JSON.stringify(c)); } catch(e){} renderCartBadge(); renderCartBody(); }
-  function cartAdd(k){ var c = cartGet(); if (c.indexOf(k) === -1) c.push(k); cartSet(c); openCart(); }
+  function cartAdd(k, quiet){ var c = cartGet(); if (c.indexOf(k) === -1) c.push(k); cartSet(c); if (!quiet) openCart(); }
+  /* 2026-10-19: Add to cart flies a dot into the cart in the nav, the cart bumps, and a note
+     offers the cart and checkout. No visible cart (scrolled away, reduced motion, old browser)
+     falls back to opening the drawer, so the add is never silent. */
+  var flyCss = false;
+  function flyStyles(){ if (flyCss) return; flyCss = true; var st = document.createElement("style");
+    st.textContent = ".cart-fly-x{position:fixed;left:0;top:0;z-index:9999;pointer-events:none}" +
+      ".cart-fly-y{display:block;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#2D6CDF;box-shadow:0 0 0 3px rgba(255,255,255,.9),0 6px 16px rgba(45,108,223,.55)}" +
+      ".cartbtn.bump{animation:cartbump .5s cubic-bezier(.3,1.6,.5,1)}@keyframes cartbump{0%{transform:scale(1)}35%{transform:scale(1.24)}100%{transform:scale(1)}}" +
+      ".cart-toast{position:fixed;z-index:9998;display:flex;align-items:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;max-width:calc(100vw - 32px);padding:10px 10px 10px 14px;border-radius:14px;background:#F4F2ED;color:#16181D;border:1px solid #D9D4C7;font:500 14px/1.35 Geist,Inter,system-ui,sans-serif;box-shadow:0 18px 40px -14px rgba(0,0,0,.6);opacity:0;transform:translateY(-6px);transition:opacity .2s,transform .25s}" +
+      ".cart-toast.on{opacity:1;transform:none}.cart-toast b{font-weight:600}" +
+      ".cart-toast button,.cart-toast a{font:inherit;font-weight:600;color:#fff;background:#2D6CDF;border:0;border-radius:999px;padding:7px 12px;cursor:pointer;text-decoration:none;white-space:nowrap}" +
+      ".cart-toast button{background:transparent;color:#16181D;box-shadow:inset 0 0 0 1px #C9C3B5}@media(max-width:420px){.cart-toast{white-space:normal;flex-wrap:wrap}}";
+    document.head.appendChild(st); }
+  var toastEl, toastT;
+  function cartToast(k, to){
+    var p = prod(k), nm = p ? p.n : "It";
+    if (!toastEl){ toastEl = document.createElement("div"); toastEl.className = "cart-toast"; toastEl.setAttribute("role", "status");
+      document.body.appendChild(toastEl);
+      toastEl.addEventListener("click", function(e){ if (e.target.closest("button")){ toastEl.classList.remove("on"); renderCartBody(); openCart(); } }); }
+    toastEl.innerHTML = "<span><b>" + nm + "</b> is in your cart</span><button type=\"button\">View cart</button><a href=\"/checkout/\">Checkout &rarr;</a>";
+    var r = to.getBoundingClientRect();
+    toastEl.style.top = Math.round(r.bottom + 10) + "px";
+    toastEl.style.right = Math.max(16, Math.round(window.innerWidth - r.right)) + "px";
+    requestAnimationFrame(function(){ toastEl.classList.add("on"); });
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove("on"); }, 4200);
+  }
+  function flyToCart(from, k, again){
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var hidNav = document.querySelector(".nav.hide");
+    if (hidNav && hidNav.querySelector(".cartbtn") && !again){ hidNav.classList.remove("hide"); setTimeout(function(){ flyToCart(from, k, true); }, 320); return; }
+    var to = [].slice.call(document.querySelectorAll(".cartbtn")).filter(function(b){
+      var r = b.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < window.innerHeight; })[0];
+    if (!to || !from || !from.getBoundingClientRect || !Element.prototype.animate){ cartAdd(k); return; }
+    flyStyles();
+    if (reduce){ cartAdd(k, true); cartToast(k, to); return; }
+    var a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+    var x0 = a.left + a.width / 2, y0 = a.top + a.height / 2, dx = b.left + b.width / 2 - x0, dy = b.top + b.height / 2 - y0;
+    var lift = Math.max(60, Math.min(180, Math.abs(dy) * .3 + 50));
+    var ox = document.createElement("span"); ox.className = "cart-fly-x";
+    var oy = document.createElement("span"); oy.className = "cart-fly-y"; ox.appendChild(oy);
+    ox.style.transform = "translate(" + x0 + "px," + y0 + "px)"; document.body.appendChild(ox);
+    var dur = 720;
+    ox.animate([{ transform: "translate(" + x0 + "px," + y0 + "px)" }, { transform: "translate(" + (x0 + dx) + "px," + y0 + "px)" }],
+      { duration: dur, easing: "cubic-bezier(.4,0,.6,1)", fill: "forwards" });
+    var peak = Math.min(0, dy) - lift;
+    oy.animate([{ transform: "translateY(0) scale(1)", easing: "cubic-bezier(.2,.7,.4,1)" },
+                { transform: "translateY(" + peak + "px) scale(1.2)", offset: .38, easing: "cubic-bezier(.6,0,.85,.45)" },
+                { transform: "translateY(" + dy + "px) scale(.5)" }],
+      { duration: dur, fill: "forwards" }).onfinish = function(){
+        ox.remove(); cartAdd(k, true);
+        to.classList.remove("bump"); void to.offsetWidth; to.classList.add("bump");
+        setTimeout(function(){ to.classList.remove("bump"); }, 600);
+        cartToast(k, to);
+      };
+  }
   function cartRemove(k){ cartSet(cartGet().filter(function(x){ return x !== k; })); }
   function renderCartBadge(){
     var n = cartGet().length;
@@ -141,7 +196,7 @@
     });
     document.addEventListener("click", function(e){
       var add = e.target.closest && e.target.closest("[data-add]");
-      if (add){ e.preventDefault(); cartAdd(add.getAttribute("data-add")); return; }
+      if (add){ e.preventDefault(); flyToCart(add, add.getAttribute("data-add")); return; }
       /* Buy-now used to be a raw buy.stripe.com payment link sitting next to Add to
          cart — a second, separate Stripe configuration for the same product. They had
          already drifted: six products advertise "free for 7 days" and the payment link

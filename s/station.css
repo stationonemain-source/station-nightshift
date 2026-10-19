@@ -137,7 +137,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .nav:not(.solid) .navbtn,.nav:not(.solid) .cartbtn,.nav:not(.solid) .hamb{color:#F4F2ED;background:rgba(11,13,16,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 0 0 1px rgba(244,242,237,.34),0 6px 18px rgba(11,13,16,.22);text-shadow:none}
 .nav:not(.solid) .navbtn:hover,.nav:not(.solid) .cartbtn:hover,.nav:not(.solid) .hamb:hover{background:rgba(11,13,16,.34)}
 .nav .mega,.nav .mega a,.nav .mega span{text-shadow:none}
-.nav.solid .home,.nav.solid .mark{color:var(--ink)}
+.nav.solid .home,.nav.solid .mark{color:var(--fg)}
 @media(max-width:760px){.nav:not(.solid) .cartbtn,.nav:not(.solid) .hamb,.nav:not(.solid) .navbtn{background:rgba(11,13,16,.42)}}
 @media (max-width:480px){.nav a.home span{display:none}}
 /* PAINTING HERO */
@@ -608,3 +608,60 @@ footer a:hover{color:var(--fg)}
 @media (max-width:940px){.nav .navbtn{display:none}}
 .receipt .btn{white-space:nowrap;flex:0 0 auto}
 .sb-in input::-webkit-search-cancel-button,.sb-in input::-webkit-search-decoration{-webkit-appearance:none;appearance:none}
+/* BLUE: the one colour that means "act" and "it happened" */
+:root{--blue:#2D6CDF;--blue-hi:#4A86F0;--blue-lo:#2257BD;--on-blue:#FFFFFF}
+.pc-act .btn.glass.addcart{color:var(--on-blue);background:linear-gradient(180deg,var(--blue-hi) 0%,var(--blue) 55%,var(--blue-lo) 100%);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 -2px 6px -2px rgba(0,0,0,.25),0 8px 20px -10px rgba(45,108,223,.9)}
+.pc-act .btn.glass.addcart:hover{background:linear-gradient(180deg,#5A92F3 0%,var(--blue-hi) 55%,var(--blue) 100%)}
+.pc-act .addcart.in{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.75),0 8px 20px -10px rgba(45,108,223,.9)}
+.bubble.me,.frames .mini.me{background:var(--blue);border-color:var(--blue);color:var(--on-blue)}
+.cal .s.new{background:var(--blue);border-color:var(--blue)}
+.phone .wk i.n{background:var(--blue);border-color:var(--blue)}
+.phone .pill{background:var(--blue)}
+/* the phone: a real app shape, sized to its screens */
+.phone{aspect-ratio:9/16.6}
+.phone .scr{grid-template-rows:auto 1fr auto}
+.phone .tabbar{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #E6E1D5;padding:7px 6px 12px;background:#FBFAF6}
+.phone .tabbar span{display:flex;flex-direction:column;align-items:center;gap:3px;font:500 10px/1 var(--body);color:#8C877B}
+.phone .tabbar svg{width:18px;height:18px}
+.phone .tabbar span.on{color:var(--blue)}
+/* hero, second row: solid bubbles, not glass */
+.phero .proofline,.phero .geoline{background:#16181D;backdrop-filter:none;-webkit-backdrop-filter:none;color:#F4F2ED;text-shadow:none;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.4),0 8px 22px -10px rgba(11,13,16,.75)}
+.phero .geoline a{color:#fff;border-bottom-color:rgba(255,255,255,.55)}
+/* cart drawer lines (from v5.css) */
+.c-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.c-item img{width:64px;height:44px;object-fit:cover;border-radius:8px}
+.c-item .ci-n{font:600 15px var(--fd)}
+.c-item .ci-p{color:var(--muted);font-size:13px}
+.c-item .ci-x{margin-left:auto;background:none;border:0;color:var(--faint);cursor:pointer;font-size:15px;padding:6px}
+.c-item .ci-x:hover{color:var(--red)}
+.c-item .ci-m{min-width:0}
+.c-item .ci-s{color:var(--faint);font-size:13px}
+.c-rows{display:grid;gap:6px;margin-bottom:10px}
+.c-row{display:flex;justify-content:space-between;font-size:15px;color:var(--muted)}
+.c-row b{color:var(--ink)}
+.c-row.tr b{color:var(--good)}
+.c-item img{display:none}
+.c-item{min-height:56px}
+/* end cart lines */
+/* the solid nav follows the page: paper by day, night after nine */
+.nav.solid .mtop,.nav.solid .searchbtn{color:color-mix(in srgb,var(--fg) 78%,transparent)}
+.nav.solid .mtop:hover,.nav.solid .searchbtn:hover{color:var(--fg)}
+.nav.solid .cartbtn,.nav.solid .navbtn,.nav.solid .hamb{color:var(--fg);backdrop-filter:none;-webkit-backdrop-filter:none;
+ background:linear-gradient(180deg,color-mix(in srgb,var(--fg) 12%,transparent),color-mix(in srgb,var(--fg) 4%,transparent));
+ box-shadow:inset 0 1px 0 color-mix(in srgb,var(--fg) 28%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--fg) 20%,transparent)}
+.nav.solid .cartbtn .n{background:var(--blue);color:#fff;box-shadow:none}
+/* phone screens: sized so no screen sits half empty */
+.phone{aspect-ratio:9/15.8}
+.phone .app{grid-template-rows:auto auto 1fr}
+.phone .today{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:8px 10px;border-radius:10px;background:#E9E6DE;font-size:10px;color:#6B665B}
+.phone .today span{grid-column:1/-1;font-weight:600;color:#16181D;font-size:11px}
+.phone .today div{display:flex;flex-direction:column;gap:1px}
+.phone .today b{font:800 16px/1.1 var(--display);color:#16181D;font-variant-numeric:tabular-nums}
+.phone .app[data-v="v1"] .today,.phone .app:not([data-v]) .today,.phone .app[data-v="v7"] .today{display:none}
+.phone .hrs{margin-top:12px}
+.phone .hrs .hl{font-size:11px;color:#6B665B}
+.phone .hb{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;align-items:end;height:54px;margin-top:6px;border-bottom:1px solid #D9D4C7}
+.phone .hb i{display:block;height:calc(var(--h)*16px + 2px);background:var(--blue);border-radius:2px 2px 0 0;opacity:.9}
+.phone .hx{display:flex;justify-content:space-between;font-size:10px;color:#8C877B;margin-top:3px}
