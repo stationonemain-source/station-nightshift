@@ -115,17 +115,17 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .pane{background:var(--pane);border:1px solid var(--rule);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr 1fr;font-size:13px;min-height:500px}
 .pane>div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:14px 16px;overflow:hidden;min-width:0}
 .pane>div:nth-child(2n){border-right:0}
-.pane .top{grid-column:1/3;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;color:var(--mute)}
-.pane .clock{font:500 22px var(--mono);color:var(--fg);font-variant-numeric:tabular-nums}
+.pane .top{grid-column:1/3;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;color:var(--mute);font:400 13px var(--body)}
+.pane .clock{font:800 22px var(--display);letter-spacing:-.02em;color:var(--fg);font-variant-numeric:tabular-nums}
 .tally{display:flex;gap:22px;flex-wrap:wrap}
 .tally b{display:block;color:var(--fg);font-weight:500;font-size:16px;font-variant-numeric:tabular-nums}
-.label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--mute);margin-bottom:10px}
+.label{display:flex;justify-content:space-between;font:500 12.5px var(--body);color:var(--mute);margin-bottom:10px}
 .label .who{color:var(--fg)}
 .bubble{max-width:84%;padding:7px 11px;border:1px solid #D9D4C7;border-radius:12px;margin-bottom:7px;background:#fff;color:#16181D;opacity:0;transform:translateY(6px);transition:.4s}
 .bubble.me{margin-left:auto;background:#16181D;color:#F4F2ED;border-color:#16181D}
 .bubble.on{opacity:1;transform:none}
 .cal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
-.cal .d{font-family:var(--mono);font-size:10px;color:var(--mute);text-align:center}
+.cal .d{font:500 11px var(--body);color:var(--mute);text-align:center}
 .cal .s{height:20px;border:1px solid var(--rule);background:#fff;border-radius:2px}
 .cal .s.busy{background:var(--rule)}
 .cal .s.new{background:var(--accent);border-color:var(--accent);transform:scaleY(0);transform-origin:top;transition:.4s}
@@ -253,7 +253,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .steps li b{display:block;font-weight:500}
 .steps li span{grid-column:2;color:var(--mute);font-size:14px}
 .win{border:1px solid var(--rule);background:var(--pane);overflow:hidden;color:var(--fg);border-radius:6px}
-.win .bar{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;color:var(--mute)}
+.win .bar{display:flex;gap:6px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--rule);font:500 12px var(--body);color:var(--mute)}
 .win .bar i{width:9px;height:9px;border-radius:50%;background:var(--rule)}
 .portal{display:grid;grid-template-columns:150px 1fr;min-height:280px}
 .portal .side{border-right:1px solid var(--rule);padding:12px 0;font-size:13px}
@@ -263,8 +263,8 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .portal .main .h4{font:400 18px var(--display);margin-bottom:12px}
 .calls{width:100%;border-collapse:collapse;font-size:12.5px;color:inherit}
 .calls td,.calls th{padding:7px 8px;border-bottom:1px solid var(--rule);text-align:left}
-.calls th{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--mute)}
-.calls .pill{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:999px;background:var(--accent);color:var(--onaccent)}
+.calls th{font:500 12px var(--body);color:var(--mute)}
+.calls .pill{font:500 11.5px var(--body);padding:2px 8px;border-radius:999px;background:var(--accent);color:var(--onaccent)}
 .calls .pill.m{background:transparent;border:1px solid var(--rule);color:var(--mute)}
 /* FAQ: category tabs with a sliding highlight, rounded rows, rotating plus (ported from 21st.dev faq-tabs) */
 .faqs{position:relative;overflow:hidden}
@@ -311,9 +311,7 @@ h1 em,h2 em,h3 em{font-style:normal;font-weight:400;font-variation-settings:"wdt
 .ps p{font-size:18px;line-height:1.55;color:var(--fg)}
 .ps b{font-family:var(--display);font-weight:800;font-size:20px}
 .ps .ctas{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
-footer{padding-block:34px 56px;color:#E8E6E1;font-size:13px}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
-footer nav{display:flex;gap:16px;flex-wrap:wrap}
+
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 footer nav{display:flex;gap:14px;flex-wrap:wrap}
 footer a:hover{color:var(--fg)}
@@ -321,7 +319,7 @@ footer a:hover{color:var(--fg)}
 .receipt{position:sticky;bottom:0;z-index:20;background:#16181D;color:#E8E6E1;padding-block:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateY(100%);transition:transform .4s cubic-bezier(.2,.6,.2,1)}
 .receipt.show{transform:none}
 .receipt .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}
-.receipt b{font-family:var(--mono);font-weight:500;color:#fff}
+.receipt b{font-weight:600;color:#fff}
 .receipt .btn{border-color:var(--copper);background:var(--copper);color:#0B0D10;padding:8px 14px;min-height:40px}
 /* chat launcher (from v5.css, same widget as the rest of the site) */
 .chat-fab{position:fixed;right:18px;bottom:18px;z-index:90;width:56px;height:56px;border-radius:50%;
@@ -542,7 +540,7 @@ footer a:hover{color:var(--fg)}
   </article>
   <article class="scene" data-view="v2" data-t="8:15" data-ap="AM" data-a="1" data-b="2" data-c="$0" data-d="0" data-h="8">
    <span class="when">8:15 AM · The phone</span>
-   <h2 class="rv"><span data-k="ask2">Someone asks about tankless installs.</span> <em>You're driving.</em></h2>
+   <h2 class="rv"><span data-k="ask2">Someone asks about tankless installs.</span> You're driving.</h2>
    <p class="rv d1">Frontdesk picks up on the second ring. It knows your hours and your services, books into your calendar, and never quotes a price you haven't allowed.</p>
    <div class="frames rv d2"><div><span class="tab">8:15:02</span><span class="mini me"><span data-k="ask">Do you do tankless installs?</span></span></div><div><span class="tab">8:15:30</span><span class="mini">We do. Thursday at 2 is open, want me to hold it?</span></div><div><span class="tab">8:16</span><b>Booked Thu 2 PM.</b> Transcript in your app.</div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Call transcript, 8:15 AM. Caller asked about tankless. Held Thursday 2 PM. Confirmation text sent.</div>
@@ -550,7 +548,7 @@ footer a:hover{color:var(--fg)}
   </article>
   <article class="scene" data-view="v3" data-t="11:03" data-ap="AM" data-a="3" data-b="2" data-c="$0" data-d="0" data-h="11">
    <span class="when">11:03 AM · On the way</span>
-   <h2 class="rv"><span data-k="name">Dale</span> is twenty minutes out. <em>The customer already knows.</em></h2>
+   <h2 class="rv"><span data-k="name">Dale</span> is twenty minutes out. The customer already knows.</h2>
    <p class="rv d1">The reminder went last night. The on-my-way text goes now, from your business number. No-shows this week: zero.</p>
    <div class="frames rv d2"><div><span class="tab">Last night</span><span class="mini">Reminder: <span data-k="name">Dale</span>, tomorrow 1 to 3. Reply C to change.</span></div><div><span class="tab">11:03</span><span class="mini"><span data-k="name">Dale</span>'s on the way, about 20 min.</span></div><div><span class="tab">No-shows</span><b>0 this week.</b> Last month: 4.</div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Booking &amp; Reminders: Tuesday, 6 booked by text. Reminder and on-my-way messages sent.</div>
@@ -558,7 +556,7 @@ footer a:hover{color:var(--fg)}
   </article>
   <article class="scene" data-view="v4" data-t="1:31" data-ap="PM" data-a="5" data-b="3" data-c="$420" data-d="0" data-h="13">
    <span class="when">1:30 PM · The job is done</span>
-   <h2 class="rv">Paid before the van <em>leaves the drive.</em></h2>
+   <h2 class="rv">Paid before the van leaves the drive.</h2>
    <p class="rv d1"><span data-k="name">Dale</span> taps the invoice on his phone. The customer taps the link. Station takes zero percent of it.</p>
    <div class="frames rv d2"><div><span class="tab">1:30:40</span><span class="mini me">Pay $420 · link</span></div><div><span class="tab">1:31</span><b>Paid.</b></div><div><span class="tab">1:34</span><span class="mini">How did <span data-k="name">Dale</span> do? One tap: ★★★★★</span></div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Invoice #1042, $420, paid 1:31 PM. Review request sent 1:34 PM.</div>
@@ -574,7 +572,7 @@ footer a:hover{color:var(--fg)}
   </article>
   <article class="scene" data-view="v6" data-t="6:00" data-ap="PM" data-a="12" data-b="5" data-c="$1,420" data-d="1" data-h="18">
    <span class="when">6:00 PM · The customers you forgot</span>
-   <h2 class="rv">312 people who haven't called in a year <em>get one email.</em></h2>
+   <h2 class="rv">312 people who haven't called in a year get one email.</h2>
    <p class="rv d1">Revive writes to your old list in your words. Nine reply. Four book. From a spreadsheet you already had.</p>
    <div class="frames rv d2"><div><span class="tab">Email 1 of 3</span><span class="mini"><span data-k="winback">It's been a while. Furnace check before winter?</span></span></div><div><span class="tab">Replies</span><b>9</b></div><div><span class="tab">Booked</span><b>4 jobs.</b></div></div>
    <div class="inphone"><span class="tab">On your phone · the Station app</span>Win-back campaign: 312 sent, 9 replies, 4 booked. Email 2 goes Thursday.</div>
@@ -721,73 +719,91 @@ footer a:hover{color:var(--fg)}
 </section>
 </div>
 </main>
-<div class="dock"><div class="water"><svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q150 30 300 40 T600 40 T900 40 T1200 40" fill="none" stroke="rgba(232,230,225,.14)" stroke-width="1.5"/><path d="M0 70 Q150 60 300 70 T600 70 T900 70 T1200 70" fill="none" stroke="rgba(232,230,225,.10)" stroke-width="1.5"/><path d="M0 100 Q150 90 300 100 T600 100 T900 100 T1200 100" fill="none" stroke="rgba(232,230,225,.07)" stroke-width="1.5"/></svg><div class="slip"></div><span class="piling"></span><span class="piling"></span><span class="piling"></span><span class="piling"></span><span class="rope"></span></div><div class="deck"><footer><div class="wrap">
- <span>© 2026 Station Automations Group LLC · <a href="/">station.solutions</a></span>
- <nav aria-label="Legal"><a href="/legal/privacy.html">Privacy</a><a href="/legal/tos.html">Terms</a><a href="/legal/sms-terms.html">SMS terms</a><a href="/legal/cancellation.html">Cancellation</a><a href="/legal/cookies.html">Cookies</a><a href="/legal/accessibility.html">Accessibility</a><a href="/contact/">Contact</a><a href="/partners/">Partners</a></nav>
-</div></footer></div></div>
-<aside class="receipt" id="receipt" aria-live="polite" aria-label="Your front office so far"><div class="wrap"><div>ANSWER COLLECTION · <b>$297/mo</b> · about <b>$9.90</b> a day</div><div>ONE $425 JOB A MONTH <b>COVERS IT</b></div><a class="btn" href="#collections">Start free</a></div></aside>
-
-<!-- THE YACHT: sails down the right edge as you scroll and docks at the footer. Pure CSS/JS, one SVG. -->
-<div class="yacht" id="yacht" aria-hidden="true">
- <svg viewBox="0 0 120 110" width="86" height="79">
-  <g class="hull-rock">
-   <path d="M38 12 L38 68" stroke="#F4F2ED" stroke-width="2.4" stroke-linecap="round"/>
-   <path d="M40 14 L40 60 L86 60 Z" fill="#F4F2ED" opacity=".95"/>
-   <path d="M36 18 L36 58 L12 58 Z" fill="#E8E6E1" opacity=".9"/>
-   <path d="M6 68 Q60 60 114 68 L104 84 Q60 90 16 84 Z" fill="#16181D" stroke="#F4F2ED" stroke-width="1.5"/>
-   <rect x="50" y="62" width="22" height="7" rx="2" fill="#B5793A"/>
-  </g>
-  <path class="wake" d="M4 92 Q30 86 56 92 T108 92" fill="none" stroke="#F4F2ED" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
- </svg>
-</div>
+<!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
+<footer class="hwf" id="hwf" style="--hwf-bg:#0B0D10;--hwf-ink:#E8E6E1;--hwf-warm:#B5793A">
+ <canvas aria-hidden="true"></canvas>
+ <span class="hwf-sr">station</span>
+ <div class="hwf-top">
+  <div class="hwf-brand"><strong>Station</strong><span>Station Automations Group LLC &middot; Norman, Oklahoma</span></div>
+  <nav class="hwf-col" aria-label="Products"><h3>Products</h3><ul><li><a href="/products/">The fourteen</a></li><li><a href="/products/#collections">Collections &amp; plans</a></li><li><a href="/audit/">Free audit</a></li><li><a href="/ai-check/">AI visibility check</a></li></ul></nav>
+  <nav class="hwf-col" aria-label="Company"><h3>Company</h3><ul><li><a href="/custom/">Solutions</a></li><li><a href="/contact/">Security</a></li><li><a href="/partners/">Partners</a></li><li><a href="/book/">Book a call</a></li></ul></nav>
+  <nav class="hwf-col" aria-label="Legal"><h3>Legal</h3><ul><li><a href="/legal/privacy.html">Privacy</a></li><li><a href="/legal/tos.html">Terms</a></li><li><a href="/legal/sms-terms.html">SMS terms</a></li><li><a href="/legal/cancellation.html">Cancellation</a></li><li><a href="/legal/cookies.html">Cookies</a></li><li><a href="/legal/accessibility.html">Accessibility</a></li></ul></nav>
+ </div>
+ <div class="hwf-rule"><span>&copy; 2026 Station Automations Group LLC</span><button type="button" class="hwf-up">Back to top &uarr;</button></div>
+</footer>
 <style>
-.yacht{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:18vh;z-index:25;pointer-events:none;will-change:transform;opacity:0;transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
-.yacht.sail,.yacht.docked{opacity:1}
-.yacht svg{display:block;filter:drop-shadow(0 6px 14px rgba(11,13,16,.35))}
-.yacht .hull-rock{transform-origin:60px 70px;animation:rock 4.2s ease-in-out infinite}
-.yacht .wake{animation:wake 2.6s ease-in-out infinite}
-.yacht.docked{position:absolute;top:auto;right:auto;transition:none}
-.yacht.docked .hull-rock{animation-duration:6s}
-@keyframes rock{0%,100%{transform:rotate(-2.2deg) translateY(0)}50%{transform:rotate(2.2deg) translateY(2px)}}
-@keyframes wake{0%,100%{opacity:.35;transform:translateX(0)}50%{opacity:.7;transform:translateX(-3px)}}
-@media (max-width:820px){.yacht svg{width:54px;height:50px}.yacht.sail:not(.docked){opacity:0}}
-@media (prefers-reduced-motion:reduce){.yacht .hull-rock,.yacht .wake{animation:none}.yacht{transition:none}}
-/* THE DOCK: water, pilings, a plank deck the footer sits on */
-.dock{position:relative;background:#0B0D10;overflow:hidden}
-.dock .water{position:relative;height:120px;background:linear-gradient(180deg,#0B0D10 0%,#0F1620 60%,#101A26 100%)}
-.dock .water svg{position:absolute;inset:0;width:100%;height:100%}
-.dock .slip{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:28px;width:86px;height:1px}
-.dock .piling{position:absolute;bottom:0;width:14px;height:64px;background:linear-gradient(90deg,#3A2E22,#5A4634 55%,#2E241B);border-radius:3px 3px 0 0}
-.dock .piling:nth-child(1){left:8%}.dock .piling:nth-child(2){left:30%}.dock .piling:nth-child(3){left:55%}.dock .piling:nth-child(4){left:78%}
-.dock .rope{position:absolute;left:8%;right:22%;bottom:40px;height:14px;border-bottom:2px solid #8A6A48;border-radius:0 0 50% 50%/0 0 100% 100%;opacity:.7}
-.dock .deck{position:relative;background:repeating-linear-gradient(90deg,#3B2F23 0 118px,#2B2219 118px 122px);color:#E8E6E1;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)}
-.dock .deck:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(180deg,#6B553E,#4A3A2B)}
-.dock .deck a{color:#E8E6E1}
-.dock .deck a:hover{color:#fff;text-decoration:underline}
-.dock .deck .f-in,.dock .deck .wrap{position:relative}
-@media (prefers-reduced-motion:reduce){.dock .water svg{display:none}}
+.hwf{position:relative;width:100%;height:560px;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
+.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
+.hwf-brand span{opacity:.5;display:block;margin-top:4px}
+.hwf-col h3{margin:0 0 4px;font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em;opacity:.45}
+.hwf-col ul{list-style:none;margin:0;padding:0}
+.hwf-col a,.hwf-up{color:inherit;text-decoration:none;opacity:.8;background:none;border:0;padding:0;font:inherit;cursor:pointer;background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:opacity .25s ease,background-size .35s cubic-bezier(.2,.7,.1,1);min-height:28px;display:inline-block}
+.hwf-col a:hover,.hwf-up:hover{opacity:1;background-size:100% 1px}
+.hwf-col a:focus-visible,.hwf-up:focus-visible{outline:1px solid currentColor;outline-offset:3px;opacity:1}
+.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1200px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
+.hwf-rule span{opacity:.5}
+.hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (max-width:720px){.hwf{height:520px}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.hwf-col a,.hwf-up{transition:none}}
 </style>
 <script>
 (function(){
- var y=document.getElementById('yacht'),dock=document.querySelector('.dock .slip');if(!y||!dock)return;
- var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var docked=false;
- var hero=document.querySelector('.phero');
- function place(){
-  var past=!hero||window.scrollY>hero.offsetHeight-120;y.classList.toggle('sail',past);
-  var max=document.documentElement.scrollHeight-window.innerHeight;var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
-  var r=dock.getBoundingClientRect();var h=y.offsetHeight||80;
-  var travelTop=window.innerHeight*0.16,travelBot=window.innerHeight*0.78-h;
-  var want=travelTop+(travelBot-travelTop)*p;
-  var slipY=r.top-h+10;
-  if(slipY<=want){ if(!docked){docked=true;y.classList.add('docked');dock.appendChild(y);y.style.transform='translateY(-'+(h-10)+'px)';y.style.right='0'} }
-  else { if(docked){docked=false;y.classList.remove('docked');document.body.appendChild(y);y.style.right=''} y.style.transform='translateY('+(want-travelTop)+'px)'; }
+ var root=document.getElementById('hwf');if(!root)return;var canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');if(!ctx)return;
+ var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var WORD='station',GAP=6,RADIUS=80,CROP=0.2,GRAIN=0.5,FONT='800 100px Archivo, ui-sans-serif, system-ui, sans-serif';
+ var BG='#0B0D10',INK=[232,230,225],WARM=[181,121,58],INKS='#E8E6E1';
+ var w=0,h=0,dpr=1,px=-1e5,py=-1e5,raf=0,visible=true,awake=true,ring={x:0,y:0,t:-1},dots=new Float32Array(0),count=0,grainTile=null;
+ function hwfRadius(c,g){c=c<0?0:c>1?1:c;return Math.sqrt(c)*g*0.56}
+ function layout(){
+  var rect=root.getBoundingClientRect();w=Math.max(1,Math.round(rect.width));h=Math.max(1,Math.round(rect.height));dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+  var mask=document.createElement('canvas');mask.width=w;mask.height=h;var m=mask.getContext('2d',{willReadFrequently:true});if(!m)return;
+  m.font=FONT;var fit=(w*1.02)/Math.max(1,m.measureText(WORD).width)*100;m.font=FONT.replace('100px',fit+'px');
+  var box=m.measureText(WORD),cap=box.actualBoundingBoxAscent||fit*0.72;
+  m.fillStyle='#000';m.textBaseline='alphabetic';m.fillText(WORD,(w-box.width)/2,h+cap*CROP);
+  var img=m.getImageData(0,0,w,h).data,cols=Math.ceil(w/GAP),rows=Math.ceil(h/GAP),tmp=[];
+  for(var gy=0;gy<rows;gy++)for(var gx=0;gx<cols;gx++){var sum=0;for(var sy=0;sy<3;sy++)for(var sx=0;sx<3;sx++){var x=Math.min(w-1,Math.floor(gx*GAP+((sx+0.5)*GAP)/3)),y=Math.min(h-1,Math.floor(gy*GAP+((sy+0.5)*GAP)/3));sum+=img[(y*w+x)*4+3]}
+   var cov=sum/(9*255);if(cov<0.06)continue;var hx=gx*GAP+GAP/2,hy=gy*GAP+GAP/2;tmp.push(hx,hy,0,0,hx,hy,hwfRadius(cov,GAP))}
+  dots=new Float32Array(tmp);count=tmp.length/7;
+  grainTile=document.createElement('canvas');grainTile.width=256;grainTile.height=256;var g=grainTile.getContext('2d');
+  if(g){var id=g.createImageData(256,256);for(var i=0;i<id.data.length;i+=4){var v=Math.random()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=Math.random()<0.5?0:255}g.putImageData(id,0,0)}
+  awake=true;
  }
- if(reduce){docked=true;y.classList.add('docked');dock.appendChild(y);y.style.transform='translateY(-'+((y.offsetHeight||80)-10)+'px)';return}
- var t=false;function onS(){if(t)return;t=true;requestAnimationFrame(function(){place();t=false})}
- window.addEventListener('scroll',onS,{passive:true});window.addEventListener('resize',place);place();
+ function draw(now){
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle=BG;ctx.fillRect(0,0,w,h);
+  var r=!reduced?RADIUS:0,ringAge=ring.t<0?1e9:now-ring.t,ringR=ringAge*0.9,moving=false;
+  for(var i=0;i<count;i++){var j=i*7,x=dots[j],y=dots[j+1],vx=dots[j+2],vy=dots[j+3],hx=dots[j+4],hy=dots[j+5];
+   if(!reduced){
+    if(ringAge<900){var dx0=hx-ring.x,dy0=hy-ring.y,d0=Math.sqrt(dx0*dx0+dy0*dy0)+0.001,band=1-Math.min(1,Math.abs(d0-ringR)/26);if(band>0){var f0=band*3.2*(1-ringAge/900);vx+=(dx0/d0)*f0;vy+=(dy0/d0)*f0}}
+    var dx=x-px,dy=y-py,d2=dx*dx+dy*dy;if(r>0&&d2<r*r){var d=Math.sqrt(d2)+0.001,f=(1-d/r)*2.6;vx+=(dx/d)*f;vy+=(dy/d)*f}
+    vx=(vx+(hx-x)*0.05)*0.84;vy=(vy+(hy-y)*0.05)*0.84;x+=vx;y+=vy;
+    if(Math.abs(vx)+Math.abs(vy)>0.02||Math.abs(x-hx)+Math.abs(y-hy)>0.05)moving=true;else{x=hx;y=hy;vx=0;vy=0}
+    dots[j]=x;dots[j+1]=y;dots[j+2]=vx;dots[j+3]=vy}
+   var k=Math.min(1,Math.hypot(x-hx,y-hy)/28);
+   ctx.fillStyle=k>0.02?'rgb('+Math.round(INK[0]+(WARM[0]-INK[0])*k)+','+Math.round(INK[1]+(WARM[1]-INK[1])*k)+','+Math.round(INK[2]+(WARM[2]-INK[2])*k)+')':INKS;
+   ctx.beginPath();ctx.arc(x,y,dots[j+6],0,6.2832);ctx.fill()}
+  if(grainTile&&GRAIN>0){ctx.globalAlpha=GRAIN*0.09;ctx.globalCompositeOperation='overlay';var pat=ctx.createPattern(grainTile,'repeat');if(pat){ctx.fillStyle=pat;ctx.fillRect(0,0,w,h)}ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over'}
+  awake=moving||ringAge<900||px>-1e4;
+ }
+ function loop(now){raf=0;if(!visible)return;draw(now);if(awake)raf=requestAnimationFrame(loop)}
+ function wake(){awake=true;if(!raf&&visible)raf=requestAnimationFrame(loop)}
+ function local(e){var b=canvas.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]}
+ root.addEventListener('pointermove',function(e){var p=local(e);px=p[0];py=p[1];wake()});
+ root.addEventListener('pointerleave',function(){px=-1e5;py=-1e5;wake()});
+ root.addEventListener('pointerdown',function(e){if(reduced)return;if(e.target.closest&&e.target.closest('a,button'))return;var p=local(e);ring={x:p[0],y:p[1],t:performance.now()};wake()});
+ root.querySelector('.hwf-up').addEventListener('click',function(){window.scrollTo({top:0,behavior:reduced?'auto':'smooth'})});
+ layout();draw(performance.now());wake();
+ if('ResizeObserver' in window){new ResizeObserver(function(){layout();wake()}).observe(root)}else{window.addEventListener('resize',function(){layout();wake()})}
+ if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0]?es[0].isIntersecting:true;if(visible)wake()}).observe(root)}
+ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){layout();wake()})}
 })();
 </script>
+
+<aside class="receipt" id="receipt" aria-live="polite" aria-label="Your front office so far"><div class="wrap"><div>Answer collection, <b>$297/mo</b>, about <b>$9.90</b> a day</div><div>One $425 job a month <b>covers it</b></div><a class="btn" href="#collections">Start free</a></div></aside>
+
+
 
 <script src="/attribution.js"></script>
 <script src="/analytics.js"></script>
