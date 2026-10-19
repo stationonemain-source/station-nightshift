@@ -26,7 +26,7 @@
 {"@type":"Question","name":"Do I need to switch phone numbers?","acceptedAnswer":{"@type":"Answer","text":"No. Phone products come with a local number included, and your existing number can forward to it. You keep your number."}},
 {"@type":"Question","name":"Can I cancel anytime?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every product and collection is month to month with no contract. Core, Pro and Max plans bill today with a 30-day money-back on the first month."}}
 ]}</script>
-<link rel="stylesheet" href="/s/station.css?v=20261019f">
+<link rel="stylesheet" href="/s/station.css?v=20261019h">
 </head><body><a class="skip" href="#main">Skip to content</a>
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
@@ -91,11 +91,11 @@
     <li id="l8"><span class="t">9:00</span>Report: 14 answered · 6 booked · $1,840</li>
    </ul></div>
  </div>
- <div class="side"><div class="pains">
-   <a href="#collections"><span><b>I miss calls and messages</b><em>→ Answer collection</em></span><span class="pr">from $297/mo</span></a>
-   <a href="#collections"><span><b>I need reviews and Google</b><em>→ Get Found collection</em></span><span class="pr">$497/mo</span></a>
-   <a href="#collections"><span><b>Leads and old customers go cold</b><em>→ Follow Up collection</em></span><span class="pr">$427/mo</span></a>
-   <button type="button" data-quiz><span><b>Not sure what hurts</b><em>→ 60-second diagnosis, one product, honest "none yet"</em></span><span class="pr">free</span></button>
+ <div class="side"><div class="tiles">
+   <a class="tile t-ink" href="#collections"><b>I miss calls and messages.</b><span class="tp"><span>Answer</span><i>from $297/mo &rarr;</i></span></a>
+   <a class="tile t-blue" href="#collections"><b>I need reviews and Google.</b><span class="tp"><span>Get Found</span><i>$497/mo &rarr;</i></span></a>
+   <a class="tile t-art" href="#collections"><b>Leads and old customers go cold.</b><span class="tp"><span>Follow Up</span><i>$427/mo &rarr;</i></span></a>
+   <button type="button" class="tile t-line" data-quiz><b>Not sure what hurts?</b><span class="tp"><span>60-second quiz</span><i>free &rarr;</i></span></button>
   </div>
  <div class="start"><b>Most people start with Answer.</b><span>Missed-call text-back, website chat, booking, a business number and payments. $297 a month, about $9.90 a day. One $425 job covers it.</span><a href="#collections">Start Answer free for 14 days →</a></div>
  </div>
@@ -317,7 +317,7 @@
 <style>
 .hwf{position:relative;width:100%;padding-bottom:24vw;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
-.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1168px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:calc(1760px - 2*var(--gut,16px));margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
 .hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
 .hwf-brand span{opacity:.62;display:block;margin-top:4px}
 .hwf .hwf-col{display:block;margin:0;padding:0}
@@ -326,7 +326,7 @@
 .hwf-col a,.hwf-up{color:inherit;text-decoration:none;opacity:.8;background:none;border:0;padding:0;font:inherit;cursor:pointer;background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:opacity .25s ease,background-size .35s cubic-bezier(.2,.7,.1,1);min-height:28px;display:inline-block}
 .hwf-col a:hover,.hwf-up:hover{opacity:1;background-size:100% 1px}
 .hwf-col a:focus-visible,.hwf-up:focus-visible{outline:1px solid currentColor;outline-offset:3px;opacity:1}
-.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1168px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
+.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:calc(1760px - 2*var(--gut,16px));margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
 .hwf-rule span{opacity:.62}
 .hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media (max-width:720px){.hwf{height:auto}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
