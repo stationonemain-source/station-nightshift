@@ -1,26 +1,81 @@
 <!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Station — staff your front office</title>
-<meta name="description" content="Fourteen products that answer your calls, chase your leads, earn your reviews and get you paid. Pick one — live in days.">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Station — software for the businesses that run a town</title>
+<meta name="description" content="Station makes the software small businesses run on: fourteen ready-made products for the front office, custom software when nothing on the shelf fits, and IT to keep it running. Norman, Oklahoma.">
 <link rel="canonical" href="https://station.solutions/">
-<meta property="og:title" content="Station — staff your front office"><meta property="og:description" content="Fourteen products that answer your calls, chase your leads, earn your reviews and get you paid. Pick one — live in days.">
-<meta property="og:image" content="https://station.solutions/media/og/hero-share.jpg"><meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#F5F4F1">
+<meta property="og:title" content="Station — software for the businesses that run a town"><meta property="og:description" content="Ready-made products for the front office, custom software for everything else. Start with a free audit.">
+<meta property="og:image" content="https://station.solutions/products/media/og-home.jpg"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#0B0D10">
 <meta name="p:domain_verify" content="3f7943db29cbdea67186b7d33b973b3f"/>
 <script>document.documentElement.classList.add("js")</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400;75..125,500;75..125,800&display=swap" rel="stylesheet"><link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%231D1D1F" transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="white"/></svg>'>
-<link rel="stylesheet" href="/v5.css?v=20261019a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400;75..125,500;75..125,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/s/station.css?v=20261019n">
+<style>
+.home .phero .copy{max-width:1240px}
+.home .phero h1{font-size:clamp(40px,5.4vw,88px);line-height:.98}
+.home .phero h1 em{display:block}
+.home .phero .art img{object-position:50% 78%}
+.home .lede2{font-size:clamp(17px,1.5vw,20px);max-width:46ch;margin:18px auto 0;color:#F4F2ED}
+/* three doors: big painted tiles that fill the width */
+.doors3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding-block:10px 0}
+.door3{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:clamp(420px,62vh,640px);padding:clamp(22px,2.2vw,34px);border-radius:14px;color:#F4F2ED;background:#0B0D10 var(--art) var(--pos,50% 60%)/cover no-repeat;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
+.door3:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,13,16,.74) 0%,rgba(11,13,16,.28) 46%,rgba(11,13,16,.1) 62%,rgba(11,13,16,.62) 100%)}
+.door3:hover{transform:translateY(-3px)}
+.door3 small{font:600 14px var(--body);letter-spacing:.01em;opacity:.9}
+.door3 b{display:block;margin-top:10px;font:800 clamp(28px,2.6vw,42px)/1.02 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.03em;text-wrap:balance;max-width:14ch;text-shadow:0 2px 14px rgba(11,13,16,.5)}
+.door3 p{margin-top:12px;font-size:16px;line-height:1.45;max-width:34ch;color:#E8E6E1;text-shadow:0 1px 8px rgba(11,13,16,.6)}
+.door3 .tp{font-size:15px}
+/* how we work */
+.how3{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:start;margin-top:26px}
+.how3 ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.how3 li{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.how3 li i{font:800 30px/1 var(--display);font-style:normal;color:var(--blue)}
+.how3 li b{display:block;font:800 22px/1.15 var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.02em}
+.how3 li span{display:block;margin-top:6px;color:var(--mute);font-size:16px;max-width:52ch}
+.how-card{position:relative;isolation:isolate;overflow:hidden;border-radius:14px;min-height:100%;padding:clamp(24px,2.4vw,36px);display:flex;flex-direction:column;justify-content:flex-end;gap:14px;color:#F4F2ED;background:#0B0D10 url(/products/media/crossroads-m.webp) 60% 55%/cover no-repeat;min-height:420px}
+.how-card:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,13,16,.2),rgba(11,13,16,.78))}
+.how-card b{font:800 clamp(26px,2.4vw,38px)/1.04 var(--display);letter-spacing:-.03em;max-width:16ch}
+.how-card p{color:#E8E6E1;max-width:38ch}
+.how-card .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.how-card .btn.glass{color:#fff;background:rgba(11,13,16,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);min-height:48px;padding:0 20px}
+/* the shelf, as a moving strip of paintings: a doorway, not a catalogue */
+.ribbon{position:relative;overflow:hidden;margin-top:24px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ribbon .track{display:flex;gap:10px;width:max-content;animation:rib 70s linear infinite}
+.ribbon:hover .track,.ribbon:focus-within .track{animation-play-state:paused}
+@keyframes rib{to{transform:translateX(-50%)}}
+.rb{position:relative;isolation:isolate;overflow:hidden;flex:none;width:clamp(220px,20vw,320px);aspect-ratio:4/3;border-radius:12px;background:#0B0D10 var(--art) 50% 60%/cover no-repeat;display:flex;align-items:flex-end;padding:14px;color:#F4F2ED}
+.rb:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,13,16,0) 45%,rgba(11,13,16,.7))}
+.rb span{font:800 22px/1 var(--display);letter-spacing:-.02em}
+.rb:hover span{text-decoration:underline;text-underline-offset:5px}
+@media (prefers-reduced-motion:reduce){.ribbon .track{animation:none}.ribbon{overflow-x:auto}}
+.shelf-cta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px}
+.shelf-cta p{color:var(--mute);max-width:60ch}
+.btn.blue{background:linear-gradient(180deg,var(--blue-hi),var(--blue) 55%,var(--blue-lo));color:#fff;border:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 22px -10px rgba(45,108,223,.9);min-height:48px;padding:0 22px;font-weight:600}
+.btn.blue:hover{transform:translateY(-1px)}
+/* not sure */
+.unsure{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:24px}
+.unsure>*{display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:160px;padding:24px;border-radius:14px;border:0;text-align:left;font:inherit;cursor:pointer;background:var(--pane);color:var(--fg);box-shadow:inset 0 0 0 1px var(--rule);transition:transform .25s}
+.unsure>*:hover{transform:translateY(-2px)}
+.unsure b{font:800 26px/1.05 var(--display);letter-spacing:-.03em}
+.unsure span{color:var(--mute)}
+.unsure i{font-style:normal;font-weight:600;color:var(--blue)}
+.home-faq .faq-body{max-width:none;margin:24px 0 0}
+@media (min-width:1100px){.home-faq .fl{grid-template-columns:1fr 1fr;column-gap:56px;align-items:start}}
+@media (max-width:900px){.doors3,.unsure{grid-template-columns:1fr}.door3{min-height:380px}.how3{grid-template-columns:1fr}.how-card{min-height:340px}}
 
+</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://station.solutions/#organization", "name": "STATION AUTOMATIONS GROUP LLC", "alternateName": "Station", "brand": {"@type": "Brand", "name": "Station"}, "url": "https://station.solutions/", "logo": "https://station.solutions/brand/station-logo.png", "email": "main@station.solutions", "sameAs": ["https://www.facebook.com/profile.php?id=61592213552189", "https://www.linkedin.com/company/station-solutions/", "https://www.instagram.com/stationsolutions.partners/", "https://www.tiktok.com/@stationsolutionsauto"]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I really cancel anytime?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — every product is month to month, no contracts. Single products and collections start with a 14-day free trial."}}, {"@type": "Question", "name": "Do I need to buy a bundle?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every product stands alone. Bundles exist because stacking four or more usually costs more than a flat bundle — the site will literally tell you when you've crossed that line."}}, {"@type": "Question", "name": "Who processes payments?", "acceptedAnswer": {"@type": "Answer", "text": "Stripe. We never see or store your card. Card payments on Tap go through your own processor — we take zero percent of your revenue."}}, {"@type": "Question", "name": "How fast is 'live'?", "acceptedAnswer": {"@type": "Answer", "text": "It's printed on every product before you pay: instant for Pursuit and Dispatch, minutes for Greet, same day for Frontdesk and Repute, about 2 business days for anything that texts (carrier registration — a US carrier rule, not ours)."}}, {"@type": "Question", "name": "What do you need from me?", "acceptedAnswer": {"@type": "Answer", "text": "Usually 15 minutes of business facts. Phone products need your legal business name and EIN for the carrier filing. We do the rest."}}, {"@type": "Question", "name": "Do I need to switch phone numbers?", "acceptedAnswer": {"@type": "Answer", "text": "Never. Your existing line forwards — reversible in one call. We never port your number."}}, {"@type": "Question", "name": "Can I change what the messages say?", "acceptedAnswer": {"@type": "Answer", "text": "Every message any product sends is pre-written so it works day one, and every line is editable in Settings → Your Words."}}, {"@type": "Question", "name": "Can I turn the automation off?", "acceptedAnswer": {"@type": "Answer", "text": "Per product, per feature. Repute can hold every reply for your approval; Pursuit stops the instant a lead replies or you take over the thread."}}, {"@type": "Question", "name": "Whose brand is on everything?", "acceptedAnswer": {"@type": "Answer", "text": "Yours. Your name, your number, your voice. Station stays backstage."}}, {"@type": "Question", "name": "Do I need new hardware or apps?", "acceptedAnswer": {"@type": "Answer", "text": "No hardware. Tap uses the phone already in your pocket. Everything else runs in a browser and one mobile app."}}, {"@type": "Question", "name": "What happens if the AI gets something wrong?", "acceptedAnswer": {"@type": "Answer", "text": "Frontdesk never quotes prices or promises timelines unless you allow it, always offers a human, and falls back to ringing your phone — there's no mode where a caller hits dead air."}}, {"@type": "Question", "name": "Does this integrate with what I already use?", "acceptedAnswer": {"@type": "Answer", "text": "Google, Facebook, Instagram, TikTok, LinkedIn, WhatsApp, Stripe, PayPal, QuickBooks, Shopify, Zoom and more."}}]}</script>
-</head><body><a class="skip" href="#main">Skip to content</a>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Station?", "acceptedAnswer": {"@type": "Answer", "text": "Station Automations Group LLC, a software company in Norman, Oklahoma. We make fourteen ready-made products for the front office of a small business, build custom software when nothing on the shelf fits, and are adding IT and security."}}, {"@type": "Question", "name": "Do I have to know what I need?", "acceptedAnswer": {"@type": "Answer", "text": "No. The free audit runs twelve checks on how customers find and reach you and lands in your inbox in about a minute. The 60-second diagnosis names one product, or says \"none yet\" if that is the honest answer."}}, {"@type": "Question", "name": "How fast is a product live?", "acceptedAnswer": {"@type": "Answer", "text": "Each product states its own time before you buy: some are live in minutes, most in a day or two, the longest in about a week. Every single product and collection starts with 14 days free."}}, {"@type": "Question", "name": "What does custom work cost?", "acceptedAnswer": {"@type": "Answer", "text": "It is priced to the project. We scope it in 48 hours and give you a fixed quote, so you know the number before anything starts."}}, {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Products are month to month and cancel any time from your account."}}]}</script>
+</head><body class="home"><a class="skip" href="#main">Skip to content</a>
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
   <div class="nav-center">
-    <div class="mwrap"><a href="/frontdesk/" class="mtop">Phone &amp; leads</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Never miss a customer</span><a class="mbig" href="/frontdesk/">AI receptionist <small class="mbrand">Frontdesk</small></a><a class="mbig" href="/lineback/">Missed-call text-back <small class="mbrand">Lineback</small></a><a class="mbig" href="/dial/">Business number &amp; texting <small class="mbrand">Dial</small></a><a class="mbig" href="/pursuit/">Lead follow-up <small class="mbrand">Pursuit</small></a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/products/">All 14 products, priced</a><a class="msmall" href="/#bundles">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <div class="mwrap"><a href="/frontdesk/" class="mtop">Phone &amp; leads</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Never miss a customer</span><a class="mbig" href="/frontdesk/">AI receptionist <small class="mbrand">Frontdesk</small></a><a class="mbig" href="/lineback/">Missed-call text-back <small class="mbrand">Lineback</small></a><a class="mbig" href="/dial/">Business number &amp; texting <small class="mbrand">Dial</small></a><a class="mbig" href="/pursuit/">Lead follow-up <small class="mbrand">Pursuit</small></a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/products/">All 14 products, priced</a><a class="msmall" href="/products/#collections">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
     <div class="mwrap"><a href="/storefront/" class="mtop">Websites &amp; Google</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Get found</span><a class="mbig" href="/storefront/">Websites <small class="mbrand">Storefront</small></a><a class="mbig" href="/echo/">Google profile, managed <small class="mbrand">Echo</small></a><a class="mbig" href="/repute/">More Google reviews <small class="mbrand">Repute</small></a><a class="mbig" href="/marquee/">Social posting <small class="mbrand">Marquee</small></a></div><div class="mcol"><span class="mhead">See the work</span><a class="msmall" href="/custom/">See your site first — free demo</a><a class="msmall" href="/portfolio/">Our website portfolio →</a><a class="msmall" href="/greet/">Greet — the chat on this page</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/products/">All 14 products, priced</a><a class="msmall" href="/audit/">Get a free audit — see what's broken</a><a class="msmall" href="/sweep/">Website check — hacked or not?</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
-    <a class="mtop" href="/#bundles">Bundles</a>
+    <a class="mtop" href="/products/#collections">Bundles</a>
     <a class="mtop" href="/audit/">Free audit</a>
     <a class="mtop" href="mailto:main@station.solutions">Contact</a>
     <button class="mtop searchbtn" type="button" aria-label="Search the site" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><span>Search</span></button>
@@ -35,237 +90,53 @@
   <div class="sb-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><input id="searchIn" type="search" placeholder="Search products, prices, pages…" aria-label="Search the site" autocomplete="off">
   <button class="sb-x" type="button" aria-label="Close search">×</button></div>
   <div class="sb-res" id="searchRes" role="listbox"></div>
-</div></nav><main id="main">
-<style>
-/* nav over the painting, no bar; a backdrop appears only after the hero */
-.nav{position:absolute;top:0;left:0;right:0;z-index:30;background:transparent;border-bottom:0;box-shadow:none;transition:background .35s ease}
-.nav:not(.solid){color:#F4F2ED}
-.nav:not(.solid) .home,.nav:not(.solid) .mtop,.nav:not(.solid) .navbtn,.nav:not(.solid) .hamb{color:#F4F2ED;text-shadow:0 1px 10px rgba(11,13,16,.5)}
-.nav:not(.solid) .mark{color:#F4F2ED}
-.nav:not(.solid) .cartbtn,.nav:not(.solid) .hamb{color:#F4F2ED;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.07) 55%,rgba(255,255,255,.12)),rgba(11,13,16,.30);backdrop-filter:blur(16px) saturate(1.7);-webkit-backdrop-filter:blur(16px) saturate(1.7);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.22),0 10px 26px -8px rgba(11,13,16,.45)}
-.nav:not(.solid) .cartbtn .n{background:#F4F2ED;color:#16181D}
-.nav:not(.solid) .navbtn{border-color:rgba(244,242,237,.55);background:rgba(11,13,16,.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-shadow:none}
-.nav.solid{position:fixed;background:rgba(244,242,237,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
-.hub .copy{padding-top:calc(58px + clamp(32px,6vh,80px))}
-/* configurator: ruled rows, no cards */
-.tiles{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
-.tile,.tile.on{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0;box-shadow:none}
-.tile:hover{border-color:var(--line)}
-.tile .t-name{font:800 17px/1.1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.02em}
-.tile.on .t-name{color:#16181D}
-.tile .t-price{font:500 14px var(--fb);color:var(--ink)}
-.tile .t-ttl{font-size:12.5px}
-.receipt{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:4px 0 0 24px}
-.receipt .r-eyebrow{font:500 13px var(--fb);letter-spacing:0;text-transform:none;color:var(--muted)}
-.receipt .r-total{font:800 40px/1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.03em}
-.ro-foot{margin-top:28px}
-.hwf{margin-top:64px}
-footer.hwf{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
-.hwf .hwf-top,.hwf .hwf-rule{max-width:calc(var(--wrap) - 44px)}
-</style>
-<section class="hub" id="top">
-<style>
-.hub{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;color:#F4F2ED;overflow:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.hub .art{position:absolute;inset:0;z-index:0}
-.hub .art img{width:100%;height:100%;object-fit:cover;object-position:center 72%;display:block}
-.hub:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(11,13,16,.55) 0%,rgba(11,13,16,.3) 32%,rgba(11,13,16,0) 55%,rgba(11,13,16,.78) 100%);pointer-events:none}
-.hub .copy{position:relative;z-index:2;text-align:center;max-width:900px;margin:0 auto;padding-top:clamp(40px,8vh,96px)}
-.hub .copy:before{content:"";position:absolute;inset:-10% -20% -6%;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(11,13,16,.5) 0%,rgba(11,13,16,.25) 45%,rgba(11,13,16,0) 72%);pointer-events:none}
-.hub .eyebrow{font:500 15px/1.4 var(--fb);letter-spacing:.01em;margin:0 0 16px;opacity:.95}
-.hub h1{font:800 clamp(40px,6.8vw,88px)/.98 Archivo,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:-.03em;margin:0;text-wrap:balance;text-shadow:0 2px 4px rgba(11,13,16,.45),0 4px 40px rgba(11,13,16,.4)}
-.hub h1 em{font-style:normal;font-weight:400;font-variation-settings:"wdth" 92;opacity:.92}
-.hub .sub{margin:18px auto 0;max-width:40ch;font:400 18px/1.5 var(--fb);text-shadow:0 1px 3px rgba(11,13,16,.7),0 2px 18px rgba(11,13,16,.5)}
-.hub .ctas{display:flex;gap:14px;justify-content:center;align-items:center;margin-top:24px;flex-wrap:wrap}
-.hub .ctas a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 20px;border-radius:999px;font:500 14px var(--fb);text-decoration:none}
-.hub .ctas .main{background:#F4F2ED;color:#16181D;border:1px solid #F4F2ED}
-.hub .ctas .glass{color:#F4F2ED;border:1px solid rgba(244,242,237,.55);background:rgba(11,13,16,.32);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.hub .proof{display:inline-block;margin-top:14px;font:400 14px/1.4 var(--fb);padding:8px 14px;border-radius:999px;background:rgba(11,13,16,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.doors{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:1200px;width:100%;margin:auto auto 0;padding:28px 0 32px;border-top:1px solid rgba(244,242,237,.22)}
-.door{display:grid;gap:6px;padding:4px 22px 4px 0;margin-right:22px;border-right:1px solid rgba(244,242,237,.3);color:#F4F2ED;text-decoration:none;min-height:44px;text-shadow:0 1px 12px rgba(11,13,16,.7)}
-.door:last-child{border-right:0;margin-right:0}
-.door:hover b{text-decoration:underline;text-underline-offset:4px}
-.door small{font:500 12.5px/1.3 var(--fb);color:#F4F2ED;letter-spacing:.02em}
-.door b{font:800 20px/1.1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.02em}
-.door span{font:400 14px/1.45 var(--fb);color:rgba(244,242,237,.85)}
-.door i{font-style:normal;font-weight:500;font-size:14px;margin-top:4px}
-@media (max-width:820px){.hub{min-height:100vh;min-height:100svh}.doors{grid-template-columns:1fr;padding:18px 0 24px}.door{border-right:0;margin-right:0;padding:14px 0;border-bottom:1px solid rgba(244,242,237,.22)}.door:last-child{border-bottom:0}.hub .art img{object-position:48% 100%}}
-@media (prefers-reduced-motion:reduce){.door{transition:none}}
-</style>
- <picture class="art" aria-hidden="true"><source media="(max-width:820px)" srcset="/products/media/day-night-m.webp"><img src="/products/media/day-night.webp" alt="" width="2400" height="1357" fetchpriority="high" decoding="async"></picture>
- <div class="copy">
-  <p class="eyebrow">Station builds the software that runs a small business</p>
-  <h1>The shop is dark. <em>The desk isn&rsquo;t.</em></h1>
-  <p class="sub">Fourteen products that answer the phone, book the job, collect the money and ask for the review. When the shelf doesn&rsquo;t have it, we build it.</p>
-  <div class="ctas"><a class="main" href="/audit/">See what your front office is leaking, free</a><a class="glass" href="/products/">See the fourteen products</a></div>
-  <p class="proof">Twelve checks &middot; in your inbox in about a minute &middot; no card, no call</p>
- </div>
- <nav class="doors" aria-label="Pick the door you came for">
-  <a class="door" href="/products/"><small>Station Products</small><b>Staff your front office</b><span>Fourteen products and one app. From $47 a month, live in days, free for the first fourteen.</span><i>See the roster &rarr;</i></a>
-  <a class="door" href="/custom/"><small>Station Solutions</small><b>If it isn&rsquo;t on the shelf, we build it</b><span>An app, a portal, a tool for one job, a website built by a person. Scoped in 48 hours, fixed quote.</span><i>Tell us what you need &rarr;</i></a>
-  <a class="door" href="/contact/"><small>Station Security</small><b>IT and security, on call</b><span>Coming soon. Talk to a person in the meantime.</span><i>Talk to us &rarr;</i></a>
- </nav>
+</div></nav>
+<main id="main">
+<section class="phero">
+ <picture class="art" aria-hidden="true"><source media="(max-width:820px)" srcset="/products/media/agency-dawn-m.webp"><img src="/products/media/agency-dawn.webp" alt="" width="2400" height="1357" fetchpriority="high" decoding="async"></picture>
+ <div class="copy"><p class="eyebrow">Station &middot; Norman, Oklahoma</p>
+ <h1>Every business runs on something. <em>We build it.</em></h1>
+ <p class="lede2">Ready-made products for the front office, custom software for everything else, and IT to keep it all running.</p>
+ <div class="ctas"><a class="btn fill" href="/products/">See the products</a><a class="btn glass" href="/custom/">Tell us what you need</a></div>
+ <div class="lines"><p class="proofline"><a href="/audit/" style="color:inherit">Free audit &middot; twelve checks &middot; in your inbox in about a minute</a></p></div></div>
 </section>
-<section id="sweep-band" aria-labelledby="sweep-band-h"><div class="wrap"><div class="sw-card">
-  <div class="sw-copy">
-    <p class="sw-k">Free website check · Result by email</p>
-    <h2 id="sweep-band-h">Has your website been hacked without you knowing?</h2>
-    <p class="sw-lede">Hackers hide links to other websites inside small-business sites, often where only Google looks. We read your public pages the way a visitor and Google see them, and show you what we find, usually in under a minute.</p>
-  </div>
-  <form class="sw-form" data-sweep="check" action="https://audit.station.solutions/sweep/check" method="post" accept-charset="utf-8">
-    <div class="sw-fields">
-      <div class="sw-field"><label for="swb-website">Your website</label><input id="swb-website" name="website" type="text" inputmode="url" autocomplete="url" autocapitalize="off" spellcheck="false" placeholder="yourbusiness.com" required maxlength="500"></div>
-      <div class="sw-field"><label for="swb-email">Your email</label><input id="swb-email" name="email" type="email" autocomplete="email" placeholder="you@yourbusiness.com" required maxlength="254"></div>
-    </div>
-    <div class="sw-hp" aria-hidden="true"><label for="swb-hp1">Leave this empty</label><input id="swb-hp1" name="company_fax" type="text" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-bwignore data-form-type="other"></div>
-    <input type="hidden" name="src" value="home_band">
-    <div class="sw-row"><button class="btn dark" type="submit">Check my site</button></div>
-    <p class="sw-micro">We'll email your result to this address. No marketing unless you ask.</p>
-    <p class="sw-fine"><a href="https://audit.station.solutions/sweep/legal/sweep-terms.html">Terms for the check</a> · <a href="/legal/privacy.html#website-check">How we use your email</a></p>
-    <p class="sw-fine">Nothing found? We say so. Found something? You see one real example free, and the full report with the fix steps is $79. <a href="/sweep/">How the check works</a> · <a href="/sweep/#code" data-sweep-code-link="home_band">Got a code from our email?</a></p>
-  </form>
-</div></div></section>
-<style>
-.roster{padding-block:48px 24px}
-.roster .ro-head{max-width:760px;margin-bottom:8px}
-.roster h2{font:800 clamp(28px,3.8vw,44px)/1.02 Archivo,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:-.03em;margin:0;text-wrap:balance}
-.roster h2 em{font-style:normal;font-weight:400;font-variation-settings:"wdth" 92;color:#16181D;opacity:.8}
-.roster .ro-head p{margin:10px 0 0;color:var(--muted);font-size:16px}
-.ro-group{margin-top:34px}
-.ro-group h3{font:800 22px/1.1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.02em;margin:0 0 6px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
-.ro-group h3 span{font:400 14px var(--fb);color:var(--muted)}
-.ro{display:grid;grid-template-columns:200px 1fr 220px 24px;gap:20px;align-items:center;padding:16px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);min-height:64px}
-.ro-group .ro:last-child{border-bottom:1px solid var(--line)}
-.ro:hover{background:var(--bg2,rgba(0,0,0,.025))}
-.ro:focus-visible{outline:2px solid #16181D;outline-offset:2px}
-.ro-n{font:800 19px/1.1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.02em}
-.ro-n small,.ro-p small{display:block;font:400 13px var(--fb);color:var(--muted);margin-top:3px}
-.ro-j{font:400 15px/1.45 var(--fb);color:var(--ink)}
-.ro-p{font:500 15px var(--fb);text-align:right;font-variant-numeric:tabular-nums}
-.ro i{font-style:normal;color:#16181D;font-weight:600}
-.ro:hover i{transform:translateX(3px)}
-.ro-foot{margin-top:28px;font-size:15px}
-.ro-foot a{color:#16181D;font-weight:600;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
-@media (max-width:820px){.ro{grid-template-columns:1fr 24px;gap:6px 12px;padding:14px 0}.ro-n{grid-column:1}.ro-j{grid-column:1}.ro-p{grid-column:1;text-align:left}.ro i{grid-row:1;grid-column:2}}
-</style>
-<section class="roster" id="shop"><div class="wrap">
-<div class="ro-head"><h2>Fourteen products. <em>Pick the one that fixes this week.</em></h2><p>Every one stands alone, month to month, with a 14-day free trial. Each row is also its own page.</p></div>
-<div class="ro-group"><h3>Start here <span>Where most businesses board</span></h3><a class="ro" href="/storefront/"><span class="ro-n">Storefront<small>Website</small></span><span class="ro-j">A site built by a person, from your answers. Free demo in 2 to 3 business days.</span><span class="ro-p">Priced to your project<small>Custom only</small></span><i>&rarr;</i></a><a class="ro" href="/greet/"><span class="ro-n">Greet<small>Website chat assistant</small></span><span class="ro-j">Answers on your website while you work</span><span class="ro-p">$79/mo<small>Live in minutes</small></span><i>&rarr;</i></a><a class="ro" href="/dial/"><span class="ro-n">Dial<small>Business number & texting</small></span><span class="ro-j">A business number that texts</span><span class="ro-p">$47/mo<small>Live in ~2 business days</small></span><i>&rarr;</i></a><a class="ro" href="/revive/"><span class="ro-n">Revive<small>Win back old customers</small></span><span class="ro-j">Writes to the customers who went quiet</span><span class="ro-p">$197/mo<small>Runs in 1–2 days</small></span><i>&rarr;</i></a></div>
-<div class="ro-group"><h3>The phone <span>The calls you miss and the ones you never take again</span></h3><a class="ro" href="/lineback/"><span class="ro-n">Lineback<small>Missed-call text-back</small></span><span class="ro-j">Texts back the call you missed, in four seconds</span><span class="ro-p">$197/mo<small>Live in ~2 business days</small></span><i>&rarr;</i></a><a class="ro" href="/frontdesk/"><span class="ro-n">Frontdesk<small>AI phone receptionist</small></span><span class="ro-j">Answers the phone, day one, 2 AM included</span><span class="ro-p">$397/mo<small>Live same day</small></span><i>&rarr;</i></a><a class="ro" href="/pursuit/"><span class="ro-n">Pursuit<small>Automatic follow-up</small></span><span class="ro-j">Chases the lead until it books</span><span class="ro-p">$247/mo<small>Live instantly</small></span><i>&rarr;</i></a><a class="ro" href="/slate/"><span class="ro-n">Slate<small>Booking calendar & reminders</small></span><span class="ro-j">Books the job and sends the reminder</span><span class="ro-p">$59/mo<small>Live today</small></span><i>&rarr;</i></a></div>
-<div class="ro-group"><h3>Get found <span>The map, the reviews, the marquee</span></h3><a class="ro" href="/echo/"><span class="ro-n">Echo<small>Google profile, managed</small></span><span class="ro-j">Keeps your Google profile managed and ranking</span><span class="ro-p">$247/mo<small>Live in 2–3 days</small></span><i>&rarr;</i></a><a class="ro" href="/repute/"><span class="ro-n">Repute<small>Review engine</small></span><span class="ro-j">Asks for the review four minutes after payment</span><span class="ro-p">$197/mo<small>Live same day</small></span><i>&rarr;</i></a><a class="ro" href="/marquee/"><span class="ro-n">Marquee<small>Social, ads & brand board</small></span><span class="ro-j">Posts to nine networks, runs the ads, holds the brand</span><span class="ro-p">$197/mo<small>Live in 5–7 days</small></span><i>&rarr;</i></a></div>
-<div class="ro-group"><h3>Run the business <span>Money, mail, and new work</span></h3><a class="ro" href="/tap/"><span class="ro-n">Tap<small>Payments & POS</small></span><span class="ro-j">Takes the payment on the porch, zero percent to us</span><span class="ro-p">$47/mo + card rates<small>Live in 1–2 days</small></span><i>&rarr;</i></a><a class="ro" href="/dispatch/"><span class="ro-n">Dispatch<small>Email campaigns</small></span><span class="ro-j">Sends the email campaign in your words</span><span class="ro-p">$94/mo<small>Live instantly</small></span><i>&rarr;</i></a><a class="ro" href="/radar/"><span class="ro-n">Radar<small>Prospecting engine</small></span><span class="ro-j">Finds the business customers you have not met</span><span class="ro-p">$297/mo<small>Live same day</small></span><i>&rarr;</i></a></div>
-<p class="ro-foot"><a href="/products/">See the whole day, start to finish &rarr;</a></p></div></section>
-<section class="sec"><div class="wrap"><div class="vals rv">
-    <div class="val"><b>Live in days, not months</b><span>Every product states its exact time-to-live before you pay.</span></div>
-    <div class="val"><b>Cancel anytime</b><span>Month to month, no contracts. Single products and collections start with a 14-day free trial; the Core, Pro and Max plans bill today with a 30-day money-back on the first month.</span></div>
-    <div class="val"><b>Your words, editable</b><span>Every message any product sends is pre-written and yours to change.</span></div>
-    <div class="val"><b>A monthly report, free</b><span>What rang, what booked, what it made you — with every product, forever.</span></div>
-</div></div></section>
-<section class="integ"><div class="wrap center">
-  <div class="rv"><p class="k">Plays well with others</p>
-  <h2>Connects to the tools you already use.</h2></div>
-  <div class="iwrap rv"><div class="irow"><div class="ichip"><img src="/media/logos/google.svg" alt="Google" width="22" height="22" loading="lazy"><span>Google</span></div><div class="ichip"><img src="/media/logos/googlecalendar.svg" alt="Google Calendar" width="22" height="22" loading="lazy"><span>Google Calendar</span></div><div class="ichip"><img src="/media/logos/facebook.svg" alt="Facebook" width="22" height="22" loading="lazy"><span>Facebook</span></div><div class="ichip"><img src="/media/logos/instagram.svg" alt="Instagram" width="22" height="22" loading="lazy"><span>Instagram</span></div><div class="ichip"><img src="/media/logos/tiktok.svg" alt="TikTok" width="22" height="22" loading="lazy"><span>TikTok</span></div><div class="ichip"><img src="/media/logos/linkedin.svg" alt="LinkedIn" width="22" height="22" loading="lazy"><span>LinkedIn</span></div><div class="ichip"><img src="/media/logos/whatsapp.svg" alt="WhatsApp" width="22" height="22" loading="lazy"><span>WhatsApp</span></div><div class="ichip"><img src="/media/logos/shopify.svg" alt="Shopify" width="22" height="22" loading="lazy"><span>Shopify</span></div><div class="ichip"><img src="/media/logos/zoom.svg" alt="Zoom" width="22" height="22" loading="lazy"><span>Zoom</span></div><div class="ichip"><img src="/media/logos/slack.svg" alt="Slack" width="22" height="22" loading="lazy"><span>Slack</span></div><div class="ichip"><img src="/media/logos/zapier.svg" alt="Zapier" width="22" height="22" loading="lazy"><span>Zapier</span></div><div class="ichip"><img src="/media/logos/google.svg" alt="Google" width="22" height="22" loading="lazy"><span>Google</span></div><div class="ichip"><img src="/media/logos/googlecalendar.svg" alt="Google Calendar" width="22" height="22" loading="lazy"><span>Google Calendar</span></div><div class="ichip"><img src="/media/logos/facebook.svg" alt="Facebook" width="22" height="22" loading="lazy"><span>Facebook</span></div><div class="ichip"><img src="/media/logos/instagram.svg" alt="Instagram" width="22" height="22" loading="lazy"><span>Instagram</span></div><div class="ichip"><img src="/media/logos/tiktok.svg" alt="TikTok" width="22" height="22" loading="lazy"><span>TikTok</span></div><div class="ichip"><img src="/media/logos/linkedin.svg" alt="LinkedIn" width="22" height="22" loading="lazy"><span>LinkedIn</span></div><div class="ichip"><img src="/media/logos/whatsapp.svg" alt="WhatsApp" width="22" height="22" loading="lazy"><span>WhatsApp</span></div><div class="ichip"><img src="/media/logos/shopify.svg" alt="Shopify" width="22" height="22" loading="lazy"><span>Shopify</span></div><div class="ichip"><img src="/media/logos/zoom.svg" alt="Zoom" width="22" height="22" loading="lazy"><span>Zoom</span></div><div class="ichip"><img src="/media/logos/slack.svg" alt="Slack" width="22" height="22" loading="lazy"><span>Slack</span></div><div class="ichip"><img src="/media/logos/zapier.svg" alt="Zapier" width="22" height="22" loading="lazy"><span>Zapier</span></div></div></div>
-</div></section>
-<section class="sec" id="audit-band"><div class="wrap">
-  <div class="split">
-    <div class="rv"><p class="k">Free · no card · takes 60 seconds</p>
-    <h2 class="serif">Find out what your front office is leaking.</h2>
-    <p class="lede">We run your business through the same five scored sections we run for clients — your listing, your reviews,
-    your site, your marketing tags and your local ranking — and send you the report. Free because half of you will fix it yourselves, and the
-    other half will want us to.</p></div>
-    <div class="rv"><form class="audit-form" data-audit data-variant="home-band">
-    <p class="af-h">Get the free audit</p>
-    <p class="af-s">Twelve checks · in your inbox in about a minute · no card, no call</p>
-    <div class="af-grid">
-      <div class="af-field"><label for="af-name">Your name</label><input id="af-name" name="name" placeholder="Jordan Rivera" required autocomplete="name"></div>
-      <div class="af-field"><label for="af-business">Business</label><input id="af-business" name="business" placeholder="Rivera Plumbing" required autocomplete="organization"></div>
-      <div class="af-field"><label for="af-email">Email</label><input id="af-email" name="email" type="email" placeholder="you@business.com" required autocomplete="email"></div>
-      <div class="af-field"><label for="af-phone">Phone <span style="font-weight:400">(optional)</span></label><input id="af-phone" name="phone" type="tel" placeholder="(555) 123-4567" autocomplete="tel"></div>
-      <div class="af-field"><label for="af-city">City</label><input id="af-city" name="city" placeholder="Houston, TX" required autocomplete="address-level2"></div>
-      <div class="af-field"><label for="af-website">Website</label><input id="af-website" name="website" placeholder="riveraplumbing.com — or 'none'"></div>
-    </div>
-    <input name="leak" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    <input name="company_url" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    <input type="hidden" name="_t" value=""><input type="hidden" name="variant" value="home-band">
-    <label class="consent"><input type="checkbox" name="email_consent" value="yes" required>
-      <span>Email me my audit results.</span></label>
-    <div class="af-cta"><button class="btn dark" type="submit">Get a free audit</button></div>
-    <p class="af-done" hidden><b>Got it.</b> Your audit is being built. It lands in your inbox in about a minute — check Promotions if you don't see it.</p>
-  </form></div>
-  </div>
-</div></section>
-<section class="sec" id="help"><div class="wrap">
-  <div class="center rv"><p class="k">Not sure where to start?</p>
-  <h2>Tell us what's costing you most.</h2>
-  <p class="lede">The shelf reorders to your answer, and the receipt shows the cost per day and the jobs that cover it.</p></div>
-  <p class="center rv" style="margin:0 0 14px"><button class="btn lite" data-quiz type="button" style="padding:12px 22px">Take the 60-second diagnosis →</button><span style="display:block;margin-top:7px;font-size:13px;color:var(--muted)">Four questions. One product. If the honest answer is &quot;none yet&quot;, we say that.</span></p><div class="q-chips rv" style="justify-content:center">
-    <button class="q-chip" data-pain="calls">Missed calls</button>
-    <button class="q-chip" data-pain="noshows">No-shows</button>
-    <button class="q-chip" data-pain="reviews">Too few reviews</button>
-    <button class="q-chip" data-pain="invisible">Invisible on Google</button>
-    <button class="q-chip" data-pain="quiet">Old customers gone quiet</button>
-    <button class="q-chip" data-pain="slow">Slow season</button>
-  </div>
-  <div class="builder">
-    <div id="tiles" class="tiles rv"></div>
-    <aside class="receipt rv">
-      <p class="r-eyebrow">Your front office</p>
-      <div class="r-total" id="rTotal">$0<small>/month</small></div>
-      <div class="r-rows" id="rRows"></div>
-      <div class="r-kpis">
-        <div class="r-kpi"><span class="k">Cost per day</span><div class="v" id="rDay">$0.00</div></div>
-        <div class="r-kpi"><span class="k">Jobs/mo to cover it</span><div class="v" id="rJobs">0</div></div>
-      </div>
-      <div class="r-row" style="border-top:1px solid var(--line);font-size:15px"><span>One-time (builds &amp; setups)</span><b id="rOnce">$0</b></div>
-      <div class="r-verdict" id="rVerdict" style="margin-top:12px">Pick the one that fixes what hurt this week.</div>
-      <button class="btn glass" id="rBuy" hidden style="width:100%;margin-top:14px">Continue with these →</button>
-      <p class="r-note">Job math assumes a $425 average ticket — every product page has a calculator with <i>your</i> numbers.</p>
-    </aside>
-  </div>
-</div></section>
-<section class="bundles" id="bundles"><div class="wrap">
-  <div class="center rv"><p class="k">Collections</p>
-  <h2 class="serif" style="font-size:var(--d-lg)">Pick what hurts. Get it all working together.</h2>
-  <p class="lede" style="margin-left:auto;margin-right:auto">Each collection is a few products built to work as one, priced under buying them separately, and every one comes with a free website built by Station.</p>
-  <div class="bterm" role="group" aria-label="Billing"><button type="button" class="on" data-term="m">Monthly</button><button type="button" data-term="y">Yearly · 2 months free</button></div></div>
-  <div class="bgrid">
-    <div id="c-answer" class="bcard rv hi"><span class="tag">Best first step</span><span class="bn">ANSWER</span><div class="bp" data-m="$297" data-y="$2,970">$297<small>/mo</small></div>
-      <div class="sep"></div><ul><li>Missed-call text-back</li><li>Website chat</li><li>Online booking &amp; reminders</li><li>Business number &amp; texting</li><li>Card payments</li><li>A free Station-built website</li><li class="worth">Worth $382/mo separately</li></ul>
-      <label class="baddon"><input type="checkbox" id="answerRx" data-addon="price_1UMyIS4Y7C8no2iko4sZmShZ"> Add the AI receptionist, 750 minutes (+$297/mo, normally $397)</label>
-      <button class="bbtn" data-bundle="price_1UMyIN4Y7C8no2ikiyjJ6Yye" data-m-id="price_1UMyIN4Y7C8no2ikiyjJ6Yye" data-y-id="price_1UMyIO4Y7C8no2ik79t14KZi" data-trial="1">Start free for 14 days</button><p class="bnote">$0 today · 14 days free · cancel any time</p></div>
-    <div id="c-getfound" class="bcard rv "><span class="bn">GET FOUND</span><div class="bp" data-m="$497" data-y="$4,970">$497<small>/mo</small></div>
-      <div class="sep"></div><ul><li>Google profile, managed (no setup fee)</li><li>More Google reviews, with replies</li><li>Social posting to 9 networks</li><li>A free Station-built website</li><li class="worth">Worth $641/mo separately</li></ul>
-      <button class="bbtn" data-bundle="price_1UMyIP4Y7C8no2ikT9GSbtJh" data-m-id="price_1UMyIP4Y7C8no2ikT9GSbtJh" data-y-id="price_1UMyIQ4Y7C8no2ike4CpxkQ6" data-trial="1">Start free for 14 days</button><p class="bnote">$0 today · 14 days free · cancel any time</p></div>
-    <div id="c-followup" class="bcard rv "><span class="bn">FOLLOW UP</span><div class="bp" data-m="$427" data-y="$4,270">$427<small>/mo</small></div>
-      <div class="sep"></div><ul><li>Lead follow-up by text and email</li><li>Win back old customers</li><li>Email campaigns</li><li>A free Station-built website</li><li class="worth">Worth $538/mo separately</li></ul>
-      <button class="bbtn" data-bundle="price_1UMyIQ4Y7C8no2ikeeZZwnuK" data-m-id="price_1UMyIQ4Y7C8no2ikeeZZwnuK" data-y-id="price_1UMyIR4Y7C8no2ikmdRq9To1" data-trial="1">Start free for 14 days</button><p class="bnote">$0 today · 14 days free · cancel any time</p></div>
-  </div>
-  <div class="center rv" style="margin-top:72px"><p class="k">Want all of it?</p>
-  <h2 class="serif" style="font-size:var(--d-md,2.2rem)">Twelve products, one plan, three sizes.</h2></div>
-  <div class="bgrid">
-    <div class="bcard rv "><span class="bn">CORE</span><div class="bp" data-m="$1,297" data-y="$12,970">$1,297<small>/mo</small></div>
-      <p class="bd2">Every product except Radar, at its Standard size, including the AI receptionist.</p><div class="sep"></div><ul><li>All 12 products, one plan, one bill</li><li>AI receptionist, 750 minutes</li><li>A free Station-built website</li><li class="worth">Worth $2,005/mo separately</li></ul>
-      <button class="bbtn" data-bundle="price_1UMyIJ4Y7C8no2ikx2zU9L6D" data-m-id="price_1UMyIJ4Y7C8no2ikx2zU9L6D" data-y-id="price_1UMyIK4Y7C8no2ik4JbI23mh">Get Core</button><p class="bnote">Billed today · 30-day money-back on your first month</p></div>
-    <div class="bcard rv "><span class="bn">PRO</span><div class="bp" data-m="$2,197" data-y="$21,970">$2,197<small>/mo</small></div>
-      <p class="bd2">Every product except Radar, at its busy size, and we run your social and email.</p><div class="sep"></div><ul><li>Everything in Core, at the busy tier</li><li>12 social posts a month, written and posted</li><li>4 email campaigns a month, written and sent</li><li>A free Station-built website</li><li class="worth">Worth $3,072/mo separately</li></ul>
-      <button class="bbtn" data-bundle="price_1UMyIL4Y7C8no2ikd7zicuNF" data-m-id="price_1UMyIL4Y7C8no2ikd7zicuNF" data-y-id="price_1UMyIL4Y7C8no2ikxZ6or4yE">Get Pro</button><p class="bnote">Billed today · 30-day money-back on your first month</p></div>
-    <div class="bcard rv "><span class="bn">MAX</span><div class="bp" data-m="$2,797" data-y="$27,970">$2,797<small>/mo</small></div>
-      <p class="bd2">Every product except Radar, at its top size, done for you, with a custom-designed site.</p><div class="sep"></div><ul><li>Everything in Pro, at the top tier</li><li>AI receptionist, 2,500 minutes</li><li>Priority support and a quarterly review call</li><li>A custom-designed website</li><li class="worth">Worth $3,472/mo separately, before the website</li></ul>
-      <button class="bbtn" data-bundle="price_1UMyIM4Y7C8no2ikGYUn3LhS" data-m-id="price_1UMyIM4Y7C8no2ikGYUn3LhS" data-y-id="price_1UMyIN4Y7C8no2ikTMo6ei9R">Get Max</button><p class="bnote">Billed today · 30-day money-back on your first month</p></div>
-  </div>
-  <p class="rv" style="text-align:center;color:rgba(255,255,255,.62);font-size:13px;margin-top:22px;max-width:70ch;margin-left:auto;margin-right:auto">Every plan is month to month. The free website is built after your first paid month and stays live while you're with us; if you leave, your domain and words are yours, and you can keep the built site for a one-time $1,250: we move its code to your GitHub and transfer the domain to you. More than one location? Each extra location is $397/mo. Questions? <a href="mailto:main@station.solutions" style="color:#EFC26A">main@station.solutions</a>.</p>
-</div></section>
-
-<section class="faq" id="faq"><div class="wrap">
-  <div class="center rv"><p class="k">Asked every day</p><h2>Questions, answered straight.</h2></div>
-  <div class="faq-tabs"></div><div class="faq-list"></div>
-</div></section>
-<section class="sec"><div class="wrap center">
-  <div class="rv"><p class="k">Still deciding?</p>
-  <h2 class="serif">Fifteen minutes with a human. No pitch deck, no pressure.</h2>
-  <p class="lede" style="margin-left:auto;margin-right:auto">Bring your worst week. We'll tell you which single product fixes the most of it — and if the honest answer is "none yet," we'll say that too.</p>
-  <p style="margin-top:22px"><button class="btn glass" data-quiz type="button">Tell us your worst week →</button> <a class="btn glass" style="margin-left:8px" href="/book/">Book a call</a></p></div>
-</div></section>
-</main><script>window.STATION_FAQ={"Buying & billing": [["Can I really cancel anytime?", "Yes \u2014 every product is month to month, no contracts. Single products and collections start with a 14-day free trial."], ["Do I need to buy a bundle?", "No. Every product stands alone. Bundles exist because stacking four or more usually costs more than a flat bundle \u2014 the site will literally tell you when you've crossed that line."], ["Who processes payments?", "Stripe. We never see or store your card. Card payments on Tap go through your own processor \u2014 we take zero percent of your revenue."]], "Setup & timing": [["How fast is 'live'?", "It's printed on every product before you pay: instant for Pursuit and Dispatch, minutes for Greet, same day for Frontdesk and Repute, about 2 business days for anything that texts (carrier registration \u2014 a US carrier rule, not ours)."], ["What do you need from me?", "Usually 15 minutes of business facts. Phone products need your legal business name and EIN for the carrier filing. We do the rest."], ["Do I need to switch phone numbers?", "Never. Your existing line forwards \u2014 reversible in one call. We never port your number."]], "Your words & control": [["Can I change what the messages say?", "Every message any product sends is pre-written so it works day one, and every line is editable in Settings \u2192 Your Words."], ["Can I turn the automation off?", "Per product, per feature. Repute can hold every reply for your approval; Pursuit stops the instant a lead replies or you take over the thread."], ["Whose brand is on everything?", "Yours. Your name, your number, your voice. Station stays backstage."]], "The tech": [["Do I need new hardware or apps?", "No hardware. Tap uses the phone already in your pocket. Everything else runs in a browser and one mobile app."], ["What happens if the AI gets something wrong?", "Frontdesk never quotes prices or promises timelines unless you allow it, always offers a human, and falls back to ringing your phone \u2014 there's no mode where a caller hits dead air."], ["Does this integrate with what I already use?", "Google, Facebook, Instagram, TikTok, LinkedIn, WhatsApp, Stripe, PayPal, QuickBooks, Shopify, Zoom and more."]]};</script><!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
+<div class="wrap">
+<section class="doors3" id="doors" aria-label="Three ways in">
+ <a class="door3" href="/products/" style="--art:url(/products/media/day-morning-m.webp);--pos:45% 70%"><div><small>Station Products</small><b>Your front office, staffed.</b><p>Fourteen products that answer the phone, book the job, get you paid and get you found. Live in days, 14 days free.</p></div><span class="tp"><span>From $47/mo</span><i>See all 14 &rarr;</i></span></a>
+ <a class="door3" href="/custom/" style="--art:url(/products/media/storefront-m.webp);--pos:62% 60%"><div><small>Station Solutions</small><b>If it isn&rsquo;t on the shelf, we build it.</b><p>An app, a portal, a tool for one job, a website built by a person. Scoped in 48 hours, fixed quote.</p></div><span class="tp"><span>Priced to the project</span><i>Tell us &rarr;</i></span></a>
+ <a class="door3" href="/contact/" style="--art:url(/products/media/radar-m.webp);--pos:30% 50%"><div><small>Station Security</small><b>IT and security, on call.</b><p>Coming soon. Talk to us in the meantime.</p></div><span class="tp"><span>Coming soon</span><i>Talk to us &rarr;</i></span></a>
+</section>
+<section class="sec" id="how">
+ <h2>We start by walking in. <em>Then we fix what we find.</em></h2>
+ <div class="how3">
+  <ol>
+   <li><i>01</i><div><b>Look</b><span>The free audit runs twelve checks on how customers find and reach you, and lands in your inbox in about a minute. No card, no call.</span></div></li>
+   <li><i>02</i><div><b>Match</b><span>If something on the shelf fixes it, you start it free for 14 days. If nothing fits yet, we say so.</span></div></li>
+   <li><i>03</i><div><b>Build</b><span>If it needs something new, we scope it in 48 hours and give you a fixed quote before anything starts.</span></div></li>
+  </ol>
+  <div class="how-card"><b>Start with what you already have.</b><p>Twelve checks on your website, your Google profile, your phone and your reviews.</p><div class="row"><a class="btn blue" href="/audit/">Get the free audit</a><a class="btn glass" href="/ai-check/">AI visibility check</a></div></div>
+ </div>
+</section>
+<section class="sec" id="shop">
+ <h2>On the shelf now. <em>Fourteen products, one app.</em></h2>
+ <div class="ribbon" aria-label="Station products"><div class="track"><a class="rb" href="/frontdesk/" style="--art:url(/products/media/day-night-m.webp)"><span>Frontdesk</span></a><a class="rb" href="/lineback/" style="--art:url(/products/media/lineback-m.webp)"><span>Lineback</span></a><a class="rb" href="/pursuit/" style="--art:url(/products/media/pursuit-m.webp)"><span>Pursuit</span></a><a class="rb" href="/slate/" style="--art:url(/products/media/slate-m.webp)"><span>Slate</span></a><a class="rb" href="/tap/" style="--art:url(/products/media/tap-m.webp)"><span>Tap</span></a><a class="rb" href="/repute/" style="--art:url(/products/media/repute-m.webp)"><span>Repute</span></a><a class="rb" href="/echo/" style="--art:url(/products/media/echo-m.webp)"><span>Echo</span></a><a class="rb" href="/greet/" style="--art:url(/products/media/greet-m.webp)"><span>Greet</span></a><a class="rb" href="/marquee/" style="--art:url(/products/media/marquee-m.webp)"><span>Marquee</span></a><a class="rb" href="/dispatch/" style="--art:url(/products/media/dispatch-m.webp)"><span>Dispatch</span></a><a class="rb" href="/revive/" style="--art:url(/products/media/revive-m.webp)"><span>Revive</span></a><a class="rb" href="/radar/" style="--art:url(/products/media/radar-m.webp)"><span>Radar</span></a><a class="rb" href="/dial/" style="--art:url(/products/media/dial-m.webp)"><span>Dial</span></a><a class="rb" href="/storefront/" style="--art:url(/products/media/storefront-m.webp)"><span>Storefront</span></a></div></div>
+ <div class="shelf-cta"><p>Each one has its own page, its price and its time to live. Start any of them free for 14 days, or a collection for less than the parts.</p><a class="btn blue" href="/products/">See all 14 products, priced &rarr;</a></div>
+</section>
+<section class="sec" id="help">
+ <h2>Not sure where to start? <em>Three ways to find out.</em></h2>
+ <div class="unsure">
+  <button type="button" data-quiz><b>Find my fit</b><span>Six questions. One product, or an honest &ldquo;none yet&rdquo;.</span><i>Start the 60-second diagnosis &rarr;</i></button>
+  <a href="/audit/"><b>Free audit</b><span>Twelve checks on how customers find and reach you.</span><i>Run it &rarr;</i></a>
+  <a href="/book/"><b>Fifteen minutes with a person</b><span>Bring your worst week. We&rsquo;ll tell you what we&rsquo;d fix first.</span><i>Book a call &rarr;</i></a>
+ </div>
+</section>
+<section class="sec home-faq" id="faq">
+ <h2>Questions, <em>answered straight.</em></h2>
+ <div class="faq-body"><ul class="fl"><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="hb-0" aria-expanded="false" aria-controls="ha-0"><span>What is Station?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="ha-0" role="region" aria-labelledby="hb-0"><div><p>Station Automations Group LLC, a software company in Norman, Oklahoma. We make fourteen ready-made products for the front office of a small business, build custom software when nothing on the shelf fits, and are adding IT and security.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="hb-1" aria-expanded="false" aria-controls="ha-1"><span>Do I have to know what I need?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="ha-1" role="region" aria-labelledby="hb-1"><div><p>No. The free audit runs twelve checks on how customers find and reach you and lands in your inbox in about a minute. The 60-second diagnosis names one product, or says &ldquo;none yet&rdquo; if that is the honest answer.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="hb-2" aria-expanded="false" aria-controls="ha-2"><span>How fast is a product live?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="ha-2" role="region" aria-labelledby="hb-2"><div><p>Each product states its own time before you buy: some are live in minutes, most in a day or two, the longest in about a week. Every single product and collection starts with 14 days free.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="hb-3" aria-expanded="false" aria-controls="ha-3"><span>What does custom work cost?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="ha-3" role="region" aria-labelledby="hb-3"><div><p>It is priced to the project. We scope it in 48 hours and give you a fixed quote, so you know the number before anything starts.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="hb-4" aria-expanded="false" aria-controls="ha-4"><span>Can I cancel?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="ha-4" role="region" aria-labelledby="hb-4"><div><p>Yes. Products are month to month and cancel any time from your account.</p></div></div></li></ul></div>
+</section>
+</div>
+</main>
+<!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
 <footer class="hwf" id="hwf" style="--hwf-bg:#0B0D10;--hwf-ink:#E8E6E1;--hwf-warm:#E8E6E1">
  <canvas aria-hidden="true"></canvas>
  <span class="hwf-sr">station</span>
@@ -280,7 +151,7 @@ footer.hwf{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:ma
 <style>
 .hwf{position:relative;width:100%;padding-bottom:24vw;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
-.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:calc(1760px - 2*var(--gut,16px));margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
 .hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
 .hwf-brand span{opacity:.62;display:block;margin-top:4px}
 .hwf .hwf-col{display:block;margin:0;padding:0}
@@ -289,7 +160,7 @@ footer.hwf{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:ma
 .hwf-col a,.hwf-up{color:inherit;text-decoration:none;opacity:.8;background:none;border:0;padding:0;font:inherit;cursor:pointer;background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:opacity .25s ease,background-size .35s cubic-bezier(.2,.7,.1,1);min-height:28px;display:inline-block}
 .hwf-col a:hover,.hwf-up:hover{opacity:1;background-size:100% 1px}
 .hwf-col a:focus-visible,.hwf-up:focus-visible{outline:1px solid currentColor;outline-offset:3px;opacity:1}
-.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:1200px;margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
+.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:calc(1760px - 2*var(--gut,16px));margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
 .hwf-rule span{opacity:.62}
 .hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media (max-width:720px){.hwf{height:auto}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
@@ -354,10 +225,18 @@ footer.hwf{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:ma
  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){layout();wake()})}
 })();
 </script>
-
+<script src="/attribution.js"></script>
+<script src="/analytics.js"></script>
 <script>window.STATION_CATALOG=[{"k": "greet", "n": "Greet", "sub": "Website chat assistant", "pricelab": "$79 /mo", "ttl": "Live in minutes", "mo": 79, "once": 0, "link": "https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z", "img": "/media/v5/greet.jpg", "price_id": "price_1TzVcd4Y7C8no2ikRlFIdU8q"}, {"k": "slate", "n": "Slate", "sub": "Booking calendar & reminders", "pricelab": "$59 /mo", "ttl": "Live today", "mo": 59, "once": 0, "link": "https://buy.stripe.com/8x25kw5WI0S5305ds42Fa1v", "img": "/media/v5/slate.jpg", "price_id": "price_1UGUkq4Y7C8no2ik33SCikR9"}, {"k": "lineback", "n": "Lineback", "sub": "Missed-call text-back", "pricelab": "$197 /mo", "ttl": "Live in ~2 business days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14", "img": "/media/v5/lineback.jpg", "price_id": "price_1TzVcf4Y7C8no2ikSQwPLLHG"}, {"k": "frontdesk", "n": "Frontdesk", "sub": "AI phone receptionist", "pricelab": "$397 /mo", "ttl": "Live same day", "mo": 397, "once": 0, "link": "https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16", "img": "/media/v5/frontdesk.jpg", "price_id": "price_1TzVcg4Y7C8no2iknK94keOq"}, {"k": "pursuit", "n": "Pursuit", "sub": "Automatic follow-up", "pricelab": "$247 /mo", "ttl": "Live instantly", "mo": 247, "once": 0, "link": "https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19", "img": "/media/v5/pursuit.jpg", "price_id": "price_1TzVci4Y7C8no2ikGmZ0IJA0"}, {"k": "repute", "n": "Repute", "sub": "Review engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b", "img": "/media/v5/repute.jpg", "price_id": "price_1TzVcj4Y7C8no2ikEe64LSwt"}, {"k": "map", "n": "Echo", "sub": "Google profile, managed", "pricelab": "$247 /mo", "ttl": "Live in 2\u20133 days", "mo": 247, "once": 0, "link": "", "img": "/media/v5/map.jpg", "price_id": "price_1UGUko4Y7C8no2ikuq62n9On"}, {"k": "dispatch", "n": "Dispatch", "sub": "Email campaigns", "pricelab": "$94 /mo", "ttl": "Live instantly", "mo": 94, "once": 0, "link": "https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d", "img": "/media/v5/dispatch.jpg", "price_id": "price_1TzVck4Y7C8no2ikU1Jq6hp3"}, {"k": "revive", "n": "Revive", "sub": "Win back old customers", "pricelab": "$197 /mo", "ttl": "Runs in 1\u20132 days", "mo": 197, "once": 0, "link": "", "img": "/media/v5/revive.jpg", "price_id": "price_1UMyIS4Y7C8no2ikuHC5vpTI"}, {"k": "radar", "n": "Radar", "sub": "Prospecting engine", "pricelab": "$297 /mo", "ttl": "Live same day", "mo": 297, "once": 0, "link": "https://buy.stripe.com/5kQ28kbh244hdEJbjW2Fa1r", "img": "/media/v5/radar.jpg", "price_id": "price_1UGUko4Y7C8no2ikwFny6WFb"}, {"k": "dial", "n": "Dial", "sub": "Business number & texting", "pricelab": "$47 /mo", "ttl": "Live in ~2 business days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h", "img": "/media/v5/dial.jpg", "price_id": "price_1TzVcn4Y7C8no2ikq0LlSCRA"}, {"k": "tap", "n": "Tap", "sub": "Payments & POS", "pricelab": "$47 /mo + card rates", "ttl": "Live in 1\u20132 days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/4gMcMY1GsdER9otew82Fa1n", "img": "/media/v5/tap.jpg", "price_id": "price_1U2FsB4Y7C8no2ik5gbYBi8Q"}, {"k": "marquee", "n": "Marquee", "sub": "Social, ads & brand board", "pricelab": "$197 /mo", "ttl": "Live in 5\u20137 days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k", "img": "/media/v5/marquee.jpg", "price_id": "price_1TzVcp4Y7C8no2ikHA1mMp89"}];</script>
-
-
-<script>(function(){var n=document.querySelector('.nav'),h=document.querySelector('.hub');if(!n||!h)return;function st(){n.classList.toggle('solid',window.scrollY>h.offsetHeight-60)}var t=false;window.addEventListener('scroll',function(){if(t)return;t=true;requestAnimationFrame(function(){st();t=false})},{passive:true});st()})();</script>
-<script src="/attribution.js" defer></script><script src="/analytics.js" defer></script><script src="/v5.js?v=20261019c" defer></script><script src="/cart-recovery.js?v=20260924" defer></script><script src="/quiz.js?v=20260924" defer></script><script src="/audit-popup.js" defer></script>
+<script src="/v5.js?v=20261019d"></script>
+<script src="/quiz.js?v=20260924"></script>
+<script>
+(function(){
+ var nav=document.querySelector('.nav'),hero=document.querySelector('.phero');
+ function st(){if(nav&&hero)nav.classList.toggle('solid',window.scrollY>hero.offsetHeight-64)}
+ var t=false;window.addEventListener('scroll',function(){if(t)return;t=true;requestAnimationFrame(function(){st();t=false})},{passive:true});st();
+ document.querySelectorAll('.fi-b').forEach(function(b){b.addEventListener('click',function(){var li=b.closest('.fi'),o=li.dataset.state==='open';li.dataset.state=o?'closed':'open';b.setAttribute('aria-expanded',String(!o))})});
+ var tr=document.querySelector('.ribbon .track');if(tr)tr.innerHTML+=tr.innerHTML.replace(/<a /g,'<a tabindex="-1" aria-hidden="true" ');
+})();
+</script>
 </body></html>

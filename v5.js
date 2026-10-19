@@ -185,7 +185,7 @@
     drawer.innerHTML = '<div class="c-h"><b>Your cart</b><button class="c-x" aria-label="Close">×</button></div>' +
       '<div class="c-body"></div>' +
       '<div class="c-foot"><div class="c-rows"></div>' +
-      '<div class="c-nudge"><b>A collection may cover this for less.</b> And it comes with a free website. <a href="/#bundles" style="color:inherit;font-weight:700">See the collections</a>.</div>' +
+      '<div class="c-nudge"><b>A collection may cover this for less.</b> And it comes with a free website. <a href="/products/#collections" style="color:inherit;font-weight:700">See the collections</a>.</div>' +
       '<a class="btn dark c-go" href="/checkout/">Continue to checkout →</a>' +
       '<p class="c-note">One secure Stripe payment for the whole cart. Subscriptions stay month-to-month and cancel any time. Single products and collections start with a 14-day free trial.</p></div>';
     document.body.appendChild(scrim); document.body.appendChild(drawer);
@@ -281,7 +281,7 @@
     var h = document.querySelector(".hamb"); if (!h) return;
     var sheet = document.createElement("div"); sheet.className = "msheet";
     sheet.innerHTML = '<a href="/products/">All 14 products, priced</a><a href="/frontdesk/">Phone &amp; leads</a>' +
-      '<a href="/storefront/">Websites &amp; Google</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
+      '<a href="/storefront/">Websites &amp; Google</a><a href="/products/#collections">Bundles</a><a href="/audit/">Free audit</a>' +
       '<a href="/sweep/">Website check</a>' +
       '<a href="mailto:main@station.solutions">Contact</a><a href="/#help">Find my fit</a>';
     document.body.appendChild(sheet);
@@ -772,9 +772,9 @@
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
       if (/trial|free trial|try before/.test(s)) return "Single products and the three collections carry a <b>14-day free trial</b> — $0 today, cancel inside the 14 days and you never pay. The Core, Pro and Max plans bill today with a 30-day money-back on the first month.";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products and collections start with a 14-day free trial.";
-      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three collections, each with a free website: <b>Answer $297/mo</b> (text-back, chat, booking, a business number, payments), <b>Get Found $497/mo</b> (Google profile, reviews, social) and <b>Follow Up $427/mo</b> (lead follow-up, win-back, email). Want everything? <b>Core $1,297</b>, <b>Pro $2,197</b> or <b>Max $2,797</b> a month.<br><a href='/#bundles'>See the collections →</a>";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three collections, each with a free website: <b>Answer $297/mo</b> (text-back, chat, booking, a business number, payments), <b>Get Found $497/mo</b> (Google profile, reviews, social) and <b>Follow Up $427/mo</b> (lead follow-up, win-back, email). Want everything? <b>Core $1,297</b>, <b>Pro $2,197</b> or <b>Max $2,797</b> a month.<br><a href='/products/#collections'>See the collections →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. After it's built, hosting and care is one monthly subscription priced for your business, and we quote it with your demo.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
-      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Two or three that fix the same job? A collection usually wins, and it comes with a free website.<br><a href='/#shop'>See every price →</a><a href='/#bundles'>See the collections →</a>";
+      if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Two or three that fix the same job? A collection usually wins, and it comes with a free website.<br><a href='/products/#shelf'>See every price →</a><a href='/products/#collections'>See the collections →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
       if (/answer|reception|24|after hours|phone rings|ai voice|voice ai/.test(s)) return "That's <b>Frontdesk</b> — an AI receptionist that answers 24/7, books appointments and never puts anyone on hold. See how it works:<br>" + plink("frontdesk");
       if (/review|stars|reputation/.test(s)) return "That's <b>Repute</b> — asks every happy customer for the review, catches the unhappy ones before they post, and drafts your replies. Try the live demo:<br>" + plink("repute");
@@ -891,7 +891,7 @@
     function render() {
       var c = get();
       if (!c.length) {
-        host.innerHTML = '<div class="c-empty" style="padding:60px 10px">Your cart is empty — <a href="/#shop">the shelf is this way</a>.</div>';
+        host.innerHTML = '<div class="c-empty" style="padding:60px 10px">Your cart is empty — <a href="/products/#shelf">the shelf is this way</a>.</div>';
         ups.innerHTML = ""; rows.innerHTML = ""; tot.innerHTML = ""; tr.hidden = true; pay.disabled = true; return;
       }
       pay.disabled = false;
@@ -1272,7 +1272,7 @@
     var INDEX = cat.map(function (p) {
       return { t: p.n, s: p.sub + " · " + p.pricelab, u: "/" + p.k + "/", kw: (p.n + " " + p.sub + " " + p.k).toLowerCase() };
     }).concat([
-      { t: "Collections — Answer / Get Found / Follow Up", s: "And Core, Pro and Max for everything", u: "/#bundles", kw: "bundle bundles collection collections answer get found follow up core pro max package deal price free website" },
+      { t: "Collections — Answer / Get Found / Follow Up", s: "And Core, Pro and Max for everything", u: "/products/#collections", kw: "bundle bundles collection collections answer get found follow up core pro max package deal price free website" },
       { t: "Free audit", s: "Twelve checks on how customers find and reach you — free", u: "/audit/", kw: "audit free check listing reviews report" },
       { t: "Free website check", s: "Has your website been hacked without you knowing? Result by email", u: "/sweep/", kw: "website check sweep hacked hack hidden links spam links cloaking google cleanup clean report code sweeper" },
       { t: "Book a call", s: "15 minutes with a human", u: "/book/", kw: "book call appointment intro talk human meeting" },

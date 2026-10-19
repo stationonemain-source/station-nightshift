@@ -787,3 +787,16 @@ body:has(.receipt.show) .chat-fab{bottom:calc(74px + env(safe-area-inset-bottom,
 /* the painting melts into the page: no hard edge at the bottom of the hero */
 .phero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(90px,16vh,190px);z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0),var(--bg))}
 .phero .copy{padding-top:calc(76px + clamp(28px,6vh,80px))}
+/* tiles carry their product's painting */
+.t-art{background:#0B0D10 var(--art,url(/products/media/day-night-m.webp)) var(--pos,50% 60%)/cover no-repeat;color:#F4F2ED}
+.t-art:before{background:linear-gradient(180deg,rgba(11,13,16,.72) 0%,rgba(11,13,16,.3) 42%,rgba(11,13,16,.08) 60%,rgba(11,13,16,.55) 100%)}
+.t-art b{text-shadow:0 2px 14px rgba(11,13,16,.55)}
+.t-art .tp{background:rgba(11,13,16,.5);color:#F4F2ED}
+.t-art .tp i{background:var(--blue);color:#fff}
+.tile.t-art:hover{transform:translateY(-2px) scale(1.01)}
+/* every shelf card carries its product's painting */
+.pc{overflow:hidden}
+.pc-art{display:block;margin:-20px -20px 4px;aspect-ratio:16/7;background:#0B0D10 var(--art) 50% 62%/cover no-repeat;transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.pc:hover .pc-art{transform:scale(1.03)}
+.pc-quiz{border-style:solid}
+@media (max-width:640px){.pc-art{aspect-ratio:16/8}}
