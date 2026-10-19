@@ -225,10 +225,9 @@
   ready(function () {
     var h = document.querySelector(".hamb"); if (!h) return;
     var sheet = document.createElement("div"); sheet.className = "msheet";
-    sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Phone &amp; leads</a>' +
-      '<a href="/storefront/">Websites &amp; Google</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
-      '<a href="/sweep/">Website check</a>' +
-      '<a href="mailto:main@station.solutions">Contact</a><a href="/#help">Find my fit</a>';
+    sheet.innerHTML = '<a href="/products/">Products</a><a href="/products/#collections">Collections &amp; plans</a>' +
+      '<a href="/custom/">Solutions</a><a href="/contact/">Security</a><a href="/audit/">Free audit</a>' +
+      '<a href="/sweep/">Website check</a><a href="/book/">Book a call</a>';
     document.body.appendChild(sheet);
     h.addEventListener("click", function(e){ e.stopPropagation(); sheet.classList.toggle("open"); });
     document.addEventListener("click", function(){ sheet.classList.remove("open"); });
