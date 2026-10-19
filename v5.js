@@ -282,7 +282,7 @@
     var sheet = document.createElement("div"); sheet.className = "msheet";
     sheet.innerHTML = '<a href="/products/">All 14 products, priced</a><a href="/frontdesk/">Phone &amp; leads</a>' +
       '<a href="/storefront/">Websites &amp; Google</a><a href="/products/#collections">Bundles</a><a href="/audit/">Free audit</a>' +
-      '<a href="/sweep/">Website check</a><a href="/security/">Security</a>' +
+      '<a href="/sweep/">Website check</a><a href="/security/">Security</a><a href="/software/">Custom software</a>' +
       '<a href="mailto:main@station.solutions">Contact</a><a href="/#help">Find my fit</a>';
     document.body.appendChild(sheet);
     h.addEventListener("click", function(e){ e.stopPropagation(); sheet.classList.toggle("open"); });

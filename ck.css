@@ -29,3 +29,13 @@
   #ck .ck-long{display:none}
   #ck .ck-short{display:inline!important}
 }
+
+/* consent on phones: one compact bar, same words and choices (2026-10-19) */
+@media (max-width:640px){
+ #ck{left:8px;right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));max-width:none;flex-direction:row;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:14px}
+ #ck .ck-txt{flex:1;min-width:0;font-size:12px;line-height:1.4}
+ #ck .ck-long{display:none}
+ #ck .ck-short{display:inline!important}
+ #ck .ck-actions{flex-direction:column;gap:6px;flex:none}
+ #ck .ck-accept,#ck .ck-min{flex:none;min-height:40px;padding:0 18px;font-size:14px}
+}

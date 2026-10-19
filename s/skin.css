@@ -1,0 +1,64 @@
+/* skin.css: brings the older v5 pages (checkout, audit, contact, book, website check, AI check)
+   into the new Station look. Loaded AFTER v5.css. Type: Archivo headlines, Geist text. Colours: ink on
+   paper, blue for action. The first section sits on its painting; forms and carts sit on paper cards. */
+:root{--ink:#16181D;--bg:#F4F2ED;--bg-2:#FBFAF6;--bg-3:#ECE9E2;--card:#FBFAF6;--line:#D9D4C7;--line-2:#CFC9BA;
+ --muted:#5E5A50;--faint:#6B665B;--accent:#2D6CDF;--accent-dk:#2257BD;--blue:#2D6CDF;--blue-hi:#4A86F0;--blue-lo:#2257BD;
+ --fd:Archivo,ui-sans-serif,system-ui,sans-serif;--fb:Geist,ui-sans-serif,system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);font-family:var(--fb)}
+h1,h2,h3,.serif,.af-h{font-family:var(--fd)!important;font-weight:800!important;font-variation-settings:"wdth" 110;letter-spacing:-.03em!important;text-wrap:balance}
+.k,.sw-k{font:600 14px/1.3 var(--fb)!important;letter-spacing:0!important;text-transform:none!important}
+.btn:not(.glass):not(.ghost):not(.sm){background:var(--ink);color:#fff}
+a{color:inherit}
+
+/* nav sits on the painting, no bar, until the page scrolls */
+.nav{position:absolute;top:0;left:0;right:0;background:transparent!important;border-bottom:0!important;box-shadow:none!important;transition:background .35s ease}
+.nav:not(.solid) .home,.nav:not(.solid) .mtop,.nav:not(.solid) .searchbtn,.nav:not(.solid) .mark{color:#F4F2ED;text-shadow:0 1px 10px rgba(11,13,16,.5)}
+.nav:not(.solid) .cartbtn,.nav:not(.solid) .hamb,.nav:not(.solid) .navbtn{color:#F4F2ED;background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.07) 55%,rgba(255,255,255,.12)),rgba(11,13,16,.30);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.22);text-shadow:none}
+.nav:not(.solid) .cartbtn .n{background:#F4F2ED;color:#16181D}
+.nav.solid{position:fixed;background:rgba(244,242,237,.9)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)!important}
+.nav .mega,.nav .mega a,.nav .mega span{text-shadow:none}
+
+/* the painted first screen */
+.skin-hero{position:relative;isolation:isolate;min-height:100vh;min-height:100svh;padding-top:clamp(112px,14vh,150px)!important;padding-bottom:72px!important;background:#0B0D10;overflow:hidden}
+.skin-hero>.art{position:absolute;inset:0;z-index:-2;display:block}
+.skin-hero>.art img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 62%);display:block;transform-origin:50% 50%;will-change:transform}
+.skin-hero:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(90deg,rgba(11,13,16,.80) 0%,rgba(11,13,16,.6) 42%,rgba(11,13,16,.32) 100%),linear-gradient(180deg,rgba(11,13,16,.4) 0%,rgba(11,13,16,0) 28%,rgba(11,13,16,0) 72%,rgba(11,13,16,.35) 100%)}
+.skin-hero.center:before{background:radial-gradient(ellipse at 50% 32%,rgba(11,13,16,.78),rgba(11,13,16,.45) 60%,rgba(11,13,16,.3)),linear-gradient(180deg,rgba(11,13,16,.4),rgba(11,13,16,0) 30%)}
+.skin-hero .hero-fx{position:absolute;inset:0;z-index:-1;pointer-events:none;transform-origin:50% 50%}
+.skin-hero .hero-fx .hg{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.45;background:radial-gradient(circle,rgba(var(--c),.7) 0%,rgba(var(--c),.28) 28%,rgba(var(--c),.08) 52%,rgba(var(--c),0) 70%);animation:hglow var(--d,7s) ease-in-out var(--dl,0s) infinite alternate}
+.skin-hero .hero-fx .cs{position:absolute;top:42%;width:70%;height:60%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,45,.22),rgba(20,30,45,0));mix-blend-mode:multiply;animation:cshadow 70s linear infinite}
+.skin-hero .hero-fx .cs2{top:58%;width:55%;height:45%;animation-duration:95s;animation-delay:-48s}
+@keyframes hglow{0%{opacity:.28;transform:scale(.92)}60%{opacity:var(--peak,.85)}100%{opacity:var(--peak,.85);transform:scale(1.06)}}
+@keyframes cshadow{from{transform:translateX(-80%)}to{transform:translateX(200%)}}
+@media (prefers-reduced-motion:reduce){.skin-hero .hero-fx .hg,.skin-hero .hero-fx .cs{animation:none}}
+
+/* words on the painting */
+.skin-hero .k,.skin-hero .sw-k,.skin-hero h1,.skin-hero .lede,.skin-hero .sw-lede,.skin-hero .af-list li,.skin-hero .sw-facts li,.skin-hero .aic-hero>.lede,.skin-hero .aic-small,.skin-hero .aic-lab,.skin-hero .co-back a,.skin-hero>.wrap>.rv>h1{color:#F4F2ED!important;text-shadow:0 1px 14px rgba(11,13,16,.45)}
+.skin-hero .lede,.skin-hero .sw-lede,.skin-hero .aic-small{color:#E8E6E1!important}
+.skin-hero .lede a,.skin-hero .lede a b{color:#fff!important;text-decoration:underline;text-underline-offset:3px}
+.skin-hero h1{font-size:clamp(36px,5vw,64px)!important;line-height:1!important}
+.skin-hero .af-list li::marker,.skin-hero .sw-facts li::marker{color:#7FB0FF}
+.skin-hero .sw-facts li:before{background:#7FB0FF!important}
+
+/* paper cards on the painting */
+.skin-hero .co-main,.skin-hero .co-card,.skin-hero form.audit-form,.skin-hero .sw-panel,.skin-hero .aic-form,.skin-hero .bookframe{
+ background:#FBFAF6!important;color:var(--ink);border:0!important;border-radius:16px!important;
+ box-shadow:0 30px 70px -30px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,255,255,.4)!important}
+.skin-hero .co-main{padding:20px 22px;min-height:160px}
+.skin-hero form.audit-form{padding:24px!important}
+.skin-hero .aic-form{padding:18px!important;max-width:620px}
+.skin-hero .co-card *,.skin-hero form.audit-form *,.skin-hero .sw-panel *,.skin-hero .aic-form *,.skin-hero .co-main *{text-shadow:none!important}
+.skin-hero form.audit-form .af-h,.skin-hero .sw-panel h2{color:var(--ink)!important}
+.skin-hero form.audit-form input,.skin-hero .sw-panel input,.skin-hero .aic-form input,.skin-hero .co-card input{background:#fff;border-radius:10px}
+.skin-hero .btn.glass,.skin-hero form .btn,.skin-hero .sw-panel button[type=submit],.skin-hero .aic-form button[type=submit]{background:linear-gradient(180deg,var(--blue-hi),var(--blue) 55%,var(--blue-lo))!important;color:#fff!important;border:0!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 22px -10px rgba(45,108,223,.9)!important}
+.skin-hero .co-side .btn{background:linear-gradient(180deg,var(--blue-hi),var(--blue) 55%,var(--blue-lo))!important;color:#fff!important;border:0!important}
+@media (max-width:760px){
+ .skin-hero{min-height:0;padding-top:96px!important;padding-bottom:40px!important}
+ .skin-hero:before{background:linear-gradient(180deg,rgba(11,13,16,.72) 0%,rgba(11,13,16,.55) 60%,rgba(11,13,16,.45) 100%)}
+ .skin-hero h1{font-size:clamp(32px,9vw,42px)!important}
+}
+.skin-hero .aic-form .aic-lab{color:var(--muted)!important;text-shadow:none!important}
+.skin-hero .co-main img,.skin-hero .co-card img{object-fit:cover;border-radius:8px}
+.skin-hero .co-main .k,.skin-hero .co-card .k,.skin-hero .co-main p,.skin-hero form .k{color:var(--faint)!important;text-shadow:none!important}
+.skin-hero .wrap>p,.skin-hero .wrap>p a,.skin-hero>.wrap>.rv>p:not(.k):not(.lede){color:#E8E6E1!important;text-shadow:0 1px 10px rgba(11,13,16,.5)}

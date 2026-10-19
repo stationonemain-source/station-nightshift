@@ -1,0 +1,303 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Custom software for small businesses — Station Solutions</title>
+<meta name="description" content="Apps, client portals, internal tools and automations, built for your business. Tell us what you need in about a minute; we scope it in 48 hours with a fixed quote.">
+<link rel="canonical" href="https://station.solutions/software/">
+<meta property="og:title" content="Custom software — Station Solutions"><meta property="og:description" content="If it isn't on the shelf, we build it. Scoped in 48 hours, fixed quote.">
+<meta property="og:image" content="https://station.solutions/products/media/og-software.jpg"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#0B0D10">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400;75..125,500;75..125,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="/s/station.css?v=20261019q">
+<style>
+.kinds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:24px}
+.kind{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;min-height:300px;padding:22px;border-radius:14px;color:#F4F2ED;background:#0B0D10 var(--art) var(--pos,50% 50%)/cover no-repeat}
+.kind:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,13,16,0) 30%,rgba(11,13,16,.85) 100%)}
+.kind b{font:800 24px/1.05 var(--display);letter-spacing:-.03em}
+.kind span{font-size:14.5px;color:#E8E6E1;line-height:1.45}
+.inq{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:start;margin-top:26px}
+.inq-side{position:sticky;top:96px;display:grid;gap:16px}
+.inq-side p{color:var(--mute);max-width:44ch}
+.inq-side ol{list-style:none;margin:6px 0 0;padding:0;border-top:1px solid var(--rule)}
+.inq-side li{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:14px 0;border-bottom:1px solid var(--rule)}
+.inq-side li i{font:800 22px/1 var(--display);font-style:normal;color:var(--blue)}
+.inq-side li b{display:block;font-weight:600}
+.inq-side li span{color:var(--mute);font-size:15px}
+form.sw{scroll-margin-top:96px;border-radius:16px;background:var(--pane);box-shadow:inset 0 0 0 1px var(--rule),0 20px 50px -30px rgba(11,13,16,.4);padding:clamp(20px,2.6vw,36px);display:grid;gap:18px}
+.sw-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sw-top span{font-size:14px;color:var(--mute)}
+.sw-bar{height:6px;border-radius:999px;background:color-mix(in srgb,var(--fg) 10%,transparent);overflow:hidden}
+.sw-bar i{display:block;height:100%;width:33%;border-radius:999px;background:var(--blue);transition:width .4s cubic-bezier(.2,.7,.3,1)}
+.sw fieldset{border:0;margin:0;padding:0;display:grid;gap:14px;min-width:0}
+.sw fieldset[hidden]{display:none}
+.sw legend{font:800 clamp(22px,2.2vw,28px)/1.1 var(--display);letter-spacing:-.03em;padding:0;margin-bottom:4px}
+.sw .q{font-weight:600;font-size:15.5px}
+.sw .q small{font-weight:400;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;cursor:pointer}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;background:var(--bg);box-shadow:inset 0 0 0 1px var(--rule);font-size:15px;transition:background .15s,box-shadow .15s,color .15s}
+.chip:hover span{box-shadow:inset 0 0 0 1px var(--fg)}
+.chip input:checked+span{background:var(--blue);color:#fff;box-shadow:none}
+.chip input:focus-visible+span{outline:2px solid var(--blue);outline-offset:2px}
+.sw textarea,.sw input[type=text],.sw input[type=email],.sw input[type=tel],.sw input[type=url]{width:100%;min-height:48px;padding:12px 14px;border-radius:12px;border:0;background:var(--bg);color:var(--fg);box-shadow:inset 0 0 0 1px var(--rule);font:16px/1.45 var(--body)}
+.sw textarea{min-height:130px;resize:vertical}
+.sw textarea:focus,.sw input:focus{outline:2px solid var(--blue);outline-offset:1px}
+.sw .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sw label.f{display:grid;gap:6px;font-weight:600;font-size:15px}
+.sw label.f small{font-weight:400;color:var(--mute)}
+.sw .nav2{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.sw .err{color:#B3261E;font-size:14.5px;min-height:1.2em;margin:0}
+.btn.blue{background:linear-gradient(180deg,var(--blue-hi),var(--blue) 55%,var(--blue-lo));color:#fff;border:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 22px -10px rgba(45,108,223,.9);min-height:50px;padding:0 24px;font-weight:600;font-size:16px;cursor:pointer}
+.btn.back{background:transparent;border:0;color:var(--mute);min-height:50px;padding:0 10px;cursor:pointer;font:500 15px var(--body)}
+.sw .fine{font-size:13px;color:var(--mute)}
+.sw .done{display:grid;gap:12px;text-align:left}
+.sw .done b{font:800 28px/1.1 var(--display);letter-spacing:-.03em}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sfaq .faq-body{max-width:none;margin:24px 0 0}
+@media (min-width:1100px){.sfaq .fl{grid-template-columns:1fr 1fr;column-gap:56px;align-items:start}}
+@media (max-width:1000px){.kinds{grid-template-columns:repeat(2,minmax(0,1fr))}.inq{grid-template-columns:1fr}.inq-side{position:static}}
+@media (max-width:560px){.kinds{grid-template-columns:1fr}.kind{min-height:220px}.sw .two{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Custom software by Station Solutions", "serviceType": "Custom software development for small businesses", "provider": {"@id": "https://station.solutions/#organization"}, "url": "https://station.solutions/software/", "description": "Apps, client portals, internal tools and automations built for one business. Scoped in 48 hours with a fixed quote."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What can you build?", "acceptedAnswer": {"@type": "Answer", "text": "Apps for your customers, portals for your clients, internal tools for your team, and the glue between systems you already pay for. If it runs on a phone, a browser or a computer, ask."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "It is priced to the project. We scope it in 48 hours and give you a fixed quote, so you know the number before anything starts."}}, {"@type": "Question", "name": "Do I need to know the technical side?", "acceptedAnswer": {"@type": "Answer", "text": "No. Tell us the problem the way youd tell a friend. Working out how to build it is our job."}}, {"@type": "Question", "name": "Who owns it?", "acceptedAnswer": {"@type": "Answer", "text": "You do. What we build for you is yours, and we put that in writing with the quote."}}, {"@type": "Question", "name": "I only need a website.", "acceptedAnswer": {"@type": "Answer", "text": "Use the website form instead. Its built for that, and you get a free demo first."}}]}</script>
+</head><body><a class="skip" href="#main">Skip to content</a>
+<nav class="nav"><div class="nav-in">
+  <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
+  <div class="nav-center">
+    <div class="mwrap"><a href="/frontdesk/" class="mtop">Phone &amp; leads</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Never miss a customer</span><a class="mbig" href="/frontdesk/">AI receptionist <small class="mbrand">Frontdesk</small></a><a class="mbig" href="/lineback/">Missed-call text-back <small class="mbrand">Lineback</small></a><a class="mbig" href="/dial/">Business number &amp; texting <small class="mbrand">Dial</small></a><a class="mbig" href="/pursuit/">Lead follow-up <small class="mbrand">Pursuit</small></a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/products/">All 14 products, priced</a><a class="msmall" href="/products/#collections">Bundle deals</a><a class="msmall" href="/audit/">Free audit</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <div class="mwrap"><a href="/storefront/" class="mtop">Websites &amp; Google</a><div class="mega"><div class="mega-in"><div class="mcol"><span class="mhead">Get found</span><a class="mbig" href="/storefront/">Websites <small class="mbrand">Storefront</small></a><a class="mbig" href="/echo/">Google profile, managed <small class="mbrand">Echo</small></a><a class="mbig" href="/repute/">More Google reviews <small class="mbrand">Repute</small></a><a class="mbig" href="/marquee/">Social posting <small class="mbrand">Marquee</small></a></div><div class="mcol"><span class="mhead">See the work</span><a class="msmall" href="/custom/">See your site first — free demo</a><a class="msmall" href="/software/">Custom software — tell us what you need</a><a class="msmall" href="/portfolio/">Our website portfolio →</a><a class="msmall" href="/greet/">Greet — the chat on this page</a></div><div class="mcol"><span class="mhead">Help</span><a class="msmall" href="/products/">All 14 products, priced</a><a class="msmall" href="/audit/">Get a free audit — see what's broken</a><a class="msmall" href="/sweep/">Website check — hacked or not?</a><a class="msmall" href="/security/">Station Security — IT, watched</a><a class="msmall" href="/book/">Book a call</a></div></div></div></div>
+    <a class="mtop" href="/products/#collections">Bundles</a>
+    <a class="mtop" href="/audit/">Free audit</a>
+    <a class="mtop" href="mailto:main@station.solutions">Contact</a>
+    <button class="mtop searchbtn" type="button" aria-label="Search the site" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><span>Search</span></button>
+  </div>
+  <div class="nav-actions">
+    <button class="cartbtn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 3.8h2.3l2.45 11.1a1.7 1.7 0 001.66 1.35h8.55a1.7 1.7 0 001.66-1.33l1.62-6.62H6"/><circle cx="9.7" cy="20.2" r="1.5"/><circle cx="17.3" cy="20.2" r="1.5"/></svg><span class="n">0</span></button>
+    <a class="btn glass navbtn" style="padding:9px 18px;font-size:15px" href="/#help">Find my fit</a>
+    <button class="hamb" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</div>
+<div class="searchbar" id="searchbar" hidden>
+  <div class="sb-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20.3 20.3l-4-4"/></svg><input id="searchIn" type="search" placeholder="Search products, prices, pages…" aria-label="Search the site" autocomplete="off">
+  <button class="sb-x" type="button" aria-label="Close search">×</button></div>
+  <div class="sb-res" id="searchRes" role="listbox"></div>
+</div></nav>
+<main id="main">
+<section class="phero" data-fx='{"mood":"interior","g":[]}'>
+ <picture class="art" aria-hidden="true"><img src="/products/media/workshop.webp" srcset="/products/media/workshop-1600.webp 1600w, /products/media/workshop.webp 2400w, /products/media/workshop-4k.webp 3840w" sizes="(max-aspect-ratio: 16/9) 178vh, 100vw" alt="" width="3840" height="2172" fetchpriority="high" decoding="async"></picture>
+ <div class="copy"><p class="eyebrow">Station Solutions &middot; Custom software</p>
+ <h1>If it isn&rsquo;t on the shelf, <em>we build it.</em></h1>
+ <p>An app for your customers, a portal for your clients, a tool that does the job your team hates doing by hand. Tell us what you need in about a minute.</p>
+ <div class="ctas"><a class="btn fill" href="#start">Tell us what you need</a><a class="btn glass" href="/custom/">Just need a website?</a></div>
+ <div class="lines"><p class="proofline">Scoped in 48 hours &middot; fixed quote before anything starts &middot; you own what we build</p></div></div>
+</section>
+<div class="wrap">
+<section class="sec" id="what">
+ <h2>Things we build. <em>For one business at a time.</em></h2>
+ <div class="kinds">
+  <div class="kind" style="--art:url(/products/media/greet-m.webp);--pos:55% 50%"><b>An app for your customers</b><span>Ordering, booking, loyalty, a members area, on their phone.</span></div>
+  <div class="kind" style="--art:url(/products/media/storefront-m.webp);--pos:60% 55%"><b>A portal for your clients</b><span>One place to see their jobs, documents, invoices and messages.</span></div>
+  <div class="kind" style="--art:url(/products/media/hardware-m.webp);--pos:40% 45%"><b>A tool for your team</b><span>Quotes, schedules, inventory, checklists: the spreadsheet you&rsquo;ve outgrown.</span></div>
+  <div class="kind" style="--art:url(/products/media/signal-m.webp);--pos:30% 55%"><b>Systems that talk</b><span>Your booking, payments and accounting, connected so nobody copies data by hand.</span></div>
+ </div>
+</section>
+<section class="sec" id="start">
+ <h2>Tell us what you need. <em>About a minute.</em></h2>
+ <div class="inq">
+  <div class="inq-side">
+   <p>Plain words are perfect. A person reads every one, and nothing is built or charged until you say yes to a quote.</p>
+   <ol>
+    <li><i>01</i><div><b>You tell us the problem</b><span>Three short steps, right here.</span></div></li>
+    <li><i>02</i><div><b>We scope it in 48 hours</b><span>Questions if we have them, then a plan.</span></div></li>
+    <li><i>03</i><div><b>You get a fixed quote</b><span>The number before anything starts. You own what we build.</span></div></li>
+   </ol>
+  </div>
+  <form class="sw" id="swf" novalidate>
+   <div class="sw-top"><span id="swc">Step 1 of 3</span><span>About a minute</span></div>
+   <div class="sw-bar" aria-hidden="true"><i></i></div>
+   <fieldset>
+    <legend>What do you want built?</legend>
+    <p class="q">Pick any that fit</p>
+    <div class="chips" role="group"><label class="chip"><input type="checkbox" name="kind" value="An app for my customers"><span>An app for my customers</span></label><label class="chip"><input type="checkbox" name="kind" value="A portal for my clients"><span>A portal for my clients</span></label><label class="chip"><input type="checkbox" name="kind" value="A tool for my team"><span>A tool for my team</span></label><label class="chip"><input type="checkbox" name="kind" value="Automate something we do by hand"><span>Automate something we do by hand</span></label><label class="chip"><input type="checkbox" name="kind" value="Connect the systems we already use"><span>Connect the systems we already use</span></label><label class="chip"><input type="checkbox" name="kind" value="Something else"><span>Something else</span></label></div>
+    <label class="f" for="desc">In a sentence or two, what should it do? <small>Plain words are perfect.</small></label>
+    <textarea id="desc" name="desc" placeholder="Our customers call to check on their order. I want them to see it on their phone instead."></textarea>
+    <div class="nav2"><button class="btn blue" data-go="1">Next &rarr;</button></div>
+   </fieldset>
+   <fieldset hidden>
+    <legend>A little context</legend>
+    <p class="q">Who will use it? <small>optional</small></p>
+    <div class="chips" role="group"><label class="chip"><input type="checkbox" name="who" value="My customers"><span>My customers</span></label><label class="chip"><input type="checkbox" name="who" value="My team"><span>My team</span></label><label class="chip"><input type="checkbox" name="who" value="Both"><span>Both</span></label></div>
+    <p class="q">When do you want it? <small>optional</small></p>
+    <div class="chips" role="group"><label class="chip"><input type="radio" name="when" value="As soon as possible"><span>As soon as possible</span></label><label class="chip"><input type="radio" name="when" value="In the next 1–3 months"><span>In the next 1&ndash;3 months</span></label><label class="chip"><input type="radio" name="when" value="Just exploring"><span>Just exploring</span></label></div>
+    <p class="q">Rough budget <small>optional, it just helps us scope</small></p>
+    <div class="chips" role="group"><label class="chip"><input type="radio" name="budget" value="Under $5,000"><span>Under $5,000</span></label><label class="chip"><input type="radio" name="budget" value="$5,000 – $15,000"><span>$5,000 &ndash; $15,000</span></label><label class="chip"><input type="radio" name="budget" value="$15,000 – $50,000"><span>$15,000 &ndash; $50,000</span></label><label class="chip"><input type="radio" name="budget" value="$50,000+"><span>$50,000+</span></label><label class="chip"><input type="radio" name="budget" value="Not sure yet"><span>Not sure yet</span></label></div>
+    <div class="nav2"><button class="btn blue" data-go="2">Next &rarr;</button><button class="btn back" data-go="0">&larr; Back</button></div>
+   </fieldset>
+   <fieldset hidden>
+    <legend>Where do we send the scope?</legend>
+    <div class="two"><label class="f">Your name<input type="text" name="name" autocomplete="name"></label><label class="f">Business <small>optional</small><input type="text" name="business" autocomplete="organization"></label></div>
+    <div class="two"><label class="f">Email<input type="email" name="email" autocomplete="email" inputmode="email"></label><label class="f">Phone <small>optional</small><input type="tel" name="phone" autocomplete="tel" inputmode="tel"></label></div>
+    <label class="f">Your website <small>optional</small><input type="url" name="site" autocomplete="url" inputmode="url" placeholder="yourbusiness.com"></label>
+    <div class="hp" aria-hidden="true"><input type="text" name="leak" tabindex="-1" autocomplete="off"><input type="text" name="company_url" tabindex="-1" autocomplete="off"></div>
+    <div class="nav2"><button class="btn blue" type="submit">Send it</button><button class="btn back" data-go="1">&larr; Back</button></div>
+    <p class="fine">We use your details only to reply about this. <a href="/legal/privacy.html">Privacy</a></p>
+   </fieldset>
+   <p class="err" id="swe" role="alert"></p>
+  </form>
+ </div>
+</section>
+<section class="sec sfaq" id="faq">
+ <h2>Questions, <em>answered straight.</em></h2>
+ <div class="faq-body"><ul class="fl"><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="wb-0" aria-expanded="false" aria-controls="wa-0"><span>What can you build?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="wa-0" role="region" aria-labelledby="wb-0"><div><p>Apps for your customers, portals for your clients, internal tools for your team, and the glue between systems you already pay for. If it runs on a phone, a browser or a computer, ask.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="wb-1" aria-expanded="false" aria-controls="wa-1"><span>How much does it cost?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="wa-1" role="region" aria-labelledby="wb-1"><div><p>It is priced to the project. We scope it in 48 hours and give you a fixed quote, so you know the number before anything starts.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="wb-2" aria-expanded="false" aria-controls="wa-2"><span>Do I need to know the technical side?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="wa-2" role="region" aria-labelledby="wb-2"><div><p>No. Tell us the problem the way you&rsquo;d tell a friend. Working out how to build it is our job.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="wb-3" aria-expanded="false" aria-controls="wa-3"><span>Who owns it?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="wa-3" role="region" aria-labelledby="wb-3"><div><p>You do. What we build for you is yours, and we put that in writing with the quote.</p></div></div></li><li class="fi" data-state="closed"><h3><button type="button" class="fi-b" id="wb-4" aria-expanded="false" aria-controls="wa-4"><span>I only need a website.</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="wa-4" role="region" aria-labelledby="wb-4"><div><p>Use the <a href="/custom/">website form</a> instead. It&rsquo;s built for that, and you get a free demo first.</p></div></div></li></ul></div>
+</section>
+<section class="sec">
+ <h2>The rest of Station</h2>
+ <div class="doors"><a class="door" href="/products/"><small>Station Products</small><b>Your front office, staffed</b><p>Fourteen ready-made products, live in days, 14 days free.</p></a><a class="door" href="/custom/"><small>Websites</small><b>See your site first</b><p>A free demo of your new website in 2&ndash;3 business days.</p></a><a class="door" href="/security/"><small>Station Security</small><b>Every door checked</b><p>What the internet can see of your business. Free check today.</p></a></div>
+</section>
+</div>
+</main>
+<!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
+<footer class="hwf" id="hwf" style="--hwf-bg:#0B0D10;--hwf-ink:#E8E6E1;--hwf-warm:#E8E6E1">
+ <canvas aria-hidden="true"></canvas>
+ <span class="hwf-sr">station</span>
+ <div class="hwf-top">
+  <div class="hwf-brand"><strong>Station</strong><span>Station Automations Group LLC</span></div>
+  <nav class="hwf-col" aria-label="Products"><h3>Products</h3><ul><li><a href="/products/">The fourteen</a></li><li><a href="/products/#collections">Collections &amp; plans</a></li><li><a href="/audit/">Free audit</a></li><li><a href="/ai-check/">AI visibility check</a></li></ul></nav>
+  <nav class="hwf-col" aria-label="Company"><h3>Company</h3><ul><li><a href="/software/">Solutions</a></li><li><a href="/security/">Security</a></li><li><a href="/partners/">Partners</a></li><li><a href="/book/">Book a call</a></li></ul></nav>
+  <nav class="hwf-col" aria-label="Legal"><h3>Legal</h3><ul><li><a href="/legal/privacy.html">Privacy</a></li><li><a href="/legal/tos.html">Terms</a></li><li><a href="/legal/sms-terms.html">SMS terms</a></li><li><a href="/legal/cancellation.html">Cancellation</a></li><li><a href="/legal/cookies.html">Cookies</a></li><li><a href="/legal/accessibility.html">Accessibility</a></li></ul></nav>
+ </div>
+ <div class="hwf-rule"><span>&copy; 2026 Station Automations Group LLC</span><button type="button" class="hwf-up">Back to top &uarr;</button></div>
+</footer>
+<style>
+.hwf{position:relative;width:100%;padding-bottom:24vw;overflow:hidden;isolation:isolate;background:var(--hwf-bg);color:var(--hwf-ink);-webkit-font-smoothing:antialiased;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hwf canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
+.hwf-top{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) repeat(3,minmax(0,1fr));gap:24px;max-width:calc(1760px - 2*var(--gut,16px));margin:0 auto;padding-top:clamp(22px,3.4vw,40px);font:500 12px/1.8 Geist,ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em}
+.hwf-brand strong{display:block;font:800 15px/1.3 Archivo,ui-sans-serif,sans-serif;font-variation-settings:"wdth" 110;letter-spacing:.02em;text-transform:uppercase}
+.hwf-brand span{opacity:.62;display:block;margin-top:4px}
+.hwf .hwf-col{display:block;margin:0;padding:0}
+.hwf-col h3{margin:0 0 4px;font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em;opacity:.62}
+.hwf-col ul{list-style:none;margin:0;padding:0}
+.hwf-col a,.hwf-up{color:inherit;text-decoration:none;opacity:.8;background:none;border:0;padding:0;font:inherit;cursor:pointer;background-image:linear-gradient(currentColor,currentColor);background-size:0% 1px;background-repeat:no-repeat;background-position:0 100%;transition:opacity .25s ease,background-size .35s cubic-bezier(.2,.7,.1,1);min-height:28px;display:inline-block}
+.hwf-col a:hover,.hwf-up:hover{opacity:1;background-size:100% 1px}
+.hwf-col a:focus-visible,.hwf-up:focus-visible{outline:1px solid currentColor;outline-offset:3px;opacity:1}
+.hwf-rule{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:16px;max-width:calc(1760px - 2*var(--gut,16px));margin:clamp(18px,2.6vw,30px) auto 0;padding-top:12px;border-top:1px solid rgba(232,230,225,.16);font:500 12px/1.8 Geist,sans-serif;letter-spacing:.02em}
+.hwf-rule span{opacity:.62}
+.hwf-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (max-width:720px){.hwf{height:auto}.hwf-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:18px}.hwf-brand{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.hwf-col a,.hwf-up{transition:none}}
+</style>
+<script>
+(function(){
+ var root=document.getElementById('hwf');if(!root)return;var canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d');if(!ctx)return;
+ var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var WORD='station',GAP=6,RADIUS=80,CROP=0.2,GRAIN=0.5,FONT='800 100px Archivo, ui-sans-serif, system-ui, sans-serif';
+ var BG='#0B0D10',INK=[232,230,225],WARM=[255,255,255],INKS='#E8E6E1';
+ var w=0,h=0,dpr=1,px=-1e5,py=-1e5,raf=0,visible=true,awake=true,ring={x:0,y:0,t:-1},dots=new Float32Array(0),count=0,grainTile=null;
+ function hwfRadius(c,g){c=c<0?0:c>1?1:c;return Math.sqrt(c)*g*0.56}
+ function layout(){
+  /* the whole word, flush with the content edges, in a band sized to it */
+  var top=root.querySelector('.hwf-top'),r0=root.getBoundingClientRect(),tr=top.getBoundingClientRect();
+  var cw=Math.max(1,tr.width),cx=tr.left-r0.left;
+  var probe=document.createElement('canvas').getContext('2d');probe.font=FONT;
+  var b0=probe.measureText(WORD),gw=(b0.actualBoundingBoxLeft||0)+(b0.actualBoundingBoxRight||b0.width);
+  var fit=cw/Math.max(1,gw)*100,face=FONT.replace('100px',fit.toFixed(2)+'px');probe.font=face;
+  var pb=probe.measureText(WORD),asc=pb.actualBoundingBoxAscent||fit*0.74,desc=pb.actualBoundingBoxDescent||0;
+  var GAPTOP=Math.round(Math.min(40,Math.max(20,cw*0.025))),GAPBOT=Math.round(Math.min(32,Math.max(14,cw*0.02)));
+  var pad=Math.round(asc+desc+GAPTOP+GAPBOT)+'px';if(root.style.paddingBottom!==pad)root.style.paddingBottom=pad;
+  var rect=root.getBoundingClientRect();w=Math.max(1,Math.round(rect.width));h=Math.max(1,Math.round(rect.height));dpr=Math.min(window.devicePixelRatio||1,2);
+  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+  var mask=document.createElement('canvas');mask.width=w;mask.height=h;var m=mask.getContext('2d',{willReadFrequently:true});if(!m)return;
+  m.font=face;m.fillStyle='#000';m.textBaseline='alphabetic';m.fillText(WORD,cx+(pb.actualBoundingBoxLeft||0),h-GAPBOT-desc);
+  var img=m.getImageData(0,0,w,h).data,cols=Math.ceil(w/GAP),rows=Math.ceil(h/GAP),tmp=[];
+  for(var gy=0;gy<rows;gy++)for(var gx=0;gx<cols;gx++){var sum=0;for(var sy=0;sy<3;sy++)for(var sx=0;sx<3;sx++){var x=Math.min(w-1,Math.floor(gx*GAP+((sx+0.5)*GAP)/3)),y=Math.min(h-1,Math.floor(gy*GAP+((sy+0.5)*GAP)/3));sum+=img[(y*w+x)*4+3]}
+   var cov=sum/(9*255);if(cov<0.06)continue;var hx=gx*GAP+GAP/2,hy=gy*GAP+GAP/2;tmp.push(hx,hy,0,0,hx,hy,hwfRadius(cov,GAP))}
+  dots=new Float32Array(tmp);count=tmp.length/7;
+  grainTile=document.createElement('canvas');grainTile.width=256;grainTile.height=256;var g=grainTile.getContext('2d');
+  if(g){var id=g.createImageData(256,256);for(var i=0;i<id.data.length;i+=4){var v=Math.random()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=Math.random()<0.5?0:255}g.putImageData(id,0,0)}
+  awake=true;
+ }
+ function draw(now){
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle=BG;ctx.fillRect(0,0,w,h);
+  var r=!reduced?RADIUS:0,ringAge=ring.t<0?1e9:now-ring.t,ringR=ringAge*0.9,moving=false;
+  for(var i=0;i<count;i++){var j=i*7,x=dots[j],y=dots[j+1],vx=dots[j+2],vy=dots[j+3],hx=dots[j+4],hy=dots[j+5];
+   if(!reduced){
+    if(ringAge<900){var dx0=hx-ring.x,dy0=hy-ring.y,d0=Math.sqrt(dx0*dx0+dy0*dy0)+0.001,band=1-Math.min(1,Math.abs(d0-ringR)/26);if(band>0){var f0=band*3.2*(1-ringAge/900);vx+=(dx0/d0)*f0;vy+=(dy0/d0)*f0}}
+    var dx=x-px,dy=y-py,d2=dx*dx+dy*dy;if(r>0&&d2<r*r){var d=Math.sqrt(d2)+0.001,f=(1-d/r)*2.6;vx+=(dx/d)*f;vy+=(dy/d)*f}
+    vx=(vx+(hx-x)*0.05)*0.84;vy=(vy+(hy-y)*0.05)*0.84;x+=vx;y+=vy;
+    if(Math.abs(vx)+Math.abs(vy)>0.02||Math.abs(x-hx)+Math.abs(y-hy)>0.05)moving=true;else{x=hx;y=hy;vx=0;vy=0}
+    dots[j]=x;dots[j+1]=y;dots[j+2]=vx;dots[j+3]=vy}
+   var k=Math.min(1,Math.hypot(x-hx,y-hy)/28);
+   ctx.fillStyle=k>0.02?'rgb('+Math.round(INK[0]+(WARM[0]-INK[0])*k)+','+Math.round(INK[1]+(WARM[1]-INK[1])*k)+','+Math.round(INK[2]+(WARM[2]-INK[2])*k)+')':INKS;
+   ctx.beginPath();ctx.arc(x,y,dots[j+6],0,6.2832);ctx.fill()}
+  if(grainTile&&GRAIN>0){ctx.globalAlpha=GRAIN*0.09;ctx.globalCompositeOperation='overlay';var pat=ctx.createPattern(grainTile,'repeat');if(pat){ctx.fillStyle=pat;ctx.fillRect(0,0,w,h)}ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over'}
+  awake=moving||ringAge<900||px>-1e4;
+ }
+ function loop(now){raf=0;if(!visible)return;draw(now);if(awake)raf=requestAnimationFrame(loop)}
+ function wake(){awake=true;if(!raf&&visible)raf=requestAnimationFrame(loop)}
+ function local(e){var b=canvas.getBoundingClientRect();return [e.clientX-b.left,e.clientY-b.top]}
+ root.addEventListener('pointermove',function(e){var p=local(e);px=p[0];py=p[1];wake()});
+ root.addEventListener('pointerleave',function(){px=-1e5;py=-1e5;wake()});
+ root.addEventListener('pointerdown',function(e){if(reduced)return;if(e.target.closest&&e.target.closest('a,button'))return;var p=local(e);ring={x:p[0],y:p[1],t:performance.now()};wake()});
+ root.querySelector('.hwf-up').addEventListener('click',function(){window.scrollTo({top:0,behavior:reduced?'auto':'smooth'})});
+ layout();draw(performance.now());wake();
+ if('ResizeObserver' in window){new ResizeObserver(function(){layout();wake()}).observe(root)}else{window.addEventListener('resize',function(){layout();wake()})}
+ if('IntersectionObserver' in window){new IntersectionObserver(function(es){visible=es[0]?es[0].isIntersecting:true;if(visible)wake()}).observe(root)}
+ if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){layout();wake()})}
+})();
+</script>
+<script src="/attribution.js"></script>
+<script src="/analytics.js"></script>
+<script>window.STATION_CATALOG=[{"k": "greet", "n": "Greet", "sub": "Website chat assistant", "pricelab": "$79 /mo", "ttl": "Live in minutes", "mo": 79, "once": 0, "link": "https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z", "img": "/media/v5/greet.jpg", "price_id": "price_1TzVcd4Y7C8no2ikRlFIdU8q"}, {"k": "slate", "n": "Slate", "sub": "Booking calendar & reminders", "pricelab": "$59 /mo", "ttl": "Live today", "mo": 59, "once": 0, "link": "https://buy.stripe.com/8x25kw5WI0S5305ds42Fa1v", "img": "/media/v5/slate.jpg", "price_id": "price_1UGUkq4Y7C8no2ik33SCikR9"}, {"k": "lineback", "n": "Lineback", "sub": "Missed-call text-back", "pricelab": "$197 /mo", "ttl": "Live in ~2 business days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14", "img": "/media/v5/lineback.jpg", "price_id": "price_1TzVcf4Y7C8no2ikSQwPLLHG"}, {"k": "frontdesk", "n": "Frontdesk", "sub": "AI phone receptionist", "pricelab": "$397 /mo", "ttl": "Live same day", "mo": 397, "once": 0, "link": "https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16", "img": "/media/v5/frontdesk.jpg", "price_id": "price_1TzVcg4Y7C8no2iknK94keOq"}, {"k": "pursuit", "n": "Pursuit", "sub": "Automatic follow-up", "pricelab": "$247 /mo", "ttl": "Live instantly", "mo": 247, "once": 0, "link": "https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19", "img": "/media/v5/pursuit.jpg", "price_id": "price_1TzVci4Y7C8no2ikGmZ0IJA0"}, {"k": "repute", "n": "Repute", "sub": "Review engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b", "img": "/media/v5/repute.jpg", "price_id": "price_1TzVcj4Y7C8no2ikEe64LSwt"}, {"k": "map", "n": "Echo", "sub": "Google profile, managed", "pricelab": "$247 /mo", "ttl": "Live in 2\u20133 days", "mo": 247, "once": 0, "link": "", "img": "/media/v5/map.jpg", "price_id": "price_1UGUko4Y7C8no2ikuq62n9On"}, {"k": "dispatch", "n": "Dispatch", "sub": "Email campaigns", "pricelab": "$94 /mo", "ttl": "Live instantly", "mo": 94, "once": 0, "link": "https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d", "img": "/media/v5/dispatch.jpg", "price_id": "price_1TzVck4Y7C8no2ikU1Jq6hp3"}, {"k": "revive", "n": "Revive", "sub": "Win back old customers", "pricelab": "$197 /mo", "ttl": "Runs in 1\u20132 days", "mo": 197, "once": 0, "link": "", "img": "/media/v5/revive.jpg", "price_id": "price_1UMyIS4Y7C8no2ikuHC5vpTI"}, {"k": "radar", "n": "Radar", "sub": "Prospecting engine", "pricelab": "$297 /mo", "ttl": "Live same day", "mo": 297, "once": 0, "link": "https://buy.stripe.com/5kQ28kbh244hdEJbjW2Fa1r", "img": "/media/v5/radar.jpg", "price_id": "price_1UGUko4Y7C8no2ikwFny6WFb"}, {"k": "dial", "n": "Dial", "sub": "Business number & texting", "pricelab": "$47 /mo", "ttl": "Live in ~2 business days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h", "img": "/media/v5/dial.jpg", "price_id": "price_1TzVcn4Y7C8no2ikq0LlSCRA"}, {"k": "tap", "n": "Tap", "sub": "Payments & POS", "pricelab": "$47 /mo + card rates", "ttl": "Live in 1\u20132 days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/4gMcMY1GsdER9otew82Fa1n", "img": "/media/v5/tap.jpg", "price_id": "price_1U2FsB4Y7C8no2ik5gbYBi8Q"}, {"k": "marquee", "n": "Marquee", "sub": "Social, ads & brand board", "pricelab": "$197 /mo", "ttl": "Live in 5\u20137 days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k", "img": "/media/v5/marquee.jpg", "price_id": "price_1TzVcp4Y7C8no2ikHA1mMp89"}];</script>
+<script src="/v5.js?v=20261019f"></script>
+<script src="/quiz.js?v=20260924"></script>
+<script src="/s/hero.js?v=20261019a"></script>
+<script>
+(function(){
+ var nav=document.querySelector('.nav'),hero=document.querySelector('.phero');
+ function st(){if(nav&&hero)nav.classList.toggle('solid',window.scrollY>hero.offsetHeight-64)}
+ var t=false;window.addEventListener('scroll',function(){if(t)return;t=true;requestAnimationFrame(function(){st();t=false})},{passive:true});st();
+ document.querySelectorAll('.fi-b').forEach(function(b){b.addEventListener('click',function(){var li=b.closest('.fi'),o=li.dataset.state==='open';li.dataset.state=o?'closed':'open';b.setAttribute('aria-expanded',String(!o))})});
+})();
+(function(){
+ var f=document.getElementById('swf'); if(!f) return;
+ var URL='https://n8n.srv1748596.hstgr.cloud/webhook/custom-software', KEY='station_sw_draft', t0=Date.now();
+ var steps=[].slice.call(f.querySelectorAll('fieldset')), cur=0, bar=f.querySelector('.sw-bar i'), cnt=document.getElementById('swc'), err=document.getElementById('swe');
+ function vals(name){return [].slice.call(f.querySelectorAll('[name="'+name+'"]:checked')).map(function(i){return i.value})}
+ function v(name){var el=f.querySelector('[name="'+name+'"]');return el?String(el.value||'').trim():''}
+ try{var d=JSON.parse(localStorage.getItem(KEY)||'null'); if(d){Object.keys(d).forEach(function(k){var els=f.querySelectorAll('[name="'+k+'"]'); els.forEach(function(el){ if(el.type==='checkbox'||el.type==='radio') el.checked=[].concat(d[k]).indexOf(el.value)>-1; else el.value=d[k]; })})}}catch(e){}
+ function save(){var o={};['kind','who','when','budget'].forEach(function(n){o[n]=vals(n)});['desc','name','business','email','phone','site'].forEach(function(n){o[n]=v(n)});try{localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}}
+ f.addEventListener('input',save); f.addEventListener('change',save);
+ function show(k){cur=k;steps.forEach(function(s,i){s.hidden=i!==k});bar.style.width=((k+1)/steps.length*100)+'%';cnt.textContent='Step '+(k+1)+' of '+steps.length;err.textContent='';
+   var first=steps[k].querySelector('textarea,input[type=text],input[type=email]'); if(first&&window.innerWidth>700) first.focus({preventScroll:true});
+   var r=f.getBoundingClientRect(); if(r.top<0||r.top>window.innerHeight*.5) f.scrollIntoView({behavior:'smooth',block:'start'});}
+ function check(k){
+   if(k===0){ if(!vals('kind').length) return 'Pick at least one, or Something else.'; if(v('desc').length<10) return 'Tell us a little more: a sentence or two is plenty.'; }
+   if(k===2){ if(!v('name')) return 'Your name, please.'; if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v('email'))) return 'That email doesn&rsquo;t look right.'.replace('&rsquo;','\u2019'); }
+   return '';
+ }
+ f.addEventListener('click',function(e){
+   var b=e.target.closest('[data-go]'); if(!b) return; e.preventDefault();
+   var to=+b.getAttribute('data-go'); if(to>cur){var m=check(cur); if(m){err.textContent=m;return}} show(to);
+ });
+ f.addEventListener('submit',function(e){
+   e.preventDefault(); var m=check(0)||check(2); if(m){err.textContent=m;return}
+   var btn=f.querySelector('[type=submit]'); btn.disabled=true; btn.textContent='Sending\u2026';
+   var answers=[{q:'What they want built',a:vals('kind').join(', ')},{q:'In their words',a:v('desc')},{q:'Who will use it',a:vals('who').join(', ')||'Not said'},
+     {q:'When',a:vals('when').join(', ')||'Not said'},{q:'Rough budget',a:vals('budget').join(', ')||'Not said'},{q:'Their website',a:v('site')||'None given'}];
+   var body={kind:'software',name:v('name'),business:v('business'),email:v('email'),phone:v('phone'),site:v('site'),answers:answers,
+     page:location.href.split('?')[0],sent_at:new Date().toISOString(),elapsed_ms:Date.now()-t0,leak:v('leak'),company_url:v('company_url')};
+   fetch(URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(function(r){
+     if(!r.ok) throw 0;
+     try{localStorage.removeItem(KEY)}catch(x){}
+     try{ if(window.fbq) fbq('track','Lead',{content_name:'custom-software'}); }catch(x){}
+     f.innerHTML='<div class="done"><b>Got it, '+(v('name').split(' ')[0]||'thank you').replace(/[<>&]/g,'')+'.</b><p>A person reads every one of these. We&rsquo;ll reply by email with questions or a first scope and a fixed quote.</p><p class="fine">Nothing is built or charged until you say yes to a quote.</p><p><a class="btn back" style="padding:0" href="/products/">While you wait: see what&rsquo;s already on the shelf &rarr;</a></p></div>';
+   }).catch(function(){btn.disabled=false;btn.textContent='Send it';err.innerHTML='That didn&rsquo;t send. Try again, or email <a href="mailto:main@station.solutions">main@station.solutions</a>.';});
+ });
+ show(0);
+})();
+</script>
+</body></html>
