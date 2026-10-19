@@ -29,6 +29,32 @@
   </div>
 </div>
 </nav><main id="main">
+<style>
+/* nav over the painting, no bar; a backdrop appears only after the hero */
+.nav{position:absolute;top:0;left:0;right:0;z-index:30;background:transparent;border-bottom:0;box-shadow:none;transition:background .35s ease}
+.nav:not(.solid){color:#F4F2ED}
+.nav:not(.solid) .home,.nav:not(.solid) .mtop,.nav:not(.solid) .navbtn,.nav:not(.solid) .hamb{color:#F4F2ED;text-shadow:0 1px 10px rgba(11,13,16,.5)}
+.nav:not(.solid) .navbtn{border-color:rgba(244,242,237,.55);background:rgba(11,13,16,.26);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-shadow:none}
+.nav.solid{position:fixed;background:rgba(244,242,237,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.hub .copy{padding-top:calc(58px + clamp(32px,6vh,80px))}
+/* configurator: ruled rows, no cards */
+.tiles{grid-template-columns:1fr;gap:0;border-top:1px solid var(--line)}
+.tile,.tile.on{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 0;box-shadow:none}
+.tile:hover{border-color:var(--line)}
+.tile .t-name{font:800 17px/1.1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.02em}
+.tile.on .t-name{color:#8A5A00}
+.tile .t-price{font:500 14px var(--fb);color:var(--ink)}
+.tile .t-ttl{font-size:12.5px}
+.receipt{background:none;border:0;border-left:1px solid var(--line);border-radius:0;padding:4px 0 0 24px}
+.receipt .r-eyebrow{font:500 13px var(--fb);letter-spacing:0;text-transform:none;color:var(--muted)}
+.receipt .r-total{font:800 40px/1 Archivo,sans-serif;font-variation-settings:"wdth" 105;letter-spacing:-.03em}
+.ro-foot{margin-top:28px}
+footer{margin-top:0}
+.dock .deck footer,.dock .deck .f-in{color:#E8E6E1}
+.dock .deck .f-brand p,.dock .deck .ftcol,.dock .deck .f-legal span{color:#C9C4B8}
+.dock .deck .ftcol{color:#E8E6E1}
+.dock .deck .f-legal a,.dock .deck .f-grid a{color:#E8E6E1}
+</style>
 <section class="hub" id="top">
 <style>
 .hub{position:relative;min-height:min(92svh,880px);display:flex;flex-direction:column;color:#F4F2ED;overflow:hidden;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -230,7 +256,7 @@
   <p class="lede" style="margin-left:auto;margin-right:auto">Bring your worst week. We'll tell you which single product fixes the most of it — and if the honest answer is "none yet," we'll say that too.</p>
   <p style="margin-top:22px"><button class="btn glass" data-quiz type="button">Tell us your worst week →</button> <a class="btn glass" style="margin-left:8px" href="/book/">Book a call</a></p></div>
 </div></section>
-</main><script>window.STATION_FAQ={"Buying & billing": [["Can I really cancel anytime?", "Yes \u2014 every product is month to month, no contracts. Single products and collections start with a 14-day free trial."], ["Do I need to buy a bundle?", "No. Every product stands alone. Bundles exist because stacking four or more usually costs more than a flat bundle \u2014 the site will literally tell you when you've crossed that line."], ["Who processes payments?", "Stripe. We never see or store your card. Card payments on Tap go through your own processor \u2014 we take zero percent of your revenue."]], "Setup & timing": [["How fast is 'live'?", "It's printed on every product before you pay: instant for Pursuit and Dispatch, minutes for Greet, same day for Frontdesk and Repute, about 2 business days for anything that texts (carrier registration \u2014 a US carrier rule, not ours)."], ["What do you need from me?", "Usually 15 minutes of business facts. Phone products need your legal business name and EIN for the carrier filing. We do the rest."], ["Do I need to switch phone numbers?", "Never. Your existing line forwards \u2014 reversible in one call. We never port your number."]], "Your words & control": [["Can I change what the messages say?", "Every message any product sends is pre-written so it works day one, and every line is editable in Settings \u2192 Your Words."], ["Can I turn the automation off?", "Per product, per feature. Repute can hold every reply for your approval; Pursuit stops the instant a lead replies or you take over the thread."], ["Whose brand is on everything?", "Yours. Your name, your number, your voice. Station stays backstage."]], "The tech": [["Do I need new hardware or apps?", "No hardware. Tap uses the phone already in your pocket. Everything else runs in a browser and one mobile app."], ["What happens if the AI gets something wrong?", "Frontdesk never quotes prices or promises timelines unless you allow it, always offers a human, and falls back to ringing your phone \u2014 there's no mode where a caller hits dead air."], ["Does this integrate with what I already use?", "Google, Facebook, Instagram, TikTok, LinkedIn, WhatsApp, Stripe, PayPal, QuickBooks, Shopify, Zoom and more."]]};</script><footer><div class="f-shell">
+</main><script>window.STATION_FAQ={"Buying & billing": [["Can I really cancel anytime?", "Yes \u2014 every product is month to month, no contracts. Single products and collections start with a 14-day free trial."], ["Do I need to buy a bundle?", "No. Every product stands alone. Bundles exist because stacking four or more usually costs more than a flat bundle \u2014 the site will literally tell you when you've crossed that line."], ["Who processes payments?", "Stripe. We never see or store your card. Card payments on Tap go through your own processor \u2014 we take zero percent of your revenue."]], "Setup & timing": [["How fast is 'live'?", "It's printed on every product before you pay: instant for Pursuit and Dispatch, minutes for Greet, same day for Frontdesk and Repute, about 2 business days for anything that texts (carrier registration \u2014 a US carrier rule, not ours)."], ["What do you need from me?", "Usually 15 minutes of business facts. Phone products need your legal business name and EIN for the carrier filing. We do the rest."], ["Do I need to switch phone numbers?", "Never. Your existing line forwards \u2014 reversible in one call. We never port your number."]], "Your words & control": [["Can I change what the messages say?", "Every message any product sends is pre-written so it works day one, and every line is editable in Settings \u2192 Your Words."], ["Can I turn the automation off?", "Per product, per feature. Repute can hold every reply for your approval; Pursuit stops the instant a lead replies or you take over the thread."], ["Whose brand is on everything?", "Yours. Your name, your number, your voice. Station stays backstage."]], "The tech": [["Do I need new hardware or apps?", "No hardware. Tap uses the phone already in your pocket. Everything else runs in a browser and one mobile app."], ["What happens if the AI gets something wrong?", "Frontdesk never quotes prices or promises timelines unless you allow it, always offers a human, and falls back to ringing your phone \u2014 there's no mode where a caller hits dead air."], ["Does this integrate with what I already use?", "Google, Facebook, Instagram, TikTok, LinkedIn, WhatsApp, Stripe, PayPal, QuickBooks, Shopify, Zoom and more."]]};</script><div class="dock"><div class="water"><svg viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 Q150 30 300 40 T600 40 T900 40 T1200 40" fill="none" stroke="rgba(232,230,225,.14)" stroke-width="1.5"/><path d="M0 70 Q150 60 300 70 T600 70 T900 70 T1200 70" fill="none" stroke="rgba(232,230,225,.10)" stroke-width="1.5"/><path d="M0 100 Q150 90 300 100 T600 100 T900 100 T1200 100" fill="none" stroke="rgba(232,230,225,.07)" stroke-width="1.5"/></svg><div class="slip"></div><span class="piling"></span><span class="piling"></span><span class="piling"></span><span class="piling"></span><span class="rope"></span></div><div class="deck"><footer><div class="f-shell">
   <div class="f-in">
     <div class="f-grid">
       <div class="f-brand"><a class="home" href="/" style="display:flex;gap:10px;align-items:center;font:700 13px var(--fb);letter-spacing:.14em;text-decoration:none"><svg class="mark" style="width:24px;height:24px" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5armF"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5coreF"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5coreF)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5armF"/><use href="#m5armF" transform="rotate(90 50 50)"/><use href="#m5armF" transform="rotate(180 50 50)"/><use href="#m5armF" transform="rotate(270 50 50)"/></g></svg>STATION</a>
@@ -246,7 +272,67 @@
       <a href="mailto:main@station.solutions">main@station.solutions</a></div>
   </div>
   <div class="f-mark" aria-hidden="true"><svg viewBox="0 0 1200 175"><text x="50%" y="60%" text-anchor="middle" dominant-baseline="middle" font-size="138">STATION</text></svg></div>
-</div></footer>
+</div></footer></div></div>
 <script>window.STATION_CATALOG=[{"k": "greet", "n": "Greet", "sub": "Website chat assistant", "pricelab": "$79 /mo", "ttl": "Live in minutes", "mo": 79, "once": 0, "link": "https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z", "img": "/media/v5/greet.jpg", "price_id": "price_1TzVcd4Y7C8no2ikRlFIdU8q"}, {"k": "slate", "n": "Slate", "sub": "Booking calendar & reminders", "pricelab": "$59 /mo", "ttl": "Live today", "mo": 59, "once": 0, "link": "https://buy.stripe.com/8x25kw5WI0S5305ds42Fa1v", "img": "/media/v5/slate.jpg", "price_id": "price_1UGUkq4Y7C8no2ik33SCikR9"}, {"k": "lineback", "n": "Lineback", "sub": "Missed-call text-back", "pricelab": "$197 /mo", "ttl": "Live in ~2 business days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14", "img": "/media/v5/lineback.jpg", "price_id": "price_1TzVcf4Y7C8no2ikSQwPLLHG"}, {"k": "frontdesk", "n": "Frontdesk", "sub": "AI phone receptionist", "pricelab": "$397 /mo", "ttl": "Live same day", "mo": 397, "once": 0, "link": "https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16", "img": "/media/v5/frontdesk.jpg", "price_id": "price_1TzVcg4Y7C8no2iknK94keOq"}, {"k": "pursuit", "n": "Pursuit", "sub": "Automatic follow-up", "pricelab": "$247 /mo", "ttl": "Live instantly", "mo": 247, "once": 0, "link": "https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19", "img": "/media/v5/pursuit.jpg", "price_id": "price_1TzVci4Y7C8no2ikGmZ0IJA0"}, {"k": "repute", "n": "Repute", "sub": "Review engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b", "img": "/media/v5/repute.jpg", "price_id": "price_1TzVcj4Y7C8no2ikEe64LSwt"}, {"k": "map", "n": "Echo", "sub": "Google profile, managed", "pricelab": "$247 /mo", "ttl": "Live in 2\u20133 days", "mo": 247, "once": 0, "link": "", "img": "/media/v5/map.jpg", "price_id": "price_1UGUko4Y7C8no2ikuq62n9On"}, {"k": "dispatch", "n": "Dispatch", "sub": "Email campaigns", "pricelab": "$94 /mo", "ttl": "Live instantly", "mo": 94, "once": 0, "link": "https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d", "img": "/media/v5/dispatch.jpg", "price_id": "price_1TzVck4Y7C8no2ikU1Jq6hp3"}, {"k": "revive", "n": "Revive", "sub": "Win back old customers", "pricelab": "$197 /mo", "ttl": "Runs in 1\u20132 days", "mo": 197, "once": 0, "link": "", "img": "/media/v5/revive.jpg", "price_id": "price_1UMyIS4Y7C8no2ikuHC5vpTI"}, {"k": "radar", "n": "Radar", "sub": "Prospecting engine", "pricelab": "$297 /mo", "ttl": "Live same day", "mo": 297, "once": 0, "link": "https://buy.stripe.com/5kQ28kbh244hdEJbjW2Fa1r", "img": "/media/v5/radar.jpg", "price_id": "price_1UGUko4Y7C8no2ikwFny6WFb"}, {"k": "dial", "n": "Dial", "sub": "Business number & texting", "pricelab": "$47 /mo", "ttl": "Live in ~2 business days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h", "img": "/media/v5/dial.jpg", "price_id": "price_1TzVcn4Y7C8no2ikq0LlSCRA"}, {"k": "tap", "n": "Tap", "sub": "Payments & POS", "pricelab": "$47 /mo + card rates", "ttl": "Live in 1\u20132 days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/4gMcMY1GsdER9otew82Fa1n", "img": "/media/v5/tap.jpg", "price_id": "price_1U2FsB4Y7C8no2ik5gbYBi8Q"}, {"k": "marquee", "n": "Marquee", "sub": "Social, ads & brand board", "pricelab": "$197 /mo", "ttl": "Live in 5\u20137 days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k", "img": "/media/v5/marquee.jpg", "price_id": "price_1TzVcp4Y7C8no2ikHA1mMp89"}];</script>
+<!-- THE YACHT: sails down the right edge as you scroll and docks at the footer. Pure CSS/JS, one SVG. -->
+<div class="yacht" id="yacht" aria-hidden="true">
+ <svg viewBox="0 0 120 110" width="86" height="79">
+  <g class="hull-rock">
+   <path d="M38 12 L38 68" stroke="#F4F2ED" stroke-width="2.4" stroke-linecap="round"/>
+   <path d="M40 14 L40 60 L86 60 Z" fill="#F4F2ED" opacity=".95"/>
+   <path d="M36 18 L36 58 L12 58 Z" fill="#E8E6E1" opacity=".9"/>
+   <path d="M6 68 Q60 60 114 68 L104 84 Q60 90 16 84 Z" fill="#16181D" stroke="#F4F2ED" stroke-width="1.5"/>
+   <rect x="50" y="62" width="22" height="7" rx="2" fill="#B5793A"/>
+  </g>
+  <path class="wake" d="M4 92 Q30 86 56 92 T108 92" fill="none" stroke="#F4F2ED" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+ </svg>
+</div>
+<style>
+.yacht{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:18vh;z-index:25;pointer-events:none;will-change:transform;transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .4s}
+.yacht svg{display:block;filter:drop-shadow(0 6px 14px rgba(11,13,16,.35))}
+.yacht .hull-rock{transform-origin:60px 70px;animation:rock 4.2s ease-in-out infinite}
+.yacht .wake{animation:wake 2.6s ease-in-out infinite}
+.yacht.docked{position:absolute;top:auto;right:auto;transition:none}
+.yacht.docked .hull-rock{animation-duration:6s}
+@keyframes rock{0%,100%{transform:rotate(-2.2deg) translateY(0)}50%{transform:rotate(2.2deg) translateY(2px)}}
+@keyframes wake{0%,100%{opacity:.35;transform:translateX(0)}50%{opacity:.7;transform:translateX(-3px)}}
+@media (max-width:820px){.yacht svg{width:54px;height:50px}}
+@media (prefers-reduced-motion:reduce){.yacht .hull-rock,.yacht .wake{animation:none}.yacht{transition:none}}
+/* THE DOCK: water, pilings, a plank deck the footer sits on */
+.dock{position:relative;background:#0B0D10;overflow:hidden}
+.dock .water{position:relative;height:120px;background:linear-gradient(180deg,#0B0D10 0%,#0F1620 60%,#101A26 100%)}
+.dock .water svg{position:absolute;inset:0;width:100%;height:100%}
+.dock .slip{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:28px;width:86px;height:1px}
+.dock .piling{position:absolute;bottom:0;width:14px;height:64px;background:linear-gradient(90deg,#3A2E22,#5A4634 55%,#2E241B);border-radius:3px 3px 0 0}
+.dock .piling:nth-child(1){left:8%}.dock .piling:nth-child(2){left:30%}.dock .piling:nth-child(3){left:55%}.dock .piling:nth-child(4){left:78%}
+.dock .rope{position:absolute;left:8%;right:22%;bottom:40px;height:14px;border-bottom:2px solid #8A6A48;border-radius:0 0 50% 50%/0 0 100% 100%;opacity:.7}
+.dock .deck{position:relative;background:repeating-linear-gradient(90deg,#3B2F23 0 118px,#2B2219 118px 122px);color:#E8E6E1;box-shadow:inset 0 10px 24px rgba(0,0,0,.45)}
+.dock .deck:before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:linear-gradient(180deg,#6B553E,#4A3A2B)}
+.dock .deck a{color:#E8E6E1}
+.dock .deck a:hover{color:#fff;text-decoration:underline}
+.dock .deck .f-in,.dock .deck .wrap{position:relative}
+@media (prefers-reduced-motion:reduce){.dock .water svg{display:none}}
+</style>
+<script>
+(function(){
+ var y=document.getElementById('yacht'),dock=document.querySelector('.dock .slip');if(!y||!dock)return;
+ var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var docked=false;
+ function place(){
+  var max=document.documentElement.scrollHeight-window.innerHeight;var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
+  var r=dock.getBoundingClientRect();var h=y.offsetHeight||80;
+  var travelTop=window.innerHeight*0.16,travelBot=window.innerHeight*0.78-h;
+  var want=travelTop+(travelBot-travelTop)*p;
+  var slipY=r.top-h+10;
+  if(slipY<=want){ if(!docked){docked=true;y.classList.add('docked');dock.appendChild(y);y.style.transform='translateY(-'+(h-10)+'px)';y.style.right='0'} }
+  else { if(docked){docked=false;y.classList.remove('docked');document.body.appendChild(y);y.style.right=''} y.style.transform='translateY('+(want-travelTop)+'px)'; }
+ }
+ if(reduce){docked=true;y.classList.add('docked');dock.appendChild(y);y.style.transform='translateY(-'+((y.offsetHeight||80)-10)+'px)';return}
+ var t=false;function onS(){if(t)return;t=true;requestAnimationFrame(function(){place();t=false})}
+ window.addEventListener('scroll',onS,{passive:true});window.addEventListener('resize',place);place();
+})();
+</script>
+
+<script>(function(){var n=document.querySelector('.nav'),h=document.querySelector('.hub');if(!n||!h)return;function st(){n.classList.toggle('solid',window.scrollY>h.offsetHeight-60)}var t=false;window.addEventListener('scroll',function(){if(t)return;t=true;requestAnimationFrame(function(){st();t=false})},{passive:true});st()})();</script>
 <script src="/attribution.js" defer></script><script src="/analytics.js" defer></script><script src="/v5.js?v=20261016h" defer></script><script src="/cart-recovery.js?v=20260924" defer></script><script src="/quiz.js?v=20260924" defer></script><script src="/audit-popup.js" defer></script>
 </body></html>
