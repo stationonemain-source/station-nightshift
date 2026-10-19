@@ -859,7 +859,7 @@
         var p = P2(k); if (!p) return "";
         return '<div class="co-up">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
           '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span><span class="co-meta">' + p.pricelab +
-          (trialable(p) ? ' · free for 7 days' : '') + '</span></div>' +
+          (trialable(p) ? ' · 14 days free' : '') + '</span></div>' +
           '<button class="co-add" data-coadd="' + k + '">Add</button></div>';
       }).join("") : "";
       rows.innerHTML = '<div class="c-row"><span>Per month</span><b>' + f$(mo) + '/mo</b></div>' +
