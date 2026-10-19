@@ -774,3 +774,16 @@ html,body{overflow-x:clip}
 /* heroes fill the whole screen at every size (Circle 10-19: "I keep seeing edges") */
 .phero{min-height:100vh;min-height:100svh}
 @media (max-width:900px){.phero{min-height:100vh;min-height:100svh}}
+/* header: room to breathe, menus hang from its real bottom */
+.nav-in{height:76px}
+.nav.solid .nav-in{height:64px}
+.nav .mega,.nav .searchbar{top:100%}
+.msheet{inset:76px 0 auto 0;max-height:calc(100vh - 76px)}
+.nav .cartbtn .n{top:-4px;right:-4px}
+.nav a.home span{letter-spacing:.14em}
+/* chat button sits at the bottom; it only steps up while the price bar is showing */
+.chat-fab{bottom:calc(18px + env(safe-area-inset-bottom,0px));transition:bottom .3s ease,transform .2s}
+body:has(.receipt.show) .chat-fab{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+/* the painting melts into the page: no hard edge at the bottom of the hero */
+.phero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(90px,16vh,190px);z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0),var(--bg))}
+.phero .copy{padding-top:calc(76px + clamp(28px,6vh,80px))}
