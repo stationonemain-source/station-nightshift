@@ -1,6 +1,6 @@
 {
  "_about": "Station product playbook — the ONE source for what partners sell, what to say, and what has to be set up by hand after a purchase. Read by the Partner portal Products tab (same origin) and by n8n alert workflows over HTTPS. DRAFT 2026-08-11 — pending Circle's review before partners are pointed at it.",
- "_pricing_note": "2026-10-04 Collections catalogue (Circle approved): three collections (Answer $297, Get Found $497, Follow Up $427) and three plans (Core $1,297, Pro $2,197, Max $2,797; internal key 'custom' = Max). Revive is $197/mo. Echo has no setup fee. Echo extra location $197/mo, Repute extra location $177/mo. Every collection and plan includes a free Station-built website (built after the first paid month; $1,250 to keep it on leaving, 2026-10-13). Prices are Stripe-verified (lookup keys plan_*, collection_*, revive_month, repute_location_month). Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); the website is Custom only (priced to the project after a free demo; Premium was retired 2026-09-23) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
+ "_pricing_note": "2026-10-04 Collections catalogue (Circle approved): three collections (Answer $297, Get Found $497, Follow Up $427) and three plans (Core $1,297, Pro $2,197, Max $2,797; internal key 'custom' = Max). Revive is $197/mo. Echo has no setup fee. Echo extra location $197/mo, Repute extra location $177/mo. Every plan (Core, Pro, Max) includes a free Station-built website; collections include 50% off a custom website (built after the first paid month; $1,250 to keep it on leaving, 2026-10-13). Prices are Stripe-verified (lookup keys plan_*, collection_*, revive_month, repute_location_month). Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); the website is Custom only (priced to the project after a free demo; Premium was retired 2026-09-23) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
  "_trial": "14-day free trial on single products and the three collections, on every recurring price except the Core, Pro and Max plans. Plans bill today and carry a 30-day money-back on the first paid month. Websites never trial.",
  "updated": "2026-10-04",
  "products": [
@@ -614,7 +614,7 @@
    "mrr": 297,
    "setup": 0,
    "kind": "collection",
-   "plain": "Never miss a customer: missed-call text-back (Lineback), website chat (Greet), online booking and reminders (Slate), a business number with texting (Dial) and card payments (Tap), plus a free Station-built website. Worth $382/mo bought one by one. Add the AI receptionist for +$297/mo. 14-day free trial from go-live."
+   "plain": "Never miss a customer: missed-call text-back (Lineback), website chat (Greet), online booking and reminders (Slate), a business number with texting (Dial) and card payments (Tap), plus 50% off a custom website. Worth $382/mo bought one by one. Add the AI receptionist for +$297/mo. 14-day free trial from go-live."
   },
   {
    "key": "getfound",
@@ -622,7 +622,7 @@
    "mrr": 497,
    "setup": 0,
    "kind": "collection",
-   "plain": "Be the obvious choice on Google: Google profile managed (Echo, no setup fee), review requests and replies (Repute) and social posting (Marquee), plus a free Station-built website. Worth $641/mo bought one by one. 14-day free trial from go-live."
+   "plain": "Be the obvious choice on Google: Google profile managed (Echo, no setup fee), review requests and replies (Repute) and social posting (Marquee), plus 50% off a custom website. Worth $641/mo bought one by one. 14-day free trial from go-live."
   },
   {
    "key": "followup",
@@ -630,7 +630,7 @@
    "mrr": 427,
    "setup": 0,
    "kind": "collection",
-   "plain": "Turn leads and old customers into jobs: lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns (Dispatch), plus a free Station-built website. Worth $538/mo bought one by one. 14-day free trial from go-live."
+   "plain": "Turn leads and old customers into jobs: lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns (Dispatch), plus 50% off a custom website. Worth $538/mo bought one by one. 14-day free trial from go-live."
   },
   {
    "key": "core",

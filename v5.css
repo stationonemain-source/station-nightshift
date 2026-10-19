@@ -1662,3 +1662,13 @@ button,input,select,textarea{font:inherit;color:inherit}
  #ck .ck-accept,#ck .ck-min{flex:none;min-height:40px;padding:0 18px;font-size:14px}
  body:has(#ck.up) .chat-fab{bottom:calc(112px + env(safe-area-inset-bottom,0px))}
 }
+
+/* chat button: a soft blue glow that breathes, and a live dot, so it reads as a person to talk to (2026-10-19) */
+.chat-fab{background:linear-gradient(180deg,#2B2F38 0%,#16181D 100%);color:#F4F2ED;
+ box-shadow:0 0 0 1px rgba(255,255,255,.10),0 12px 30px rgba(11,13,16,.35),0 0 22px 2px rgba(74,134,240,.5);
+ animation:chatglow 3.4s ease-in-out infinite}
+.chat-fab:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 0 0 1px rgba(255,255,255,.16),0 16px 36px rgba(11,13,16,.4),0 0 34px 8px rgba(74,134,240,.75);animation-play-state:paused}
+.chat-fab:after{content:"";position:absolute;top:6px;right:8px;width:9px;height:9px;border-radius:50%;background:#36E07F;box-shadow:0 0 0 2px #16181D,0 0 10px rgba(54,224,127,.9);animation:chatlive 2.2s ease-in-out infinite}
+@keyframes chatglow{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.10),0 12px 30px rgba(11,13,16,.35),0 0 18px 1px rgba(74,134,240,.42)}50%{box-shadow:0 0 0 1px rgba(255,255,255,.14),0 12px 30px rgba(11,13,16,.35),0 0 34px 8px rgba(74,134,240,.72)}}
+@keyframes chatlive{0%,100%{opacity:1}50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){.chat-fab,.chat-fab:after{animation:none}}
