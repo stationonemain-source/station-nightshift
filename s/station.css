@@ -449,3 +449,15 @@ footer a:hover{color:var(--fg)}
 @media (prefers-reduced-motion:reduce){.bubble,.cal .s.new,.review,.log li,.rv,body,.receipt{transition:none}.js .rv{opacity:1;transform:none}}
 /* pop-ups: quiz, exit offer, cart hold (from v5.css) */
 
+
+/* the cart drawer is always a light panel: pin its ink so dark pages cannot inherit pale text into it */
+.cart{--fg:#16181D;--mute:#6B665B;--rule:#D9D4C7;--bg:#F4F2ED;color:#16181D}
+.cart a{color:#16181D}
+
+/* alignment: door cells start at the top; the P.S. hangs on the page edge like every other block */
+.door{align-content:start}
+.ps{margin-left:0}
+
+/* phone nav: the page name drops so Products and Start free stay on one line */
+.nav ul li.cta a,.nav .mtop{white-space:nowrap}
+@media (max-width:480px){.logo span{display:none}}
