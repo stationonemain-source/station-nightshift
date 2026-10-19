@@ -280,7 +280,7 @@
   ready(function () {
     var h = document.querySelector(".hamb"); if (!h) return;
     var sheet = document.createElement("div"); sheet.className = "msheet";
-    sheet.innerHTML = '<a href="/#shop">Shop all products</a><a href="/frontdesk/">Phone &amp; leads</a>' +
+    sheet.innerHTML = '<a href="/products/">All 14 products, priced</a><a href="/frontdesk/">Phone &amp; leads</a>' +
       '<a href="/storefront/">Websites &amp; Google</a><a href="/#bundles">Bundles</a><a href="/audit/">Free audit</a>' +
       '<a href="/sweep/">Website check</a>' +
       '<a href="mailto:main@station.solutions">Contact</a><a href="/#help">Find my fit</a>';

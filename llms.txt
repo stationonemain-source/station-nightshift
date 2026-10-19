@@ -4,6 +4,7 @@
 
 ## Products
 
+- [All products, priced](https://station.solutions/products/): Every Station product on one page with its monthly price, time to live and a 14-day free trial, plus the Answer, Get Found and Follow Up collections and the Core, Pro and Max plans
 - [Custom website](https://station.solutions/custom/): A bespoke website designed from scratch around the business — priced to the project, with a free demo of the business's own site in 2–3 business days before anything is charged (how it works: https://station.solutions/storefront/)
 - [Hosting and care](https://station.solutions/storefront/): Optional, for a site Station built — hosting and care is one monthly subscription priced for the business (what the domain costs plus the care the site needs), quoted with the demo, with no list price; or the owner takes the site and runs it themselves
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
