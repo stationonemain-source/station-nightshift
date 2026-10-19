@@ -741,7 +741,8 @@ footer a:hover{color:var(--fg)}
  </svg>
 </div>
 <style>
-.yacht{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:18vh;z-index:25;pointer-events:none;will-change:transform;transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .4s}
+.yacht{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:18vh;z-index:25;pointer-events:none;will-change:transform;opacity:0;transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .5s}
+.yacht.sail,.yacht.docked{opacity:1}
 .yacht svg{display:block;filter:drop-shadow(0 6px 14px rgba(11,13,16,.35))}
 .yacht .hull-rock{transform-origin:60px 70px;animation:rock 4.2s ease-in-out infinite}
 .yacht .wake{animation:wake 2.6s ease-in-out infinite}
@@ -771,7 +772,9 @@ footer a:hover{color:var(--fg)}
  var y=document.getElementById('yacht'),dock=document.querySelector('.dock .slip');if(!y||!dock)return;
  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  var docked=false;
+ var hero=document.querySelector('.phero');
  function place(){
+  var past=!hero||window.scrollY>hero.offsetHeight-120;y.classList.toggle('sail',past);
   var max=document.documentElement.scrollHeight-window.innerHeight;var p=max>0?Math.min(1,Math.max(0,window.scrollY/max)):0;
   var r=dock.getBoundingClientRect();var h=y.offsetHeight||80;
   var travelTop=window.innerHeight*0.16,travelBot=window.innerHeight*0.78-h;
