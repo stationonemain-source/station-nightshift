@@ -750,7 +750,7 @@ footer a:hover{color:var(--fg)}
 .yacht.docked .hull-rock{animation-duration:6s}
 @keyframes rock{0%,100%{transform:rotate(-2.2deg) translateY(0)}50%{transform:rotate(2.2deg) translateY(2px)}}
 @keyframes wake{0%,100%{opacity:.35;transform:translateX(0)}50%{opacity:.7;transform:translateX(-3px)}}
-@media (max-width:820px){.yacht svg{width:54px;height:50px}}
+@media (max-width:820px){.yacht svg{width:54px;height:50px}.yacht.sail:not(.docked){opacity:0}}
 @media (prefers-reduced-motion:reduce){.yacht .hull-rock,.yacht .wake{animation:none}.yacht{transition:none}}
 /* THE DOCK: water, pilings, a plank deck the footer sits on */
 .dock{position:relative;background:#0B0D10;overflow:hidden}
