@@ -800,3 +800,23 @@ body:has(.receipt.show) .chat-fab{bottom:calc(74px + env(safe-area-inset-bottom,
 .pc:hover .pc-art{transform:scale(1.03)}
 .pc-quiz{border-style:solid}
 @media (max-width:640px){.pc-art{aspect-ratio:16/8}}
+/* living heroes (s/hero.js) */
+.phero .art img{will-change:transform;transform-origin:50% 50%}
+.hero-fx{position:absolute;inset:0;z-index:1;pointer-events:none;transform-origin:50% 50%;will-change:transform}
+.hero-fx .hg{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.0;background:radial-gradient(circle,rgba(var(--c),.7) 0%,rgba(var(--c),.28) 28%,rgba(var(--c),.08) 52%,rgba(var(--c),0) 70%);animation:hglow var(--d,7s) ease-in-out var(--dl,0s) infinite alternate}
+.fx-on .hero-fx .hg{opacity:.45}
+@keyframes hglow{0%{opacity:.28;transform:scale(.92)}60%{opacity:var(--peak,.85)}100%{opacity:var(--peak,.85);transform:scale(1.06)}}
+.hero-fx .cs{position:absolute;top:42%;width:70%;height:60%;border-radius:50%;background:radial-gradient(closest-side,rgba(20,30,45,.22),rgba(20,30,45,0));mix-blend-mode:multiply;animation:cshadow 70s linear infinite}
+.hero-fx .cs2{top:58%;width:55%;height:45%;animation-duration:95s;animation-delay:-48s}
+@keyframes cshadow{from{transform:translateX(-80%)}to{transform:translateX(200%)}}
+/* the words arrive after the painting */
+.js .phero .copy>*{animation:herocopy .9s cubic-bezier(.2,.7,.2,1) both}
+.js .phero .copy>*:nth-child(1){animation-delay:.25s}
+.js .phero .copy>*:nth-child(2){animation-delay:.4s}
+.js .phero .copy>*:nth-child(3){animation-delay:.58s}
+.js .phero .copy>*:nth-child(4){animation-delay:.72s}
+.js .phero .copy>*:nth-child(5){animation-delay:.86s}
+@keyframes herocopy{from{opacity:0;transform:translateY(14px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@media (prefers-reduced-motion:reduce){.hero-fx .hg,.hero-fx .cs,.js .phero .copy>*{animation:none}.fx-on .hero-fx .hg{opacity:.6}}
+/* tap size for the "How it works" links on the product cards */
+.pc-more{min-height:44px}
