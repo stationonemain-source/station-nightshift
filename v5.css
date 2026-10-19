@@ -1367,7 +1367,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media(prefers-reduced-motion:reduce){#ck{transition:none}}
 #ck .ck-txt{color:var(--muted);font-size:13px;line-height:1.5}
 #ck .ck-txt b{color:var(--ink);font-weight:600}
-#ck .ck-txt a{color:var(--accent);font-weight:600}
+#ck .ck-txt a{color:var(--ink);font-weight:600}
 #ck .ck-actions{display:flex;gap:10px}
 #ck .ck-accept,#ck .ck-min{flex:1;font:600 15px var(--fd);border-radius:999px;cursor:pointer;
  padding:0 18px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
