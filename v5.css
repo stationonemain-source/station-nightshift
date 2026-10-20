@@ -1672,3 +1672,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 @keyframes chatglow{0%,100%{box-shadow:0 0 0 1px rgba(255,255,255,.10),0 12px 30px rgba(11,13,16,.35),0 0 18px 1px rgba(74,134,240,.42)}50%{box-shadow:0 0 0 1px rgba(255,255,255,.14),0 12px 30px rgba(11,13,16,.35),0 0 34px 8px rgba(74,134,240,.72)}}
 @keyframes chatlive{0%,100%{opacity:1}50%{opacity:.45}}
 @media (prefers-reduced-motion:reduce){.chat-fab,.chat-fab:after{animation:none}}
+
+/* menus open on hover with no dead strip (Circle 10-20: "you have to click and they're buggy").
+   The top links were shorter than the bar, so the mouse left the hover zone on its way down to the
+   menu and it closed; a click then pinned it open through :focus-within. Links now fill the bar's
+   full height, only keyboard focus holds a menu open, and hovering one top item closes any other. */
+.nav-center{align-self:stretch}
+.mwrap{display:flex;align-self:stretch}
+.nav-center>.mtop,.mwrap>.mtop{display:flex;align-items:center;padding-top:0;padding-bottom:0;height:100%}
+.mwrap:focus-within .mega{display:none}
+.mwrap:hover .mega,.mwrap:has(:focus-visible) .mega{display:block}
+.nav-center:hover .mwrap:not(:hover) .mega{display:none}

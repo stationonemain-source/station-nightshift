@@ -855,3 +855,14 @@ body:has(.receipt.show) .chat-fab{bottom:calc(74px + env(safe-area-inset-bottom,
 @keyframes chatlive{0%,100%{opacity:1}50%{opacity:.45}}
 @media (prefers-reduced-motion:reduce){.chat-fab,.chat-fab:after{animation:none}}
 .pz-perk{display:inline-flex;align-self:flex-start;align-items:center;gap:6px;margin:10px 0 0;padding:6px 12px;border-radius:999px;background:#E6EEFC;color:#2257BD;font:600 13.5px var(--body);box-shadow:inset 0 0 0 1px rgba(45,108,223,.25)}
+
+/* menus open on hover with no dead strip (Circle 10-20: "you have to click and they're buggy").
+   The top links were shorter than the bar, so the mouse left the hover zone on its way down to the
+   menu and it closed; a click then pinned it open through :focus-within. Links now fill the bar's
+   full height, only keyboard focus holds a menu open, and hovering one top item closes any other. */
+.nav-center{align-self:stretch}
+.mwrap{display:flex;align-self:stretch}
+.nav-center>.mtop,.mwrap>.mtop{display:flex;align-items:center;padding-top:0;padding-bottom:0;height:100%}
+.mwrap:focus-within .mega{display:none}
+.mwrap:hover .mega,.mwrap:has(:focus-visible) .mega{display:block}
+.nav-center:hover .mwrap:not(:hover) .mega{display:none}
