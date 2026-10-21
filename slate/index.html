@@ -68,6 +68,49 @@ body{background:var(--bg);color:var(--fg)}
 @media (min-width:1280px){.faq-body{max-width:none}.faq-body .fl{grid-template-columns:1fr 1fr;column-gap:56px;align-items:start}}
 .usage{margin-top:14px;font-size:13px;line-height:1.55;color:var(--mute);max-width:90ch}
 .usage a{text-decoration:underline}
+/* v2 2026-10-21: page-local classes are pv-* because station.css owns the generic names */
+.pv-see{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;margin-top:26px}
+.pv-see .phone{position:static;margin:0 auto;width:320px;max-width:100%;aspect-ratio:auto}
+.pv-see .phone .scr{height:auto;min-height:0;grid-template-rows:auto 1fr;padding-bottom:14px}
+.pv-see .phone .app{grid-template-rows:auto auto;align-content:start}
+.pv-see .phone .thread{gap:8px}
+.pv-see .phone .bubble{max-width:88%;font-size:13px;line-height:1.4}
+.pv-see .phone .tr{font-size:13px;margin:0}
+.pv-see .phone .tr b{font-family:var(--body);letter-spacing:0;font-size:11px;color:#6B665B;font-weight:600;margin:0 0 2px}
+.pv-see .phone .row{font-size:12.5px;align-items:center}
+.pv-see .phone .row b{text-align:right}
+.pv-see .phone .sbar,.pv-see .phone .ts{font-family:var(--body)}
+.pv-see .phone .ts{font-size:11px}
+.pv-see .phone .big{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 105}
+.pv-see .phone .big small{font-family:var(--body);letter-spacing:0;font-size:12px}
+.pv-notes ul{list-style:none;border-top:1px solid var(--rule)}
+.pv-notes li{padding:18px 0;border-bottom:1px solid var(--rule);font-size:clamp(17px,1.5vw,20px);line-height:1.45}
+.pv-notes a,.pv-fit a,.pv-risk a{text-decoration:underline;text-underline-offset:3px}
+.pv-ex{margin-top:14px;font-size:13px;color:var(--mute)}
+.pv-fit{list-style:none;margin-top:22px;border-top:1px solid var(--rule)}
+.pv-fit li{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.45}
+.pv-fit li b{font-weight:600}
+.pv-fit li span{color:var(--mute)}
+.pv-fit .pv-no b,.pv-fit .pv-no span{color:var(--mute);font-weight:500}
+.pv-opts{margin-top:22px;border-top:1px solid var(--rule)}
+.pv-oh,.pv-or{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.6fr);gap:24px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.45}
+.pv-oh{font-size:13px;color:var(--mute);padding:10px 0}
+.pv-or span{color:var(--mute)}
+.pv-or b{font-weight:500;color:var(--mute)}
+.pv-or.me b{font-weight:700;color:var(--fg)}
+.pv-or.me span{color:var(--fg)}
+.pv-risk{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;text-align:left}
+.pv-risk ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px}
+.pv-risk li{display:flex;align-items:center;gap:8px}
+.pv-risk li:before{content:"";width:7px;height:7px;border-radius:50%;background:#2FBF71;flex:none}
+.pv-risk p{margin-top:12px;font-size:15px;color:var(--mute)}
+@media (max-width:900px){
+ .pv-see{grid-template-columns:1fr}
+ .pv-fit li{grid-template-columns:1fr;gap:4px}
+ .pv-oh{display:none}
+ .pv-or{grid-template-columns:1fr;gap:2px}
+ .pv-notes li{font-size:16px}
+}
 @media (max-width:900px){
  .ends,.calc2{grid-template-columns:1fr}
  .incl ul{grid-template-columns:1fr}
@@ -76,7 +119,7 @@ body{background:var(--bg);color:var(--fg)}
 }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Slate", "description": "Self-serve booking with automatic SMS and email reminders. $59/mo. Free inside Frontdesk.", "image": "https://station.solutions/media/v5/slate.jpg", "url": "https://station.solutions/slate/", "brand": {"@type": "Brand", "name": "Station"}, "offers": {"@type": "Offer", "price": "59", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://station.solutions/slate/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "My customers are old-school.", "acceptedAnswer": {"@type": "Answer", "text": "They still read texts, and a reminder text is easier to answer than a reminder call."}}, {"@type": "Question", "name": "Can I still book people myself?", "acceptedAnswer": {"@type": "Answer", "text": "Of course. The calendar is yours; self-serve is an extra door, not a replacement."}}, {"@type": "Question", "name": "What do the reminders say?", "acceptedAnswer": {"@type": "Answer", "text": "Our tested wording, in your name, editable word for word in Your Words."}}, {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Any time, and it starts with a 14-day free trial."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "My customers are old-school.", "acceptedAnswer": {"@type": "Answer", "text": "They still read texts, and a reminder text is easier to answer than a reminder call."}}, {"@type": "Question", "name": "Can I still book people myself?", "acceptedAnswer": {"@type": "Answer", "text": "Of course. The calendar is yours; self-serve is an extra door, not a replacement."}}, {"@type": "Question", "name": "What do the reminders say?", "acceptedAnswer": {"@type": "Answer", "text": "Our tested wording, in your name, editable word for word in Your Words."}}, {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Any time, and it starts with a 14-day free trial."}}, {"@type": "Question", "name": "Can I set buffers between appointments?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Job lengths, buffers and the hours you&rsquo;ll take are set in the five-minute setup, and you can change them any time."}}, {"@type": "Question", "name": "Is it really free with Frontdesk?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Slate comes free inside Frontdesk, and if you buy Frontdesk later we credit you."}}]}</script>
 </head><body><a class="skip" href="#main">Skip to content</a>
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
@@ -113,6 +156,13 @@ body{background:var(--bg);color:var(--fg)}
  <h2>The same Tuesday morning, <em>with and without it.</em></h2>
  <div class="ends"><div class="lost"><h3>Without Slate</h3><ol><li><time>7:00 AM</time><span>Tuesday&rsquo;s 9 o&rsquo;clock doesn&rsquo;t show.</span></li><li><time>9:20 AM</time><span>You call. Voicemail. &ldquo;Totally forgot, man.&rdquo;</span></li><li><time>9:40 AM</time><span>The hole in the schedule cost the morning.</span></li></ol><p class="out">A paid hour, empty.</p></div><div class="won"><h3>With Slate</h3><ol><li><time>Mon, 8 PM</time><span>&ldquo;Reminder: 9 AM tomorrow. Reply C to confirm.&rdquo;</span></li><li><time>Mon, 8:02 PM</time><span>He replies C.</span></li><li><time>Tue, 8:58 AM</time><span>He walks in.</span></li></ol><p class="out">He shows.</p></div></div>
 </section>
+<section class="sec" id="see">
+ <h2>What it actually <em>looks like.</em></h2>
+ <div class="pv-see"><div class="phone" role="img" aria-label="Example screen for Juniper Skin Studio"><div class="scr"><div class="sbar"><span>9:41</span><span>Juniper Skin Studio</span></div>
+ <div class="app"><div class="apphead">Messages<span>Reminder</span></div><div class="thread"><p class="ts">Mon 8:00 PM</p><div class="bubble me">Reminder: Lena, your facial at Juniper Skin Studio is tomorrow at 10 AM. Reply C to confirm.</div><div class="bubble">C</div><div class="bubble me">Confirmed. See you at 10!</div><div class="row"><span>Tue 10:00 AM</span><b>Lena R. <span class="pill g">Confirmed</span></b></div><div class="row"><span>Tue 11:30 AM</span><b>Open slot</b></div></div></div></div></div>
+ <div class="pv-notes"><ul><li>A confirmation at booking, again the night before, again two hours out.</li><li>Customers book themselves into real openings only.</li><li>A missed appointment gets a rebook text automatically.</li></ul>
+ <p class="pv-ex">Juniper Skin Studio is an example business. Your name, your words and your numbers go here.</p></div></div>
+</section>
 <section class="sec" id="math">
  <h2>Run the math <em>before we take a dollar.</em></h2>
  <p class="lede">Your numbers, not ours.</p>
@@ -120,6 +170,10 @@ body{background:var(--bg);color:var(--fg)}
  <div class="out"><div class="big" id="closs">&mdash;<small></small></div><p class="fine" style="margin-top:-8px">a month lost to no-shows</p>
  <div class="cmp"><span>What Slate costs</span><b>$59/mo</b></div>
  <p class="verdict" id="cverdict"></p></div></div>
+</section>
+<section class="sec" id="fit">
+ <h2>Who it&rsquo;s <em>for.</em></h2>
+ <ul class="pv-fit"><li><b>Salons, spas &amp; barbers</b><span>Fewer empty chairs from forgotten appointments.</span></li><li><b>Trainers, tutors &amp; studios</b><span>Sessions booked from the link in your bio.</span></li><li><b>Home services</b><span>Estimate visits that customers actually show up for.</span></li><li><b>Consultants &amp; coaches</b><span>The &ldquo;what time works for you?&rdquo; emails, gone.</span></li><li class="pv-no"><b>Not a fit if</b><span>Booked out for months with no no-shows? You don&rsquo;t need this yet.</span></li></ul>
 </section>
 <section class="sec" id="how">
  <h2>Five minutes of setup. <em>Then it books.</em></h2>
@@ -131,10 +185,15 @@ body{background:var(--bg);color:var(--fg)}
  <div class="pz-grid" style="--n:2"><div class="pz-card bcard pz-rv pop"><div class="pz-top"><h3>Standard</h3><span class="pz-badge">Most start here</span></div><p class="pz-desc">One saved no-show pays for the month</p><div class="pz-price"><span class="num">$59</span><small>/month</small></div><span class="bp" data-m="$59" hidden></span><p class="pz-worth">1,000 reminders a month</p><button class="pz-cta" type="button" data-buynow="slate">Start free for 14 days</button><button class="pz-add addcart" type="button" data-add="slate" data-label="Add to cart">Add to cart</button><span class="pz-note">$0 today &middot; card on Stripe&rsquo;s secure page &middot; nothing charged for 14 days</span><ul class="pz-feat"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg><span>Self-serve booking page and link</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>Reminders before every appointment</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Reply-to-confirm and rebook nudges</span></li></ul></div><div class="pz-card bcard pz-rv"><div class="pz-top"><h3>Busy</h3><span class="pz-tag">For full calendars</span></div><p class="pz-desc">For full calendars</p><div class="pz-price"><span class="num">$97</span><small>/month</small></div><span class="bp" data-m="$97" hidden></span><p class="pz-worth">2,500 reminders a month</p><a class="pz-cta" href="https://buy.stripe.com/bJebIUbh230d9otco02Fa1w">Go Busy</a><span class="pz-note">Checkout through Stripe</span><ul class="pz-feat"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg><span>2,500 reminder texts</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Everything in Standard</span></li></ul></div></div>
  <div class="incl"><span>Every plan includes</span><ul><li>Self-serve booking page and link</li><li>Reminders before every appointment</li><li>Reply-to-confirm</li><li>Rebook nudges</li><li>Free inside Frontdesk</li></ul></div>
  <p class="usage">Texting waits about 2 business days on carrier registration if you&rsquo;re new (we file it; nothing needed from you). Email reminders run on day one. Buying Frontdesk later? Slate comes free inside it, and we&rsquo;ll credit you. Cancel any time; it starts with a 14-day free trial. By purchasing you agree to the <a href="/legal/tos.html">Terms of Service</a>.</p>
+ <div class="pv-risk"><ul><li>No contract. Month to month.</li><li>$0 today. Nothing charged for 14 days.</li><li>Cancel from your account, any time.</li></ul><p>Rather talk to a person first? <a href="/book/">Book fifteen minutes</a>, or <a href="/contact/">write to us</a> and a human reads it today.</p></div>
+</section>
+<section class="sec" id="options">
+ <h2>Your other options, <em>honestly.</em></h2>
+ <div class="pv-opts" role="table" aria-label="Your options"><div class="pv-oh" role="row"><span role="columnheader">Option</span><span role="columnheader">What it costs</span><span role="columnheader">The better pick</span></div><div class="pv-or" role="row"><b role="cell">Calling to confirm</b><span role="cell">An hour a day</span><span role="cell">When you only have a handful of appointments a week.</span></div><div class="pv-or" role="row"><b role="cell">Reminders in your salon or POS software</b><span role="cell">Varies</span><span role="cell">When the software you already use sends reminders you trust.</span></div><div class="pv-or me" role="row"><b role="cell">Slate</b><span role="cell">$59/mo, free inside Frontdesk</span><span role="cell">When no-shows cost you and booking happens by phone tag.</span></div></div>
 </section>
 <section class="sec faqs" id="faq">
  <h2>The fine print, out loud.</h2>
- <div class="faq-body" style="margin-top:22px"><ul class="fl"><li class="fi" id="q-my-customers-are-old-school" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>My customers are old-school.</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>They still read texts, and a reminder text is easier to answer than a reminder call.</p></div></div></li><li class="fi" id="q-can-i-still-book-people-myself" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>Can I still book people myself?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>Of course. The calendar is yours; self-serve is an extra door, not a replacement.</p></div></div></li><li class="fi" id="q-what-do-the-reminders-say" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>What do the reminders say?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>Our tested wording, in your name, editable word for word in Your Words.</p></div></div></li><li class="fi" id="q-can-i-cancel" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>Can I cancel?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Any time, and it starts with a 14-day free trial.</p></div></div></li></ul></div>
+ <div class="faq-body" style="margin-top:22px"><ul class="fl"><li class="fi" id="q-my-customers-are-old-school" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>My customers are old-school.</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>They still read texts, and a reminder text is easier to answer than a reminder call.</p></div></div></li><li class="fi" id="q-can-i-still-book-people-myself" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>Can I still book people myself?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>Of course. The calendar is yours; self-serve is an extra door, not a replacement.</p></div></div></li><li class="fi" id="q-what-do-the-reminders-say" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>What do the reminders say?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>Our tested wording, in your name, editable word for word in Your Words.</p></div></div></li><li class="fi" id="q-can-i-cancel" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>Can I cancel?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Any time, and it starts with a 14-day free trial.</p></div></div></li><li class="fi" id="q-can-i-set-buffers-between-appointments" data-state="closed"><h3><button type="button" class="fi-b" id="fb-4" aria-expanded="false" aria-controls="fa-4"><span>Can I set buffers between appointments?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-4" role="region" aria-labelledby="fb-4"><div><p>Yes. Job lengths, buffers and the hours you&rsquo;ll take are set in the five-minute setup, and you can change them any time.</p></div></div></li><li class="fi" id="q-is-it-really-free-with-frontdesk" data-state="closed"><h3><button type="button" class="fi-b" id="fb-5" aria-expanded="false" aria-controls="fa-5"><span>Is it really free with Frontdesk?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-5" role="region" aria-labelledby="fb-5"><div><p>Yes. Slate comes free inside Frontdesk, and if you buy Frontdesk later we credit you.</p></div></div></li></ul></div>
 </section>
 <section class="sec">
  <h2>Pairs well with</h2>

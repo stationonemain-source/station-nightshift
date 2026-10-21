@@ -394,3 +394,19 @@ Shipped the five mechanical fixes; the trust gap (no testimonial, logo, founder,
 - Every 14-day trial card (13 product pages + 3 collections on `/products/`) carries `.pz-note` "$0 today · card on Stripe's secure page · nothing charged for 14 days", the same rule `/checkout/` states.
 - Chat pill is a 48px icon on phones (≤640px) so it stops sitting on card buttons. Both stylesheets (`/s/station.css` and `/v5.css`) bumped to `?v=20261021a`.
 - Not changed: the cookie card still sits bottom-left until a choice is made (consent by design). The hero copy fades in via CSS animation and is invisible until it runs — fine on real devices, a no-animation fallback would remove the risk.
+
+## 2026-10-21 — product pages v2, ten buyer types (branch `product-pages-v2`, NOT on main until Circle says ship)
+
+Circle: "go through every product page and ask would I buy this from 10 different buying personas". Every page was
+written for one buyer (a solo plumber). Added to all 14 product pages, from the generator, not by hand:
+- **What it actually looks like** — a phone showing the real artifact (text thread, call transcript, invoice, review +
+  drafted reply, monthly report, content calendar, campaign stats, prospect audit, demo contents). Each uses a different
+  invented example business (salon, caterer, auto shop, groomer, marina…), labelled as an example, like /products/ does.
+- **Who it's for** — four kinds of business with one line each, plus an honest "Not a fit if".
+- **Your other options, honestly** — DIY / hiring / this product, with when each is the better pick.
+- **No-catch strip** under pricing — no contract, $0 today, cancel from your account, the product's "yours to keep" fact,
+  and "Rather talk to a person first? Book fifteen minutes" (/book/) or /contact/.
+- **Two or three new questions** per page (front-desk staff fear, older customers, staff access, gating, passwords…).
+Source: `~/.claude/scratch/heroes/products_v2.py` (data) + `build_funnel.py` `v2_html()` (template, CSS `pv-*`).
+The generator also now carries the 10-21 trial card note and `station.css?v=20261021b`, so a rebuild no longer drops them.
+Rule kept: no testimonials, integrations, compliance claims or location. Every fact was already on that product's page.

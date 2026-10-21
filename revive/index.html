@@ -68,6 +68,49 @@ body{background:var(--bg);color:var(--fg)}
 @media (min-width:1280px){.faq-body{max-width:none}.faq-body .fl{grid-template-columns:1fr 1fr;column-gap:56px;align-items:start}}
 .usage{margin-top:14px;font-size:13px;line-height:1.55;color:var(--mute);max-width:90ch}
 .usage a{text-decoration:underline}
+/* v2 2026-10-21: page-local classes are pv-* because station.css owns the generic names */
+.pv-see{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;margin-top:26px}
+.pv-see .phone{position:static;margin:0 auto;width:320px;max-width:100%;aspect-ratio:auto}
+.pv-see .phone .scr{height:auto;min-height:0;grid-template-rows:auto 1fr;padding-bottom:14px}
+.pv-see .phone .app{grid-template-rows:auto auto;align-content:start}
+.pv-see .phone .thread{gap:8px}
+.pv-see .phone .bubble{max-width:88%;font-size:13px;line-height:1.4}
+.pv-see .phone .tr{font-size:13px;margin:0}
+.pv-see .phone .tr b{font-family:var(--body);letter-spacing:0;font-size:11px;color:#6B665B;font-weight:600;margin:0 0 2px}
+.pv-see .phone .row{font-size:12.5px;align-items:center}
+.pv-see .phone .row b{text-align:right}
+.pv-see .phone .sbar,.pv-see .phone .ts{font-family:var(--body)}
+.pv-see .phone .ts{font-size:11px}
+.pv-see .phone .big{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 105}
+.pv-see .phone .big small{font-family:var(--body);letter-spacing:0;font-size:12px}
+.pv-notes ul{list-style:none;border-top:1px solid var(--rule)}
+.pv-notes li{padding:18px 0;border-bottom:1px solid var(--rule);font-size:clamp(17px,1.5vw,20px);line-height:1.45}
+.pv-notes a,.pv-fit a,.pv-risk a{text-decoration:underline;text-underline-offset:3px}
+.pv-ex{margin-top:14px;font-size:13px;color:var(--mute)}
+.pv-fit{list-style:none;margin-top:22px;border-top:1px solid var(--rule)}
+.pv-fit li{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.45}
+.pv-fit li b{font-weight:600}
+.pv-fit li span{color:var(--mute)}
+.pv-fit .pv-no b,.pv-fit .pv-no span{color:var(--mute);font-weight:500}
+.pv-opts{margin-top:22px;border-top:1px solid var(--rule)}
+.pv-oh,.pv-or{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.6fr);gap:24px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.45}
+.pv-oh{font-size:13px;color:var(--mute);padding:10px 0}
+.pv-or span{color:var(--mute)}
+.pv-or b{font-weight:500;color:var(--mute)}
+.pv-or.me b{font-weight:700;color:var(--fg)}
+.pv-or.me span{color:var(--fg)}
+.pv-risk{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;text-align:left}
+.pv-risk ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:15px}
+.pv-risk li{display:flex;align-items:center;gap:8px}
+.pv-risk li:before{content:"";width:7px;height:7px;border-radius:50%;background:#2FBF71;flex:none}
+.pv-risk p{margin-top:12px;font-size:15px;color:var(--mute)}
+@media (max-width:900px){
+ .pv-see{grid-template-columns:1fr}
+ .pv-fit li{grid-template-columns:1fr;gap:4px}
+ .pv-oh{display:none}
+ .pv-or{grid-template-columns:1fr;gap:2px}
+ .pv-notes li{font-size:16px}
+}
 @media (max-width:900px){
  .ends,.calc2{grid-template-columns:1fr}
  .incl ul{grid-template-columns:1fr}
@@ -76,7 +119,7 @@ body{background:var(--bg);color:var(--fg)}
 }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Revive", "description": "Customer reactivation campaign: your dormant list, professionally re-engaged. $197 a month: the full win-back wave in month one, then a fresh wave every quarter. Up to 5,000 contacts.", "image": "https://station.solutions/media/v5/revive.jpg", "url": "https://station.solutions/revive/", "brand": {"@type": "Brand", "name": "Station"}, "offers": {"@type": "Offer", "price": "197", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://station.solutions/revive/"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is emailing old customers legal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. They&rsquo;re your customers, every email says who you are, and one click unsubscribes. We handle that machinery."}}, {"@type": "Question", "name": "What if the list is a mess?", "acceptedAnswer": {"@type": "Answer", "text": "They all are. Scrubbing is included."}}, {"@type": "Question", "name": "What response should I expect?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the list. Put your own numbers in the calculator above; replies land in your monthly report, so you see exactly what it did."}}, {"@type": "Question", "name": "What if I only want one campaign?", "acceptedAnswer": {"@type": "Answer", "text": "Take the first month, watch the replies, and cancel any time."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is emailing old customers legal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. They&rsquo;re your customers, every email says who you are, and one click unsubscribes. We handle that machinery."}}, {"@type": "Question", "name": "What if the list is a mess?", "acceptedAnswer": {"@type": "Answer", "text": "They all are. Scrubbing is included."}}, {"@type": "Question", "name": "What response should I expect?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on the list. Put your own numbers in the calculator above; replies land in your monthly report, so you see exactly what it did."}}, {"@type": "Question", "name": "What if I only want one campaign?", "acceptedAnswer": {"@type": "Answer", "text": "Take the first month, watch the replies, and cancel any time."}}, {"@type": "Question", "name": "Do I see the emails before they go?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You approve the copy before anything sends."}}, {"@type": "Question", "name": "What happens after the first wave?", "acceptedAnswer": {"@type": "Answer", "text": "New customers are added as they come in, and a fresh win-back wave runs every quarter."}}]}</script>
 </head><body><a class="skip" href="#main">Skip to content</a>
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
@@ -113,6 +156,13 @@ body{background:var(--bg);color:var(--fg)}
  <h2>The same old customer, <em>with and without it.</em></h2>
  <div class="ends"><div class="lost"><h3>Without Revive</h3><ol><li><time>2023</time><span>She used you twice. Loved it.</span></li><li><time>2024</time><span>You never followed up. Nothing personal; you were busy.</span></li><li><time>2026</time><span>She needed the work again. Couldn&rsquo;t remember your name.</span></li></ol><p class="out">She called someone else.</p></div><div class="won"><h3>With Revive</h3><ol><li><time>Day 1</time><span>The list lands. We dedupe it and drop anyone who opted out.</span></li><li><time>Day 2</time><span>&ldquo;It&rsquo;s been a while. Want us to take a look before summer?&rdquo;</span></li><li><time>Day 4</time><span>She replies and books Thursday.</span></li></ol><p class="out">Old customers, booked again.</p></div></div>
 </section>
+<section class="sec" id="see">
+ <h2>What it actually <em>looks like.</em></h2>
+ <div class="pv-see"><div class="phone" role="img" aria-label="Example screen for Bayside Marine"><div class="scr"><div class="sbar"><span>9:41</span><span>Bayside Marine</span></div>
+ <div class="app"><div class="apphead">Email<span>Touch 1 of 6</span></div><div class="thread"><p class="tr"><b>Subject</b>It&rsquo;s been a while, Marcus</p><p class="tr"><b>Message</b>Hi Marcus, it&rsquo;s been about a year since we serviced your boat. Want us to look it over before summer? Just reply with a day.</p><p class="tr"><b>Reply &middot; Day 4</b>Saturday morning?</p><div class="row"><span>Status</span><b>Booked <span class="pill g">Back</span></b></div></div></div></div></div>
+ <div class="pv-notes"><ul><li>Your list is deduped and scrubbed first.</li><li>Six warm touches over three weeks. You approve the copy before anything sends.</li><li>Replies land in your inbox as live threads.</li></ul>
+ <p class="pv-ex">Bayside Marine is an example business. Your name, your words and your numbers go here.</p></div></div>
+</section>
 <section class="sec" id="math">
  <h2>Run the math <em>before we take a dollar.</em></h2>
  <p class="lede">Your numbers, not ours.</p>
@@ -120,6 +170,10 @@ body{background:var(--bg);color:var(--fg)}
  <div class="out"><div class="big" id="closs">&mdash;<small></small></div><p class="fine" style="margin-top:-8px">in work sitting in your old customer list</p>
  <div class="cmp"><span>What Revive costs</span><b>$197/mo</b></div>
  <p class="verdict" id="cverdict"></p></div></div>
+</section>
+<section class="sec" id="fit">
+ <h2>Who it&rsquo;s <em>for.</em></h2>
+ <ul class="pv-fit"><li><b>Trades &amp; home services</b><span>Last year&rsquo;s customers, before the season starts.</span></li><li><b>Salons &amp; spas</b><span>Clients who quietly stopped booking.</span></li><li><b>Auto &amp; marine</b><span>Service reminders to everyone due.</span></li><li><b>Gyms &amp; studios</b><span>Lapsed members, invited back.</span></li><li class="pv-no"><b>Not a fit if</b><span>Under about a hundred old customers? The math is thin. Start with <a href="/pursuit/">Pursuit</a> on new leads instead.</span></li></ul>
 </section>
 <section class="sec" id="how">
  <h2>Send the list. <em>We do the rest.</em></h2>
@@ -131,10 +185,15 @@ body{background:var(--bg);color:var(--fg)}
  <div class="pz-grid" style="--n:2"><div class="pz-card bcard pz-rv pop"><div class="pz-top"><h3>Monthly</h3><span class="pz-badge">One plan</span></div><p class="pz-desc">One revived customer usually pays for it</p><div class="pz-price"><span class="num">$197</span><small>/month</small></div><span class="bp" data-m="$197" hidden></span><p class="pz-worth">Up to 5,000 contacts</p><button class="pz-cta" type="button" data-buynow="revive">Start free for 14 days</button><button class="pz-add addcart" type="button" data-add="revive" data-label="Add to cart">Add to cart</button><span class="pz-note">$0 today &middot; card on Stripe&rsquo;s secure page &middot; nothing charged for 14 days</span><ul class="pz-feat"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Month one: list scrub and the full 6-touch wave</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>New customers added as they come in</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg><span>A fresh win-back wave every quarter</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg><span>Results in your monthly report</span></li></ul></div><div class="pz-card pz-side pz-rv" style="--art:url(/products/media/revive-m.webp)"><div class="pz-top"><h3>Why email first?</h3></div><p class="pz-desc">&ldquo;They bought from us once&rdquo; is not texting consent. Email-first is why Revive can start the day the list lands.</p><div class="pz-inc"><ul><li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></span>Runs in 1&ndash;2 days</li><li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></span>Up to 5,000 contacts</li><li><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></span>14 days free, cancel any time</li></ul></div></div></div>
  <div class="incl"><span>Every plan includes</span><ul><li>List scrub and dedupe</li><li>The full 6-touch win-back wave</li><li>A fresh wave every quarter</li><li>Replies in your inbox</li><li>Cancel any time</li></ul></div>
  <p class="usage">&ldquo;They bought from us once&rdquo; is not texting consent, which is why Revive is email-first by design. It&rsquo;s also why it can start tomorrow. Cancel any time; it starts with a 14-day free trial. By purchasing you agree to the <a href="/legal/tos.html">Terms of Service</a>.</p>
+ <div class="pv-risk"><ul><li>No contract. Month to month.</li><li>$0 today. Nothing charged for 14 days.</li><li>Cancel from your account, any time.</li></ul><p>Rather talk to a person first? <a href="/book/">Book fifteen minutes</a>, or <a href="/contact/">write to us</a> and a human reads it today.</p></div>
+</section>
+<section class="sec" id="options">
+ <h2>Your other options, <em>honestly.</em></h2>
+ <div class="pv-opts" role="table" aria-label="Your options"><div class="pv-oh" role="row"><span role="columnheader">Option</span><span role="columnheader">What it costs</span><span role="columnheader">The better pick</span></div><div class="pv-or" role="row"><b role="cell">Emailing them yourself</b><span role="cell">An afternoon per campaign</span><span role="cell">When the list is small and you&rsquo;ll follow up on every reply.</span></div><div class="pv-or" role="row"><b role="cell">A one-off postcard</b><span role="cell">Print and postage</span><span role="cell">When street addresses are all you have.</span></div><div class="pv-or me" role="row"><b role="cell">Revive</b><span role="cell">$197/mo</span><span role="cell">When the list is big and nobody has the time.</span></div></div>
 </section>
 <section class="sec faqs" id="faq">
  <h2>The fine print, out loud.</h2>
- <div class="faq-body" style="margin-top:22px"><ul class="fl"><li class="fi" id="q-is-emailing-old-customers-legal" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>Is emailing old customers legal?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>Yes. They&rsquo;re your customers, every email says who you are, and one click unsubscribes. We handle that machinery.</p></div></div></li><li class="fi" id="q-what-if-the-list-is-a-mess" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>What if the list is a mess?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>They all are. Scrubbing is included.</p></div></div></li><li class="fi" id="q-what-response-should-i-expect" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>What response should I expect?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>It depends on the list. Put your own numbers in the calculator above; replies land in your monthly report, so you see exactly what it did.</p></div></div></li><li class="fi" id="q-what-if-i-only-want-one-campaign" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>What if I only want one campaign?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Take the first month, watch the replies, and cancel any time.</p></div></div></li></ul></div>
+ <div class="faq-body" style="margin-top:22px"><ul class="fl"><li class="fi" id="q-is-emailing-old-customers-legal" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>Is emailing old customers legal?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>Yes. They&rsquo;re your customers, every email says who you are, and one click unsubscribes. We handle that machinery.</p></div></div></li><li class="fi" id="q-what-if-the-list-is-a-mess" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>What if the list is a mess?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>They all are. Scrubbing is included.</p></div></div></li><li class="fi" id="q-what-response-should-i-expect" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>What response should I expect?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>It depends on the list. Put your own numbers in the calculator above; replies land in your monthly report, so you see exactly what it did.</p></div></div></li><li class="fi" id="q-what-if-i-only-want-one-campaign" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>What if I only want one campaign?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Take the first month, watch the replies, and cancel any time.</p></div></div></li><li class="fi" id="q-do-i-see-the-emails-before-they-go" data-state="closed"><h3><button type="button" class="fi-b" id="fb-4" aria-expanded="false" aria-controls="fa-4"><span>Do I see the emails before they go?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-4" role="region" aria-labelledby="fb-4"><div><p>Yes. You approve the copy before anything sends.</p></div></div></li><li class="fi" id="q-what-happens-after-the-first-wave" data-state="closed"><h3><button type="button" class="fi-b" id="fb-5" aria-expanded="false" aria-controls="fa-5"><span>What happens after the first wave?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="fi-a" id="fa-5" role="region" aria-labelledby="fb-5"><div><p>New customers are added as they come in, and a fresh win-back wave runs every quarter.</p></div></div></li></ul></div>
 </section>
 <section class="sec">
  <h2>Pairs well with</h2>
