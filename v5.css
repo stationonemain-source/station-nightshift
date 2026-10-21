@@ -1683,3 +1683,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .mwrap:focus-within .mega{display:none}
 .mwrap:hover .mega,.mwrap:has(:focus-visible) .mega{display:block}
 .nav-center:hover .mwrap:not(:hover) .mega{display:none}
+
+/* 2026-10-21 conversion pass: on phones the chat pill is icon-only so it stops sitting on card buttons; the audit form's one-line email note */
+@media (max-width:640px){.chat-fab{width:48px;min-width:48px;height:48px;padding:0;gap:0;justify-content:center;border-radius:50%}.chat-fab .cf-l{display:none}.chat-fab svg{width:24px;height:24px}}
+.af-fine{margin:10px 0 0;font-size:12.5px;line-height:1.45;color:#6B665B;text-align:center}
