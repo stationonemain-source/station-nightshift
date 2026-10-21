@@ -382,3 +382,15 @@ never a fail; a site that did not answer to the entity's name is not graded. No 
 ranking, one per entity, methodology, data (CSV + JSON). `noindex`, not in `sitemap.xml`, linked from nowhere
 on the site — it goes public only when Circle decides. The feature's own HEAD, the re-run recipe and the
 "before it goes public" list are in `oklahoma-report-card/STATE.md`. Sends nothing, spends nothing.
+
+## 2026-10-21 — conversion pass (Circle approved the five items; LIVE, commit b78a5f3)
+
+Scored the live site as a cold visitor: message 9, pricing 9, friction 7, CTA hierarchy 6, **trust 2**, mobile 6, speed 6 → 6.5/10.
+Shipped the five mechanical fixes; the trust gap (no testimonial, logo, founder, case study anywhere) is open and is Circle's call on what proof to show.
+
+- Home hero: **Get the free audit** is the filled button, See the products is secondary. The proof line is plain text ("no card, no call").
+- **Contact** in the nav on 28 pages → `/contact/` (a form). It was a `mailto:` that opened an empty mail app on desktop.
+- Audit form: City optional; the required "Email me my audit results" checkbox is gone (it was the OPTIONAL marketing field `email_consent`, see analytics.js §7.1 — the report itself needs no consent field); button reads **Send my audit** with one line under it. `v5.js`/`analytics.js` already post `email_consent=no` when the box is absent. ⚠ If the Google-listing check starts returning "couldn't check" more often, the engine wanted City — put `required` back.
+- Every 14-day trial card (13 product pages + 3 collections on `/products/`) carries `.pz-note` "$0 today · card on Stripe's secure page · nothing charged for 14 days", the same rule `/checkout/` states.
+- Chat pill is a 48px icon on phones (≤640px) so it stops sitting on card buttons. Both stylesheets (`/s/station.css` and `/v5.css`) bumped to `?v=20261021a`.
+- Not changed: the cookie card still sits bottom-left until a choice is made (consent by design). The hero copy fades in via CSS animation and is invisible until it runs — fine on real devices, a no-animation fallback would remove the risk.
