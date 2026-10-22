@@ -410,3 +410,13 @@ written for one buyer (a solo plumber). Added to all 14 product pages, from the 
 Source: `~/.claude/scratch/heroes/products_v2.py` (data) + `build_funnel.py` `v2_html()` (template, CSS `pv-*`).
 The generator also now carries the 10-21 trial card note and `station.css?v=20261021b`, so a rebuild no longer drops them.
 Rule kept: no testimonials, integrations, compliance claims or location. Every fact was already on that product's page.
+
+## 2026-10-21 — /about/ (Circle: "an about us page with Charlie and Ewan… a personal brand feel")
+
+Built by `~/.claude/scratch/heroes/build_about.py` (workshop painting hero, same nav/footer/dark theme as the product pages).
+Sections: hero "We're Charlie and Ewan. We build it ourselves." · The two of us · Why Station exists · How we work (five
+policies already stated on the site) · What we've built (products, portfolio, solutions) · Say hello (/book/, /contact/, /audit/).
+**Photos:** drop `about/charlie.jpg` and `about/ewan.jpg` (or .webp/.png) in this repo and re-run the script; until then each
+slot is an initial on an ink or paper tile. **Bios are empty on purpose** — nothing on record says who does what; fill
+`FOUNDERS[...]['bio']` in the script when Circle supplies them. First names only (no surname on record for Ewan). No location.
+"About us" added to the Company column of every footer (26 pages) and to sitemap.xml.
