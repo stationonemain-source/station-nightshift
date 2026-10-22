@@ -420,3 +420,15 @@ policies already stated on the site) · What we've built (products, portfolio, s
 slot is an initial on an ink or paper tile. **Bios are empty on purpose** — nothing on record says who does what; fill
 `FOUNDERS[...]['bio']` in the script when Circle supplies them. First names only (no surname on record for Ewan). No location.
 "About us" added to the Company column of every footer (26 pages) and to sitemap.xml.
+
+## 2026-10-21 — v3 search-led product pages (LIVE: Dispatch 206afd8, then Frontdesk, Lineback, Repute, Echo, Storefront 306a92a)
+
+Plan: claude.ai/artifact/2RsDY51rWTcZ3rrrfAxfoy (Circle approved: keep URLs, Dispatch pilot, then these five).
+Each page: searched phrase in title + headline, a plain answer paragraph (what AI models quote), three steps, three feature
+blocks with Station-styled screens (never GHL screenshots), pricing + no-catch strip + usage toggle, proof (calculator on
+Frontdesk/Lineback, report screens elsewhere), five searched questions, final CTA. ~950 words, down from ~1,600.
+**Generated, not hand-edited:** `~/.claude/scratch/heroes/build_funnel.py` routes slugs in `products_v3.V3` to `build_v3.render`
+(content: `products_v3.py`, `products_v3_more.py`). A hand edit to these six pages is lost on the next rebuild; per-page scripts
+go in the entry's `extra_js`. Remaining eight (Pursuit, Slate, Tap, Greet, Marquee, Revive, Radar; Dial pending retirement) still v2.
+Open with Circle: Dispatch automation details + email allowance (25k guide vs 100k site); Frontdesk sample call; Repute review
+link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (our token is read-only). IndexNow pinged 10-21.
