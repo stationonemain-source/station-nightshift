@@ -52,6 +52,55 @@
   if (img.complete) place(); else img.addEventListener("load", place);
   window.addEventListener("resize", place);
   hero.classList.add("fx-on");
+
+  /* Painting effects. A painting listed in EFFECTS gets /s/fx/<painting>.js wherever it hangs, so a
+     page that borrows a product's painting gets that product's motion too. The effect builds on
+     window.StationHeroFx: painting fractions -> pixels (same object-fit:cover maths as the glows),
+     a DPR-sized canvas inside .hero-fx (so it drifts with the painting), and a loop that sleeps when
+     the hero is off screen or the tab is hidden. kit.quiet is true on pages where the hero sits
+     behind a form or checklist (.skin-hero): effects hold still or stay faint there. kit.reduce is
+     the visitor's reduced-motion setting: draw one still frame, never loop. */
+  var EFFECTS = ["agency-studio"];
+  var art = (img.getAttribute("src") || "").split("/").pop().split("?")[0].replace(/(-1600|-4k|-m)?\.webp$/, "");
+  if (EFFECTS.indexOf(art) >= 0) {
+    var kit = window.StationHeroFx = { hero: hero, img: img, fx: fx, art: art, reduce: reduce, quiet: hero.classList.contains("skin-hero"),
+      W: 0, H: 0, dw: 1, dh: 1, ox: 0, oy: 0, dpr: 1, _lay: [], _cvs: [] };
+    kit.X = function (f) { return kit.ox + f * kit.dw; };
+    kit.Y = function (f) { return kit.oy + f * kit.dh; };
+    kit.layout = function () {
+      kit.W = hero.clientWidth; kit.H = hero.clientHeight; kit.dpr = Math.min(2, window.devicePixelRatio || 1);
+      var nw = img.naturalWidth || 3840, nh = img.naturalHeight || 2172, s = Math.max(kit.W / nw, kit.H / nh);
+      kit.dw = nw * s; kit.dh = nh * s;
+      var pos = getComputedStyle(img).objectPosition.split(" "), px = parseFloat(pos[0]) / 100, py = parseFloat(pos[1] || "50") / 100;
+      if (isNaN(px)) px = .5; if (isNaN(py)) py = .5;
+      kit.ox = (kit.W - kit.dw) * px; kit.oy = (kit.H - kit.dh) * py;
+      kit._cvs.forEach(function (c) { c.width = Math.round(kit.W * kit.dpr); c.height = Math.round(kit.H * kit.dpr); c.getContext("2d").setTransform(kit.dpr, 0, 0, kit.dpr, 0, 0); });
+      kit._lay.forEach(function (f) { f(); });
+    };
+    kit.onLayout = function (f) { kit._lay.push(f); };
+    kit.canvas = function (z) { // a full-hero canvas; draw in CSS pixels, it is already DPR-scaled
+      var c = document.createElement("canvas"); c.setAttribute("aria-hidden", "true");
+      c.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:" + (z || 1);
+      fx.appendChild(c); kit._cvs.push(c); kit.layout(); return c.getContext("2d");
+    };
+    kit.loop = function (fn) { // fn(t seconds since start, dt seconds); never runs under reduced motion
+      if (reduce) return;
+      var t0 = performance.now(), last = 0, on = true, running = false;
+      function f(now) { if (!on || document.hidden) { running = false; return; } var dt = last ? Math.min(.05, (now - last) / 1000) : 0; last = now; fn((now - t0) / 1000, dt); requestAnimationFrame(f); }
+      function go() { if (!running) { running = true; last = 0; requestAnimationFrame(f); } }
+      if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { on = es[0].isIntersecting; if (on) go(); }).observe(hero);
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) go(); });
+      go();
+    };
+    window.addEventListener("resize", function () { kit.layout(); });
+    // wait for real pixel sizes; a srcset swap can leave complete=true with no size yet, so poll as well
+    var loaded = false, tries = 0, load = function () {
+      if (loaded || !img.naturalWidth) { if (!loaded && tries++ < 40) setTimeout(load, 250); return; }
+      loaded = true; kit.layout();
+      var s = document.createElement("script"); s.src = "/s/fx/" + art + ".js?v=20261022a"; document.body.appendChild(s);
+    };
+    img.addEventListener("load", load); load();
+  }
   if (reduce) return;
 
   var t0 = performance.now(), mx = 0, my = 0, tx = 0, ty = 0, visible = true;
