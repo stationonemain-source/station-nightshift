@@ -60,7 +60,7 @@
      the hero is off screen or the tab is hidden. kit.quiet is true on pages where the hero sits
      behind a form or checklist (.skin-hero): effects hold still or stay faint there. kit.reduce is
      the visitor's reduced-motion setting: draw one still frame, never loop. */
-  var EFFECTS = ["agency-studio", "day-night", "repute", "marquee", "slate"];
+  var EFFECTS = ["agency-studio", "day-night", "repute", "marquee", "slate", "dial", "radar", "security"];
   var art = (img.getAttribute("src") || "").split("/").pop().split("?")[0].replace(/(-1600|-4k|-m)?\.webp$/, "");
   if (EFFECTS.indexOf(art) >= 0) {
     var kit = window.StationHeroFx = { hero: hero, img: img, fx: fx, art: art, reduce: reduce, quiet: hero.classList.contains("skin-hero"),
