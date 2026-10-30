@@ -45,6 +45,7 @@ img{display:block;max-width:100%}
 body.clean .notes{display:none}
 body.appm .dk,body.appm .idx,body.appm .notes{display:none}
 body.appm .stage{grid-template-columns:1fr}
+.sheet a.btn{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
 body.clean .stage{grid-template-columns:1fr}
 @media (max-width:1100px){.stage{grid-template-columns:1fr}.notes{position:static}}
 
@@ -994,7 +995,8 @@ var nb=document.getElementById('dkNotes');nb.addEventListener('click',function()
 if(!window.SS_NOTES_FOR){document.body.classList.add('clean');nb.hidden=true}
 else if(/[?&]notes=0/.test(location.search)){document.body.classList.add('clean');nb.textContent='Show notes'}
 var h=parseInt((location.hash||'').slice(1),10);if(h>0)cur=Math.min(SC.length,h)-1;
-if(APP&&FLOW.indexOf(cur)<0)cur=0;if(APP&&cur===3&&!INVITE)cur=0;
+if(APP&&FLOW.indexOf(cur)<0)cur=0;
+var PKG=SIZES.filter(function(z){return z[1]===qs.get('pkg')})[0];if(PKG){var pool_=pool().map(function(x){return x[0]});S.pages=pool_.slice(0,Math.min(PKG[0],pool_.length));while(S.pages.length<PKG[0])S.pages.push('Page '+(S.pages.length+1));save()}if(APP&&cur===3&&!INVITE)cur=0;
 render();
 })();
 </script>
