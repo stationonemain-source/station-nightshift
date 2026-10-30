@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Northline Home Repair</title>
+<meta name="description" content="Plumbing, carpentry and general repairs in Norman, Moore and Noble, Oklahoma. Free quotes. Licensed and insured.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f0e6; --desk:#e4ddcc; --ink:#1b2a4a; --ink-2:#44506b; --rule:#b7c1d3; --rule-2:#d5dbe6;
+  --red:#b42318; --white:#fffdf8;
+  --type:"Courier Prime", ui-monospace, Menlo, monospace;
+  --print:"Archivo Narrow", "Arial Narrow", sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--desk);color:var(--ink);font-family:var(--print);font-size:17px;line-height:1.5}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.ic{width:1.1em;height:1.1em;flex:none;vertical-align:-.15em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:var(--white);padding:8px 12px;z-index:50}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* the form header that runs across the top, like the printed band on a carbon pad */
+.top{background:var(--ink);color:var(--paper)}
+.top .wrap{display:flex;align-items:center;gap:18px;min-height:64px}
+.brand{font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;font-size:18px;line-height:1.1}
+.brand small{display:block;font-weight:500;letter-spacing:.08em;font-size:11.5px;opacity:.75}
+.nav{margin-left:auto;display:flex;gap:22px;align-items:center}
+.nav a{text-decoration:none;font-size:15px;letter-spacing:.04em;text-transform:uppercase;opacity:.9}
+.nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.callbtn{display:inline-flex;align-items:center;gap:8px;background:var(--paper);color:var(--ink);text-decoration:none;font-family:var(--type);font-weight:700;padding:9px 14px;border-radius:3px;white-space:nowrap}
+.menu{display:none;margin-left:auto;background:none;border:1px solid rgba(244,240,230,.5);color:var(--paper);font:600 14px var(--print);letter-spacing:.08em;text-transform:uppercase;padding:8px 12px;border-radius:3px}
+
+/* a sheet = one page of the work-order pad */
+.sheet{background:var(--paper);border:1px solid #cfc6b0;box-shadow:0 1px 0 #fff inset,0 18px 40px -28px rgba(27,42,74,.45);margin:28px 20px;max-width:1180px}
+@media (min-width:1221px){.sheet{margin:28px auto}}
+.sheet-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding:14px 24px 10px}
+.sheet-head h2{margin:0;font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.sheet-head .no{font-family:var(--type);color:var(--red);font-size:15px;letter-spacing:.04em;white-space:nowrap}
+.lbl{display:block;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.typed{font-family:var(--type);color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}
+.hero-form{padding:0;border-right:1px solid var(--rule)}
+.title{padding:26px 24px 22px;border-bottom:1px solid var(--rule)}
+.title .lbl{margin-bottom:6px}
+h1{font-size:clamp(44px,6.4vw,86px);line-height:.92;margin:0;font-weight:700;letter-spacing:-.01em;text-transform:uppercase}
+.title p{margin:14px 0 0;font-family:var(--type);font-size:18px;line-height:1.45;max-width:34em}
+.fields{display:grid;grid-template-columns:1fr 1fr}
+.field{padding:12px 24px 14px;border-bottom:1px solid var(--rule)}
+.field.r{border-left:1px solid var(--rule)}
+.field.wide{grid-column:1/-1;border-left:0}
+.field .typed{font-size:19px;display:block;margin-top:2px}
+.phone-big{display:inline-flex;align-items:center;gap:12px;font-family:var(--type);font-weight:700;font-size:clamp(30px,4.2vw,48px);text-decoration:none;color:var(--ink);line-height:1.1;margin-top:4px}
+.phone-big .ic{width:.8em;height:.8em;color:var(--red)}
+.phone-big:hover{color:var(--red)}
+.checks{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:4px;font-family:var(--type);font-size:19px}
+.checks span{display:inline-flex;align-items:center;gap:6px}
+.checks .ic{color:var(--red);width:22px;height:22px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;padding:18px 24px 22px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 15px var(--print);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:14px 20px;border-radius:3px;border:2px solid var(--ink);cursor:pointer}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:#0f1b33}
+.btn.line{background:transparent;color:var(--ink)}
+.btn.line:hover{background:var(--white)}
+.hero-photo{position:relative;margin:0;min-height:100%;display:flex;flex-direction:column}
+.hero-photo img{flex:1;width:100%;height:100%;object-fit:cover;min-height:340px}
+.hero-photo figcaption,.cap{font-family:var(--type);font-size:14px;color:var(--ink-2);padding:9px 14px;border-top:1px solid var(--rule);background:var(--paper)}
+
+/* line items */
+.items{width:100%;border-collapse:collapse}
+.items th{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:10px 12px;border-bottom:1px solid var(--ink)}
+.items td{padding:13px 12px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+.items td:first-child,.items th:first-child{padding-left:24px;width:84px}
+.items td:last-child,.items th:last-child{padding-right:24px;text-align:right;white-space:nowrap}
+.items .code{font-family:var(--type);color:var(--red);font-size:15px}
+.items .desc strong{display:block;font-size:18px;font-weight:600}
+.items .desc span{color:var(--ink-2);font-size:15.5px}
+.items .price{font-family:var(--type);font-size:17px}
+.items tr.group td{text-align:left!important;padding-left:24px;background:#ebe5d6;border-bottom:1px solid var(--ink);padding-top:10px;padding-bottom:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+.items-photos{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule)}
+.items-photos figure{margin:0;border-right:1px solid var(--rule)}
+.items-photos figure:last-child{border-right:0}
+.items-photos img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.note{font-family:var(--type);font-size:15px;color:var(--ink-2);padding:14px 24px;margin:0}
+
+/* area + promise */
+.two{display:grid;grid-template-columns:1fr 1fr}
+.two > div{padding:20px 24px 24px}
+.two > div + div{border-left:1px solid var(--rule)}
+.towns{list-style:none;margin:10px 0 0;padding:0}
+.towns li{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--rule-2)}
+.towns li .ic{color:var(--red);width:24px;height:24px;margin-top:2px}
+.towns b{font-size:22px;text-transform:uppercase;letter-spacing:.04em}
+.towns span{display:block;font-family:var(--type);font-size:15px;color:var(--ink-2)}
+.area-photo{margin:18px 0 0;border:1px solid var(--rule)}
+.area-photo img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.steps{list-style:none;margin:10px 0 0;padding:0;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--rule-2)}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--type);font-weight:700;font-size:20px;color:var(--red);border:2px solid var(--red);border-radius:50%;width:38px;height:38px;display:grid;place-items:center}
+.steps b{display:block;font-size:18px}
+.steps span{color:var(--ink-2);font-size:16px}
+.promise{margin:18px 0 0;padding:14px 16px;border:2px solid var(--ink);font-family:var(--type);font-size:16px;line-height:1.5}
+.promise .sig{display:block;margin-top:10px;padding-top:8px;border-top:1px solid var(--ink-2);font-size:14px;color:var(--ink-2)}
+
+/* customer remarks */
+.remarks{display:grid;grid-template-columns:repeat(3,1fr)}
+.remark{padding:18px 24px 22px;border-right:1px solid var(--rule)}
+.remark:last-child{border-right:0}
+.remark .job{font-family:var(--type);font-size:14px;color:var(--ink-2);border-bottom:1px dotted var(--rule);padding-bottom:8px;margin-bottom:10px}
+.remark blockquote{margin:0;font-size:19px;line-height:1.45}
+.remark .who{margin-top:14px;font-family:var(--type);font-size:15px}
+.remark .who::before{content:"";display:block;width:70%;border-top:1px solid var(--ink);margin-bottom:6px}
+.sample{font-size:12.5px;color:var(--ink-2);letter-spacing:.06em;text-transform:none;font-weight:500}
+
+/* quote form = the ticket */
+.ticket{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.ticket form{border-right:1px solid var(--rule)}
+.f{display:grid;grid-template-columns:1fr 1fr}
+.f .cell{padding:10px 24px 12px;border-bottom:1px solid var(--rule)}
+.f .cell.r{border-left:1px solid var(--rule)}
+.f .cell.full{grid-column:1/-1;border-left:0}
+.f label,.f legend{display:block;font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px;padding:0}
+.f fieldset{border:0;margin:0;padding:0;min-width:0}
+.f input[type=text],.f input[type=tel],.f input[type=email],.f select,.f textarea{width:100%;font:19px/1.4 var(--type);color:var(--ink);background:transparent;border:0;border-bottom:1px dashed transparent;padding:4px 0;border-radius:0}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;background:#fffaf0;box-shadow:0 2px 0 var(--red)}
+.f textarea{min-height:104px;resize:vertical;background-image:repeating-linear-gradient(transparent 0 26px,var(--rule-2) 26px 27px);line-height:27px}
+.opts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:4px}
+.opts label{display:inline-flex;align-items:center;gap:8px;font:400 18px var(--type);letter-spacing:0;text-transform:none;color:var(--ink);margin:0;cursor:pointer}
+.opts input{width:20px;height:20px;accent-color:var(--red)}
+.submit-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px 24px 22px}
+.status{font-family:var(--type);font-size:16px;color:var(--red);margin:0}
+.ticket aside{display:flex;flex-direction:column}
+.ticket aside img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.ticket aside .office{padding:16px 24px 20px}
+.office dl{margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:16px}
+.office dt{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);padding-top:4px}
+.office dd{margin:0;font-family:var(--type)}
+
+/* footer = fine print at the bottom of the form */
+.foot{max-width:1180px;margin:0 auto 40px;padding:0 20px;color:var(--ink-2);font-size:14.5px}
+.foot .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;border-top:2px solid var(--ink);padding-top:14px}
+.foot strong{color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+.foot p{margin:4px 0}
+.copies{font-family:var(--type);font-size:13px;margin-top:10px}
+
+@media (max-width:980px){
+  .nav{display:none}
+  .menu{display:inline-flex}
+  .nav.open{display:flex;position:absolute;left:0;right:0;top:64px;flex-direction:column;align-items:stretch;gap:0;background:var(--ink);padding:6px 20px 16px;z-index:20}
+  .nav.open a{padding:12px 0;border-bottom:1px solid rgba(244,240,230,.18)}
+  .top{position:relative}
+  .top .callbtn.hdr{margin-left:auto;padding:8px 11px}
+  .top .callbtn.hdr .num{display:none}
+  .menu{margin-left:0}
+  .hero{grid-template-columns:1fr}
+  .hero-form{border-right:0;border-bottom:1px solid var(--rule)}
+  .hero-photo img{min-height:0;aspect-ratio:3/2}
+  .two{grid-template-columns:1fr}
+  .two > div + div{border-left:0;border-top:1px solid var(--rule)}
+  .remarks{grid-template-columns:1fr}
+  .remark{border-right:0;border-bottom:1px solid var(--rule)}
+  .remark:last-child{border-bottom:0}
+  .ticket{grid-template-columns:1fr}
+  .ticket form{border-right:0;border-bottom:1px solid var(--rule)}
+  .ticket aside{flex-direction:row}
+  .ticket aside img{width:42%;aspect-ratio:auto}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .sheet{margin:16px 10px}
+  .sheet-head{padding:12px 16px 8px}
+  .title,.field,.hero-actions,.two > div,.remark,.f .cell,.submit-row,.note,.office{padding-left:16px!important;padding-right:16px!important}
+  .fields{grid-template-columns:1fr}
+  .field.r{border-left:0}
+  .items thead{display:none}
+  .items,.items tbody,.items tr,.items td{display:block;width:100%}
+  .items tr{display:grid;grid-template-columns:auto 1fr;padding:12px 16px;border-bottom:1px solid var(--rule-2)}
+  .items td{border:0;padding:0!important;text-align:left!important}
+  .items td:first-child{width:auto;padding-right:12px!important}
+  .items td.desc{grid-column:2}
+  .items td.price{grid-column:2;margin-top:4px}
+  .items tr.group{display:block;background:#ebe5d6;border-bottom:1px solid var(--ink);padding:10px 16px}
+  .items tr.group td{background:none;border:0}
+  .items-photos{grid-template-columns:1fr 1fr}
+  .items-photos figure:nth-child(3){display:none}
+  .f{grid-template-columns:1fr}
+  .f .cell.r{border-left:0}
+  .ticket aside{flex-direction:column}
+  .ticket aside img{width:100%;aspect-ratio:3/2}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:no-preference){ .btn{transition:background .15s} }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#main"><span data-slot="name">Northline Home Repair</span><small>Plumbing · Carpentry · Repairs</small></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#area">Service area</a>
+      <a href="#how">How it works</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#quote">Free quote</a>
+    </nav>
+    <a class="callbtn hdr" href="tel:4055550187" aria-label="Call (405) 555-0187"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg><span class="num">(405) 555-0187</span><span class="sr">Call</span></a>
+    <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- SHEET 1: the top of the work order -->
+  <section class="sheet" aria-labelledby="h1">
+    <div class="sheet-head"><h2>Work order</h2><span class="no">No. 0187</span></div>
+    <div class="hero">
+      <div class="hero-form">
+        <div class="title">
+          <span class="lbl">Contractor</span>
+          <h1 id="h1" data-slot="name">Northline Home Repair</h1>
+          <p data-slot="line">Plumbing, carpentry and general repairs for homes in Norman, Moore and Noble. Free quotes. Licensed and insured.</p>
+        </div>
+        <div class="fields">
+          <div class="field wide">
+            <span class="lbl">Call the office</span>
+            <a class="phone-big" href="tel:4055550187"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg><span data-slot="phone">(405) 555-0187</span></a>
+          </div>
+          <div class="field">
+            <span class="lbl">Hours</span>
+            <span class="typed" data-slot="hours">Mon–Sat, 7 am – 6 pm</span>
+          </div>
+          <div class="field r">
+            <span class="lbl">Quotes</span>
+            <span class="typed">Free, in writing, before any work</span>
+          </div>
+          <div class="field wide">
+            <span class="lbl">Service area</span>
+            <div class="checks"><span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" /><path d="M9 12l2 2l4 -4" /></svg>Norman</span><span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" /><path d="M9 12l2 2l4 -4" /></svg>Moore</span><span><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" /><path d="M9 12l2 2l4 -4" /></svg>Noble</span></div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn solid" href="#quote">Fill out a work order</a>
+          <a class="btn line" href="#services">See prices</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/mitersaw.webp" width="1800" height="1200" alt="A miter saw set up on a job site with ear defenders resting on a fresh board" fetchpriority="high">
+        <figcaption>Job photo · trim and baseboard replacement, set up on site</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SHEET 2: line items -->
+  <section class="sheet" id="services" aria-labelledby="svc-h">
+    <div class="sheet-head"><h2 id="svc-h">Services &amp; typical prices</h2><span class="no">Line items</span></div>
+    <div class="items-photos">
+      <figure><img src="img/plumber.webp" width="1000" height="816" alt="A plumber tightening a fitting on a water heater with two wrenches" loading="lazy"><figcaption class="cap">Plumbing</figcaption></figure>
+      <figure><img src="img/molding.webp" width="1000" height="741" alt="Crown molding corners glued and taped while they set" loading="lazy"><figcaption class="cap">Carpentry</figcaption></figure>
+      <figure><img src="img/drywall.webp" width="1100" height="825" alt="A repairman patching a drywall wall in an empty room" loading="lazy"><figcaption class="cap">Repairs</figcaption></figure>
+    </div>
+    <table class="items">
+      <thead><tr><th scope="col">Code</th><th scope="col">Description</th><th scope="col">Typical price</th></tr></thead>
+      <tbody>
+        <tr class="group"><td colspan="3">Plumbing</td></tr>
+        <tr><td class="code">P-01</td><td class="desc"><strong>Leaking faucet or valve</strong><span>Cartridges, washers, packing nuts, kitchen and bath.</span></td><td class="price">from $95</td></tr>
+        <tr><td class="code">P-02</td><td class="desc"><strong>Toilet repair or replacement</strong><span>Running, rocking or leaking at the base. New toilets fitted with a new wax ring and supply line.</span></td><td class="price">from $120</td></tr>
+        <tr><td class="code">P-03</td><td class="desc"><strong>Drain clearing</strong><span>Kitchen sink, tub and shower, laundry. Machine cleaning for slow main lines.</span></td><td class="price">from $135</td></tr>
+        <tr><td class="code">P-04</td><td class="desc"><strong>Shut-off valve replacement</strong><span>Old valves that won't close, under sinks and behind toilets.</span></td><td class="price">from $110</td></tr>
+        <tr><td class="code">P-05</td><td class="desc"><strong>Water heater replacement</strong><span>40 and 50 gallon tank heaters, gas or electric, haul-away included.</span></td><td class="price">free quote</td></tr>
+        <tr class="group"><td colspan="3">Carpentry</td></tr>
+        <tr><td class="code">C-01</td><td class="desc"><strong>Doors hung, trimmed and adjusted</strong><span>Sticking doors, new interior doors, strike plates and hinges.</span></td><td class="price">from $85</td></tr>
+        <tr><td class="code">C-02</td><td class="desc"><strong>Trim, baseboard and crown</strong><span>Replace damaged runs or trim out a whole room.</span></td><td class="price">free quote</td></tr>
+        <tr><td class="code">C-03</td><td class="desc"><strong>Fence and gate repair</strong><span>Leaning posts, broken pickets, sagging gates.</span></td><td class="price">from $175</td></tr>
+        <tr><td class="code">C-04</td><td class="desc"><strong>Deck boards and steps</strong><span>Soft or split boards replaced, loose steps and rails made solid.</span></td><td class="price">from $200</td></tr>
+        <tr class="group"><td colspan="3">General repairs</td></tr>
+        <tr><td class="code">R-01</td><td class="desc"><strong>Drywall patch and texture</strong><span>Door-knob holes to water-damaged ceilings, matched and ready to paint.</span></td><td class="price">from $125</td></tr>
+        <tr><td class="code">R-02</td><td class="desc"><strong>Tub and shower caulk and grout</strong><span>Old caulk cut out, mildew treated, new bead run.</span></td><td class="price">from $140</td></tr>
+        <tr><td class="code">R-03</td><td class="desc"><strong>The small-jobs list</strong><span>Two hours on whatever you've been putting off: shelves, blinds, hardware, smoke alarms.</span></td><td class="price">$160 / 2 hrs</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Prices are typical starting points for labor. Parts are extra and listed on your quote before we start.</p>
+  </section>
+
+  <!-- SHEET 3: area + how it works -->
+  <section class="sheet" aria-label="Service area and how it works">
+    <div class="sheet-head"><h2>Where we work · how a job goes</h2><span class="no">Terms</span></div>
+    <div class="two">
+      <div id="area">
+        <h3 class="lbl" style="margin:0">Service area</h3>
+        <ul class="towns">
+          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" /></svg><div><b>Norman</b><span>Home base. Every part of town, east and west of I&#8209;35.</span></div></li>
+          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" /></svg><div><b>Moore</b><span>About 15 minutes north on I&#8209;35.</span></div></li>
+          <li><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" /></svg><div><b>Noble</b><span>About 15 minutes south on US&#8209;77.</span></div></li>
+        </ul>
+        <p class="typed" style="font-size:15px;color:var(--ink-2);margin:14px 0 0">Just outside these towns? Call and ask. No trip charge inside them.</p>
+        <figure class="area-photo"><img src="img/fence.webp" width="1100" height="825" alt="A wooden privacy fence with new boards and a new brace set into the old run" loading="lazy"><figcaption class="cap">Fence repair · new slats and brace, old run kept</figcaption></figure>
+      </div>
+      <div id="how">
+        <h3 class="lbl" style="margin:0">How it works</h3>
+        <ol class="steps">
+          <li><div><b>You call or send the form</b><span>Tell us what's wrong. A photo helps.</span></div></li>
+          <li><div><b>We come and look</b><span>Usually within two working days. You get a written price, free.</span></div></li>
+          <li><div><b>We do the work</b><span>On the day we agreed, and we clean up after.</span></div></li>
+          <li><div><b>You sign it off</b><span>We walk you through it before we invoice.</span></div></li>
+        </ol>
+        <p class="promise">If something we fixed fails within a year, we come back and put it right at no charge. Licensed and insured in Oklahoma.<span class="sig">Signed, the owner · <span data-slot="name">Northline Home Repair</span></span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHEET 4: customer remarks -->
+  <section class="sheet" id="reviews" aria-labelledby="rev-h">
+    <div class="sheet-head"><h2 id="rev-h">Customer remarks <span class="sample">· sample reviews</span></h2><span class="no">Signed off</span></div>
+    <div class="remarks">
+      <figure class="remark" style="margin:0">
+        <div class="job">Job: kitchen shut-off valve · Moore</div>
+        <blockquote>“Said he'd be here at seven and he was. Swapped the valve, checked the others under the house while he was down there, and didn't charge me for looking.”</blockquote>
+        <figcaption class="who">Karen B., Moore</figcaption>
+      </figure>
+      <figure class="remark" style="margin:0">
+        <div class="job">Job: fence posts and gate · Norman</div>
+        <blockquote>“Two posts had rotted at the ground. He set new ones in concrete and rehung the gate so it actually latches. Price was what he wrote down.”</blockquote>
+        <figcaption class="who">Luis M., Norman</figcaption>
+      </figure>
+      <figure class="remark" style="margin:0">
+        <div class="job">Job: water heater replacement · Noble</div>
+        <blockquote>“Old heater quit on a Saturday. They had a new one in on Monday morning and hauled the old one off. Clean, quick, no upsell.”</blockquote>
+        <figcaption class="who">Jim &amp; Pat R., Noble</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SHEET 5: the ticket you fill out -->
+  <section class="sheet" id="quote" aria-labelledby="q-h">
+    <div class="sheet-head"><h2 id="q-h">Request a free quote</h2><span class="no">Customer copy</span></div>
+    <div class="ticket">
+      <form action="" id="quote-form" novalidate>
+        <div class="f">
+          <div class="cell"><label for="q-name">Name</label><input id="q-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="cell r"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" required></div>
+          <div class="cell"><label for="q-email">Email (optional)</label><input id="q-email" name="email" type="email" autocomplete="email"></div>
+          <div class="cell r"><label for="q-town">Town</label>
+            <select id="q-town" name="town"><option>Norman</option><option>Moore</option><option>Noble</option><option>Somewhere else</option></select></div>
+          <div class="cell full"><fieldset><legend>Type of work</legend>
+            <div class="opts"><label><input type="checkbox" name="type" value="Plumbing"> Plumbing</label><label><input type="checkbox" name="type" value="Carpentry"> Carpentry</label><label><input type="checkbox" name="type" value="Repairs"> General repairs</label></div></fieldset></div>
+          <div class="cell full"><label for="q-desc">Describe the job</label><textarea id="q-desc" name="description" rows="4"></textarea></div>
+          <div class="cell full"><label for="q-when">Best time to call you</label>
+            <select id="q-when" name="when"><option>Any time</option><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+        </div>
+        <div class="submit-row">
+          <button class="btn solid" type="submit">Send work order</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+      <aside>
+        <img src="img/toolwall.webp" width="1600" height="1067" alt="Hand tools hung in rows on a workshop wall" loading="lazy">
+        <div class="office">
+          <span class="lbl">Office use</span>
+          <dl>
+            <dt>Phone</dt><dd><a href="tel:4055550187" data-slot="phone" data-slot-href="tel">(405) 555-0187</a></dd>
+            <dt>Email</dt><dd><a href="mailto:office@northline-repair.example" data-slot="email" data-slot-href="mailto">office@northline-repair.example</a></dd>
+            <dt>Hours</dt><dd data-slot="hours">Mon–Sat, 7 am – 6 pm</dd>
+            <dt>Based</dt><dd data-slot="city">Norman, Oklahoma</dd>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="row">
+    <div><strong data-slot="name">Northline Home Repair</strong><p>Plumbing, carpentry and general repairs · Norman, Moore and Noble, OK · Licensed and insured.</p></div>
+    <div><p><a href="tel:4055550187" data-slot="phone" data-slot-href="tel">(405) 555-0187</a> · <span data-slot="hours">Mon–Sat, 7 am – 6 pm</span></p></div>
+  </div>
+  <p class="copies">Sample site made with Station Sites. Business, reviews and job details are invented. Photos: Wikimedia Commons (CC0 / public domain). Icons: Tabler Icons (MIT).</p>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var f=document.getElementById('quote-form');
+  f.addEventListener('submit',function(e){e.preventDefault();f.querySelector('.status').textContent='Sent — we’ll reply soon.';});
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+<script>/* keep every call link on the filled-in number */(function(){var s=document.querySelector('[data-slot="phone"]');if(!s)return;var t='tel:'+s.textContent.replace(/[^\d+]/g,'');document.querySelectorAll('a[href^="tel:"]').forEach(function(a){a.setAttribute('href',t)})})();</script>
+</body>
+</html>

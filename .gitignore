@@ -2,3 +2,6 @@ gen/
 serve.py
 assets/test/
 *.log
+
+# Station Sites deck review notes: GitHub Pages review copy only, never station.solutions
+build/start/notes.js

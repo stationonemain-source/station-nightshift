@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hearth Street Bakery</title>
+<meta name="description" content="Your corner bakery on East Main in Norman, Oklahoma. Bread, pastry and coffee from 6 am, Tuesday to Sunday, until it's gone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f3; --paper-2:#f0ede4; --blue:#1f3c96; --blue-2:#152a6e; --blue-soft:#dfe5f4;
+  --ink:#15171c; --muted:#4f5466; --line:#d8d4c8;
+  --sign:'Bricolage Grotesque', 'Arial Narrow', sans-serif; --serif:'Young Serif', Georgia, serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17.5px/1.6 var(--sign);font-variation-settings:'wdth' 100;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid #8fa8ec;outline-offset:3px}
+.wrap{max-width:1220px;margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;color:var(--ink);padding:10px 14px;z-index:10}
+.skip:focus{left:12px;top:12px}
+.ic{width:22px;height:22px;flex:none}
+
+/* the fascia sign over the shop */
+.fascia{background:var(--blue);color:#fff;border-bottom:8px solid var(--blue-2)}
+.fascia .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:18px;padding-bottom:16px}
+.fascia h1{margin:0;font-family:var(--sign);font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:clamp(34px,5.4vw,74px);line-height:.9;letter-spacing:.01em}
+.fascia h1 a{text-decoration:none}
+.fascia .sub{display:block;font-weight:600;font-variation-settings:'wdth' 100;font-size:14px;letter-spacing:.22em;margin-top:8px;opacity:.92}
+.nav{display:flex;gap:22px;align-items:center}
+.nav a{text-decoration:none;font-weight:600;font-size:16px}
+.nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.nav .call{background:#fff;color:var(--blue);padding:10px 16px;border-radius:999px}
+.nav .call:hover{text-decoration:none;background:var(--blue-soft)}
+.menu-btn{display:none;background:#fff;color:var(--blue);border:0;border-radius:999px;font:700 15px var(--sign);padding:10px 16px;cursor:pointer}
+
+/* shop window */
+.window{position:relative;min-height:min(78vh,720px);display:flex;align-items:flex-end;color:#fff;overflow:hidden}
+.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.window::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,30,0) 30%,rgba(10,14,30,.78) 100%)}
+.window .wrap{position:relative;z-index:1;width:100%;padding-top:40px;padding-bottom:44px;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.lettering{font-family:var(--serif);font-size:clamp(30px,4.4vw,58px);line-height:1.08;margin:0;max-width:12em;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.window-hours{font-weight:600;font-size:18px;line-height:1.45;text-align:right;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+.window-hours b{display:block;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:26px;letter-spacing:.04em}
+
+/* intro */
+.intro{padding:64px 0 64px}
+.intro-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:48px;align-items:center}
+.intro p{font-size:clamp(22px,2.4vw,30px);line-height:1.35;margin:0;font-family:var(--serif)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 16px/1 var(--sign);text-decoration:none;padding:15px 22px;border-radius:999px;border:2px solid var(--blue);color:var(--blue);max-width:100%}
+.btn.fill{background:var(--blue);color:#fff}
+.btn.fill:hover{background:var(--blue-2);border-color:var(--blue-2)}
+.btn.out:hover{background:var(--blue-soft)}
+.btn .ic{width:18px;height:18px}
+.intro .btns{justify-content:flex-end}
+
+/* the bag */
+.bag-sec{padding:70px 0 90px;background:var(--paper-2)}
+.bag-grid{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(0,1fr);gap:32px;align-items:start}
+.bag{background:#fff;position:relative;padding:62px 46px 46px;color:var(--blue);margin-top:12px;box-shadow:0 18px 30px -24px rgba(21,42,110,.35)}
+.bag::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px;background:linear-gradient(135deg,transparent 50%,#fff 50%) 0 100%/14px 12px repeat-x,linear-gradient(225deg,transparent 50%,#fff 50%) 0 100%/14px 12px repeat-x}
+.bag::after{content:"";position:absolute;inset:16px;border:2px solid var(--blue);pointer-events:none}
+.bag-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:3px solid var(--blue);padding-bottom:14px;margin-bottom:8px;flex-wrap:wrap}
+.bag-head h2{margin:0;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:clamp(34px,4vw,52px);line-height:.9}
+.bag-head span{font-weight:600;font-size:14px;letter-spacing:.16em;text-transform:uppercase}
+.bag-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}
+.bag h3{display:flex;align-items:center;gap:8px;margin:22px 0 4px;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:24px;letter-spacing:.02em}
+.item{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid #c9d2ec;color:var(--ink)}
+.item span:first-child{font-family:var(--serif);font-size:17.5px;line-height:1.25}
+.item b{font-weight:800;font-size:19px;color:var(--blue);white-space:nowrap}
+.item small{display:block;font-family:var(--sign);font-size:14px;color:var(--muted);margin-top:2px}
+.bag-foot{margin-top:24px;font-size:15px;color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.bag-side{display:flex;flex-direction:column;gap:22px}
+.bag-side figure{margin:0}
+.bag-side img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.bag-side figcaption{font-size:14px;color:var(--muted);padding-top:8px}
+
+/* behind the counter */
+.counter{padding:90px 0}
+.counter-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:56px;align-items:start}
+.counter h2,.reviews h2,.visit h2{margin:0 0 18px;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:clamp(36px,4.6vw,62px);line-height:.92;color:var(--blue)}
+.counter p{margin:0 0 16px;color:var(--muted);font-size:18px}
+.counter p.big{font-family:var(--serif);color:var(--ink);font-size:22px;line-height:1.45}
+.facts{list-style:none;padding:0;margin:26px 0 0;border-top:2px solid var(--blue)}
+.facts li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.facts b{font-weight:800;color:var(--blue);font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:19px}
+.pics{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pics figure{margin:0}
+.pics .wide{grid-column:1/-1}
+.pics img{width:100%;object-fit:cover;aspect-ratio:4/3}
+.pics .wide img{aspect-ratio:16/9}
+.pics figcaption{font-size:14px;color:var(--muted);padding-top:6px}
+
+/* cakes */
+.cakes{background:var(--blue);color:#fff;padding:90px 0}
+.cakes-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:56px;align-items:center}
+.cakes figure{margin:0}
+.cakes img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.cakes h2{margin:0 0 18px;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:clamp(36px,4.6vw,62px);line-height:.92}
+.cakes p{font-size:19px;margin:0 0 24px;color:#e6ebf8}
+.cakes ul{list-style:none;padding:0;margin:0 0 30px;border-top:2px solid #fff}
+.cakes li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.35);font-size:18px}
+.cakes li b{font-weight:800;white-space:nowrap}
+.cakes .btn{border-color:#fff;color:#fff}
+.cakes .btn.fill{background:#fff;color:var(--blue)}
+.cakes .btn.fill:hover{background:var(--blue-soft);border-color:var(--blue-soft)}
+.cakes .btn.out:hover{background:rgba(255,255,255,.12)}
+.cakes .btn.mail{overflow-wrap:anywhere;line-height:1.25}
+
+/* reviews */
+.reviews{padding:90px 0 60px}
+.rev-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.rev-head p{margin:0 0 20px;color:var(--muted);font-size:15px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:10px}
+.rev{margin:0;border:2px solid var(--blue);padding:28px 30px 24px;background:#fff}
+.rev blockquote{margin:0 0 14px;font-family:var(--serif);font-size:22px;line-height:1.4;color:var(--ink)}
+.rev figcaption{font-weight:700;color:var(--blue)}
+
+/* visit */
+.visit{padding:60px 0 96px}
+.visit-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:start}
+.info{list-style:none;padding:0;margin:8px 0 28px;border-top:2px solid var(--blue)}
+.info li{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.info .ic{color:var(--blue);margin-top:3px}
+.info strong{display:block;font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:18px;color:var(--blue);letter-spacing:.02em}
+.info span,.info a{font-size:18px}
+.hours-t{display:grid;grid-template-columns:auto 1fr;gap:2px 18px}
+.visit figure{margin:0}
+.visit figure img{width:100%;aspect-ratio:5/4;object-fit:cover}
+
+footer{background:var(--blue);color:#fff;padding:40px 0 44px;border-top:8px solid var(--blue-2)}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+footer .fname{font-weight:800;font-variation-settings:'wdth' 75;text-transform:uppercase;font-size:34px;line-height:1;margin:0 0 8px}
+footer p{margin:4px 0;font-size:15px;color:#e6ebf8}
+
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  .intro-grid,.counter-grid,.cakes-grid,.visit-grid{grid-template-columns:1fr;gap:34px}
+  .intro .btns{justify-content:flex-start}
+  .bag-grid{grid-template-columns:1fr}
+  .bag-side{display:grid;grid-template-columns:1fr 1fr}
+  .cakes img{aspect-ratio:16/10}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--blue);flex-direction:column;align-items:flex-start;gap:2px;padding:8px 28px 22px;z-index:5;border-bottom:8px solid var(--blue-2)}
+  .nav.open{display:flex}
+  .nav a{padding:10px 0;font-size:18px}
+  .nav .call{padding:11px 18px;margin-top:6px}
+  .menu-btn{display:block}
+  .fascia{position:relative}
+}
+@media (max-width:760px){
+  .bag-cols{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .wrap{padding:0 18px}
+  .fascia .sub{font-size:11.5px;letter-spacing:.16em}
+  .nav{padding:8px 18px 22px}
+  .window{min-height:520px}
+  .window-hours{text-align:left}
+  .intro{padding:48px 0}
+  .bag{padding:46px 26px 32px}
+  .bag::after{inset:10px}
+  .bag-sec,.counter,.cakes,.reviews{padding:60px 0}
+  .facts li{grid-template-columns:1fr;gap:0}
+  .pics{grid-template-columns:1fr}
+  .bag-side{grid-template-columns:1fr}
+  .rev-grid{grid-template-columns:1fr}
+  .rev{padding:22px 20px}
+  .rev blockquote{font-size:20px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="fascia">
+  <div class="wrap">
+    <h1><a href="#main" data-slot="name">Hearth Street Bakery</a><span class="sub">Bread · Pastry · Coffee</span></h1>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#menu">What we bake</a>
+      <a href="#counter">About</a>
+      <a href="#cakes">Cakes</a>
+      <a href="#visit">Find us</a>
+      <a class="call" href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="window" aria-label="The shop">
+  <img src="img/hero.webp" alt="The bakery counter full of fresh loaves and pastries, with two bakers behind it" width="1600" height="1185">
+  <div class="wrap">
+    <p class="lettering">Sourdough, rye &amp; pastry, baked here every morning.</p>
+    <p class="window-hours"><b>Open Tue – Sun</b><span data-slot="hours">6 am until it's gone</span></p>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap intro-grid">
+    <p class="rv" data-slot="line">A small bakery on East Main. We bake bread and pastry every morning and sell it until it runs out.</p>
+    <div class="btns rv">
+      <a class="btn fill" href="#menu">See what we bake</a>
+      <a class="btn out" href="#cakes">Order a cake</a>
+    </div>
+  </div>
+</section>
+
+<section class="bag-sec" id="menu" aria-labelledby="menu-h">
+  <div class="wrap bag-grid">
+    <div class="bag rv">
+      <div class="bag-head">
+        <h2 id="menu-h">What we bake</h2>
+        <span><span data-slot="addr">412 E Main St</span> · <span data-slot="city">Norman, OK</span></span>
+      </div>
+      <div class="bag-cols">
+        <div>
+          <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 22 16 8" /> <path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" /> <path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /></svg>Bread</h3>
+          <div class="item"><span>Country sourdough</span><b>$9</b></div>
+          <div class="item"><span>Seeded rye<small>Caraway and sunflower</small></span><b>$10</b></div>
+          <div class="item"><span>Red wheat sourdough<small>Oklahoma whole wheat</small></span><b>$10</b></div>
+          <div class="item"><span>Baguette</span><b>$4</b></div>
+          <div class="item"><span>Milk sandwich loaf</span><b>$8</b></div>
+        </div>
+        <div>
+          <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.2 18H4.774a1.5 1.5 0 0 1-1.352-.97 11 11 0 0 1 .132-6.487" /> <path d="M18 10.2V4.774a1.5 1.5 0 0 0-.97-1.352 11 11 0 0 0-6.486.132" /> <path d="M18 5a4 3 0 0 1 4 3 2 2 0 0 1-2 2 10 10 0 0 0-5.139 1.42" /> <path d="M5 18a3 4 0 0 0 3 4 2 2 0 0 0 2-2 10 10 0 0 1 1.42-5.14" /> <path d="M8.709 2.554a10 10 0 0 0-6.155 6.155 1.5 1.5 0 0 0 .676 1.626l9.807 5.42a2 2 0 0 0 2.718-2.718l-5.42-9.807a1.5 1.5 0 0 0-1.626-.676" /></svg>Pastry</h3>
+          <div class="item"><span>Butter croissant</span><b>$4.25</b></div>
+          <div class="item"><span>Pain au chocolat</span><b>$4.75</b></div>
+          <div class="item"><span>Cardamom bun</span><b>$4.50</b></div>
+          <div class="item"><span>Cinnamon roll</span><b>$4.50</b></div>
+          <div class="item"><span>Fruit galette<small>By the slice</small></span><b>$5.50</b></div>
+        </div>
+        <div>
+          <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2" /> <path d="M14 2v2" /> <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" /> <path d="M6 2v2" /></svg>Coffee</h3>
+          <div class="item"><span>Drip coffee</span><b>$3</b></div>
+          <div class="item"><span>Espresso</span><b>$3.25</b></div>
+          <div class="item"><span>Cortado</span><b>$4</b></div>
+          <div class="item"><span>Latte<small>Oat milk, no charge</small></span><b>$5</b></div>
+        </div>
+      </div>
+      <div class="bag-foot"><span>Half loaves on request.</span><span>Day-old bread half price after noon.</span></div>
+    </div>
+    <div class="bag-side">
+      <figure class="rv"><img src="img/bags.webp" alt="Round sourdough loaves with deep scoring, in front of paper bread bags" width="1000" height="560" loading="lazy"><figcaption>Every loaf goes home in a paper bag. Bring it back and we'll fill it again.</figcaption></figure>
+      <figure class="rv"><img src="img/croissants.webp" alt="A plate of butter croissants beside a stovetop coffee pot" width="800" height="727" loading="lazy"><figcaption>Croissants, all butter, laminated by hand.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="counter" id="counter" aria-labelledby="counter-h">
+  <div class="wrap counter-grid">
+    <div class="rv">
+      <h2 id="counter-h">Behind the counter</h2>
+      <p class="big">We're a two-oven bakery with a counter, a coffee machine and three tables by the window.</p>
+      <p>Sam started out selling bread at the Saturday market. Now we bake six days a week, from half past three in the morning, and close the doors when the shelves are empty. Most days that's around one o'clock.</p>
+      <p>Everything is made here, by hand, the same day. Nothing on the counter is from yesterday.</p>
+      <ul class="facts">
+        <li><b>3:30 am</b><span>Ovens on. Bread first, pastry after.</span></li>
+        <li><b>6 am</b><span>Doors open, coffee's on.</span></li>
+        <li><b>1 pm-ish</b><span>Sold out. Call ahead to hold a loaf.</span></li>
+      </ul>
+    </div>
+    <div class="pics">
+      <figure class="wide rv"><img src="img/case.webp" alt="Croissants, hot cross buns and pastries in a glass bakery case" width="1000" height="667" loading="lazy"><figcaption>The pastry case at opening.</figcaption></figure>
+      <figure class="rv"><img src="img/coffee.webp" alt="A cappuccino with latte art next to a slice of cake" width="1000" height="667" loading="lazy"><figcaption>Coffee from a roaster up the road.</figcaption></figure>
+      <figure class="rv"><img src="img/trays.webp" alt="Trays of cookies and small pastries in a glass bakery case" width="900" height="600" loading="lazy"><figcaption>Cookies and small things, by the piece.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="cakes" id="cakes" aria-labelledby="cakes-h">
+  <div class="wrap cakes-grid">
+    <figure class="rv"><img src="img/cake.webp" alt="A two-layer sponge cake with whipped cream, fruit curd and sliced blood orange on a white cake stand" width="800" height="912" loading="lazy"></figure>
+    <div class="rv">
+      <h2 id="cakes-h">Cakes &amp; orders</h2>
+      <p>Birthday cakes, pastry boxes for the office, and bread for your dinner table. Tell us the date and how many people, and we'll get back to you the same day.</p>
+      <ul>
+        <li><span>Pastry box, a dozen</span><b>$42</b></li>
+        <li><span>Layer cake, 8 inch, serves 12</span><b>from $48</b></li>
+        <li><span>Bread for a table of ten</span><b>from $30</b></li>
+      </ul>
+      <div class="btns">
+        <a class="btn fill mail" href="mailto:orders@hearthstreetbakery.com"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg><span data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</span></a>
+        <a class="btn out" href="tel:4055550142"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg>Call the bakery</a>
+      </div>
+      <p style="font-size:15px;margin:20px 0 0">Two days' notice for cakes, a week for groups over 50.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="rev-head">
+      <h2 id="rev-h">Heard at the counter</h2>
+      <p>Sample reviews, for this example site.</p>
+    </div>
+    <div class="rev-grid">
+      <figure class="rev rv"><blockquote>“The seeded rye is the best bread I've had since I moved here. I go Saturday before eight or I don't get one.”</blockquote><figcaption>Dana R., Norman</figcaption></figure>
+      <figure class="rev rv"><blockquote>“Ordered a pastry box for a staff meeting with a day's notice. Everything was still warm when I picked it up at seven.”</blockquote><figcaption>Marcus T., Campus Corner</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap visit-grid">
+    <div class="rv">
+      <h2 id="visit-h">Come by</h2>
+      <ul class="info">
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /></svg><div><strong>Address</strong><span data-slot="addr">412 E Main St, Norman, OK 73069</span></div></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></svg><div><strong>Hours</strong><div class="hours-t"><span>Tue – Sat</span><span>6 am until sold out</span><span>Sunday</span><span>7 am until sold out</span><span>Monday</span><span>Closed</span></div></div></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg><div><strong>Phone</strong><a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a></div></li>
+        <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg><div><strong>Email</strong><a href="mailto:orders@hearthstreetbakery.com" data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</a></div></li>
+      </ul>
+      <div class="btns">
+        <a class="btn fill" href="https://www.google.com/maps/search/?api=1&amp;query=412+E+Main+St+Norman+OK+73069" target="_blank" rel="noopener">Get directions <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10" /> <path d="M7 17 17 7" /></svg></a>
+      </div>
+    </div>
+    <figure class="rv"><img src="img/rustic.webp" alt="A long rustic loaf on a wooden board with a bread knife" width="900" height="596" loading="lazy"></figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="fname" data-slot="name">Hearth Street Bakery</p>
+      <p><span data-slot="addr">412 E Main St, Norman, OK 73069</span> · <a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a></p>
+    </div>
+    <div>
+      <p>Sample site made with Station Sites. The bakery, menu and reviews are examples.</p>
+      <p>Photos: Wikimedia Commons (CC0 / public domain) · Icons: Lucide (ISC)</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var els=[].slice.call(document.querySelectorAll('.rv')).filter(function(el){if(el.getBoundingClientRect().top>innerHeight*0.9)return true;el.classList.add('in');return false;});
+  if(!els.length) return;
+  document.documentElement.classList.add('js');
+  function check(){els=els.filter(function(el){if(el.getBoundingClientRect().top<innerHeight*0.92){el.classList.add('in');return false;}return true;});if(!els.length){removeEventListener('scroll',check);removeEventListener('resize',check);}}
+  addEventListener('scroll',check,{passive:true});addEventListener('resize',check);
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

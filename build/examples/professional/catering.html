@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Catering & orders · Hearth Street Bakery</title>
+<meta name="description" content="Custom cakes, pastry boxes and bread for events from Hearth Street Bakery. Send a booking request.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="wrap">
+  <div class="mast-top">
+    <span data-slot="city">Norman, Oklahoma</span>
+    <span>Bread, pastry &amp; coffee · Tue–Sun from 6 am</span>
+    <a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a>
+  </div>
+  <div class="mast">
+    <p class="name"><a href="index.html" data-slot="name">Hearth Street Bakery</a></p>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="story.html">Our story</a>
+      <a href="visit.html">Visit</a>
+      <a href="catering.html" aria-current="page">Catering & orders</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-head" aria-labelledby="cat-h">
+  <div class="wrap page-head-grid">
+    <div class="load">
+      <p class="kicker">Catering &amp; custom orders</p>
+      <h1 id="cat-h">Cakes, boxes and bread <em>to order.</em></h1>
+      <p class="lede">Birthdays, office mornings, dinners and weddings. Tell us the date and how many people, and we'll reply the same day with a price.</p>
+      <div class="btns" style="margin-top:26px"><a class="btn dark" href="#request">Request an order</a><a class="btn plain" href="tel:4055550142">Call the bakery</a></div>
+    </div>
+    <figure class="load d2"><img src="img/layercake.webp" alt="A two-layer sponge cake with whipped cream, fruit curd and blood orange on a white cake stand" width="800" height="912" style="aspect-ratio:4/3"></figure>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="prices-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="kicker">Prices</p><h2 class="big" id="prices-h">What we make for orders.</h2></div>
+      <p>Prices are a starting point. Writing on a cake is free; flowers, fruit and special decorations are quoted with your order.</p>
+    </div>
+    <div class="price-cols">
+      <div class="menu-list rv"><dl>
+          <div class="row"><dt>Pastry box, a dozen</dt><dd>$42</dd><p class="desc">Croissants, pain au chocolat and buns, mixed or all one kind.</p></div>
+          <div class="row"><dt>Pastry box, half dozen</dt><dd>$22</dd></div>
+          <div class="row"><dt>Layer cake, 6 inch</dt><dd>from $36</dd><p class="desc">Serves 6 to 8.</p></div>
+          <div class="row"><dt>Layer cake, 8 inch</dt><dd>from $48</dd><p class="desc">Serves 12. Vanilla, chocolate or brown butter.</p></div>
+          <div class="row"><dt>Sheet cake, half sheet</dt><dd>from $95</dd><p class="desc">Serves 40.</p></div>
+      </dl></div>
+      <div class="menu-list rv"><dl>
+          <div class="row"><dt>Bread for a dinner of ten</dt><dd>from $30</dd><p class="desc">Three loaves, sliced or whole, with salted butter.</p></div>
+          <div class="row"><dt>Baguettes, by the dozen</dt><dd>$44</dd></div>
+          <div class="row"><dt>Coffee carafe</dt><dd>$28</dd><p class="desc">Serves 10. Cups, milk and sugar included.</p></div>
+          <div class="row"><dt>Restaurant and café bread</dt><dd>ask us</dd><p class="desc">Daily or weekly standing orders, delivered in Norman.</p></div>
+      </dl></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec tint" id="request" aria-labelledby="req-h">
+  <div class="wrap form-grid">
+    <div class="form-aside rv">
+      <p class="kicker">Booking request</p>
+      <h2 class="big" id="req-h">Tell us what you need.</h2>
+      <p class="lede">We'll check the date and reply by email the same day, usually by 3 pm. Nothing is booked until we've confirmed it with you.</p>
+      <figure><img src="img/pastry.webp" alt="" width="1100" height="733" loading="lazy" style="aspect-ratio:4/3"></figure>
+    </div>
+    <form class="order rv" action="" method="post" novalidate>
+      <fieldset>
+        <legend>Your order</legend>
+        <div class="fields">
+          <div class="field full"><label for="kind">What would you like?</label>
+            <select id="kind" name="kind" required>
+              <option value="">Choose one</option>
+              <option>Custom cake</option>
+              <option>Pastry boxes</option>
+              <option>Bread for a dinner or event</option>
+              <option>Coffee and pastry for a meeting</option>
+              <option>Something else</option>
+            </select></div>
+          <div class="field"><label for="date">Date needed</label><input id="date" name="date" type="date" required></div>
+          <div class="field"><label for="time">Pick-up time</label>
+            <select id="time" name="time">
+              <option>6 – 8 am</option><option>8 – 10 am</option><option>10 am – noon</option><option>Noon – 1 pm</option><option>I'd like delivery</option>
+            </select></div>
+          <div class="field"><label for="guests">How many people? <span class="hint">(roughly)</span></label><input id="guests" name="guests" type="number" min="1" max="500" inputmode="numeric" required></div>
+          <div class="field"><label for="size">Cake size <span class="hint">(if a cake)</span></label>
+            <select id="size" name="size"><option value="">Not a cake</option><option>6 inch, serves 6–8</option><option>8 inch, serves 12</option><option>Half sheet, serves 40</option><option>Not sure, help me choose</option></select></div>
+          <div class="field full"><label for="notes">Notes <span class="hint">(flavours, writing on the cake, allergies)</span></label><textarea id="notes" name="notes"></textarea></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Your details</legend>
+        <div class="fields">
+          <div class="field full"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="phone">Phone <span class="hint">(optional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+        </div>
+      </fieldset>
+      <div class="form-foot">
+        <button class="btn dark" type="submit">Send request</button>
+        <p>Two days' notice for cakes, a week for groups over 50.</p>
+      </div>
+      <div class="sent" id="sent" role="status" tabindex="-1">Sent — we'll reply soon.</div>
+    </form>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div><p class="kicker">How it works</p><h2 class="big" id="how-h">From request to pickup.</h2></div>
+      <p>Prefer to talk it through? Call <a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a> between 6 am and 1 pm.</p>
+    </div>
+    <ol class="how rv">
+      <li><h3>You send a request</h3><p>The form above, an email to <a href="mailto:orders@hearthstreetbakery.com" data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</a>, or a call.</p></li>
+      <li><h3>We confirm the price</h3><p>Same day, by email. Pay when you pick up, or by card over the phone for orders over $150.</p></li>
+      <li><h3>You pick it up</h3><p>Boxed and labelled with your name, at the counter at the time you chose.</p></li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="fname" data-slot="name">Hearth Street Bakery</p>
+        <p data-slot="addr">412 E Main St, Norman, OK 73069</p>
+        <p><a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a> · <a href="mailto:orders@hearthstreetbakery.com" data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</a></p>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p data-slot="hours">Tuesday to Sunday, 6 am until it's gone</p>
+        <p>Closed Mondays</p>
+      </div>
+      <nav aria-label="Footer">
+        <h3>Pages</h3>
+        <a href="index.html">Home</a><a href="menu.html">Menu</a><a href="story.html">Our story</a><a href="visit.html">Visit</a><a href="catering.html">Catering & orders</a>
+      </nav>
+    </div>
+    <div class="credits">
+      <p>Sample site made with Station Sites. The bakery, menu and reviews are examples.</p>
+      <p>Photos: Wikimedia Commons (CC0 / public domain)</p>
+    </div>
+  </div>
+</footer>
+<a class="ex-tag" href="/build/#pricing">Example of the Professional plan · Station Sites</a>
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu';});
+  var f=document.querySelector('form.order');
+  if(f) f.addEventListener('submit',function(e){e.preventDefault();if(!f.reportValidity())return;var s=document.getElementById('sent');s.classList.add('show');s.focus();f.querySelector('button[type=submit]').disabled=true;});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.documentElement.classList.add('js');
+  var els=[].slice.call(document.querySelectorAll('.rv')).filter(function(el){if(el.getBoundingClientRect().top>innerHeight*0.9)return true;el.classList.add('in');return false;});
+  function check(){els=els.filter(function(el){if(el.getBoundingClientRect().top<innerHeight*0.92){el.classList.add('in');return false;}return true;});if(!els.length){removeEventListener('scroll',check);removeEventListener('resize',check);}}
+  addEventListener('scroll',check,{passive:true});addEventListener('resize',check);
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

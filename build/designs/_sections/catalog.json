@@ -1,0 +1,758 @@
+[
+ {
+  "id": "bakery-a-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-0.webp",
+  "h": 910
+ },
+ {
+  "id": "bakery-a-1",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-1.webp",
+  "h": 767
+ },
+ {
+  "id": "bakery-a-2",
+  "cat": "gallery",
+  "title": "Photos",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-2.webp",
+  "h": 831
+ },
+ {
+  "id": "bakery-a-3",
+  "cat": "story",
+  "title": "Story: \u201cHow we bake\u201d",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-3.webp",
+  "h": 1216
+ },
+ {
+  "id": "bakery-a-4",
+  "cat": "forms",
+  "title": "Catering and cake orders",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-4.webp",
+  "h": 789
+ },
+ {
+  "id": "bakery-a-5",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-5.webp",
+  "h": 271
+ },
+ {
+  "id": "bakery-a-6",
+  "cat": "visit",
+  "title": "Hours and address",
+  "design": "Morning Board",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-a-6.webp",
+  "h": 605
+ },
+ {
+  "id": "bakery-b-0",
+  "cat": "hero",
+  "title": "Masthead",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-0.webp",
+  "h": 169
+ },
+ {
+  "id": "bakery-b-1",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-1.webp",
+  "h": 667
+ },
+ {
+  "id": "bakery-b-2",
+  "cat": "story",
+  "title": "Story: \u201cFrom the baker\u201d",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-2.webp",
+  "h": 950
+ },
+ {
+  "id": "bakery-b-3",
+  "cat": "story",
+  "title": "Story: \u201cA day and a half, most of it waiting.\u201d",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-3.webp",
+  "h": 994
+ },
+ {
+  "id": "bakery-b-4",
+  "cat": "menu",
+  "title": "Seasonal specials",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-4.webp",
+  "h": 657
+ },
+ {
+  "id": "bakery-b-5",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-5.webp",
+  "h": 920
+ },
+ {
+  "id": "bakery-b-6",
+  "cat": "forms",
+  "title": "Catering and cake orders",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-6.webp",
+  "h": 741
+ },
+ {
+  "id": "bakery-b-7",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-7.webp",
+  "h": 332
+ },
+ {
+  "id": "bakery-b-8",
+  "cat": "visit",
+  "title": "Hours and address",
+  "design": "Editorial Loaf",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-b-8.webp",
+  "h": 502
+ },
+ {
+  "id": "bakery-c-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-0.webp",
+  "h": 702
+ },
+ {
+  "id": "bakery-c-1",
+  "cat": "story",
+  "title": "Short introduction",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-1.webp",
+  "h": 249
+ },
+ {
+  "id": "bakery-c-2",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-2.webp",
+  "h": 774
+ },
+ {
+  "id": "bakery-c-3",
+  "cat": "gallery",
+  "title": "Photos: \u201cBehind the counter\u201d",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-3.webp",
+  "h": 814
+ },
+ {
+  "id": "bakery-c-4",
+  "cat": "forms",
+  "title": "Catering and cake orders",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-4.webp",
+  "h": 839
+ },
+ {
+  "id": "bakery-c-5",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-5.webp",
+  "h": 422
+ },
+ {
+  "id": "bakery-c-6",
+  "cat": "visit",
+  "title": "Hours and address",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-6.webp",
+  "h": 734
+ },
+ {
+  "id": "bakery-c-7",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Corner Shop",
+  "trade": "bakery",
+  "img": "/build/designs/_sections/bakery-c-7.webp",
+  "h": 162
+ },
+ {
+  "id": "salon-a-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-0.webp",
+  "h": 930
+ },
+ {
+  "id": "salon-a-1",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-1.webp",
+  "h": 1549
+ },
+ {
+  "id": "salon-a-2",
+  "cat": "team",
+  "title": "The team",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-2.webp",
+  "h": 996
+ },
+ {
+  "id": "salon-a-3",
+  "cat": "gallery",
+  "title": "Photos: \u201cA small studio\u201d",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-3.webp",
+  "h": 731
+ },
+ {
+  "id": "salon-a-4",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-4.webp",
+  "h": 478
+ },
+ {
+  "id": "salon-a-5",
+  "cat": "forms",
+  "title": "Booking request",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-5.webp",
+  "h": 800
+ },
+ {
+  "id": "salon-a-6",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Price list",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-a-6.webp",
+  "h": 283
+ },
+ {
+  "id": "salon-b-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-0.webp",
+  "h": 948
+ },
+ {
+  "id": "salon-b-1",
+  "cat": "gallery",
+  "title": "Photos: \u201cThe work\u201d",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-1.webp",
+  "h": 3126
+ },
+ {
+  "id": "salon-b-2",
+  "cat": "team",
+  "title": "The team",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-2.webp",
+  "h": 901
+ },
+ {
+  "id": "salon-b-3",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-3.webp",
+  "h": 753
+ },
+ {
+  "id": "salon-b-4",
+  "cat": "gallery",
+  "title": "Photos: \u201cThe studio\u201d",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-4.webp",
+  "h": 760
+ },
+ {
+  "id": "salon-b-5",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-5.webp",
+  "h": 569
+ },
+ {
+  "id": "salon-b-6",
+  "cat": "forms",
+  "title": "Booking request",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-6.webp",
+  "h": 726
+ },
+ {
+  "id": "salon-b-7",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Lookbook",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-b-7.webp",
+  "h": 290
+ },
+ {
+  "id": "salon-c-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-0.webp",
+  "h": 712
+ },
+ {
+  "id": "salon-c-1",
+  "cat": "menu",
+  "title": "Menu and prices",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-1.webp",
+  "h": 1117
+ },
+ {
+  "id": "salon-c-2",
+  "cat": "team",
+  "title": "The team",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-2.webp",
+  "h": 832
+ },
+ {
+  "id": "salon-c-3",
+  "cat": "gallery",
+  "title": "Photos: \u201cThe shop\u201d",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-3.webp",
+  "h": 1131
+ },
+ {
+  "id": "salon-c-4",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-4.webp",
+  "h": 468
+ },
+ {
+  "id": "salon-c-5",
+  "cat": "forms",
+  "title": "Booking request",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-5.webp",
+  "h": 790
+ },
+ {
+  "id": "salon-c-6",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Shop window",
+  "trade": "salon",
+  "img": "/build/designs/_sections/salon-c-6.webp",
+  "h": 293
+ },
+ {
+  "id": "wedding-a-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Invitation suite",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-a-0.webp",
+  "h": 900
+ },
+ {
+  "id": "wedding-a-1",
+  "cat": "story",
+  "title": "The day, as cards",
+  "design": "Invitation suite",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-a-1.webp",
+  "h": 3798
+ },
+ {
+  "id": "wedding-a-2",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Invitation suite",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-a-2.webp",
+  "h": 284
+ },
+ {
+  "id": "wedding-b-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-0.webp",
+  "h": 780
+ },
+ {
+  "id": "wedding-b-1",
+  "cat": "story",
+  "title": "Story: \u201cThe day, hour by hour\u201d",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-1.webp",
+  "h": 2073
+ },
+ {
+  "id": "wedding-b-2",
+  "cat": "visit",
+  "title": "Travel and stay",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-2.webp",
+  "h": 679
+ },
+ {
+  "id": "wedding-b-3",
+  "cat": "visit",
+  "title": "Travel and stay",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-3.webp",
+  "h": 939
+ },
+ {
+  "id": "wedding-b-4",
+  "cat": "forms",
+  "title": "RSVP card",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-4.webp",
+  "h": 946
+ },
+ {
+  "id": "wedding-b-5",
+  "cat": "faq",
+  "title": "Questions",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-5.webp",
+  "h": 873
+ },
+ {
+  "id": "wedding-b-6",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Guest guide",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-b-6.webp",
+  "h": 177
+ },
+ {
+  "id": "wedding-c-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-0.webp",
+  "h": 900
+ },
+ {
+  "id": "wedding-c-1",
+  "cat": "story",
+  "title": "Story: \u201cOur story\u201d",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-1.webp",
+  "h": 2710
+ },
+ {
+  "id": "wedding-c-2",
+  "cat": "story",
+  "title": "Story: \u201cThe day\u201d",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-2.webp",
+  "h": 900
+ },
+ {
+  "id": "wedding-c-3",
+  "cat": "visit",
+  "title": "Travel and stay",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-3.webp",
+  "h": 952
+ },
+ {
+  "id": "wedding-c-4",
+  "cat": "forms",
+  "title": "RSVP card",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-4.webp",
+  "h": 916
+ },
+ {
+  "id": "wedding-c-5",
+  "cat": "faq",
+  "title": "Questions",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-5.webp",
+  "h": 947
+ },
+ {
+  "id": "wedding-c-6",
+  "cat": "story",
+  "title": "Closing photo",
+  "design": "Photo story",
+  "trade": "wedding",
+  "img": "/build/designs/_sections/wedding-c-6.webp",
+  "h": 702
+ },
+ {
+  "id": "trades-a-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Work order",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-a-0.webp",
+  "h": 741
+ },
+ {
+  "id": "trades-a-1",
+  "cat": "services",
+  "title": "Services and prices",
+  "design": "Work order",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-a-1.webp",
+  "h": 1546
+ },
+ {
+  "id": "trades-a-2",
+  "cat": "visit",
+  "title": "Service area",
+  "design": "Work order",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-a-2.webp",
+  "h": 821
+ },
+ {
+  "id": "trades-a-3",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Work order",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-a-3.webp",
+  "h": 286
+ },
+ {
+  "id": "trades-a-4",
+  "cat": "forms",
+  "title": "Free quote form",
+  "design": "Work order",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-a-4.webp",
+  "h": 623
+ },
+ {
+  "id": "trades-b-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-0.webp",
+  "h": 730
+ },
+ {
+  "id": "trades-b-1",
+  "cat": "services",
+  "title": "Services and prices",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-1.webp",
+  "h": 1143
+ },
+ {
+  "id": "trades-b-2",
+  "cat": "story",
+  "title": "Story: \u201cFirst-visit fixes\u201d",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-2.webp",
+  "h": 579
+ },
+ {
+  "id": "trades-b-3",
+  "cat": "visit",
+  "title": "Service area",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-3.webp",
+  "h": 522
+ },
+ {
+  "id": "trades-b-4",
+  "cat": "story",
+  "title": "How it works",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-4.webp",
+  "h": 613
+ },
+ {
+  "id": "trades-b-5",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-5.webp",
+  "h": 418
+ },
+ {
+  "id": "trades-b-6",
+  "cat": "forms",
+  "title": "Free quote form",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-6.webp",
+  "h": 778
+ },
+ {
+  "id": "trades-b-7",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Van livery",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-b-7.webp",
+  "h": 235
+ },
+ {
+  "id": "trades-c-0",
+  "cat": "hero",
+  "title": "Opening",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-0.webp",
+  "h": 732
+ },
+ {
+  "id": "trades-c-1",
+  "cat": "reviews",
+  "title": "Reviews",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-1.webp",
+  "h": 294
+ },
+ {
+  "id": "trades-c-2",
+  "cat": "gallery",
+  "title": "Photos: \u201cTwo recent jobs, start to finish\u201d",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-2.webp",
+  "h": 1433
+ },
+ {
+  "id": "trades-c-3",
+  "cat": "story",
+  "title": "Story: \u201cMy promise to you\u201d",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-3.webp",
+  "h": 750
+ },
+ {
+  "id": "trades-c-4",
+  "cat": "services",
+  "title": "Services and prices",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-4.webp",
+  "h": 642
+ },
+ {
+  "id": "trades-c-5",
+  "cat": "visit",
+  "title": "Service area",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-5.webp",
+  "h": 512
+ },
+ {
+  "id": "trades-c-6",
+  "cat": "forms",
+  "title": "Free quote form",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-6.webp",
+  "h": 757
+ },
+ {
+  "id": "trades-c-7",
+  "cat": "footer",
+  "title": "Footer",
+  "design": "Trusted local",
+  "trade": "trades",
+  "img": "/build/designs/_sections/trades-c-7.webp",
+  "h": 204
+ }
+]

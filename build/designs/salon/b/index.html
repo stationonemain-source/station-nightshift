@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Willow &amp; Co. Hair</title>
+<meta name="description" content="Cuts, colour and blowouts in a quiet studio on Gray Street in Norman, Oklahoma. See the work, meet the stylists, book a look.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,500..900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4f0; --ink:#121212; --muted:#55524d; --line:#1212121f; --line2:#12121240;
+  --plum:#5b2242; --plum-dk:#45182f; --night:#151413; --on-night:#efebe4; --night-muted:#b9b2a8;
+  --disp:"Anybody", "Arial Narrow", sans-serif; --serif:"Newsreader", Georgia, serif;
+  --wrap:1280px; --gut:clamp(16px,3.5vw,44px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.55 var(--serif)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.ic{width:20px;height:20px;flex:none;vertical-align:-4px}
+.d{font-family:var(--disp);font-stretch:62%;font-weight:800;text-transform:uppercase;line-height:.9;letter-spacing:-.005em}
+.k{font:700 12.5px/1.3 var(--disp);font-stretch:110%;letter-spacing:.14em;text-transform:uppercase}
+h1,h2,h3{margin:0}
+p{margin:0 0 1em}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:20}
+.skip:focus{left:8px}
+
+/* header */
+.top{border-bottom:1px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;gap:28px;min-height:64px;position:relative}
+.mark{font:800 24px/1 var(--disp);font-stretch:62%;text-transform:uppercase;text-decoration:none;margin-right:auto;letter-spacing:.01em}
+.nav{display:flex;gap:26px}
+.nav a{font:600 14px/1 var(--disp);font-stretch:105%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.nav a:hover{color:var(--plum)}
+.book-btn,.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;text-decoration:none;font:700 14px/1 var(--disp);font-stretch:105%;letter-spacing:.1em;text-transform:uppercase;padding:14px 18px;border:1px solid var(--ink);cursor:pointer}
+.book-btn:hover,.btn:hover{background:var(--plum);border-color:var(--plum)}
+.btn.outline{background:transparent;color:var(--ink)}
+.btn.outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.menu-btn{display:none;background:none;border:1px solid var(--ink);color:var(--ink);padding:10px 12px;font:700 13px/1 var(--disp);letter-spacing:.1em;text-transform:uppercase;gap:8px;align-items:center;cursor:pointer}
+
+/* hero */
+.hero{padding:clamp(20px,3vw,36px) 0 0}
+.hero .wrap{display:grid;grid-template-columns:5fr 7fr;gap:clamp(20px,3vw,40px)}
+.cover{display:flex;flex-direction:column;padding-bottom:clamp(20px,3vw,36px)}
+.issue{display:flex;justify-content:space-between;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.hero h1{font-size:clamp(76px,11.6vw,168px);margin:clamp(18px,3vw,34px) 0 18px}
+.hero .line{font:400 italic clamp(21px,2.1vw,26px)/1.35 var(--serif);max-width:24ch;margin-bottom:26px}
+.index{list-style:none;margin:auto 0 0;padding:0;border-top:1px solid var(--ink)}
+.index li{border-bottom:1px solid var(--line)}
+.index a{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:baseline;padding:9px 0;text-decoration:none;font-size:17px}
+.index a:hover{color:var(--plum)}
+.index .n{font:800 15px/1 var(--disp);font-stretch:62%}
+.index .who{font:600 12px/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cover .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.lead{margin:0;position:relative}
+.lead img{width:100%;height:100%;max-height:calc(100vh - 100px);min-height:560px;object-fit:cover;object-position:50% 30%}
+.cap{display:flex;gap:12px;align-items:baseline;padding:10px 0 0;font-size:15.5px;line-height:1.4;color:var(--muted)}
+.cap b{font:800 22px/1 var(--disp);font-stretch:62%;color:var(--ink)}
+.cap i{color:var(--ink)}
+
+/* plates */
+.plates{padding:clamp(56px,8vw,110px) 0 clamp(40px,6vw,80px)}
+.sec-head{display:grid;grid-template-columns:5fr 7fr;gap:20px 40px;align-items:end;border-bottom:1px solid var(--ink);padding-bottom:16px;margin-bottom:clamp(26px,4vw,48px)}
+.sec-head h2{font-size:clamp(54px,7.4vw,104px)}
+.sec-head p{max-width:46ch;margin:0;color:var(--muted)}
+.spread{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2.4vw,32px);align-items:start}
+.plate{margin:0}
+.plate img{width:100%;object-fit:cover}
+.p2{grid-column:1/8}.p2 img{aspect-ratio:1000/813}
+.p3{grid-column:8/13;margin-top:clamp(40px,8vw,120px)}.p3 img{aspect-ratio:4/5}
+.p4{grid-column:1/5}.p4 img{aspect-ratio:4/5}
+.p5{grid-column:5/9;margin-top:clamp(30px,6vw,90px)}.p5 img{aspect-ratio:4/5}
+.note{grid-column:9/13;align-self:center;font:400 italic clamp(22px,2.2vw,28px)/1.35 var(--serif);border-top:1px solid var(--ink);padding-top:18px}
+.note span{display:block;font:400 16px/1.5 var(--serif);font-style:normal;color:var(--muted);margin-top:14px}
+.p6{grid-column:1/6}.p6 img{aspect-ratio:3/4}
+.p7{grid-column:6/13;margin-top:clamp(50px,9vw,140px)}.p7 img{aspect-ratio:1000/831}
+.p8{grid-column:2/8}.p8 img{aspect-ratio:1/1}
+.after{grid-column:8/13;align-self:end;border-top:1px solid var(--ink);padding-top:18px;margin-bottom:60px}
+.after h3{font-size:clamp(40px,4.4vw,60px);margin-bottom:12px}
+.after p{color:var(--muted)}
+.plate .meta{display:block;font:600 12px/1.4 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+/* stylists */
+.people{background:var(--night);color:var(--on-night);padding:clamp(56px,8vw,110px) 0}
+.people .sec-head{border-color:var(--on-night)}
+.people .sec-head p{color:var(--night-muted)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+.person img{width:100%;aspect-ratio:5/4;object-fit:cover;margin-bottom:18px}
+.person h3{font-size:clamp(56px,6vw,84px)}
+.person .k{color:var(--night-muted);margin:8px 0 14px}
+.person p{color:var(--on-night);font-size:17px}
+.person .plates-of{border-top:1px solid #efebe433;padding-top:12px;color:var(--night-muted);font-size:15.5px}
+
+/* menu */
+.menu{padding:clamp(56px,8vw,110px) 0}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:0 clamp(18px,2.6vw,36px)}
+.col h3{font-size:34px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin-bottom:4px}
+.col ul{list-style:none;margin:0;padding:0}
+.col li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:17px;line-height:1.35}
+.col li span:last-child{font:700 17px/1.35 var(--disp);font-stretch:80%;white-space:nowrap}
+.col li em{font-style:normal;font-weight:500;color:var(--muted);font-size:13px;margin-right:3px;font-family:var(--serif)}
+.menu .small{margin-top:24px;color:var(--muted);font-size:16px;max-width:70ch}
+
+/* studio */
+.studio{position:relative;color:#fff}
+.studio img{width:100%;height:clamp(420px,62vw,760px);object-fit:cover}
+.studio .over{position:absolute;inset:auto 0 0 0;background:linear-gradient(to top,rgba(10,10,10,.86),rgba(10,10,10,.55) 60%,rgba(10,10,10,0));padding:clamp(60px,10vw,140px) 0 clamp(26px,4vw,48px)}
+.studio h2{font-size:clamp(50px,7vw,96px);margin-bottom:12px}
+.studio p{max-width:52ch;font-size:19px;margin:0}
+
+/* reviews */
+.reviews{padding:clamp(56px,8vw,110px) 0}
+.reviews .sec-head{border-bottom:0;padding-bottom:0}
+.qs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px)}
+.q{margin:0;border-top:1px solid var(--ink);padding-top:18px}
+.q blockquote{margin:0 0 16px;font:400 italic 22px/1.42 var(--serif)}
+.q figcaption{font:600 12.5px/1.4 var(--disp);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-block;font:700 11.5px/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);padding:6px 8px;color:var(--muted);vertical-align:middle}
+
+/* book */
+.book{border-top:1px solid var(--ink);padding:clamp(56px,8vw,110px) 0}
+.book .wrap{display:grid;grid-template-columns:5fr 7fr;gap:clamp(28px,5vw,72px)}
+.book h2{font-size:clamp(54px,7.4vw,104px);margin-bottom:18px}
+.book .lede{color:var(--muted);max-width:40ch}
+.info{margin-top:28px;display:grid;gap:22px;font-size:17px}
+.info .row{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start}
+.info .ic{color:var(--plum);margin-top:3px}
+.info b{display:block;font:700 12.5px/1.3 var(--disp);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.info a{font-weight:500}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;align-content:start}
+.f{display:grid;gap:7px}
+.f.full{grid-column:1/-1}
+label{font:700 12.5px/1.3 var(--disp);letter-spacing:.12em;text-transform:uppercase}
+input,select,textarea{font:400 17px/1.4 var(--serif);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);border-radius:0;padding:10px 0;width:100%}
+select{background:transparent}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom:2px solid var(--plum)}
+form .btn{justify-self:start;margin-top:6px}
+.sent{grid-column:1/-1;margin:0;font:italic 400 21px/1.4 var(--serif);color:var(--plum)}
+
+footer{background:var(--night);color:var(--night-muted);padding:44px 0 90px;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:20px 40px}
+footer .mark{color:var(--on-night);font-size:40px;display:block;margin-bottom:10px}
+footer p{margin:0 0 4px}
+footer a{color:var(--on-night)}
+.cred{grid-column:1/-1;border-top:1px solid #efebe426;padding-top:16px;margin-top:12px;font-size:14px}
+
+@media (max-width:1000px){
+  .hero .wrap{grid-template-columns:1fr 1fr}
+  .lead img{min-height:0;max-height:none;height:auto;aspect-ratio:3/4}
+  .index .who{display:none}
+  .index a{grid-template-columns:36px 1fr}
+  .sec-head{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr 1fr 1fr}
+  .cols{grid-template-columns:1fr 1fr;gap:28px 32px}
+  .book .wrap{grid-template-columns:1fr}
+  .qs{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .hero .wrap{grid-template-columns:1fr}
+  .lead{order:-1}
+  .lead img{aspect-ratio:1/1;object-position:50% 35%}
+  .spread{grid-template-columns:1fr 1fr}
+  .p2,.p7{grid-column:1/-1;margin-top:0}
+  .p3,.p4,.p5,.p6{grid-column:auto;margin-top:0}
+  .note{grid-column:1/-1}
+  .p8,.after{grid-column:1/-1}
+  .p8 img{aspect-ratio:4/3}
+  .after{margin:0}
+  .p2{order:0}.p3{order:1}.p4{order:2}.p5{order:3}.p6{order:4}.note{order:5}.p7{order:6}.p8{order:7}.after{order:8}
+  .trio{grid-template-columns:1fr}
+  .person{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  .person img{grid-row:span 4;aspect-ratio:3/4;margin:0}
+  .person h3{font-size:54px}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .js .menu-btn{display:inline-flex}
+  .js .nav{display:none;position:absolute;left:0;right:0;top:64px;background:var(--bg);border-bottom:1px solid var(--ink);flex-direction:column;gap:0;padding:4px var(--gut) 12px;z-index:10}
+  .js .nav.open{display:flex}
+  .js .nav a{padding:15px 0;border-bottom:1px solid var(--line);font-size:15px}
+  .top .wrap{gap:10px;flex-wrap:wrap}
+  html:not(.js) .nav{order:3;width:100%;flex-wrap:wrap;gap:12px 18px;padding-bottom:12px}
+  .book-btn{padding:11px 12px}
+  .cols{grid-template-columns:1fr}
+  form{grid-template-columns:1fr}
+  .cap{font-size:14.5px}
+}
+@media (max-width:420px){
+  .index .who{display:none}
+  .index a{grid-template-columns:36px 1fr}
+  .person{grid-template-columns:120px 1fr}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" data-slot="name">Willow &amp; Co. Hair</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#work">The work</a>
+      <a href="#stylists">Stylists</a>
+      <a href="#prices">Prices</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <a class="book-btn" href="#book">Book</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="cover">
+      <div class="issue k"><span>Lookbook</span><span>Autumn 2026</span></div>
+      <h1 class="d" data-slot="name">Willow &amp; Co. Hair</h1>
+      <p class="line" data-slot="line">Cuts, colour and blowouts in a quiet studio on Gray Street.</p>
+      <ol class="index" aria-label="In this lookbook">
+        <li><a href="#work"><span class="n">01</span>Copper, long layers<span class="who">Maren</span></a></li>
+        <li><a href="#p2"><span class="n">02</span>Lived-in balayage<span class="who">Maren</span></a></li>
+        <li><a href="#p3"><span class="n">03</span>Soft platinum crop<span class="who">Jess &amp; Maren</span></a></li>
+        <li><a href="#p4"><span class="n">04</span>Curls, cut dry<span class="who">Jess</span></a></li>
+        <li><a href="#p6"><span class="n">06</span>Beach waves blowout<span class="who">Jess</span></a></li>
+      </ol>
+      <div class="acts">
+        <a class="btn" href="#book"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg>Book a look</a>
+        <a class="btn outline" href="tel:+14055550163"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg><span data-slot="phone" data-slot-href="tel">(405) 555-0163</span></a>
+      </div>
+    </div>
+    <figure class="lead">
+      <img src="img/copper-long.webp" width="1300" height="1755" alt="Long copper-red hair caught mid-swing, catching the sunlight">
+      <figcaption class="cap"><b>01</b><span><i>Copper, long layers.</i> All-over colour and gloss by Maren, cut with long face-framing layers.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="plates" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d" id="work-h">The work</h2>
+      <p>Recent looks from the chair, with who did them, roughly how long they took and where the price starts. Bring a plate number and we will know exactly what you mean.</p>
+    </div>
+    <div class="spread">
+      <figure class="plate p2" id="p2"><img src="img/balayage.webp" width="1000" height="813" alt="Long wavy hair from behind, dark at the root melting into golden balayage ends" loading="lazy">
+        <figcaption class="cap"><b>02</b><span><i>Lived-in balayage.</i> Hand-painted, grows out with no hard line.<span class="meta">Maren &middot; about 3 hrs &middot; from $185</span></span></figcaption></figure>
+      <figure class="plate p3" id="p3"><img src="img/platinum.webp" width="800" height="945" alt="A woman with a short, textured platinum crop" loading="lazy">
+        <figcaption class="cap"><b>03</b><span><i>Soft platinum crop.</i><span class="meta">Cut by Jess, toned by Maren &middot; from $160</span></span></figcaption></figure>
+      <figure class="plate p4" id="p4"><img src="img/curls.webp" width="800" height="1024" alt="A woman with full, dark natural curls" loading="lazy">
+        <figcaption class="cap"><b>04</b><span><i>Curls, cut dry.</i><span class="meta">Jess &middot; 75 min &middot; $68</span></span></figcaption></figure>
+      <figure class="plate p5"><img src="img/copper-bob.webp" width="800" height="939" alt="A chin-length copper bob with soft waves, seen from the side" loading="lazy">
+        <figcaption class="cap"><b>05</b><span><i>Copper bob.</i><span class="meta">Jess &amp; Maren &middot; from $146</span></span></figcaption></figure>
+      <p class="note">&ldquo;Bring a photo, or bring a plate number. Either way we talk it through before anything is cut.&rdquo;<span>Every new colour client gets a free 15-minute consultation and a patch test.</span></p>
+      <figure class="plate p6" id="p6"><img src="img/waves.webp" width="800" height="1267" alt="Long blonde beach waves seen from behind" loading="lazy">
+        <figcaption class="cap"><b>06</b><span><i>Beach waves blowout.</i><span class="meta">Jess &middot; 50 min &middot; $55</span></span></figcaption></figure>
+      <figure class="plate p7"><img src="img/braid.webp" width="1000" height="831" alt="A loose braid in light brown hair with blonde pieces" loading="lazy">
+        <figcaption class="cap"><b>07</b><span><i>Gloss and a loose braid.</i><span class="meta">Maren &middot; 45 min &middot; $40 gloss</span></span></figcaption></figure>
+      <figure class="plate p8"><img src="img/updo.webp" width="800" height="889" alt="Copper hair in a low, loose bun, seen from behind" loading="lazy">
+        <figcaption class="cap"><b>08</b><span><i>Low bun for a wedding guest.</i><span class="meta">Jess &middot; 45 min &middot; from $80</span></span></figcaption></figure>
+      <div class="after">
+        <h3 class="d">Seen one you like?</h3>
+        <p>Pick the plate number on the booking form, or bring your own photo. New looks for the winter book go up in January.</p>
+        <a class="btn" href="#book"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z"/></svg>Book a look</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="people" id="stylists" aria-labelledby="people-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d" id="people-h">Who does it</h2>
+      <p>Three stylists, one at each chair. Ask for someone by name, or tell us the look and we will pair you up.</p>
+    </div>
+    <div class="trio">
+      <article class="person">
+        <img src="img/colour.webp" width="700" height="840" alt="Colour being brushed onto wet, sectioned hair from a mixing bowl" loading="lazy">
+        <h3 class="d">Maren</h3>
+        <p class="k">Owner &middot; colour</p>
+        <p>Balayage, blonding and colour correction. She will tell you honestly if it takes two visits.</p>
+        <p class="plates-of">Plates 01, 02, 03, 05, 07</p>
+      </article>
+      <article class="person">
+        <img src="img/scissors.webp" width="1000" height="811" alt="Professional cutting scissors and thinning shears laid out on a wooden counter" loading="lazy">
+        <h3 class="d">Jess</h3>
+        <p class="k">Cuts &middot; curls &middot; blowouts</p>
+        <p>Short cuts, curly cuts and event hair. Cuts curls dry, one at a time.</p>
+        <p class="plates-of">Plates 03, 04, 05, 06, 08</p>
+      </article>
+      <article class="person">
+        <img src="img/fade.webp" width="800" height="711" alt="A barber running clippers up the back of a client's neck" loading="lazy">
+        <h3 class="d">Theo</h3>
+        <p class="k">Men&rsquo;s cuts &middot; barbering</p>
+        <p>Fades, scissor cuts, beard shaping and hot towel shaves. Wednesday to Saturday.</p>
+        <p class="plates-of">Walk in on a Tuesday for a quick cut</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="prices" aria-labelledby="menu-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d" id="menu-h">Prices</h2>
+      <p>Prices are for hair to the shoulder. Longer or thicker hair can take more time and colour; we always quote before we start.</p>
+    </div>
+    <div class="cols">
+      <div class="col"><h3 class="d">Cut</h3><ul>
+        <li><span>Women&rsquo;s cut &amp; style</span><span>$58</span></li>
+        <li><span>Short cut or pixie</span><span>$48</span></li>
+        <li><span>Curly cut</span><span>$68</span></li>
+        <li><span>Men&rsquo;s cut</span><span>$34</span></li>
+        <li><span>Children under 12</span><span>$24</span></li>
+        <li><span>Fringe trim</span><span>$10</span></li>
+      </ul></div>
+      <div class="col"><h3 class="d">Colour</h3><ul>
+        <li><span>Root touch-up</span><span><em>from</em>$72</span></li>
+        <li><span>All-over colour</span><span><em>from</em>$88</span></li>
+        <li><span>Partial highlights</span><span><em>from</em>$115</span></li>
+        <li><span>Full highlights</span><span><em>from</em>$150</span></li>
+        <li><span>Balayage</span><span><em>from</em>$185</span></li>
+        <li><span>Gloss or toner</span><span>$40</span></li>
+      </ul></div>
+      <div class="col"><h3 class="d">Finish</h3><ul>
+        <li><span>Blowout</span><span>$42</span></li>
+        <li><span>Blowout, long or thick</span><span>$52</span></li>
+        <li><span>Curls or waves</span><span>$55</span></li>
+        <li><span>Updo or event hair</span><span><em>from</em>$80</span></li>
+        <li><span>Deep conditioning</span><span>$25</span></li>
+      </ul></div>
+      <div class="col"><h3 class="d">Barber</h3><ul>
+        <li><span>Skin fade</span><span>$38</span></li>
+        <li><span>Beard trim &amp; line-up</span><span>$18</span></li>
+        <li><span>Cut &amp; beard</span><span>$48</span></li>
+        <li><span>Hot towel shave</span><span>$36</span></li>
+      </ul></div>
+    </div>
+    <p class="small">Please give us 24 hours&rsquo; notice to cancel or move an appointment. Walk-ins are welcome on Tuesdays for cuts, fringe trims and blowouts.</p>
+  </div>
+</section>
+
+<section class="studio" aria-labelledby="studio-h">
+  <img src="img/studio.webp" width="1536" height="1204" alt="Inside the studio: a black styling chair, a wooden stool, tall potted plants and shelves of product" loading="lazy">
+  <div class="over">
+    <div class="wrap">
+      <h2 class="d" id="studio-h">The studio</h2>
+      <p>Three chairs, one wash basin and more plants than we can name. Music low, coffee free, and enough time booked that nobody gets rushed out of the chair.</p>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="d" id="rev-h">Said in the chair</h2>
+      <p><span class="tag">Sample reviews</span></p>
+    </div>
+    <div class="qs">
+      <figure class="q"><blockquote>&ldquo;I showed Maren plate 02 and walked out with exactly that. Four months later there is still no line at the root.&rdquo;</blockquote><figcaption>Kelsey M. &middot; balayage</figcaption></figure>
+      <figure class="q"><blockquote>&ldquo;Jess cut my curls dry and explained every step. It is the first cut I have not had to fight with the next morning.&rdquo;</blockquote><figcaption>Dani O. &middot; curly cut</figcaption></figure>
+      <figure class="q"><blockquote>&ldquo;Booked a blowout the morning of my sister&rsquo;s wedding. It lasted through the dancing.&rdquo;</blockquote><figcaption>Rachel W. &middot; blowout</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book" aria-labelledby="book-h">
+  <div class="wrap">
+    <div id="visit">
+      <h2 class="d" id="book-h">Book a look</h2>
+      <p class="lede">Send us a request and we will call or text within a working day to confirm a time.</p>
+      <div class="info">
+        <div class="row"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></svg><div><b>Studio</b><span data-slot="addr">118 W Gray St, Norman, OK 73069</span><br><a href="https://www.google.com/maps/search/?api=1&amp;query=118+W+Gray+St+Norman+OK+73069" target="_blank" rel="noopener">Get directions</a> &middot; free street parking on Gray</div></div>
+        <div class="row"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></svg><div><b>Hours</b><span data-slot="hours">Tuesday to Saturday, 9 am to 7 pm</span><br>Walk-ins on Tuesdays. Closed Sunday and Monday.</div></div>
+        <div class="row"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></svg><div><b>Phone</b><a href="tel:+14055550163" data-slot="phone" data-slot-href="tel">(405) 555-0163</a></div></div>
+      </div>
+    </div>
+    <form action="" id="bookform">
+      <div class="f"><label for="n">Name</label><input id="n" name="name" autocomplete="name" required></div>
+      <div class="f"><label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel" required></div>
+      <div class="f full"><label for="e">Email (optional)</label><input id="e" name="email" type="email" autocomplete="email"></div>
+      <div class="f"><label for="pl">The look</label>
+        <select id="pl" name="plate"><option>My own idea</option><option>01 Copper, long layers</option><option>02 Lived-in balayage</option><option>03 Soft platinum crop</option><option>04 Curls, cut dry</option><option>05 Copper bob</option><option>06 Beach waves blowout</option><option>07 Gloss and a loose braid</option><option>08 Low bun</option><option>Men&rsquo;s cut or beard</option></select></div>
+      <div class="f"><label for="st">Stylist</label>
+        <select id="st" name="stylist"><option>Whoever suits</option><option>Maren</option><option>Jess</option><option>Theo</option></select></div>
+      <div class="f full"><label for="w">When suits you</label><input id="w" name="when" placeholder="e.g. a Friday afternoon"></div>
+      <div class="f full"><label for="m">Tell us about your hair</label><textarea id="m" name="notes" placeholder="Length, current colour, anything you want to avoid"></textarea></div>
+      <button class="btn" type="submit">Send request</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><span class="mark" data-slot="name">Willow &amp; Co. Hair</span><p data-slot="line">Cuts, colour and blowouts in a quiet studio on Gray Street.</p></div>
+    <div><p><span data-slot="addr">118 W Gray St, Norman, OK 73069</span></p><p><a href="tel:+14055550163" data-slot="phone" data-slot-href="tel">(405) 555-0163</a></p><p><a href="mailto:hello@willowandcohair.com" data-slot="email" data-slot-href="mailto">hello@willowandcohair.com</a></p></div>
+    <div><p data-slot="hours">Tuesday to Saturday, 9 am to 7 pm</p><p>Walk-ins Tuesdays</p></div>
+    <p class="cred">Sample site made with Station Sites. Willow &amp; Co. Hair is an invented business. Photos: Wikimedia Commons (CC0 / public domain). Icons: Phosphor (MIT).</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var f=document.getElementById('bookform');
+  f.addEventListener('submit',function(e){e.preventDefault();if(f.querySelector('.sent'))return;var p=document.createElement('p');p.className='sent';p.setAttribute('role','status');p.textContent='Sent — we’ll reply soon.';f.appendChild(p);f.querySelector('button').disabled=true;});
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

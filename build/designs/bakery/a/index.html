@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Hearth Street Bakery</title>
+<meta name="description" content="Sourdough, rye and pastry baked every morning on East Main Street in Norman, Oklahoma. Open Tuesday to Sunday from 6 am until it's gone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board:#1d2320; --board-2:#232b27; --chalk:#eeede6; --chalk-2:#c3c7bd; --chalk-3:#8f978d;
+  --sage:#a8ccb6; --wood:#4a3a2c; --wood-2:#5c4936;
+  --wall:#f1ece3; --ink:#1d2320; --ink-2:#4b524d; --rule:#d9d1c3;
+  --letter:'Archivo Narrow', 'Arial Narrow', sans-serif; --serif:'Newsreader', Georgia, serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--wall);color:var(--ink);font:400 18px/1.6 var(--serif);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sage);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.caps{font-family:var(--letter);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+.skip{position:absolute;left:-999px;top:0;background:var(--chalk);color:var(--ink);padding:10px 14px;z-index:10}
+.skip:focus{left:12px;top:12px}
+
+/* top bar: the shop's own sign over the counter */
+.top{background:var(--board);color:var(--chalk);border-bottom:6px solid var(--wood)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.mark{font-family:var(--letter);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:17px;text-decoration:none}
+.nav{display:flex;gap:26px;align-items:center}
+.nav a{font-family:var(--letter);text-transform:uppercase;letter-spacing:.12em;font-size:14px;font-weight:600;text-decoration:none;color:var(--chalk-2)}
+.nav a:hover{color:var(--chalk)}
+.nav .call{color:var(--board);background:var(--chalk);padding:10px 16px}
+.nav .call:hover{background:var(--sage);color:var(--board)}
+.menu-btn{display:none;background:none;border:1px solid var(--chalk-3);color:var(--chalk);font:600 14px var(--letter);letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
+
+/* the board */
+.board{background:var(--board);color:var(--chalk);
+  background-image:radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.045),transparent 55%),radial-gradient(ellipse at 85% 80%,rgba(255,255,255,.035),transparent 50%)}
+.framed{border:14px solid var(--wood);box-shadow:inset 0 0 0 2px var(--wood-2),0 1px 0 rgba(0,0,0,.2)}
+.leader{display:flex;align-items:baseline;gap:10px;padding:9px 0}
+.leader .item{font-family:var(--letter);font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:19px}
+.leader .dots{flex:1;border-bottom:3px dotted var(--chalk-3);transform:translateY(-6px);min-width:24px}
+.leader .price{font-family:var(--letter);font-weight:700;font-size:20px;letter-spacing:.04em}
+.note{font-style:italic;color:var(--chalk-2);font-size:16px;margin:-4px 0 6px;line-height:1.45}
+.sold .item,.sold .price{text-decoration:line-through;text-decoration-thickness:2px;color:var(--chalk-3)}
+.sold .tag{font-family:var(--letter);font-size:13px;letter-spacing:.14em;color:var(--sage);text-transform:uppercase;font-weight:700;white-space:nowrap}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);background:var(--board)}
+.hero-board{padding:56px 56px 52px;display:flex;flex-direction:column;justify-content:center}
+.hero h1{font-family:var(--letter);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(44px,6.2vw,84px);line-height:.95;margin:0 0 14px}
+.hero .intro{font-size:20px;color:var(--chalk-2);margin:0 0 30px;max-width:30em}
+.today-head{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--chalk-3);border-bottom:2px solid var(--chalk-3);padding:10px 0;margin-bottom:8px;font-size:15px}
+.today-head span:last-child{color:var(--sage)}
+.hero .hours{margin:26px 0 0;font-size:18px}
+.hero .hours strong{font-family:var(--letter);text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:16px;display:block;color:var(--sage)}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.btn{display:inline-block;max-width:100%;font-family:var(--letter);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:15px;text-decoration:none;padding:15px 22px;border:2px solid var(--chalk)}
+.btn.mail{overflow-wrap:anywhere}
+.btn.solid{background:var(--chalk);color:var(--board)}
+.btn.solid:hover{background:var(--sage);border-color:var(--sage)}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.hero-photo{position:relative;min-height:560px}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* full menu */
+.menu{padding:84px 0 90px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.sec-head h2{font-family:var(--letter);text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:clamp(30px,4vw,46px);margin:0;line-height:1}
+.sec-head p{margin:0;color:var(--chalk-2);font-style:italic;max-width:34em}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 48px;padding:40px 44px 36px}
+.menu-grid h3{font-family:var(--letter);text-transform:uppercase;letter-spacing:.18em;font-size:16px;color:var(--sage);font-weight:700;margin:0 0 6px;padding-bottom:10px;border-bottom:2px solid var(--chalk-3)}
+.menu-grid .leader .item{font-size:17px}.menu-grid .leader .price{font-size:18px}
+.menu .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:22px;color:var(--chalk-2);font-size:16px}
+
+/* photos on the wall */
+.wall{padding:90px 0 40px}
+.wall-grid{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:22px}
+.wall-grid figure{margin:0}
+.wall-grid img{width:100%;height:100%;object-fit:cover}
+.wall-grid .tall{grid-row:span 2}
+.wall-grid .tall img{height:100%;object-position:50% 80%}
+.wall-grid figcaption{font-size:15px;color:var(--ink-2);padding-top:8px;font-style:italic}
+.fig{display:flex;flex-direction:column}
+.fig img{flex:1;min-height:0}
+
+/* process: the prep board */
+.process{padding:60px 0 90px}
+.process-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:start}
+.process h2,.orders h2,.visit h2,.reviews h2{font-family:var(--letter);text-transform:uppercase;letter-spacing:.1em;font-weight:700;font-size:clamp(30px,4vw,46px);margin:0 0 18px;line-height:1}
+.process p{margin:0 0 16px;color:var(--ink-2)}
+.process .lede{font-size:21px;color:var(--ink);line-height:1.5}
+.clock{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.clock li{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.clock time{font-family:var(--letter);font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:18px}
+.clock b{font-family:var(--letter);text-transform:uppercase;letter-spacing:.08em;font-weight:600;font-size:17px;display:block}
+.clock span{color:var(--ink-2);font-size:17px}
+.process-photo{margin-top:30px}
+.process-photo img{width:100%;aspect-ratio:16/10;object-fit:cover}
+
+/* orders */
+.orders{padding:84px 0}
+.orders-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0}
+.orders-board{padding:48px 48px 44px}
+.orders h2{color:var(--chalk)}
+.orders p{color:var(--chalk-2);margin:0 0 22px;max-width:32em}
+.orders .leader .item{font-size:18px}
+.orders-photo{position:relative;min-height:420px}
+.orders-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* reviews */
+.reviews{padding:30px 0 40px}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:10px}
+.rev{border-top:2px solid var(--ink);padding-top:20px}
+.rev blockquote{margin:0 0 14px;font-size:22px;line-height:1.45}
+.rev cite{font-style:normal;font-family:var(--letter);text-transform:uppercase;letter-spacing:.1em;font-size:14px;color:var(--ink-2)}
+.reviews .sec-head p.sample-note{font-size:15px;color:var(--ink-2);font-style:italic;margin:0}
+
+/* visit */
+.visit{padding:70px 0 96px}
+.visit-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
+.hours-board{padding:34px 36px 30px}
+.hours-board h3{margin:0 0 8px;font-family:var(--letter);text-transform:uppercase;letter-spacing:.18em;font-size:16px;color:var(--sage);padding-bottom:10px;border-bottom:2px solid var(--chalk-3)}
+.hours-board .leader .item{font-size:18px}
+.addr{font-size:24px;line-height:1.35;margin:0 0 6px}
+.visit p{color:var(--ink-2);margin:0 0 18px}
+.visit .addr{color:var(--ink)}
+.hours-board .note{color:var(--chalk-2);margin-top:8px}
+.visit .btn{color:var(--ink);border-color:var(--ink)}
+.visit .btn.solid{background:var(--ink);color:var(--chalk)}
+.visit .btn.solid:hover{background:#34403a;border-color:#34403a}
+.visit .btn.ghost:hover{background:rgba(0,0,0,.05)}
+.contact-list{list-style:none;padding:0;margin:26px 0 0;border-top:1px solid var(--rule)}
+.contact-list li{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--rule);font-size:17px}
+.contact-list li span:first-child{font-family:var(--letter);text-transform:uppercase;letter-spacing:.1em;font-size:14px;font-weight:600;color:var(--ink-2);padding-top:2px}
+
+footer{background:var(--board);color:var(--chalk-2);padding:44px 0 40px;font-size:15px;border-top:6px solid var(--wood)}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .mark{color:var(--chalk);font-size:16px}
+footer p{margin:6px 0 0}
+
+/* gentle reveal, only when JS runs and motion is fine */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+
+@media (max-width:1000px){
+  .hero{grid-template-columns:1fr}
+  .hero-photo{min-height:380px;order:-1}
+  .hero-board{padding:44px 32px}
+  .menu-grid{grid-template-columns:1fr 1fr;gap:28px 40px}
+  .process-grid,.visit-grid{grid-template-columns:1fr;gap:40px}
+  .orders-grid{grid-template-columns:1fr}
+  .orders-photo{min-height:320px}
+}
+@media (max-width:900px){
+  .nav{display:none;position:absolute;left:0;right:0;top:78px;background:var(--board);flex-direction:column;align-items:flex-start;padding:10px 24px 22px;gap:4px;z-index:5;border-bottom:6px solid var(--wood)}
+  .nav.open{display:flex}
+  .nav a{padding:10px 0;font-size:16px}
+  .nav .call{padding:12px 16px;margin-top:8px}
+  .menu-btn{display:block}
+  .top{position:relative}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .wrap{padding:0 18px}
+  .framed{border-width:10px}
+  .hero-photo{min-height:300px}
+  .hero-board{padding:36px 22px 40px}
+  .leader .item{font-size:16px}.leader .price{font-size:17px}
+  .menu{padding:60px 0}
+  .menu-grid{grid-template-columns:1fr;padding:28px 20px}
+  .wall{padding:60px 0 20px}
+  .wall-grid{grid-template-columns:1fr}
+  .wall-grid .tall{grid-row:auto}
+  .clock li{grid-template-columns:1fr;gap:2px}
+  .orders-board,.hours-board{padding:30px 20px}
+  .rev-grid{grid-template-columns:1fr;gap:34px}
+  .rev blockquote{font-size:20px}
+  .contact-list li{flex-direction:column;gap:2px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" data-slot="name">Hearth Street Bakery</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#board">The board</a>
+      <a href="#bread">How we bake</a>
+      <a href="#orders">Cakes &amp; orders</a>
+      <a href="#visit">Visit</a>
+      <a class="call" href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="hero-board board">
+    <h1 data-slot="name">Hearth Street Bakery</h1>
+    <p class="intro" data-slot="line">Sourdough, rye and pastry, baked every morning on East Main Street in Norman.</p>
+    <div class="today-head caps"><span>On the board today</span><span>From 6 am</span></div>
+    <div class="leader"><span class="item">Country sourdough</span><span class="dots"></span><span class="price">9</span></div>
+    <div class="leader"><span class="item">Seeded rye</span><span class="dots"></span><span class="price">10</span></div>
+    <div class="leader"><span class="item">Butter croissant</span><span class="dots"></span><span class="price">4.25</span></div>
+    <div class="leader sold"><span class="item">Cardamom bun</span><span class="dots"></span><span class="tag">Gone by 10</span></div>
+    <div class="leader"><span class="item">Cortado</span><span class="dots"></span><span class="price">4</span></div>
+    <p class="hours"><strong>Open</strong><span data-slot="hours">Tuesday to Sunday, 6 am until it's gone</span></p>
+    <div class="btns">
+      <a class="btn solid" href="#board">See the whole board</a>
+      <a class="btn ghost" href="#orders">Order a cake</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="img/hero.webp" alt="Tin loaves cooling on the wooden racks of a bakery" width="1536" height="1278">
+  </div>
+</section>
+
+<section class="menu board" id="board" aria-labelledby="board-h">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 id="board-h">The board</h2>
+      <p>What's behind the counter most mornings. The bread changes a little with the season, and when a tray's gone, it's gone.</p>
+    </div>
+    <div class="menu-grid framed rv">
+      <div>
+        <h3>Loaves</h3>
+        <div class="leader"><span class="item">Country sourdough</span><span class="dots"></span><span class="price">9</span></div>
+        <div class="leader"><span class="item">Seeded rye</span><span class="dots"></span><span class="price">10</span></div>
+        <p class="note">40% rye, caraway and sunflower</p>
+        <div class="leader"><span class="item">Red wheat sourdough</span><span class="dots"></span><span class="price">10</span></div>
+        <p class="note">Whole wheat, milled in Oklahoma</p>
+        <div class="leader"><span class="item">Baguette</span><span class="dots"></span><span class="price">4</span></div>
+        <div class="leader"><span class="item">Milk sandwich loaf</span><span class="dots"></span><span class="price">8</span></div>
+      </div>
+      <div>
+        <h3>Pastry</h3>
+        <div class="leader"><span class="item">Butter croissant</span><span class="dots"></span><span class="price">4.25</span></div>
+        <div class="leader"><span class="item">Pain au chocolat</span><span class="dots"></span><span class="price">4.75</span></div>
+        <div class="leader"><span class="item">Cardamom bun</span><span class="dots"></span><span class="price">4.50</span></div>
+        <div class="leader"><span class="item">Cinnamon roll</span><span class="dots"></span><span class="price">4.50</span></div>
+        <div class="leader"><span class="item">Fruit galette, slice</span><span class="dots"></span><span class="price">5.50</span></div>
+        <p class="note">Pear and almond through the fall</p>
+      </div>
+      <div>
+        <h3>Coffee</h3>
+        <div class="leader"><span class="item">Drip coffee</span><span class="dots"></span><span class="price">3</span></div>
+        <div class="leader"><span class="item">Espresso</span><span class="dots"></span><span class="price">3.25</span></div>
+        <div class="leader"><span class="item">Cortado</span><span class="dots"></span><span class="price">4</span></div>
+        <div class="leader"><span class="item">Latte</span><span class="dots"></span><span class="price">5</span></div>
+        <p class="note">Oat milk at no extra charge</p>
+      </div>
+    </div>
+    <div class="foot"><span>Half loaves on request. Day-old bread half price after noon.</span><span>Prices in dollars, tax included.</span></div>
+  </div>
+</section>
+
+<section class="wall" aria-label="Photos from the bakery">
+  <div class="wrap wall-grid">
+    <figure class="tall fig rv"><img src="img/counter.webp" alt="Baskets of baguettes and round loaves on the bakery counter" width="1100" height="1118" loading="lazy"><figcaption>The bread counter, about half past six.</figcaption></figure>
+    <figure class="fig rv"><img src="img/pastry.webp" alt="Trays of pain au chocolat and custard tarts fresh from the oven" width="1100" height="733" loading="lazy"><figcaption>Pain au chocolat, first tray of the day.</figcaption></figure>
+    <figure class="fig rv"><img src="img/croissant.webp" alt="Butter croissants on a baking sheet" width="1000" height="559" loading="lazy"><figcaption>Croissants, laminated the afternoon before.</figcaption></figure>
+  </div>
+</section>
+
+<section class="process" id="bread" aria-labelledby="bread-h">
+  <div class="wrap process-grid">
+    <div class="rv">
+      <h2 id="bread-h">How we bake</h2>
+      <p class="lede">Every loaf takes about a day and a half, most of it waiting. We mix in the afternoon, let the dough rest overnight in the cooler, and bake it in the dark so it's on the shelf when you walk in.</p>
+      <p>No mixes, no commercial yeast in the sourdough, and nothing kept from yesterday except the starter.</p>
+      <div class="process-photo"><img src="img/flour.webp" alt="A baker's hand dropping flour into a mixing bowl" width="900" height="809" loading="lazy"></div>
+    </div>
+    <div class="rv">
+      <ol class="clock">
+        <li><time>2 pm</time><div><b>Feed and mix</b><span>The starter gets fed, and tomorrow's dough is mixed by hand in small batches.</span></div></li>
+        <li><time>3–6 pm</time><div><b>Fold</b><span>Four sets of folds while the croissant dough is rolled and turned.</span></div></li>
+        <li><time>Overnight</time><div><b>Cold proof</b><span>Shaped loaves sit in baskets in the cooler, twelve to fourteen hours.</span></div></li>
+        <li><time>3:30 am</time><div><b>Ovens on</b><span>Loaves first, then pastry, then the cardamom buns while the oven drops.</span></div></li>
+        <li><time>6 am</time><div><b>Doors open</b><span>Whatever's on the rack is on the board.</span></div></li>
+        <li><time>About 1 pm</time><div><b>Sold out</b><span>Most days. Call ahead and we'll hold a loaf with your name on it.</span></div></li>
+      </ol>
+      <div class="process-photo"><img src="img/rye.webp" alt="A floured rye loaf on a wooden counter" width="1000" height="567" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="orders" id="orders" aria-labelledby="orders-h">
+  <div class="wrap">
+    <div class="orders-grid framed">
+      <div class="orders-board board rv">
+        <h2 id="orders-h">Cakes &amp; orders</h2>
+        <p>Birthday cakes, pastry boxes for the office, bread for your dinner or your restaurant. Tell us the date and how many people, and we'll write back with a price the same day.</p>
+        <div class="leader"><span class="item">Pastry box, dozen</span><span class="dots"></span><span class="price">42</span></div>
+        <div class="leader"><span class="item">Layer cake, 8 inch</span><span class="dots"></span><span class="price">from 48</span></div>
+        <div class="leader"><span class="item">Bread, table of 10</span><span class="dots"></span><span class="price">from 30</span></div>
+        <p class="note">Two days' notice for cakes, a week for anything over 50 people.</p>
+        <div class="btns">
+          <a class="btn solid mail" href="mailto:orders@hearthstreetbakery.com" data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</a>
+          <a class="btn ghost" href="tel:4055550142">Call the bakery</a>
+        </div>
+      </div>
+      <div class="orders-photo"><img src="img/latte.webp" alt="A cappuccino with leaf latte art in a white cup" width="900" height="750" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:24px">
+      <h2 id="rev-h" style="margin:0">What people say</h2>
+      <p class="sample-note">Sample reviews, for this example site.</p>
+    </div>
+    <div class="rev-grid">
+      <figure class="rev rv" style="margin:0"><blockquote>“The seeded rye is the best bread I've had since I moved here. I go Saturday before eight or I don't get one.”</blockquote><figcaption><cite>Dana R., Norman</cite></figcaption></figure>
+      <figure class="rev rv" style="margin:0"><blockquote>“Ordered a pastry box for a staff meeting with a day's notice. Everything was still warm when I picked it up at 7.”</blockquote><figcaption><cite>Marcus T., Campus Corner</cite></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap visit-grid">
+    <div class="rv">
+      <h2 id="visit-h">Visit</h2>
+      <p class="addr" data-slot="addr">412 E Main St, Norman, OK 73069</p>
+      <p>On East Main, a short walk from downtown. Street parking out front and a bike rack by the door.</p>
+      <div class="btns">
+        <a class="btn solid" href="https://www.google.com/maps/search/?api=1&amp;query=412+E+Main+St+Norman+OK+73069" target="_blank" rel="noopener">Get directions</a>
+        <a class="btn ghost" href="tel:4055550142">Call ahead</a>
+      </div>
+      <ul class="contact-list">
+        <li><span>Phone</span><a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a></li>
+        <li><span>Orders</span><a href="mailto:orders@hearthstreetbakery.com" data-slot="email" data-slot-href="mailto">orders@hearthstreetbakery.com</a></li>
+        <li><span>City</span><span data-slot="city">Norman, Oklahoma</span></li>
+      </ul>
+    </div>
+    <div class="hours-board board framed rv">
+      <h3>Hours</h3>
+      <div class="leader"><span class="item">Monday</span><span class="dots"></span><span class="price">Closed</span></div>
+      <div class="leader"><span class="item">Tue – Fri</span><span class="dots"></span><span class="price">6 am – sold out</span></div>
+      <div class="leader"><span class="item">Saturday</span><span class="dots"></span><span class="price">6 am – sold out</span></div>
+      <div class="leader"><span class="item">Sunday</span><span class="dots"></span><span class="price">7 am – sold out</span></div>
+      <p class="note">Usually around 1 pm. Call and we'll set a loaf aside.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="mark" href="#top" data-slot="name">Hearth Street Bakery</a>
+      <p><span data-slot="addr">412 E Main St, Norman, OK 73069</span> · <a href="tel:4055550142" data-slot="phone" data-slot-href="tel">(405) 555-0142</a></p>
+    </div>
+    <div>
+      <p>Sample site made with Station Sites. The bakery, menu and reviews are examples.</p>
+      <p>Photos: Wikimedia Commons (CC0 / public domain)</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var els=[].slice.call(document.querySelectorAll('.rv')).filter(function(el){if(el.getBoundingClientRect().top>innerHeight*0.9)return true;el.classList.add('in');return false;});
+  if(!els.length) return;
+  document.documentElement.classList.add('js');
+  function check(){els=els.filter(function(el){if(el.getBoundingClientRect().top<innerHeight*0.92){el.classList.add('in');return false;}return true;});if(!els.length){removeEventListener('scroll',check);removeEventListener('resize',check);}}
+  addEventListener('scroll',check,{passive:true});addEventListener('resize',check);
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

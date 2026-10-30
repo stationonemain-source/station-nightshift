@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ana &amp; Jordan · Guest guide</title>
+<meta name="description" content="The guest guide for Ana and Jordan's wedding on 14 June 2027 at Riverside Estate, Norman, Oklahoma: the day hour by hour, getting here, where to stay and RSVP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f3ee;
+  --paper-2:#ebe8e0;
+  --ink:#1a1d1c;
+  --ink-soft:#4d5250;
+  --river:#1c5a55;
+  --river-dk:#143f3c;
+  --rule:#cfcbc0;
+  --caslon:"Libre Caslon Text", Georgia, serif;
+  --display:"Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
+  --grot:"Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --pad:clamp(16px,4vw,56px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--caslon);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:3px;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--river);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--paper);padding:8px 14px;z-index:30}
+.skip:focus{left:12px;top:12px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--pad)}
+.lab{font-family:var(--grot);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--river)}
+
+/* bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(245,243,238,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:20px}
+.bar .who{font-family:var(--display);font-size:22px;text-decoration:none;white-space:nowrap}
+.bar nav ul{list-style:none;margin:0;padding:0;display:flex;gap:28px}
+.bar nav a{font-family:var(--grot);font-size:14.5px;font-weight:500;text-decoration:none}
+.bar nav a:hover{color:var(--river)}
+.bar nav a.cta{background:var(--river);color:#fff;padding:9px 16px}
+.bar nav a.cta:hover{background:var(--river-dk);color:#fff}
+.menu{display:none;font:600 14px var(--grot);letter-spacing:.06em;text-transform:uppercase;background:none;border:1px solid var(--ink);padding:8px 14px;cursor:pointer;color:var(--ink)}
+
+/* cover */
+.cover{display:grid;grid-template-columns:1.05fr 1fr;min-height:min(calc(100vh - 60px),780px);border-bottom:1px solid var(--rule)}
+.cover-txt{padding:clamp(40px,6vw,80px) var(--pad);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.cover h1{font-family:var(--display);font-weight:400;font-size:clamp(56px,8.4vw,118px);line-height:.95;margin:18px 0 0;letter-spacing:-.015em}
+.cover .intro{font-size:19px;max-width:34ch;margin:26px 0 0}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:0;border-top:2px solid var(--ink)}
+.facts div{padding:14px 28px 0 0}
+.facts div+div{padding-left:22px;border-left:1px solid var(--rule)}
+.facts dt{font-family:var(--grot);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.facts dd{margin:4px 0 0;font-family:var(--grot);font-size:20px;font-weight:600;line-height:1.25}
+.cover-img{position:relative;min-height:420px}
+.cover-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 60%}
+
+/* contents strip */
+.contents{border-bottom:1px solid var(--rule)}
+.contents ol{list-style:none;margin:0 auto;padding:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.contents li+li{border-left:1px solid var(--rule)}
+.contents a{display:block;padding:18px var(--pad) 18px 20px;text-decoration:none;font-family:var(--grot);font-size:15px;font-weight:500}
+.contents a span{display:block;font-size:12px;color:var(--river);font-weight:700;letter-spacing:.1em}
+.contents a:hover{background:var(--paper-2)}
+
+/* section heads */
+.sec{padding:clamp(64px,9vw,120px) 0;border-bottom:1px solid var(--rule)}
+.head{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:baseline;margin-bottom:clamp(36px,5vw,56px)}
+.head h2{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.6vw,68px);line-height:1;margin:0;letter-spacing:-.01em}
+.head p{grid-column:2;margin:14px 0 0;max-width:58ch;font-size:18px;color:var(--ink-soft)}
+
+/* timetable */
+.days{display:grid;gap:clamp(48px,6vw,72px)}
+.day-h{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:baseline;border-top:2px solid var(--ink);padding-top:12px}
+.day-h h3{font-family:var(--grot);font-size:22px;font-weight:600;margin:0}
+.day-h .lab{font-size:12px}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:200px 1fr 300px;gap:24px;padding:22px 0;border-bottom:1px solid var(--rule);align-items:start}
+.row time{font-family:var(--grot);font-weight:600;font-size:clamp(34px,3.6vw,46px);line-height:1;color:var(--river);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.row time small{font-size:15px;font-weight:600;letter-spacing:.04em;margin-left:4px;color:var(--ink)}
+.row h4{font-family:var(--grot);font-size:21px;font-weight:600;margin:2px 0 4px}
+.row .where{font-family:var(--grot);font-size:14px;color:var(--ink-soft);margin:0 0 8px;font-weight:500}
+.row p{margin:0;max-width:52ch}
+.row img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.row.quiet time{font-size:clamp(26px,2.6vw,32px)}
+.row.quiet{grid-template-columns:200px 1fr 300px}
+
+/* getting here: legs */
+.legs{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink)}
+.leg{padding:22px 26px 6px 0}
+.leg+.leg{padding-left:26px;border-left:1px solid var(--rule)}
+.leg .lab{display:flex;align-items:center;gap:10px}
+.ic{width:22px;height:22px;flex:none}
+.leg h3{font-family:var(--grot);font-size:21px;font-weight:600;margin:6px 0 10px;line-height:1.25}
+.leg p{margin:0 0 12px}
+.route{font-family:var(--grot);font-weight:600;font-size:15px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;margin:0 0 12px!important;color:var(--ink)}
+.route i{font-style:normal;color:var(--river)}
+.stay-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.stay-grid img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.hotels{border-top:2px solid var(--ink)}
+.hotel{padding:20px 0;border-bottom:1px solid var(--rule)}
+.hotel h3{font-family:var(--grot);font-size:21px;font-weight:600;margin:0 0 2px}
+.hotel .lab{display:block;margin-bottom:8px;color:var(--ink-soft)}
+.hotel p{margin:0}
+
+/* rsvp */
+.rsvp{background:var(--river-dk);color:#f2efe8;border-bottom:0}
+.rsvp .head p{color:#cfd8d5}
+.rsvp .lab{color:#9fd0c8}
+.rsvp form{display:grid;grid-template-columns:1fr 1fr;gap:26px 32px;max-width:860px}
+.f{display:flex;flex-direction:column;gap:8px}
+.f.full{grid-column:1/-1}
+.f label,.f legend{font-family:var(--grot);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#cfe3df;padding:0}
+.f input[type=text],.f select{font:400 18px var(--caslon);color:var(--ink);background:#f5f3ee;border:0;border-bottom:2px solid #9fd0c8;padding:13px 14px;border-radius:0;width:100%}
+fieldset{border:0;margin:0;padding:0}
+.yn{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.yn label{display:flex;align-items:center;gap:10px;font:500 17px var(--grot);letter-spacing:0;text-transform:none;color:#f2efe8;border:1px solid #6f9e97;padding:12px 18px;cursor:pointer}
+.yn input{accent-color:#9fd0c8;width:18px;height:18px;margin:0}
+.yn label:has(input:checked){background:#f5f3ee;color:var(--ink);border-color:#f5f3ee}
+.go{justify-self:start;font:600 16px var(--grot);background:#f5f3ee;color:var(--river-dk);border:0;padding:16px 30px;cursor:pointer}
+.go:hover{background:#fff}
+.sent{grid-column:1/-1;margin:0;font-family:var(--grot);font-size:17px;min-height:1.5em}
+.rsvp-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:clamp(32px,6vw,90px);align-items:start}
+.rsvp-aside{border-top:2px solid #9fd0c8;padding-top:14px;font-size:16px;color:#cfd8d5}
+.rsvp-aside .big{display:block;font-family:var(--grot);font-weight:600;font-size:46px;line-height:1;color:#f2efe8;margin:10px 0 16px;letter-spacing:-.02em}
+.rsvp-aside p{margin:0 0 12px}
+
+/* questions */
+.qs{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px;border-top:2px solid var(--ink)}
+.q{padding:22px 0;border-bottom:1px solid var(--rule)}
+.q h3{font-family:var(--grot);font-size:20px;font-weight:600;margin:0 0 6px}
+.q p{margin:0}
+.q a.reg{font-family:var(--grot);font-weight:600;color:var(--river)}
+
+footer{padding:48px 0 60px}
+footer .wrap{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end}
+footer .who{font-family:var(--display);font-size:40px;line-height:1}
+footer p{margin:6px 0 0;font-family:var(--grot);font-size:14px;color:var(--ink-soft)}
+footer .small{text-align:right}
+
+@media (max-width:1000px){
+  .row,.row.quiet{grid-template-columns:150px 1fr 230px}
+  .head,.day-h{grid-template-columns:150px 1fr}
+  .legs{grid-template-columns:1fr}
+  .leg,.leg+.leg{padding:22px 0 10px;border-left:0;border-top:1px solid var(--rule)}
+  .leg:first-child{border-top:0}
+  .contents ol{grid-template-columns:repeat(5,auto)}
+  .contents a{padding:16px 16px}
+}
+@media (max-width:820px){
+  .cover{grid-template-columns:1fr;min-height:0}
+  .cover-img{min-height:0;aspect-ratio:4/3;order:-1}
+  .stay-grid{grid-template-columns:1fr}
+  .rsvp-grid{grid-template-columns:1fr}
+  .qs{grid-template-columns:1fr}
+  .contents{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .js .menu{display:block}
+  .js .bar nav{position:absolute;left:0;right:0;top:60px;background:var(--paper);border-bottom:1px solid var(--rule);display:none}
+  .js .bar nav.open{display:block}
+  .js .bar nav ul{flex-direction:column;gap:0;padding:6px var(--pad) 16px}
+  .js .bar nav a{display:block;padding:12px 0;font-size:17px;border-bottom:1px solid var(--rule)}
+  .js .bar nav a.cta{margin-top:12px;text-align:center;border:0}
+  html:not(.js) .bar .wrap{height:auto;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+  html:not(.js) .bar nav ul{flex-wrap:wrap;gap:6px 18px}
+  .head,.day-h{grid-template-columns:1fr;gap:6px}
+  .head p{grid-column:1}
+  .row,.row.quiet{grid-template-columns:86px 1fr;gap:14px}
+  .row img{grid-column:1/-1;max-width:none}
+  .row time{font-size:30px}
+  .row time small{display:block;margin:4px 0 0;font-size:13px}
+  .facts{grid-template-columns:1fr 1fr}
+  .facts div:nth-child(3){grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid var(--rule);margin-top:12px;padding-top:12px}
+  .rsvp form{grid-template-columns:1fr}
+  .rsvp-grid{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+  footer .small{text-align:left}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#day">Skip to the day</a>
+<header class="bar">
+  <div class="wrap">
+    <a class="who" href="#top" data-slot="name">Ana &amp; Jordan</a>
+    <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Sections">
+      <ul>
+        <li><a href="#day">The day</a></li>
+        <li><a href="#travel">Getting here</a></li>
+        <li><a href="#stay">Where to stay</a></li>
+        <li><a href="#questions">Questions</a></li>
+        <li><a class="cta" href="#rsvp">RSVP</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="cover" aria-labelledby="h1">
+    <div class="cover-txt">
+      <div>
+        <p class="lab">Guest guide · <span data-slot="city">Norman, Oklahoma</span></p>
+        <h1 id="h1" data-slot="name">Ana &amp; Jordan</h1>
+        <p class="intro">We’re getting married by the river at <span data-slot="venue">Riverside Estate</span>. Here is everything you need for the day, from the first flight in to the last dance.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Date</dt><dd data-slot="date">Monday 14 June 2027</dd></div>
+        <div><dt>Ceremony</dt><dd>3:00 pm</dd></div>
+        <div><dt>Reply by</dt><dd>1 May 2027</dd></div>
+      </dl>
+    </div>
+    <div class="cover-img">
+      <img src="img/lawn.webp" alt="Rows of white chairs set on a shaded lawn for an outdoor ceremony, a rope swing hanging from a tree in front" fetchpriority="high">
+    </div>
+  </section>
+
+  <nav class="contents" aria-label="In this guide">
+    <ol class="wrap" style="padding:0">
+      <li><a href="#day"><span>01</span>The day</a></li>
+      <li><a href="#travel"><span>02</span>Getting here</a></li>
+      <li><a href="#stay"><span>03</span>Where to stay</a></li>
+      <li><a href="#rsvp"><span>04</span>RSVP</a></li>
+      <li><a href="#questions"><span>05</span>Questions</a></li>
+    </ol>
+  </nav>
+
+  <section class="sec" id="day" aria-labelledby="h-day">
+    <div class="wrap">
+      <div class="head"><span class="lab">01</span><h2 id="h-day">The day, hour by hour</h2><p>Everything on the wedding day happens at <span data-slot="venue">Riverside Estate</span>. Park once and you won’t need the car again until you head home.</p></div>
+      <div class="days">
+        <div>
+          <div class="day-h"><span class="lab">Day before</span><h3>Sunday 13 June</h3></div>
+          <ol class="rows">
+            <li class="row quiet"><time>7:00<small>pm</small></time><div><h4>Welcome drinks</h4><p class="where">The terrace, Riverside Estate</p><p>Come as you are if you’re in town early. Nothing formal, just a chance to say hello before the big day.</p></div></li>
+          </ol>
+        </div>
+        <div>
+          <div class="day-h"><span class="lab">The wedding</span><h3 data-slot="date">Monday 14 June 2027</h3></div>
+          <ol class="rows">
+            <li class="row"><time>3:00<small>pm</small></time><div><h4>Ceremony</h4><p class="where">The lawn by the river</p><p>Please be seated by 2:45. It’s outdoors and on grass; if it rains we move into the barn, and we’ll text everyone by noon.</p></div><img src="img/aisle.webp" alt="An outdoor aisle lined with white chairs and roses" loading="lazy"></li>
+            <li class="row"><time>4:30<small>pm</small></time><div><h4>Drinks</h4><p class="where">The terrace</p><p>Cocktails, lemonade and something to eat while we take photographs. Shade and seating for anyone who needs it.</p></div><img src="img/drinks.webp" alt="Two glasses of champagne raised in a toast" loading="lazy"></li>
+            <li class="row"><time>6:00<small>pm</small></time><div><h4>Dinner</h4><p class="where">The barn</p><p>Long tables, family style. Speeches between courses. Your seat is on the plan at the barn door.</p></div><img src="img/dinner.webp" alt="Long reception tables under strings of lights in a timber barn" loading="lazy"></li>
+            <li class="row"><time>8:30<small>pm</small></time><div><h4>Dancing</h4><p class="where">The barn</p><p>Until late. Send us your song with your RSVP and we’ll make sure the band plays it.</p></div><img src="img/dance.webp" alt="A couple in a dance hold, hands clasped" loading="lazy"></li>
+          </ol>
+        </div>
+        <div>
+          <div class="day-h"><span class="lab">Day after</span><h3>Tuesday 15 June</h3></div>
+          <ol class="rows">
+            <li class="row quiet"><time>10:00<small>am</small></time><div><h4>Coffee and goodbyes</h4><p class="where">The terrace, Riverside Estate</p><p>Collect your car, have a coffee with us, and head for the airport. Checkout at most hotels is 11.</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="travel" aria-labelledby="h-travel">
+    <div class="wrap">
+      <div class="head"><span class="lab">02</span><h2 id="h-travel">Getting here</h2><p><span data-slot="venue">Riverside Estate</span> is on the edge of <span data-slot="city">Norman, Oklahoma</span>, about twenty miles south of Oklahoma City.</p></div>
+      <div class="legs">
+        <div class="leg">
+          <span class="lab"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>By air</span>
+          <h3>Will Rogers World Airport</h3>
+          <p class="route">OKC <i>→</i> Norman <i>·</i> 20 miles <i>·</i> about 30 min</p>
+          <p>The nearest airport, with direct flights from most big US hubs. Rental cars are on site; rideshares pick up outside arrivals.</p>
+        </div>
+        <div class="leg">
+          <span class="lab"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>By car</span>
+          <h3>Down I-35</h3>
+          <p class="route">Oklahoma City <i>→</i> Norman <i>·</i> about 25 min</p>
+          <p>Take I-35 south and follow the signs for the estate from the exit. <a href="https://www.google.com/maps/search/?api=1&amp;query=Norman%2C%20Oklahoma">Get directions</a></p>
+        </div>
+        <div class="leg">
+          <span class="lab"><svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>Parking</span>
+          <h3>Free, on the field by the gate</h3>
+          <p>Someone will wave you in. Cars can stay overnight and be collected by noon on Tuesday, so nobody has to drive after the party.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="stay" aria-labelledby="h-stay">
+    <div class="wrap">
+      <div class="head"><span class="lab">03</span><h2 id="h-stay">Where to stay</h2><p>We haven’t reserved a block of rooms, so book early: June weekends fill up around the university.</p></div>
+      <div class="stay-grid">
+        <div class="hotels">
+          <div class="hotel"><h3>Near Campus Corner</h3><span class="lab">About 10 min to the estate</span><p>A handful of hotels within walking distance of Campus Corner’s restaurants and bars. Best if you want dinner out on Sunday night.</p></div>
+          <div class="hotel"><h3>Off I-35, north Norman</h3><span class="lab">About 15 min to the estate</span><p>Several chain hotels clustered by the highway, with easy parking and the quickest run back to the airport on Tuesday.</p></div>
+          <div class="hotel"><h3>Getting back at night</h3><span class="lab">From 11 pm</span><p>We’ll have local taxi numbers at the barn door, and rideshares reach the estate gate.</p></div>
+        </div>
+        <img src="img/walk.webp" alt="A couple walking away down a path through trees at the edge of a garden" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rsvp" id="rsvp" aria-labelledby="h-rsvp">
+    <div class="wrap">
+      <div class="head"><span class="lab">04</span><h2 id="h-rsvp">RSVP</h2><p>Please reply by 1 May 2027, one form per household.</p></div>
+      <div class="rsvp-grid">
+      <form id="rsvp-form" action="" novalidate>
+        <div class="f full"><label for="n">Name(s)</label><input id="n" name="name" type="text" autocomplete="name" required></div>
+        <fieldset class="f full"><legend>Can you come?</legend>
+          <div class="yn"><label><input type="radio" name="attending" value="yes" required> Yes, we’ll be there</label><label><input type="radio" name="attending" value="no"> Sorry, we can’t make it</label></div>
+        </fieldset>
+        <div class="f"><label for="g">Number of guests</label><select id="g" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+        <div class="f"><label for="d">Dietary needs</label><input id="d" name="dietary" type="text" placeholder="Vegetarian, gluten free, allergies"></div>
+        <div class="f full"><label for="s">Song request</label><input id="s" name="song" type="text" placeholder="The one that gets you on the floor"></div>
+        <button class="go" type="submit">Send RSVP</button>
+        <p class="sent" role="status" aria-live="polite"></p>
+      </form>
+      <aside class="rsvp-aside"><span class="lab">Reply by</span><span class="big">1 May</span><p>We’ll send a reminder in April to anyone we haven’t heard from.</p><p>Something else to tell us? Email <a href="mailto:hello@anaandjordan.example" data-slot="email" data-slot-href="mailto">hello@anaandjordan.example</a></p></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="questions" aria-labelledby="h-q">
+    <div class="wrap">
+      <div class="head"><span class="lab">05</span><h2 id="h-q">Questions</h2><p>If yours isn’t here, just ask.</p></div>
+      <div class="qs">
+        <div class="q"><h3>What’s the dress code?</h3><p>Garden formal. The ceremony is on grass, so flats or block heels are wise, and June in Oklahoma is warm: think light fabrics.</p></div>
+        <div class="q"><h3>Are kids invited?</h3><p>It’s an adults-only celebration, apart from the children in the wedding party. Your invitation names everyone we’ve saved a seat for.</p></div>
+        <div class="q"><h3>Where do I park?</h3><p>Free parking on the field by the estate gate. Leave the car overnight if you need to and collect it by noon Tuesday.</p></div>
+        <div class="q"><h3>What if it rains?</h3><p>The ceremony moves into the barn. We’ll text everyone by noon on the day.</p></div>
+        <div class="q"><h3>Is there a registry?</h3><p>Having you there is plenty. If you’d like to give a gift, <a class="reg" href="#">Our registry</a> has a few ideas.</p></div>
+        <div class="q"><h3>Can I take photos?</h3><p>Please keep phones away during the ceremony. After that, snap as much as you like.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><div class="who" data-slot="name">Ana &amp; Jordan</div><p><span data-slot="date">Monday 14 June 2027</span> · <span data-slot="venue">Riverside Estate</span>, <span data-slot="city">Norman, Oklahoma</span></p></div>
+    <div class="small"><p>Ana &amp; Jordan are a sample couple. Sample site made with Station Sites.</p><p>Photos: Wikimedia Commons (CC0 / public domain) · Icons: Lucide (ISC)</p></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.querySelector('.menu'), n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});
+  document.getElementById('rsvp-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target, ok=f.n.value.trim() && f.querySelector('[name=attending]:checked');
+    f.querySelector('.sent').textContent = ok ? 'Sent — we’ll reply soon' : 'Please add your name and tell us if you can come.';
+  });
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

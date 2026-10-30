@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Willow &amp; Co. Hair</title>
+<meta name="description" content="A neighbourhood hair shop on Gray Street in Norman, Oklahoma. Cuts, fades, colour and blowouts. Walk-ins welcome Tuesdays.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Big+Shoulders+Text:wght@500;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#f1eadb; --cream2:#e8dfcc; --ink:#1b1a18; --muted:#57514a; --navy:#17253a; --navy2:#22344f; --red:#9b2a24; --red-dk:#7e211c;
+  --felt:#1d1d1f; --felt-line:#ffffff0d; --letter:#f4f1ea;
+  --disp:"Big Shoulders Display", Impact, sans-serif; --board:"Big Shoulders Text", "Arial Narrow", sans-serif; --serif:"Spectral", Georgia, serif;
+  --wrap:1200px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 18px/1.6 var(--serif)}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gut)}
+.ic{width:20px;height:20px;flex:none;vertical-align:-4px;stroke-width:1.75}
+h1,h2,h3{font-family:var(--disp);font-weight:800;text-transform:uppercase;line-height:.92;margin:0;letter-spacing:.01em}
+h2{font-size:clamp(46px,6.4vw,80px)}
+p{margin:0 0 1em}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:#fff;padding:8px 12px;z-index:20}
+.skip:focus{left:8px}
+.pole{height:10px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,var(--cream) 14px 28px,var(--navy) 28px 42px,var(--cream) 42px 56px)}
+
+/* header */
+.top{background:var(--navy);color:var(--cream)}
+.top .wrap{display:flex;align-items:center;gap:26px;min-height:66px;position:relative}
+.mark{font:800 26px/1 var(--disp);text-transform:uppercase;letter-spacing:.03em;text-decoration:none;margin-right:auto}
+.nav{display:flex;gap:26px}
+.nav a{font:700 17px/1 var(--disp);text-transform:uppercase;letter-spacing:.06em;text-decoration:none}
+.nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.call{display:inline-flex;gap:8px;align-items:center;background:var(--red);color:#fff;text-decoration:none;font:700 18px/1 var(--disp);letter-spacing:.05em;padding:12px 16px}
+.call:hover{background:var(--red-dk)}
+.menu-btn{display:none;background:none;border:1px solid var(--cream);color:var(--cream);padding:9px 12px;font:700 16px/1 var(--disp);letter-spacing:.06em;text-transform:uppercase;gap:8px;align-items:center;cursor:pointer}
+
+/* hero: the shop window */
+.window{position:relative;background:var(--navy);color:var(--cream);overflow:hidden}
+.window img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.window::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,24,38,.92) 0%,rgba(15,24,38,.78) 45%,rgba(15,24,38,.25) 80%,rgba(15,24,38,.1) 100%)}
+.window .wrap{position:relative;z-index:1;padding-top:clamp(56px,9vw,120px);padding-bottom:clamp(56px,9vw,120px)}
+.window .town{font:700 18px/1 var(--disp);letter-spacing:.24em;text-transform:uppercase;display:flex;gap:14px;align-items:center}
+.window .town::before,.window .town::after{content:"";height:2px;width:34px;background:var(--cream)}
+.window h1{font-size:clamp(66px,12vw,156px);line-height:.86;margin:22px 0 22px;font-weight:900;letter-spacing:.015em;max-width:9ch;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.window .line{font:400 italic clamp(20px,2.2vw,25px)/1.4 var(--serif);max-width:30ch;margin-bottom:30px}
+.acts{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:800 19px/1 var(--disp);letter-spacing:.06em;text-transform:uppercase;padding:16px 22px;background:var(--red);color:#fff;border:2px solid var(--red);cursor:pointer}
+.btn:hover{background:var(--red-dk);border-color:var(--red-dk)}
+.btn.out{background:transparent;color:var(--cream);border-color:var(--cream)}
+.btn.out:hover{background:var(--cream);color:var(--navy)}
+.door{position:absolute;right:var(--gut);bottom:clamp(24px,4vw,48px);z-index:1;background:var(--cream);color:var(--ink);padding:16px 20px 14px;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--red);max-width:280px}
+.door b{display:block;font:900 30px/1 var(--disp);text-transform:uppercase;letter-spacing:.03em;color:var(--red)}
+.door span{display:block;font:700 18px/1.25 var(--disp);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+
+/* walk-ins strip */
+.walk{background:var(--red);color:#fff}
+.walk .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:18px 36px;align-items:center;padding-top:22px;padding-bottom:22px}
+.walk h2{font-size:clamp(34px,4vw,48px)}
+.walk p{margin:0;font-size:17.5px;max-width:58ch}
+.walk a{font:800 19px/1 var(--disp);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+
+/* letter board */
+.prices{padding:clamp(56px,8vw,104px) 0}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:20px 56px;align-items:end;margin-bottom:clamp(26px,4vw,44px)}
+.intro p{color:var(--muted);max-width:46ch;margin:0}
+.frame{background:#6b4a32;padding:14px;border-radius:2px;box-shadow:0 1px 0 #00000033,0 18px 40px -24px #00000080}
+.board{background-color:var(--felt);background-image:repeating-linear-gradient(180deg,transparent 0 13px,var(--felt-line) 13px 15px);color:var(--letter);padding:clamp(24px,4vw,48px) clamp(18px,4vw,52px);display:grid;grid-template-columns:1fr 1fr;gap:12px clamp(28px,5vw,72px);font-family:var(--board);text-transform:uppercase;letter-spacing:.08em}
+.board h3{font:700 22px/1 var(--board);letter-spacing:.2em;color:#e7b9b4;margin:18px 0 6px;grid-column:auto}
+.board .blk:first-child h3:first-child,.board .blk:nth-child(2) h3:first-child{margin-top:0}
+.board ul{list-style:none;margin:0;padding:0}
+.board li{display:flex;justify-content:space-between;gap:16px;font:500 19px/2 var(--board)}
+.board li span:last-child{font-weight:700}
+.board .foot{grid-column:1/-1;border-top:2px solid #ffffff22;margin-top:10px;padding-top:14px;font:500 16px/1.6 var(--board);color:#d8d3c9}
+
+/* barbers */
+.crew{background:var(--cream2);padding:clamp(56px,8vw,104px) 0;border-top:3px solid var(--ink)}
+.chairs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,32px);margin-top:clamp(26px,4vw,44px)}
+.chair{background:var(--cream);border:2px solid var(--ink)}
+.chair img{width:100%;aspect-ratio:4/3;object-fit:cover;border-bottom:2px solid var(--ink)}
+.chair .in{padding:18px 20px 22px}
+.chair .no{font:700 16px/1 var(--disp);letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+.chair h3{font-size:52px;margin:8px 0 6px}
+.chair .days{font:700 17px/1.3 var(--disp);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.chair p{font-size:16.5px;color:var(--muted);margin:0}
+
+/* the shop photos */
+.shop{padding:clamp(56px,8vw,104px) 0}
+.shop .grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(120px,15vw,190px);gap:12px;margin-top:clamp(26px,4vw,44px)}
+.shop figure{margin:0;position:relative;overflow:hidden;background:var(--navy)}
+.shop img{width:100%;height:100%;object-fit:cover}
+.shop figcaption{position:absolute;left:0;bottom:0;background:var(--ink);color:var(--cream);font:700 15px/1 var(--disp);letter-spacing:.1em;text-transform:uppercase;padding:8px 10px}
+.g1{grid-column:1/6;grid-row:span 4}
+.g2{grid-column:6/13;grid-row:span 2}
+.g3{grid-column:6/9;grid-row:span 2}
+.g4{grid-column:9/13;grid-row:span 2}
+
+/* reviews */
+.reviews{background:var(--navy);color:var(--cream);padding:clamp(56px,8vw,104px) 0}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,3vw,32px);margin-top:clamp(26px,4vw,44px)}
+.rev{margin:0;border-top:3px solid var(--cream);padding-top:18px}
+.rev blockquote{margin:0 0 14px;font:400 20px/1.5 var(--serif)}
+.rev figcaption{font:700 16px/1.3 var(--disp);letter-spacing:.08em;text-transform:uppercase;color:#c9c2b3}
+.sample{display:inline-block;font:700 14px/1 var(--disp);letter-spacing:.12em;text-transform:uppercase;border:2px solid currentColor;padding:6px 8px;margin-left:12px;vertical-align:middle}
+
+/* book + visit */
+.book{padding:clamp(56px,8vw,104px) 0}
+.book .wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,72px)}
+.book .lede{color:var(--muted);max-width:42ch;margin-top:16px}
+.hours{margin-top:28px;border:3px solid var(--ink);background:#fff8ea;padding:20px 22px;max-width:420px;box-shadow:6px 6px 0 var(--navy)}
+.hours h3{font-size:30px;margin-bottom:10px}
+.hours dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font:700 19px/1.3 var(--disp);letter-spacing:.04em;text-transform:uppercase}
+.hours dd{margin:0;text-align:right}
+.hours .wi{color:var(--red)}
+.where{margin-top:26px;display:grid;gap:10px;font-size:17px}
+.where div{display:flex;gap:10px;align-items:flex-start}
+.where .ic{color:var(--red);margin-top:3px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;align-content:start;background:#fff8ea;border:3px solid var(--ink);padding:clamp(20px,3vw,32px)}
+form h3{grid-column:1/-1;font-size:34px}
+.f{display:grid;gap:6px}
+.f.full{grid-column:1/-1}
+label{font:700 17px/1.2 var(--disp);letter-spacing:.06em;text-transform:uppercase}
+input,select,textarea{font:400 17px/1.4 var(--serif);color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:0;padding:11px 12px;width:100%}
+textarea{min-height:90px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid var(--red);outline-offset:0}
+form .btn{justify-self:start}
+.sent{grid-column:1/-1;margin:0;font:800 24px/1.2 var(--disp);text-transform:uppercase;color:var(--red)}
+
+footer{background:var(--ink);color:#cfc8ba;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px 40px;padding-top:40px;padding-bottom:90px}
+footer .mark{color:var(--cream);font-size:36px;display:block;margin-bottom:8px}
+footer p{margin:0 0 4px}
+footer a{color:var(--cream)}
+.cred{grid-column:1/-1;border-top:1px solid #ffffff22;padding-top:16px;margin-top:10px;font-size:14px}
+
+@media (max-width:1000px){
+  .door{position:relative;right:auto;bottom:auto;margin:0 var(--gut) 40px;display:inline-block}
+  .window .wrap{padding-bottom:36px}
+  .walk .wrap{grid-template-columns:1fr}
+  .intro{grid-template-columns:1fr}
+  .book .wrap{grid-template-columns:1fr}
+  .chairs{grid-template-columns:1fr 1fr 1fr}
+  .chair h3{font-size:42px}
+}
+@media (max-width:760px){
+  .board{grid-template-columns:1fr}
+  .board .blk:nth-child(2) h3:first-child{margin-top:18px}
+  .chairs{grid-template-columns:1fr}
+  .chair{display:grid;grid-template-columns:140px 1fr}
+  .chair img{height:100%;aspect-ratio:auto;border-bottom:0;border-right:2px solid var(--ink)}
+  .chair h3{font-size:40px}
+  .shop .grid{grid-template-columns:1fr 1fr;grid-auto-rows:42vw}
+  .g1,.g2,.g3,.g4{grid-column:auto;grid-row:span 1}
+  .g1{grid-column:1/-1;grid-row:span 2}
+  .g2{grid-column:1/-1}
+  .revs{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+  .window::after{background:linear-gradient(180deg,rgba(15,24,38,.86),rgba(15,24,38,.78))}
+}
+@media (max-width:700px){
+  .js .menu-btn{display:inline-flex}
+  .js .nav{display:none;position:absolute;left:0;right:0;top:66px;background:var(--navy);flex-direction:column;gap:0;padding:4px var(--gut) 12px;z-index:10;border-bottom:3px solid var(--red)}
+  .js .nav.open{display:flex}
+  .js .nav a{padding:15px 0;border-bottom:1px solid #ffffff22;font-size:20px}
+  .top .wrap{gap:10px;flex-wrap:wrap}
+  html:not(.js) .nav{order:3;width:100%;flex-wrap:wrap;gap:12px 18px;padding-bottom:12px}
+  .call span{display:none}
+  .call{padding:11px 12px}
+  form{grid-template-columns:1fr}
+  .mark{font-size:22px}
+}
+@media (max-width:420px){
+  .board li{font-size:17px;letter-spacing:.04em}
+  .chair{grid-template-columns:110px 1fr}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="pole" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" data-slot="name">Willow &amp; Co. Hair</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M4 6l16 0" /> <path d="M4 12l16 0" /> <path d="M4 18l16 0" /> </svg>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#prices">Prices</a>
+      <a href="#chairs">The chairs</a>
+      <a href="#book">Book</a>
+      <a href="#visit">Hours</a>
+    </nav>
+    <a class="call" href="tel:+14055550163" aria-label="Call (405) 555-0163"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /> </svg><span data-slot="phone">(405) 555-0163</span></a>
+  </div>
+</header>
+
+<main id="main">
+<section class="window" id="top">
+  <img src="img/shop.webp" width="2000" height="1200" alt="Two empty barber chairs in front of a long mirror and cabinets, checkerboard floor">
+  <div class="wrap">
+    <p class="town" data-slot="city">Norman, Oklahoma</p>
+    <h1 data-slot="name">Willow &amp; Co. Hair</h1>
+    <p class="line" data-slot="line">Cuts, colour and blowouts in a quiet studio on Gray Street.</p>
+    <div class="acts">
+      <a class="btn" href="#book"><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12" /> <path d="M16 3v4" /> <path d="M8 3v4" /> <path d="M4 11h16" /> <path d="M11 15h1" /> <path d="M12 15v3" /> </svg>Request a time</a>
+      <a class="btn out" href="#prices">See prices</a>
+    </div>
+  </div>
+  <p class="door"><b>Walk-ins welcome</b><span>Every Tuesday, 9 to 7</span></p>
+</section>
+
+<section class="walk" aria-labelledby="walk-h">
+  <div class="wrap">
+    <h2 id="walk-h">Tuesdays: just walk in</h2>
+    <p>Cuts, fades, fringe trims and blowouts, first come, first served. Put your name on the list at the front desk; most waits are under half an hour.</p>
+    <a href="#visit">Find the shop &rarr;</a>
+  </div>
+</section>
+
+<section class="prices" id="prices" aria-labelledby="prices-h">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="prices-h">On the board</h2>
+      <p>The same prices you will see on the wall behind the front desk. Colour is quoted for hair to the shoulder; we always tell you the price before we start.</p>
+    </div>
+    <div class="frame">
+      <div class="board">
+        <div class="blk"><h3>Cuts</h3><ul>
+          <li><span>Men&rsquo;s cut</span><span>$34</span></li>
+          <li><span>Skin fade</span><span>$38</span></li>
+          <li><span>Women&rsquo;s cut &amp; style</span><span>$58</span></li>
+          <li><span>Curly cut</span><span>$68</span></li>
+          <li><span>Kids under 12</span><span>$24</span></li>
+          <li><span>Fringe trim</span><span>$10</span></li>
+        </ul></div>
+        <div class="blk"><h3>Beards &amp; shaves</h3><ul>
+          <li><span>Beard trim &amp; line-up</span><span>$18</span></li>
+          <li><span>Cut &amp; beard</span><span>$48</span></li>
+          <li><span>Hot towel shave</span><span>$36</span></li>
+          <li><span>Head shave</span><span>$30</span></li>
+        </ul>
+        <h3>Blowouts</h3><ul>
+          <li><span>Blowout</span><span>$42</span></li>
+          <li><span>Curls or waves</span><span>$55</span></li>
+        </ul></div>
+        <div class="blk"><h3>Colour</h3><ul>
+          <li><span>Root touch-up</span><span>from $72</span></li>
+          <li><span>All-over colour</span><span>from $88</span></li>
+          <li><span>Highlights</span><span>from $115</span></li>
+          <li><span>Balayage</span><span>from $185</span></li>
+          <li><span>Gloss or toner</span><span>$40</span></li>
+        </ul></div>
+        <div class="blk"><h3>Extras</h3><ul>
+          <li><span>Deep conditioning</span><span>$25</span></li>
+          <li><span>Updo or event hair</span><span>from $80</span></li>
+          <li><span>Grey blending, men</span><span>$30</span></li>
+        </ul></div>
+        <p class="foot">Cash, card and tap. Please call if you need to cancel; 24 hours&rsquo; notice keeps the chair free for someone else.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="crew" id="chairs" aria-labelledby="crew-h">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="crew-h">Three chairs</h2>
+      <p>Ask for someone by name, or sit in whichever chair is free. Everybody here cuts men&rsquo;s and women&rsquo;s hair.</p>
+    </div>
+    <div class="chairs">
+      <article class="chair">
+        <img src="img/colour.webp" width="800" height="840" alt="Colour being brushed onto wet, sectioned hair from a mixing bowl" loading="lazy">
+        <div class="in"><p class="no">Chair one</p><h3>Maren</h3><p class="days">Owner &middot; Tue to Sat</p><p>Colour, balayage and grey coverage. Has run the shop on Gray Street for eight years.</p></div>
+      </article>
+      <article class="chair">
+        <img src="img/clippers.webp" width="1000" height="741" alt="A tattooed barber taking clippers up the back of a client's head" loading="lazy">
+        <div class="in"><p class="no">Chair two</p><h3>Jess</h3><p class="days">Tue to Fri</p><p>Short cuts, curly cuts and blowouts. Usually the one taking Tuesday walk-ins.</p></div>
+      </article>
+      <article class="chair">
+        <img src="img/shave.webp" width="1000" height="913" alt="A barber giving a straight-razor shave to a reclined client" loading="lazy">
+        <div class="in"><p class="no">Chair three</p><h3>Theo</h3><p class="days">Wed to Sat</p><p>Fades, scissor cuts, beards and hot towel shaves. Book ahead on Saturdays.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="shop" aria-labelledby="shop-h">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="shop-h">The shop</h2>
+      <p>One room off Main Street with three chairs, a wash basin and a bench by the window. Coffee is free and the radio stays low.</p>
+    </div>
+    <div class="grid">
+      <figure class="g1"><img src="img/chair.webp" width="900" height="992" alt="A green leather barber chair beside a white porcelain wash basin on a wooden floor" loading="lazy"><figcaption>The old chair</figcaption></figure>
+      <figure class="g2"><img src="img/capes.webp" width="1200" height="800" alt="A stylist cutting a client's hair in front of a mirror, both clients in striped capes" loading="lazy"><figcaption>Saturday morning</figcaption></figure>
+      <figure class="g3"><img src="img/pole.webp" width="800" height="938" alt="A red, white and blue barber pole outside the shop" loading="lazy"><figcaption>Out front</figcaption></figure>
+      <figure class="g4"><img src="img/fade.webp" width="900" height="750" alt="Clippers fading the back and sides of a client's hair" loading="lazy"><figcaption>Skin fade</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <h2 id="rev-h">What the regulars say <span class="sample">Sample reviews</span></h2>
+    <div class="revs">
+      <figure class="rev"><blockquote>&ldquo;Been coming every three weeks for two years. Theo knows my fade better than I do.&rdquo;</blockquote><figcaption>Andre L. &middot; skin fade</figcaption></figure>
+      <figure class="rev"><blockquote>&ldquo;Walked in on a Tuesday with my two boys and all three of us were done before lunch.&rdquo;</blockquote><figcaption>Corey D. &middot; walk-in</figcaption></figure>
+      <figure class="rev"><blockquote>&ldquo;A proper neighbourhood place. My husband gets his beard done while Maren does my colour.&rdquo;</blockquote><figcaption>Linda P. &middot; colour</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book" aria-labelledby="book-h">
+  <div class="wrap">
+    <div id="visit">
+      <h2 id="book-h">Book a chair</h2>
+      <p class="lede">Any day but Tuesday, it is best to book. Send a request and we will call or text you back the same day, or just ring the shop.</p>
+      <div class="hours">
+        <h3>Shop hours</h3>
+        <dl>
+          <dt>Tuesday</dt><dd class="wi">9&ndash;7 &middot; walk-ins</dd>
+          <dt>Wed &ndash; Sat</dt><dd>9 am &ndash; 7 pm</dd>
+          <dt>Sun &amp; Mon</dt><dd>Closed</dd>
+        </dl>
+      </div>
+      <div class="where">
+        <div><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /> <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0" /> </svg><span><span data-slot="addr">118 W Gray St, Norman, OK 73069</span> &middot; <a href="https://www.google.com/maps/search/?api=1&amp;query=118+W+Gray+St+Norman+OK+73069" target="_blank" rel="noopener">Get directions</a></span></div>
+        <div><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /> </svg><a href="tel:+14055550163" data-slot="phone" data-slot-href="tel">(405) 555-0163</a></div>
+        <div><svg class="ic" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" >  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /> <path d="M12 7v5l3 3" /> </svg><span data-slot="hours">Tuesday to Saturday, 9 am to 7 pm</span></div>
+      </div>
+    </div>
+    <form action="" id="bookform">
+      <h3>Request a time</h3>
+      <div class="f"><label for="n">Name</label><input id="n" name="name" autocomplete="name" required></div>
+      <div class="f"><label for="p">Phone</label><input id="p" name="phone" type="tel" autocomplete="tel" required></div>
+      <div class="f"><label for="s">What for</label>
+        <select id="s" name="service"><option>Men&rsquo;s cut</option><option>Skin fade</option><option>Cut &amp; beard</option><option>Hot towel shave</option><option>Women&rsquo;s cut</option><option>Colour</option><option>Blowout</option><option>Kids&rsquo; cut</option><option>Something else</option></select></div>
+      <div class="f"><label for="b">Chair</label>
+        <select id="b" name="barber"><option>Whoever is free</option><option>Maren</option><option>Jess</option><option>Theo</option></select></div>
+      <div class="f full"><label for="w">Day and time</label><input id="w" name="when" placeholder="e.g. Saturday morning, or after 5 on Thursday"></div>
+      <div class="f full"><label for="m">Anything else</label><textarea id="m" name="notes"></textarea></div>
+      <button class="btn" type="submit">Send request</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="pole" aria-hidden="true"></div>
+  <div class="wrap">
+    <div><span class="mark" data-slot="name">Willow &amp; Co. Hair</span><p data-slot="line">Cuts, colour and blowouts in a quiet studio on Gray Street.</p></div>
+    <div><p data-slot="addr">118 W Gray St, Norman, OK 73069</p><p><a href="tel:+14055550163" data-slot="phone" data-slot-href="tel">(405) 555-0163</a></p><p><a href="mailto:hello@willowandcohair.com" data-slot="email" data-slot-href="mailto">hello@willowandcohair.com</a></p></div>
+    <div><p data-slot="hours">Tuesday to Saturday, 9 am to 7 pm</p><p>Walk-ins Tuesdays</p></div>
+    <p class="cred">Sample site made with Station Sites. Willow &amp; Co. Hair is an invented business. Photos: Wikimedia Commons (CC0 / public domain). Icons: Tabler (MIT).</p>
+  </div>
+</footer>
+<script>
+(function(){
+  var b=document.querySelector('.menu-btn'),n=document.getElementById('nav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var f=document.getElementById('bookform');
+  f.addEventListener('submit',function(e){e.preventDefault();if(f.querySelector('.sent'))return;var p=document.createElement('p');p.className='sent';p.setAttribute('role','status');p.textContent='Sent — we’ll reply soon.';f.appendChild(p);f.querySelector('button').disabled=true;});
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>

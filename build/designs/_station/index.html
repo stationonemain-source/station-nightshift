@@ -1,0 +1,104 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Station products as sections</title><meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text&family=Libre+Franklin:wght@400;500;600&display=swap">
+<style>
+/* How Station products appear on a customer's site (sample bakery, Classic look). Used for the builder's catalog cards. */
+:root{--bg:#F3EEE6;--ink:#2A211B;--mut:#6B5D52;--acc:#5B2A2A;--card:#FBF7F1;--rule:#E3D9CC;--hd:"Libre Caslon Text",Georgia,serif;--tx:"Libre Franklin",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--tx)}
+section{position:relative;padding:56px 64px;min-height:640px;border-bottom:1px solid var(--rule)}
+h2{font:400 40px/1.1 var(--hd);letter-spacing:-.01em}
+.sub{color:var(--mut);margin-top:8px;max-width:52ch}
+.tag{position:absolute;top:20px;right:24px;padding:4px 10px;border-radius:999px;background:#16181D;color:#fff;font:600 12px var(--tx)}
+svg{width:18px;height:18px;vertical-align:-3px}
+/* Slate */
+.cal{display:grid;grid-template-columns:260px 1fr;gap:32px;margin-top:32px}
+.svc{display:grid;gap:10px}
+.svc div{padding:14px 16px;border-radius:10px;background:var(--card);box-shadow:inset 0 0 0 1px var(--rule)}
+.svc div.on{box-shadow:inset 0 0 0 2px var(--acc)}
+.svc b{display:block}.svc small{color:var(--mut)}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.day b{display:block;font-weight:600;margin-bottom:8px}.day small{color:var(--mut);font-weight:400}
+.slot{display:block;padding:10px;margin-bottom:8px;border-radius:8px;background:var(--card);box-shadow:inset 0 0 0 1px var(--rule);text-align:center;font-size:14px}
+.slot.on{background:var(--acc);color:#fff;box-shadow:none}
+.slot.off{opacity:.4;text-decoration:line-through}
+.confirm{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:14px 16px;border-radius:10px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:4px;background:var(--acc);color:#fff;font-weight:600}
+/* Greet */
+.greet{min-height:640px;background:linear-gradient(90deg,rgba(20,14,10,.55),rgba(20,14,10,.15)),url(/build/media/bake-hero.webp) center/cover;color:#FBF6EE}
+.greet h2{color:#FBF6EE;font-size:52px;max-width:9ch}
+.chat{position:absolute;right:48px;bottom:40px;width:360px;border-radius:16px;background:#fff;color:var(--ink);box-shadow:0 30px 60px -20px rgba(0,0,0,.6);overflow:hidden}
+.chat .h{display:flex;align-items:center;gap:10px;padding:14px 16px;background:var(--acc);color:#fff;font-weight:600}
+.chat .h i{width:10px;height:10px;border-radius:50%;background:#7ED9A7}
+.chat .b{padding:14px;display:grid;gap:10px;font-size:14px}
+.m{padding:10px 12px;border-radius:12px;max-width:85%}
+.m.v{justify-self:end;background:#EFE7DC;border-bottom-right-radius:3px}
+.m.a{background:#F6F1EA;border-bottom-left-radius:3px}
+.chat .in{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--rule);color:var(--mut);font-size:14px}
+/* Repute */
+.rate{display:flex;align-items:center;gap:16px;margin-top:20px}
+.rate b{font:400 56px/1 var(--hd)}
+.stars{color:var(--ink);letter-spacing:2px;font-size:20px}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+.rev{padding:20px;border-radius:10px;background:var(--card);box-shadow:inset 0 0 0 1px var(--rule)}
+.rev .who{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rev .av{width:34px;height:34px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;font-weight:600;font-size:14px}
+.rev small{display:block;color:var(--mut);font-size:12.5px}
+.rev p{font-size:15px}
+.g{margin-top:22px;color:var(--mut);font-size:13px}
+/* Tap */
+.order{display:grid;grid-template-columns:1fr 340px;gap:32px;margin-top:28px}
+.items{display:grid;gap:10px}
+.it{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;padding:10px;border-radius:10px;background:var(--card);box-shadow:inset 0 0 0 1px var(--rule)}
+.it img{width:72px;height:56px;object-fit:cover;border-radius:6px}
+.qty{display:flex;align-items:center;gap:10px;font-weight:600}
+.qty span{width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--rule);display:grid;place-items:center;font-weight:500}
+.cart{padding:20px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);align-self:start}
+.cart div{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--rule);font-size:15px}
+.cart .t{font-weight:600;border-bottom:0}
+.cart .btn{width:100%;justify-content:center;margin-top:12px}
+</style></head><body>
+
+<section id="slate"><span class="tag">Station Slate</span>
+ <h2>Book a time</h2><p class="sub">Pick a pick-up time for a cake or a pastry box. You get a text and an email reminder the day before.</p>
+ <div class="cal">
+  <div class="svc"><div class="on"><b>Custom cake pick-up</b><small>15 min</small></div><div><b>Pastry box for the office</b><small>10 min</small></div><div><b>Tasting appointment</b><small>30 min</small></div></div>
+  <div><div class="days">
+   <div class="day"><b>Tue <small>Nov 3</small></b><span class="slot">8:00</span><span class="slot off">9:00</span><span class="slot">10:00</span><span class="slot">11:00</span></div>
+   <div class="day"><b>Wed <small>Nov 4</small></b><span class="slot">8:00</span><span class="slot on">9:00</span><span class="slot">10:00</span><span class="slot off">11:00</span></div>
+   <div class="day"><b>Thu <small>Nov 5</small></b><span class="slot off">8:00</span><span class="slot">9:00</span><span class="slot">10:00</span><span class="slot">11:00</span></div>
+   <div class="day"><b>Fri <small>Nov 6</small></b><span class="slot">8:00</span><span class="slot">9:00</span><span class="slot off">10:00</span><span class="slot">11:00</span></div>
+   <div class="day"><b>Sat <small>Nov 7</small></b><span class="slot">8:00</span><span class="slot">9:00</span><span class="slot">10:00</span><span class="slot off">11:00</span></div>
+  </div><div class="confirm"><span>Custom cake pick-up · <b>Wed Nov 4, 9:00</b></span><span class="btn">Confirm booking</span></div></div>
+ </div>
+</section>
+
+<section id="greet" class="greet"><span class="tag">Station Greet</span>
+ <h2>Bread worth getting up for.</h2>
+ <div class="chat"><div class="h"><i></i>Hearth Street Bakery · usually replies instantly</div>
+  <div class="b"><div class="m a">Hi! Ask us anything about our bread, cakes or opening hours.</div>
+   <div class="m v">Do you have gluten-free bread on Saturdays?</div>
+   <div class="m a">We bake a gluten-free seeded loaf on Fridays and Saturdays. It usually sells out by 10, so we can hold one for you. What name should we put it under?</div></div>
+  <div class="in">Type a message…</div></div>
+</section>
+
+<section id="repute"><span class="tag">Station Repute</span>
+ <h2>What people say on Google</h2>
+ <div class="rate"><b>4.9</b><div><div class="stars">★★★★★</div><small style="color:var(--mut)">Sample rating, updated from your Google profile</small></div></div>
+ <div class="revs">
+  <div class="rev"><div class="who"><span class="av">M</span><div><b>Maria R.</b><small>2 days ago</small></div></div><div class="stars" style="font-size:14px">★★★★★</div><p>The country loaf is the best in town. Get there before nine.</p></div>
+  <div class="rev"><div class="who"><span class="av">D</span><div><b>Dev P.</b><small>1 week ago</small></div></div><div class="stars" style="font-size:14px">★★★★★</div><p>Ordered a birthday cake two days out and they fit us in. It was perfect.</p></div>
+  <div class="rev"><div class="who"><span class="av">S</span><div><b>Sam K.</b><small>3 weeks ago</small></div></div><div class="stars" style="font-size:14px">★★★★★</div><p>Cardamom knots on a Saturday morning. That's the whole review.</p></div>
+ </div><p class="g">Sample reviews for this example. Repute asks every customer for a review and shows your newest ones here.</p>
+</section>
+
+<section id="tap"><span class="tag">Station Tap</span>
+ <h2>Order ahead, pay online</h2><p class="sub">Order before 8 pm for pick-up the next morning.</p>
+ <div class="order"><div class="items">
+  <div class="it"><img src="/build/media/bake-hero.webp" alt=""><div><b>Country sourdough</b><br><small style="color:var(--mut)">$9.00</small></div><div class="qty"><span>−</span>1<span>+</span></div></div>
+  <div class="it"><img src="/build/media/bake-0.webp" alt=""><div><b>Morning buns, box of 4</b><br><small style="color:var(--mut)">$14.00</small></div><div class="qty"><span>−</span>1<span>+</span></div></div>
+  <div class="it"><img src="/build/media/bake-1.webp" alt=""><div><b>Cardamom knots</b><br><small style="color:var(--mut)">$4.50 each</small></div><div class="qty"><span>−</span>0<span>+</span></div></div>
+ </div><div class="cart"><b style="display:block;margin-bottom:6px">Your order</b><div><span>Country sourdough</span><span>$9.00</span></div><div><span>Morning buns, box of 4</span><span>$14.00</span></div><div class="t"><span>Total</span><span>$23.00</span></div><span class="btn">Pay $23.00</span></div></div>
+</section>
+</body></html>

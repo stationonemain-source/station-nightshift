@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ana &amp; Jordan</title>
+<meta name="description" content="Ana and Jordan, married 14 June 2027 at Riverside Estate, Norman, Oklahoma. Our story, the day, travel and RSVP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#13120f;
+  --night-2:#1c1a16;
+  --ivory:#efe9dd;
+  --mute:#bdb5a6;
+  --line:#3a3630;
+  --sage:#b6c4ad;
+  --ink:#1b1a17;
+  --display:"Gloock", Georgia, serif;
+  --sans:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --pad:clamp(16px,5vw,72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--ivory);font:300 18px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--sage);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ivory);color:var(--ink);padding:8px 14px;z-index:30}
+.skip:focus{left:12px;top:12px}
+.cap{font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--sage)}
+
+/* bar */
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px var(--pad);transition:background .3s}
+.bar.solid{background:rgba(19,18,15,.92);backdrop-filter:blur(6px)}
+.bar .mono{font-family:var(--display);font-size:22px;text-decoration:none}
+.bar ul{list-style:none;margin:0;padding:0;display:flex;gap:30px;align-items:center}
+.bar ul a{font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none}
+.bar ul a.r{border:1px solid var(--ivory);padding:9px 16px}
+.bar ul a.r:hover{background:var(--ivory);color:var(--ink)}
+.menu{display:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar{transition:none}}
+
+/* opening frame */
+.open{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden}
+.open img{width:100%;height:100%;object-fit:cover;object-position:68% 50%}
+.open::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,.5) 0%,rgba(10,10,8,0) 22%,rgba(10,10,8,0) 45%,rgba(10,10,8,.82) 100%)}
+.open .t{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(36px,7vh,80px);z-index:2}
+.open h1{font-family:var(--display);font-weight:400;font-size:clamp(64px,9.6vw,136px);line-height:.9;margin:0;letter-spacing:-.02em}
+.open .meta{display:flex;flex-wrap:wrap;gap:6px 28px;margin-top:22px;font-size:15px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+
+/* story */
+.story{padding:clamp(80px,12vw,160px) 0 0}
+.intro{padding:0 var(--pad);max-width:900px}
+.intro p{font-family:var(--display);font-size:clamp(28px,3.4vw,44px);line-height:1.22;margin:18px 0 0}
+.chap{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding:clamp(70px,10vw,140px) var(--pad) 0;align-items:end}
+.chap figure{margin:0}
+.chap img{width:100%;object-fit:cover}
+.chap .txt{padding-bottom:6px}
+.chap h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,3vw,38px);line-height:1.1;margin:8px 0 14px}
+.chap p{margin:0;color:#dcd5c8;max-width:40ch}
+.c1 figure{grid-column:1 / span 7}.c1 img{aspect-ratio:4/3}.c1 .txt{grid-column:9 / span 4}
+.c2 figure{grid-column:6 / span 7;grid-row:1}.c2 img{aspect-ratio:4/5;object-position:50% 70%}.c2 .txt{grid-column:1 / span 4;grid-row:1}
+.c3 figure{grid-column:2 / span 10}.c3 img{aspect-ratio:16/8}.c3 .txt{grid-column:2 / span 6}
+
+/* full-bleed band with the day */
+.day{position:relative;margin-top:clamp(90px,13vw,170px);min-height:100vh;display:grid;align-items:center;isolation:isolate}
+.day>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.day::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(14,13,11,.9) 0%,rgba(14,13,11,.78) 46%,rgba(14,13,11,.25) 100%)}
+.day .in{padding:clamp(70px,10vw,120px) var(--pad);max-width:720px}
+.day h2,.sec h2{font-family:var(--display);font-weight:400;font-size:clamp(44px,6vw,80px);line-height:1;margin:12px 0 30px;letter-spacing:-.01em}
+.sched{list-style:none;margin:0;padding:0}
+.sched li{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:18px 0;border-top:1px solid rgba(239,233,221,.28)}
+.sched li:last-child{border-bottom:1px solid rgba(239,233,221,.28)}
+.sched time{font-family:var(--display);font-size:30px;line-height:1.1}
+.sched b{display:block;font-weight:500;font-size:19px}
+.sched span{color:#d6cfc2;font-size:16.5px}
+
+/* travel */
+.sec{padding:clamp(90px,12vw,150px) var(--pad)}
+.travel{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,90px);align-items:start}
+.travel figure{margin:0;position:sticky;top:90px}
+.travel figure img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.tlist{display:grid;gap:34px;margin-top:10px}
+.tlist h3{font-family:var(--display);font-weight:400;font-size:26px;margin:4px 0 8px;line-height:1.2}
+.tlist p{margin:0;color:#dcd5c8}
+.tlist a{color:var(--ivory)}
+
+/* rsvp (ivory) */
+.rsvp{background:var(--ivory);color:var(--ink)}
+.rsvp .cap{color:#4f5d47}
+.rsvp .grid{display:grid;grid-template-columns:4fr 7fr;gap:clamp(32px,6vw,90px)}
+.rsvp .lead{font-size:19px;margin:0 0 20px;max-width:34ch;color:#3d3a33}
+.rsvp .side img{margin-top:30px;aspect-ratio:1/1;object-fit:cover;width:100%;max-width:340px}
+form{display:grid;gap:28px}
+.f label,.f legend{display:block;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;color:#3d3a33;padding:0}
+.f input[type=text],.f select{width:100%;font:400 19px var(--sans);color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--ink);padding:10px 0;border-radius:0}
+.f select{appearance:none;cursor:pointer;background:linear-gradient(45deg,transparent 50%,var(--ink) 50%) calc(100% - 12px) 55%/6px 6px no-repeat,linear-gradient(135deg,var(--ink) 50%,transparent 50%) calc(100% - 6px) 55%/6px 6px no-repeat}
+fieldset{border:0;margin:0;padding:0}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink)}
+.yn label{display:flex;align-items:center;gap:12px;padding:16px 18px;font-size:17px;font-weight:400;letter-spacing:0;text-transform:none;margin:0;cursor:pointer;color:var(--ink)}
+.yn label+label{border-left:1px solid var(--ink)}
+.yn input{accent-color:var(--ink);width:18px;height:18px;margin:0}
+.yn label:has(input:checked){background:var(--ink);color:var(--ivory)}
+.row2{display:grid;grid-template-columns:1fr 2fr;gap:28px}
+.send{justify-self:start;font:500 14px var(--sans);letter-spacing:.2em;text-transform:uppercase;background:var(--ink);color:var(--ivory);border:0;padding:18px 34px;cursor:pointer}
+.send:hover{background:#3a372f}
+.sent{margin:0;font-size:18px;min-height:1.6em}
+
+/* faq */
+.faq{max-width:960px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:22px 0;font-family:var(--display);font-size:clamp(22px,2.4vw,28px);line-height:1.25}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--sans);font-weight:300;font-size:28px;line-height:1;color:var(--sage)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin:0 0 24px;max-width:60ch;color:#dcd5c8}
+.faq .reg{margin-top:44px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline}
+.faq .reg p{margin:0;color:#dcd5c8}
+.faq .reg a{font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ivory);padding:12px 20px}
+.faq .reg a:hover{background:var(--ivory);color:var(--ink)}
+
+/* closing frame + footer */
+.close{position:relative;height:78vh;min-height:460px;overflow:hidden}
+.close img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.close::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,0) 40%,rgba(10,10,8,.75) 100%)}
+.close p{position:absolute;left:var(--pad);right:var(--pad);bottom:40px;z-index:2;margin:0;font-family:var(--display);font-size:clamp(30px,4.4vw,58px);line-height:1.1}
+footer{padding:40px var(--pad) 48px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 40px;font-size:14px;color:var(--mute)}
+footer p{margin:0}
+
+@media (max-width:900px){
+  .chap{grid-template-columns:1fr;gap:22px}
+  .chap figure,.chap .txt{grid-column:1!important;grid-row:auto!important}
+  .c2 img{aspect-ratio:4/3}
+  .c3 img{aspect-ratio:4/3}
+  .travel,.rsvp .grid{grid-template-columns:1fr}
+  .travel figure{position:static}
+  .travel figure img{aspect-ratio:16/10}
+  .rsvp .side img{display:none}
+  .day::before{background:rgba(14,13,11,.8)}
+}
+@media (max-width:640px){
+  body{font-size:17px}
+  .js .bar ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(19,18,15,.97);padding:6px var(--pad) 20px}
+  .js .bar ul.on{display:flex}
+  .js .bar ul a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+  .js .bar ul a.r{border:1px solid var(--ivory);text-align:center;margin-top:14px}
+  .js .menu{display:block;background:none;border:1px solid var(--ivory);color:var(--ivory);font:500 12.5px var(--sans);letter-spacing:.18em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
+  html:not(.js) .bar{flex-wrap:wrap;gap:8px}
+  html:not(.js) .bar ul{flex-wrap:wrap;gap:8px 16px}
+  .js .bar.solid,.js .bar:has(ul.on){background:rgba(19,18,15,.97)}
+  .open img{object-position:72% 50%}
+  .sched li{grid-template-columns:84px 1fr;gap:14px}
+  .sched time{font-size:24px}
+  .row2,.yn{grid-template-columns:1fr}
+  .yn label+label{border-left:0;border-top:1px solid var(--ink)}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#story">Skip to our story</a>
+<header class="bar">
+  <a class="mono" href="#top">A &amp; J</a>
+  <button class="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  <ul id="nav">
+    <li><a href="#story">Our story</a></li>
+    <li><a href="#day">The day</a></li>
+    <li><a href="#travel">Travel</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a class="r" href="#rsvp">RSVP</a></li>
+  </ul>
+</header>
+
+<main id="top">
+  <section class="open" aria-labelledby="h1">
+    <img src="img/woods.webp" alt="A bride and groom walking away together down a green path through trees" fetchpriority="high">
+    <div class="t">
+      <h1 id="h1" data-slot="name">Ana &amp; Jordan</h1>
+      <p class="meta"><span data-slot="date">14 June 2027</span><span data-slot="venue">Riverside Estate</span><span data-slot="city">Norman, Oklahoma</span></p>
+    </div>
+  </section>
+
+  <section class="story" id="story" aria-labelledby="h-story">
+    <div class="intro">
+      <h2 class="cap" id="h-story">Our story</h2>
+      <p>It started with a bag of the wrong tomatoes and a Saturday market that neither of us has missed since.</p>
+    </div>
+
+    <article class="chap c1">
+      <figure><img src="img/footbridge.webp" alt="A couple sitting side by side on a wooden footbridge among tall grass" loading="lazy"></figure>
+      <div class="txt"><span class="cap">2021 · The market</span><h3>How we met</h3><p>Jordan had just started volunteering on the produce stall. Ana was the regular who turned up before it opened. He sold her the wrong tomatoes, and she came back the next Saturday to tell him so. She kept coming back.</p></div>
+    </article>
+
+    <article class="chap c2">
+      <figure><img src="img/grass.webp" alt="A couple standing close on a lawn, seen from the waist down, her foot lifted" loading="lazy"></figure>
+      <div class="txt"><span class="cap">2026 · The corner</span><h3>The question</h3><p>Five summers of Saturdays later, Jordan asked on the same corner of the market, with the right tomatoes this time. Ana said yes before he’d finished the sentence.</p></div>
+    </article>
+
+    <article class="chap c3">
+      <figure><img src="img/hands.webp" alt="Two hands resting on a bouquet of peach roses, both wearing wedding rings" loading="lazy"></figure>
+      <div class="txt"><span class="cap">2027 · By the river</span><h3>Next June</h3><p>We’re getting married at <span data-slot="venue">Riverside Estate</span>, and we would love you to be there.</p></div>
+    </article>
+  </section>
+
+  <section class="day" id="day" aria-labelledby="h-day">
+    <img src="img/dinner.webp" alt="" loading="lazy">
+    <div class="in">
+      <span class="cap"><span data-slot="date">14 June 2027</span></span>
+      <h2 id="h-day">The day</h2>
+      <ol class="sched">
+        <li><time>3 pm</time><div><b>Ceremony</b><span>On the lawn by the river. Please be seated by 2:45.</span></div></li>
+        <li><time>4:30</time><div><b>Drinks</b><span>On the terrace while we take photographs.</span></div></li>
+        <li><time>6 pm</time><div><b>Dinner</b><span>Long tables in the barn, speeches between courses.</span></div></li>
+        <li><time>Late</time><div><b>Dancing</b><span>Until the band stops. Taxis to the door from 11.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="travel" aria-labelledby="h-travel">
+    <div class="travel">
+      <figure><img src="img/lights.webp" alt="Strings of small lights glowing along a fence at dusk" loading="lazy"></figure>
+      <div>
+        <span class="cap">Travel &amp; stay</span>
+        <h2 id="h-travel">Getting here</h2>
+        <div class="tlist">
+          <div><span class="cap">Flying</span><h3>Will Rogers World Airport, Oklahoma City</h3><p>The closest airport, about 30 minutes north of the estate on I-35. Rental cars and rideshares at arrivals.</p></div>
+          <div><span class="cap">Staying</span><h3>Near Campus Corner, or off <span style="white-space:nowrap">I-35</span></h3><p>Hotels around Campus Corner are walkable to restaurants and ten minutes from the estate. There’s a cluster of chain hotels off I-35 in north Norman too. We haven’t held a room block, so book early.</p></div>
+          <div><span class="cap">Parking</span><h3>Free, by the gate</h3><p>Park on the field at <span data-slot="venue">Riverside Estate</span>. Cars can stay overnight and be collected by noon the next day. <a href="https://www.google.com/maps/search/?api=1&amp;query=Norman%2C%20Oklahoma">Get directions</a></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rsvp" id="rsvp" aria-labelledby="h-rsvp">
+    <div class="grid">
+      <div class="side">
+        <span class="cap">Kindly reply by 1 May 2027</span>
+        <h2 id="h-rsvp">RSVP</h2>
+        <p class="lead">One reply per household, please. Tell us what you can’t eat and what will get you dancing.</p>
+        <img src="img/rings.webp" alt="Two gold wedding bands resting in a bride’s open palms" loading="lazy">
+      </div>
+      <form id="f" action="" novalidate>
+        <div class="f"><label for="n">Name(s)</label><input id="n" name="name" type="text" autocomplete="name" required></div>
+        <fieldset class="f"><legend>Will you be there?</legend>
+          <div class="yn"><label><input type="radio" name="attending" value="yes" required> Joyfully, yes</label><label><input type="radio" name="attending" value="no"> Sadly, no</label></div>
+        </fieldset>
+        <div class="row2">
+          <div class="f"><label for="g">Guests</label><select id="g" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>
+          <div class="f"><label for="d">Dietary needs</label><input id="d" name="dietary" type="text"></div>
+        </div>
+        <div class="f"><label for="s">Song request</label><input id="s" name="song" type="text"></div>
+        <button class="send" type="submit">Send RSVP</button>
+        <p class="sent" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" aria-labelledby="h-faq">
+    <div class="faq">
+      <span class="cap">Questions</span>
+      <h2 id="h-faq">Good to know</h2>
+      <details open><summary>What should I wear?</summary><p>Garden formal. The ceremony is on the lawn, so flats or block heels will keep you from sinking, and June evenings are warm.</p></details>
+      <details><summary>Can I bring my kids?</summary><p>We’re keeping it to adults, apart from the children in our wedding party. Your invitation names everyone we’ve saved a seat for.</p></details>
+      <details><summary>Where do I park?</summary><p>Free on the field by the estate gate. Leave the car overnight if you need to and collect it by noon the next day.</p></details>
+      <details><summary>What if it rains?</summary><p>The ceremony moves into the barn and we’ll let everyone know by noon.</p></details>
+      <div class="reg"><p><span class="cap">Registry</span>&nbsp;&nbsp;Having you there is the gift. If you’d like to give more:</p><a href="#">Our registry</a></div>
+    </div>
+  </section>
+
+  <section class="close" aria-label="Closing photograph">
+    <img src="img/bridge.webp" alt="A couple walking hand in hand up a wooden footbridge" loading="lazy">
+    <p>See you on <span data-slot="date">14 June 2027</span>.</p>
+  </section>
+</main>
+
+<footer>
+  <p><span data-slot="name">Ana &amp; Jordan</span> · <a href="mailto:hello@anaandjordan.example" data-slot="email" data-slot-href="mailto">hello@anaandjordan.example</a></p>
+  <p>Ana &amp; Jordan are a sample couple. Sample site made with Station Sites. Photos: Wikimedia Commons (CC0 / public domain)</p>
+</footer>
+
+<script>
+(function(){
+  var bar=document.querySelector('.bar'), b=bar.querySelector('.menu'), n=document.getElementById('nav');
+  function s(){bar.classList.toggle('solid',scrollY>innerHeight*.6)} s(); addEventListener('scroll',s,{passive:true});
+  b.addEventListener('click',function(){var o=n.classList.toggle('on');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('on');b.setAttribute('aria-expanded','false');b.textContent='Menu';}});
+  document.getElementById('f').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=e.target, ok=f.n.value.trim() && f.querySelector('[name=attending]:checked');
+    f.querySelector('.sent').textContent = ok ? 'Sent — we’ll reply soon' : 'Please add your name and let us know if you can come.';
+  });
+})();
+</script>
+<script src="/build/designs/_shared/fill.js"></script>
+</body>
+</html>
