@@ -5,7 +5,7 @@
   "title": "Opening",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-0.webp",
+  "img": "/build/designs/sections/bakery-a-0.webp",
   "h": 910
  },
  {
@@ -14,7 +14,7 @@
   "title": "Menu and prices",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-1.webp",
+  "img": "/build/designs/sections/bakery-a-1.webp",
   "h": 767
  },
  {
@@ -23,7 +23,7 @@
   "title": "Photos",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-2.webp",
+  "img": "/build/designs/sections/bakery-a-2.webp",
   "h": 831
  },
  {
@@ -32,7 +32,7 @@
   "title": "Story: \u201cHow we bake\u201d",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-3.webp",
+  "img": "/build/designs/sections/bakery-a-3.webp",
   "h": 1216
  },
  {
@@ -41,7 +41,7 @@
   "title": "Catering and cake orders",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-4.webp",
+  "img": "/build/designs/sections/bakery-a-4.webp",
   "h": 789
  },
  {
@@ -50,7 +50,7 @@
   "title": "Reviews",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-5.webp",
+  "img": "/build/designs/sections/bakery-a-5.webp",
   "h": 271
  },
  {
@@ -59,7 +59,7 @@
   "title": "Hours and address",
   "design": "Morning Board",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-a-6.webp",
+  "img": "/build/designs/sections/bakery-a-6.webp",
   "h": 605
  },
  {
@@ -68,7 +68,7 @@
   "title": "Masthead",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-0.webp",
+  "img": "/build/designs/sections/bakery-b-0.webp",
   "h": 169
  },
  {
@@ -77,7 +77,7 @@
   "title": "Opening",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-1.webp",
+  "img": "/build/designs/sections/bakery-b-1.webp",
   "h": 667
  },
  {
@@ -86,7 +86,7 @@
   "title": "Story: \u201cFrom the baker\u201d",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-2.webp",
+  "img": "/build/designs/sections/bakery-b-2.webp",
   "h": 950
  },
  {
@@ -95,7 +95,7 @@
   "title": "Story: \u201cA day and a half, most of it waiting.\u201d",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-3.webp",
+  "img": "/build/designs/sections/bakery-b-3.webp",
   "h": 994
  },
  {
@@ -104,7 +104,7 @@
   "title": "Seasonal specials",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-4.webp",
+  "img": "/build/designs/sections/bakery-b-4.webp",
   "h": 657
  },
  {
@@ -113,7 +113,7 @@
   "title": "Menu and prices",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-5.webp",
+  "img": "/build/designs/sections/bakery-b-5.webp",
   "h": 920
  },
  {
@@ -122,7 +122,7 @@
   "title": "Catering and cake orders",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-6.webp",
+  "img": "/build/designs/sections/bakery-b-6.webp",
   "h": 741
  },
  {
@@ -131,7 +131,7 @@
   "title": "Reviews",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-7.webp",
+  "img": "/build/designs/sections/bakery-b-7.webp",
   "h": 332
  },
  {
@@ -140,7 +140,7 @@
   "title": "Hours and address",
   "design": "Editorial Loaf",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-b-8.webp",
+  "img": "/build/designs/sections/bakery-b-8.webp",
   "h": 502
  },
  {
@@ -149,7 +149,7 @@
   "title": "Opening",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-0.webp",
+  "img": "/build/designs/sections/bakery-c-0.webp",
   "h": 702
  },
  {
@@ -158,7 +158,7 @@
   "title": "Short introduction",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-1.webp",
+  "img": "/build/designs/sections/bakery-c-1.webp",
   "h": 249
  },
  {
@@ -167,7 +167,7 @@
   "title": "Menu and prices",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-2.webp",
+  "img": "/build/designs/sections/bakery-c-2.webp",
   "h": 774
  },
  {
@@ -176,7 +176,7 @@
   "title": "Photos: \u201cBehind the counter\u201d",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-3.webp",
+  "img": "/build/designs/sections/bakery-c-3.webp",
   "h": 814
  },
  {
@@ -185,7 +185,7 @@
   "title": "Catering and cake orders",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-4.webp",
+  "img": "/build/designs/sections/bakery-c-4.webp",
   "h": 839
  },
  {
@@ -194,7 +194,7 @@
   "title": "Reviews",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-5.webp",
+  "img": "/build/designs/sections/bakery-c-5.webp",
   "h": 422
  },
  {
@@ -203,7 +203,7 @@
   "title": "Hours and address",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-6.webp",
+  "img": "/build/designs/sections/bakery-c-6.webp",
   "h": 734
  },
  {
@@ -212,7 +212,7 @@
   "title": "Footer",
   "design": "Corner Shop",
   "trade": "bakery",
-  "img": "/build/designs/_sections/bakery-c-7.webp",
+  "img": "/build/designs/sections/bakery-c-7.webp",
   "h": 162
  },
  {
@@ -221,7 +221,7 @@
   "title": "Opening",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-0.webp",
+  "img": "/build/designs/sections/salon-a-0.webp",
   "h": 930
  },
  {
@@ -230,7 +230,7 @@
   "title": "Menu and prices",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-1.webp",
+  "img": "/build/designs/sections/salon-a-1.webp",
   "h": 1549
  },
  {
@@ -239,7 +239,7 @@
   "title": "The team",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-2.webp",
+  "img": "/build/designs/sections/salon-a-2.webp",
   "h": 996
  },
  {
@@ -248,7 +248,7 @@
   "title": "Photos: \u201cA small studio\u201d",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-3.webp",
+  "img": "/build/designs/sections/salon-a-3.webp",
   "h": 731
  },
  {
@@ -257,7 +257,7 @@
   "title": "Reviews",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-4.webp",
+  "img": "/build/designs/sections/salon-a-4.webp",
   "h": 478
  },
  {
@@ -266,7 +266,7 @@
   "title": "Booking request",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-5.webp",
+  "img": "/build/designs/sections/salon-a-5.webp",
   "h": 800
  },
  {
@@ -275,7 +275,7 @@
   "title": "Footer",
   "design": "Price list",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-a-6.webp",
+  "img": "/build/designs/sections/salon-a-6.webp",
   "h": 283
  },
  {
@@ -284,7 +284,7 @@
   "title": "Opening",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-0.webp",
+  "img": "/build/designs/sections/salon-b-0.webp",
   "h": 948
  },
  {
@@ -293,7 +293,7 @@
   "title": "Photos: \u201cThe work\u201d",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-1.webp",
+  "img": "/build/designs/sections/salon-b-1.webp",
   "h": 3126
  },
  {
@@ -302,7 +302,7 @@
   "title": "The team",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-2.webp",
+  "img": "/build/designs/sections/salon-b-2.webp",
   "h": 901
  },
  {
@@ -311,7 +311,7 @@
   "title": "Menu and prices",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-3.webp",
+  "img": "/build/designs/sections/salon-b-3.webp",
   "h": 753
  },
  {
@@ -320,7 +320,7 @@
   "title": "Photos: \u201cThe studio\u201d",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-4.webp",
+  "img": "/build/designs/sections/salon-b-4.webp",
   "h": 760
  },
  {
@@ -329,7 +329,7 @@
   "title": "Reviews",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-5.webp",
+  "img": "/build/designs/sections/salon-b-5.webp",
   "h": 569
  },
  {
@@ -338,7 +338,7 @@
   "title": "Booking request",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-6.webp",
+  "img": "/build/designs/sections/salon-b-6.webp",
   "h": 726
  },
  {
@@ -347,7 +347,7 @@
   "title": "Footer",
   "design": "Lookbook",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-b-7.webp",
+  "img": "/build/designs/sections/salon-b-7.webp",
   "h": 290
  },
  {
@@ -356,7 +356,7 @@
   "title": "Opening",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-0.webp",
+  "img": "/build/designs/sections/salon-c-0.webp",
   "h": 712
  },
  {
@@ -365,7 +365,7 @@
   "title": "Menu and prices",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-1.webp",
+  "img": "/build/designs/sections/salon-c-1.webp",
   "h": 1117
  },
  {
@@ -374,7 +374,7 @@
   "title": "The team",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-2.webp",
+  "img": "/build/designs/sections/salon-c-2.webp",
   "h": 832
  },
  {
@@ -383,7 +383,7 @@
   "title": "Photos: \u201cThe shop\u201d",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-3.webp",
+  "img": "/build/designs/sections/salon-c-3.webp",
   "h": 1131
  },
  {
@@ -392,7 +392,7 @@
   "title": "Reviews",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-4.webp",
+  "img": "/build/designs/sections/salon-c-4.webp",
   "h": 468
  },
  {
@@ -401,7 +401,7 @@
   "title": "Booking request",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-5.webp",
+  "img": "/build/designs/sections/salon-c-5.webp",
   "h": 790
  },
  {
@@ -410,7 +410,7 @@
   "title": "Footer",
   "design": "Shop window",
   "trade": "salon",
-  "img": "/build/designs/_sections/salon-c-6.webp",
+  "img": "/build/designs/sections/salon-c-6.webp",
   "h": 293
  },
  {
@@ -419,7 +419,7 @@
   "title": "Opening",
   "design": "Invitation suite",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-a-0.webp",
+  "img": "/build/designs/sections/wedding-a-0.webp",
   "h": 900
  },
  {
@@ -428,7 +428,7 @@
   "title": "The day, as cards",
   "design": "Invitation suite",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-a-1.webp",
+  "img": "/build/designs/sections/wedding-a-1.webp",
   "h": 3798
  },
  {
@@ -437,7 +437,7 @@
   "title": "Footer",
   "design": "Invitation suite",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-a-2.webp",
+  "img": "/build/designs/sections/wedding-a-2.webp",
   "h": 284
  },
  {
@@ -446,7 +446,7 @@
   "title": "Opening",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-0.webp",
+  "img": "/build/designs/sections/wedding-b-0.webp",
   "h": 780
  },
  {
@@ -455,7 +455,7 @@
   "title": "Story: \u201cThe day, hour by hour\u201d",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-1.webp",
+  "img": "/build/designs/sections/wedding-b-1.webp",
   "h": 2073
  },
  {
@@ -464,7 +464,7 @@
   "title": "Travel and stay",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-2.webp",
+  "img": "/build/designs/sections/wedding-b-2.webp",
   "h": 679
  },
  {
@@ -473,7 +473,7 @@
   "title": "Travel and stay",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-3.webp",
+  "img": "/build/designs/sections/wedding-b-3.webp",
   "h": 939
  },
  {
@@ -482,7 +482,7 @@
   "title": "RSVP card",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-4.webp",
+  "img": "/build/designs/sections/wedding-b-4.webp",
   "h": 946
  },
  {
@@ -491,7 +491,7 @@
   "title": "Questions",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-5.webp",
+  "img": "/build/designs/sections/wedding-b-5.webp",
   "h": 873
  },
  {
@@ -500,7 +500,7 @@
   "title": "Footer",
   "design": "Guest guide",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-b-6.webp",
+  "img": "/build/designs/sections/wedding-b-6.webp",
   "h": 177
  },
  {
@@ -509,7 +509,7 @@
   "title": "Opening",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-0.webp",
+  "img": "/build/designs/sections/wedding-c-0.webp",
   "h": 900
  },
  {
@@ -518,7 +518,7 @@
   "title": "Story: \u201cOur story\u201d",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-1.webp",
+  "img": "/build/designs/sections/wedding-c-1.webp",
   "h": 2710
  },
  {
@@ -527,7 +527,7 @@
   "title": "Story: \u201cThe day\u201d",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-2.webp",
+  "img": "/build/designs/sections/wedding-c-2.webp",
   "h": 900
  },
  {
@@ -536,7 +536,7 @@
   "title": "Travel and stay",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-3.webp",
+  "img": "/build/designs/sections/wedding-c-3.webp",
   "h": 952
  },
  {
@@ -545,7 +545,7 @@
   "title": "RSVP card",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-4.webp",
+  "img": "/build/designs/sections/wedding-c-4.webp",
   "h": 916
  },
  {
@@ -554,7 +554,7 @@
   "title": "Questions",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-5.webp",
+  "img": "/build/designs/sections/wedding-c-5.webp",
   "h": 947
  },
  {
@@ -563,7 +563,7 @@
   "title": "Closing photo",
   "design": "Photo story",
   "trade": "wedding",
-  "img": "/build/designs/_sections/wedding-c-6.webp",
+  "img": "/build/designs/sections/wedding-c-6.webp",
   "h": 702
  },
  {
@@ -572,7 +572,7 @@
   "title": "Opening",
   "design": "Work order",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-a-0.webp",
+  "img": "/build/designs/sections/trades-a-0.webp",
   "h": 741
  },
  {
@@ -581,7 +581,7 @@
   "title": "Services and prices",
   "design": "Work order",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-a-1.webp",
+  "img": "/build/designs/sections/trades-a-1.webp",
   "h": 1546
  },
  {
@@ -590,7 +590,7 @@
   "title": "Service area",
   "design": "Work order",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-a-2.webp",
+  "img": "/build/designs/sections/trades-a-2.webp",
   "h": 821
  },
  {
@@ -599,7 +599,7 @@
   "title": "Reviews",
   "design": "Work order",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-a-3.webp",
+  "img": "/build/designs/sections/trades-a-3.webp",
   "h": 286
  },
  {
@@ -608,7 +608,7 @@
   "title": "Free quote form",
   "design": "Work order",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-a-4.webp",
+  "img": "/build/designs/sections/trades-a-4.webp",
   "h": 623
  },
  {
@@ -617,7 +617,7 @@
   "title": "Opening",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-0.webp",
+  "img": "/build/designs/sections/trades-b-0.webp",
   "h": 730
  },
  {
@@ -626,7 +626,7 @@
   "title": "Services and prices",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-1.webp",
+  "img": "/build/designs/sections/trades-b-1.webp",
   "h": 1143
  },
  {
@@ -635,7 +635,7 @@
   "title": "Story: \u201cFirst-visit fixes\u201d",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-2.webp",
+  "img": "/build/designs/sections/trades-b-2.webp",
   "h": 579
  },
  {
@@ -644,7 +644,7 @@
   "title": "Service area",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-3.webp",
+  "img": "/build/designs/sections/trades-b-3.webp",
   "h": 522
  },
  {
@@ -653,7 +653,7 @@
   "title": "How it works",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-4.webp",
+  "img": "/build/designs/sections/trades-b-4.webp",
   "h": 613
  },
  {
@@ -662,7 +662,7 @@
   "title": "Reviews",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-5.webp",
+  "img": "/build/designs/sections/trades-b-5.webp",
   "h": 418
  },
  {
@@ -671,7 +671,7 @@
   "title": "Free quote form",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-6.webp",
+  "img": "/build/designs/sections/trades-b-6.webp",
   "h": 778
  },
  {
@@ -680,7 +680,7 @@
   "title": "Footer",
   "design": "Van livery",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-b-7.webp",
+  "img": "/build/designs/sections/trades-b-7.webp",
   "h": 235
  },
  {
@@ -689,7 +689,7 @@
   "title": "Opening",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-0.webp",
+  "img": "/build/designs/sections/trades-c-0.webp",
   "h": 732
  },
  {
@@ -698,7 +698,7 @@
   "title": "Reviews",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-1.webp",
+  "img": "/build/designs/sections/trades-c-1.webp",
   "h": 294
  },
  {
@@ -707,7 +707,7 @@
   "title": "Photos: \u201cTwo recent jobs, start to finish\u201d",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-2.webp",
+  "img": "/build/designs/sections/trades-c-2.webp",
   "h": 1433
  },
  {
@@ -716,7 +716,7 @@
   "title": "Story: \u201cMy promise to you\u201d",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-3.webp",
+  "img": "/build/designs/sections/trades-c-3.webp",
   "h": 750
  },
  {
@@ -725,7 +725,7 @@
   "title": "Services and prices",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-4.webp",
+  "img": "/build/designs/sections/trades-c-4.webp",
   "h": 642
  },
  {
@@ -734,7 +734,7 @@
   "title": "Service area",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-5.webp",
+  "img": "/build/designs/sections/trades-c-5.webp",
   "h": 512
  },
  {
@@ -743,7 +743,7 @@
   "title": "Free quote form",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-6.webp",
+  "img": "/build/designs/sections/trades-c-6.webp",
   "h": 757
  },
  {
@@ -752,7 +752,7 @@
   "title": "Footer",
   "design": "Trusted local",
   "trade": "trades",
-  "img": "/build/designs/_sections/trades-c-7.webp",
+  "img": "/build/designs/sections/trades-c-7.webp",
   "h": 204
  }
 ]
