@@ -209,9 +209,10 @@ body{background:var(--bg);color:var(--fg)}
 @media (max-width:480px){.v3-tpl-grid{grid-template-columns:1fr}.v3-stats{grid-template-columns:1fr 1fr}.v3-stats div:nth-child(2){border-right:0;margin-right:0}}
 
 
-/* Station Sites /build/ — light page, Station palette. Local classes are sb-* (station.css globals like .steps/.art/.ctas override generic names) */
-:root{--bg:#F4F2ED;--fg:#16181D;--mute:#5E5A50;--rule:#E2DDD1;--pane:#FFFFFF;--accent:#16181D;--onaccent:#fff;color-scheme:light;
- --blue:#2D6CDF;--blue-hi:#4A86F0;--blue-lo:#2257BD;--blue-deep:#173A86;--blue-t:#E6EEFC;--blue-t2:#D4E2FA;--good:#167A44;--good-t:#E3F2E9;--card:#FFFFFF}
+/* Station Sites /build/ — light page, Station palette, type direction B: Archivo heavy headlines, hairline rules, no cards.
+   Local classes are sb-* / sb2-* (station.css globals like .steps/.art/.ctas override generic names) */
+:root{--bg:#F4F2ED;--fg:#16181D;--mute:#5E5A50;--rule:#D9D3C6;--rule2:#E6E1D6;--pane:#FFFFFF;--accent:#16181D;--onaccent:#fff;color-scheme:light;
+ --blue:#2D6CDF;--blue-lo:#2257BD;--blue-t:#E6EEFC;--good:#167A44;--good-t:#E3F2E9}
 body{background:var(--bg);color:var(--fg)}
 .wrap{max-width:1240px}
 
@@ -222,294 +223,162 @@ body{background:var(--bg);color:var(--fg)}
 .nav .navbtn,.nav .cartbtn,.nav .hamb{color:var(--fg)!important;background:#fff!important;box-shadow:inset 0 0 0 1px var(--rule)!important;text-shadow:none!important}
 
 /* buttons */
-.sb-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:60px;padding:0 30px;border-radius:999px;font:600 17.5px var(--body);text-decoration:none;white-space:nowrap;transition:transform .18s cubic-bezier(.2,.7,.3,1),box-shadow .18s,background .18s}
+.sb-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 28px;border-radius:999px;font:600 17px var(--body);text-decoration:none;white-space:nowrap;transition:background .18s,box-shadow .18s,color .18s}
 .sb-btn svg{width:18px;height:18px}
-.sb-btn.go{background:linear-gradient(180deg,#3B7AEC 0%,#2D6CDF 55%,#2560CF 100%);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px #2257BD,0 16px 30px -14px rgba(45,108,223,.85)}
-.sb-btn.go:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px #2257BD,0 22px 36px -14px rgba(45,108,223,.9)}
-.sb-btn.go:active{transform:translateY(0)}
-.sb-btn.plain{background:#fff;color:var(--fg);box-shadow:inset 0 0 0 1px #CFC9BB}
-.sb-btn.plain:hover{box-shadow:inset 0 0 0 1.5px var(--fg)}
-.sb-btn.white{background:#fff;color:var(--blue-lo);box-shadow:0 16px 30px -14px rgba(11,13,16,.5)}
-.sb-btn.white:hover{transform:translateY(-2px)}
-.sb-btn.clear{color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
-.sb-btn.clear:hover{background:rgba(255,255,255,.1)}
-.sb-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.sb-btn.go{background:var(--blue);color:#fff}
+.sb-btn.go:hover{background:var(--blue-lo)}
+.sb-btn.plain{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1.5px var(--fg)}
+.sb-btn.plain:hover{background:var(--fg);color:var(--bg)}
+.sb-btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.sb-ctas{display:flex;flex-wrap:wrap;gap:12px}
+
+/* type */
+.sb2-h,.sb2-hero h1,.sb2-final h2{font:800 clamp(36px,4.6vw,62px)/.98 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.03em;max-width:none;color:var(--fg)}
+.sb2-h em,.sb2-hero h1 em,.sb2-final h2 em{font-style:normal;font-weight:400;font-variation-settings:"wdth" 92;color:var(--blue)}
 
 /* ---- hero ---- */
-.sb-hero{position:relative;padding:calc(58px + clamp(40px,6vw,84px)) var(--gut,16px) clamp(48px,6vw,88px);overflow:hidden}
-.sb-hero-in{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,4vw,64px);align-items:center}
-.sb-copy .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:999px;background:var(--blue-t);color:var(--blue-lo);font:600 13.5px/1.2 var(--body);margin-bottom:22px;letter-spacing:0;text-transform:none}
-.sb-copy .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--blue)}
-.sb-copy h1{font:800 clamp(46px,6vw,84px)/.95 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.035em;color:var(--fg);max-width:11ch}
-.sb-copy h1 em{display:block;font-style:normal;color:var(--blue)}
-.sb-copy>p.sub{font-size:clamp(17px,1.45vw,20px);line-height:1.5;color:var(--mute);max-width:40ch;margin-top:22px}
-.sb-ticks{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;list-style:none;padding:0;font-size:15px;color:var(--fg)}
-.sb-ticks li{display:flex;align-items:center;gap:8px}
-.sb-ticks svg{width:18px;height:18px;flex:none;color:var(--good)}
-.sb-call{margin-top:22px;font-size:15px;color:var(--mute)}
-.sb-call a{color:var(--fg);font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#C9C3B5}
-.sb-call a:hover{text-decoration-color:var(--fg)}
-.sb-stagebg{position:relative;padding:clamp(18px,2.4vw,34px);border-radius:28px;background:radial-gradient(120% 90% at 100% 0%,#6FA0F5 0%,rgba(111,160,245,0) 55%),linear-gradient(150deg,#2D6CDF 0%,#2257BD 60%,#173A86 100%);box-shadow:0 40px 80px -40px rgba(23,58,134,.6)}
-.sb-stagebg:before{content:"";position:absolute;inset:0;border-radius:inherit;background:repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 64px);pointer-events:none}
-.sb-float{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;background:#fff;color:var(--fg);font:600 13.5px/1.2 var(--body);box-shadow:0 18px 36px -16px rgba(11,13,16,.45);white-space:nowrap}
-.sb-float small{display:block;font-weight:500;color:var(--mute);font-size:12px;margin-top:2px}
-.sb-float .dot{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none}
-.sb-float .dot svg{width:16px;height:16px}
-.sb-float.f1{left:-18px;bottom:22%}.sb-float.f1 .dot{background:var(--good-t);color:var(--good)}
-.sb-float.f2{right:-14px;top:-18px}.sb-float.f2 .dot{background:var(--blue-t);color:var(--blue)}
-
-/* ---- the editor demo (light, like the real editor) ---- */
-.sb-ed{position:relative;z-index:1;border-radius:14px;background:#FBFAF6;box-shadow:0 30px 60px -30px rgba(11,13,16,.55),0 0 0 1px rgba(255,255,255,.4);overflow:hidden;font-family:var(--body);color:var(--fg);user-select:none}
-.sb-ed-bar{display:flex;align-items:center;gap:12px;height:46px;padding:0 12px 0 14px;border-bottom:1px solid var(--rule);font-size:12.5px;background:#F4F2ED}
-.sb-ed-bar .dots{display:flex;gap:6px}.sb-ed-bar .dots i{width:10px;height:10px;border-radius:50%;background:#D9D4C8}
-.sb-ed-bar .t{flex:1;min-width:0;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-ed-bar .t b{color:var(--fg);font-weight:600}
-.sb-cr{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#E8E4DA;color:var(--fg);font-variant-numeric:tabular-nums;white-space:nowrap;transition:background .3s,color .3s}
-.sb-cr.hit{background:var(--blue);color:#fff}
-.sb-cr svg{width:12px;height:12px}
-.sb-pub{padding:7px 13px;border-radius:999px;background:var(--blue);color:#fff;font-weight:600;white-space:nowrap}
-.sb-ed-body{display:grid;grid-template-columns:120px minmax(0,1fr) 210px;height:clamp(400px,34vw,500px)}
-.sb-rail{border-right:1px solid var(--rule);padding:14px 10px;font-size:12.5px;display:flex;flex-direction:column;gap:2px;background:#F4F2ED}
-.sb-rail h4,.sb-ai h4{font:500 11px/1 var(--body);color:#8B8577;margin:0 0 10px 6px;letter-spacing:0}
-.sb-rail a{display:flex;justify-content:space-between;padding:7px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
-.sb-rail a.on{background:#E8E4DA;font-weight:600}
-.sb-rail a small{color:#8B8577;font-weight:400}
-.sb-rail .add{margin-top:6px;color:var(--blue)}
-.sb-rail .sp{flex:1}
-.sb-rail .meter{border-top:1px solid var(--rule);padding:10px 6px 0;color:var(--mute);line-height:1.45}
-.sb-rail .meter b{display:block;color:var(--fg);font:800 20px/1.1 var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.02em}
-.sb-canvas{position:relative;overflow:hidden;background:#E4E0D6;padding:12px}
-.sb-site{position:absolute;inset:12px;border-radius:6px;overflow:hidden;background:#F3EEE6;color:#2A211B;font-family:"Libre Franklin",var(--body);box-shadow:0 0 0 1px #D3CEC2}
-.sb-site nav{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;font-size:11px;color:#4A3F35}
-.sb-site nav b{font:400 14px/1 "Libre Caslon Text",Georgia,serif;color:#2A211B}
-.sb-site nav span{display:flex;gap:12px}
-.sb-site nav i{font-style:normal}
-.sb-shero{position:relative;height:58%;margin:0 12px;border-radius:4px;overflow:hidden;background:#3a2a1e}
-.sb-shero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s ease}
-.sb-shero img.b{opacity:0}
-.sb-shero.vid img.b{opacity:1;animation:sb-kb 9s ease-in-out infinite alternate}
-@keyframes sb-kb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-3%,-2%)}}
-.sb-shero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,18,10,.72) 0%,rgba(28,18,10,.25) 55%,rgba(28,18,10,0) 100%)}
-.sb-shero .txt{position:absolute;z-index:1;left:18px;bottom:18px;right:24%;color:#FBF6EE}
-.sb-shero h5{font:400 clamp(20px,2.2vw,30px)/1.02 "Libre Caslon Text",Georgia,serif;letter-spacing:-.01em;margin:0;min-height:2.04em}
-.sb-shero p{font-size:11px;line-height:1.45;margin-top:8px;opacity:.92}
-.sb-shero .sbtn{display:inline-block;margin-top:10px;padding:7px 12px;background:#FBF6EE;color:#2A211B;font-size:10.5px;font-weight:600;border-radius:2px}
-.sb-vbadge{position:absolute;z-index:2;top:10px;right:10px;padding:4px 8px;border-radius:999px;background:rgba(11,13,16,.6);color:#fff;font-size:10px;opacity:0;transition:opacity .4s}
-.sb-shero.vid .sb-vbadge{opacity:1}
-.sb-strip{position:relative;margin:12px 12px 0;transition:transform .7s cubic-bezier(.3,.7,.2,1)}
-.sb-strip h6{font:400 13px/1 "Libre Caslon Text",Georgia,serif;margin:0 0 8px}
-.sb-strip .row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sb-strip figure{margin:0}
-.sb-strip img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:2px}
-.sb-strip figcaption{font-size:9.5px;margin-top:4px;color:#5A4D41}
-.sb-sel{position:absolute;pointer-events:none;border:2px solid var(--blue);border-radius:4px;opacity:0;transition:opacity .25s,left .5s,top .5s,width .5s,height .5s}
-.sb-sel.on{opacity:1}
-.sb-sel i{position:absolute;top:4px;left:4px;padding:3px 7px;border-radius:4px;background:var(--blue);color:#fff;font:600 10px/1.2 var(--body);font-style:normal;white-space:nowrap}
-.sb-caret{display:inline-block;width:1.5px;height:.9em;margin-left:1px;background:#FBF6EE;vertical-align:-.08em;animation:sb-blink 1s steps(1) infinite}
-@keyframes sb-blink{50%{opacity:0}}
-.sb-cursor{position:absolute;z-index:5;width:18px;height:18px;left:60%;top:70%;pointer-events:none;transition:left .8s cubic-bezier(.4,.1,.2,1),top .8s cubic-bezier(.4,.1,.2,1),transform .15s}
-.sb-cursor.down{transform:scale(.86)}
-.sb-ai{border-left:1px solid var(--rule);display:flex;flex-direction:column;padding:14px 12px;font-size:12px;min-width:0;background:#FBFAF6}
-.sb-msgs{flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden;justify-content:flex-end}
-.sb-m{max-width:100%;padding:9px 11px;border-radius:12px;line-height:1.45;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}
-.sb-m.in{opacity:1;transform:none}
-.sb-m.u{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:3px}
-.sb-m.a{background:#EAE6DD;color:var(--fg);border-bottom-left-radius:3px}
-.sb-m .cost{display:block;margin-top:6px;color:var(--mute);font-size:11px}
-.sb-tips{display:flex;flex-direction:column;gap:6px;transition:opacity .3s}
-.sb-tips.gone{opacity:0;height:0;overflow:hidden}
-.sb-tips span{align-self:flex-start;padding:6px 10px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule);color:var(--mute);font-size:11.5px}
-.sb-tips p{color:#8B8577;font-size:11.5px;margin:0 0 2px}
-.sb-in{display:flex;align-items:flex-end;gap:8px;margin-top:10px;padding:9px 10px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px #CFC9BB;min-height:40px;color:var(--fg);line-height:1.4}
-.sb-in span{flex:1;min-width:0}
-.sb-in span:empty:before{content:"Ask for a photo, a video, a change…";color:#8B8577}
-.sb-in b{flex:none;font-weight:600;color:var(--blue);font-size:11px;white-space:nowrap}
-.sb-ed-cap{margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.72);text-align:center;position:relative;z-index:1}
+.sb2-hero{padding:calc(58px + clamp(44px,6vw,92px)) var(--gut,16px) 0}
+.sb2-hero h1{font-size:clamp(48px,8.4vw,128px);line-height:.9;letter-spacing:-.04em}
+.sb2-hero h1 em{display:block}
+.sb2-hero-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:end;margin-top:clamp(26px,3vw,40px);padding-top:clamp(20px,2.4vw,28px);border-top:1px solid var(--fg)}
+.sb2-hero .sub{font-size:clamp(18px,1.6vw,22px);line-height:1.45;color:var(--fg);max-width:34ch}
+.sb2-note{margin-top:14px;font-size:14.5px;line-height:1.5;color:var(--mute);max-width:46ch}
+.sb2-shot{margin:clamp(36px,5vw,64px) auto 0;padding:0}
+.sb2-frame{border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--rule),0 40px 80px -50px rgba(11,13,16,.55)}
+.sb2-bar{display:flex;align-items:center;gap:7px;height:34px;padding:0 14px;background:#ECE8DF;border-bottom:1px solid var(--rule);font-size:12.5px;color:var(--mute)}
+.sb2-bar i{width:10px;height:10px;border-radius:50%;background:#D3CDBF}
+.sb2-bar span{margin-left:12px}
+.sb2-shot img{display:block;width:100%;height:auto}
+.sb2-shot figcaption{margin-top:14px;font-size:14px;line-height:1.5;color:var(--mute);max-width:70ch}
 
 /* ---- sections ---- */
-.sb-sec{padding:clamp(56px,7vw,100px) 0}
-.sb-head{text-align:center;max-width:760px;margin:0 auto}
-.sb-head h2{font:800 clamp(34px,4.4vw,58px)/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.03em;max-width:none}
-.sb-head h2 em{font-style:normal;color:var(--blue)}
-.sb-head p{margin-top:14px;font-size:17.5px;color:var(--mute)}
+.sb2-sec{padding:clamp(64px,8vw,120px) 0 0}
+.sb2-head{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:16px 48px;align-items:end;padding-bottom:22px;border-bottom:1px solid var(--fg)}
+.sb2-head p{font-size:17px;line-height:1.5;color:var(--mute);max-width:44ch}
+.sb2-head .sb-bill{grid-column:1/-1;justify-self:start}
 
-/* steps */
-.sb-band{background:#fff;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.sb-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:40px;padding:0;counter-reset:s}
-.sb-steps li{position:relative;display:flex;gap:16px;align-items:flex-start}
-.sb-steps li:before{counter-increment:s;content:counter(s);flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font:800 20px/1 var(--display);font-variation-settings:"wdth" 105;box-shadow:0 10px 20px -10px rgba(45,108,223,.9)}
-.sb-steps b{display:block;font:800 21px/1.15 var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.02em;margin-top:2px}
-.sb-steps span{display:block;font-size:15.5px;line-height:1.5;color:var(--mute);margin-top:6px}
+/* steps: three columns between rules */
+.sb2-steps{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--fg)}
+.sb2-steps li{padding:24px 28px 8px 0}
+.sb2-steps li+li{padding-left:28px;border-left:1px solid var(--rule)}
+.sb2-steps .n{display:block;font:400 15px/1 var(--display);font-variation-settings:"wdth" 92;color:var(--blue);font-variant-numeric:tabular-nums}
+.sb2-steps b{display:block;margin-top:14px;font:800 24px/1.1 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.02em}
+.sb2-steps p{margin-top:10px;font-size:16px;line-height:1.55;color:var(--mute);max-width:36ch}
 
-/* feature tiles */
-.sb-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}
-.sb-tile{background:#fff;border-radius:20px;padding:24px 22px 22px;box-shadow:0 0 0 1px var(--rule),0 20px 40px -32px rgba(11,13,16,.35)}
-.sb-tile .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px}
-.sb-tile .ic svg{width:24px;height:24px}
-.sb-tile h3{font:800 20px/1.15 var(--display);font-variation-settings:"wdth" 105;letter-spacing:-.02em}
-.sb-tile p{font-size:15px;line-height:1.5;color:var(--mute);margin-top:8px}
-.sb-tile .tag{display:inline-block;margin-top:14px;padding:5px 10px;border-radius:999px;font:600 12.5px/1 var(--body)}
-.sb-tile .tag.free{background:var(--good-t);color:var(--good)}
-.sb-tile .tag.cr{background:var(--blue-t);color:var(--blue-lo)}
-.sb-tile.t1 .ic{background:#E6EEFC;color:#2D6CDF}
-.sb-tile.t2 .ic{background:#E3F2E9;color:#167A44}
-.sb-tile.t3 .ic{background:#16181D;color:#fff}
-.sb-tile.t4{background:linear-gradient(160deg,#2D6CDF,#2257BD);color:#fff;box-shadow:0 24px 44px -26px rgba(45,108,223,.9)}
-.sb-tile.t4 .ic{background:rgba(255,255,255,.16);color:#fff}
-.sb-tile.t4 p{color:#DCE7FB}
-.sb-tile.t4 .tag.cr{background:#fff;color:var(--blue-lo)}
+/* designs: one ruled row per kind of business */
+.sb2-kind{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;padding:26px 0;border-bottom:1px solid var(--rule)}
+.sb2-kind h3{font:800 21px/1.1 var(--display);font-variation-settings:"wdth" 106;letter-spacing:-.02em}
+.sb2-kind h3 small{display:block;margin-top:6px;font:400 14px/1.4 var(--body);color:var(--mute);letter-spacing:0}
+.sb2-dz{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.sb2-dz a{color:inherit;text-decoration:none}
+.sb2-dz img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:6px;box-shadow:0 0 0 1px var(--rule);background:#E8E4DA}
+.sb2-dz b{display:block;margin-top:10px;font:600 15.5px/1.3 var(--body)}
+.sb2-dz span{display:block;margin-top:3px;font-size:14px;line-height:1.45;color:var(--mute)}
+.sb2-dz a:hover b{text-decoration:underline;text-underline-offset:3px}
 
-/* pricing cards */
-.sb-cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:44px;align-items:stretch}
-.sb-card{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:22px;padding:24px 20px 22px;box-shadow:0 0 0 1px var(--rule),0 20px 40px -32px rgba(11,13,16,.4)}
-.sb-card h3{font:800 23px/1 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.02em}
-.sb-card .for{font-size:14px;color:var(--mute);margin-top:6px;min-height:2.9em;line-height:1.4}
-.sb-card .pr{display:flex;align-items:baseline;gap:6px;margin-top:14px}
-.sb-card .pr b{font:800 44px/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
-.sb-card .pr small{font-size:14px;color:var(--mute)}
-.sb-card .go{display:flex;align-items:center;justify-content:center;min-height:50px;margin-top:18px;border-radius:999px;background:#F4F2ED;color:var(--fg);font:600 16px var(--body);text-decoration:none;box-shadow:inset 0 0 0 1px #CFC9BB;transition:background .18s,box-shadow .18s,transform .18s}
-.sb-card .go:hover{background:#fff;box-shadow:inset 0 0 0 1.5px var(--fg);transform:translateY(-1px)}
-.sb-card ul{list-style:none;padding:0;margin-top:20px;display:grid;gap:10px;font-size:14.5px;line-height:1.35}
-.sb-card li{display:flex;gap:10px;align-items:flex-start}
-.sb-card li svg{flex:none;width:18px;height:18px;margin-top:1px;color:var(--good)}
-.sb-card li b{font-weight:600}
-.sb-card li.plus{color:var(--mute);font-size:13.5px}
-.sb-card .hr{height:1px;background:var(--rule);margin:4px 0}
-.sb-card.pop{background:linear-gradient(170deg,#2F70E4 0%,#2257BD 100%);color:#fff;box-shadow:0 30px 60px -28px rgba(34,87,189,.9);transform:translateY(-10px)}
-.sb-card.pop .for,.sb-card.pop .pr small,.sb-card.pop li.plus{color:#DCE7FB}
-.sb-card.pop li svg{color:#BFF0D4}
-.sb-card.pop .hr{background:rgba(255,255,255,.22)}
-.sb-card.pop .go{background:#fff;color:var(--blue-lo);box-shadow:0 12px 24px -12px rgba(11,13,16,.55)}
-.sb-card.pop .go:hover{background:#fff;transform:translateY(-2px)}
-.sb-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);padding:6px 12px;border-radius:999px;background:#16181D;color:#fff;font:600 12.5px/1 var(--body);white-space:nowrap}
-.sb-sure{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:30px;list-style:none;padding:0;font-size:15px}
-.sb-sure li{display:flex;align-items:center;gap:8px}
-.sb-sure svg{width:18px;height:18px;color:var(--good);flex:none}
+/* what you can ask for */
+.sb2-ask{width:100%;border-collapse:collapse;margin-top:8px;font-size:16px}
+.sb2-ask th{text-align:left;font:500 13px var(--body);color:var(--mute);padding:14px 16px 10px 0;border-bottom:1px solid var(--rule)}
+.sb2-ask td{padding:16px 16px 16px 0;border-bottom:1px solid var(--rule);vertical-align:baseline}
+.sb2-ask td:first-child{font-weight:600;width:32%}
+.sb2-ask td:nth-child(2){color:var(--mute)}
+.sb2-ask th:last-child,.sb2-ask td:last-child{text-align:right;padding-right:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sb2-ask td:last-child{font:800 19px/1 var(--display);font-variation-settings:"wdth" 104}
+.sb2-ask td.free{color:var(--good)}
+.sb2-ask tr.soon td{color:var(--mute)}
+.sb2-ask tr.soon td:last-child{font:500 14px var(--body)}
+.sb2-facts{list-style:none;padding:0;margin:28px 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--fg)}
+.sb2-facts li{padding:18px 22px 0 0;font-size:15px;line-height:1.5;color:var(--mute)}
+.sb2-facts li+li{padding-left:22px;border-left:1px solid var(--rule)}
+.sb2-facts b{color:var(--fg);font-weight:600}
 
-/* credits band */
-.sb-credits{position:relative;overflow:hidden;border-radius:30px;margin-top:clamp(56px,7vw,96px);padding:clamp(28px,4vw,56px);background:radial-gradient(90% 120% at 0% 0%,#3C7BEA 0%,rgba(60,123,234,0) 60%),linear-gradient(140deg,#2257BD 0%,#173A86 100%);color:#fff;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
-.sb-credits h2{font:800 clamp(32px,3.8vw,50px)/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.03em;max-width:none;color:#fff}
-.sb-credits h2 em{font-style:normal;color:#A9C6FA}
-.sb-credits p{margin-top:14px;font-size:17px;line-height:1.5;color:#DCE7FB;max-width:40ch}
-.sb-credits .big{display:flex;align-items:baseline;gap:10px;margin-top:22px}
-.sb-credits .big b{font:800 56px/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.04em}
-.sb-credits .big span{color:#DCE7FB;font-size:15px}
-.sb-packs{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;list-style:none;padding:0}
-.sb-packs li{padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2);font-size:14.5px}
-.sb-packs li b{font-weight:700}
-.sb-costs{background:#fff;color:var(--fg);border-radius:20px;padding:10px 20px 14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
-.sb-costs h3{font:500 13px var(--body);color:var(--mute);padding:10px 0 6px;letter-spacing:0;font-variation-settings:normal}
-.sb-costs div{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--rule);font-size:15px}
-.sb-costs div b{flex:none;font-weight:700;font-variant-numeric:tabular-nums;padding:4px 10px;border-radius:999px;background:var(--blue-t);color:var(--blue-lo);font-size:13.5px}
-.sb-costs div b.free{background:var(--good-t);color:var(--good)}
-.sb-costs details{border-top:1px solid var(--rule);padding-top:10px;font-size:14px}
-.sb-costs summary{cursor:pointer;color:var(--blue-lo);font-weight:600;min-height:32px;display:flex;align-items:center}
-.sb-costs details div{font-size:14px;padding:9px 0}
+/* plans: five columns between rules */
+.sb-bill{display:inline-flex;gap:4px;padding:4px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--rule)}
+.sb-bill button{min-height:44px;padding:0 18px;border:0;border-radius:999px;background:none;font:600 15px var(--body);color:var(--mute);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.sb-bill button.on{background:var(--fg);color:#fff}
+.sb-bill button i{font-style:normal;font-size:12px;padding:3px 8px;border-radius:999px;background:var(--good-t);color:var(--good)}
+.sb2-plans{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:0}
+.sb2-plan{display:flex;flex-direction:column;padding:26px 20px 4px 0}
+.sb2-plan+.sb2-plan{padding-left:20px;border-left:1px solid var(--rule)}
+.sb2-plan .tag{min-height:18px;font:600 13px/1.3 var(--body);color:var(--blue)}
+.sb2-plan h3{margin-top:6px;font:800 24px/1 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.02em}
+.sb2-plan .pr{margin-top:16px}
+.sb2-plan .pr b{display:block;font:800 clamp(38px,3.4vw,50px)/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.sb2-plan .pr small{display:block;margin-top:6px;min-height:2.7em;font-size:14px;line-height:1.35;color:var(--mute)}
+.sb2-plan .go{display:flex;align-items:center;justify-content:center;min-height:48px;margin-top:14px;border-radius:999px;color:var(--fg);font:600 15.5px var(--body);text-decoration:none;box-shadow:inset 0 0 0 1.5px var(--fg);transition:background .18s,color .18s}
+.sb2-plan .go:hover{background:var(--fg);color:var(--bg)}
+.sb2-plan .go:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.sb2-plan dl{margin:20px 0 0;font-size:15px}
+.sb2-plan dl div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--rule2)}
+.sb2-plan dt{color:var(--mute)}
+.sb2-plan dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.sb2-plan ul{list-style:none;padding:12px 0 0;margin:0;border-top:1px solid var(--rule2);display:grid;gap:7px;font-size:14px;line-height:1.4;color:var(--mute)}
+.sb2-plan .ex{display:block;margin-top:auto;padding-top:20px;color:inherit;text-decoration:none}
+.sb2-plan .ex img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:6px;box-shadow:0 0 0 1px var(--rule);background:#E8E4DA}
+.sb2-plan .ex span{display:block;margin-top:8px;font:600 13.5px/1.35 var(--body);color:var(--blue-lo);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(34,87,189,.35)}
+.sb2-sure{list-style:none;padding:18px 0 0;margin:28px 0 0;border-top:1px solid var(--fg);display:flex;flex-wrap:wrap;gap:8px 0;font-size:15px}
+.sb2-sure li+li:before{content:"";display:inline-block;width:1px;height:14px;background:var(--rule);margin:0 18px;vertical-align:-2px}
 
-/* rather-we-build */
-.sb-rather{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:24px;align-items:center;margin-top:clamp(56px,7vw,96px);padding:clamp(24px,3.4vw,44px);border-radius:26px;background:#E6EEFC;box-shadow:inset 0 0 0 1px #D4E2FA}
-.sb-rather h2{font:800 clamp(28px,3vw,40px)/1.05 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.03em;max-width:none}
-.sb-rather p{margin-top:10px;font-size:16.5px;color:#3E4A63;max-width:52ch}
-.sb-rather .sb-ctas{margin-top:0;justify-content:flex-end}
+/* rather we build it */
+.sb2-rather .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:24px 48px;align-items:end}
+.sb2-rather .wrap:before,.sb2-final .wrap:before{content:"";grid-column:1/-1;display:block;height:1px;background:var(--fg)}
+.sb2-final .wrap:before{margin-bottom:clamp(28px,3vw,40px)}
+.sb2-rather p{margin-top:12px;font-size:17px;line-height:1.5;color:var(--mute);max-width:52ch}
 
 /* FAQ on light */
 .faqs{border-top:0}
-.faqs h2{text-align:center;font:800 clamp(30px,3.6vw,46px)/1 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.03em;max-width:none}
 
-/* final band */
-.sb-final{margin:clamp(40px,5vw,72px) var(--gut,16px) clamp(40px,5vw,72px);border-radius:32px;padding:clamp(44px,6vw,88px) 20px;text-align:center;color:#fff;background:radial-gradient(70% 120% at 50% 0%,#5C95F2 0%,rgba(92,149,242,0) 60%),linear-gradient(160deg,#2D6CDF 0%,#173A86 100%)}
-.sb-final h2{font:800 clamp(36px,5vw,66px)/.98 var(--display);font-variation-settings:"wdth" 110;letter-spacing:-.035em;max-width:16ch;margin:0 auto;color:#fff}
-.sb-final p{margin-top:16px;font-size:18px;color:#DCE7FB}
-.sb-final .sb-ctas{justify-content:center}
+/* final */
+.sb2-final{padding:clamp(72px,9vw,140px) 0 clamp(64px,8vw,110px)}
+.sb2-final h2{font-size:clamp(44px,7vw,104px);line-height:.92;letter-spacing:-.04em;max-width:14ch}
+.sb2-final p{margin-top:18px;font-size:18px;color:var(--mute)}
+.sb2-final .sb-ctas{margin-top:26px}
 
 /* sticky bar */
 .receipt{background:#fff;color:var(--fg);box-shadow:0 -1px 0 var(--rule),0 -14px 30px -24px rgba(11,13,16,.4)}
 .receipt b{color:var(--fg)}
 .receipt .btn{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
 
-@media (max-width:1180px){.sb-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.sb-card.pop{transform:none}}
-@media (max-width:1100px){.sb-ed-body{grid-template-columns:minmax(0,1fr) 200px}.sb-rail{display:none}.sb-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:900px){.sb-hero-in{grid-template-columns:1fr}.sb-copy h1{max-width:none}.sb-credits{grid-template-columns:1fr}.sb-rather{grid-template-columns:1fr}.sb-rather .sb-ctas{justify-content:flex-start}.sb-steps{grid-template-columns:1fr;max-width:520px;margin-left:auto;margin-right:auto}}
-@media (max-width:760px){.sb-cards{grid-template-columns:1fr;max-width:460px;margin-left:auto;margin-right:auto}.sb-card .for{min-height:0}}
-@media (max-width:620px){
- .sb-ed-body{grid-template-columns:1fr;grid-template-rows:290px auto;height:auto}
- .sb-ai{border-left:0;border-top:1px solid var(--rule);min-height:180px}
- .sb-ed-bar .t{display:none}.sb-ed-bar{justify-content:space-between}
- .sb-shero .txt{right:18px}
- .sb-site nav span i:nth-child(n+3){display:none}
- .sb-btn{flex:1 1 auto;min-height:56px}
- .sb-tiles{grid-template-columns:1fr}
- .sb-float{display:none}
- .sb-stagebg{border-radius:20px;padding:12px}
- .sb-final{border-radius:24px}
+@media (max-width:1100px){
+ .sb2-plans{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .sb2-plan:nth-child(4){padding-left:0;border-left:0}
+ .sb2-plan:nth-child(n+4){border-top:1px solid var(--rule);margin-top:24px}
+ .sb2-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .sb2-facts li:nth-child(3){padding-left:0;border-left:0}
+ .sb2-facts li:nth-child(n+3){margin-top:18px}
 }
-@media (prefers-reduced-motion:reduce){.sb-shero.vid img.b{animation:none}.sb-cursor{display:none}.sb-btn,.sb-card .go{transition:none}}
-
-/* fixes after look 2 */
-.sb-float.f2{right:18px;top:-18px}
-.sb-float.f1{left:-22px;top:50%;bottom:auto}
-.sb-site nav span i:nth-child(n+4){display:none}
-.sb-site nav b{white-space:nowrap}
-.sb-shero .txt{right:10%}
-.sb-shero h5{font-size:clamp(18px,1.9vw,27px)}
-.sb-card .pr{flex-direction:column;align-items:flex-start;gap:4px}
-.sb-card .pr b{font-size:clamp(36px,3.1vw,44px)}
-.sb-ed-cap{color:rgba(255,255,255,.8)}
-@media (max-width:760px){
- .sb-cards{display:grid;grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;max-width:none;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:18px 16px 18px;margin:28px calc(-1 * var(--gut,16px)) 0;scrollbar-width:none}
- .sb-cards::-webkit-scrollbar{display:none}
- .sb-card{scroll-snap-align:center}
- .sb-swipe{display:block!important}
+@media (max-width:860px){
+ .sb2-hero-row,.sb2-head,.sb2-rather .wrap{grid-template-columns:1fr}
+ .sb2-steps{grid-template-columns:1fr}
+ .sb2-steps li,.sb2-steps li+li{padding:20px 0;border-left:0}
+ .sb2-steps li+li{border-top:1px solid var(--rule)}
+ .sb2-kind{grid-template-columns:1fr;gap:14px}
 }
-.sb-swipe{display:none;text-align:center;font-size:13.5px;color:var(--mute);margin-top:4px}
-@media (min-width:761px) and (max-width:1180px){.sb-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}.sb-card{flex:0 1 calc(33.333% - 11px)}}
-
-/* subscription + 12 changes */
-.sb-bill{display:inline-flex;gap:4px;margin-top:22px;padding:5px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--rule)}
-.sb-bill button{min-height:44px;padding:0 20px;border:0;border-radius:999px;background:none;font:600 15px var(--body);color:var(--mute);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.sb-bill button.on{background:var(--fg);color:#fff}
-.sb-bill button i{font-style:normal;font-size:12px;padding:3px 8px;border-radius:999px;background:var(--good-t);color:var(--good)}
-.sb-card .pr small{min-height:2.6em;line-height:1.3}
-.sb-rules{list-style:none;padding:0;margin-top:20px;display:grid;gap:8px;font-size:15px;color:#fff}
-.sb-rules li{display:flex;gap:10px;align-items:flex-start}
-.sb-rules svg{width:18px;height:18px;flex:none;margin-top:2px;color:#BFF0D4}
-.sb-share{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px 40px;align-items:center;margin-top:clamp(40px,5vw,72px);padding:clamp(24px,3.4vw,44px);border-radius:26px;background:#fff;box-shadow:0 0 0 1px var(--rule)}
-.sb-share h2{font:800 clamp(28px,3vw,40px)/1.05 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.03em;max-width:none}
-.sb-share h2 em{font-style:normal;color:var(--blue)}
-.sb-share p{margin-top:10px;color:var(--mute);font-size:16.5px}
-.sb-share-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.sb-share-g div{padding:18px;border-radius:16px;background:var(--blue-t)}
-.sb-share-g b{display:block;font:800 26px/1.1 var(--display);font-variation-settings:"wdth" 108;letter-spacing:-.02em;color:var(--blue-lo)}
-.sb-share-g span{display:block;margin-top:8px;font-size:14.5px;line-height:1.45;color:#3E4A63}
-.sb-share .sb-note{grid-column:1/-1;margin-top:0;background:var(--warn-t,#EFEBE2);color:var(--mute)}
-.sb-note{display:inline-block;padding:8px 12px;border-radius:8px;background:#EFEBE2;color:var(--mute);font-size:13px;line-height:1.45}
-/* demo site variants */
-.sb-site.grot{font-family:"Hanken Grotesk",var(--body);background:#F6F7F8;color:#121417}
-.sb-site.grot nav b,.sb-site.grot h5,.sb-site.grot h6{font-family:"Familjen Grotesk",var(--body);font-weight:600;letter-spacing:-.02em}
-.sb-site.grot .sbtn{background:#1F5C4A;color:#fff;border-radius:999px}
-.sb-site.soft{font-family:Jost,var(--body);background:#F5EFEA;color:#3B2F33}
-.sb-site.soft nav b,.sb-site.soft h5,.sb-site.soft h6{font-family:"Bodoni Moda",Georgia,serif;font-weight:500}
-.sb-site.soft h5{font-style:italic}
-.sb-site.soft .sbtn{background:#8C5A6B;color:#fff;border-radius:999px}
-@media (max-width:900px){.sb-share{grid-template-columns:1fr}}
-@media (max-width:560px){.sb-share-g{grid-template-columns:1fr}}
-.sb-copy h1{max-width:12ch}
-.sb-site nav{gap:10px}
-.sb-site nav span{gap:10px;flex:none}
-.sb-site nav span i:nth-child(n+3){display:none}
-.sb-site nav b{min-width:0;overflow:hidden;text-overflow:ellipsis}
-/* plan examples on the pricing cards */
-.sb-card .ex{display:block;margin-top:auto;padding-top:18px;color:inherit;text-decoration:none}
-.sb-card .ex img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:10px;box-shadow:0 0 0 1px var(--rule);background:#E8E4DA;transition:transform .2s}
-.sb-card .ex span{display:block;margin-top:8px;font:600 13.5px/1.35 var(--body);color:var(--blue-lo);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(34,87,189,.35)}
-.sb-card .ex:hover img{transform:translateY(-2px)}
-.sb-card.pop .ex span{color:#fff;text-decoration-color:rgba(255,255,255,.5)}
-.sb-card.pop .ex img{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
-.sb-card ul{margin-bottom:0}
-
-.sb-cardnote{margin-top:14px;font-size:13.5px;color:var(--mute)}
+@media (max-width:700px){
+ .sb2-plans{grid-template-columns:1fr}
+ .sb2-plan,.sb2-plan+.sb2-plan,.sb2-plan:nth-child(4){padding:24px 0 8px;border-left:0}
+ .sb2-plan+.sb2-plan{border-top:1px solid var(--fg);margin-top:20px}
+ .sb2-plan .pr small{min-height:0}
+ .sb2-plan .ex{padding-top:14px}
+ .sb2-plan .ex img{display:none}
+ .sb2-dz{grid-template-columns:1fr 1fr;gap:16px}
+ .sb2-dz a:nth-child(3){display:none}
+ .sb2-facts{grid-template-columns:1fr}
+ .sb2-facts li,.sb2-facts li+li{padding:14px 0 0;border-left:0;margin-top:0}
+ .sb2-facts li+li{border-top:1px solid var(--rule);margin-top:14px}
+ .sb2-ask thead{display:none}
+ .sb2-ask tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:14px 0;border-bottom:1px solid var(--rule)}
+ .sb2-ask td{padding:0;border:0}
+ .sb2-ask td:first-child{width:auto}
+ .sb2-ask td:nth-child(2){grid-row:2;grid-column:1/-1;font-size:15px}
+ .sb2-ask td:last-child{grid-row:1;grid-column:2}
+ .sb-btn{flex:1 1 auto}
+ .sb2-sure{display:grid;gap:8px}
+ .sb2-sure li+li:before{display:none}
+}
+@media (prefers-reduced-motion:reduce){.sb-btn,.sb2-plan .go{transition:none}}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Product", "name": "Station Sites", "description": "Build your own website by asking for what you want. 500 free credits to start, plans from $15 a month when you publish, cancel any time.", "brand": {"@type": "Brand", "name": "Station"}, "offers": {"@type": "AggregateOffer", "priceCurrency": "USD", "lowPrice": "12", "highPrice": "79", "offerCount": "5"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Station Sites?", "acceptedAnswer": {"@type": "Answer", "text": "A website builder for any business, event or person. Answer a few questions, start from a finished design, change anything on the page, and publish on your own domain when it's right."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "From $15 a month, or $12 a month billed yearly, which you start paying when you publish. Building runs on credits: you get 500 free, then top up from $20 if you want more. Hosting is included."}}, {"@type": "Question", "name": "Do I need a card to start?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Save a card to get your 500 free credits; nothing is charged. You confirm every credit top-up, and your plan only starts when you publish."}}, {"@type": "Question", "name": "How do I build it?", "acceptedAnswer": {"@type": "Answer", "text": "Answer a short page of basics, then type what you want in your own words: a video for the top, four photo ideas, a catering page. Stuck? Tap Help me and the AI suggests what to ask, free. You can also scroll the catalog and add ready-made sections."}}, {"@type": "Question", "name": "Do I need to know how to code or design?", "acceptedAnswer": {"@type": "Answer", "text": "No. You start from a finished design and change it by clicking: type over the words, drag sections, drop in photos. If you want something new, describe it to the AI."}}, {"@type": "Question", "name": "What are credits?", "acceptedAnswer": {"@type": "Answer", "text": "Credits pay for every request you type: new images, video, rewrites and bigger changes. One credit is 1 cent. You start with 500 free, every plan adds more each month, the cost shows before you send, and you are only charged when it works. Editing by hand is always free."}}, {"@type": "Question", "name": "What if I run out of credits?", "acceptedAnswer": {"@type": "Answer", "text": "Nothing breaks. Your site stays online and editing by hand stays free. Top up any time (top-up credits never expire), or wait for next month's credits."}}, {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, any time, from your account. There's no teaser price either: the price you start at is the price you renew at. Your domain stays in your name if you leave."}}, {"@type": "Question", "name": "Can I use my own domain?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Connect one you already own, or buy one while you publish at cost, in your name. Professional and up include a free .com for a year on yearly billing."}}, {"@type": "Question", "name": "Is it only for businesses?", "acceptedAnswer": {"@type": "Answer", "text": "No. Build a site for a business, a wedding, a club, a cause or your own work. You never need an LLC or a tax number."}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Product", "name": "Station Sites", "description": "Build your own website by asking for what you want. 500 free credits to start, plans from $15 a month when you publish, cancel any time.", "brand": {"@type": "Brand", "name": "Station"}, "offers": {"@type": "AggregateOffer", "priceCurrency": "USD", "lowPrice": "12", "highPrice": "79", "offerCount": "5"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Station Sites?", "acceptedAnswer": {"@type": "Answer", "text": "A website builder for any business, event or person. Pick a finished design made for your kind of business, put your details on it, change anything by asking in your own words, and publish on your own domain."}}, {"@type": "Question", "name": "How much does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Plans run from $15 to $79 a month ($12 to $66 a month billed yearly) and start when you publish. Asking for changes uses credits: 500 free when you save a card, then top-ups from $20. Hosting is included."}}, {"@type": "Question", "name": "Do I need a card to start?", "acceptedAnswer": {"@type": "Answer", "text": "Not to design. Pick a design and put your details on it for free, with no card. Building with AI needs a saved card, which unlocks 500 free credits; nothing is charged until you top up or publish."}}, {"@type": "Question", "name": "When can I publish?", "acceptedAnswer": {"@type": "Answer", "text": "Card sign-up and publishing open soon. Design your site now and leave your email: we keep it exactly as you set it up and email you once, when it opens."}}, {"@type": "Question", "name": "How do I build it?", "acceptedAnswer": {"@type": "Answer", "text": "Answer a short page of basics, then type what you want in your own words: friendlier words, a section about your hours, a catering page, a whole new look. Stuck? Tap Help me write it and the AI suggests what to ask, free."}}, {"@type": "Question", "name": "Do I need to know how to code or design?", "acceptedAnswer": {"@type": "Answer", "text": "No. You start from a finished design and change it by asking. Every change can be undone."}}, {"@type": "Question", "name": "What are credits?", "acceptedAnswer": {"@type": "Answer", "text": "Credits pay for the changes you ask for. One credit is 1 cent: new words for a section cost 30, a change to the page 100, a new page 500, a whole new look 1,500. The price shows before you send, and you're only charged when the change works."}}, {"@type": "Question", "name": "What if I run out of credits?", "acceptedAnswer": {"@type": "Answer", "text": "Nothing breaks and your site stays online. Top up any time (top-up credits never expire), or wait for next month's credits."}}, {"@type": "Question", "name": "Can I cancel?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, any time. There's no teaser price: the price you start at is the price you renew at. Your domain stays in your name if you leave."}}, {"@type": "Question", "name": "Can I use my own domain?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Connect one you already own, or buy one while you publish, in your name. Professional and up include a free .com for a year on yearly billing."}}, {"@type": "Question", "name": "Is it only for businesses?", "acceptedAnswer": {"@type": "Answer", "text": "No. There are wedding designs today and more kinds on the way, and you can ask for changes to fit anything else. You never need an LLC or a tax number."}}]}]}</script>
 </head><body><a class="skip" href="#main">Skip to content</a>
 <nav class="nav"><div class="nav-in">
   <a class="home" href="/"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><defs><g id="m5arm"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/></g><mask id="m5core"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="16.5" fill="#000"/></mask></defs><g mask="url(#m5core)" fill="currentColor" transform="rotate(45 50 50)"><use href="#m5arm"/><use href="#m5arm" transform="rotate(90 50 50)"/><use href="#m5arm" transform="rotate(180 50 50)"/><use href="#m5arm" transform="rotate(270 50 50)"/></g></svg><span>STATION</span></a>
@@ -533,147 +402,109 @@ body{background:var(--bg);color:var(--fg)}
   <div class="sb-res" id="searchRes" role="listbox"></div>
 </div></nav>
 <main id="main">
-<section class="sb-hero">
- <div class="sb-hero-in">
-  <div class="sb-copy">
-   <p class="eyebrow"><i></i>Station Sites &middot; website builder</p>
-   <h1>Build your website <em>by just asking.</em></h1>
-   <p class="sub">Answer the basics, then tell it what you want: a video for the top, new photos, a catering page. It changes as you ask. Publish on your own domain from $15 a month.</p>
-   <div class="sb-ctas"><a class="sb-btn go" href="/build/start/?ref=build-hero">Start designing, free<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a><a class="sb-btn plain" href="#pricing">See prices</a></div>
-   <ul class="sb-ticks">
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>500 free credits to start</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Pay your plan when you publish</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Cancel any time</li>
-   </ul>
-   <p class="sb-cardnote">Save a card to get your free credits. Nothing is charged until you top up or publish.</p>
-   <p class="sb-call">Rather we build it for you? <a href="/book/?ref=build-hero">Book a call</a></p>
-  </div>
-  <div class="sb-stagebg">
-   <div class="sb-float f2"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /></svg></span><span>AI hero video<small>225 credits, cost shown first</small></span></div>
-   <div class="sb-float f1"><span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span>Editing by hand<small>Always free</small></span></div>
-   <div class="sb-ed" id="sbEd" aria-label="Example of the Station Sites editor: a sample bakery site being edited" role="img" data-h0="Fresh bread daily." data-h1="Bread worth getting up for." data-prompt="Make the top a slow video of bread coming out of the oven">
-    <div class="sb-ed-bar"><span class="dots"><i></i><i></i><i></i></span><span class="t">Station Sites &middot; <b>Hearth Street Bakery</b></span><span class="sb-cr" id="sbCr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /> <path d="M15 6h1v4" /> <path d="m6.134 14.768.866-.5 2 3.464" /> <circle cx="16" cy="8" r="6" /></svg><span id="sbCrN">1,500</span> credits</span><span class="sb-pub">Publish</span></div>
-    <div class="sb-ed-body">
-     <div class="sb-rail"><h4>Pages</h4><a class="on" href="#" tabindex="-1">Home <small>4</small></a><a href="#" tabindex="-1">Menu <small>3</small></a><a href="#" tabindex="-1">Visit <small>2</small></a><a class="add" href="#" tabindex="-1">+ Add page</a><span class="sp"></span><div class="meter">Professional<b>$29/mo</b>5 pages</div></div>
-     <div class="sb-canvas" id="sbCv">
-      <div class="sb-site">
-       <nav><b>Hearth Street</b><span><i>Bread</i><i>Pastry</i><i>Visit</i></span></nav>
-       <div class="sb-shero" id="sbHero"><img class="a" src="/build/media/bake-hero.webp" alt=""><img class="b" src="/build/media/bake-hero-2.webp" alt=""><span class="sb-vbadge">Video &middot; 5 s loop</span>
-        <div class="txt"><h5 id="sbH">Fresh bread daily.</h5><p>Sourdough, rye and pastry from 6 am, until it&rsquo;s gone.</p><span class="sbtn">See today&rsquo;s bake</span></div></div>
-       <div class="sb-strip" id="sbStrip"><h6>Today&rsquo;s bake</h6><div class="row"><figure><img src="/build/media/bake-0.webp" alt=""><figcaption>Morning buns</figcaption></figure><figure><img src="/build/media/bake-1.webp" alt=""><figcaption>Cardamom knots</figcaption></figure><figure><img src="/build/media/bake-2.webp" alt=""><figcaption>Seasonal danish</figcaption></figure></div></div>
-      </div>
-      <div class="sb-sel" id="sbSel"><i id="sbSelT">Text</i></div>
-      <svg class="sb-cursor" id="sbCur" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 1.5l12.5 7.2-5.6 1.3-2.4 5.3z" fill="#16181D" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>
-     </div>
-     <div class="sb-ai"><h4>Ask the AI</h4>
-      <div class="sb-msgs" id="sbMsgs"><div class="sb-tips" id="sbTips"><p>Try asking</p><span>Make the top a slow video</span><span>Show the shop at sunrise</span><span>Shorter, friendlier words</span></div></div>
-      <div class="sb-in"><span id="sbIn"></span><b id="sbInC"></b></div>
-     </div>
-    </div>
+<section class="sb2-hero">
+ <div class="wrap">
+  <h1>Build your website <em>by just asking.</em></h1>
+  <div class="sb2-hero-row">
+   <p class="sub">Pick a finished design made for your kind of business, put your name on it, then change anything by typing what you want. Every change shows its price before you send it.</p>
+   <div>
+    <div class="sb-ctas"><a class="sb-btn go" href="/build/start/?ref=build-hero">Start with your business<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a><a class="sb-btn plain" href="#pricing">See prices</a></div>
+    <p class="sb2-note">Designing is free and needs no card. Building with AI and publishing open soon; leave your email and we keep your site.</p>
    </div>
-   <p class="sb-ed-cap">Example editor, sample bakery. Photos: Wikimedia Commons, public domain.</p>
   </div>
  </div>
+ <figure class="sb2-shot wrap">
+  <div class="sb2-frame"><div class="sb2-bar" aria-hidden="true"><i></i><i></i><i></i><span>station.solutions/build</span></div>
+   <picture><source media="(max-width:700px)" srcset="/build/media/builder-real-phone.webp" width="800" height="863"><img src="/build/media/builder-real.webp" width="1890" height="986" alt="The Station Sites builder. On the left, the owner of Rye &amp; Shine Bakery asked to make the headline warmer, and the reply says it cost 30 credits. On the right, the bakery&rsquo;s site with the new headline."></picture>
+  </div>
+  <figcaption>The real builder, not a mock-up. A bakery owner typed &ldquo;Make the headline warmer and more personal&rdquo;. It cost 30 credits and changed in about four seconds.</figcaption>
+ </figure>
 </section>
 
-<section class="sb-band"><div class="wrap sb-sec">
- <div class="sb-head"><h2>Live in <em>three steps.</em></h2></div>
- <ol class="sb-steps">
-  <li><div><b>Answer the basics</b><span>One page, about a minute. Or connect your Google profile and we fill it in.</span></div></li>
-  <li><div><b>Build it by asking</b><span>Type what you want and watch it change. Every request shows its cost first.</span></div></li>
-  <li><div><b>Publish on your domain</b><span>Pick a plan when it&rsquo;s right. Cancel any time.</span></div></li>
+<section class="sb2-sec" id="how"><div class="wrap">
+ <h2 class="sb2-h">How it <em>works.</em></h2>
+ <ol class="sb2-steps">
+  <li><span class="n">01</span><b>Pick a finished design</b><p>Three designs for your kind of business, each a complete site. Your name, town and phone go in as you type.</p></li>
+  <li><span class="n">02</span><b>Ask for changes</b><p>Type it the way you&rsquo;d say it. The price shows before you send, you&rsquo;re only charged if the change works, and Undo is always there.</p></li>
+  <li><span class="n">03</span><b>Publish on your domain</b><p>Pick a plan, connect your domain, and it&rsquo;s live. Opening soon.</p></li>
  </ol>
 </div></section>
 
-<div class="wrap">
-<section class="sb-sec" id="features">
- <div class="sb-head"><h2>Change anything. <em>See it live.</em></h2><p>What you see in the editor is exactly what goes on your site.</p></div>
- <div class="sb-tiles">
-  <div class="sb-tile t1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20" /> <path d="m15 19-3 3-3-3" /> <path d="m19 9 3 3-3 3" /> <path d="M2 12h20" /> <path d="m5 9-3 3 3 3" /> <path d="m9 5 3-3 3 3" /></svg></span><h3>Drag and drop</h3><p>Move any section. Add new ones from the library.</p><span class="tag free">Free</span></div>
-  <div class="sb-tile t2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 21h8" /> <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /></svg></span><h3>Edit any text</h3><p>Click the words and type. Add or remove pages.</p><span class="tag free">Free</span></div>
-  <div class="sb-tile t3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16" /> <path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2" /> <circle cx="13" cy="7" r="1" fill="currentColor" /> <rect x="8" y="2" width="14" height="14" rx="2" /></svg></span><h3>Your photos</h3><p>Upload yours, pick stock, or swap any image in one click.</p><span class="tag free">Free</span></div>
-  <div class="sb-tile t4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72" /> <path d="m14 7 3 3" /> <path d="M5 6v4" /> <path d="M19 14v4" /> <path d="M10 2v2" /> <path d="M7 8H3" /> <path d="M21 16h-4" /> <path d="M11 3H9" /></svg></span><h3>Ask the AI</h3><p>A hero video, new photos, new words. The cost is on the button.</p><span class="tag cr">Uses credits</span></div>
- </div>
-</section>
+<section class="sb2-sec" id="designs"><div class="wrap">
+ <div class="sb2-head"><h2 class="sb2-h">Start from a <em>finished site.</em></h2><p>Twelve designs so far, for bakeries and caf&eacute;s, salons and barbers, trades and home services, and weddings. More kinds of business are on the way.</p></div>
+<div class="sb2-kind"><h3>Bakeries and caf&eacute;s<small>3 designs</small></h3><div class="sb2-dz"><a href="/build/designs/bakery/b/"><img src="/build/designs/bakery/b/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Editorial Loaf</b><span>Magazine-style pages with big photographs, the baker&#x27;s own story and a printed menu, like a feature about your bakery.</span></a><a href="/build/designs/bakery/a/"><img src="/build/designs/bakery/a/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Morning Board</b><span>Your chalkboard menu behind the counter, dotted price lines and all, carried through the whole page.</span></a><a href="/build/designs/bakery/c/"><img src="/build/designs/bakery/c/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Corner Shop</b><span>A bold painted shop sign and a printed paper bag for the menu; friendly, bright and neighbourly.</span></a></div></div>
+<div class="sb2-kind"><h3>Salons and barbers<small>3 designs</small></h3><div class="sb2-dz"><a href="/build/designs/salon/a/"><img src="/build/designs/salon/a/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Price list</b><span>Your printed service menu as the whole page: a cream card, elegant type and every price set like the list on your front desk.</span></a><a href="/build/designs/salon/c/"><img src="/build/designs/salon/c/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Shop window</b><span>A neighbourhood shop with painted-window lettering, a felt letter board of prices and walk-in days up front.</span></a><a href="/build/designs/salon/b/"><img src="/build/designs/salon/b/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Lookbook</b><span>An editorial portfolio: big numbered photos of your work, who did each look and what it costs, then booking.</span></a></div></div>
+<div class="sb2-kind"><h3>Trades and home services<small>3 designs</small></h3><div class="sb2-dz"><a href="/build/designs/trades/b/"><img src="/build/designs/trades/b/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Van livery</b><span>Big sign-painted lettering like the side of your work van, with your phone number huge and one tap from a call.</span></a><a href="/build/designs/trades/a/"><img src="/build/designs/trades/a/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Work order</b><span>Laid out like the job ticket you hand a customer: services as line items with prices, and a quote form that fills in like a work order.</span></a><a href="/build/designs/trades/c/"><img src="/build/designs/trades/c/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Trusted local</b><span>Plain and reassuring: customer words first, your face and your promise, and before-and-after photos of real jobs.</span></a></div></div>
+<div class="sb2-kind"><h3>Weddings<small>3 designs</small></h3><div class="sb2-dz"><a href="/build/designs/wedding/a/"><img src="/build/designs/wedding/a/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Invitation suite</b><span>Your invitation, details card and reply card set out as letterpress paper on a dark linen table, with photographs laid among them.</span></a><a href="/build/designs/wedding/c/"><img src="/build/designs/wedding/c/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Photo story</b><span>Big, full-width photographs carry your story, with the day, travel and RSVP set quietly in between on a dark page.</span></a><a href="/build/designs/wedding/b/"><img src="/build/designs/wedding/b/thumb.webp" alt="" loading="lazy" width="1280" height="800"><b>Guest guide</b><span>A clean printed itinerary: the wedding hour by hour with times in large type, then getting here, where to stay and RSVP.</span></a></div></div>
+</div></section>
 
-<section class="sb-sec" id="pricing" style="padding-top:0">
- <div class="sb-head"><h2>Pick your size. <em>Cancel any time.</em></h2><p>Free to design. You only start paying when you publish.</p>
+<section class="sb2-sec" id="ask"><div class="wrap">
+ <div class="sb2-head"><h2 class="sb2-h">Ask in your <em>own words.</em></h2><p>Every request shows its price before you send it. One credit is one cent.</p></div>
+ <table class="sb2-ask">
+  <thead><tr><th scope="col">What you ask for</th><th scope="col">For example</th><th scope="col">Credits</th></tr></thead>
+  <tbody>
+   <tr><td>New words for a section</td><td>&ldquo;Make the headline friendlier&rdquo;</td><td>30</td></tr>
+   <tr><td>A change to the page</td><td>&ldquo;Add a short section about our 24-hour callouts&rdquo;</td><td>100</td></tr>
+   <tr><td>A new page</td><td>&ldquo;Add a page for catering orders&rdquo;</td><td>500</td></tr>
+   <tr><td>A whole new look</td><td>&ldquo;Make it calm and light, with lots of white space&rdquo;</td><td>1,500</td></tr>
+   <tr><td>Ideas for what to ask</td><td>Tap &ldquo;Help me write it&rdquo;</td><td class="free">Free</td></tr>
+   <tr><td>Undo a change</td><td>One tap, any time</td><td class="free">Free</td></tr>
+   <tr class="soon"><td>New photos and hero video</td><td>&ldquo;Show the shop at sunrise&rdquo;</td><td>Coming soon</td></tr>
+  </tbody>
+ </table>
+ <ul class="sb2-facts">
+  <li><b>Only charged when it works.</b> If a change doesn&rsquo;t come out right, it isn&rsquo;t saved and the credits come back.</li>
+  <li><b>500 free credits</b> when you save a card. Nothing is charged until you top up or publish.</li>
+  <li><b>Top-ups never expire:</b> 2,000 for $20, 5,000 for $50, 12,000 for $110. Every plan adds credits each month.</li>
+  <li><b>Your site stays online</b> if credits run out.</li>
+ </ul>
+</div></section>
+
+<section class="sb2-sec" id="pricing"><div class="wrap">
+ <div class="sb2-head"><h2 class="sb2-h">Pick your size. <em>Cancel any time.</em></h2><p>Your plan starts when you publish. Until publishing opens, design for free and we keep your site.</p>
   <div class="sb-bill" role="group" aria-label="Billing period"><button type="button" class="on" data-bill="mo" aria-pressed="true">Monthly</button><button type="button" data-bill="yr" aria-pressed="false">Yearly <i>save up to 20%</i></button></div>
  </div>
- <div class="sb-cards" id="sbCards">
-<div class="sb-card"><h3>Launch</h3><div class="pr"><b data-mo="$15" data-yr="$12">$15</b><small data-mo="a month" data-yr="a month, $144 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=launch">Start with Launch</a><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>1</b> page</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>3</b> catalog components</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>5</b> stock photos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>300</b> AI credits a month</span></li><li class="hr" aria-hidden="true"></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Contact form to your email</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Logo and favicon fitted</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Google-ready basics</span></li></ul><a class="ex" href="/build/examples/launch/"><img src="/build/examples/launch/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a one-page wedding site</span></a></div>
-<div class="sb-card"><h3>Starter</h3><div class="pr"><b data-mo="$19" data-yr="$16">$19</b><small data-mo="a month" data-yr="a month, $192 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=starter">Start with Starter</a><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>3</b> pages</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>5</b> catalog components</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>10</b> stock photos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>600</b> AI credits a month</span></li><li class="hr" aria-hidden="true"></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Everything in Launch</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Reviews and services sections</span></li></ul><a class="ex" href="/build/examples/starter/"><img src="/build/examples/starter/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 3-page salon</span></a></div>
-<div class="sb-card pop"><span class="sb-badge">Free .com with yearly</span><h3>Professional</h3><div class="pr"><b data-mo="$29" data-yr="$24">$29</b><small data-mo="a month" data-yr="a month, $288 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=pro">Start with Professional</a><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>5</b> pages</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>8</b> catalog components</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>20</b> stock photos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>1,500</b> AI credits a month</span></li><li class="hr" aria-hidden="true"></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Free .com for a year on yearly billing</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Booking request form</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Animated sections</span></li></ul><a class="ex" href="/build/examples/professional/"><img src="/build/examples/professional/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 5-page bakery</span></a></div>
-<div class="sb-card"><h3>Business</h3><div class="pr"><b data-mo="$49" data-yr="$41">$49</b><small data-mo="a month" data-yr="a month, $492 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=business">Start with Business</a><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>8</b> pages</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>12</b> catalog components</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>30</b> stock photos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>3,000</b> AI credits a month</span></li><li class="hr" aria-hidden="true"></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>One AI hero video</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Up to 3 locations</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Blog or news page</span></li></ul><a class="ex" href="/build/examples/business/"><img src="/build/examples/business/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: an 8-page trades company</span></a></div>
-<div class="sb-card"><h3>Showcase</h3><div class="pr"><b data-mo="$79" data-yr="$66">$79</b><small data-mo="a month" data-yr="a month, $792 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=showcase">Start with Showcase</a><ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>12</b> pages</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>20</b> catalog components</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>50</b> stock photos</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span><b>6,000</b> AI credits a month</span></li><li class="hr" aria-hidden="true"></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Scroll-film hero (3 AI videos)</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Premium motion library</span></li><li class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span>Two languages</span></li></ul><a class="ex" href="/build/examples/showcase/"><img src="/build/examples/showcase/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 12-page bilingual restaurant</span></a></div>
+ <div class="sb2-plans" id="sbPlans">
+<div class="sb2-plan"><span class="tag"></span><h3>Launch</h3><div class="pr"><b data-mo="$15" data-yr="$12">$15</b><small data-mo="a month" data-yr="a month, $144 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=launch">Start with Launch</a><dl><div><dt>Pages</dt><dd>1</dd></div><div><dt>Catalog sections</dt><dd>3</dd></div><div><dt>AI credits a month</dt><dd>300</dd></div></dl><ul><li>Contact form to your email</li><li>Logo and favicon fitted</li><li>Google-ready basics</li></ul><a class="ex" href="/build/examples/launch/"><img src="/build/examples/launch/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a one-page wedding site</span></a></div>
+<div class="sb2-plan"><span class="tag"></span><h3>Starter</h3><div class="pr"><b data-mo="$19" data-yr="$16">$19</b><small data-mo="a month" data-yr="a month, $192 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=starter">Start with Starter</a><dl><div><dt>Pages</dt><dd>3</dd></div><div><dt>Catalog sections</dt><dd>5</dd></div><div><dt>AI credits a month</dt><dd>600</dd></div></dl><ul><li>Everything in Launch</li><li>Reviews and services sections</li></ul><a class="ex" href="/build/examples/starter/"><img src="/build/examples/starter/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 3-page salon</span></a></div>
+<div class="sb2-plan"><span class="tag">Free .com with yearly</span><h3>Professional</h3><div class="pr"><b data-mo="$29" data-yr="$24">$29</b><small data-mo="a month" data-yr="a month, $288 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=pro">Start with Professional</a><dl><div><dt>Pages</dt><dd>5</dd></div><div><dt>Catalog sections</dt><dd>8</dd></div><div><dt>AI credits a month</dt><dd>1,500</dd></div></dl><ul><li>Free .com for a year on yearly billing</li><li>Booking request form</li><li>Animated sections</li></ul><a class="ex" href="/build/examples/professional/"><img src="/build/examples/professional/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 5-page bakery</span></a></div>
+<div class="sb2-plan"><span class="tag"></span><h3>Business</h3><div class="pr"><b data-mo="$49" data-yr="$41">$49</b><small data-mo="a month" data-yr="a month, $492 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=business">Start with Business</a><dl><div><dt>Pages</dt><dd>8</dd></div><div><dt>Catalog sections</dt><dd>12</dd></div><div><dt>AI credits a month</dt><dd>3,000</dd></div></dl><ul><li>One AI hero video</li><li>Up to 3 locations</li><li>Blog or news page</li></ul><a class="ex" href="/build/examples/business/"><img src="/build/examples/business/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: an 8-page trades company</span></a></div>
+<div class="sb2-plan"><span class="tag"></span><h3>Showcase</h3><div class="pr"><b data-mo="$79" data-yr="$66">$79</b><small data-mo="a month" data-yr="a month, $792 billed yearly">a month</small></div><a class="go" href="/build/start/?pkg=showcase">Start with Showcase</a><dl><div><dt>Pages</dt><dd>12</dd></div><div><dt>Catalog sections</dt><dd>20</dd></div><div><dt>AI credits a month</dt><dd>6,000</dd></div></dl><ul><li>Scroll-film hero (3 AI videos)</li><li>Premium motion library</li><li>Two languages</li></ul><a class="ex" href="/build/examples/showcase/"><img src="/build/examples/showcase/thumb.webp" alt="" loading="lazy" width="640" height="400"><span>See an example: a 12-page bilingual restaurant</span></a></div>
  </div>
- <p class="sb-swipe">Swipe to see all five &rarr;</p>
- <ul class="sb-sure">
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Hosting and security included</li>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>No teaser prices: the price you start at is the price you renew at</li>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Your domain stays in your name</li>
+ <ul class="sb2-sure">
+  <li>Hosting and security included</li>
+  <li>The price you start at is the price you renew at</li>
+  <li>Your domain stays in your name</li>
  </ul>
+</div></section>
 
- <div class="sb-credits" id="credits">
-  <div>
-   <h2>Credits power <em>the AI.</em></h2>
-   <p>Start with 500 free. Every request you type spends credits, and the cost shows before you send. Every plan adds more each month, and editing by hand never uses any.</p>
-   <div class="big"><b>1&cent;</b><span>per credit</span></div>
-   <ul class="sb-packs"><li>Top up: <b>2,000</b> for $20</li><li><b>5,000</b> for $50</li><li><b>12,000</b> for $110</li></ul>
-   <ul class="sb-rules">
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>The cost is on the button before you press it</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Only charged when it works; failed jobs refund themselves</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Top-up credits never expire</li>
-    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Your site never goes offline because credits ran out</li>
-   </ul>
-  </div>
-  <div class="sb-costs">
-   <h3>What things cost</h3>
-<div><span>Edit text, move sections, use your own photos</span><b class="free">Free</b></div>
-<div><span>Rewrite a section&#x27;s words</span><b>30</b></div>
-<div><span>Four draft images of anything</span><b>50</b></div>
-<div><span>A 5-second motion draft for your hero</span><b>225</b></div>
-<div><span>A finished 10-second hero video</span><b>2,100</b></div>
-<details><summary>See every price</summary><div><span>A change in plain English</span><b>100</b></div><div><span>Fix up your own photo, keeping your product</span><b>150</b></div><div><span>A final high-resolution image</span><b>225</b></div><div><span>Redo a whole page</span><b>500</b></div><div><span>A new look for the whole site</span><b>1,500</b></div></details>
-  </div>
- </div>
+<section class="sb2-sec sb2-rather" id="rather"><div class="wrap">
+ <div><h2 class="sb2-h">Rather we build it <em>for you?</em></h2><p>Station designs it around your business, and you see a free demo before you pay anything. Or talk it through with a person first.</p></div>
+ <div class="sb-ctas"><a class="sb-btn go" href="/book/?ref=build">Book a call</a><a class="sb-btn plain" href="/storefront/?ref=build">See Storefront</a></div>
+</div></section>
 
- <div class="sb-share">
-  <div><h2>Share it. <em>Earn credits.</em></h2><p>Every site you publish can bring you more AI to use.</p></div>
-  <div class="sb-share-g">
-   <div><b>1,000 + 2,000</b><span>Invite a friend. They get 1,000 credits to start; you get 2,000 when they publish.</span></div>
-   <div><b>300 a month</b><span>Keep a small &ldquo;Made with Station Sites&rdquo; link in your footer. Turn it off any time.</span></div>
-  </div>
- </div>
-
- <div class="sb-rather" id="rather">
-  <div><h2>Rather we build it for you?</h2><p>Station designs it around your business, and you see a free demo before you pay anything. Or talk it through with a person first.</p></div>
-  <div class="sb-ctas"><a class="sb-btn go" href="/book/?ref=build">Book a call</a><a class="sb-btn plain" href="/storefront/?ref=build">See Storefront</a></div>
- </div>
-</section>
-
-<section class="sb-sec faqs" id="faq" style="padding-top:0">
- <h2>Questions people ask.</h2>
+<section class="sb2-sec faqs" id="faq"><div class="wrap">
+ <h2 class="sb2-h">Questions people <em>ask.</em></h2>
  <div class="faq-body" style="margin-top:28px"><ul class="fl">
-<li class="fi" id="q-what-is-station-sites" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>What is Station Sites?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>A website builder for any business, event or person. Answer a few questions, start from a finished design, change anything on the page, and publish on your own domain when it&#x27;s right.</p></div></div></li>
-<li class="fi" id="q-how-much-does-it-cost" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>How much does it cost?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>From $15 a month, or $12 a month billed yearly, which you start paying when you publish. Building runs on credits: you get 500 free, then top up from $20 if you want more. Hosting is included.</p></div></div></li>
-<li class="fi" id="q-do-i-need-a-card-to-start" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>Do I need a card to start?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>Yes. Save a card to get your 500 free credits; nothing is charged. You confirm every credit top-up, and your plan only starts when you publish.</p></div></div></li>
-<li class="fi" id="q-how-do-i-build-it" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>How do I build it?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Answer a short page of basics, then type what you want in your own words: a video for the top, four photo ideas, a catering page. Stuck? Tap Help me and the AI suggests what to ask, free. You can also scroll the catalog and add ready-made sections.</p></div></div></li>
-<li class="fi" id="q-do-i-need-to-know-how-to-code-or-design" data-state="closed"><h3><button type="button" class="fi-b" id="fb-4" aria-expanded="false" aria-controls="fa-4"><span>Do I need to know how to code or design?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-4" role="region" aria-labelledby="fb-4"><div><p>No. You start from a finished design and change it by clicking: type over the words, drag sections, drop in photos. If you want something new, describe it to the AI.</p></div></div></li>
-<li class="fi" id="q-what-are-credits" data-state="closed"><h3><button type="button" class="fi-b" id="fb-5" aria-expanded="false" aria-controls="fa-5"><span>What are credits?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-5" role="region" aria-labelledby="fb-5"><div><p>Credits pay for every request you type: new images, video, rewrites and bigger changes. One credit is 1 cent. You start with 500 free, every plan adds more each month, the cost shows before you send, and you are only charged when it works. Editing by hand is always free.</p></div></div></li>
-<li class="fi" id="q-what-if-i-run-out-of-credits" data-state="closed"><h3><button type="button" class="fi-b" id="fb-6" aria-expanded="false" aria-controls="fa-6"><span>What if I run out of credits?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-6" role="region" aria-labelledby="fb-6"><div><p>Nothing breaks. Your site stays online and editing by hand stays free. Top up any time (top-up credits never expire), or wait for next month&#x27;s credits.</p></div></div></li>
-<li class="fi" id="q-can-i-cancel" data-state="closed"><h3><button type="button" class="fi-b" id="fb-7" aria-expanded="false" aria-controls="fa-7"><span>Can I cancel?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-7" role="region" aria-labelledby="fb-7"><div><p>Yes, any time, from your account. There&#x27;s no teaser price either: the price you start at is the price you renew at. Your domain stays in your name if you leave.</p></div></div></li>
-<li class="fi" id="q-can-i-use-my-own-domain" data-state="closed"><h3><button type="button" class="fi-b" id="fb-8" aria-expanded="false" aria-controls="fa-8"><span>Can I use my own domain?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-8" role="region" aria-labelledby="fb-8"><div><p>Yes. Connect one you already own, or buy one while you publish at cost, in your name. Professional and up include a free .com for a year on yearly billing.</p></div></div></li>
-<li class="fi" id="q-is-it-only-for-businesses" data-state="closed"><h3><button type="button" class="fi-b" id="fb-9" aria-expanded="false" aria-controls="fa-9"><span>Is it only for businesses?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-9" role="region" aria-labelledby="fb-9"><div><p>No. Build a site for a business, a wedding, a club, a cause or your own work. You never need an LLC or a tax number.</p></div></div></li>
+<li class="fi" id="q-what-is-station-sites" data-state="closed"><h3><button type="button" class="fi-b" id="fb-0" aria-expanded="false" aria-controls="fa-0"><span>What is Station Sites?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-0" role="region" aria-labelledby="fb-0"><div><p>A website builder for any business, event or person. Pick a finished design made for your kind of business, put your details on it, change anything by asking in your own words, and publish on your own domain.</p></div></div></li>
+<li class="fi" id="q-how-much-does-it-cost" data-state="closed"><h3><button type="button" class="fi-b" id="fb-1" aria-expanded="false" aria-controls="fa-1"><span>How much does it cost?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-1" role="region" aria-labelledby="fb-1"><div><p>Plans run from $15 to $79 a month ($12 to $66 a month billed yearly) and start when you publish. Asking for changes uses credits: 500 free when you save a card, then top-ups from $20. Hosting is included.</p></div></div></li>
+<li class="fi" id="q-do-i-need-a-card-to-start" data-state="closed"><h3><button type="button" class="fi-b" id="fb-2" aria-expanded="false" aria-controls="fa-2"><span>Do I need a card to start?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-2" role="region" aria-labelledby="fb-2"><div><p>Not to design. Pick a design and put your details on it for free, with no card. Building with AI needs a saved card, which unlocks 500 free credits; nothing is charged until you top up or publish.</p></div></div></li>
+<li class="fi" id="q-when-can-i-publish" data-state="closed"><h3><button type="button" class="fi-b" id="fb-3" aria-expanded="false" aria-controls="fa-3"><span>When can I publish?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-3" role="region" aria-labelledby="fb-3"><div><p>Card sign-up and publishing open soon. Design your site now and leave your email: we keep it exactly as you set it up and email you once, when it opens.</p></div></div></li>
+<li class="fi" id="q-how-do-i-build-it" data-state="closed"><h3><button type="button" class="fi-b" id="fb-4" aria-expanded="false" aria-controls="fa-4"><span>How do I build it?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-4" role="region" aria-labelledby="fb-4"><div><p>Answer a short page of basics, then type what you want in your own words: friendlier words, a section about your hours, a catering page, a whole new look. Stuck? Tap Help me write it and the AI suggests what to ask, free.</p></div></div></li>
+<li class="fi" id="q-do-i-need-to-know-how-to-code-or-design" data-state="closed"><h3><button type="button" class="fi-b" id="fb-5" aria-expanded="false" aria-controls="fa-5"><span>Do I need to know how to code or design?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-5" role="region" aria-labelledby="fb-5"><div><p>No. You start from a finished design and change it by asking. Every change can be undone.</p></div></div></li>
+<li class="fi" id="q-what-are-credits" data-state="closed"><h3><button type="button" class="fi-b" id="fb-6" aria-expanded="false" aria-controls="fa-6"><span>What are credits?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-6" role="region" aria-labelledby="fb-6"><div><p>Credits pay for the changes you ask for. One credit is 1 cent: new words for a section cost 30, a change to the page 100, a new page 500, a whole new look 1,500. The price shows before you send, and you&#x27;re only charged when the change works.</p></div></div></li>
+<li class="fi" id="q-what-if-i-run-out-of-credits" data-state="closed"><h3><button type="button" class="fi-b" id="fb-7" aria-expanded="false" aria-controls="fa-7"><span>What if I run out of credits?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-7" role="region" aria-labelledby="fb-7"><div><p>Nothing breaks and your site stays online. Top up any time (top-up credits never expire), or wait for next month&#x27;s credits.</p></div></div></li>
+<li class="fi" id="q-can-i-cancel" data-state="closed"><h3><button type="button" class="fi-b" id="fb-8" aria-expanded="false" aria-controls="fa-8"><span>Can I cancel?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-8" role="region" aria-labelledby="fb-8"><div><p>Yes, any time. There&#x27;s no teaser price: the price you start at is the price you renew at. Your domain stays in your name if you leave.</p></div></div></li>
+<li class="fi" id="q-can-i-use-my-own-domain" data-state="closed"><h3><button type="button" class="fi-b" id="fb-9" aria-expanded="false" aria-controls="fa-9"><span>Can I use my own domain?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-9" role="region" aria-labelledby="fb-9"><div><p>Yes. Connect one you already own, or buy one while you publish, in your name. Professional and up include a free .com for a year on yearly billing.</p></div></div></li>
+<li class="fi" id="q-is-it-only-for-businesses" data-state="closed"><h3><button type="button" class="fi-b" id="fb-10" aria-expanded="false" aria-controls="fa-10"><span>Is it only for businesses?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></h3><div class="fi-a" id="fa-10" role="region" aria-labelledby="fb-10"><div><p>No. There are wedding designs today and more kinds on the way, and you can ask for changes to fit anything else. You never need an LLC or a tax number.</p></div></div></li>
  </ul></div>
-</section>
-</div>
+</div></section>
 
-<section class="sb-final" id="start">
+<section class="sb2-final" id="start"><div class="wrap">
  <h2>Start your website today.</h2>
- <p>500 free credits to start. Pay your plan only when you publish.</p>
- <div class="sb-ctas"><a class="sb-btn white" href="/build/start/?ref=build-end">Start designing, free</a><a class="sb-btn clear" href="/book/?ref=build-end">Book a call</a></div>
-</section>
+ <p>Free to design, no card. Plans from $15 a month when you publish.</p>
+ <div class="sb-ctas"><a class="sb-btn go" href="/build/start/?ref=build-end">Start with your business<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a><a class="sb-btn plain" href="/book/?ref=build-end">Book a call</a></div>
+</div></section>
 </main>
 
 <!-- HALFTONE WORDMARK FOOTER. The wordmark set enormous, cropped by the bottom edge, printed as a field of dots sized by coverage. Dots part around the pointer on springs and warm toward copper; a click sends a ring through the word. Ported from 21st.dev "halftone-wordmark-footer" (React) to plain code. -->
@@ -766,7 +597,7 @@ body{background:var(--bg);color:var(--fg)}
 })();
 </script>
 
-<aside class="receipt" id="receipt" aria-live="polite" aria-label="Station Sites price"><div class="wrap"><div>Station Sites, <b>from $15 a month</b></div><div>Free to design, <b>pay when you publish</b></div><a class="btn" href="/build/start/?ref=build-bar">Start designing</a></div></aside>
+<aside class="receipt" id="receipt" aria-live="polite" aria-label="Station Sites price"><div class="wrap"><div>Station Sites, <b>from $15 a month</b></div><div>Free to design, <b>no card</b></div><a class="btn" href="/build/start/?ref=build-bar">Start with your business</a></div></aside>
 <script>window.STATION_CATALOG=[{"k": "greet", "n": "Greet", "sub": "Website chat assistant", "pricelab": "$79 /mo", "ttl": "Live in minutes", "mo": 79, "once": 0, "link": "https://buy.stripe.com/5kQbIU1Gs6cpeIN5ZC2Fa0Z", "img": "/media/v5/greet.jpg", "price_id": "price_1TzVcd4Y7C8no2ikRlFIdU8q"}, {"k": "slate", "n": "Slate", "sub": "Booking calendar & reminders", "pricelab": "$59 /mo", "ttl": "Live today", "mo": 59, "once": 0, "link": "https://buy.stripe.com/8x25kw5WI0S5305ds42Fa1v", "img": "/media/v5/slate.jpg", "price_id": "price_1UGUkq4Y7C8no2ik33SCikR9"}, {"k": "lineback", "n": "Lineback", "sub": "Missed-call text-back", "pricelab": "$197 /mo", "ttl": "Live in ~2 business days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gMcMYcl630d1W15ZC2Fa14", "img": "/media/v5/lineback.jpg", "price_id": "price_1TzVcf4Y7C8no2ikSQwPLLHG"}, {"k": "frontdesk", "n": "Frontdesk", "sub": "AI phone receptionist", "pricelab": "$397 /mo", "ttl": "Live same day", "mo": 397, "once": 0, "link": "https://buy.stripe.com/eVqeV6cl6cAN7glfAc2Fa16", "img": "/media/v5/frontdesk.jpg", "price_id": "price_1TzVcg4Y7C8no2iknK94keOq"}, {"k": "pursuit", "n": "Pursuit", "sub": "Automatic follow-up", "pricelab": "$247 /mo", "ttl": "Live instantly", "mo": 247, "once": 0, "link": "https://buy.stripe.com/3cI5kw70M1W96chfAc2Fa19", "img": "/media/v5/pursuit.jpg", "price_id": "price_1TzVci4Y7C8no2ikGmZ0IJA0"}, {"k": "repute", "n": "Repute", "sub": "Review engine", "pricelab": "$197 /mo", "ttl": "Live same day", "mo": 197, "once": 0, "link": "https://buy.stripe.com/fZufZa70M6cpeINds42Fa1b", "img": "/media/v5/repute.jpg", "price_id": "price_1TzVcj4Y7C8no2ikEe64LSwt"}, {"k": "map", "n": "Echo", "sub": "Google profile, managed", "pricelab": "$247 /mo", "ttl": "Live in 2\u20133 days", "mo": 247, "once": 0, "link": "", "img": "/media/v5/map.jpg", "price_id": "price_1UGUko4Y7C8no2ikuq62n9On"}, {"k": "dispatch", "n": "Dispatch", "sub": "Email campaigns", "pricelab": "$94 /mo", "ttl": "Live instantly", "mo": 94, "once": 0, "link": "https://buy.stripe.com/8x2fZabh20S54490Fi2Fa1d", "img": "/media/v5/dispatch.jpg", "price_id": "price_1TzVck4Y7C8no2ikU1Jq6hp3"}, {"k": "revive", "n": "Revive", "sub": "Win back old customers", "pricelab": "$197 /mo", "ttl": "Runs in 1\u20132 days", "mo": 197, "once": 0, "link": "", "img": "/media/v5/revive.jpg", "price_id": "price_1UMyIS4Y7C8no2ikuHC5vpTI"}, {"k": "radar", "n": "Radar", "sub": "Prospecting engine", "pricelab": "$297 /mo", "ttl": "Live same day", "mo": 297, "once": 0, "link": "https://buy.stripe.com/5kQ28kbh244hdEJbjW2Fa1r", "img": "/media/v5/radar.jpg", "price_id": "price_1UGUko4Y7C8no2ikwFny6WFb"}, {"k": "dial", "n": "Dial", "sub": "Business number & texting", "pricelab": "$47 /mo", "ttl": "Live in ~2 business days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/28EeV65WI58ldEJ0Fi2Fa1h", "img": "/media/v5/dial.jpg", "price_id": "price_1TzVcn4Y7C8no2ikq0LlSCRA"}, {"k": "tap", "n": "Tap", "sub": "Payments & POS", "pricelab": "$47 /mo + card rates", "ttl": "Live in 1\u20132 days", "mo": 47, "once": 0, "link": "https://buy.stripe.com/4gMcMY1GsdER9otew82Fa1n", "img": "/media/v5/tap.jpg", "price_id": "price_1U2FsB4Y7C8no2ik5gbYBi8Q"}, {"k": "marquee", "n": "Marquee", "sub": "Social, ads & brand board", "pricelab": "$197 /mo", "ttl": "Live in 5\u20137 days", "mo": 197, "once": 0, "link": "https://buy.stripe.com/4gM00ceteeIVfMR3Ru2Fa1k", "img": "/media/v5/marquee.jpg", "price_id": "price_1TzVcp4Y7C8no2ikHA1mMp89"}];</script>
 <script src="/v5.js?v=20261019g"></script>
 <script>(function(){
@@ -779,7 +610,7 @@ body{background:var(--bg);color:var(--fg)}
  // billing period toggle on the pricing cards
  document.querySelectorAll('.sb-bill button').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.bill;
   document.querySelectorAll('.sb-bill button').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',String(on))});
-  document.querySelectorAll('#sbCards [data-mo]').forEach(function(el){el.textContent=el.dataset[k]})})});
+  document.querySelectorAll('#sbPlans [data-mo]').forEach(function(el){el.textContent=el.dataset[k]})})});
  // examples: play the scroll recording on hover / focus
  document.querySelectorAll('.sb-ex a').forEach(function(a){var v=a.querySelector('video');if(!v)return;
   function on(){v.play().catch(function(){})}function off(){v.pause();v.currentTime=0}
