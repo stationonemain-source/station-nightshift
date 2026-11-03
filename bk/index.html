@@ -10,7 +10,7 @@
   Client booking page. Serves EVERY client's booking link on station.solutions so a
   client's own customer never sees a vendor domain in the address bar.
 
-  Usage:  https://station.solutions/bk/?c=<calendarId>[&n=<Business+Name>]
+  Usage:  https://station.solutions/bk/?c=<booking slug on the Platform>[&n=<Business+Name>]
 
   Deliberately unbranded — the visitor is the CLIENT's customer, not a Station
   prospect, so there is no Station wordmark, nav or footer here. The calendar
@@ -53,10 +53,10 @@
 (function () {
   var q = new URLSearchParams(location.search);
 
-  // Calendar ids are opaque alphanumeric handles. Anything else is not ours —
-  // refuse it rather than letting it reach the iframe src.
+  // 2026-11-03 (exit/buy): the calendar is the Platform's booking page, https://book.station.solutions/<slug>.
+  // Slugs are short lower-case handles. Anything else is not ours — refuse it rather than letting it reach the iframe src.
   var id = (q.get('c') || '').trim();
-  if (!/^[A-Za-z0-9_-]{8,64}$/.test(id)) return;
+  if (!/^[a-z0-9][a-z0-9-]{1,63}$/.test(id)) return;
 
   var name = (q.get('n') || '').trim().slice(0, 80);
   if (name) {
@@ -67,19 +67,13 @@
   }
 
   var f = document.createElement('iframe');
-  f.src = 'https://api.leadconnectorhq.com/widget/booking/' + encodeURIComponent(id);
+  f.src = 'https://book.station.solutions/' + encodeURIComponent(id);
   f.title = name ? ('Book an appointment with ' + name) : 'Book an appointment';
   f.setAttribute('scrolling', 'no');
-  f.id = id;                       // form_embed.js resizes by matching this to the calendar id
+  f.id = 'cal';
 
   var shell = document.getElementById('shell');
   shell.replaceChild(f, document.getElementById('msg'));
-
-  // Auto-resize so the calendar never scrolls inside a fixed-height box on mobile.
-  var s = document.createElement('script');
-  s.src = 'https://link.msgsndr.com/js/form_embed.js';
-  s.async = true;
-  document.body.appendChild(s);
 })();
 </script>
 </body>
