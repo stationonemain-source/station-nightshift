@@ -432,3 +432,37 @@ Frontdesk/Lineback, report screens elsewhere), five searched questions, final CT
 go in the entry's `extra_js`. Remaining eight (Pursuit, Slate, Tap, Greet, Marquee, Revive, Radar; Dial pending retirement) still v2.
 Open with Circle: Dispatch automation details + email allowance (25k guide vs 100k site); Frontdesk sample call; Repute review
 link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (our token is read-only). IndexNow pinged 10-21.
+
+## 2026-11-03 — leaving GoHighLevel: every buy goes to the Platform (branch `exit/buy`, NOT on main)
+
+- **One buy route.** `[data-buynow]`, `[data-bundle]` and the /checkout/ Pay button all open
+  `https://my.station.solutions/buy?items=<lookup_key>[,…]&ref=<partner code>&back=<page>` (v5.js `buyUrl`, shared as
+  `window.STATION_BUY`). Lookup keys ride on `window.STATION_CATALOG` (`lookup_key` = standard tier, `lookup_keys`
+  {standard, pro, max}; `link`/`price_id` are gone) and on the collection/plan buttons (`collection_*_v2`, `plan_*_v2`).
+  Static tier-upgrade links are written as `/buy?items=KEY` and get `ref`+`back` added at load. The n8n
+  `cart-checkout` call and every `buy.stripe.com` payment link are gone. Tier map: default/Standard/Self-serve =
+  standard · Busy/Pro = pro · High volume/Managed = max. The cart (localStorage) stays as a list of keys.
+- ⚠ As of 2026-11-03 the Platform answers `GET /buy?items=…` with **503 "checkout is not connected yet"** (no Stripe
+  key). Nothing on this branch may reach `main` before that route works; test one key end to end first.
+- **No yearly keys** in the price file, so the Monthly / Yearly switch on /products/ is `hidden` (one attribute).
+- **Dial retired:** `/dial/` is a static noindex notice; out of the mega menu (34 pages), the shelf and its ItemList
+  JSON-LD, the footers, `sitemap.xml`, `llms.txt`, the catalog and the v5.js/thanks pairing tables.
+- **Marquee:** page stays, no buy control anywhere ("Coming when Meta approves Station"); catalog `lookup_key: null`,
+  so checkout skips it and buy-now ignores it. Flip: give it `marquee_standard_v2` in `fd_catalog.txt` (+ the 32
+  pages) and drop `soon=` in the generator's Marquee entry.
+- **Booking:** the six GHL iframes are `https://book.station.solutions/station` (framing allowed: no X-Frame-Options,
+  no CSP, checked 11-03) with an "Open the booking page" link under each; `/bk/?c=<slug>` frames
+  `book.station.solutions/<slug>` (old GHL calendar ids no longer work there). `form_embed.js` is gone.
+- `/top-up/` sends people to `https://my.station.solutions/#billing` ("Top-ups are bought inside your Station account").
+- Legal: `app.station.solutions` → `my.station.solutions` (tos, cancellation, privacy).
+- **No displayed price changed.** `scratch/price-diff.md` lists every price shown vs the price file (22 of 53 differ)
+  for the separate price-switch branch. ⚠ `scratch/` is served publicly once on main — move it under `_notes/` or
+  delete it at merge.
+- **Generator** (`scratch/heroes` on the PC): `products_pages.py`, `build_funnel.py`, `build_v3.py`,
+  `patch_pricing.py`, `patch_shelf.py`, `patch_mega.py`, `build_home.py`, `fd_catalog.txt` carry the same edits (the
+  previous versions are in `heroes/.bak-exit-buy-20261103/`). `build_funnel.py` and `patch_pricing.py` now take
+  `SN_ROOT` so they run on a Mac checkout too. Regenerating the 13 pages with the edited generator reproduces this
+  branch's buy controls exactly; the only other differences are drift that already existed between the PC generator
+  and main (`station.css?v=`, `<source media>` on hero pictures, the "first time over is free" usage copy, Tap doors).
+- Still mentioning the old world, on purpose: `_tests/sweep_site_test.py` (bans GHL words on customer pages),
+  `line.js` (unreferenced legacy runtime, still decorates `buy.stripe.com` links that no longer exist).
