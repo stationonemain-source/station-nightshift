@@ -5,7 +5,7 @@
   var f$ = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   function ready(fn){ if(document.readyState!=="loading") fn(); else document.addEventListener("DOMContentLoaded",fn); }
 
-  /* ---------- ref capture -> stripe ---------- */
+  /* ---------- ref capture -> the Platform's checkout ---------- */
   var REF = null;
   var AFF_PUB = "stnpub-84cc5c8bdf9168da20e4923921d8743c";
   try {
@@ -44,14 +44,26 @@
       }
     }
   } catch (e) {}
-  function stripeUrl(u){
-    if (REF && u && u.indexOf("client_reference_id") === -1)
-      return u + (u.indexOf("?") > -1 ? "&" : "?") + "client_reference_id=" + encodeURIComponent(REF);
+  /* 2026-11-03 (exit/buy): every purchase goes to the client Platform. One route:
+       https://my.station.solutions/buy?items=<lookup_key>[,<lookup_key>...]&ref=<partner code>&back=<this page>
+     The lookup keys come from the Platform's price file and ride on each catalog entry (lookup_key /
+     lookup_keys) and on the collection and plan buttons (data-bundle). The old paths (raw Stripe payment
+     links and the n8n session builder) are gone; nothing on this site holds a Stripe price id any more. */
+  var BUY_URL = "https://my.station.solutions/buy";
+  function buyUrl(keys, back){
+    var u = BUY_URL + "?items=" + keys.map(encodeURIComponent).join(",");
+    if (REF) u += "&ref=" + encodeURIComponent(REF);
+    u += "&back=" + encodeURIComponent(back || location.href.split("#")[0]);
     return u;
   }
+  /* Static links on the product pages (tier upgrades) are written as /buy?items=KEY; the partner code and
+     the way back are only known here, so they are added at load. Shared with the checkout block (its own scope). */
+  window.STATION_BUY = { url: buyUrl };
   ready(function () {
-    document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function (a) {
-      a.href = stripeUrl(a.getAttribute("href")); a.target = "_blank"; a.rel = "noopener";
+    document.querySelectorAll('a[href^="' + BUY_URL + '?items="]').forEach(function (a) {
+      var q = new URLSearchParams(a.getAttribute("href").split("?")[1] || "");
+      var items = (q.get("items") || "").split(",").filter(Boolean);
+      if (items.length) a.href = buyUrl(items);
     });
   });
 
@@ -197,15 +209,11 @@
     document.addEventListener("click", function(e){
       var add = e.target.closest && e.target.closest("[data-add]");
       if (add){ e.preventDefault(); flyToCart(add, add.getAttribute("data-add")); return; }
-      /* Buy-now used to be a raw buy.stripe.com payment link sitting next to Add to
-         cart — a second, separate Stripe configuration for the same product. They had
-         already drifted: six products advertise "free for 7 days" and the payment link
-         billed immediately at full price, and storefront/map links missed their second
-         price. One path now, so they cannot diverge again. */
-      /* Bundles are a single Stripe price that grants many products, so they skip the
-         cart and open a session directly. Their old buy.stripe.com links had been
-         DEACTIVATED in Stripe - every bundle button led to "this link is no longer
-         active", which is every bundle sale lost. */
+      /* Buy-now, Add to cart and the collection buttons all end at the same Platform route,
+         so the three paths cannot drift apart (they did once: six products advertised a free
+         trial while their separate payment links billed immediately). */
+      /* Bundles are one Platform lookup key (collection_*_v2 / plan_*_v2) that grants many
+         products, so they skip the cart and open the Platform's checkout directly. */
       var bun = e.target.closest && e.target.closest("[data-bundle]");
       if (bun){
         e.preventDefault();
@@ -228,28 +236,18 @@
                                                                          : "No free trial on plans. 30-day money-back on your first month. Month to month.");
           return;
         }
-        var was = bun.getAttribute("data-was") || bun.textContent;
-        bun.disabled = true; bun.textContent = "Building your secure checkout…";
-        var bref = null; try { bref = sessionStorage.getItem("station_ref"); } catch (x) {}
-        fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prices: [bun.getAttribute("data-bundle")].concat((function () {
-              var ad = bun.closest(".bcard") && bun.closest(".bcard").querySelector("input[data-addon]");
-              return (ad && ad.checked && !document.querySelector('.bterm button.on[data-term="y"]')) ? [ad.getAttribute("data-addon")] : [];
-            })()),
-            has_recurring: true, has_onetime: false, ref: bref || undefined })
-        }).then(function (r) { return r.json(); }).then(function (d) {
-          if (d && d.url) { location.href = d.url; }
-          else { bun.disabled = false; bun.textContent = "Try again — " + was; }
-        }).catch(function () { bun.disabled = false; bun.textContent = "Try again — " + was; });
+        var keys = [bun.getAttribute("data-bundle")].filter(Boolean);
+        if (!keys.length) return;
+        bun.disabled = true; bun.textContent = "Opening your secure checkout…";
+        location.href = buyUrl(keys);
         return;
       }
       var buy = e.target.closest && e.target.closest("[data-buynow]");
       if (buy){
         e.preventDefault();
-        var k = buy.getAttribute("data-buynow"), c = cartGet();
-        if (c.indexOf(k) === -1) { c.push(k); cartSet(c); }
-        location.href = "/checkout/";
+        var k = buy.getAttribute("data-buynow"), bp = prod(k);
+        if (!bp || !bp.lookup_key) return;   /* a product the Platform does not sell yet (Marquee) */
+        location.href = buyUrl([bp.lookup_key]);
         return;
       }
       var cb = e.target.closest && e.target.closest(".cartbtn");
@@ -264,8 +262,7 @@
         document.querySelectorAll(".bcard .bp[data-m]").forEach(function (bp) {
           bp.innerHTML = (y ? bp.getAttribute("data-y") : bp.getAttribute("data-m")) + "<small>" + (y ? "/yr" : "/mo") + "</small>";
         });
-        document.querySelectorAll(".bbtn[data-m-id]").forEach(function (b) {
-          b.setAttribute("data-bundle", y ? b.getAttribute("data-y-id") : b.getAttribute("data-m-id"));
+        document.querySelectorAll(".bbtn[data-bundle]").forEach(function (b) {
           if (b.getAttribute("data-armed")) { b.removeAttribute("data-armed"); b.textContent = b.getAttribute("data-was"); }
           var n = b.nextElementSibling;
           if (n && n.classList.contains("bnote")) n.textContent = b.getAttribute("data-trial") === "1"
@@ -358,7 +355,7 @@
   ready(function () {
     var tilesEl = document.getElementById("tiles"); if (!tilesEl || !CATALOG.length) return;
     var on = {}, TICKET = 425;
-    var PAIN = { calls: ["lineback","frontdesk","dial","pursuit"], noshows: ["slate","frontdesk","pursuit"],
+    var PAIN = { calls: ["lineback","frontdesk","pursuit"], noshows: ["slate","frontdesk","pursuit"],
       reviews: ["repute","map"], invisible: ["map","storefront","marquee","repute"],
       quiet: ["revive","dispatch","pursuit"], slow: ["radar","dispatch","marquee"] };
     var order = CATALOG.map(function (p) { return p.k; });
@@ -399,11 +396,11 @@
            (the old rule said "a line pass covers this for less" for any total over $800 -- e.g.
            Frontdesk + Lineback + Pursuit = $841, which no bundle under $1,395 contains). */
         /* 2026-10-04 Collections catalogue: three collections, then Core (every product but Radar). */
-        var ALL = ["greet","slate","lineback","frontdesk","pursuit","repute","map","marquee","dispatch","revive","tap","dial"];
-        var BUN = [{ n: "Answer", mo: 297, keys: ["greet","lineback","slate","dial","tap"] },
+        var ALL = ["greet","slate","lineback","frontdesk","pursuit","repute","map","marquee","dispatch","revive","tap"];
+        var BUN = [{ n: "Answer", mo: 297, keys: ["greet","lineback","slate","tap"] },
                    { n: "Follow Up", mo: 427, keys: ["pursuit","dispatch","revive"] },
                    { n: "Get Found", mo: 497, keys: ["map","repute","marquee"] },
-                   { n: "Answer + receptionist", mo: 594, keys: ["greet","lineback","slate","dial","tap","frontdesk"] },
+                   { n: "Answer + receptionist", mo: 594, keys: ["greet","lineback","slate","tap","frontdesk"] },
                    { n: "Core", mo: 1297, keys: ALL }];
         var picked = CATALOG.filter(function (p) { return on[p.k]; }).map(function (p) { return p.k; });
         var fit = null;
@@ -883,11 +880,11 @@
     function P2(k) { return cat.find(function (x) { return x.k === k; }); }
     function trialable(p) { return p.mo > 0 && !(p.once > 0) && p.k !== "storefront"; }
     /* last-second pairings — what actually gets added together */
-    var PAIR = { lineback: ["frontdesk", "dial"], frontdesk: ["slate", "repute"], storefront: ["greet", "map"],
+    var PAIR = { lineback: ["frontdesk", "slate"], frontdesk: ["slate", "repute"], storefront: ["greet", "map"],
       greet: ["slate", "pursuit"], slate: ["pursuit", "lineback"], pursuit: ["revive", "dispatch"],
       repute: ["map", "marquee"], map: ["repute", "marquee"], dispatch: ["revive", "radar"],
-      revive: ["dispatch", "pursuit"], radar: ["dispatch", "dial"], dial: ["lineback", "tap"],
-      tap: ["dial", "slate"], marquee: ["repute", "map"] };
+      revive: ["dispatch", "pursuit"], radar: ["dispatch", "pursuit"],
+      tap: ["lineback", "slate"], marquee: ["repute", "map"] };
     function render() {
       var c = get();
       if (!c.length) {
@@ -903,7 +900,8 @@
         return '<div class="co-item">' + (p.img ? '<img src="' + p.img + '" alt="">' : '') +
           '<div class="co-m"><b>' + p.n + '</b><span>' + p.sub + '</span>' +
           '<span class="co-meta">' + p.pricelab + ' · ' + p.ttl + '</span>' +
-          (t ? '<span class="co-tr">14-day free trial — $0 today</span>' : '') + '</div>' +
+          (p.lookup_key ? (t ? '<span class="co-tr">14-day free trial — $0 today</span>' : '')
+                        : '<span class="co-meta">' + (p.soon || 'Not for sale yet') + ' — not included in this checkout</span>') + '</div>' +
           '<button class="ci-x" data-corm="' + k + '" aria-label="Remove ' + p.n + '">×</button></div>';
       }).join("");
       /* the last-second nudge: two highest-affinity products not yet in the cart */
@@ -932,33 +930,14 @@
       if (ad) { var c = get(); if (c.indexOf(ad) === -1) c.push(ad); set(c); }
     });
     pay.addEventListener("click", function () {
+      /* 2026-11-03 (exit/buy): one Platform URL carrying every key in the cart. The Platform owns
+         trial, proration and the partner credit; this page only hands over the keys and the way back. */
       var c = get(); if (!c.length) return;
-      var prices = [], hasRecurring = false, hasOnetime = false, allTrial = true;
-      c.forEach(function (k) {
-        var p = P2(k);
-        if (p && (p.price_ids || p.price_id)) {
-          /* a product can carry two prices (map = $147/mo + $297 setup).
-             Sending one id made storefront fail Stripe validation outright and made
-             map quietly skip its setup fee. */
-          (p.price_ids || [p.price_id]).forEach(function (id) { prices.push(id); });
-          if (p.mo > 0) hasRecurring = true;
-          if (p.once > 0) hasOnetime = true;
-          if (!trialable(p)) allTrial = false;
-        }
-      });
-      if (!prices.length) return;
-      pay.disabled = true; pay.textContent = "Building your secure checkout…";
-      var ref = null; try { ref = sessionStorage.getItem("station_ref"); } catch (e) {}
-      fetch("https://n8n.srv1748596.hstgr.cloud/webhook/cart-checkout", {
-        method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prices: prices, has_recurring: hasRecurring, has_onetime: hasOnetime,
-          trial: allTrial && hasRecurring && !hasOnetime, ref: ref || undefined })
-      }).then(function (r) { return r.json(); }).then(function (d) {
-        if (d && d.url) { location.href = d.url; }
-        else { pay.disabled = false; pay.textContent = "Try again — continue to secure payment →"; }
-      }).catch(function () {
-        pay.disabled = false; pay.textContent = "Try again — continue to secure payment →";
-      });
+      var keys = [];
+      c.forEach(function (k) { var p = P2(k); if (p && p.lookup_key) keys.push(p.lookup_key); });
+      if (!keys.length || !window.STATION_BUY) return;
+      pay.disabled = true; pay.textContent = "Opening your secure checkout…";
+      location.href = window.STATION_BUY.url(keys);
     });
     render();
   });
