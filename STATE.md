@@ -466,3 +466,33 @@ link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (ou
   and main (`station.css?v=`, `<source media>` on hero pictures, the "first time over is free" usage copy, Tap doors).
 - Still mentioning the old world, on purpose: `_tests/sweep_site_test.py` (bans GHL words on customer pages),
   `line.js` (unreferenced legacy runtime, still decorates `buy.stripe.com` links that no longer exist).
+
+## 2026-11-04 — branch `exit/buy-2` (exit/buy brought onto current main + the price switch). NOT on main, NOT pushed
+
+- Going live waits for one real $0 trial checkout by a founder. `scratch/` (price-diff, screenshots) is served publicly once
+  on main: move it under `_notes/` or delete it at merge.
+- **Price switch (Circle-approved for the day /buy goes live)**, collections and plans now show the Platform's prices:
+  Answer $297→$349, Follow Up $427→$437, Get Found $497, Core $1,297→$1,497, Pro $2,197→$2,497, Max $2,797→$3,897.
+  Worth: Answer $779 (the receptionist is now INSIDE Answer, as on the Platform; the "+$297 add-on" line is gone), Get
+  Found $641, Follow Up $538, Core $2,255, Pro $3,616, Max $5,516 (catalog.json `worth`, deployed `2026-11-03-draft-2`).
+  Plans now include Radar ("Every product, Radar included"). Product prices unchanged. Places: /products/ (cards, plan
+  row, pain-grid tile, FAQ + its JSON-LD), v5.js (chat answers, the dead BUN table), llms.txt, /checkout/ fine print.
+- **Every checkout is a 14-day trial, plans too** (read off Stripe for plan_core_v2 / plan_max_v2: "Total due today
+  $0.00"). So "Billed today · 30-day money-back" is gone from /products/, /checkout/, v5.js, llms.txt; plan buttons carry
+  `data-trial="1"`. ⚠ legal/tos.html and legal/cancellation.html still promise a 30-day money-back on plans "billed at
+  checkout" (Platform catalog lists money-back as retired) — Circle's call, untouched.
+- The Monthly/Yearly switch had `hidden` but station.css/v5.css `display` beat it, so it SHOWED on exit/buy. Now
+  `.bterm[hidden],.pz-switch[hidden]{display:none!important}` on /products/.
+- **Dial**: the product page is back (from main) with no buy control, no price, no trial, no overage rate, no price bar;
+  both buy rows are one line pointing to main@station.solutions while Circle re-decides the price. Still out of menus,
+  shelf, cart catalog, sitemap, llms.txt. Not generated (products_pages.py retired Dial and never rebuilds it).
+- **Forms off the old CRM's n8n workflows**: /site-help/, /cancel-hosting/, the quiz's "email me the prescription", and
+  /bidbridge/join/ are now plain "email main@station.solutions" lines. Circle's /api/website-lead and /api/notify answer
+  401 from the open internet (AUTH_FUNNEL_PUBLIC is login only), so they could not take them. Still posting to n8n, left
+  on purpose: custom-website(+upload), custom-software, free-audit, station-unsub, station-affiliates; and
+  ⚠ cart-recovery.js still posts webhook/cart-abandon (same workflow the quiz used).
+- Cache keys: v5.js?v=20261104a, quiz.js?v=20261104a on every page; the PC generator (build_funnel, build_v3,
+  build_home, build_security, build_software) carries the same keys (backups in heroes/.bak-exit-buy2-20261104/).
+- Not changed, needs a decision: partners/products.json + partners/guide.md still carry the old collection/plan prices
+  and contents (partner engine's price file); allowances on product pages differ from the Platform's (e.g. Frontdesk
+  750/1,200/2,500 min on the site vs 500/900/1,600; Lineback 1,500 texts vs 400).
