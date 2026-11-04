@@ -1,92 +1,57 @@
 # Allowance diff: what the site promises vs the Platform catalogue
 
-Branch `exit/buy-2`, 2026-11-04. Platform = `~/station-platform/catalog/catalog.json` version `2026-11-03-draft-2` (the copy deployed on the VPS is identical for collections/plans; products read from the local file). Prices are equal everywhere; this table is the units, rates and features. Line numbers are in the branch's files. "not shown" = the site does not offer that tier at all.
+Branch `exit/buy-2`, re-run 2026-11-04 after the alignment. Platform = `~/station-platform/catalog/catalog.json` at build/platform `64a996f` (deployed, Stripe re-synced). Generated product pages were regenerated from the PC generator (inputs edited there). Platform figures below are read from the file by the script that wrote this table.
 
-**84 rows, 49 differ.** Nothing on the site was changed for this table.
+**49 rows: 43 match, 0 differ unexplained, 6 kept with a reason** (Tap page story, Echo/Dispatch hand-done extras, Marquee managed ad fee, tiers the site does not offer, Pursuit sequence length).
 
 | product | tier | unit | site | Platform | source | same |
 |---|---|---|---|---|---|---|
-| every product | all | trial allowance | "14 days free", full plan (no cap stated) | trial = 50% of the allowance, hard stop at the cap (rules.trial.allowance_factor 0.5, pause_at_cap) | every product page, pz-note / usage | **no** |
-| every metered product | all | first overage | "The first time you go over, it's on us" | no grace (rules.grace_months 0; "grace month" in retired) | greet/index.html:187, lineback/index.html:254, frontdesk/index.html:254, pursuit/index.html:187 | **no** |
-| every metered product | all | overage rate | "twice your plan's per-unit rate" | rules.overage_multiplier 2.0 (the tier overage figures below) | greet/index.html:187, lineback/index.html:254, frontdesk/index.html:254, pursuit/index.html:187 | yes |
-| every metered product | all | usage notice | "We let you know at 80%" | meter.py notice at 80% of the cap | greet/index.html:187, lineback/index.html:254, frontdesk/index.html:254, pursuit/index.html:187 | yes |
-| every metered product | all | top-up packs | no pack sizes or prices shown; only "a top-up bought ahead is cheaper" (/top-up/ sends people to the account) | packs exist per tier (below); each is cheaper per unit than that tier's overage | greet/index.html:187, lineback/index.html:254, frontdesk/index.html:254, pursuit/index.html:187, top-up/index.html | yes |
-| Greet | standard | chats / month | 250 conversations | 250 | greet/index.html:185 (also :4, :152, products/index.html:232 for Standard) | yes |
-| Greet | standard | overage per chat | 63¢ | $0.6320 | greet/index.html:185, :187 | yes |
-| Greet | standard | top-up pack | not stated | 100 for $47 | — | yes |
-| Greet | pro (Busy) | chats / month | 750 conversations | 750 | greet/index.html:185 (also :4, :152, products/index.html:232 for Standard) | yes |
-| Greet | pro (Busy) | overage per chat | 40¢ | $0.3973 | greet/index.html:185, :187 | yes |
-| Greet | pro (Busy) | top-up pack | not stated | 100 for $30 | — | yes |
-| Greet | max (High volume) | chats / month | 1,750 conversations | 1,750 | greet/index.html:185 (also :4, :152, products/index.html:232 for Standard) | yes |
-| Greet | max (High volume) | overage per chat | 28¢ | $0.2846 | greet/index.html:185, :187 | yes |
-| Greet | max (High volume) | top-up pack | not stated | 100 for $21 | — | yes |
-| Slate | standard | reminders / month | 1,000 reminders (text and email not split) | 100 text + 250 email reminders | slate/index.html:185, :152, llms.txt:13 | **no** |
-| Slate | pro (Busy) | reminders / month | 2,500 reminder texts | 300 text + 900 email reminders | slate/index.html:185 | **no** |
-| Slate | max | reminders / month | tier not shown | $147 · 400 text + 2,500 email reminders | — | **no** |
-| Slate | standard | overage | not stated | $1.18 a text reminder, $0.472 an email reminder | slate/index.html:187 | **no** |
-| Slate | pro (Busy) | overage | not stated | $0.6467 a text reminder, $0.2156 an email reminder | slate/index.html:187 | **no** |
-| Slate | all | top-up pack | not stated | 100 text reminders for $15 | — | yes |
-| Slate | all | inside Frontdesk | "free inside Frontdesk", "we'll credit you" | no Slate allowance or credit attached to Frontdesk in the catalogue | slate/index.html:4, :187, products/index.html:232 | **no** |
-| Lineback | standard | texts / month | 1,500 texts | 400 | lineback/index.html:252, :211, llms.txt:14 | **no** |
-| Lineback | standard | overage per text | 26¢ | $0.985 | lineback/index.html:252, :254 | **no** |
-| Lineback | pro (Busy) | texts / month | 5,000 texts | 1,000 | lineback/index.html:252, :211 | **no** |
-| Lineback | pro (Busy) | overage per text | 12¢ | $0.594 | lineback/index.html:252, :254 | **no** |
-| Lineback | max | texts / month | tier not shown | $397 · 1,750 texts | — | **no** |
-| Lineback | standard / pro | top-up pack | not stated | 200 texts for $148 / $89 | — | yes |
-| Frontdesk | standard | minutes / month | 750 minutes | 500 | frontdesk/index.html:252, :211, :241 | **no** |
-| Frontdesk | standard | overage per minute | $1.06 | $1.5880 | frontdesk/index.html:252, :254 | **no** |
-| Frontdesk | standard | per-minute in plan | 53¢ a minute | $0.79 a minute | frontdesk/index.html:252 | **no** |
-| Frontdesk | standard | top-up pack | not stated | 100 for $119 | — | yes |
-| Frontdesk | pro (Busy) | minutes / month | 1,200 minutes | 900 | frontdesk/index.html:252, :211 | **no** |
-| Frontdesk | pro (Busy) | overage per minute | $1.00 | $1.3267 | frontdesk/index.html:252, :254 | **no** |
-| Frontdesk | pro (Busy) | per-minute in plan | 50¢ a minute | $0.66 a minute | frontdesk/index.html:252 | **no** |
-| Frontdesk | pro (Busy) | top-up pack | not stated | 100 for $100 | — | yes |
-| Frontdesk | max (High volume) | minutes / month | 2,500 minutes | 1,600 | frontdesk/index.html:252, :211 | **no** |
-| Frontdesk | max (High volume) | overage per minute | $0.72 | $1.1213 | frontdesk/index.html:252, :254 | **no** |
-| Frontdesk | max (High volume) | per-minute in plan | 36¢ a minute | $0.56 a minute | frontdesk/index.html:252 | **no** |
-| Frontdesk | max (High volume) | top-up pack | not stated | 100 for $84 | — | yes |
-| Frontdesk | add-on | premium voice | not stated | $39 / $49 / $99 a month by tier | — | yes |
-| Tap | standard | features | tap-to-pay, text-to-pay links, estimates and invoices (unlimited), receipts | payment links and invoices only (text-to-pay and estimates are Pro $97; deposits/tipping/locations are Max $147) | tap/index.html:185, :186, llms.txt:20 | **no** |
-| Tap | pro / max | tiers | not shown ("One plan") | $97 / $147 | tap/index.html:185 | **no** |
-| Pursuit | standard | texts + emails / month | 2,500 texts + 15,000 emails | 1,500 texts + 4,000 emails | pursuit/index.html:185, llms.txt:16 | **no** |
-| Pursuit | standard | overage | 20¢ a text, 3¢ an email | $0.3293 a text, $0.1235 an email | pursuit/index.html:185, :187 | **no** |
-| Pursuit | pro (Busy) | texts + emails / month | 6,000 texts + 40,000 emails | 2,000 texts + 8,000 emails | pursuit/index.html:185 | **no** |
-| Pursuit | pro (Busy) | overage | 12¢ a text, 2¢ an email | $0.347 a text, $0.0867 an email | pursuit/index.html:185, :187 | **no** |
-| Pursuit | max | texts + emails / month | tier not shown | $497 · 2,750 texts + 12,000 emails | — | **no** |
-| Pursuit | standard | top-up packs | not stated | 200 texts for $49 · 10,000 emails for $926 | — | yes |
-| Repute | standard | review requests / month | "a review ask after every job" (no cap stated) | 300 | repute/index.html:252 | **no** |
-| Repute | standard | overage per request | not stated | $1.3133 | — | **no** |
-| Repute | pro / max | tiers | not shown | $297 · 1,000 requests, auto-reply to 5-star, widget / $447 · 2,000, 2 locations | — | **no** |
-| Repute | extra location | price | $177 a month each | $177 (addons.extra_location_repute) | repute/index.html:252, :211 | yes |
-| Echo | standard | posts | weekly Google posts + LinkedIn posts written for you | 1 Google post a week (no LinkedIn) | echo/index.html:252, llms.txt:18 | **no** |
-| Echo | standard | rank report | monthly grid-rank report (grid size not stated) | 9-point Maps rank grid | echo/index.html:252 | yes |
-| Echo | pro / max | tiers | not shown | $347 · 2 posts/wk, 25-pt grid / $497 · 3 posts/wk, 49-pt grid, 2 locations | — | **no** |
-| Echo | extra location | price | $197 a month each | $197 (addons.extra_location_echo) | echo/index.html:252, :211, llms.txt:18 | yes |
-| Marquee | standard (Self-serve) | accounts | post and schedule to 9 platforms; brand board built week one; self-serve ads on Meta and Google | up to 3 accounts, scheduling only | marquee/index.html:185, :186, products/index.html:237 (Get Found "9 networks") | **no** |
-| Marquee | pro | tier | not shown | $397 · up to 6 accounts, 12 posts a month drafted for approval | — | **no** |
-| Marquee | max (Managed) | posts | 12 posts a month made for you; ads built, launched, managed | 12 posts a month written and posted · ads run (spend extra) | marquee/index.html:185 | yes |
-| Marquee | max (Managed) | ad management fee | +10% of spend above $2,000 a month | not in the catalogue | marquee/index.html:187 | **no** |
-| Dispatch | standard (Self-serve) | emails / month | unmetered below 100,000 sends | 8,000 emails | dispatch/index.html:252, :254, :211, llms.txt:21 | **no** |
-| Dispatch | standard (Self-serve) | overage per email | none (unmetered) | $0.0235 | dispatch/index.html:254 | **no** |
-| Dispatch | pro | tier | not shown | $197 · 15,000 emails, 2 campaigns drafted | — | **no** |
-| Dispatch | max (Managed) | emails / campaigns | 4 campaigns a month written for you, quarterly list strategy (email volume not stated) | 35,000 emails · 4 campaigns written and sent | dispatch/index.html:252, :211 | yes |
-| Dispatch | standard | top-up pack | not stated | 10,000 emails for $176 | — | yes |
-| Revive | standard | contacts per wave | up to 5,000 contacts | 5,000 (wave_cap) | revive/index.html:185, :152, llms.txt:23 | yes |
-| Revive | standard | emails / month | not stated | 10,000 | — | yes |
-| Revive | pro / max | tiers | not shown ("One plan") | $297 · 10,000 contacts / $447 · 20,000 | revive/index.html:185 | **no** |
-| Revive | standard | top-up packs | not stated | 10,000 emails for $296 · 2,500 wave contacts for $129 | — | yes |
-| Radar | standard | prospects / trades | 5 audited prospects a week, 3 trades | 5 a week · 3 trades | radar/index.html:185, :152, llms.txt:22 | yes |
-| Radar | pro | prospects / trades | 20 a week, six trade targets | 20 a week · 6 trades | radar/index.html:185, llms.txt:22 | yes |
-| Radar | max | tier | not shown | $797 · 50 a week, 10 trades, 2 areas | — | **no** |
-| Answer (collection) | $349 | allowances | none stated (lists receptionist, text-back, chat, booking, number, payments) | text 400 · chat 250 · text reminders 100 · email reminders 250 · minutes 500 (each item at Standard) | products/index.html:237 | yes |
-| Get Found (collection) | $497 | social posting | "Social posting to 9 networks" | Marquee standard: up to 3 accounts | products/index.html:237 | **no** |
-| Get Found (collection) | $497 | review requests | not stated | 300 | products/index.html:237 | yes |
-| Follow Up (collection) | $437 | allowances | none stated | texts 1,500 · emails 22,000 (Pursuit 4,000 + Revive 10,000 + Dispatch 8,000) | products/index.html:237 | yes |
-| Core (plan) | $1,497 | receptionist minutes | AI receptionist, 750 minutes | 500 | products/index.html:238 | **no** |
-| Core (plan) | $1,497 | website | a free Station-built website | "website": "custom"; Stripe: "plus a free Station-built website" | products/index.html:238 | yes |
-| Pro (plan) | $2,497 | social posts | 12 social posts a month, written and posted | Marquee pro: 12 drafted for approval, up to 6 accounts | products/index.html:238, llms.txt:33 | **no** |
-| Pro (plan) | $2,497 | email campaigns | 4 email campaigns a month, written and sent | Dispatch pro: 2 campaigns drafted, 15,000 emails | products/index.html:238, llms.txt:33 | **no** |
-| Pro (plan) | $2,497 | receptionist minutes | not stated (busy tier = 1,200 on /frontdesk/) | 900 | products/index.html:238 | **no** |
-| Max (plan) | $3,897 | receptionist minutes | AI receptionist, 2,500 minutes | 1,600 | products/index.html:238 | **no** |
-| Max (plan) | $3,897 | support | priority support and a quarterly review call | "priority support" is in retired | products/index.html:238 | **no** |
-| Max (plan) | $3,897 | website | a custom-designed website | "website": "custom" | products/index.html:238 | yes |
+| every product | all | trial allowance | "14 days free from the day your first product goes live; the trial includes half your monthly allowance." | rules.trial: 14 days from go-live, allowance_factor 0.5, use stops at the cap | every product page usage (:187 / :254), products/index.html:239, checkout/index.html:56, legal/tos.html §4 | yes |
+| every metered product | all | first overage | no free month; billed from the first month (the "on us" line is gone) | rules.grace_months 0 | usage paragraphs, legal/tos.html §4, partners/guide.md | yes |
+| every metered product | all | overage rate | "twice your plan's per-unit rate" | rules.overage_multiplier 2.0; each tier figure below equals 2 x price / allowance | usage paragraphs | yes |
+| every metered product | all | usage notice | "We let you know at 80%" | meter.py notice at 80% | usage paragraphs | yes |
+| every metered product | all | limit on extras | Terms §4: extras pause at the monthly limit on extras you set (product pages do not mention it) | meter.py: overage capped by the client's monthly limit; no limit = no extras | legal/tos.html §4 | yes |
+| every metered product | all | top-up packs | "a top-up bought ahead is cheaper" (no pack sizes shown) | every pack is cheaper per unit than that tier's overage (checked per row below) | usage paragraphs | yes |
+| Greet | Standard | chats / month | 250 conversations | 250 | greet/index.html:185 | yes |
+| Greet | Standard | overage | 63¢ a chat | $0.6320 | greet/index.html:185, :187 | yes |
+| Greet | Busy | chats / month | 750 conversations | 750 | greet/index.html:185 | yes |
+| Greet | Busy | overage | 40¢ a chat | $0.3973 | greet/index.html:185, :187 | yes |
+| Greet | High volume | chats / month | 1,750 conversations | 1,750 | greet/index.html:185 | yes |
+| Greet | High volume | overage | 28¢ a chat | $0.2846 | greet/index.html:185, :187 | yes |
+| Slate | Standard | reminders + overage | 250 text + 1,000 email reminders; over: 47¢ / 12¢ | 250 text + 1,000 email; $0.4720 / $0.1180 | slate/index.html:185, :187, :152, llms.txt:13 | yes |
+| Slate | Busy | reminders + overage | 500 text + 2,500 email reminders; over: 39¢ / 8¢ | 500 text + 2,500 email; $0.3880 / $0.0776 | slate/index.html:185, :187, :152, llms.txt:13 | yes |
+| Slate | all | inside Frontdesk | not included in Frontdesk (the "free inside / we'll credit you" lines are gone) | no Slate in Frontdesk | slate/index.html, frontdesk/index.html, products/index.html:232 | yes |
+| Lineback | Standard | texts / month | 1,450 texts | 1,450 | lineback/index.html:252, :211, :244, llms.txt:14 | yes |
+| Lineback | Standard | overage | 27¢ a text | $0.2717 | lineback/index.html:252, :254 | yes |
+| Lineback | Busy | texts / month | 2,000 texts | 2,000 | lineback/index.html:252, :211, :244, llms.txt:14 | yes |
+| Lineback | Busy | overage | 30¢ a text | $0.2970 | lineback/index.html:252, :254 | yes |
+| Frontdesk | Standard | minutes / overage / per-minute in plan | 750 minutes; over: $1.06 a minute; 53¢ a minute in plan | 750; $1.0587; $0.5293 | frontdesk/index.html:252, :254, :211 | yes |
+| Frontdesk | Busy | minutes / overage / per-minute in plan | 1,200 minutes; over: $1.00 a minute; 50¢ a minute in plan | 1,200; $0.9950; $0.4975 | frontdesk/index.html:252, :254, :211 | yes |
+| Frontdesk | High volume | minutes / overage / per-minute in plan | 2,500 minutes; over: $0.72 a minute; 36¢ a minute in plan | 2,500; $0.7176; $0.3588 | frontdesk/index.html:252, :254, :211 | yes |
+| Frontdesk | all | booking | books into your calendar; Slate ($59) adds the booking page and reminders | setup step "calendar"; Slate is a separate product | frontdesk/index.html:244-252 | yes |
+| Tap | Standard | tier features | Payment links · Invoices | Payment links and invoices | tap/index.html:185, :186 | yes |
+| Tap | page story | features | title, description, hero, steps and the side panel still sell tap-to-pay, text-to-pay and estimates at $47 | those are Tap Pro ($97: text-to-pay, estimates) / not in any tier (tap-to-pay) | tap/index.html:3-6, :121, :148-181, :185 side; dial/index.html:193 | kept: the page is built around those features and the site only sells Standard; Circle decides: sell Tap Pro on the page, or rewrite the story |
+| Pursuit | Standard | texts + emails / overage | 1,500 texts + 15,000 emails; over 33¢ a text, 3¢ an email | 1,500 + 15,000; $0.3293 / $0.0329 | pursuit/index.html:185, :187, llms.txt:16 | yes |
+| Pursuit | Busy | texts + emails / overage | 2,000 texts + 40,000 emails; over 35¢ a text, 2¢ an email | 2,000 + 40,000; $0.3470 / $0.0174 | pursuit/index.html:185, :187, llms.txt:16 | yes |
+| Repute | Standard | review requests / overage | 300 review requests a month; over 300: $1.31 a request | 300; $1.3133 | repute/index.html:252, :254 | yes |
+| Repute | Standard | replies | every reply a draft you approve (auto-reply panel removed) | 300 review requests · reply drafts (auto-reply to 5-star is Pro) | repute/index.html:244-252 | yes |
+| Repute | extra location | price | $177 a month each | $177 | repute/index.html:252, :211 | yes |
+| Echo | Standard | posts / report | one Google post a week; monthly 9-point map-rank report; no LinkedIn | 1 post a week · 9-point Maps rank grid · profile fixes | echo/index.html:252, :254, llms.txt:18 | yes |
+| Echo | Standard | extras named on the page | setup, citation sweep, weekly listing watch, monthly photos | "profile fixes" (gets is a one-line summary) | echo/index.html:244-252 | kept: service work Station does by hand inside "profile fixes"; nothing metered |
+| Echo | extra location | price | $197 a month each | $197 | echo/index.html:252 | yes |
+| Marquee | Self-serve | features | schedule and post to up to 3 accounts; content calendar | Schedule and post to up to 3 accounts | marquee/index.html:185, :187, products/index.html:232, :237 | yes |
+| Marquee | Managed | features | 12 posts a month made for you; ads built, launched and managed | 12 posts a month written and posted · ads run (ad spend extra) | marquee/index.html:185 | yes |
+| Marquee | Managed | ad fee | +10% of spend above $2,000 a month | not in the catalogue | marquee/index.html:187 | kept: billed by hand (coordinator, 11-04) |
+| Dispatch | Self-serve | emails / overage | 8,000 emails a month; 2.35¢ over | 8,000; $0.0235 | dispatch/index.html:252, :254, :211, llms.txt:21 | yes |
+| Dispatch | Managed | emails / campaigns / overage | 35,000 emails; 4 campaigns written for you; 2.27¢ over | 35,000; 4 written and sent; $0.0227 | dispatch/index.html:252, :254, :211 | yes |
+| Dispatch | Managed | extra named on the page | quarterly list strategy | not in gets | dispatch/index.html:252 | kept: service work done by hand; nothing metered |
+| Revive | Standard | contacts per wave | up to 5,000 contacts | 5,000 (wave_cap) | revive/index.html:185, :152 | yes |
+| Radar | Standard | prospects | 5 a week, 3 trades | 5 prospects a week · 3 trades | radar/index.html:185 | yes |
+| Radar | Pro | prospects | 20 a week, six trade targets | 20 prospects a week · 6 trades | radar/index.html:185 | yes |
+| several | Lineback/Slate/Pursuit Max, Tap Pro/Max, Repute/Echo/Marquee/Dispatch Pro, Revive Pro/Max, Radar Max | tiers | not offered on the site | exist in the catalogue | — | kept: the site sells a subset; nothing is promised about them (Lineback Max 1,750 texts is below Busy 2,000 in the catalogue: worth a look on the Platform side) |
+| Answer (collection) | $349 | allowances | none named, by design | text 400 · chat 250 · reminders 250 + 1,000 · minutes 500 | products/index.html:237 | yes |
+| Get Found (collection) | $497 | social | social scheduling, up to 3 accounts | Marquee standard: up to 3 accounts | products/index.html:237 | yes |
+| Core (plan) | $1,497 | receptionist minutes | AI receptionist, 750 minutes | 750 | products/index.html:238 | yes |
+| Pro (plan) | $2,497 | social / email | 12 social posts a month drafted for your approval; 2 email campaigns drafted | Marquee pro: 12 drafted to approve; Dispatch pro: 2 drafted | products/index.html:238, llms.txt:33 | yes |
+| Max (plan) | $3,897 | receptionist / support | AI receptionist, 2,500 minutes; priority support and the quarterly review call removed | 2,500 minutes; "priority support" retired; no quarterly call anywhere in the Platform or its STATE | products/index.html:238 | yes |
+| Pursuit | all | sequence length | "five touches over ten days" | sequences.py: 5 texts + 5 emails over 14 days | pursuit/index.html:120-122 (steps) | kept: wording about the sequence, not an allowance; flag for the Platform or the copy |
