@@ -257,7 +257,7 @@ Prices below are Station's catalogue as changed on October 4, 2026. Check the li
 ### How products are sold
 
 - **No contract:** month to month, cancel any time.
-- **Free trial:** single products (every tier) and the three collections start with a **14-day free trial**. Core, Pro and Max have no trial: they're billed at checkout and carry a 30-day money-back guarantee on the first paid month. Websites never trial. The 14-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
+- **Free trial:** every product (every tier), the three collections and the Core, Pro and Max plans start with **14 days free, counted from the day the first product goes live; nothing is charged during set-up**. There is no money-back guarantee. Websites never trial. The 14-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
 - **Usage allowances** (chats, texts, call minutes, emails) reset on the 1st of each month. The client is told at 80%. The first month they go over a product's allowance isn't charged. After that, extra usage is billed at twice their plan's per-unit rate on the next invoice, and each product page lists the rate. Top-ups bought ahead are cheaper. Service is never paused.
 - **Your Words:** every message a product sends is pre-written and editable by the owner in their Station account under Settings, then Your Words.
 - **Monthly report:** the site says every product comes with a free monthly report.
@@ -356,19 +356,19 @@ The mobile app is free with every Station account and isn't sold separately, so 
 
 ### Collections and plans
 
-Collections and plans have no setup fee. Each one includes a free Station-built website (see The free website below). Yearly billing on collections and plans is 10 times the monthly price, which is two months free. Radar is never included in a collection or plan: it's a business-to-business add-on.
+Collections and plans have no setup fee. Each plan includes a free Station-built website (see The free website below); each collection gets 50% off a custom website. Billing is monthly only. Radar is in every plan, but in none of the collections: it's a business-to-business product.
 
 **Collections** (each starts with a 14-day free trial):
 
-- **Answer, $297 a month:** missed-call text-back (Lineback), website chat (Greet), online booking and reminders (Slate), a business number with texting (Dial) and card payments (Tap). They're worth $382 a month separately. Add the AI receptionist (Frontdesk, 750 minutes) for $297 a month more. It's $397 on its own.
+- **Answer, $349 a month:** the AI receptionist (Frontdesk), missed-call text-back (Lineback), website chat (Greet), online booking and reminders (Slate) and card payments (Tap), each at its Standard tier. They're worth $779 a month separately.
 - **Get Found, $497 a month:** Google profile managed (Echo), review requests and replies (Repute) and social posting self-serve (Marquee). They're worth $641 a month separately.
-- **Follow Up, $427 a month:** lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns self-serve (Dispatch). They're worth $538 a month separately.
+- **Follow Up, $437 a month:** lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns self-serve (Dispatch). They're worth $538 a month separately.
 
-**Plans** (the whole shelf at three sizes; no trial, billed at checkout, with a 30-day money-back guarantee on the first paid month):
+**Plans** (the whole shelf at three sizes; 14 days free, counted from the day the first product goes live; nothing is charged during set-up):
 
-- **Core, $1,297 a month:** every product except Radar at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $2,005 a month separately.
-- **Pro, $2,197 a month:** every product except Radar at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,072 a month separately.
-- **Max, $2,797 a month:** every product except Radar at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $3,472 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
+- **Core, $1,497 a month:** every product, Radar included, at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $2,255 a month separately.
+- **Pro, $2,497 a month:** every product, Radar included, at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,616 a month separately.
+- **Max, $3,897 a month:** every product, Radar included, at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $5,516 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
 
 If a client outgrows one product, they upgrade just that product for the difference. An **extra location pack** (Google profile, reviews and a missed-call text-back line for one more location) is $397 a month. Check with Station before offering a yearly plan.
 
@@ -470,9 +470,9 @@ Each reply says when to use it and what not to say. Replace anything in square b
 
 **When:** they're worried about being locked in.
 
-> There's no long-term contract. It's month to month, and you can cancel any time by emailing main@station.solutions from the account owner's email. Service stays on until the end of the period you've paid for, and months already delivered aren't refunded. You keep your data and get a full export when you leave. The full policy is on station.solutions under Cancellation.
+> There's no long-term contract. It's month to month, and you can cancel any time from Billing in your Station account, or by emailing main@station.solutions from the account owner's email. Your products run until the end of the paid month, and a month already charged isn't refunded unless the law requires it. When the subscription ends you get a download of everything in your account. The full policy is on station.solutions under Cancellation.
 
-**Don't say:** "you can get your money back any time." Refunds are only for billing errors, or the 30-day money-back guarantee on the first paid month of Core, Pro and Max.
+**Don't say:** "you can get your money back any time." Refunds are only for billing errors, or where the law requires one. There is no money-back guarantee.
 
 ### "How long does setup take?"
 
@@ -754,7 +754,7 @@ No. Businesses you, your family or your company's owners control aren't eligible
 
 ### Q: Is there a free trial?
 
-Yes. Single products (every tier) and the three collections start with a 14-day free trial. Core, Pro and Max have no trial: they're billed at checkout with a 30-day money-back guarantee on the first paid month. Websites never trial. Only Station can agree a longer trial.
+Yes. Every product (every tier), the three collections and the Core, Pro and Max plans start with 14 days free, counted from the day the first product goes live; nothing is charged during set-up. Websites never trial. Only Station can agree a longer trial.
 
 ### Q: What does a custom website cost?
 
@@ -766,14 +766,14 @@ There's no set price. Hosting & care is one monthly subscription that Station qu
 
 ### Q: What's in each collection and plan?
 
-- **Answer ($297 a month):** Lineback, Greet, Slate, Dial and Tap. Add Frontdesk (750 minutes) for $297 a month more.
+- **Answer ($349 a month):** Frontdesk, Lineback, Greet, Slate and Tap.
 - **Get Found ($497 a month):** Echo, Repute and Marquee (self-serve).
-- **Follow Up ($427 a month):** Pursuit, Revive and Dispatch (self-serve).
-- **Core ($1,297 a month):** every product except Radar at its Standard tier, including Frontdesk at 750 minutes.
-- **Pro ($2,197 a month):** every product except Radar at its busy tier, with Station writing and running the social posts and email campaigns.
-- **Max ($2,797 a month):** every product except Radar at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
+- **Follow Up ($437 a month):** Pursuit, Revive and Dispatch (self-serve).
+- **Core ($1,497 a month):** every product, Radar included, at its Standard tier, including Frontdesk at 750 minutes.
+- **Pro ($2,497 a month):** every product, Radar included, at its busy tier, with Station writing and running the social posts and email campaigns.
+- **Max ($3,897 a month):** every product, Radar included, at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
 
-Radar is never included. Collections and plans have no setup fee, and each includes a free Station-built website (Max gets a custom-designed one). Collections have a 14-day free trial. Core, Pro and Max have none, but carry a 30-day money-back guarantee on the first paid month. Yearly billing is 10 times monthly.
+Radar is in every plan, not in the collections. Collections and plans have no setup fee. Each plan includes a free Station-built website (Max gets a custom-designed one); each collection gets 50% off a custom website. Collections and plans start with 14 days free, counted from the day the first product goes live; nothing is charged during set-up. Billing is monthly only.
 
 ### Q: What if a client goes over their allowance?
 
