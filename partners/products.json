@@ -1,7 +1,7 @@
 {
  "_about": "Station product playbook — the ONE source for what partners sell, what to say, and what has to be set up by hand after a purchase. Read by the Partner portal Products tab (same origin) and by n8n alert workflows over HTTPS. DRAFT 2026-08-11 — pending Circle's review before partners are pointed at it.",
- "_pricing_note": "2026-11-04 price switch (Circle approved, for the day the Platform's /buy goes live): collections and plans at the Platform's prices; Answer now includes the AI receptionist (Frontdesk), plans include Radar. 2026-10-04 Collections catalogue (Circle approved): three collections (Answer $349, Get Found $497, Follow Up $437) and three plans (Core $1,497, Pro $2,497, Max $3,897; internal key 'custom' = Max). Revive is $197/mo. Echo has no setup fee. Echo extra location $197/mo, Repute extra location $177/mo. Every plan (Core, Pro, Max) includes a free Station-built website; collections include 50% off a custom website (built after the first paid month; $1,250 to keep it on leaving, 2026-10-13). Prices are Stripe-verified (lookup keys plan_*, collection_*, revive_month, repute_location_month). Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); the website is Custom only (priced to the project after a free demo; Premium was retired 2026-09-23) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
- "_trial": "14 days free on every product, collection and plan (Core, Pro and Max included), counted from the day the first product goes live; nothing is charged during set-up. No money-back guarantee (retired). Websites never trial.",
+ "_pricing_note": "2026-11-04 allowances aligned with the Platform catalogue (Circle: \"Yes, align them\"): Lineback 1,450 / 2,000 texts, Slate 250 text + 1,000 email / 500 + 2,500 reminders, Pursuit 1,500 / 2,000 texts, Dispatch self-serve 8,000 emails, Repute 300 requests; no free month over; no priority support. 2026-11-04 price switch (Circle approved, for the day the Platform's /buy goes live): collections and plans at the Platform's prices; Answer now includes the AI receptionist (Frontdesk), plans include Radar. 2026-10-04 Collections catalogue (Circle approved): three collections (Answer $349, Get Found $497, Follow Up $437) and three plans (Core $1,497, Pro $2,497, Max $3,897; internal key 'custom' = Max). Revive is $197/mo. Echo has no setup fee. Echo extra location $197/mo, Repute extra location $177/mo. Every plan (Core, Pro, Max) includes a free Station-built website; collections include 50% off a custom website (built after the first paid month; $1,250 to keep it on leaving, 2026-10-13). Prices are Stripe-verified (lookup keys plan_*, collection_*, revive_month, repute_location_month). Verified 2026-09-21 against the live product pages in this repo (each page's JSON-LD offer, meta description, tier cards and window.STATION_CATALOG, plus the homepage bundle cards) — NOT against Stripe. Changed since the 2026-09-01 file: Slate $97 -> $59 (1,000 reminders) with Busy $147 -> $97 (2,500); Radar $197 -> $297, Radar Pro $497 added, and Radar described as what it is (B2B prospecting), not competitor watching; Echo $147 -> $247 (setup $297 holds) with Multi-location $197/location added; Revive is $497 PER QUARTER (was one-time); Dispatch Managed $397 added; Marquee Managed $597 added; Repute Multi-location $397/location added; Pursuit Busy $347 added and Pursuit allowance now 2,500 texts + 15,000 emails; allowances raised for Greet (250/750/1,750), Lineback (1,500/5,000), Frontdesk Standard (750 min) and Dial (1,000 texts); the website is Custom only (priced to the project after a free demo; Premium was retired 2026-09-23) and storefront_enterprise ($10,000) is retired and removed; bundles: Pro $1,500 -> $1,395, Core and Custom unchanged. Tap is $47. Mobile App is free and not separately sellable. Do not copy prices from pipeline/catalog.py or any other file: station.solutions is the only authority.",
+ "_trial": "14 days free on every product, collection and plan (Core, Pro and Max included), counted from the day the first product goes live, with half the monthly allowance during the trial; nothing is charged during set-up. No money-back guarantee (retired). Websites never trial.",
  "updated": "2026-11-04",
  "products": [
   {
@@ -88,14 +88,14 @@
    "sku": "slate",
    "name": "Slate",
    "plain": "Customers book themselves, and reminders make sure they turn up",
-   "price": "$59/mo (1,000 reminders) · $97 busy (2,500 reminders)",
+   "price": "$59/mo (250 text + 1,000 email reminders) · $97 busy (500 text + 2,500 email reminders)",
    "mrr": 59,
    "setup": 0,
    "from_tier": true,
    "plans": [
     {
      "key": "base",
-     "label": "1,000 reminders",
+     "label": "250 text + 1,000 email reminders",
      "mrr": 59
     },
     {
@@ -132,14 +132,14 @@
    "sku": "lineback",
    "name": "Lineback",
    "plain": "Every missed call gets a text back within seconds",
-   "price": "$197/mo (1,500 texts) · $297 busy (5,000 texts)",
+   "price": "$197/mo (1,450 texts) · $297 busy (2,000 texts)",
    "mrr": 197,
    "setup": 0,
    "from_tier": true,
    "plans": [
     {
      "key": "base",
-     "label": "1,500 texts",
+     "label": "1,450 texts",
      "mrr": 197
     },
     {
@@ -225,14 +225,14 @@
    "sku": "pursuit",
    "name": "Pursuit",
    "plain": "Every lead followed up by text and email until they reply or book",
-   "price": "$247/mo (2,500 texts + 15,000 emails) · $347 busy (6,000 texts + 40,000 emails)",
+   "price": "$247/mo (1,500 texts + 15,000 emails) · $347 busy (2,000 texts + 40,000 emails)",
    "mrr": 247,
    "setup": 0,
    "from_tier": true,
    "plans": [
     {
      "key": "base",
-     "label": "2,500 texts + 15,000 emails",
+     "label": "1,500 texts + 15,000 emails",
      "mrr": 247
     },
     {
@@ -267,7 +267,7 @@
   {
    "sku": "repute",
    "name": "Repute",
-   "plain": "Asks every happy customer for a review, and replies to the ones that come in",
+   "plain": "Asks customers for a review after the job (300 requests a month), and drafts replies to the ones that come in",
    "price": "$197/mo · each extra location $177/mo",
    "mrr": 197,
    "setup": 0,
@@ -293,7 +293,7 @@
     "Connect their Google Business Profile and confirm the review link resolves to the right listing.",
     "Review the request wording (repute_request_sms and repute_request_email).",
     "Agree the reply tone (repute_reply_tone) — warm, brief, first person, never defensive.",
-    "Decide whether auto-reply is on, and agree that anything below three stars gets a human first.",
+    "Agree the reply tone: every reply is a draft the owner approves, and anything below three stars gets a human first.",
     "Send yourself a request and click the link to confirm it lands on their real review page."
    ],
    "call_script": {
@@ -356,7 +356,7 @@
    "sku": "dispatch",
    "name": "Dispatch",
    "plain": "Email marketing to their customer list, self-serve or fully managed",
-   "price": "$94/mo self-serve · $397 managed (we write and send four campaigns a month)",
+   "price": "$94/mo self-serve (8,000 emails a month) · $397 managed (35,000 emails; we write and send four campaigns a month)",
    "mrr": 94,
    "setup": 0,
    "from_tier": true,
@@ -506,7 +506,7 @@
   {
    "sku": "tap",
    "name": "Tap",
-   "plain": "Taking payments, in person and online",
+   "plain": "Payment links and invoices, paid into their own Stripe or Square account",
    "price": "$47/mo + card rates",
    "mrr": 47,
    "setup": 0,
@@ -536,7 +536,7 @@
   {
    "sku": "marquee",
    "name": "Marquee",
-   "plain": "Social posts, ads and a brand board, self-serve or managed for them",
+   "plain": "Social posting: self-serve scheduling to up to three accounts, or managed posting and ads run for them",
    "price": "$197/mo self-serve · $597 managed (12 posts a month and ads run for you, ad spend extra)",
    "mrr": 197,
    "setup": 0,
@@ -646,7 +646,7 @@
    "mrr": 2497,
    "setup": 0,
    "kind": "plan",
-   "plain": "Every product, Radar included, at its busy tier, with social posts and email campaigns written and run by Station, plus a free Station-built website. Worth $3,616/mo bought one by one. 14-day free trial from go-live."
+   "plain": "Every product, Radar included, at its busy tier, with social posts (12 a month) and email campaigns (2 a month) drafted by Station for approval, plus a free Station-built website. Worth $3,616/mo bought one by one. 14-day free trial from go-live."
   },
   {
    "key": "custom",
@@ -654,7 +654,7 @@
    "mrr": 3897,
    "setup": 0,
    "kind": "plan",
-   "plain": "Every product, Radar included, at its top tier, social and email done for you, priority support and a quarterly review call, plus a custom-designed website. Worth $5,516/mo bought one by one before the website. 14-day free trial from go-live."
+   "plain": "Every product, Radar included, at its top tier, social and email done for you, plus a custom-designed website. Worth $5,516/mo bought one by one before the website. 14-day free trial from go-live."
   }
  ],
  "_machine_prices": "mrr/setup are the machine-readable mirror of each product's `price` string (base tier where a product has tiers, flagged from_tier and enumerated in `plans`). The Partner portal totals a client's stacked products from these and the engine reads the same file — change the string and the numbers together. Plan keys must not contain '-': a client's tier is stored as the tag sku-<sku>-<plan>. Bundles carry no setup fee. Tiers that are not volume steps use these keys: `pro` (Radar), `multi` (Echo, Repute: the plan mrr is the price of EACH EXTRA location), `managed` (Dispatch, Marquee). Revive is $197/mo (since 2026-10-04), an ordinary monthly price. storefront_custom has no published price (priced to the project after a free demo), so its `setup` and `mrr` are 0 because the build is priced to the project and hosting & care is quoted by Station for each client.",

@@ -257,8 +257,8 @@ Prices below are Station's catalogue as changed on October 4, 2026. Check the li
 ### How products are sold
 
 - **No contract:** month to month, cancel any time.
-- **Free trial:** every product (every tier), the three collections and the Core, Pro and Max plans start with **14 days free, counted from the day the first product goes live; nothing is charged during set-up**. There is no money-back guarantee. Websites never trial. The 14-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
-- **Usage allowances** (chats, texts, call minutes, emails) reset on the 1st of each month. The client is told at 80%. The first month they go over a product's allowance isn't charged. After that, extra usage is billed at twice their plan's per-unit rate on the next invoice, and each product page lists the rate. Top-ups bought ahead are cheaper. Service is never paused.
+- **Free trial:** every product (every tier), the three collections and the Core, Pro and Max plans start with **14 days free from the day the first product goes live; the trial includes half the monthly allowance; nothing is charged during set-up**. There is no money-back guarantee. Websites never trial. The 14-day trial is the only one you may advertise. Only Station can agree a longer trial, case by case, and never more than 30 days.
+- **Usage allowances** (chats, texts, call minutes, emails) reset on the 1st of each month. The client is told at 80%. There is no free month over: extra usage is billed at twice their plan's per-unit rate on the next invoice, and each product page lists the rate. Extras stop at the monthly limit on extras the client sets in their account (they can raise it or buy a top-up), and during the trial use stops at the trial cap. Top-ups bought ahead are cheaper.
 - **Your Words:** every message a product sends is pre-written and editable by the owner in their Station account under Settings, then Your Words.
 - **Monthly report:** the site says every product comes with a free monthly report.
 - **Texting products** need US carrier registration first. It takes about 2 business days, but the carriers control it. Station files it, and the client provides their legal business name, EIN and address. Calls work right away.
@@ -282,13 +282,13 @@ It costs **$79 a month** for 250 chats. Busy is $149 (750 chats) and High Volume
 
 Customers book themselves into real availability. Then they get text and email reminders, can reply to confirm, and get a rebook nudge if they miss.
 
-It costs **$59 a month** for 1,000 reminders, or Busy at $97 (2,500), and it's free inside Frontdesk. It's live today after a 5-minute hours form. Text reminders wait about 2 business days on carrier registration for new businesses.
+It costs **$59 a month** for 250 text and 1,000 email reminders, or Busy at $97 (500 text and 2,500 email reminders). It is not included in Frontdesk. It's live today after a 5-minute hours form. Text reminders wait about 2 business days on carrier registration for new businesses.
 
 ### Lineback (missed-call text-back)
 
 Every missed call gets an instant text in the business's name, asking what the caller needs. Replies land in their inbox, and a business number is included.
 
-It costs **$197 a month** for 1,500 texts, or Busy at $297 (5,000). It's live in about 2 business days and needs the legal business name, EIN and address.
+It costs **$197 a month** for 1,450 texts, or Busy at $297 (2,000). It's live in about 2 business days and needs the legal business name, EIN and address.
 
 ### Frontdesk (receptionist that answers every call)
 
@@ -300,17 +300,17 @@ It costs **$397 a month** for 750 minutes. Busy is $597 (1,200 minutes) and High
 
 Every new lead gets a polite five-touch text and email sequence over about ten days. It stops the moment they reply or book.
 
-It costs **$247 a month** for 2,500 texts and 15,000 emails, or Busy at $347 (6,000 texts and 40,000 emails). Email starts instantly, and texting starts after carrier registration.
+It costs **$247 a month** for 1,500 texts and 15,000 emails, or Busy at $347 (2,000 texts and 40,000 emails). Email starts instantly, and texting starts after carrier registration.
 
 ### Repute (reviews)
 
-It asks every customer for a review after the job, catches every review on their Google profile, and drafts replies in their voice. Low-star replies can always be held for approval, and auto-reply can be turned off.
+It asks customers for a review after the job (300 review requests a month), catches every review on their Google profile, and drafts replies in their voice for the owner to approve.
 
 It costs **$197 a month**, and each extra location is $177 a month. It's live the same day with Google Business Profile access and a "job done" signal.
 
-### Echo (Google and LinkedIn visibility)
+### Echo (Google profile, managed)
 
-It claims and corrects their Google profile, posts weekly, keeps name, address and phone consistent, and watches for unwanted edits. It also writes LinkedIn posts and articles and sends a monthly map-rank report. The client approves every post.
+It claims and corrects their Google profile, posts weekly, keeps name, address and phone consistent, and watches for unwanted edits. It sends a monthly 9-point map-rank report. It does not post to LinkedIn. The client approves every post.
 
 It costs **$247 a month** with no setup fee, and each extra location is $197 a month. It's live in 2 to 3 days. An unverified Google profile can take 5 to 14 days on Google's clock. Fixes land in week one, and movement usually shows in the 60 to 90 day reports. Never promise a ranking.
 
@@ -318,7 +318,7 @@ It costs **$247 a month** with no setup fee, and each extra location is $197 a m
 
 Email campaigns to their own customer list, with editable templates, saved snippets, and open, click and booking stats. Unsubscribe handling is built in.
 
-It costs **$94 a month** self-serve, with up to 25,000 emails a month included. Managed is **$397 a month**: Station writes four campaigns a month, and the owner approves before anything sends. It's live instantly once the list is in.
+It costs **$94 a month** self-serve, with 8,000 emails a month included. Managed is **$397 a month**: Station writes four campaigns a month, and the owner approves before anything sends. It's live instantly once the list is in.
 
 ### Revive (win-back campaign)
 
@@ -340,13 +340,13 @@ It costs **$47 a month** for 1,000 texts. It's live in about 2 business days and
 
 ### Tap (payments)
 
-Tap-to-pay on the owner's phone, text-to-pay links, unlimited estimates and invoices, and automatic receipts. The client connects their own free Stripe or Square account, so money goes straight to their bank.
+Payment links and invoices (the $47 Standard tier; text-to-pay and estimates are on Tap Pro, which the site does not sell yet). The client connects their own free Stripe or Square account, so money goes straight to their bank.
 
 It costs **$47 a month plus their processor's standard card rates**, which the site puts at about 2.6 to 2.9%. Station takes zero percent of their revenue. It's live in 1 to 2 days.
 
-### Marquee (social, ads and brand board)
+### Marquee (social posting and ads)
 
-A brand board in week one, posting to nine platforms (Facebook, Instagram, Google profile, LinkedIn, TikTok, Pinterest, YouTube, Threads and Bluesky, but not X), and a self-serve ad manager for Meta and Google.
+Self-serve: scheduling and posting to up to three social accounts (not X), with a content calendar. Managed: Station writes and posts 12 posts a month and runs the ads.
 
 It costs **$197 a month** self-serve. Managed is **$597 a month plus ad spend**: 12 posts a month, ads built and run, and monthly numbers. Ad spend goes on the client's own card with a cap they set, and managed ads above $2,000 a month of spend add 10% of spend. It's live in 5 to 7 days.
 
@@ -364,11 +364,11 @@ Collections and plans have no setup fee. Each plan includes a free Station-built
 - **Get Found, $497 a month:** Google profile managed (Echo), review requests and replies (Repute) and social posting self-serve (Marquee). They're worth $641 a month separately.
 - **Follow Up, $437 a month:** lead follow-up (Pursuit), win-back campaigns (Revive) and email campaigns self-serve (Dispatch). They're worth $538 a month separately.
 
-**Plans** (the whole shelf at three sizes; 14 days free, counted from the day the first product goes live; nothing is charged during set-up):
+**Plans** (the whole shelf at three sizes; 14 days free from the day the first product goes live; the trial includes half the monthly allowance; nothing is charged during set-up):
 
 - **Core, $1,497 a month:** every product, Radar included, at its Standard tier, including Frontdesk at 750 minutes, plus a free Station-built website. It's worth $2,255 a month separately.
-- **Pro, $2,497 a month:** every product, Radar included, at its busy tier (Greet 750 chats, Lineback 5,000 texts, Frontdesk 1,200 minutes, Slate 2,500, Pursuit 6,000 texts and 40,000 emails). Station writes and runs the social posts (12 a month plus ads) and the email campaigns (4 a month). It also includes a free Station-built website. It's worth $3,616 a month separately.
-- **Max, $3,897 a month:** every product, Radar included, at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, priority support and a quarterly review call, plus a custom-designed website. It's worth $5,516 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
+- **Pro, $2,497 a month:** every product, Radar included, at its busy tier (Greet 750 chats, Lineback 2,000 texts, Frontdesk 1,200 minutes, Slate 500 text and 2,500 email reminders, Pursuit 2,000 texts and 40,000 emails). Station drafts the social posts (12 a month) and the email campaigns (2 a month) for the client to approve. It also includes a free Station-built website. It's worth $3,616 a month separately.
+- **Max, $3,897 a month:** every product, Radar included, at its top tier (Greet 1,750 chats, Frontdesk 2,500 minutes), with social and email done for the client, plus a custom-designed website. It's worth $5,516 a month before the website. Max was called Custom before 2026-10-04. The word Custom now only means a quoted custom website.
 
 If a client outgrows one product, they upgrade just that product for the difference. An **extra location pack** (Google profile, reviews and a missed-call text-back line for one more location) is $397 a month. Check with Station before offering a yearly plan.
 
@@ -754,7 +754,7 @@ No. Businesses you, your family or your company's owners control aren't eligible
 
 ### Q: Is there a free trial?
 
-Yes. Every product (every tier), the three collections and the Core, Pro and Max plans start with 14 days free, counted from the day the first product goes live; nothing is charged during set-up. Websites never trial. Only Station can agree a longer trial.
+Yes. Every product (every tier), the three collections and the Core, Pro and Max plans start with 14 days free from the day the first product goes live; the trial includes half the monthly allowance; nothing is charged during set-up. Websites never trial. Only Station can agree a longer trial.
 
 ### Q: What does a custom website cost?
 
@@ -771,13 +771,13 @@ There's no set price. Hosting & care is one monthly subscription that Station qu
 - **Follow Up ($437 a month):** Pursuit, Revive and Dispatch (self-serve).
 - **Core ($1,497 a month):** every product, Radar included, at its Standard tier, including Frontdesk at 750 minutes.
 - **Pro ($2,497 a month):** every product, Radar included, at its busy tier, with Station writing and running the social posts and email campaigns.
-- **Max ($3,897 a month):** every product, Radar included, at its top tier, social and email done for them, priority support and a quarterly review call, plus a custom-designed website.
+- **Max ($3,897 a month):** every product, Radar included, at its top tier, social and email done for them, plus a custom-designed website.
 
-Radar is in every plan, not in the collections. Collections and plans have no setup fee. Each plan includes a free Station-built website (Max gets a custom-designed one); each collection gets 50% off a custom website. Collections and plans start with 14 days free, counted from the day the first product goes live; nothing is charged during set-up. Billing is monthly only.
+Radar is in every plan, not in the collections. Collections and plans have no setup fee. Each plan includes a free Station-built website (Max gets a custom-designed one); each collection gets 50% off a custom website. Collections and plans start with 14 days free from the day the first product goes live; the trial includes half the monthly allowance; nothing is charged during set-up. Billing is monthly only.
 
 ### Q: What if a client goes over their allowance?
 
-They're told at 80%, and the first month over is free. After that, extra usage is billed at twice their plan's per-unit rate on the next invoice. Service never pauses.
+They're told at 80%. Extra usage is billed at twice their plan's per-unit rate on the next invoice, from the first month, up to the monthly limit on extras they set; at that limit extras pause until the 1st unless they raise it or buy a top-up.
 
 ### Q: How long before a texting product works?
 
