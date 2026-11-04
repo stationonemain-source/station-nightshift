@@ -9,44 +9,8 @@
 <link rel="stylesheet" href="/bidbridge/site.css?v=20261008">
 </head><body>
 <header class="bar"><div class="bar-in"><a class="brand" href="/bidbridge/" aria-label="BidBridge home"><img src="/bidbridge/logo.png" alt="BidBridge" width="63" height="46"></a><nav class="main" aria-label="BidBridge"><a href="/bidbridge/">Home</a><a href="/bidbridge/how-it-works/">How it works</a><a href="/bidbridge/pricing/">Pricing</a><a href="/bidbridge/about/">About</a><a href="/bidbridge/faq/">FAQ</a><a href="/bidbridge/contact/">Contact</a><a class="cta" href="/bidbridge/join/">Join the network</a></nav></div></header>
-<main class="w"><section><h1>Join the network</h1><p class="lede">Tell us what you do. We'll text you when there's a job for you, or ask if you have one to pass along.</p></section>
-<section><form id="bbForm" novalidate>
-<label>Your name<input id="bbName" name="name" autocomplete="name" required></label>
-<label>Company<input id="bbCompany" name="company" autocomplete="organization" required></label>
-<label>Trade<select id="bbTrade" name="trade" required><option value="">Choose one</option><option>Roofing</option><option>Siding &amp; gutters</option><option>Custom builder</option><option>Remodeler</option><option>Painting</option><option>Electrical</option><option>Landscaping &amp; fence</option><option>Concrete</option><option>Other</option></select></label>
-<label>City<input id="bbCity" name="city" autocomplete="address-level2" placeholder="Norman, Moore, OKC…"></label>
-<label>Mobile number<input id="bbPhone" name="phone" type="tel" autocomplete="tel" required></label>
-<label>Email<input id="bbEmail" name="email" type="email" autocomplete="email"></label>
-<label class="consent full"><input id="bbSmsT" type="checkbox" name="sms_transactional"> <span>By checking this box, I consent to receive transactional text messages from BidBridge (Station Automations Group LLC) about my referral network account, including job referrals I have asked for, introductions to other contractors, and follow-ups on referrals. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>
-<label class="consent full"><input id="bbSmsM" type="checkbox" name="sms_marketing"> <span>By checking this box, I consent to receive marketing and promotional text messages from BidBridge (Station Automations Group LLC), including offers of new referral jobs and of BidBridge's paid referral service. Message frequency may vary. Message &amp; data rates may apply. Reply HELP for help or STOP to opt out.</span></label>
-<label class="consent full"><input id="bbAge" type="checkbox" name="age_18" required> <span>I am 18 or older.</span></label>
-<input type="text" name="_hp" id="bbHp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-<button type="submit" class="full" id="bbSend">Join BidBridge</button>
-<p class="full legal-links"><a href="/bidbridge/privacy/">Privacy Policy</a> | <a href="/bidbridge/terms/">Terms of Service</a></p>
-<p class="msg full" id="bbMsg" role="status" aria-live="polite"></p>
-</form></section>
-<script>
-(function(){
-  var f=document.getElementById("bbForm"),m=document.getElementById("bbMsg"),b=document.getElementById("bbSend");
-  f.addEventListener("submit",function(e){
-    e.preventDefault();
-    var v=function(id){return (document.getElementById(id).value||"").trim();};
-    if(v("bbHp")){return;}
-    if(!v("bbName")||!v("bbCompany")||!v("bbTrade")||v("bbPhone").replace(/\D/g,"").length<10){m.textContent="Please fill in your name, company, trade and a 10-digit phone number.";return;}
-    if(!document.getElementById("bbAge").checked){m.textContent="Please confirm you are 18 or older.";return;}
-    var t=document.getElementById("bbSmsT").checked,mk=document.getElementById("bbSmsM").checked;
-    b.disabled=true;m.textContent="Sending…";
-    var body={name:v("bbName"),company:v("bbCompany"),trade:v("bbTrade"),city:v("bbCity"),phone:v("bbPhone"),email:v("bbEmail"),
-      sms_transactional:t,sms_marketing:mk,sms_consent:(t||mk),age_18:true,
-      consent_text:[].slice.call(document.querySelectorAll(".consent")).filter(function(l){return l.querySelector("input").checked;}).map(function(l){return l.querySelector("span").textContent.trim();}).join(" || "),
-      page:location.href,at:new Date().toISOString()};
-    fetch("https://n8n.srv1748596.hstgr.cloud/webhook/bidbridge-join",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
-      .then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){if(!j||!j.ok)throw 0;m.textContent=body.sms_consent?"You're in. We'll text you from (405) 814-0793 when there's a match.":"You're in. You didn't tick a texting box, so we'll reach you by email.";f.reset();})
-      .catch(function(){m.textContent="That didn't go through. Please email main@station.solutions and we'll add you.";})
-      .finally(function(){b.disabled=false;});
-  });
-})();
-</script></main>
+<main class="w"><section><h1>Join the network</h1><p class="lede">BidBridge isn&rsquo;t taking sign-ups on this page right now. To join or ask about it, email <a href="mailto:main@station.solutions?subject=Join%20BidBridge">main@station.solutions</a> and a person replies.</p></section></main>
+<!-- 2026-11-04 (exit/buy-2): the join form posted to n8n webhook/bidbridge-join, which ran on the old CRM. The old CRM closes and Bids is benched, so the form is one email line. -->
 <footer><div class="foot">
 <span><b>BidBridge</b> is a service of Station Automations Group LLC · 1856 Branard St, Houston, TX 77098</span>
 <span>Email <a href="mailto:main@station.solutions">main@station.solutions</a> · Text or call (405) 814-0793</span>

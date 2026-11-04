@@ -13,8 +13,9 @@
 (function () {
   "use strict";
 
-  var ENDPOINT = "https://n8n.srv1748596.hstgr.cloud/webhook/cart-abandon";
-  var EMAIL_CONSENT_VERSION = "email-consent-v1.0.0";
+  /* 2026-11-04 (exit/buy-2): the "email me the prescription" box posted to n8n webhook/cart-abandon, which ran on
+     the old CRM. The old CRM closes and Circle's public collectors answer 401 from the open internet, so the box is gone:
+     the prescription stays on screen, and a plain line offers main@station.solutions to anyone who wants to talk it over. */
 
   function cat(k) { return (window.STATION_CATALOG || []).find(function (p) { return p.k === k; }); }
   function track(ev, label) { try { if (window.__rangeTrack) window.__rangeTrack(ev, label); } catch (e) {} }
@@ -179,35 +180,11 @@
       ", this is the single product that fixes the most of it. Start here; add nothing else until it pays for itself.</p></div>" +
       '<div class="sq-cta"><button class="sq-buy" data-add="' + r.k + '">Add to cart</button>' +
       '<a class="sq-see" href="/' + r.k.replace("_", "-") + '/">See how it works</a></div>' +
-      '<div class="sq-mail"><p>Want this prescription in writing? We\'ll email it — nothing else.</p>' +
-      '<form class="row" novalidate><input type="email" placeholder="you@business.com" autocomplete="email">' +
-      '<button class="sq-buy" type="submit" style="padding:10px 14px">Send</button></form>' +
-      '<label><input type="checkbox"><span id="quiz-email-consent-text">Email me this recommendation. One email, no list — unsubscribe link included anyway.</span></label>' +
-      '<p class="sq-msg" role="status"></p></div>';
+      '<div class="sq-mail"><p>Want to talk it over first? Email <a href="mailto:main@station.solutions?subject=My%20quiz%20result">main@station.solutions</a> and a person replies.</p></div>';
     box.querySelector(".sq-x").onclick = close;
     // data-add is handled by v5.js's global click handler — the cart just works
     box.querySelector(".sq-buy[data-add]").addEventListener("click", function () {
       track("quiz_add_to_cart", r.k); setTimeout(close, 450);
-    });
-    var form = box.querySelector("form"), msg = box.querySelector(".sq-msg"),
-        em = form.querySelector("input[type=email]"), ck = box.querySelector('label input[type=checkbox]');
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var email = (em.value || "").trim();
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = "That email doesn't look right."; msg.className = "sq-msg bad"; return; }
-      if (!ck.checked) { msg.textContent = "Tick the box and it's on its way."; msg.className = "sq-msg bad"; return; }
-      msg.textContent = "Sending…"; msg.className = "sq-msg";
-      fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "quiz_lead", email: email, product: r.k, answers: ans,
-          email_consent: "yes", email_consent_version: EMAIL_CONSENT_VERSION,
-          consent_text_email: String(document.getElementById("quiz-email-consent-text").textContent || "").trim(),
-          consent_ts: new Date().toISOString(), consent_url: String(location.href).slice(0, 1000),
-          consent_ua: String(navigator.userAgent || "").slice(0, 600)
-        }), keepalive: true })
-      .then(function (x) { return x.ok ? x.json() : {}; })
-      .then(function () { msg.textContent = "Done — check your inbox."; msg.className = "sq-msg ok"; track("quiz_email_captured", r.k); })
-      .catch(function () { msg.textContent = "Couldn't send just now — the prescription is on screen though."; msg.className = "sq-msg bad"; });
     });
   }
 

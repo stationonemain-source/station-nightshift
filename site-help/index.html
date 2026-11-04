@@ -18,6 +18,7 @@ h1{font-size:clamp(1.8rem,4.2vw,2.5rem);line-height:1.12;letter-spacing:-.025em;
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-2)}
 .note{background:var(--bg-3);border-radius:14px;padding:16px 18px;color:var(--muted);font-size:15px;margin-top:24px}
 .note b{color:var(--ink)} .fine{color:var(--faint);font-size:13px;margin-top:22px}
+.mailline{font-size:18px;line-height:1.5;margin:0 0 28px;max-width:58ch}.mailline a{color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 </style><style>
 .field{margin:0 0 16px} .field label{display:block;font-size:14px;font-weight:600;margin:0 0 6px}
 input[type=text],input[type=email],textarea,select{width:100%;font:500 16px/1.4 var(--fd);color:var(--ink);background:var(--card);border:1.5px solid var(--line-2);border-radius:12px;padding:13px 14px;outline:none}
@@ -28,22 +29,8 @@ textarea{min-height:130px;resize:vertical} input:focus,textarea:focus,select:foc
 .warn li{margin:6px 0} .check{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin:14px 0} .check input{margin-top:4px;width:18px;height:18px}
 .btn.red{background:#C03B2B}
 </style></head><body><header class="top"><div class="top-in"><a class="home" href="/" aria-label="Station home"><svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><g transform="rotate(45 50 50)"><rect x="29.5" y="3" width="18" height="36" rx="8.5"/><rect x="52.5" y="3" width="18" height="36" rx="8.5"/><rect x="29.5" y="61" width="18" height="36" rx="8.5"/><rect x="52.5" y="61" width="18" height="36" rx="8.5"/><rect x="3" y="29.5" width="36" height="18" rx="8.5"/><rect x="3" y="52.5" width="36" height="18" rx="8.5"/><rect x="61" y="29.5" width="36" height="18" rx="8.5"/><rect x="61" y="52.5" width="36" height="18" rx="8.5"/></g><circle cx="50" cy="50" r="16.5" fill="#F5F4F1"/></svg>STATION</a></div></header><main class="wrap" id="app"><p class="k">Website help</p><h1>Need help with a website we built?</h1>
-<p class="lede">If you took your Station-built site over and something needs fixing, changing or moving, tell us here. We&rsquo;ll reply within one business day with what we&rsquo;d do and what it would cost. Want us to look after it for good? You can ask for that too.</p>
-<form id="f" novalidate>
-<div class="row2"><div class="field"><label for="name">Your name</label><input type="text" id="name" autocomplete="name" required></div>
-<div class="field"><label for="email">Email</label><input type="email" id="email" autocomplete="email" required></div></div>
-<div class="row2"><div class="field"><label for="business">Business</label><input type="text" id="business" autocomplete="organization"></div>
-<div class="field"><label for="site">Website address</label><input type="text" id="site" placeholder="yourbusiness.com"></div></div>
-<div class="field"><label for="need">What do you need?</label><textarea id="need" placeholder="The contact form stopped sending, I need to change our hours, the site is down…" required></textarea></div>
-<div class="row2"><div class="field"><label for="urgency">How urgent is it?</label><select id="urgency"><option>Today — something is broken</option><option selected>This week</option><option>Whenever you can</option></select></div>
-<div class="field"><label for="takeover">Want us to host and look after it for you?</label><select id="takeover"><option>Yes, tell me what it costs</option><option selected>Not sure yet</option><option>No, just this job</option></select></div></div>
-<input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-<button class="btn" type="submit" id="go" style="width:auto;padding:14px 22px">Send it to Station</button><p class="err" id="err" role="alert"></p></form></main><script>(function(){var t0=Date.now(),f=document.getElementById("f"),e=document.getElementById("err"),b=document.getElementById("go");
-f.addEventListener("submit",function(ev){ev.preventDefault();e.textContent="";
-var v=function(id){return (document.getElementById(id).value||"").trim();};
-if(!v("name")||!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v("email"))||!v("need")){e.textContent="Please add your name, a valid email and what you need.";return;}
-b.disabled=true;b.textContent="Sending…";
-fetch("https://n8n.srv1748596.hstgr.cloud/webhook/site-help",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:v("name"),email:v("email"),business:v("business"),site:v("site"),need:v("need"),urgency:v("urgency"),takeover:v("takeover"),hp:v("hp"),elapsed_ms:Date.now()-t0})})
-.then(function(r){return r.json();}).then(function(j){if(j&&j.ok===false)throw new Error(j.error||"x");
-document.getElementById("app").innerHTML='<p class="k">Got it</p><h1>Thanks — we&rsquo;re on it.</h1><p class="lede">We&rsquo;ll reply to '+v("email").replace(/[<>&]/g,"")+' within one business day with what we&rsquo;d do and what it would cost. A copy of your request is on its way to your inbox.</p>';})
-.catch(function(){b.disabled=false;b.textContent="Send it to Station";e.textContent="Something went wrong sending that. Please try again, or email main@station.solutions.";});});})();</script><script src="/analytics.js" defer></script></body></html>
+<p class="lede">If you took your Station-built site over and something needs fixing, changing or moving, email us. A person reads it and replies within one business day with what we&rsquo;d do and what it would cost. Want us to look after it for good? Ask for that in the same email.</p>
+<p class="mailline">Email <a href="mailto:main@station.solutions?subject=Website%20help">main@station.solutions</a> with your name, your website address, what you need and how urgent it is.</p>
+</main>
+<!-- 2026-11-04 (exit/buy-2): this form posted to n8n webhook/site-help, which ran on the old CRM. The old CRM closes, and Circle's public collectors (/api/website-lead, /api/notify) answer 401 from the open internet, so the request goes by email. -->
+<script src="/analytics.js" defer></script></body></html>
