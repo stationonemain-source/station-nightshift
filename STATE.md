@@ -511,3 +511,22 @@ link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (ou
 - /products/: the sticky price bar, the pain-grid Answer tile and the "Most people start with Answer" line still said
   $297 after round one; now $349 (about $11.63 a day). The plan rows already keep the 16px gutter at 390 (measured:
   left 16, right 374); round one's "flush" screenshot was an element crop.
+
+### 2026-11-04, third round: the site says what the Platform gives (Circle: "Yes, align them")
+- Authority: `~/station-platform/catalog/catalog.json` at build/platform 64a996f (deployed, Stripe re-synced).
+- **Generated pages** (13 product pages): inputs edited on the PC (`heroes/products_pages.py`, `products_v2.py`, `products_v3.py`,
+  `products_v3_more.py`, `build_funnel.py`, `fd_catalog.txt`, `products_data/slate.json`, `products_data/marquee.json`; originals in
+  `heroes/.bak-exit-buy2-align-20261104/`), then the PC's generator run on the Mac with `SN_ROOT` = a copy of this branch, and only the
+  product `index.html` files taken (og images came out byte-identical). Regenerating also picked up generator drift that was newer
+  than the pages: `station.css?v=20261028a`, `<source media>` on hero pictures, Tap's Dial door replaced by Lineback.
+- Numbers now: Lineback 1,450 / 2,000 texts (27¢ / 30¢ over); Slate 250 text + 1,000 email / 500 + 2,500 reminders (47¢+12¢ /
+  39¢+8¢ over); Pursuit 1,500 / 2,000 texts with 15,000 / 40,000 emails (33¢+3¢ / 35¢+2¢); Frontdesk unchanged (matched);
+  Repute 300 requests ($1.31 over); Dispatch Self-serve 8,000 emails (2.35¢), Managed 35,000 (2.27¢).
+- Gone everywhere: "first time you go over, it's on us" (no grace), "free inside Frontdesk / we'll credit you", nine platforms and
+  brand board (Marquee Self-serve = up to 3 accounts), Echo's LinkedIn, Repute auto-reply on Standard, Dispatch "unmetered",
+  Max "priority support and a quarterly review call" (neither the Platform nor its STATE has a review call).
+- Trial line on every product page, /products/, /checkout/, legal: "14 days free from the day your first product goes live; the trial
+  includes half your monthly allowance." Terms §4 also states the monthly limit on extras (meter.py).
+- `scratch/allowance-diff.md` re-run: 49 rows, 43 match, 0 unexplained, 6 kept with a reason (Tap page story still sells tap-to-pay /
+  text-to-pay / estimates at $47, which are Pro or nowhere on the Platform: Circle's call; Echo and Dispatch hand-done extras;
+  Marquee Managed +10% ad fee billed by hand; tiers the site doesn't offer; Pursuit "five touches over ten days" vs 14 days).
