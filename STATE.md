@@ -489,10 +489,25 @@ link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (ou
 - **Forms off the old CRM's n8n workflows**: /site-help/, /cancel-hosting/, the quiz's "email me the prescription", and
   /bidbridge/join/ are now plain "email main@station.solutions" lines. Circle's /api/website-lead and /api/notify answer
   401 from the open internet (AUTH_FUNNEL_PUBLIC is login only), so they could not take them. Still posting to n8n, left
-  on purpose: custom-website(+upload), custom-software, free-audit, station-unsub, station-affiliates; and
-  ⚠ cart-recovery.js still posts webhook/cart-abandon (same workflow the quiz used).
+  on purpose: custom-website(+upload), custom-software, free-audit, station-unsub, station-affiliates.
 - Cache keys: v5.js?v=20261104a, quiz.js?v=20261104a on every page; the PC generator (build_funnel, build_v3,
   build_home, build_security, build_software) carries the same keys (backups in heroes/.bak-exit-buy2-20261104/).
-- Not changed, needs a decision: partners/products.json + partners/guide.md still carry the old collection/plan prices
-  and contents (partner engine's price file); allowances on product pages differ from the Platform's (e.g. Frontdesk
-  750/1,200/2,500 min on the site vs 500/900/1,600; Lineback 1,500 texts vs 400).
+- Allowances: `scratch/allowance-diff.md` (84 rows, 49 differ) is the site-vs-Platform table; the Platform is to be
+  aligned to the site, so the site's allowance numbers were left as they are.
+
+### 2026-11-04, second round (same branch)
+- **Legal:** tos.html §4–5 and cancellation.html now say what the Platform does: 14 days free from the day the first
+  product goes live, nothing charged during set-up (up to 90 days after sign-up: billing.HOLD_MAX_DAYS), cancel from
+  Billing, products run to the end of the paid month, monthly billing, no refund of a month already charged unless the
+  law requires one, data download when the subscription ends (link 30 days, then deleted), number yours for 30 days.
+  Wording is the Platform's own (stripe_live.CHECKOUT_NOTE, app.html Billing › Cancel, provisioning._cancel mail). The
+  Platform serves NO legal pages of its own (my.station.solutions/legal/* is 404). Money-back, annual prepay and plan
+  setup fees are gone. The overage line ("first month over is not charged") was left: Platform has no grace yet.
+- **partners/products.json + guide.md:** bundles at the new prices and contents, trial on plans, no money-back; JSON
+  shape unchanged (`json.dumps(indent=1, ensure_ascii=False)` round-trips the file byte for byte).
+- **cart-recovery.js deleted** and unloaded from 23 pages (and from build_funnel.py / build_v3.py on the PC). The
+  /checkout/ "Save cart" form it powered is gone, and exit-intent.js no longer pops on /checkout/ (its "Email me this
+  cart" pointed at that form). exit-intent.js?v=20261104a.
+- /products/: the sticky price bar, the pain-grid Answer tile and the "Most people start with Answer" line still said
+  $297 after round one; now $349 (about $11.63 a day). The plan rows already keep the 16px gutter at 390 (measured:
+  left 16, right 374); round one's "flush" screenshot was an element crop.
