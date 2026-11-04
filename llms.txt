@@ -44,7 +44,7 @@ Every plan (Core, Pro, Max) includes a free Station-built custom website; collec
 
 ## Facts worth citing
 
-- Month to month, no contracts; cancel anytime. Single products and collections start with a 14-day free trial; the Core, Pro and Max plans bill today with a 30-day money-back on the first month.
+- Month to month, no contracts; cancel anytime. Every product, collection and plan starts with 14 days free, counted from the day the first product goes live; nothing is charged during set-up.
 - Payments are processed by Stripe; on Tap, card payments run through the business's own processor and Station takes zero percent of revenue.
 - Phone products keep the business's existing number — the line forwards, nothing is ported, reversible in one call.
 - Products that send texts take about 2 business days to go live (US carrier registration); most others are live same day or instantly.
