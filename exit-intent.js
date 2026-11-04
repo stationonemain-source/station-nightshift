@@ -32,6 +32,9 @@
     var seg = location.pathname.replace(/\/+$/, "").split("/").pop();
     return cat(seg) ? seg : null;
   })();
+  /* 2026-11-04 (exit/buy-2): no popup on /checkout/ any more. Its "Email me this cart" pointed at the save-cart form that
+     cart-recovery.js ran, and both are gone: Stripe Checkout replaces the site cart, so there is nothing to save. */
+  if (isCheckout) return;
   if (!isCheckout && !pageKey) return;          // every other page: no exit popup, ever
 
   var loadedAt = Date.now(), shownThisSession = false, armedMobile = false, maxScroll = 0;
