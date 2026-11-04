@@ -17,7 +17,7 @@
 - [Repute](https://station.solutions/repute/): Review engine — 300 review requests a month, monitoring, AI-drafted replies you approve — $197/mo (multi-location quoted on request)
 - [Echo](https://station.solutions/echo/): Google Business Profile management — setup, a post every week, a monthly 9-point map-rank report — $247/mo, no setup fee; each extra location $197/mo
 - [Marquee](https://station.solutions/marquee/): Social posting — self-serve scheduling to up to three accounts $197/mo, or managed (12 posts a month written and posted, ads run) $597/mo
-- [Tap](https://station.solutions/tap/): Payments — payment links and invoices — $47/mo + card rates (Station takes 0% of revenue)
+- [Tap](https://station.solutions/tap/): Payments — payment links and invoices — $47/mo + card rates; Busy $97 adds text-to-pay, estimates and recurring billing (Station takes 0% of revenue)
 - [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with 8,000 emails a month, or fully managed $397/mo (35,000 emails, four campaigns written and sent)
 - [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo for 5 new prospects a week with a full marketing audit on each, or $497/mo Pro for 20 a week across six trade targets
 - [Revive](https://station.solutions/revive/): Win back old customers — $197/mo for lists up to 5,000 contacts: the full win-back wave in month one, then a fresh wave every quarter

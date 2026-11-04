@@ -2,7 +2,7 @@
 
 Branch `exit/buy-2`, re-run 2026-11-04 after the alignment. Platform = `~/station-platform/catalog/catalog.json` at build/platform `64a996f` (deployed, Stripe re-synced). Generated product pages were regenerated from the PC generator (inputs edited there). Platform figures below are read from the file by the script that wrote this table.
 
-**49 rows: 43 match, 0 differ unexplained, 6 kept with a reason** (Tap page story, Echo/Dispatch hand-done extras, Marquee managed ad fee, tiers the site does not offer, Pursuit sequence length).
+**51 rows: 47 match, 0 differ unexplained, 4 kept with a reason** (Echo and Dispatch Managed hand-done extras, Marquee Managed ad fee, tiers the site does not offer).
 
 | product | tier | unit | site | Platform | source | same |
 |---|---|---|---|---|---|---|
@@ -29,8 +29,9 @@ Branch `exit/buy-2`, re-run 2026-11-04 after the alignment. Platform = `~/statio
 | Frontdesk | Busy | minutes / overage / per-minute in plan | 1,200 minutes; over: $1.00 a minute; 50¢ a minute in plan | 1,200; $0.9950; $0.4975 | frontdesk/index.html:252, :254, :211 | yes |
 | Frontdesk | High volume | minutes / overage / per-minute in plan | 2,500 minutes; over: $0.72 a minute; 36¢ a minute in plan | 2,500; $0.7176; $0.3588 | frontdesk/index.html:252, :254, :211 | yes |
 | Frontdesk | all | booking | books into your calendar; Slate ($59) adds the booking page and reminders | setup step "calendar"; Slate is a separate product | frontdesk/index.html:244-252 | yes |
-| Tap | Standard | tier features | Payment links · Invoices | Payment links and invoices | tap/index.html:185, :186 | yes |
-| Tap | page story | features | title, description, hero, steps and the side panel still sell tap-to-pay, text-to-pay and estimates at $47 | those are Tap Pro ($97: text-to-pay, estimates) / not in any tier (tap-to-pay) | tap/index.html:3-6, :121, :148-181, :185 side; dial/index.html:193 | kept: the page is built around those features and the site only sells Standard; Circle decides: sell Tap Pro on the page, or rewrite the story |
+| Tap | Standard | tier features | Payment links · Invoices ($47) | Payment links and invoices | tap/index.html:185, :186 | yes |
+| Tap | Busy | tier features | Text-to-pay links · Estimates that become the invoice · Recurring billing · Everything in Standard ($97, buy on tap_pro_v2: 303 to Stripe) | + text-to-pay, estimates, recurring billing | tap/index.html:185 | yes |
+| Tap | page | tap-to-pay | gone from the page, its JSON-LD, the hero motion (s/fx/tap.js pulse removed), the catalog subtitle ("Payment links & invoices"), the Dial door, llms.txt and the partner files | no tier has tap-to-pay | tap/index.html, s/fx/tap.js, dial/index.html:193, llms.txt:20 | yes |
 | Pursuit | Standard | texts + emails / overage | 1,500 texts + 15,000 emails; over 33¢ a text, 3¢ an email | 1,500 + 15,000; $0.3293 / $0.0329 | pursuit/index.html:185, :187, llms.txt:16 | yes |
 | Pursuit | Busy | texts + emails / overage | 2,000 texts + 40,000 emails; over 35¢ a text, 2¢ an email | 2,000 + 40,000; $0.3470 / $0.0174 | pursuit/index.html:185, :187, llms.txt:16 | yes |
 | Repute | Standard | review requests / overage | 300 review requests a month; over 300: $1.31 a request | 300; $1.3133 | repute/index.html:252, :254 | yes |
@@ -48,10 +49,11 @@ Branch `exit/buy-2`, re-run 2026-11-04 after the alignment. Platform = `~/statio
 | Revive | Standard | contacts per wave | up to 5,000 contacts | 5,000 (wave_cap) | revive/index.html:185, :152 | yes |
 | Radar | Standard | prospects | 5 a week, 3 trades | 5 prospects a week · 3 trades | radar/index.html:185 | yes |
 | Radar | Pro | prospects | 20 a week, six trade targets | 20 prospects a week · 6 trades | radar/index.html:185 | yes |
-| several | Lineback/Slate/Pursuit Max, Tap Pro/Max, Repute/Echo/Marquee/Dispatch Pro, Revive Pro/Max, Radar Max | tiers | not offered on the site | exist in the catalogue | — | kept: the site sells a subset; nothing is promised about them (Lineback Max 1,750 texts is below Busy 2,000 in the catalogue: worth a look on the Platform side) |
+| several | Lineback/Slate/Pursuit Max, Tap Max, Repute/Echo/Marquee/Dispatch Pro, Revive Pro/Max, Radar Max | tiers | not offered on the site | exist in the catalogue | — | kept: the site sells a subset; nothing is promised about them (Lineback Max is being raised to 3,000 texts on the Platform) |
 | Answer (collection) | $349 | allowances | none named, by design | text 400 · chat 250 · reminders 250 + 1,000 · minutes 500 | products/index.html:237 | yes |
 | Get Found (collection) | $497 | social | social scheduling, up to 3 accounts | Marquee standard: up to 3 accounts | products/index.html:237 | yes |
 | Core (plan) | $1,497 | receptionist minutes | AI receptionist, 750 minutes | 750 | products/index.html:238 | yes |
 | Pro (plan) | $2,497 | social / email | 12 social posts a month drafted for your approval; 2 email campaigns drafted | Marquee pro: 12 drafted to approve; Dispatch pro: 2 drafted | products/index.html:238, llms.txt:33 | yes |
 | Max (plan) | $3,897 | receptionist / support | AI receptionist, 2,500 minutes; priority support and the quarterly review call removed | 2,500 minutes; "priority support" retired; no quarterly call anywhere in the Platform or its STATE | products/index.html:238 | yes |
-| Pursuit | all | sequence length | "five touches over ten days" | sequences.py: 5 texts + 5 emails over 14 days | pursuit/index.html:120-122 (steps) | kept: wording about the sequence, not an allowance; flag for the Platform or the copy |
+| Pursuit | all | sequence | "five texts and an email over 14 days"; ends after day 14 (the "stalled lead at three weeks" check-in is gone) | sequences.py PURSUIT_STEPS: 5 texts + 1 email, minute 5 to day 14 (the module docstring says the same; Platform STATE.md says 5 + 5) | pursuit/index.html:120-122, :163, :176, :185-186, :196, v5.js:776, partners/guide.md | yes |
+| Revive | all | sequence | "six emails over 25 days" | sequences.py REVIVE_STEPS: 6 emails, day 0 to day 25 | revive/index.html (steps) | yes |

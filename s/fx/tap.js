@@ -1,8 +1,6 @@
 /* Tap hero: paid at the stall, then the market carries on.
-   - The tap. Every few seconds the woman's phone meets the farmer's reader and a contactless pulse
-     leaves the reader: three thin arcs of light that open toward the phone and fade, the way the
-     little wave symbol on every card reader says it. A beat later the reader's screen blinks a soft
-     green: paid. That is the product, at the counter, in about a second.
+   - 2026-11-04 (exit/buy-2): the contactless pulse (arcs from the reader, green blink) is gone. No Tap tier
+     takes tap-to-pay on the Platform, so the painting no longer acts it out; READER, PHONE and PERIOD stay unused.
    - The breeze. The bunting strung between the poles sways: each string breathes with a slow wave
      that travels along it, and every pennant swings and flaps on its own about its top edge, more
      when a gust comes through. The pennants were lifted out of the painting (and the sky, spire and
@@ -77,27 +75,6 @@
       ctx.restore();
     }
 
-    if (kit.reduce) return;
-    // the tap: three arcs leave the reader toward the phone, then the reader blinks green
-    var p = (t + PERIOD - 1.2) % PERIOD, rx = kit.X(READER[0]), ry = kit.Y(READER[1]);
-    var ang = Math.atan2(kit.Y(PHONE[1]) - ry, kit.X(PHONE[0]) - rx);
-    ctx.globalCompositeOperation = "lighter";
-    for (k = 0; k < 3; k++) {
-      var q = (p - k * .2) / .95;
-      if (q <= 0 || q >= 1) continue;
-      var r = (.005 + .016 * q) * dw, a = Math.sin(q * Math.PI) * (1 - q * .35);
-      ctx.lineWidth = Math.max(1, .0042 * dw * (1 - q * .4)); ctx.strokeStyle = "rgba(200,235,255," + (.22 * a).toFixed(3) + ")";
-      ctx.beginPath(); ctx.arc(rx, ry, r, ang - .62, ang + .62); ctx.stroke();
-      ctx.lineWidth = Math.max(.8, .0016 * dw); ctx.strokeStyle = "rgba(245,252,255," + (.8 * a).toFixed(3) + ")";
-      ctx.beginPath(); ctx.arc(rx, ry, r, ang - .55, ang + .55); ctx.stroke();
-    }
-    var g = (p - 1.15) / 1.0;
-    if (g > 0 && g < 1) {
-      var ga = Math.sin(g * Math.PI); ga = Math.sqrt(ga);
-      blob(rx, ry, .016 * dw, "110,230,150", .45 * ga);
-      blob(rx, ry, .006 * dw, "200,255,210", .75 * ga);
-    }
-    ctx.globalCompositeOperation = "source-over";
   }
 
   kit.onLayout(function () { if (kit.reduce) draw(0); });

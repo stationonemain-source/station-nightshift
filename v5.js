@@ -773,7 +773,7 @@
       if (/no.?show|remind|book|calendar|appointment/.test(s)) return "That's <b>Slate</b> — real online booking plus reminders that cut no-shows hard:<br>" + plink("slate");
       if (/google|map|listing|found|rank|seo/.test(s)) return "That's <b>Map</b> — your Google Business Profile managed and defended, the single biggest local-visibility lever:<br>" + plink("map");
       if (/social|post|instagram|facebook|tiktok|content/.test(s)) return "That's <b>Marquee</b> — schedule your posts to up to three accounts from one desk, or have us write and post them and run your ads on Managed:<br>" + plink("marquee");
-      if (/follow.?up|lead|quote|chase|went quiet/.test(s)) return "That's <b>Pursuit</b> — it chases every lead for 10 days and stops the second they reply:<br>" + plink("pursuit");
+      if (/follow.?up|lead|quote|chase|went quiet/.test(s)) return "That's <b>Pursuit</b> — it follows up every lead with five texts and an email over 14 days and stops the second they reply:<br>" + plink("pursuit");
       if (/email|campaign|newsletter|blast/.test(s)) return "That's <b>Dispatch</b> — mass email campaigns with hundreds of real templates included:<br>" + plink("dispatch") + "<a href='/portfolio/emails/'>See the template gallery →</a>";
       if (/pay|card|invoice|estimate|charge customer|pos/.test(s)) return "That's <b>Tap</b> — estimate → invoice → tap their card on your phone → paid in the driveway:<br>" + plink("tap");
       if (/start|begin|first|recommend|which one|what should/.test(s)) return "Honest answer: start where it hurts most. Missing calls → <b>Lineback</b>. Nobody finds you → <b>Map</b>. Few reviews → <b>Repute</b>. Or answer one question and the shelf reorders itself:<br><a href='/#help'>Build my line →</a><a href='/audit/'>Or get the free audit →</a>";
@@ -1151,12 +1151,10 @@
       rv2.appendChild(play);
     }
 
-    /* MARQUEE — one post fans out to nine platforms */
+    /* MARQUEE — one post fans out to your accounts (Self-serve: up to 3, catalog marquee_standard_v2) */
     var mqp = document.getElementById("mqPlats");
     if (mqp) {
-      var PLATS = [["Facebook","facebook"],["Instagram","instagram"],["Google Business","google"],
-        ["LinkedIn","linkedin"],["TikTok","tiktok"],["YouTube","youtube"],
-        ["Pinterest","pinterest"],["Threads","threads"],["Bluesky","bluesky"]];
+      var PLATS = [["Facebook","facebook"],["Instagram","instagram"],["Google Business","google"]];
       mqp.innerHTML = PLATS.map(function(p){
         return '<div class="mq-pl"><img src="/media/logos/' + p[1] + '.svg" alt="" loading="lazy" onerror="this.remove()">' +
           '<span>' + p[0] + '</span><i class="ck" aria-hidden="true">✓</i></div>';
@@ -1167,7 +1165,7 @@
         chips.forEach(function(c){ c.classList.remove("lit"); });
         mqBtn.disabled = true; mqBtn.textContent = "Publishing…";
         chips.forEach(function(c, i){ setTimeout(function(){ c.classList.add("lit"); }, 260 + i * 210); });
-        setTimeout(function(){ mqBtn.disabled = false; mqBtn.textContent = "Delivered to all 9 ✓ — run it again"; }, 260 + chips.length * 210 + 300);
+        setTimeout(function(){ mqBtn.disabled = false; mqBtn.textContent = "Delivered to all 3 ✓ — run it again"; }, 260 + chips.length * 210 + 300);
       });
     }
 

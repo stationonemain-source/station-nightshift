@@ -530,3 +530,17 @@ link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (ou
 - `scratch/allowance-diff.md` re-run: 49 rows, 43 match, 0 unexplained, 6 kept with a reason (Tap page story still sells tap-to-pay /
   text-to-pay / estimates at $47, which are Pro or nowhere on the Platform: Circle's call; Echo and Dispatch hand-done extras;
   Marquee Managed +10% ad fee billed by hand; tiers the site doesn't offer; Pursuit "five touches over ten days" vs 14 days).
+
+### 2026-11-04, fourth round: Tap Busy, no tap-to-pay, sequences as coded
+- **Tap:** Standard $47 = payment links and invoices; new Busy tier $97 (`tap_pro_v2`, 303 to Stripe) = + text-to-pay, estimates,
+  recurring billing. Tap-to-pay is gone everywhere (page, JSON-LD, the hero's contactless pulse in `s/fx/tap.js` — bunting still
+  moves —, catalog subtitle now "Payment links & invoices", the Dial door, llms.txt, partner files).
+- **Pursuit:** "five texts and an email over 14 days" — what `stationplatform/sequences.py` PURSUIT_STEPS sends. The coordinator
+  asked for "five texts and five emails" (the Platform STATE.md says 5 + 5), but the code sends one email; the site follows the code.
+  The "stalled lead at three weeks" check-in is gone (no such step). **Revive:** "six emails over 25 days" (REVIVE_STEPS).
+- v5.js Marquee animation (dead code: no page has #mqPlats) now draws three accounts. /products/ app mock: Slate $59, not
+  "included"; step 01 says "$0 today", not "no card".
+- PC generator: a concurrent session is rewriting `<title>`s to "X | Station Y" in products_pages.py and build_home/security/software.
+  Its products_pages.py change was merged into this round's upload (heroes/products_pages.py on the PC has both); this branch was
+  regenerated WITHOUT those titles so another session's half-done work doesn't ride along. Backup: heroes/.bak-exit-buy2-tap-20261104/.
+- `scratch/allowance-diff.md`: 51 rows, 47 match, 4 kept with a reason, 0 unexplained.

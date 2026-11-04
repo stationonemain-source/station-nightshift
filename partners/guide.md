@@ -298,7 +298,7 @@ It costs **$397 a month** for 750 minutes. Busy is $597 (1,200 minutes) and High
 
 ### Pursuit (automatic follow-up)
 
-Every new lead gets a polite five-touch text and email sequence over about ten days. It stops the moment they reply or book.
+Every new lead gets five texts and an email over 14 days. It stops the moment they reply or book.
 
 It costs **$247 a month** for 1,500 texts and 15,000 emails, or Busy at $347 (2,000 texts and 40,000 emails). Email starts instantly, and texting starts after carrier registration.
 
@@ -340,7 +340,7 @@ It costs **$47 a month** for 1,000 texts. It's live in about 2 business days and
 
 ### Tap (payments)
 
-Payment links and invoices (the $47 Standard tier; text-to-pay and estimates are on Tap Pro, which the site does not sell yet). The client connects their own free Stripe or Square account, so money goes straight to their bank.
+Payment links and invoices on Standard ($47). Busy ($97) adds text-to-pay, estimates and recurring billing. No tier takes tap-to-pay on the phone. The client connects their own free Stripe or Square account, so money goes straight to their bank.
 
 It costs **$47 a month plus their processor's standard card rates**, which the site puts at about 2.6 to 2.9%. Station takes zero percent of their revenue. It's live in 1 to 2 days.
 

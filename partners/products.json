@@ -507,30 +507,30 @@
    "sku": "tap",
    "name": "Tap",
    "plain": "Payment links and invoices, paid into their own Stripe or Square account",
-   "price": "$47/mo + card rates",
+   "price": "$47/mo + card rates · $97 busy (adds text-to-pay, estimates, recurring billing)",
    "mrr": 47,
    "setup": 0,
    "selling_points": [
     "Getting paid on the spot beats invoicing and waiting three weeks.",
-    "Card, tap and online links all in one place, with the money tracked.",
+    "Payment links and invoices in one place, with the money tracked; Busy adds text-to-pay and estimates.",
     "Cheap enough that one invoice paid faster covers the year."
    ],
    "setup_actions": [
     "Connect their Stripe account, or create one. This needs their bank details and ID — they must do this part themselves, never handle it for them.",
-    "Set up their products and prices so the totals are right at the till.",
+    "Set up their services and prices so invoice totals are right.",
     "Configure tax settings for their area.",
     "Take one real test payment and refund it, and confirm it reaches their bank."
    ],
    "call_script": {
     "opener": "How do you get paid at the moment — invoice, cash, card?",
     "discovery": "How long does an invoice usually take to actually land?",
-    "pitch": "Tap lets you take it on the spot, in person or by a link. $47 a month.",
-    "objection": "\"My bank charges less.\" — Maybe on the rate. But this is card, tap and online links in one place with the money tracked against the customer. The saving is the chasing you stop doing.",
+    "pitch": "Tap sends the invoice with a payment link the minute the job is done, and the money goes straight to their own account. $47 a month, or $97 with text-to-pay and estimates.",
+    "objection": "\"My bank charges less.\" — Maybe on the rate. But this is invoices and payment links in one place with the money tracked against the customer. The saving is the chasing you stop doing.",
     "close": "What are you owed right now? Get paid on the day instead and this pays for itself immediately."
    },
    "email_script": {
     "subject": "how long do your invoices take to land?",
-    "body": "Hi {first_name},\n\nWhen {business} finishes a job, how do you get paid — and how long does it actually take?\n\nIf the answer involves invoicing and then chasing, that is weeks of your money sitting with someone else.\n\nTap lets you take payment on the spot, by card or a link, with everything tracked. $47/month.\n\nWhat are you owed right now? Getting even one of those paid on the day covers the cost. Worth a look?"
+    "body": "Hi {first_name},\n\nWhen {business} finishes a job, how do you get paid — and how long does it actually take?\n\nIf the answer involves invoicing and then chasing, that is weeks of your money sitting with someone else.\n\nTap sends the invoice with a payment link the minute the job is done, with everything tracked. $47/month.\n\nWhat are you owed right now? Getting even one of those paid on the day covers the cost. Worth a look?"
    }
   },
   {
