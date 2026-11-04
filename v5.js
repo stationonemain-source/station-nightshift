@@ -223,8 +223,6 @@
           var card = bun.closest(".bcard"), bp = card && card.querySelector(".bp");
           var yearly = !!document.querySelector('.bterm button.on[data-term="y"]');
           var amt = bp ? (yearly ? bp.getAttribute("data-y") + "/yr" : bp.getAttribute("data-m") + "/mo") : "the plan price";
-          var adb = card && card.querySelector("input[data-addon]");
-          if (adb && adb.checked && !yearly && bp) amt = "$" + (Number(bp.getAttribute("data-m").replace(/[^0-9]/g, "")) + 297).toLocaleString("en-US") + "/mo";
           var trial = bun.getAttribute("data-trial") === "1" && !yearly;
           bun.setAttribute("data-armed", "1");
           bun.setAttribute("data-was", bun.textContent);
@@ -232,8 +230,7 @@
           var n = bun.nextElementSibling;
           if (!n || !n.classList.contains("bnote")) { n = document.createElement("p"); n.className = "bnote"; bun.parentNode.insertBefore(n, bun.nextSibling); }
           n.textContent = trial ? "14 days free, then " + amt + ". Month to month, cancel any time from your account."
-                                : (bun.getAttribute("data-trial") === "1" ? "Yearly plans bill today. Cancel any time from your account."
-                                                                         : "No free trial on plans. 30-day money-back on your first month. Month to month.");
+                                : "Yearly plans bill today. Cancel any time from your account.";
           return;
         }
         var keys = [bun.getAttribute("data-bundle")].filter(Boolean);
@@ -265,9 +262,7 @@
         document.querySelectorAll(".bbtn[data-bundle]").forEach(function (b) {
           if (b.getAttribute("data-armed")) { b.removeAttribute("data-armed"); b.textContent = b.getAttribute("data-was"); }
           var n = b.nextElementSibling;
-          if (n && n.classList.contains("bnote")) n.textContent = b.getAttribute("data-trial") === "1"
-            ? (y ? "Billed today for the year · cancel any time" : "$0 today · 14 days free · cancel any time")
-            : (y ? "Billed today for the year · 30-day money-back" : "Billed today · 30-day money-back on your first month");
+          if (n && n.classList.contains("bnote")) n.textContent = y ? "Billed today for the year · cancel any time" : "$0 today · 14 days free · cancel any time";
         });
       });
     });
@@ -395,13 +390,13 @@
         /* 2026-09-24: only suggest a bundle that CONTAINS everything ticked and really costs less
            (the old rule said "a line pass covers this for less" for any total over $800 -- e.g.
            Frontdesk + Lineback + Pursuit = $841, which no bundle under $1,395 contains). */
-        /* 2026-10-04 Collections catalogue: three collections, then Core (every product but Radar). */
-        var ALL = ["greet","slate","lineback","frontdesk","pursuit","repute","map","marquee","dispatch","revive","tap"];
-        var BUN = [{ n: "Answer", mo: 297, keys: ["greet","lineback","slate","tap"] },
-                   { n: "Follow Up", mo: 427, keys: ["pursuit","dispatch","revive"] },
+        /* 2026-11-04 the Platform's collections and plans (catalog.json collection_*_v2 / plan_core_v2):
+           Answer now carries the receptionist, Core is all twelve with Radar. */
+        var ALL = ["greet","slate","lineback","frontdesk","pursuit","repute","map","marquee","dispatch","revive","tap","radar"];
+        var BUN = [{ n: "Answer", mo: 349, keys: ["greet","lineback","slate","tap","frontdesk"] },
+                   { n: "Follow Up", mo: 437, keys: ["pursuit","dispatch","revive"] },
                    { n: "Get Found", mo: 497, keys: ["map","repute","marquee"] },
-                   { n: "Answer + receptionist", mo: 594, keys: ["greet","lineback","slate","tap","frontdesk"] },
-                   { n: "Core", mo: 1297, keys: ALL }];
+                   { n: "Core", mo: 1497, keys: ALL }];
         var picked = CATALOG.filter(function (p) { return on[p.k]; }).map(function (p) { return p.k; });
         var fit = null;
         BUN.forEach(function (b) { if (!fit && picked.every(function (k) { return b.keys.indexOf(k) !== -1; })) fit = b; });
@@ -767,9 +762,9 @@
          otherwise answer "is my site hacked?" with the custom-website pitch */
       if (siteCheckQ(s)) return "The <b>free website check</b> reads your public pages the way visitors and Google see them, and tells you plainly whether someone planted hidden links. The result shows on screen, usually in under a minute, and comes by email:<br><a href='/sweep/'>Run the free website check →</a>";
       if (/human|person|real|someone|talk|owner|agent/.test(s)) return "Easy — pick your speed:<br><a href='/book/'>Book the 15-min intro call →</a><a href='mailto:main@station.solutions'>Email us — main@station.solutions →</a>";
-      if (/trial|free trial|try before/.test(s)) return "Single products and the three collections carry a <b>14-day free trial</b> — $0 today, cancel inside the 14 days and you never pay. The Core, Pro and Max plans bill today with a 30-day money-back on the first month.";
+      if (/trial|free trial|try before/.test(s)) return "Every product, collection and plan starts with a <b>14-day free trial</b> — $0 today, the 14 days count from the day you go live, and if you cancel inside them you never pay.";
       if (/cancel|contract|lock/.test(s)) return "No contracts, ever. Everything is month-to-month and cancels in one click, and single products and collections start with a 14-day free trial.";
-      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three collections, each with 50% off a custom website: <b>Answer $297/mo</b> (text-back, chat, booking, a business number, payments), <b>Get Found $497/mo</b> (Google profile, reviews, social) and <b>Follow Up $427/mo</b> (lead follow-up, win-back, email). Want everything? <b>Core $1,297</b>, <b>Pro $2,197</b> or <b>Max $2,797</b> a month.<br><a href='/products/#collections'>See the collections →</a>";
+      if (/bundle|package|deal|all of it|everything/.test(s)) return "Three collections, each with 50% off a custom website: <b>Answer $349/mo</b> (AI receptionist, text-back, chat, booking, payments), <b>Get Found $497/mo</b> (Google profile, reviews, social) and <b>Follow Up $437/mo</b> (lead follow-up, win-back, email). Want everything? <b>Core $1,497</b>, <b>Pro $2,497</b> or <b>Max $3,897</b> a month.<br><a href='/products/#collections'>See the collections →</a>";
       if (/website|web site|site/.test(s)) return "Websites are <b>Custom</b>: answer a few questions, we build you a free demo, and nothing is charged until you've seen it and said yes. After it's built, hosting and care is one monthly subscription priced for your business, and we quote it with your demo.<br><a href='/custom/'>Start your website →</a> · <a href='/portfolio/'>Real examples →</a>";
       if (/price|cost|how much|pricing|\$/.test(s)) return "Products run <b>$47–$897/mo</b> a-la-carte, each priced on its own page — websites are priced to the project, with hosting and care quoted for your business. Two or three that fix the same job? A collection usually wins, and it gets you 50% off a custom website.<br><a href='/products/#shelf'>See every price →</a><a href='/products/#collections'>See the collections →</a>";
       if (/miss(ed)? call|voicemail|hang up/.test(s)) return "That's <b>Lineback</b> — every missed call gets an instant text-back, so the caller books with you instead of the next Google result. See how it works:<br>" + plink("lineback");
