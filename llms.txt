@@ -10,27 +10,27 @@
 - [Custom website](https://station.solutions/custom/): A bespoke website designed from scratch around the business — priced to the project, with a free demo of the business's own site in 2–3 business days before anything is charged (how it works: https://station.solutions/storefront/)
 - [Hosting and care](https://station.solutions/storefront/): Optional, for a site Station built — hosting and care is one monthly subscription priced for the business (what the domain costs plus the care the site needs), quoted with the demo, with no list price; or the owner takes the site and runs it themselves
 - [Greet](https://station.solutions/greet/): AI website chat assistant that qualifies visitors and captures leads — $79/mo, live in minutes
-- [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 1,000 reminders (free inside Frontdesk)
-- [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, 1,500 texts, number included
+- [Slate](https://station.solutions/slate/): Self-serve booking calendar with SMS and email reminders — $59/mo, 250 text + 1,000 email reminders (Busy $97: 500 + 2,500)
+- [Lineback](https://station.solutions/lineback/): Missed-call text-back — every missed call gets an instant text — $197/mo, 1,450 texts, number included (Busy $297: 2,000 texts)
 - [Frontdesk](https://station.solutions/frontdesk/): AI phone receptionist that answers 24/7, books jobs, and transfers to a human when needed — from $397/mo
-- [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo, 2,500 texts and 15,000 emails
-- [Repute](https://station.solutions/repute/): Review engine — requests after every job, monitoring, AI-drafted replies — $197/mo (multi-location quoted on request)
-- [Echo](https://station.solutions/echo/): Google Business Profile management and LinkedIn visibility — setup, weekly posts, monthly rank report — $247/mo, no setup fee; each extra location $197/mo
-- [Marquee](https://station.solutions/marquee/): Social media, ads and brand board — self-serve $197/mo or managed $597/mo
-- [Tap](https://station.solutions/tap/): Payments and POS — tap-to-pay on the owner's phone, text-to-pay links, estimates and invoices — $47/mo + card rates (Station takes 0% of revenue)
-- [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with email unmetered below 100,000 sends or fully managed $397/mo
+- [Pursuit](https://station.solutions/pursuit/): Automatic lead follow-up by SMS and email until they reply or book — $247/mo, 1,500 texts and 15,000 emails (Busy $347: 2,000 texts and 40,000 emails)
+- [Repute](https://station.solutions/repute/): Review engine — 300 review requests a month, monitoring, AI-drafted replies you approve — $197/mo (multi-location quoted on request)
+- [Echo](https://station.solutions/echo/): Google Business Profile management — setup, a post every week, a monthly 9-point map-rank report — $247/mo, no setup fee; each extra location $197/mo
+- [Marquee](https://station.solutions/marquee/): Social posting — self-serve scheduling to up to three accounts $197/mo, or managed (12 posts a month written and posted, ads run) $597/mo
+- [Tap](https://station.solutions/tap/): Payments — payment links and invoices — $47/mo + card rates (Station takes 0% of revenue)
+- [Dispatch](https://station.solutions/dispatch/): Email campaigns with templates and open/click stats — self-serve $94/mo with 8,000 emails a month, or fully managed $397/mo (35,000 emails, four campaigns written and sent)
 - [Radar](https://station.solutions/radar/): B2B prospecting engine for trades and services — $297/mo for 5 new prospects a week with a full marketing audit on each, or $497/mo Pro for 20 a week across six trade targets
 - [Revive](https://station.solutions/revive/): Win back old customers — $197/mo for lists up to 5,000 contacts: the full win-back wave in month one, then a fresh wave every quarter
 
 ## Collections and plans
 
-Every plan (Core, Pro, Max) includes a free Station-built custom website; collections (Answer, Get Found, Follow Up) include 50% off a custom website. No setup fees. Every product, collection and plan starts with a 14-day free trial, counted from the day it goes live.
+Every plan (Core, Pro, Max) includes a free Station-built custom website; collections (Answer, Get Found, Follow Up) include 50% off a custom website. No setup fees. Every product, collection and plan starts with 14 days free from the day your first product goes live; the trial includes half your monthly allowance.
 
 - [Answer — $349/mo](https://station.solutions/#bundles): AI phone receptionist, missed-call text-back, website chat, online booking and reminders, card payments
 - [Get Found — $497/mo](https://station.solutions/#bundles): Google profile managed, review requests and replies, social posting
 - [Follow Up — $437/mo](https://station.solutions/#bundles): lead follow-up, win-back campaigns, email campaigns
 - [Core — $1,497/mo](https://station.solutions/#bundles): every product, Radar included, at its Standard tier, including the AI receptionist
-- [Pro — $2,497/mo](https://station.solutions/#bundles): every product, Radar included, at its busy tier, with social posts and email campaigns run by Station
+- [Pro — $2,497/mo](https://station.solutions/#bundles): every product, Radar included, at its busy tier, with social posts and email campaigns drafted by Station for approval
 - [Max — $3,897/mo](https://station.solutions/#bundles): every product, Radar included, at its top tier, done for you, with a custom-designed website
 
 ## Start here
@@ -44,7 +44,7 @@ Every plan (Core, Pro, Max) includes a free Station-built custom website; collec
 
 ## Facts worth citing
 
-- Month to month, no contracts; cancel anytime. Every product, collection and plan starts with 14 days free, counted from the day the first product goes live; nothing is charged during set-up.
+- Month to month, no contracts; cancel anytime. Every product, collection and plan starts with 14 days free from the day your first product goes live; the trial includes half your monthly allowance; nothing is charged during set-up.
 - Payments are processed by Stripe; on Tap, card payments run through the business's own processor and Station takes zero percent of revenue.
 - Phone products keep the business's existing number — the line forwards, nothing is ported, reversible in one call.
 - Products that send texts take about 2 business days to go live (US carrier registration); most others are live same day or instantly.
