@@ -544,3 +544,5 @@ link/QR; website price range; GSC "Request indexing" for Echo, Revive, Greet (ou
   Its products_pages.py change was merged into this round's upload (heroes/products_pages.py on the PC has both); this branch was
   regenerated WITHOUT those titles so another session's half-done work doesn't ride along. Backup: heroes/.bak-exit-buy2-tap-20261104/.
 - `scratch/allowance-diff.md`: 51 rows, 47 match, 4 kept with a reason, 0 unexplained.
+- Tap: "your own Stripe account" everywhere (the Platform connects Stripe only; no Square code). Generator inputs edited on the PC
+  (backup heroes/.bak-exit-buy2-stripe-20261104/), merged with the concurrent title edits, not overwritten.

@@ -506,7 +506,7 @@
   {
    "sku": "tap",
    "name": "Tap",
-   "plain": "Payment links and invoices, paid into their own Stripe or Square account",
+   "plain": "Payment links and invoices, paid into their own Stripe account",
    "price": "$47/mo + card rates · $97 busy (adds text-to-pay, estimates, recurring billing)",
    "mrr": 47,
    "setup": 0,

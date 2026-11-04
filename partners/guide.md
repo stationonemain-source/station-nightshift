@@ -340,7 +340,7 @@ It costs **$47 a month** for 1,000 texts. It's live in about 2 business days and
 
 ### Tap (payments)
 
-Payment links and invoices on Standard ($47). Busy ($97) adds text-to-pay, estimates and recurring billing. No tier takes tap-to-pay on the phone. The client connects their own free Stripe or Square account, so money goes straight to their bank.
+Payment links and invoices on Standard ($47). Busy ($97) adds text-to-pay, estimates and recurring billing. No tier takes tap-to-pay on the phone. The client connects their own free Stripe account, so money goes straight to their bank.
 
 It costs **$47 a month plus their processor's standard card rates**, which the site puts at about 2.6 to 2.9%. Station takes zero percent of their revenue. It's live in 1 to 2 days.
 
@@ -588,7 +588,7 @@ Tell Station straight away. **Don't** pressure them or promise a refund or credi
 - **Repute and Echo:** Google profile access through Google's invite (never a password); Echo also needs photos.
 - **Dispatch and Revive:** their own customer list, never a bought list.
 - **Radar:** who they want as customers.
-- **Tap:** their own Stripe or Square account, set up by them.
+- **Tap:** their own Stripe account, set up by them.
 - **Marquee:** social accounts connected by them, logo and job photos; Managed needs their ad account.
 
 ### Where changes and support go
